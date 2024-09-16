@@ -13,11 +13,10 @@ assignees: ''
 
 **Attendance**
 
-- [ ] team member1
-- [ ] team member2
-- [ ] team member3
-- [ ] team member4
-- [ ] team member5
+- [ ] Promish Kandel
+- [ ] Parisha Nizam
+- [ ] Jasmine Sun-Hu
+- [ ] Mitchell Weingust
 
 **Questions to Ask**
 
