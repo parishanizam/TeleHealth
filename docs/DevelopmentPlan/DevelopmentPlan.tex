@@ -22,8 +22,9 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-20/09/24 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property, Copyright License, Team Meeting Plan\\
-22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles\\
+20/09/24 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property,
+Copyright License, Team Meeting Plan\\
+22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
 Date & Name(s) & Change(s)\\
 \bottomrule
 \end{tabularx}
@@ -77,67 +78,221 @@ communicate, the tools/platforms we will use, and the expectations for each team
 
 Communication Tools
 \begin{itemize}
-  \item Github: a github repository will be used for code versioning, project tracking, and technical documentation. Additional details are as follows:
+  \item Github: a github repository will be used for code versioning, project tracking, and technical documentation. 
+  Additional details are as follows:
   \begin{itemize}
     \item Project board: used to track milestones and visualize the workflow of the project using Kanban style columns
-    \item Issues: used to keep track of tasks and meetings, and delegating tasks among team members. Labels are used to categorize issues.
+    \item Issues: used to keep track of tasks and meetings, and delegating tasks among team members. Labels are used
+     to categorize issues.
   \end{itemize}
-  \item Discord: a discord server will be used for day-to-day communication and online meetings. Below outlines the discord server structure:
+  \item Discord: a discord server will be used for day-to-day communication and online meetings. Below outlines the 
+  discord server structure:
   \begin{itemize}
     \item general: text channel for general updates, quick questions and informal discussions
-    \item documents-and-resources: text channel for relevant files or useful links that do not belong in the github project folder
+    \item documents-and-resources: text channel for relevant files or useful links that do not belong in the github 
+    project folder
     \item meetings: text channel for co-ordinating ad-hoc meetings between some or all team members.
-    \item external-meetings: text channel for co-ordinating and reviewing meeting agendas with individuals outside the core capstone team (e.g. capstone supervisor).
+    \item external-meetings: text channel for co-ordinating and reviewing meeting agendas with individuals 
+    outside the core capstone team (e.g. capstone supervisor).
     \item help: text channel for questions or issues that need prioritized attention.
     \item Office: voice channel to hold any online meetings.
   \end{itemize}
-  \item E-mail: school emails will be used to communicate with individuals outside the core capstone team such as the capstone supervisor, capstone professor, external professionals, etc.
+  \item E-mail: school emails will be used to communicate with individuals outside the core capstone team such as the 
+  capstone supervisor, capstone professor, external professionals, etc.
 \end{itemize}
 
 \section{Team Member Roles}
 
-\wss{You should identify the types of roles you anticipate, like notetaker,
-leader, meeting chair, reviewer.  Assigning specific people to those roles is
-not necessary at this stage.  In a student team the role of the individuals will
-likely change throughout the year.}
-
-
-All team members are responsible for writing documentation, coding, testing, and creating/commenting on issues no matter their role.
+All team members are responsible for writing documentation, coding, testing, and creating/commenting on issues no 
+matter their role.
 
 \vspace{0.5cm}
 \begin{tabularx}{\textwidth}{|l|l|X|}
   \hline
   \textbf{Team Member} & \textbf{Role} & \textbf{Responsibilities} \\
   \hline
-  TBD & Team Liaison & Chairs external meetings, handles the communication between the team and the capstone supervisor, course instructors, TAs and any other external individuals relevant to the project.\\
+  TBD & Team Liaison & Chairs external meetings, handles the communication between the team and the capstone 
+  supervisor, course instructors, TAs and any other external individuals relevant to the project.\\
   \hline
-  TBD & Project Manager & Chairs team meetings, oversees the project timeline, ensures milestones and deadlines are met, and that team members contribute appropriately.\\
+  TBD & Project Manager & Chairs team meetings, oversees the project timeline, ensures milestones and deadlines 
+  are met, and that team members contribute appropriately.\\
   \hline
-  TBD & Lead Developer & In charge of managing and leading the technical design and coordination of the project, responsible for helping teammates with technical challenges. \\
+  TBD & Lead Developer & In charge of managing and leading the technical design, coordination and testing of the 
+  project, responsible for helping teammates with technical challenges. \\
   \hline
-  TBD & UI/UX Design Lead & In charge of overseeing the user interface and user experience components of the project, responsible for user research and usability testing.\\
+  TBD & UI/UX Design Lead & In charge of overseeing the user interface and user experience components of the project, 
+  responsible for user research and usability testing.\\
   \hline
 \end{tabularx}
 
 \section{Workflow Plan}
 
+\subsection{Git Strategy}
 \begin{itemize}
-	\item How will you be using git, including branches, pull request, etc.?
-	\item How will you be managing issues, including template issues, issue
-	classification, etc.?
-  \item Use of CI/CD
+	\item The main branch will contain code that has been approved, tested, and is considered production-ready by 
+  the team.
+	\item Branches will be created based on deliverables, features, or bug fixes and be named clearly based on their 
+  purpose (e.g. problem-statement, development-plan, front-end/navbar, etc.) 
+  \item Once the deliverable, feature or bug fix is completed and merged into the main branch it may be deleted.
+	\item Once a deliverable or bug fix is complete, a pull request will be made. The PR description will include:
+	\begin{itemize}
+    \item The purpose of the change
+    \item The issue number it addresses with a link to the issue
+    \item Details of testing and/or any relevant references
+  \end{itemize}
+	\item All PRs require at least one teammate to review it, with the exception of documentation updates that are 
+  able to automatically merge.
+	\item GitHub PR comments will be used to provide feedback
+	\item Issues will be created on Git for project management (see 7.2)
+\end{itemize}
+
+\subsection{Issue Management}
+\begin{itemize}
+	\item Every new task (documentation, features, bugs, updates, meetings) will be logged as a GitHub Issue.
+	\item Team members may either use one of the provided templates or create a blank issue. For blank issues, 
+  they must include:
+	\begin{itemize}
+    \item Title that gives a clear overview of the issue
+    \item Description of the task, including any necessary background or context
+    \item Links to related issues necessary for the completion of the current issue if applicable.
+    \item Label tags, Milestone category, and Project assignment*.
+    \item Assignees
+  \end{itemize}
+  \item *Label tags are based on the type of issue (e.g. documentation), milestone categories 
+  are the type of deliverable (e.g. Development Plan), and all issues are displayed on one project board (see 8.1)
+\end{itemize}
+
+\subsection{Use of CI/CD}
+\begin{itemize}
+	\item GitHub Actions will be used to create and manage continuous integration workflow scripts.
+	\begin{itemize}
+    \item Running a code linting tool and automatically enforcing style guides
+    \item restricting the ability to merge pull requests that do not meet our coding standards (see section 11)
+    \item Ensure that the code builds successfully on each push
+  \end{itemize}
+	\item If all tests pass, a pull request may be merged into a branch.
+	\item The lead developer will ensure all necessary code is covered by automated tests.
+	\item A rollback strategy will be included in the CD pipeline in case the project needs 
+  to be reverted to a previously stable state.
 \end{itemize}
 
 \section{Project Decomposition and Scheduling}
 
-\begin{itemize}
-  \item How will you be using GitHub projects?
-  \item Include a link to your GitHub project
-\end{itemize}
+\subsection{GitHub Projects}
 
-\wss{How will the project be scheduled?  This is the big picture schedule, not
-details. You will need to reproduce information that is in the course outline
-for deadlines.}
+GitHub Projects will be used to manage and keep track of the project's schedule. 
+The link to our project board can be found \href{https://github.com/users/parishanizam/projects/2/views/1}{here}
+The project board is organized by rows and columns, where each row is a different 
+milestone that can be minimized and expanded, and each column is as follows:
+\begin{itemize}
+  \item Backlog: Issues that have assigned low priority
+  \item To Do: Newly created issues
+  \item In Progress: Issues actively being worked on
+  \item In Review: Issues awaiting approval from other teammates
+  \item Done: Completed Issues
+\end{itemize}
+Each issue is categorized into a milestone, and team members will update their statuses as they 
+progress through the project deliverables.
+
+\subsection{Project Timeline}
+
+\subsection{Forming Team + Project Selection (Due Sept 16)}
+	\begin{itemize}
+		\item Form a team (Sept 6)
+		\item Meet with potential supervisors (Sept 12)
+		\item Select project
+	\end{itemize}
+
+\subsection{Project Planning Documentation (Due Sept 24)}
+	\begin{itemize}
+		\item Draft Problem Statement
+		\item Create POC Plan
+		\item Create Development Plan
+	\end{itemize}
+
+	\subsection{Requirements Document Revision 0 (Due October 9)}
+	\begin{itemize}
+		\item Research stakeholders
+		\item Define scope, purpose and context of the system
+		\item Define use cases and functional requirements
+		\item Define non-functional requirements
+		\item Brainstorm potential challenges
+		\item Create traceability matrices and graphs
+	\end{itemize}
+
+	\subsection{Hazard Analysis 0 (Due October 23)}
+	\begin{itemize}
+		\item Define scope and purpose of hazard Analysis
+		\item Define boundaries, components and assumptions
+		\item Create FMEA table
+		\item Define safety and security requirements
+		\item Create roadmap
+	\end{itemize}
+
+	\subsection{V\&V Plan 0 (Due November 1)}
+	\begin{itemize}
+		\item Define V\&V plan and logistics
+		\item Define system tests for functional and nonfunctional requirements
+		\item Define unit tests
+	\end{itemize}
+
+	\subsection{Proof of Concept Demonstration (November 11 - 22)}
+	\begin{itemize}
+		\item Prepare POC demonstration
+	\end{itemize}
+
+	\subsection{Design Document (Due January 15)}
+	\begin{itemize}
+		\item List potential changes
+		\item Define connections between requirements and design
+		\item Define module decomposition
+		\item Design user interface
+		\item Schedule timeline
+	\end{itemize}
+
+	\subsection{Revision 0 Demonstration (February 3 - February 14)}
+	\begin{itemize}
+		\item Plan demonstration 
+		\item Conduct user testing and feedback 
+		\item Finalize demonstration
+	\end{itemize}
+
+	\subsection{V\&V Report Revision 0 (Due March 7)}
+	\begin{itemize}
+		\item Evaluate functional requirements
+		\item Evaluate nonfunctional requirements
+		\item Evaluate testing methods
+		\item Trace to requirements and modules
+		\item evaluate code coverage metrics
+	\end{itemize}
+
+	\subsection{Final Demonstration (Revision 1) (March 24 - March 30)}
+	\begin{itemize}
+		\item Test and finalize project
+		\item Create script and slideshow
+		\item Practice/prepare demonstration presentation
+	\end{itemize}
+
+	\subsection{EXPO Demonstration (April TBD)}
+	\begin{itemize}
+		\item Create EXPO event poster
+		\item Set up project for live user interaction
+		\item Prepare main talking points
+	\end{itemize}
+
+	\subsection{Final Documentation (Revision 1) (April 2)}
+	\begin{itemize}
+		\item Problem statement
+		\item Development plan
+		\item Proof of Concept (POC) Plan
+		\item Requirements Document
+		\item Hazard Analysis
+		\item Design Document
+		\item V\&V Plan
+		\item V\&V Report
+		\item User’s Guide
+		\item Source Code
+	\end{itemize}
 
 \section{Proof of Concept Demonstration Plan}
 
