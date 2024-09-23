@@ -38,21 +38,34 @@ Sept 22 & Promish Kandel & Modified Problem, Added Goals, Inputs/Outputs, Enviro
 information.}
 
 \subsection{Problem}
-\hspace{2em}Children with speech difficulties often require regular assessments to track their progress during speech therapy. These assessments are vital in monitoring development, identifying issues, and adjusting treatment plans accordingly. For bilingual children, these assessments can be challenging because of the shortage of bilingual  speech language pathologists (SLPs).  Parents, who are the key informants with understanding of multiple languages spoken in the home, have the potential to become helpers in bilingual assessments, especially in telehealth settings. However, existing bilingual language assessment tools are often designed and built based on SLPs’s in-person practices, and lack designs specifically addressing parents’ needs and behaviors when they act as e-helpers. The lack of such design considerations could also affect the outcome from these assessments, when SLPs need to assess and understand children’s results from remote assessments facilitated by parents. Hence, there are opportunities to build a system that better supports bilingual language assessment at home settings for children and parents, through providing better guidance and instructions for parents, capturing more contextual data to complement the results for SLPs, and engaging children in these assessments. 
+\hspace{2em}Children with speech difficulties often require regular assessments to track their progress
+during speech therapy. These assessments are vital in monitoring development, identifying issues, and
+adjusting treatment plans accordingly. For bilingual children, these assessments can be challenging
+because of the shortage of bilingual  speech language pathologists (SLPs).  Parents, who are the key
+informants with understanding of multiple languages spoken in the home, have the potential to become
+helpers in bilingual assessments, especially in telehealth settings. However, existing bilingual language
+assessment tools are often designed and built based on SLPs’ in-person practices, and lack designs
+specifically addressing parents’ needs and behaviors when they act as e-helpers. The lack of such design
+considerations could also affect the outcome from these assessments, when SLPs need to assess and understand
+children’s results from remote assessments facilitated by parents. Hence, there are opportunities to build a
+system that better supports bilingual language assessments at home settings for children and parents, through
+providing better guidance and instructions for parents, capturing more contextual data to complement the
+results for SLPs, and engaging children in these assessments.
 
 
 \subsection{Inputs and Outputs}
 \subsubsection{Input}
 \begin{itemize}
-\item Video Stream of individual taking the assessment
-\item Selected answer via mouse click
-\item Microphone Audio 
+\item Video Stream of the individual taking the assessment
+\item Selecting answers via mouse clicks
+\item Microphone Audio
 \end{itemize}
 \subsubsection{Output}
 \begin{itemize}
-\item Audio analysis for background noise 
+\item Audio analysis for background noise
 \item Video analysis for keyboard and face movement
-\item Analysis of the selected answers for all questions
+\item Analysis of the selected answer for each question
+\item Summary of results and analysis details for clinicians
 \end{itemize}
 \wss{Characterize the problem in terms of ``high level'' inputs and outputs.  
 Use abstraction so that you can avoid details.}
@@ -60,17 +73,22 @@ Use abstraction so that you can avoid details.}
 \subsection{Stakeholders}
 \begin{itemize}
     \item Parents with children that have speech difficulties
-    \item Childen with speech difficulties
-    \item Clinicians who work with childern that have speech difficulties
-    \item Research on the project, Dr. Yao Du, clinician assisstant professor at the University of Southern California
-    \item Supervisor on the project, Dr. Irene Ye Yuan, assistant professor in the department of computing and software at McMaster University
+    \item Children with speech difficulties (who need to take language assessments)
+    \item Clinicians (SLPs) who work with children that have speech difficulties
+    \item Project Researcher, Dr. Yao Du, Clinician Assistant, Professor at the University of Southern California
+    \item Project Supervisor, Dr. Irene Ye Yuan, Assistant Professor in the Department of Computing and Software at McMaster University
 \end{itemize}
 
 \subsection{Environment}
 \subsubsection{Software}
-Software should be compatiable with Linux, MacOS and Windows operating system
+Software should be cross-compatible amongst Linux, MacOS and Windows operating system
 \subsubsection{Hardware}
-Hardware requried includes any personal computer with a speaker/headphones, webcam and microphone\\
+Hardware required includes any personal computer with:
+\begin{itemize}
+    \item Sounds Output (Speaker, Headphones)
+    \item Microphone
+    \item Webcam (Internal/External)
+\end{itemize}
 \wss{Hardware and software environment}
 
 \section{Goals}
