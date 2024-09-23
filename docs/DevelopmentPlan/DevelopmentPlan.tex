@@ -28,6 +28,7 @@
 Copyright License, Team Meeting Plan\\
 22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
 22/09/24 & Mitchell Weingust & Added: Appendix - Team Charter\\
+22/10/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
 Date & Name(s) & Change(s)\\
 \bottomrule
 \end{tabularx}
@@ -299,47 +300,75 @@ progress through the project deliverables.
 
 \section{Proof of Concept Demonstration Plan}
 
-What is the main risk, or risks, for the success of your project?  What will you
-demonstrate during your proof of concept demonstration to convince yourself that
-you will be able to overcome this risk?
+1. Video Implementation 
+\begin{itemize}
+  \item The main risk of this project that will be challenging is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
+  These at home assessments will be done in different settings with varying lightings, and on devices of varying camera quality. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and be compliant to privacy standards. \\  
+  \item POC Plan: To address this risk, the POC demonstratation will focus on the applications ability to accuratly record and store video data. Playback of an example will be shown to ensure data was captured succesfully. The recording will than be processed using our created model. 
+\end{itemize} 
+
+
+\textbf{Proof of Concept Demonstration}
+
+A walkthrough of a simple mock assessment process on the application involving two users; a child and parent. The assesement will be completed on a laptop using integrated video. POC will demonstrate the ability of the web based application to do the following: \\
+\begin{itemize}
+  \item Turn on the camera: Request permission access to camera on laptop and display live video feed.
+  \item Start recording: Begin assessment by clicking start recording
+  \item Start \& complete Assement: assesement wil be completed with various prompts and questions
+  \item Stop recording: Click Stop recording
+  \item Save \& store recording securely: Video will be saved securely on to our database and logged
+  \item Playback of video to confirm accuracy and proper storage: Find video in storage and playback
+  \item Recording starts being processed by backend system
+\end{itemize}
+
+The POC will also be done on two different devices to ensure it works on different settings and systems.
+
+\pagebreak
 
 \section{Expected Technology}
 
-\wss{What programming language or languages do you expect to use?  What external
-libraries?  What frameworks?  What technologies.  Are there major components of
-the implementation that you expect you will implement, despite the existence of
-libraries that provide the required functionality.  For projects with machine
-learning, will you use pre-trained models, or be training your own model?  }
+The following tools and technologies will be used for the development, testing and deployment of the application 
 
-\wss{The implementation decisions can, and likely will, change over the course
-of the project.  The initial documentation should be written in an abstract way;
-it should be agnostic of the implementation choices, unless the implementation
-choices are project constraints.  However, recording our initial thoughts on
-implementation helps understand the challenge level and feasibility of a
-project.  It may also help with early identification of areas where project
-members will need to augment their training.}
+\begin{tabularx}{\textwidth}{|X|X|}
+  \hline
+  \textbf{Tool} & \textbf{Explanation} \\
+  \hline
+  JavaScript & JavaScript will be the main programming language used as the basis for both front-end and back-end development.\\
+  \hline
+  Python & Python will be the main langauge for data analysis and machine learning \\ 
+  \hline
+  Expo using React Native & Expo will be used to create native apps with the React framework that can be deployed as a web-based application or mobile platform. \\
+  \hline
+  Node.js & Node.js will be used for building the back-end server. \\
+  \hline
+  Figma & Figma will be used to design a prototype of the application and test its usability. \\
+  \hline
+  VSCode & Code editor to write application code. \\
+  \hline
+  GitHub with GitHub Projects & Version control tool to manage tasks and track progress. \\
+  \hline
+  GitHub Actions & Automating CI pipeline to handle testing, linting, and building the project after every pull request. \\
+  \hline
+  ESLint & Linter to enforce coding standards and best practices. \\
+  \hline
+  Prettier & Format library to ensure consistent code formatting; integrates with ESLint. \\
+  \hline
+  Jest & Testing framework for JavaScript. \\
+  \hline
+  Pytest & Testing framework for Python \\ 
+  \hline
+  Azure Kubernetes - AKS & Manage data and deploy the application. \\
+  \hline
+  Power BI &  Data Analytics Dashboard integrated with python \\
+  \hline
+\end{tabularx}
 
-Topics to discuss include the following:
-
-\begin{itemize}
-\item Specific programming language
-\item Specific libraries
-\item Pre-trained models
-\item Specific linter tool (if appropriate)
-\item Specific unit testing framework
-\item Investigation of code coverage measuring tools
-\item Specific plans for Continuous Integration (CI), or an explanation that CI
-  is not being done
-\item Specific performance measuring tools (like Valgrind), if
-  appropriate
-\item Tools you will likely be using?
-\end{itemize}
-
-\wss{git, GitHub and GitHub projects should be part of your technology.}
+\pagebreak
 
 \section{Coding Standard}
 
-\wss{What coding standard will you adopt?}
+The project will follow \href{https://github.com/pillarstudio/standards/blob/master/reactjs-guidelines.md}{React JS coding standards} to ensure consistency. This includes following the same variable naming convention, function structure, spacings etc. We will be using the Linter ESLint to ensure standards are met throughout the code.\\
+The project will follow \href{https://flake8.pycqa.org/en/latest/}{Flake8 standards} to ensure consistency using python for the project's data analytics and machine learning component. 
 
 \newpage{}
 
