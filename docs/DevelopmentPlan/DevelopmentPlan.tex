@@ -28,7 +28,8 @@
 Copyright License, Team Meeting Plan\\
 22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
 22/09/24 & Mitchell Weingust & Added: Appendix - Team Charter\\
-22/10/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
+23/09/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
+23/09/24 & Parisha Nizam & POC additions \\
 Date & Name(s) & Change(s)\\
 \bottomrule
 \end{tabularx}
@@ -302,10 +303,24 @@ progress through the project deliverables.
 
 1. Video Implementation 
 \begin{itemize}
-  \item The main risk of this project that will be challenging is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
-  These at home assessments will be done in different settings with varying lightings, and on devices of varying camera quality. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and be compliant to privacy standards. \\  
+  \item The main risk and most challenging aspect of this project is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
+  These at home assessments will be done in different settings with varying lightings, and camera qualities. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and be compliant to privacy standards. \\  
   \item POC Plan: To address this risk, the POC demonstratation will focus on the applications ability to accuratly record and store video data. Playback of an example will be shown to ensure data was captured succesfully. The recording will than be processed using our created model. 
 \end{itemize} 
+
+\subsection{Will a part of the implementation be difficult?}
+Technologies such as using video \& video recording with analytics, and using machine learning are relatively new to members on the team due to no experience in these areas. Research and using open source models recommeded by Dr. Irene will assist in making the implementation less difficult. \\
+
+\subsection{Will testing be difficult?} 
+Unit testing will initially not be difficult as each developer in charge of creating and testng the code they have written. We will also being using automated testing using CI and testing libraries including Jest and PyTest to assist. Receiving mock data and real data for final testing may be more challenging. \\
+
+\subsection{Is a required library difficult to install?}
+No there are no current libraries that will be difficult to install or use. Most our team members have used before or popular libraries have documentation to follow.\\
+
+\pagebreak
+
+\subsection{Will portability be a concern?}
+portability will not be a concern. We will be starting with a web-based application that can be opened on any device. We have chosen to use the framwork Expo to easily integrate the application as a mobile application on cross platforms including IOS and android.\\
 
 
 \textbf{Proof of Concept Demonstration}
@@ -319,6 +334,7 @@ A walkthrough of a simple mock assessment process on the application involving t
   \item Save \& store recording securely: Video will be saved securely on to our database and logged
   \item Playback of video to confirm accuracy and proper storage: Find video in storage and playback
   \item Recording starts being processed by backend system
+  \item Show results of video analytics to determine detection of any guidance using Machine Learning
 \end{itemize}
 
 The POC will also be done on two different devices to ensure it works on different settings and systems.
