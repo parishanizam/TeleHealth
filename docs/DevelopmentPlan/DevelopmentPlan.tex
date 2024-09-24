@@ -31,6 +31,7 @@ Copyright License, Team Meeting Plan\\
 23/09/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
 23/09/24 & Parisha Nizam & POC additions \\
 23/09/24 & Jasmine Sun-Hu, Mitchell Weingust, Parisha Nizam, Promish Kandel & Added: Reflection \\
+24/09/24 & Promish Kandel, Mitchell Weingust, Parisha Nizam, Jasmine Sun-Hu & Final Review\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -144,12 +145,13 @@ and the roles can be rebalanced, modified, or changed.\\
   the team.
 	\item Branches will be created based on deliverables, features, or bug fixes and be named clearly based on their 
   purpose (e.g. problem-statement, development-plan, front-end/navbar, etc.) 
-  \item Once the deliverable, feature or bug fix is completed and merged into the main branch it may be deleted.
+  \item Once the deliverable, feature or bug fix is completed on its branch, it can be deleted after being merged into the main branch.
 	\item Once a deliverable or bug fix is complete, a pull request will be made. The PR description will include:
 	\begin{itemize}
     \item The purpose of the change
     \item The issue number it addresses with a link to the issue
     \item Details of testing and/or any relevant references
+    \item Contributors
   \end{itemize}
 	\item All PRs require at least one teammate to review it, with the exception of documentation updates that are 
   able to automatically merge.
@@ -171,6 +173,13 @@ and the roles can be rebalanced, modified, or changed.\\
   \end{itemize}
   \item *Label tags are based on the type of issue (e.g. documentation), milestone categories 
   are the type of deliverable (e.g. Development Plan), and all issues are displayed on one project board (see 8.1)
+  \item All issues are to be tracked in the project board:
+  \begin{itemize}
+    \item Issues that are ready to be picked up by anyone is put into the Backlog
+    \item Issues that are being worked on are to be put into the In progress
+    \item Issues that are being review, is put into the In review
+    \item Issues that are finish and merged into the main branch can be put into the Closed
+  \end{itemize}
 \end{itemize}
 
 \subsection{Use of CI/CD}
@@ -178,10 +187,10 @@ and the roles can be rebalanced, modified, or changed.\\
 	\item GitHub Actions will be used to create and manage continuous integration workflow scripts.
 	\begin{itemize}
     \item Running a code linting tool and automatically enforcing style guides
-    \item restricting the ability to merge pull requests that do not meet our coding standards (see section 11)
+    \item Restricting the ability to merge pull requests that do not meet our coding standards (see section 11)
     \item Ensure that the code builds successfully on each push
   \end{itemize}
-	\item If all tests pass, a pull request may be merged into a branch.
+	\item If all tests pass, and at least one team members review the pull request, the branch can be approved and merged into the main branch.
 	\item The lead developer will ensure all necessary code is covered by automated tests.
 	\item A rollback strategy will be included in the CD pipeline in case the project needs 
   to be reverted to a previously stable state.
@@ -192,7 +201,7 @@ and the roles can be rebalanced, modified, or changed.\\
 \subsection{GitHub Projects}
 
 GitHub Projects will be used to manage and keep track of the project's schedule. 
-The link to our project board can be found \href{https://github.com/users/parishanizam/projects/2/views/1}{here}
+\textbf{The link to our project board can be found \href{https://github.com/users/parishanizam/projects/2/views/1}{here}.}\\
 The project board is organized by rows and columns, where each row is a different 
 milestone that can be minimized and expanded, and each column is as follows:
 \begin{itemize}
@@ -207,21 +216,21 @@ progress through the project deliverables.
 
 \subsection{Project Timeline}
 
-\subsection{Forming Team + Project Selection (Due Sept 16)}
+\subsection*{Forming Team + Project Selection (Due Sept 16)}
 	\begin{itemize}
 		\item Form a team (Sept 6)
 		\item Meet with potential supervisors (Sept 12)
 		\item Select project
 	\end{itemize}
 
-\subsection{Project Planning Documentation (Due Sept 24)}
+\subsection*{Project Planning Documentation (Due Sept 24)}
 	\begin{itemize}
 		\item Draft Problem Statement
 		\item Create POC Plan
 		\item Create Development Plan
 	\end{itemize}
 
-	\subsection{Requirements Document Revision 0 (Due October 9)}
+	\subsection*{Requirements Document Revision 0 (Due October 9)}
 	\begin{itemize}
 		\item Research stakeholders
 		\item Define scope, purpose and context of the system
@@ -231,7 +240,7 @@ progress through the project deliverables.
 		\item Create traceability matrices and graphs
 	\end{itemize}
 
-	\subsection{Hazard Analysis 0 (Due October 23)}
+	\subsection*{Hazard Analysis 0 (Due October 23)}
 	\begin{itemize}
 		\item Define scope and purpose of hazard Analysis
 		\item Define boundaries, components and assumptions
@@ -240,19 +249,19 @@ progress through the project deliverables.
 		\item Create roadmap
 	\end{itemize}
 
-	\subsection{V\&V Plan 0 (Due November 1)}
+	\subsection*{V\&V Plan 0 (Due November 1)}
 	\begin{itemize}
 		\item Define V\&V plan and logistics
 		\item Define system tests for functional and nonfunctional requirements
 		\item Define unit tests
 	\end{itemize}
 
-	\subsection{Proof of Concept Demonstration (November 11 - 22)}
+	\subsection*{Proof of Concept Demonstration (November 11 - 22)}
 	\begin{itemize}
 		\item Prepare POC demonstration
 	\end{itemize}
 
-	\subsection{Design Document (Due January 15)}
+	\subsection*{Design Document (Due January 15)}
 	\begin{itemize}
 		\item List potential changes
 		\item Define connections between requirements and design
@@ -261,37 +270,37 @@ progress through the project deliverables.
 		\item Schedule timeline
 	\end{itemize}
 
-	\subsection{Revision 0 Demonstration (February 3 - February 14)}
+	\subsection*{Revision 0 Demonstration (February 3 - February 14)}
 	\begin{itemize}
 		\item Plan demonstration 
 		\item Conduct user testing and feedback 
 		\item Finalize demonstration
 	\end{itemize}
 
-	\subsection{V\&V Report Revision 0 (Due March 7)}
+	\subsection*{V\&V Report Revision 0 (Due March 7)}
 	\begin{itemize}
 		\item Evaluate functional requirements
 		\item Evaluate nonfunctional requirements
 		\item Evaluate testing methods
 		\item Trace to requirements and modules
-		\item evaluate code coverage metrics
+		\item Evaluate code coverage metrics
 	\end{itemize}
 
-	\subsection{Final Demonstration (Revision 1) (March 24 - March 30)}
+	\subsection*{Final Demonstration (Revision 1) (March 24 - March 30)}
 	\begin{itemize}
 		\item Test and finalize project
 		\item Create script and slideshow
 		\item Practice/prepare demonstration presentation
 	\end{itemize}
 
-	\subsection{EXPO Demonstration (April TBD)}
+	\subsection*{EXPO Demonstration (April TBD)}
 	\begin{itemize}
 		\item Create EXPO event poster
 		\item Set up project for live user interaction
 		\item Prepare main talking points
 	\end{itemize}
 
-	\subsection{Final Documentation (Revision 1) (April 2)}
+	\subsection*{Final Documentation (Revision 1) (April 2)}
 	\begin{itemize}
 		\item Problem statement
 		\item Development plan
@@ -307,31 +316,31 @@ progress through the project deliverables.
 
 \section{Proof of Concept Demonstration Plan}
 
-1. Video Implementation 
-\begin{itemize}
-  \item The main risk and most challenging aspect of this project is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
-  These at home assessments will be done in different settings with varying lightings, and camera qualities. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and be compliant to privacy standards. \\  
-  \item POC Plan: To address this risk, the POC demonstratation will focus on the applications ability to accuratly record and store video data. Playback of an example will be shown to ensure data was captured succesfully. The recording will than be processed using our created model. 
-\end{itemize} 
+\noindent{\textbf{Video Implementation and Analysis:}} The main risk and most challenging aspect of this project is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
+These at home assessments will be done in different settings with varying lightings, and camera qualities. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and will be compliant to privacy standards. \\  
+\\\textbf{POC Plan:} To address this risk, the POC demonstration will focus on the system's ability to accurately record, store, and analyze video data. The team can review the recorded footage to ensure data was captured successfully. The recording will then be processed using the team's machine learning  model.
+
 
 \subsection{Will a part of the implementation be difficult?}
-Technologies such as using video \& video recording with analytics, and using machine learning are relatively new to members on the team due to no experience in these areas. Research and using open source models recommeded by Dr. Irene will assist in making the implementation less difficult. \\
+Technologies such as using video \& video recording with analytics, and using machine learning are relatively new to members on the team due to limited experience. Research and open source models recommeded by Dr.Yuan will assist in providing resources and support. \\
 
 \subsection{Will testing be difficult?} 
-Unit testing will initially not be difficult as each developer in charge of creating and testng the code they have written. We will also being using automated testing using CI and testing libraries including Jest and PyTest to assist. Receiving mock data and real data for final testing may be more challenging. \\
+Unit testing will not be difficult, as each developer responsible for creating their code is also responsible for testing it. They should be familiar with the limitations and boundaries where errors could occur. In addition, there will be one other team member responsible for further testing to provide another perspective. We will also being using automated testing using CI and testing libraries including Jest and PyTest. Analyzing mock data as well as real data for final testing may be more challenging. \\
 
 \subsection{Is a required library difficult to install?}
-No there are no current libraries that will be difficult to install or use. Most our team members have used before or popular libraries have documentation to follow.\\
+No there are no current libraries that will be difficult to install or use. Most
+team members have used the planned libraries before or popular libraries have documentation to
+follow.\\
 
 \pagebreak
 
 \subsection{Will portability be a concern?}
-portability will not be a concern. We will be starting with a web-based application that can be opened on any device. We have chosen to use the framwork Expo to easily integrate the application as a mobile application on cross platforms including IOS and android.\\
+Portability will not be a concern. We will be starting with a web-based application that can be opened on any device. We have chosen to use the framwork Expo to easily integrate the application as a mobile application on cross platforms including IOS and android.\\
 
 
 \textbf{Proof of Concept Demonstration}
 
-A walkthrough of a simple mock assessment process on the application involving two users; a child and parent. The assesement will be completed on a laptop using integrated video. POC will demonstrate the ability of the web based application to do the following: \\
+A walkthrough of a simple mock assessment process on the application involving two users. The assesement will be completed on a laptop using integrated video. POC will demonstrate the ability of the web based application to do the following: \\
 \begin{itemize}
   \item Turn on the camera: Request permission access to camera on laptop and display live video feed.
   \item Start recording: Begin assessment by clicking start recording
@@ -342,8 +351,6 @@ A walkthrough of a simple mock assessment process on the application involving t
   \item Recording starts being processed by backend system
   \item Show results of video analytics to determine detection of any guidance using Machine Learning
 \end{itemize}
-
-The POC will also be done on two different devices to ensure it works on different settings and systems.
 
 \pagebreak
 
@@ -389,7 +396,7 @@ The following tools and technologies will be used for the development, testing a
 
 \section{Coding Standard}
 
-The project will follow \href{https://github.com/pillarstudio/standards/blob/master/reactjs-guidelines.md}{React JS coding standards} to ensure consistency. This includes following the same variable naming convention, function structure, spacings etc. We will be using the Linter ESLint to ensure standards are met throughout the code.\\
+The project will follow \href{https://github.com/pillarstudio/standards/blob/master/reactjs-guidelines.md}{React JS coding standards} to ensure consistency. This includes following the same variable naming convention, function structure, spacings, etc. We will be using the Linter ESLint to ensure standards are met throughout the code.\\
 The project will follow \href{https://flake8.pycqa.org/en/latest/}{Flake8 standards} to ensure consistency using python for the project's data analytics and machine learning component. 
 
 \newpage{}
@@ -419,7 +426,7 @@ goals, scope and timeline, this information can help a team identify challenges 
 and allows them to plan ahead and implement strategies to reduce these risks and challenges. 
 
 Additionally, the development plan details team roles, meeting schedules, communication standards and a 
-team charter. This sets accountability for each team member and clarifies each persons role and responsibilities,
+team charter. This sets accountability for each team member and clarifies each person's role and responsibilities,
 resulting in a more collaborative and consistent working environment.
 
 In summary, creating a development plan to define objectives and team expectations before starting the project 
@@ -438,8 +445,7 @@ A disadvantage of CI/CD is that it requires significant time and resources to se
 project, especially if a team has a lot of things they would like to achieve using CI/CD. If a lot of tests are set up, 
 Not all tests may be necessary for all code updates, and there could be a lot of processing time for only a little 
 benefit in some cases. It also may give the team a false sense of security that the code has been fully checked, 
-and some boundary cases or errors may go unnoticed because of overly relying on the automated tests. CI/CD has a 
-lot of possibilities regarding automation and testing, 
+and some boundary cases or errors may go unnoticed because of overly relying on the automated tests. 
 
 \subsection*{What disagreements did your group have in this deliverable, if any, and how did you resolve them?}
 
@@ -561,7 +567,7 @@ with the TA/professor, or a difference/loss of grades (in comparison to the team
 Target Metrics:
 \begin{itemize}
   \item Attendance: 95\% of all team meetings
-  \item Commits: 
+  \item Commits: At least 3 meaningful commits per Deliverable (Meaningful means: 10-15 lines of code (minimum) changed per commit)
   \item Confirm review of all documents prior to submission
   \item Confirm review of all rubric criteria prior to submission
 \end{itemize}
@@ -572,17 +578,18 @@ how to better achieve these targets, and ensure equal contribution among the tea
 \indent The incentive for reaching targets early is an additional vote on where to host the next team social.\\
 
 \subsubsection*{Team Building}
-
-The team will build cohesion through (minimum) monthly team socials.\\
-\indent The details of the events will be decided upon unanimously, during a time of low-stress,
-that works for all team members.
+\begin{itemize}
+  \item The team will build cohesion through (minimum) monthly team socials.
+  \item The details of the events will be decided upon unanimously, during a time of low-stress,
+  that works for all team members.
+\end{itemize}
 
 \subsubsection*{Decision Making} 
-
-The team will make decisions through consensus, as voting could lead to solutions that
-not every member is comfortable with.\\
-\indent The team will handle disagreements through openly stating their viewpoints and
-reasoning, and all team members will share their views on the benefits and drawbacks of
-the strategies to reach a conclusion that works for everyone.
-
+\begin{itemize}
+  \item The team will make decisions through consensus, as voting could lead to solutions that
+  not every member is comfortable with.
+  \item The team will handle disagreements through openly stating their viewpoints and
+  reasoning, and all team members will share their views on the benefits and drawbacks of
+  the strategies to reach a conclusion that works for everyone.
+\end{itemize}
 \end{document}
