@@ -151,49 +151,66 @@ involved in the Project}
 \textbf{Fit criterion: } Insert criterion here 
 
 \subsection{Data Collection and Storage}
-\textbf{DCS1: }The database shall store multimedia files including video, audio, and JSON format files for each session.\\
+\textbf{DCS1: }The database shall store multimedia files including video, audio, and structured data for 
+each session.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: } These file types are necessary to capture the full scope of the speech-language assessment, 
-including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
-timestamps).\\
-\textbf{Fit criterion: } The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
-data per session without data corruption. \\\\
-\textbf{DCS2: }The database shall record the video, audio, flagged occurrences (e.g., errors or critical moments
- during the assessment), and timestamps for each question asked during the assessment.\\
+including patient responses and the structured data associated with each session.\\
+\textbf{Fit criterion: } The system must successfully store and retrieve at least 1GB of video, audio and 
+structured data per session without any data corruption. \\\\
+\textbf{DCS2: }The database shall record the video and audio of an assessment, flagged occurrences (e.g., errors
+ or critical moments during the assessment), and timestamps for each question asked during the assessment.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: } Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
 of patient responses and enables them to review specific moments of interest efficiently.\\
-\textbf{Fit criterion: } The database shall include video and audio files for 100 percent of assessment sessions,
- and each recording must have flagged occurrences and timestamps associated with every question asked, 
+\textbf{Fit criterion: } The database shall include video and audio files for 100 percent of recorded assessment 
+sessions, and each recording must have flagged occurrences and timestamps associated with every question asked, 
  retrievable via query. \\\\
-\textbf{DSC3: }The system shall not store any personally identifiable textual information (e.g., patient name, address, 
-or medical record number) in the database.\\
+\textbf{DSC3: }The system shall not store any personally identifiable textual information (e.g., patient name, 
+address, or medical record number) in the database.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: } To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
 identifying textual information must be excluded from storage in the database.\\
-\textbf{Fit criterion: } ??.\\\\
-\textbf{DSC4: }The database shall group all stored data by a unique user identifier to ensure data can be linked to 
-specific users without storing identifiable information.\\
+\textbf{Fit criterion: } A manual review and automated script shall verify that 100 percent of all records in 
+the database accessible by clinicians are anonymized and contain no identifying textual information after every 
+batch upload.\\\\
+\textbf{DSC4: }The database shall group all stored data by a unique user identifier to ensure data can be linked 
+to specific users without storing identifiable information.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: } Using a unique user identifier allows for data organization and retrieval by patient without 
 compromising patient privacy, supporting the requirement for anonymized data storage.\\
 \textbf{Fit criterion: } The system must assign a unique identifier to every user and confirm through testing 
 that all session data is properly grouped and retrievable under that identifier, with no misassociated data.\\\\
-\textbf{DSC5: }Description.\\
-\textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here\\
 
 \subsection{Video and Audio Data Analysis}
-\textbf{VADA1: } Description.\\
+\textbf{VADA1: } The system shall deploy an analysis model to analyze session data and provide insights regarding
+ speech patterns and disturbances.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here \\\\
-\textbf{VADA2: } The analysis model shall have access to the video recordings of each session for the purpose of processing
- and analyzing patient speech patterns and behavior.\\
+\textbf{Rationale: } Automating data analysis using a model will streamline the process of identifying disturbances
+ and improve the speed and accuracy of evaluations for clinicians/ speech-language pathologists\\
+\textbf{Fit criterion: } The model must be deployed and accessible via the platform's infrastructure, 
+successfully analyzing data from at least 200 assessment sessions\\\\
+\textbf{VADA2: } The analysis model shall have access to the video recordings of each session for the purpose of
+ processing and analyzing patient speech patterns and behavior.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } The video data contains essential visual and auditory information that the model needs to analyze in order to assess speech-related disturbances and non-verbal cues.\\
-\textbf{Fit criterion: } Insert criterion here \\\\
+\textbf{Rationale: } The video data contains essential visual and auditory information that the model needs to 
+analyze in order to assess speech-related disturbances and non-verbal cues.\\
+\textbf{Fit criterion: }The model must successfully retrieve and process video data from 100 percent of 
+completed assessment sessions without encountering data access errors.\\\\
+\textbf{VADA3: } The analysis model shall identify speech disturbances, including interruptions, parental 
+assistance on the assessment, or other irregularities in the background.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Detecting disturbances is critical for accurate assessment of speech disorders,
+ providing clinicians/ speech-language pathologists with detailed insights for diagnosis and treatment.\\
+\textbf{Fit criterion: } The model must accurately identify and log at least 95 percent of speech disturbances 
+from a set of test videos, validated against human observations.\\\\
+\textbf{VADA4: } The system shall flag detected disturbances and associate them with specific timestamps in the 
+video recordings for easy review by clinicians and speech-language pathologists.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Flagging disturbances and marking the exact points where they occur enables therapists to 
+quickly review the relevant portions of the assessment, reducing the time needed for manual analysis.\\
+\textbf{Fit criterion: } For each session, the model must flag at least 95 percent of disturbances and attach 
+the corresponding timestamps, retrievable by query during session review.\\\\
 
 \subsection{Data Processing and Display}
 \textbf{DPD1: }The system shall retrieve processed assessment results from the database for report generation.\\
