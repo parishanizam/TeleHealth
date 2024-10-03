@@ -196,11 +196,30 @@ that all session data is properly grouped and retrievable under that identifier,
 \textbf{Fit criterion: } Insert criterion here \\\\
 
 \subsection{Data Processing and Display}
-\textbf{DPD1: } Description.\\
+\textbf{DPD1: }The system shall retrieve processed assessment results from the database for report generation.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here 
-
+\textbf{Rationale: }Inorder to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
+\textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 5 seconds of a query being made.\\
+\\
+\noindent\textbf{DPD2: }The system shall automatically generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
+\textbf{Fit criterion: }The report must include 100\% of the required data for each session (video, audio, flagged disturbances, timestamps), and be generated within 10 seconds of the request.\\
+\\
+\noindent\textbf{DPD3: }The system shall display the generated report in a user-friendly format, accessible through the platform’s interface.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Clinicians need to be able to easily view and interpret the report to assess patient progress and determine next steps for therapy.\\
+\textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 3 seconds.\\
+\\
+\noindent\textbf{DPD4: }The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
+\textbf{Fit criterion: } The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 5 years after creation.\\
+\\
+\noindent\textbf{DPD5: }Clinicians shall be able to securely access previously generated reports from the database at any time.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
+\textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 3 seconds via a secure, role-based access system.\\
 
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
