@@ -54,9 +54,47 @@ Date 2 & 1.1 & Notes\\
 ~\newpage
 \section{Purpose of the Project}
 \subsection{User Business}
-\lips
+\hspace{2em}The project being outlined in this document is an at-home bilingual speech 
+assessment system with video and audio analysis features. The system is designed 
+to provide clear guidance to parents when administering the assessment to their 
+children, in an environment where speech-language pathologists (SLPs) are 
+unavailable. By streamlining the assessment process, the project aims to provide a 
+convenient and comprehensive solution for SLPs to assess and support their patients'
+speech and language development remotely. 
 \subsection{Goals of the Project}
-\lips
+\begin{itemize}
+  \item[1.2.1] \textbf{Intuitive Parent Interface:}  
+  The system must provide an intuitive interface that helps parents administer 
+  language assessments effectively. It should be easy to navigate with clear and 
+  meaningful symbols, and it must provide real-time feedback to ensure parents are 
+  aware their interactions are being processed throughout the assessment.
+
+  \item[1.2.2] \textbf{Engaging Child Interaction:}  
+  The system must feature an engaging interface for children to keep them attentive 
+  during the assessment. The design should be simple yet visually appealing, using 
+  colors and images to attract the child’s attention to the questions and selections,
+  ensuring that children remain engaged throughout the assessment.
+
+  \item[1.2.3] \textbf{Reliable Assessment Data for SLPs:}  
+  The system must provide reliable and accurate assessment data for speech-language 
+  pathologists (SLPs) by capturing additional contextual data. This includes 
+  identifying background interference, signs of bias, and potential test 
+  complications. The system should also filter out noise and detect multiple users 
+  to prevent external guidance from affecting the assessment results.
+
+  \item[1.2.4] \textbf{Data Security:}  
+  The system must ensure that all sensitive health and personal data is securely 
+  stored and accessed. It should implement a strong security protocol to securely 
+  store, retrieve, and manage sensitive data, ensuring the privacy and confidentiality
+  of the users.
+
+  \item[1.2.5] \textbf{Cross-Platform Compatibility:}  
+  The system must provide cross-platform compatibility, ensuring that it functions 
+  seamlessly across different devices and screen sizes. It should be accessible to 
+  both parents and children, rendering correctly on all screen formats, whether on 
+  phones, tablets, or desktops.
+\end{itemize}
+
 \section{Stakeholders}
 \subsection{Client}
 \lips
@@ -151,21 +189,21 @@ involved in the Project}
 \textbf{Fit criterion: } Insert criterion here 
 
 \subsection{Data Collection and Storage}
-\textbf{DCS1: }The database shall store multimedia files including video, audio, and structured data for 
+\textbf{FR-DCS1: }The database shall store multimedia files including video, audio, and structured data for 
 each session.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Video and audio files will provide extra information such as parent interference and 
 other forms of bias/ cheating on the assessment.\\
 \textbf{Fit criterion: }The system must successfully store and retrieve at least 1GB of video, audio and 
 structured data per session without any data corruption. \\\\
-\textbf{DSC2: }The system shall not store any personally identifiable textual information (e.g., patient name, 
+\textbf{FR-DSC2: }The system shall not store any personally identifiable textual information (e.g., patient name, 
 address, or medical record number) in the database.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
 identifying textual information must be excluded from storage in the database.\\
 \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
 accessible by clinicians are anonymized and contain no identifying textual information.\\\\
-\textbf{DSC3: }The database shall group all stored data by a unique user identifier to ensure data can be linked 
+\textbf{FR-DSC3: }The database shall group all stored data by a unique user identifier to ensure data can be linked 
 to specific users without storing identifiable information.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
@@ -175,20 +213,20 @@ that 100\% of session data is properly grouped and retrievable under that identi
 data.\\\\
 
 \subsection{Video and Audio Data Analysis}
-\textbf{VADA1: }The analysis model shall have access to the video and audio recordings of each session.\\
+\textbf{FR-VADA1: }The analysis model shall have access to the video and audio recordings of each session.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }The data contains essential visual and auditory information that can help clinicians 
 efficiently assess any speech-related disturbances and non-verbal cues.\\
 \textbf{Fit criterion: }The model must successfully retrieve and process video data from 100\% of 
 completed assessment sessions without encountering data access errors.\\\\
-\textbf{VADA2: }The analysis model shall identify speech disturbances, including interruptions, parental 
+\textbf{FR-VADA2: }The analysis model shall identify speech disturbances, including interruptions, parental 
 assistance on the assessment, or other irregularities in the background.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Detecting disturbances is critical for accurate assessment of speech disorders without 
 bias so that clinicians and speech language pathologists can accurately provide diagnosis and treatment.\\
 \textbf{Fit criterion: }The model must accurately identify and log at least 95\% of speech disturbances 
 from a set of test videos, validated against human observations.\\\\
-\textbf{VADA3: }The system shall flag detected disturbances and associate them with specific timestamps in the 
+\textbf{FR-VADA3: }The system shall flag detected disturbances and associate them with specific timestamps in the 
 video recordings.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Flagging disturbances and marking the exact points where they occur enables clinicians and 
@@ -198,27 +236,27 @@ for manual analysis.\\
 identified in VADA2 with at least 95\% accuracy.\\\\
 
 \subsection{Data Processing and Display}
-\textbf{DPD1: }The system shall retrieve processed assessment results from the database for report generation.\\
+\textbf{FR-DPD1: }The system shall retrieve processed assessment results from the database for report generation.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }In order to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
 \textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 10 seconds of a query being made.\\
 \\
-\noindent\textbf{DPD2: }The system shall automatically generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
+\noindent\textbf{FR-DPD2: }The system shall automatically generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
 \textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within 10 seconds of the request.\\
 \\
-\noindent\textbf{DPD3: }The system shall display the generated report in a user-friendly format, accessible through the platform’s interface.\\
+\noindent\textbf{FR-DPD3: }The system shall display the generated report in a user-friendly format, accessible through the platform’s interface.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Clinicians need to be able to easily view and interpret the report to assess patient progress and determine next steps for therapy.\\
 \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.\\
 \\
-\noindent\textbf{DPD4: }The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
+\noindent\textbf{FR-DPD4: }The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
 \textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 5 years after creation.\\
 \\
-\noindent\textbf{DPD5: }Clinicians shall be able to securely access previously generated reports from the database at any time.\\
+\noindent\textbf{FR-DPD5: }Clinicians shall be able to securely access previously generated reports from the database at any time.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
 \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.\\
