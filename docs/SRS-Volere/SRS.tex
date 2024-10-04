@@ -134,22 +134,75 @@ involved in the Project}
 \section{Functional Requirements}
 
 \subsection{Authentication}
-\textbf{A1: } Description.\\
-\textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here 
+\textbf{FR-A1: } The system shall allow a user to choose between a Parent or Clinician account prior to logging in.\\
+\textbf{Rationale: } Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
+\textbf{Fit criterion: } Users must be able to directly select their account type prior to logging in.\\
+
+\textbf{FR-A2: } The system shall allow a user to create a parent account with a unique username which does not exist in the database.\\
+\textbf{Rationale: } Users must be able to create a unique account for parents to login for the assessment.\\
+\textbf{Fit criterion: } Users cannot create accounts with usernames that already exist in the database.\\
+
+\textbf{FR-A3: } The system shall allow a user with admin privilege to create a clinician account with a unique username which does not exist in the database.\\
+\textbf{Rationale: } Admin-Users must be able to create a unique account for clinicians to login to view assessment results. Clinicians need to be approved by Admin-Users to have a clinician account.\\
+\textbf{Fit criterion: } Users cannot create clinician accounts, without admin access, with usernames that already exist in the database.\\
+
+\textbf{FR-A4: } The system shall allow a user with a unique username to login with their corresponding password.\\
+\textbf{Rationale: } Users must be able to login to their account to restrict others from accessing their assessment or assessment results.\\
+\textbf{Fit criterion: } Users must be able to provide the corresponding password to their unique username to login and successfully enter the system.\\
+
+\textbf{FR-A5: } The system shall allow a user to logout.\\
+\textbf{Rationale: } Users must be able to logout of their account to restrict others from accessing their information.\\
+\textbf{Fit criterion: } Users must be able to logout and successfully exit the system.\\
 
 \subsection{System Setup}
-\textbf{SS1: } Description.\\
-\textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here 
+\textbf{FR-SS1: } The system shall allow a user to view information about the assessment.\\
+\textbf{Rationale: } Users must be informed about relevant assessment information prior to starting the hardware checks.\\
+\textbf{Fit criterion: } Users must be able to view information about the assessment upon logging in.\\
 
-\subsection{User Interactions and Question Handling}
-\textbf{UIQH1: } Description.\\
-\textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here 
+\textbf{FR-SS2: } The system shall allow a user to perform an audio hardware check.\\
+\textbf{Rationale: } Users must be able to perform an audio equipment check to ensure their input and output audio devices are functioning.\\
+\textbf{Fit criterion: } Users must be able to verify their audio devices are functioning with the system.\\
+
+\textbf{FR-SS3: } The system shall allow a user to perform a video hardware check.\\
+\textbf{Rationale: } Users must be able to perform an video equipment check to ensure their video capturing device is functioning.\\
+\textbf{Fit criterion: } Users must be able to verify their video capturing device is functioning with the system.\\
+
+\textbf{FR-SS4: } The system shall provide a tutorial for a user to learn the assessment process.\\
+\textbf{Rationale: } Users must be able to walkthrough a tutorial to understand how to properly complete the assessment.\\
+\textbf{Fit criterion: } Users must be brought to the tutorial upon completing the audio and video hardware checks.\\
+
+\textbf{FR-SS5: } The system shall allow a user to start an assessment.\\
+\textbf{Rationale: } Users must be able to decide when they start an assessment.\\
+\textbf{Fit criterion: } Users must be brought to the first assessment question upon starting the assessment.\\
+
+\subsection{Assessment Interface}
+\textbf{FR-AI1: } The system shall record user's audio and video upon starting the assessment.\\
+\textbf{Rationale: } The system must be able to collect audio and video recordings for future analysis.\\
+\textbf{Fit criterion: } The system must indicate to the user that audio and video recordings are ongoing.\\
+
+\textbf{FR-AI2: } The system shall play audio prompts at the beginning of each question.\\
+\textbf{Rationale: } The system must be able to play the respective question's audio to answer the given question.\\
+\textbf{Fit criterion: } The system must successfully play the respective question's audio upon entering a new question.\\
+
+\textbf{FR-AI3: } The system shall display a question's options for a user to select.\\
+\textbf{Rationale: } Users must be able to provide a response to the question's audio for future analysis.\\
+\textbf{Fit criterion: } The system must display the question's respective options upon starting a new question.\\
+
+\textbf{FR-AI4: } The system shall allow a user to select one of the displayed options.\\
+\textbf{Rationale: } Users must be able to select their best option to answer the question.\\
+\textbf{Fit criterion: } The system must indicate to the user their selected response.\\
+
+\textbf{FR-AI5: } The system shall allow a user to confirm their selection.\\
+\textbf{Rationale: } Users must be able to confirm their selection to proceed to the next stage.\\
+\textbf{Fit criterion: } Users must be brought to the next stage upon confirming their selection.\\
+
+\textbf{FR-AI6: } The system shall keep track of the user's current question.\\
+\textbf{Rationale: } The system must be able to keep track of the time the user enters and exits each question, to synchronize with the audio and video recordings.\\
+\textbf{Fit criterion: } The system must store the user's timestamps upon completing each question.\\
+
+\textbf{FR-AI7: } The system shall inform the user about the assessment's completion.\\
+\textbf{Rationale: } The system must inform the user of the test's completion to indicate they can exit the system.\\
+\textbf{Fit criterion: } The user must be informed about the test's completion upon confirming the selection of the final question.\\
 
 \subsection{Data Collection and Storage}
 \textbf{DCS1: }The database shall store multimedia files including video, audio, and JSON format files for each session.\\
