@@ -115,21 +115,50 @@ speech and language development remotely.
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\lips
+\begin{itemize}
+  \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
+  \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security.
+  \item[3.1.3] Access to the platform must be restricted to authorized users, with secure authentication processes in place.
+  \item[3.1.4] The system must be capable of scaling to accommodate an increasing number of users and growing data storage needs as the client expands.
+  \item[3.1.5] The platform must support assessment sessions of up to at least 30 minutes to align with standard telehealth consultation times.
+  \item[3.1.6] The platform must support adaptable video and audio quality based on internet bandwidth, ensuring clarity and reliability during assessments.
+  \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs.
+  \item[3.1.8] Patient records must be retained for a minimum of 7 years from the last visit or at least 1 year after the patient turns 18, whichever is 
+  longer, in accordance with California law.
+\end{itemize}
 \subsection{Implementation Environment of the Current System}
-\lips
+\begin{itemize}
+  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security.
+  \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
+  infrastructure.
+\end{itemize}
 \subsection{Partner or Collaborative Applications}
-\lips
+\begin{itemize}
+  \item[3.3.1] The platform must be capable of exporting data as an Excel file, allowing for easy sharing, analysis, and compatibility with other systems
+  that clinicians may use for data processing.
+\end{itemize}
 \subsection{Off-the-Shelf Software}
-\lips
+\begin{itemize}
+  \item[3.4.1] \color{red} There are no mandated off-the-shelf software constraints. \color{black}
+\end{itemize}
 \subsection{Anticipated Workplace Environment}
-\lips
+\begin{itemize}
+  \item[3.5.1] The platform must be compatible across a range of devices, including desktops, tablets, and mobile phones.
+\end{itemize}
 \subsection{Schedule Constraints}
-\lips
+\begin{itemize}
+  \item[3.6.1] The proof-of-concept shall be complete and demonstrated between Nov. 11-22, 2024.
+  \item[3.6.2] Revision 0 of the project shall be complete and demonstrated between February 3-14, 2025.
+  \item[3.6.3] The final product shall be complete and demonstrated between March 24-30, 2025.
+\end{itemize}
 \subsection{Budget Constraints}
-\lips
+\begin{itemize}
+  \item[3.7.1] The project budget must not exceed \$750 CAD. 
+\end{itemize}
 \subsection{Enterprise Constraints}
-\lips
+\begin{itemize}
+  \item[3.8.1] \color{red} There are no mandated enterprise constraints. \color{black}
+\end{itemize}
 
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
@@ -138,11 +167,35 @@ involved in the Project}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
-\lips
+\begin{itemize}
+  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA, ensuring that patient data is securely stored and managed.
+  \item[5.1.2] The client has requested a web-based platform, indicating a preference for accessibility without the need for specialized 
+  software installations.
+  \item[5.1.3] The platform will have two primary user roles. The clinicians who perform assessments and review results and the parents who 
+  administer the assessment to their children who are the patients.
+\end{itemize}
 \subsection{Business Rules}
-\lips
+\begin{itemize}
+  \item[5.2.1] Only authorized users (clinicians) can access patient data.
+  \item[5.2.2] Patient records must be retained for at least 7 years from the last visit, or 1 year after the patient turns 18, whichever is longer, 
+  to comply with California state law.
+  \item[5.2.3] The platform must comply with WCAG 2.1 to ensure it is accessible to users with disabilities.
+  \item[5.2.4] All patient data must be encrypted both in transit and at rest to maintain confidentiality and meet regulatory standards.
+  \item[5.2.5] The platform must generate reports based on assessment data, which can be reviewed and stored within the system 
+  \item[5.2.6] Video and audio recordings must automatically adjust to optimize based on internet bandwidth, ensuring quality without excessive 
+  buffering or latency.
+\end{itemize}
 \subsection{Assumptions}
-\lips
+\begin{itemize}
+  \item[5.3.1] All users of the system have reliable internet connections that can support telehealth video sessions.
+  \item[5.3.2] All patient data will be stored on servers located in regions that comply with healthcare data residency regulations.
+  \item[5.3.3] The platform is assumed to be accessible from various devices (desktops, tablets, mobile phones), though it may perform optimally on 
+  desktops.
+  \item[5.3.4] Assessments will not exceed 30 minutes per session to fit standard telehealth consultation times.
+  \item[5.3.5] It is assumed that users (both clinicians and patients) have a basic level of comfort with using web applications and online 
+  communication tools.
+  \item[5.3.6] The platform may need to accommodate additional users and storage demands as the client scales its telehealth services over time.
+\end{itemize}
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
@@ -254,7 +307,7 @@ identified in VADA2 with at least 95\% accuracy.\\\\
 \noindent\textbf{FR-DPD4: }The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
 \textit{Insert formal Specification}\\
 \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
-\textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 5 years after creation.\\
+\textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.\\
 \\
 \noindent\textbf{FR-DPD5: }Clinicians shall be able to securely access previously generated reports from the database at any time.\\
 \textit{Insert formal Specification}\\
