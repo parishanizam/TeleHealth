@@ -362,17 +362,17 @@ that all session data is properly grouped and retrievable under that identifier,
 \subsection{Access Requirements}
 \begin{enumerate}[{SR-AC}1. ]
   \item Only users with an Admin role can create and assign accounts to clinicians.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }Full access of the system and permissions including creating clinician accounts should only be available to admin roles by the system. \\
+  \textbf{Fit criterion: }Admin users will have full access to the system including create clinician accounts, viewing data records, and starting assessments. 
   \item Users with parent roles can complete assessments.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }Users with a parent role should have the ability to create accounts and complete assessments with their children on the system.\\
+  \textbf{Fit criterion: }Users with parent roles will only be able to create a parent account, login to the system, have access to completing the assessments, and logging off the system 
   \item Users with clinician roles can view assessment results.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }Clinicians must be able to see all video and audio recordings of completed assessments, as well as the analyzed results from the system to aid in their research. \\
+  \textbf{Fit criterion: }User with a clinician role will not be able to log in to a parent account and start/complete assessments. 
   \item Users shall input their username and password to securely login.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }Users should be able to securely login by inputting their login credentials to ensure to prevent unauthorized access. \\
+  \textbf{Fit criterion: }A user should not be able to login to an account they do not have the required credentials for.
 \end{enumerate}
 \subsection{Integrity Requirements}
 \begin{enumerate}[{SR-INT}1. ]
@@ -381,14 +381,14 @@ that all session data is properly grouped and retrievable under that identifier,
 \subsection{Privacy Requirements}
 \begin{enumerate}[{SR-P}1. ]
   \item The system shall adhere to all data protection and privacy laws in the region its used.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The system will respect the privacy and confidentiality of all users to adhere to all applicable protection laws.\\
+  \textbf{Fit criterion: }The system will be reviewed prior to public release to ensure it follows all applicable protection laws
   \item The system shall encrypt all sensitive data in transit and at rest to keep data confidential.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The system should encrypt sensitive data at all times to ensure high level of security to protect user information from potential data footage leaks, and unauthorized access \\
+  \textbf{Fit criterion: }Data follows the standard encryption protocol at all times; data is encrypted when in transit and only decrypted when viewed by clinician user for analysis purposes.
   \item The system shall not collect any personal identifiable information from the user.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The system should not collect any personal identifiable information to ensure confidentially of all video and audio recordings associated with the user. \\
+  \textbf{Fit criterion: }The system does not store any personal identifiable information. All data stored includes, username, and data/audio recordings only. 
 \end{enumerate}
 \subsection{Audit Requirements}
 \begin{enumerate}[{SR-AU}1. ]
@@ -397,8 +397,8 @@ that all session data is properly grouped and retrievable under that identifier,
 \subsection{Immunity Requirements}
 \begin{enumerate}[{SR-IM}1. ]
   \item The system must mandate strong passwords.\\
-  Rationale: 
-  Fit criterion:
+  \textbf{Rationale: }The system must require a strong password mandate to secure user accounts from unauthorized access.\\
+  \textbf{Fit criterion: }The system will complete account creation upon entering a valid password that follows the specified mandate. 
 \end{enumerate}
 
 \section{Cultural Requirements}
@@ -412,9 +412,10 @@ that all session data is properly grouped and retrievable under that identifier,
 \end{enumerate}
 \subsection{Standards Compliance Requirements}
 \begin{enumerate}[{CR-STD}1. ]
-  \item The system shall use security measures to protect all stored user data.\\
-  Rationale: ***INCLUDE TALKING ABOUT VIDEO AND AUDIO RECORDINGS HERE***
-  Fit criterion: 
+  \item The system shall use security measures to protect all stored user assessment data.\\
+  \textbf{Rationale: }The system must use strong security measures to protect sensitive and confidential user information including collected video and audio recordings from assessment results to ensure privacy and integrity.\\
+  \textbf{Fit criterion: }All stored user assessment data is only associated with a username. 
+
 \end{enumerate}
 
 \section{Open Issues}
