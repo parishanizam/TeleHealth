@@ -266,41 +266,39 @@ that all session data is properly grouped and retrievable under that identifier,
 \subsection{Ease of Use Requirements}
 \begin{enumerate}[{UH-EOU}1. ]
   \item The system shall be intuitive for new users to understand.\\
-  Rationale: 
-  Fit criterion:  
+  \textbf{Rationale: }New users should not be overwhelmed with the system. New users must be able to understand the system to effectively perform the assessment (parents and children), or view the results (clinicians).\\
+  \textbf{Fit criterion: }The duration between starting the assessment to finishing the first question is less than 2 minutes.
   \item The system shall provide detailed instructions on how to use key features of the application, along with its purpose.\\
-  Rationale:
-  Fit criterion: 
-  \item The system shall use icons without labels only if they are universal icons, icons having intuitively understandable meanings.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The system will provide relevant important information about the assessment so the user is informed about the system's usage.\\ 
+  \textbf{Fit criterion: }The system will direct the user to additional information prior to starting the setup process, and upon completion of the assessment.
 \end{enumerate}
 \subsection{Personalization and Internationalization Requirements}
 \begin{enumerate}[{UH-PI}1. ]
-  \item The system shall support multiple languages.
-  Rationale: 
-  Fit criterion: 
+  \item The system shall support multiple languages.\\
+  \textbf{Rationale: }The assessment must be conducted in two languages for the purpose of the research study.\\
+  \textbf{Fit criterion: }The assessment will always be available to be conducted in two different languages (within a single assessment).
 \end{enumerate}
 \subsection{Learning Requirements}
 \begin{enumerate}[{UH-LI}1. ]
-  \item The system shall not require additional resources to be navigated.
-  Rationale: 
-  Fit criterion: 
-  \item The system shall include a user-guide for additional usage information.
-  Rationale: 
-  Fit criterion: 
+  \item The system shall not require additional resources to be navigated.\\
+  \textbf{Rationale: }The system should be intuitive to navigate without additional information to simplify the assessment process.\\
+  \textbf{Fit criterion: }All information required for the assessment will be directly displayed by the system.
+  \item The system shall include a user-guide for additional usage information.\\
+  \textbf{Rationale: }User documentation can be helpful for troubleshooting and maintenance should problems arise. This document is optional and not required reading for the user's interactions with the system.\\
+  \textbf{Fit criterion: }User documentation will be provided on the team's GitHub upon project completion.
 \end{enumerate}
 \subsection{Understandability and Politeness Requirements}
 \begin{enumerate}[{UH-UP}1. ]
-  \item The product will not use technical language when displaying information to the user.
-  Rationale: 
-  Fit criterion: 
+  \item The system will not use technical language when displaying information to the user.\\
+  \textbf{Rationale: }The system will be designed for parents and children to participate in assessments, thus the system should make information easily understandable.\\
+  As well, clinicians may not have a technological background, so any technical aspects should be communicated in easy to understand terms.\\
+  \textbf{Fit criterion: }The system will be reviewed by the team's supervisor and their collaborator to verify all language used is appropriate for users.
 \end{enumerate}
 \subsection{Accessibility Requirements}
 \begin{enumerate}[{UH-A}1. ]
-  \item The system shall be simple and intuitive for assessment interactions with children.
-  Rationale: 
-  Fit criterion: 
+  \item The system shall be simple and intuitive for assessment interactions with children.\\
+  \textbf{Rationale: }Children interacting with the assessment can vary in age and cognitive abilities. To get reliable assessment results, the children participating must understand the system they interact with.\\
+  \textbf{Fit criterion: }The assessment will feature minimal display elements, with clear indication of interactions.
 \end{enumerate}
 
 \section{Performance Requirements}
@@ -322,24 +320,24 @@ that all session data is properly grouped and retrievable under that identifier,
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
 \begin{enumerate}[{OE-EPE}1. ]
-  \item The system can be run on all browser-supported devices regardless of screensize.\\
-  Rationale: 
-  Fit criterion: 
+  \item The system can be run on all browser-supported devices regardless of screen sizes.\\
+  \textbf{Rationale: }The system will be run on a variety of devices through web browsers, and should adapt the different screen sizes so users get full functionality.\\
+  \textbf{Fit criterion: }The system's displayed elements will scale appropriately to different screen sizes.
 \end{enumerate}
 \subsection{Wider Environment Requirements}
 \begin{enumerate}[{OE-WE}1. ]
   \item The system shall be used in a quiet environment.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The system will be performing audio and video analysis, and conducting the assessment in a loud or busy environment could lead to unexpected results due to noise.\\
+  \textbf{Fit criterion: }The system will inform the user, prior to setup, that the optimal experience for the assessment is in a quiet environment. 
   \item The system shall be used with an internet connection.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The assessment will be conducted online, and not saved locally on the user's device. Therefore, an internet connection is required.\\
+  \textbf{Fit criterion: }The system will be accessed online. The system will inform the user, prior to setup, that the assessment will be conducted online, and no files will be downloaded to their device for the assessment. 
 \end{enumerate}
 \subsection{Requirements for Interfacing with Adjacent Systems}
 \begin{enumerate}[{OE-IA}1. ]
   \item The system shall be hosted on an external server for retrieving and storing data.\\
-  Rationale: 
-  Fit criterion: 
+  \textbf{Rationale: }The supervisor's collaborator is running the current system on an external server, which the new system will utilize.\\
+  \textbf{Fit criterion: }The system (including the assessment) will be published and accessed through the external server.
 \end{enumerate}
 \subsection{Productization Requirements}
 \begin{enumerate}[{OE-P}1. ]
