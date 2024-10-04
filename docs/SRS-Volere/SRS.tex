@@ -9,6 +9,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{enumerate}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -263,15 +264,44 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
-\lips
+\begin{enumerate}[{UH-EOU}1. ]
+  \item The system shall be intuitive for new users to understand.\\
+  Rationale: 
+  Fit criterion:  
+  \item The system shall provide detailed instructions on how to use key features of the application, along with its purpose.\\
+  Rationale:
+  Fit criterion: 
+  \item The system shall use icons without labels only if they are universal icons, icons having intuitively understandable meanings.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Personalization and Internationalization Requirements}
-\lips
+\begin{enumerate}[{UH-PI}1. ]
+  \item The system shall support multiple languages.
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Learning Requirements}
-\lips
+\begin{enumerate}[{UH-LI}1. ]
+  \item The system shall not require additional resources to be navigated.
+  Rationale: 
+  Fit criterion: 
+  \item The system shall include a user-guide for additional usage information.
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Understandability and Politeness Requirements}
-\lips
+\begin{enumerate}[{UH-UP}1. ]
+  \item The product will not use technical language when displaying information to the user.
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Accessibility Requirements}
-\lips
+\begin{enumerate}[{UH-A}1. ]
+  \item The system shall be simple and intuitive for assessment interactions with children.
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
@@ -291,15 +321,34 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{enumerate}[{OE-EPE}1. ]
+  \item The system can be run on all browser-supported devices regardless of screensize.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Wider Environment Requirements}
-\lips
+\begin{enumerate}[{OE-WE}1. ]
+  \item The system shall be used in a quiet environment.\\
+  Rationale: 
+  Fit criterion: 
+  \item The system shall be used with an internet connection.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+\begin{enumerate}[{OE-IA}1. ]
+  \item The system shall be hosted on an external server for retrieving and storing data.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Productization Requirements}
-\lips
+\begin{enumerate}[{OE-P}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Release Requirements}
-\lips
+\begin{enumerate}[{OE-R}1. ]
+  \item N/A
+\end{enumerate}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
@@ -311,15 +360,46 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\lips
+\begin{enumerate}[{SR-AC}1. ]
+  \item Only users with an Admin role can create and assign accounts to clinicians.\\
+  Rationale: 
+  Fit criterion: 
+  \item Users with parent roles can complete assessments.\\
+  Rationale: 
+  Fit criterion: 
+  \item Users with clinician roles can view assessment results.\\
+  Rationale: 
+  Fit criterion: 
+  \item Users shall input their username and password to securely login.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Integrity Requirements}
-\lips
+\begin{enumerate}[{SR-INT}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Privacy Requirements}
-\lips
+\begin{enumerate}[{SR-P}1. ]
+  \item The system shall adhere to all data protection and privacy laws in the region its used.\\
+  Rationale: 
+  Fit criterion: 
+  \item The system shall encrypt all sensitive data in transit and at rest to keep data confidential.\\
+  Rationale: 
+  Fit criterion: 
+  \item The system shall not collect any personal identifiable information from the user.\\
+  Rationale: 
+  Fit criterion: 
+\end{enumerate}
 \subsection{Audit Requirements}
-\lips
+\begin{enumerate}[{SR-AU}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Immunity Requirements}
-\lips
+\begin{enumerate}[{SR-IM}1. ]
+  \item The system must mandate strong passwords.\\
+  Rationale: 
+  Fit criterion:
+\end{enumerate}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
@@ -327,9 +407,15 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
-\lips
+\begin{enumerate}[{CR-LR}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Standards Compliance Requirements}
-\lips
+\begin{enumerate}[{CR-STD}1. ]
+  \item The system shall use security measures to protect all stored user data.\\
+  Rationale: ***INCLUDE TALKING ABOUT VIDEO AND AUDIO RECORDINGS HERE***
+  Fit criterion: 
+\end{enumerate}
 
 \section{Open Issues}
 \lips
