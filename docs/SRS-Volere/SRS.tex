@@ -45,7 +45,8 @@
 \toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Notes}}\\
 \midrule
 October 3 & 1.0 & PK \& JS added Functional Requirements 9.4,9.5,9.6,\\
-October 3 & 1.0 & Pk \& JS added sections 1,3,5\\
+October 3 & 1.0 & PK \& JS added sections 1,3,5\\
+October 4 & 1.3 & JS added Nonfunctional Requirements 10,14,16\\
 \bottomrule
 \end{tabularx}
 
@@ -316,9 +317,28 @@ identified in VADA2 with at least 95\% accuracy.\\\\
 
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
-\lips
+\textbf{NFR-LFA1: }The platform should maintain a modern, organized, and visually appealing design that looks clean and professional, while not overwhelming users with unnecessary clutter.\\
+\textbf{Rationale: }A clean layout reduces cognitive load, making it easier for users to use the platform effectively without distractions.\\
+\textbf{Fit criterion: }The user interface must contain no more than three levels of navigation depth and present no more than six major options per screen.\\\\
+\textbf{NFR-LFA2: }The platform’s navigation should be intuitive and allow users to quickly understand how to move between different sections.\\
+\textbf{Rationale: }Simple, user-friendly navigation ensures that users can move through the system without confusion, especially since the platform will be used by both children and adults.\\
+\textbf{Fit criterion: }100\% of users in user testing must be able to perform core tasks (like starting an assessment, viewing results) within five clicks or less without guidance.\\\\
+\textbf{NFR-LFA3: }The design should use calming colors and neutral tones to create a reassuring environment that is not visually overstimulating for children.\\
+\textbf{Rationale: }Children undergoing assessments may feel anxious; a calming design helps create a more comfortable and welcoming environment.\\
+\textbf{Fit criterion: }The design must use a maximum of three main colors, with a focus on neutral and pastel tones. User feedback from child participants should reflect a calm and non-stressful experience.\\\\
+\textbf{NFR-LFA4: }The assessment interface should be designed to be easily understood by children, with large buttons, simple instructions, and child-friendly imagery.\\
+\textbf{Rationale: }A simple design tailored to children’s comprehension levels ensures they can participate in the assessment without confusion or frustration.\\
+\textbf{Fit criterion: }In user testing, 95\% of children aged 6-12 must be able to complete a sample assessment without adult assistance.\\\\
+\textbf{NFR-LFA5: }The platform should provide immediate visual or audio feedback for all user interactions, such as clicking buttons, completing tasks, or submitting assessments.\\
+\textbf{Rationale: }Feedback is important to confirm that the system is responding to user inputs, which is especially critical for children who may be unsure if their actions have been registered.\\
+\textbf{Fit criterion: }100\% of user interactions (such as form submissions, button presses) must trigger an appropriate feedback response (e.g., color change, message confirmation) within 0.5 seconds.\\\\
 \subsection{Style Requirements}
-\lips
+\textbf{NFR-LFS1: }The design should maintain consistency across all pages in terms of colors, fonts, button styles, and overall layout to create a cohesive user experience.\\
+\textbf{Rationale: }Consistency in design elements helps reduce user confusion, making the platform easier to navigate and more aesthetically pleasing.\\
+\textbf{Fit criterion: }All visual elements must adhere to a style guide, ensuring consistent use of color, typography, and spacing across 100% of the platform’s pages.\\\\
+\textbf{NFR-LFS2: }The design should align with the client's established company brand guidelines, including the use of specific colors, logos, or fonts.\\
+\textbf{Rationale: }Aligning with brand guidelines ensures that the platform reflects the client's professional image and maintains brand integrity.\\
+\textbf{Fit criterion: }100\% of the platform’s design elements must comply with the client’s branding guidelines as provided in the design brief.\\\\
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
@@ -362,11 +382,23 @@ identified in VADA2 with at least 95\% accuracy.\\\\
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
-\lips
+\textbf{NFR-MSM1: }The platform should be built using a modular architecture so that different components may be updated or replaced independently without disrupting the entire system.\\
+\textbf{Rationale: }Modular systems are easier to maintain and update, reducing downtime and ensuring new features or bug fixes can be implemented without impacting the core functionality of the platform.\\
+\textbf{Fit criterion: }Any update of an individual component shall have no more than 10 lines of code edited outside of the component.\\\\
 \subsection{Supportability Requirements}
-\lips
+\textbf{NFR-MSS1: }Users should be able to submit feature requests or report issues directly to the platform’s GitHub repository, ensuring that the development team can track and prioritize improvements or bug fixes.\\
+\textbf{Rationale: }Centralizing feature requests and issue tracking in GitHub makes it easier for the development team to manage feedback and streamline future updates.\\
+\textbf{Fit criterion: }The platform must include a direct link to the GitHub repository, with a clear option for users to submit requests or report issues, and GitHub should have dedicated categories for issues, 
+feature requests, and feedback.\\\\
+\textbf{NFR-MSS2: }The platform should provide a comprehensive, easy-to-follow tutorial that guides users through the website and the assessment process.\\
+\textbf{Rationale: }Tutorials help users understand the functionality of the platform, reducing the need for external support and improving user experience, particularly for new users or children.\\
+\textbf{Fit criterion: }The tutorial must be accessible from the homepage and should cover all core functionalities. In usability testing, 90\% of users should be able to complete tasks correctly after following the
+ tutorial.\\\\
 \subsection{Adaptability Requirements}
-\lips
+\textbf{NFR-MSA1: }The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
+\textbf{Rationale: }A responsive design ensures the platform is accessible on any device, providing a seamless user experience regardless of screen size or resolution.\\
+\textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
+features are usable on all screen sizes.\\\\
 
 \section{Security Requirements}
 \subsection{Access Requirements}
@@ -382,7 +414,14 @@ identified in VADA2 with at least 95\% accuracy.\\\\
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\lips
+\textbf{NFR-C1: }The platform must not contain any language or imagery that could be considered culturally insensitive or offensive to any users, particularly the primary user groups.\\
+\textbf{Rationale: }Ensuring cultural sensitivity is critical in a healthcare setting, especially when working with diverse populations. Avoiding insensitive content fosters a respectful and inclusive environment 
+for users.\\
+\textbf{Fit criterion: }During user acceptance testing and content review, 100\% of language and imagery used on the platform must be validated by a cultural consultant and user feedback to ensure no instances of 
+insensitivity.\\\\
+\textbf{NFR-C2: }The platform should be bilingual, supporting both English and Mandarin for all user interfaces and assessments to accommodate the language preferences of users.\\
+\textbf{Rationale: }Given that the target user base includes bilingual children, providing language options ensures accessibility and inclusivity, allowing users to complete assessments in their choice of language.\\
+\textbf{Fit criterion: }100\% of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.\\\\
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
