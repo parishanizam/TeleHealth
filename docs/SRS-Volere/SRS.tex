@@ -8,6 +8,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{enumerate} 
 \usepackage{hyperref}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -334,19 +335,100 @@ identified in VADA2 with at least 95\% accuracy.\\\\
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
-\lips
+\noindent\textbf{NFR-PSLR1: }The system shall load web pages within 3 seconds of navigating to it.\\
+\textbf{Rationale: }Fast page loading is critical for maintaining user engagement and reducing user frustrations during the assessment process.\\
+\textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the 3 seconds of navigation on a standard broadband internet connection.\\
+
+\noindent\textbf{NFR-PSLR2: }The system must maintain video and audio recording latency of less than 1 second to support accurate data capture for speech assessment.\\
+\textbf{Rationale: }Having high latency could lead to desynchronization between audio and video, causing errors in the timestamps or making it difficult for speech-language pathologists (SLPs) to analyze the recordings properly.\\
+\textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed 1 second. \\
+
+\noindent\textbf{NFR-PSLR3: }The system must ensure that all video recordings are captured in a resolution of at least 720p.\\
+\textbf{Rationale: }A minimum resolution of 720p is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
+\textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of 720p.\\
+
+\noindent\textbf{NFR-PSLR4: }The system must process the data from a session and generate a report within 10 seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
+\textbf{Rationale: }Generating the assessment reports for clinicians under 10 seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
+\textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within 10 seconds\\
+
 \subsection{Safety-Critical Requirements}
-\lips
+\color{red} N/A. \color{black}
 \subsection{Precision or Accuracy Requirements}
-\lips
+
+\noindent\textbf{NFR-PPAR1: }The system must achieve a audio analysis accuracy of at least 95\% to ensure reliable assessment results for clinicians.\\
+\textbf{Rationale: }It is imporant that the audio analysis accuracy has a high percision rate. Without this level of percision, clinicians could 
+be mislead by inaccurate results affecting the quality of diagnosis and subsequent treatment.\\
+\textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of 95\%.\\
+
+\noindent\textbf{NFR-PPAR2: }The system must detect video disturbances with an accuracy of at least 90\% to minimize the impact of visual issues on the assessment data.\\
+\textbf{Rationale: }Detecting video disturbances with 90\% accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
+\textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed 90\%.\\
+
+\noindent\textbf{NFR-PPAR3: }The system must ensure that timestamp accuracy is within 1 second to align recorded events with real-time actions for precise analysis.\\
+\textbf{Rationale: }Timestamp accuracy within 1 second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
+\textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a 1-second window, verifying that all events are accurately synchronized.\\
+
+\noindent\textbf{NFR-PPAR4: }The system must guarantee 100\% accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
+\textbf{Rationale: }Any errors in the answer key could lead to misinterpretation of a child’s abilities or progress, undermining the purpose of the assessment.\\
+\textbf{Fit criterion: }The assessment answer key will be manually be verified to ensure that ti contatins no inaccuracies, ensuring complete correctness of answers.\\
+
+\noindent\textbf{NFR-PPAR5: }The system must ensure that all questions are 100\% relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
+\textbf{Rationale: }Ensuring that all questions are fully relevant to the platform’s purpose guarantees that the assessment focuses only on aspects critical to speech and language development. Irrelevant questions could confuse users and divert attention from important areas.\\
+\textbf{Fit criterion: }All assessment questions will be manual reviewed to confirm that they align perfectly with the platform's objectives.\\
+
 \subsection{Robustness or Fault-Tolerance Requirements}
-\lips
+
+\noindent\textbf{NFR-PRFTR1: }The system must manage errors effectively and provide clear feedback to users when issues occur\\
+\textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand what went wrong, leading to frustration.\\
+\textbf{Fit criterion: }The system must display error messages for at least 95\% of common user errors.\\
+
+\noindent\textbf{NFR-PRFTR2: }The system must implement data backup and recovery processes to protect user data and assessment results.\\
+\textbf{Rationale: }Effective backup and recovery ensure that user data is not lost during a system failure. Data loss could disrupt assessments and treatment plans.\\
+\textbf{Fit criterion: }The system must back up data on the first of every month within a 4hr timeframe.\\
+
+\noindent\textbf{NFR-PRFTR3: }The system must validate inputs to accept only specified formats during user interactions.\\
+\textbf{Rationale: }Strict input validation prevents errors and enhances data integrity. It also protects the system from malicious inputs that could cause issues.\\
+\textbf{Fit criterion: }The system must reject 100\% of invalid inputs and display appropriate error messages to users.\\
+
 \subsection{Capacity Requirements}
-\lips
+
+\noindent\textbf{NFR-PCR1: }The system must accommodate a minimum of 2000 user accounts at launch.\\
+\textbf{Rationale: }Supporting at least 2000 user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
+\textbf{Fit criterion: }The system must successfully manage 2000 user accounts at deployment without stability issues.\\
+
+\noindent\textbf{NFR-PCR2: }The system must have the capacity to store a minimum of 10TB of data each year.\\
+\textbf{Rationale: }Storing 10TB of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
+\textbf{Fit criterion: }The database must have 10TB of allocated space at the start of every year.\\
+
+\noindent\textbf{NFR-PCR3: }The system must support a minimum of 400 concurrent users simultaneously and have the capability to scale to accommodate more users as demand increases.\\
+\textbf{Rationale: }Supporting 400 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+\textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 400 concurrent users.\\
+
+
 \subsection{Scalability or Extensibility Requirements}
-\lips
+
+\noindent\textbf{NFR-PSER1: }The system must support the addition of new user accounts without compromising performance.\\
+\textbf{Rationale: }User scalability is essential to accommodate growth in the user base and ensure consistent performance as more users engage with the platform.\\
+\textbf{Fit criterion: }The system must effectively manage a user base increase of at least 10\% annually while maintaining performance metrics defined in the capacity requirements.\\
+
+\noindent\textbf{NFR-PSER2: }The system must handle increasing volumes of data without loss of performance or data integrity.\\
+\textbf{Rationale: }Data scalability ensures that as the volume of stored data grows, the system can still process, retrieve, and manage this data efficiently. This is crucial for maintaining system reliability and providing accurate insights from the collected data.\\
+\textbf{Fit criterion: }The system must manage a data increase of at least 10\% annually.\\
+
+\noindent\textbf{NFR-PSER3: }The system must expand processing capabilities to handle increased computational demands.\\
+\textbf{Rationale: }Processing scalability is vital for ensuring that the system can efficiently perform analyses and computations as the number of users or the complexity of tasks increases. This prevents bottlenecks in data processing and ensures timely results for clinicians.\\
+\textbf{Fit criterion: }The system must increase data processing capacity by at least 2\% without impacting response times for data processing tasks.\\
+
 \subsection{Longevity Requirements}
-\lips
+
+\noindent\textbf{NFR-PLR1: }The system must function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
+\textbf{Rationale: }Ensuring stability during ongoing development is crucial to maintain user trust and provide uninterrupted service. Any major malfunctions could lead to user frustration and potential loss of users, impacting the system's reputation.\\
+\textbf{Fit criterion: }The system must demonstrate a failure rate of less than 1\% in the release build during ongoing development, ensuring that users experience minimal disruptions.\\
+
+\noindent\textbf{NFR-PLR2: }The system must be compatible with major operating systems, including Windows, Mac, Linux, Android, and iOS.\\
+\textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
+\textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.\\
+
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
