@@ -9,6 +9,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{enumerate}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -41,11 +42,11 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Notes}}\\
+\begin{tabularx}{\textwidth}{p{2cm}p{1.5cm}p{3.5cm}X}
+\toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+Oct 3 2024 & 1.0 & Mitchell Weingust, Parisha Nizam & Added Functional Requirements 9.1, 9.2, 9.3 \\
+Oct 4 2024 & 1.1 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
 \bottomrule
 \end{tabularx}
 
@@ -130,9 +131,130 @@ involved in the Project}
 \subsection{Individual Product Use Cases (PUC's)}
 \lips
 
+
 \section{Functional Requirements}
-\subsection{Functional Requirements}
-\lips
+
+\subsection{Authentication}
+\textbf{FR-A1: } The system shall allow a user to choose between a Parent or Clinician account prior to logging in.\\
+\textbf{Rationale: } Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
+\textbf{Fit criterion: } Users must be able to directly select their account type prior to logging in.\\
+
+\textbf{FR-A2: } The system shall allow a user to create a parent account with a unique username which does not exist in the database.\\
+\textbf{Rationale: } Users must be able to create a unique account for parents to login for the assessment.\\
+\textbf{Fit criterion: } Users cannot create accounts with usernames that already exist in the database.\\
+
+\textbf{FR-A3: } The system shall allow a user with admin privilege to create a clinician account with a unique username which does not exist in the database.\\
+\textbf{Rationale: } Admin-Users must be able to create a unique account for clinicians to login to view assessment results. Clinicians need to be approved by Admin-Users to have a clinician account.\\
+\textbf{Fit criterion: } Users cannot create clinician accounts, without admin access, with usernames that already exist in the database.\\
+
+\textbf{FR-A4: } The system shall allow a user with a unique username to login with their corresponding password.\\
+\textbf{Rationale: } Users must be able to login to their account to restrict others from accessing their assessment or assessment results.\\
+\textbf{Fit criterion: } Users must be able to provide the corresponding password to their unique username to login and successfully enter the system.\\
+
+\textbf{FR-A5: } The system shall allow a user to logout.\\
+\textbf{Rationale: } Users must be able to logout of their account to restrict others from accessing their information.\\
+\textbf{Fit criterion: } Users must be able to logout and successfully exit the system.\\
+
+\subsection{System Setup}
+\textbf{FR-SS1: } The system shall allow a user to view information about the assessment.\\
+\textbf{Rationale: } Users must be informed about relevant assessment information prior to starting the hardware checks.\\
+\textbf{Fit criterion: } Users must be able to view information about the assessment upon logging in.\\
+
+\textbf{FR-SS2: } The system shall allow a user to perform an audio hardware check.\\
+\textbf{Rationale: } Users must be able to perform an audio equipment check to ensure their input and output audio devices are functioning.\\
+\textbf{Fit criterion: } Users must be able to verify their audio devices are functioning with the system.\\
+
+\textbf{FR-SS3: } The system shall allow a user to perform a video hardware check.\\
+\textbf{Rationale: } Users must be able to perform an video equipment check to ensure their video capturing device is functioning.\\
+\textbf{Fit criterion: } Users must be able to verify their video capturing device is functioning with the system.\\
+
+\textbf{FR-SS4: } The system shall provide a tutorial for a user to learn the assessment process.\\
+\textbf{Rationale: } Users must be able to walkthrough a tutorial to understand how to properly complete the assessment.\\
+\textbf{Fit criterion: } Users must be brought to the tutorial upon completing the audio and video hardware checks.\\
+
+\textbf{FR-SS5: } The system shall allow a user to start an assessment.\\
+\textbf{Rationale: } Users must be able to decide when they start an assessment.\\
+\textbf{Fit criterion: } Users must be brought to the first assessment question upon starting the assessment.\\
+
+\subsection{Assessment Interface}
+\textbf{FR-AI1: } The system shall record user's audio and video upon starting the assessment.\\
+\textbf{Rationale: } The system must be able to collect audio and video recordings for future analysis.\\
+\textbf{Fit criterion: } The system must indicate to the user that audio and video recordings are ongoing.\\
+
+\textbf{FR-AI2: } The system shall play audio prompts at the beginning of each question.\\
+\textbf{Rationale: } The system must be able to play the respective question's audio to answer the given question.\\
+\textbf{Fit criterion: } The system must successfully play the respective question's audio upon entering a new question.\\
+
+\textbf{FR-AI3: } The system shall display a question's options for a user to select.\\
+\textbf{Rationale: } Users must be able to provide a response to the question's audio for future analysis.\\
+\textbf{Fit criterion: } The system must display the question's respective options upon starting a new question.\\
+
+\textbf{FR-AI4: } The system shall allow a user to select one of the displayed options.\\
+\textbf{Rationale: } Users must be able to select their best option to answer the question.\\
+\textbf{Fit criterion: } The system must indicate to the user their selected response.\\
+
+\textbf{FR-AI5: } The system shall allow a user to confirm their selection.\\
+\textbf{Rationale: } Users must be able to confirm their selection to proceed to the next stage.\\
+\textbf{Fit criterion: } Users must be brought to the next stage upon confirming their selection.\\
+
+\textbf{FR-AI6: } The system shall keep track of the user's current question.\\
+\textbf{Rationale: } The system must be able to keep track of the time the user enters and exits each question, to synchronize with the audio and video recordings.\\
+\textbf{Fit criterion: } The system must store the user's timestamps upon completing each question.\\
+
+\textbf{FR-AI7: } The system shall inform the user about the assessment's completion.\\
+\textbf{Rationale: } The system must inform the user of the test's completion to indicate they can exit the system.\\
+\textbf{Fit criterion: } The user must be informed about the test's completion upon confirming the selection of the final question.\\
+
+\subsection{Data Collection and Storage}
+\textbf{DCS1: }The database shall store multimedia files including video, audio, and JSON format files for each session.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } These file types are necessary to capture the full scope of the speech-language assessment, 
+including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
+timestamps).\\
+\textbf{Fit criterion: } The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
+data per session without data corruption. \\\\
+\textbf{DCS2: }The database shall record the video, audio, flagged occurrences (e.g., errors or critical moments
+ during the assessment), and timestamps for each question asked during the assessment.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
+of patient responses and enables them to review specific moments of interest efficiently.\\
+\textbf{Fit criterion: } The database shall include video and audio files for 100 percent of assessment sessions,
+ and each recording must have flagged occurrences and timestamps associated with every question asked, 
+ retrievable via query. \\\\
+\textbf{DSC3: }The system shall not store any personally identifiable textual information (e.g., patient name, address, 
+or medical record number) in the database.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
+identifying textual information must be excluded from storage in the database.\\
+\textbf{Fit criterion: } ??.\\\\
+\textbf{DSC4: }The database shall group all stored data by a unique user identifier to ensure data can be linked to 
+specific users without storing identifiable information.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Using a unique user identifier allows for data organization and retrieval by patient without 
+compromising patient privacy, supporting the requirement for anonymized data storage.\\
+\textbf{Fit criterion: } The system must assign a unique identifier to every user and confirm through testing 
+that all session data is properly grouped and retrievable under that identifier, with no misassociated data.\\\\
+\textbf{DSC5: }Description.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Insert Rational\\
+\textbf{Fit criterion: } Insert criterion here\\
+
+\subsection{Video and Audio Data Analysis}
+\textbf{VADA1: } Description.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Insert Rational\\
+\textbf{Fit criterion: } Insert criterion here \\\\
+\textbf{VADA2: } The analysis model shall have access to the video recordings of each session for the purpose of processing
+ and analyzing patient speech patterns and behavior.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } The video data contains essential visual and auditory information that the model needs to analyze in order to assess speech-related disturbances and non-verbal cues.\\
+\textbf{Fit criterion: } Insert criterion here \\\\
+
+\subsection{Data Processing and Display}
+\textbf{DPD1: } Description.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: } Insert Rational\\
+\textbf{Fit criterion: } Insert criterion here 
 
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
@@ -142,15 +264,42 @@ involved in the Project}
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
-\lips
+\begin{enumerate}[{UH-EOU}1. ]
+  \item The system shall be intuitive for new users to understand.\\
+  \textbf{Rationale: }New users should not be overwhelmed with the system. New users must be able to understand the system to effectively perform the assessment (parents and children), or view the results (clinicians).\\
+  \textbf{Fit criterion: }The duration between starting the assessment to finishing the first question is less than 2 minutes.
+  \item The system shall provide detailed instructions on how to use key features of the application, along with its purpose.\\
+  \textbf{Rationale: }The system will provide relevant important information about the assessment so the user is informed about the system's usage.\\ 
+  \textbf{Fit criterion: }The system will direct the user to additional information prior to starting the setup process, and upon completion of the assessment.
+\end{enumerate}
 \subsection{Personalization and Internationalization Requirements}
-\lips
+\begin{enumerate}[{UH-PI}1. ]
+  \item The system shall support multiple languages.\\
+  \textbf{Rationale: }The assessment must be conducted in two languages for the purpose of the research study.\\
+  \textbf{Fit criterion: }The assessment will always be available to be conducted in two different languages (within a single assessment).
+\end{enumerate}
 \subsection{Learning Requirements}
-\lips
+\begin{enumerate}[{UH-LI}1. ]
+  \item The system shall not require additional resources to be navigated.\\
+  \textbf{Rationale: }The system should be intuitive to navigate without additional information to simplify the assessment process.\\
+  \textbf{Fit criterion: }All information required for the assessment will be directly displayed by the system.
+  \item The system shall include a user-guide for additional usage information.\\
+  \textbf{Rationale: }User documentation can be helpful for troubleshooting and maintenance should problems arise. This document is optional and not required reading for the user's interactions with the system.\\
+  \textbf{Fit criterion: }User documentation will be provided on the team's GitHub upon project completion.
+\end{enumerate}
 \subsection{Understandability and Politeness Requirements}
-\lips
+\begin{enumerate}[{UH-UP}1. ]
+  \item The system will not use technical language when displaying information to the user.\\
+  \textbf{Rationale: }The system will be designed for parents and children to participate in assessments, thus the system should make information easily understandable.\\
+  As well, clinicians may not have a technological background, so any technical aspects should be communicated in easy to understand terms.\\
+  \textbf{Fit criterion: }The system will be reviewed by the team's supervisor and their collaborator to verify all language used is appropriate for users.
+\end{enumerate}
 \subsection{Accessibility Requirements}
-\lips
+\begin{enumerate}[{UH-A}1. ]
+  \item The system shall be simple and intuitive for assessment interactions with children.\\
+  \textbf{Rationale: }Children interacting with the assessment can vary in age and cognitive abilities. To get reliable assessment results, the children participating must understand the system they interact with.\\
+  \textbf{Fit criterion: }The assessment will feature minimal display elements, with clear indication of interactions.
+\end{enumerate}
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
@@ -170,15 +319,34 @@ involved in the Project}
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\lips
+\begin{enumerate}[{OE-EPE}1. ]
+  \item The system can be run on all browser-supported devices regardless of screen sizes.\\
+  \textbf{Rationale: }The system will be run on a variety of devices through web browsers, and should adapt the different screen sizes so users get full functionality.\\
+  \textbf{Fit criterion: }The system's displayed elements will scale appropriately to different screen sizes.
+\end{enumerate}
 \subsection{Wider Environment Requirements}
-\lips
+\begin{enumerate}[{OE-WE}1. ]
+  \item The system shall be used in a quiet environment.\\
+  \textbf{Rationale: }The system will be performing audio and video analysis, and conducting the assessment in a loud or busy environment could lead to unexpected results due to noise.\\
+  \textbf{Fit criterion: }The system will inform the user, prior to setup, that the optimal experience for the assessment is in a quiet environment. 
+  \item The system shall be used with an internet connection.\\
+  \textbf{Rationale: }The assessment will be conducted online, and not saved locally on the user's device. Therefore, an internet connection is required.\\
+  \textbf{Fit criterion: }The system will be accessed online. The system will inform the user, prior to setup, that the assessment will be conducted online, and no files will be downloaded to their device for the assessment. 
+\end{enumerate}
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\lips
+\begin{enumerate}[{OE-IA}1. ]
+  \item The system shall be hosted on an external server for retrieving and storing data.\\
+  \textbf{Rationale: }The supervisor's collaborator is running the current system on an external server, which the new system will utilize.\\
+  \textbf{Fit criterion: }The system (including the assessment) will be published and accessed through the external server.
+\end{enumerate}
 \subsection{Productization Requirements}
-\lips
+\begin{enumerate}[{OE-P}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Release Requirements}
-\lips
+\begin{enumerate}[{OE-R}1. ]
+  \item N/A
+\end{enumerate}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
@@ -190,15 +358,46 @@ involved in the Project}
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\lips
+\begin{enumerate}[{SR-AC}1. ]
+  \item Only users with an Admin role can create and assign accounts to clinicians.\\
+  \textbf{Rationale: }Full access of the system and permissions including creating clinician accounts should only be available to admin roles by the system. \\
+  \textbf{Fit criterion: }Admin users will have full access to the system including create clinician accounts, viewing data records, and starting assessments. 
+  \item Users with parent roles can complete assessments.\\
+  \textbf{Rationale: }Users with a parent role should have the ability to create accounts and complete assessments with their children on the system.\\
+  \textbf{Fit criterion: }Users with parent roles will only be able to create a parent account, login to the system, have access to completing the assessments, and logging off the system 
+  \item Users with clinician roles can view assessment results.\\
+  \textbf{Rationale: }Clinicians must be able to see all video and audio recordings of completed assessments, as well as the analyzed results from the system to aid in their research. \\
+  \textbf{Fit criterion: }User with a clinician role will not be able to log in to a parent account and start/complete assessments. 
+  \item Users shall input their username and password to securely login.\\
+  \textbf{Rationale: }Users should be able to securely login by inputting their login credentials to ensure to prevent unauthorized access. \\
+  \textbf{Fit criterion: }A user should not be able to login to an account they do not have the required credentials for.
+\end{enumerate}
 \subsection{Integrity Requirements}
-\lips
+\begin{enumerate}[{SR-INT}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Privacy Requirements}
-\lips
+\begin{enumerate}[{SR-P}1. ]
+  \item The system shall adhere to all data protection and privacy laws in the region its used.\\
+  \textbf{Rationale: }The system will respect the privacy and confidentiality of all users to adhere to all applicable protection laws.\\
+  \textbf{Fit criterion: }The system will be reviewed prior to public release to ensure it follows all applicable protection laws
+  \item The system shall encrypt all sensitive data in transit and at rest to keep data confidential.\\
+  \textbf{Rationale: }The system should encrypt sensitive data at all times to ensure high level of security to protect user information from potential data footage leaks, and unauthorized access \\
+  \textbf{Fit criterion: }Data follows the standard encryption protocol at all times; data is encrypted when in transit and only decrypted when viewed by clinician user for analysis purposes.
+  \item The system shall not collect any personal identifiable information from the user.\\
+  \textbf{Rationale: }The system should not collect any personal identifiable information to ensure confidentially of all video and audio recordings associated with the user. \\
+  \textbf{Fit criterion: }The system does not store any personal identifiable information. All data stored includes, username, and data/audio recordings only. 
+\end{enumerate}
 \subsection{Audit Requirements}
-\lips
+\begin{enumerate}[{SR-AU}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Immunity Requirements}
-\lips
+\begin{enumerate}[{SR-IM}1. ]
+  \item The system must mandate strong passwords.\\
+  \textbf{Rationale: }The system must require a strong password mandate to secure user accounts from unauthorized access.\\
+  \textbf{Fit criterion: }The system will complete account creation upon entering a valid password that follows the specified mandate. 
+\end{enumerate}
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
@@ -206,9 +405,16 @@ involved in the Project}
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
-\lips
+\begin{enumerate}[{CR-LR}1. ]
+  \item N/A
+\end{enumerate}
 \subsection{Standards Compliance Requirements}
-\lips
+\begin{enumerate}[{CR-STD}1. ]
+  \item The system shall use security measures to protect all stored user assessment data.\\
+  \textbf{Rationale: }The system must use strong security measures to protect sensitive and confidential user information including collected video and audio recordings from assessment results to ensure privacy and integrity.\\
+  \textbf{Fit criterion: }All stored user assessment data is only associated with a username. 
+
+\end{enumerate}
 
 \section{Open Issues}
 \lips
