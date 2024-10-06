@@ -8,6 +8,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{enumerate} 
 \usepackage{hyperref}
 \usepackage{enumerate}
 \hypersetup{
@@ -46,7 +47,10 @@
 \toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
 \midrule
 Oct 3 2024 & 1.0 & Mitchell Weingust, Parisha Nizam & Added Functional Requirements 9.1, 9.2, 9.3 \\
-Oct 4 2024 & 1.1 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
+Oct 3 2024 & 1.1 & Promish Kandel, Jasmine Sun-Hu & Added Functional Requirements 9.4,9.5,9.6, and sections 1,3,5\\
+Oct 4 2024 & 1.2 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
+Oct 4 2024 & 1.3 & Jasmine Sun-Hu & Added Nonfunctional Requirements 10,14,16\\
+Oct 5 2024 & 1.4 & Promish Kandel & Added Nonfunctional Requirements 12\\
 \bottomrule
 \end{tabularx}
 
@@ -55,9 +59,47 @@ Oct 4 2024 & 1.1 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requi
 ~\newpage
 \section{Purpose of the Project}
 \subsection{User Business}
-\lips
+\hspace{2em}The project being outlined in this document is an at-home bilingual speech 
+assessment system with video and audio analysis features. The system is designed 
+to provide clear guidance to parents when administering the assessment to their 
+children, in an environment where speech-language pathologists (SLPs) are 
+unavailable. By streamlining the assessment process, the project aims to provide a 
+convenient and comprehensive solution for SLPs to assess and support their patients'
+speech and language development remotely. 
 \subsection{Goals of the Project}
-\lips
+\begin{itemize}
+  \item[1.2.1] \textbf{Intuitive Parent Interface:}  
+  The system must provide an intuitive interface that helps parents administer 
+  language assessments effectively. It should be easy to navigate with clear and 
+  meaningful symbols, and it must provide real-time feedback to ensure parents are 
+  aware their interactions are being processed throughout the assessment.
+
+  \item[1.2.2] \textbf{Engaging Child Interaction:}  
+  The system must feature an engaging interface for children to keep them attentive 
+  during the assessment. The design should be simple yet visually appealing, using 
+  colors and images to attract the child’s attention to the questions and selections,
+  ensuring that children remain engaged throughout the assessment.
+
+  \item[1.2.3] \textbf{Reliable Assessment Data for SLPs:}  
+  The system must provide reliable and accurate assessment data for speech-language 
+  pathologists (SLPs) by capturing additional contextual data. This includes 
+  identifying background interference, signs of bias, and potential test 
+  complications. The system should also filter out noise and detect multiple users 
+  to prevent external guidance from affecting the assessment results.
+
+  \item[1.2.4] \textbf{Data Security:}  
+  The system must ensure that all sensitive health and personal data is securely 
+  stored and accessed. It should implement a strong security protocol to securely 
+  store, retrieve, and manage sensitive data, ensuring the privacy and confidentiality
+  of the users.
+
+  \item[1.2.5] \textbf{Cross-Platform Compatibility:}  
+  The system must provide cross-platform compatibility, ensuring that it functions 
+  seamlessly across different devices and screen sizes. It should be accessible to 
+  both parents and children, rendering correctly on all screen formats, whether on 
+  phones, tablets, or desktops.
+\end{itemize}
+
 \section{Stakeholders}
 \subsection{Client}
 \lips
@@ -78,21 +120,50 @@ Oct 4 2024 & 1.1 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requi
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
-\lips
+\begin{itemize}
+  \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
+  \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security.
+  \item[3.1.3] Access to the platform must be restricted to authorized users, with secure authentication processes in place.
+  \item[3.1.4] The system must be capable of scaling to accommodate an increasing number of users and growing data storage needs as the client expands.
+  \item[3.1.5] The platform must support assessment sessions of up to at least 30 minutes to align with standard telehealth consultation times.
+  \item[3.1.6] The platform must support adaptable video and audio quality based on internet bandwidth, ensuring clarity and reliability during assessments.
+  \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs.
+  \item[3.1.8] Patient records must be retained for a minimum of 7 years from the last visit or at least 1 year after the patient turns 18, whichever is 
+  longer, in accordance with California law.
+\end{itemize}
 \subsection{Implementation Environment of the Current System}
-\lips
+\begin{itemize}
+  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security.
+  \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
+  infrastructure.
+\end{itemize}
 \subsection{Partner or Collaborative Applications}
-\lips
+\begin{itemize}
+  \item[3.3.1] The platform must be capable of exporting data as an Excel file, allowing for easy sharing, analysis, and compatibility with other systems
+  that clinicians may use for data processing.
+\end{itemize}
 \subsection{Off-the-Shelf Software}
-\lips
+\begin{itemize}
+  \item[3.4.1] \color{red} There are no mandated off-the-shelf software constraints. \color{black}
+\end{itemize}
 \subsection{Anticipated Workplace Environment}
-\lips
+\begin{itemize}
+  \item[3.5.1] The platform must be compatible across a range of devices, including desktops, tablets, and mobile phones.
+\end{itemize}
 \subsection{Schedule Constraints}
-\lips
+\begin{itemize}
+  \item[3.6.1] The proof-of-concept shall be complete and demonstrated between Nov. 11-22, 2024.
+  \item[3.6.2] Revision 0 of the project shall be complete and demonstrated between February 3-14, 2025.
+  \item[3.6.3] The final product shall be complete and demonstrated between March 24-30, 2025.
+\end{itemize}
 \subsection{Budget Constraints}
-\lips
+\begin{itemize}
+  \item[3.7.1] The project budget must not exceed \$750 CAD. 
+\end{itemize}
 \subsection{Enterprise Constraints}
-\lips
+\begin{itemize}
+  \item[3.8.1] \color{red} There are no mandated enterprise constraints. \color{black}
+\end{itemize}
 
 \section{Naming Conventions and Terminology}
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
@@ -101,11 +172,35 @@ involved in the Project}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
-\lips
+\begin{itemize}
+  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA, ensuring that patient data is securely stored and managed.
+  \item[5.1.2] The client has requested a web-based platform, indicating a preference for accessibility without the need for specialized 
+  software installations.
+  \item[5.1.3] The platform will have two primary user roles. The clinicians who perform assessments and review results and the parents who 
+  administer the assessment to their children who are the patients.
+\end{itemize}
 \subsection{Business Rules}
-\lips
+\begin{itemize}
+  \item[5.2.1] Only authorized users (clinicians) can access patient data.
+  \item[5.2.2] Patient records must be retained for at least 7 years from the last visit, or 1 year after the patient turns 18, whichever is longer, 
+  to comply with California state law.
+  \item[5.2.3] The platform must comply with WCAG 2.1 to ensure it is accessible to users with disabilities.
+  \item[5.2.4] All patient data must be encrypted both in transit and at rest to maintain confidentiality and meet regulatory standards.
+  \item[5.2.5] The platform must generate reports based on assessment data, which can be reviewed and stored within the system 
+  \item[5.2.6] Video and audio recordings must automatically adjust to optimize based on internet bandwidth, ensuring quality without excessive 
+  buffering or latency.
+\end{itemize}
 \subsection{Assumptions}
-\lips
+\begin{itemize}
+  \item[5.3.1] All users of the system have reliable internet connections that can support telehealth video sessions.
+  \item[5.3.2] All patient data will be stored on servers located in regions that comply with healthcare data residency regulations.
+  \item[5.3.3] The platform is assumed to be accessible from various devices (desktops, tablets, mobile phones), though it may perform optimally on 
+  desktops.
+  \item[5.3.4] Assessments will not exceed 30 minutes per session to fit standard telehealth consultation times.
+  \item[5.3.5] It is assumed that users (both clinicians and patients) have a basic level of comfort with using web applications and online 
+  communication tools.
+  \item[5.3.6] The platform may need to accommodate additional users and storage demands as the client scales its telehealth services over time.
+\end{itemize}
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
@@ -135,132 +230,181 @@ involved in the Project}
 \section{Functional Requirements}
 
 \subsection{Authentication}
-\textbf{FR-A1: } The system shall allow a user to choose between a Parent or Clinician account prior to logging in.\\
-\textbf{Rationale: } Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
-\textbf{Fit criterion: } Users must be able to directly select their account type prior to logging in.\\
+\textbf{FR-A1: }The system shall allow a user to choose between a Parent or Clinician account prior to logging in.\\
+\textbf{Rationale: }Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
+\textbf{Fit criterion: }Users must be able to directly select their account type prior to logging in.\\
 
-\textbf{FR-A2: } The system shall allow a user to create a parent account with a unique username which does not exist in the database.\\
-\textbf{Rationale: } Users must be able to create a unique account for parents to login for the assessment.\\
-\textbf{Fit criterion: } Users cannot create accounts with usernames that already exist in the database.\\
+\textbf{FR-A2: }The system shall allow a user to create a parent account with a unique username which does not exist in the database.\\
+\textbf{Rationale: }Users must be able to create a unique account for parents to login for the assessment.\\
+\textbf{Fit criterion: }Users cannot create accounts with usernames that already exist in the database.\\
 
-\textbf{FR-A3: } The system shall allow a user with admin privilege to create a clinician account with a unique username which does not exist in the database.\\
-\textbf{Rationale: } Admin-Users must be able to create a unique account for clinicians to login to view assessment results. Clinicians need to be approved by Admin-Users to have a clinician account.\\
-\textbf{Fit criterion: } Users cannot create clinician accounts, without admin access, with usernames that already exist in the database.\\
+\textbf{FR-A3: }The system shall allow a user with admin privilege to create a clinician account with a unique username which does not exist in the database.\\
+\textbf{Rationale: }Admin-Users must be able to create a unique account for clinicians to login to view assessment results. Clinicians need to be approved by Admin-Users to have a clinician account.\\
+\textbf{Fit criterion: }Users cannot create clinician accounts, without admin access, with usernames that already exist in the database.\\
 
-\textbf{FR-A4: } The system shall allow a user with a unique username to login with their corresponding password.\\
-\textbf{Rationale: } Users must be able to login to their account to restrict others from accessing their assessment or assessment results.\\
-\textbf{Fit criterion: } Users must be able to provide the corresponding password to their unique username to login and successfully enter the system.\\
+\textbf{FR-A4: }The system shall allow a user with a unique username to login with their corresponding password.\\
+\textbf{Rationale: }Users must be able to login to their account to restrict others from accessing their assessment or assessment results.\\
+\textbf{Fit criterion: }Users must be able to provide the corresponding password to their unique username to login and successfully enter the system.\\
 
-\textbf{FR-A5: } The system shall allow a user to logout.\\
-\textbf{Rationale: } Users must be able to logout of their account to restrict others from accessing their information.\\
-\textbf{Fit criterion: } Users must be able to logout and successfully exit the system.\\
+\textbf{FR-A5: }The system shall allow a user to logout.\\
+\textbf{Rationale: }Users must be able to logout of their account to restrict others from accessing their information.\\
+\textbf{Fit criterion: }Users must be able to logout and successfully exit the system.\\
 
 \subsection{System Setup}
-\textbf{FR-SS1: } The system shall allow a user to view information about the assessment.\\
-\textbf{Rationale: } Users must be informed about relevant assessment information prior to starting the hardware checks.\\
-\textbf{Fit criterion: } Users must be able to view information about the assessment upon logging in.\\
+\textbf{FR-SS1: }The system shall allow a user to view information about the assessment.\\
+\textbf{Rationale: }Users must be informed about relevant assessment information prior to starting the hardware checks.\\
+\textbf{Fit criterion: }Users must be able to view information about the assessment upon logging in.\\
 
-\textbf{FR-SS2: } The system shall allow a user to perform an audio hardware check.\\
-\textbf{Rationale: } Users must be able to perform an audio equipment check to ensure their input and output audio devices are functioning.\\
-\textbf{Fit criterion: } Users must be able to verify their audio devices are functioning with the system.\\
+\textbf{FR-SS2: }The system shall allow a user to perform an audio hardware check.\\
+\textbf{Rationale: }Users must be able to perform an audio equipment check to ensure their input and output audio devices are functioning.\\
+\textbf{Fit criterion: }Users must be able to verify their audio devices are functioning with the system.\\
 
-\textbf{FR-SS3: } The system shall allow a user to perform a video hardware check.\\
-\textbf{Rationale: } Users must be able to perform an video equipment check to ensure their video capturing device is functioning.\\
-\textbf{Fit criterion: } Users must be able to verify their video capturing device is functioning with the system.\\
+\textbf{FR-SS3: }The system shall allow a user to perform a video hardware check.\\
+\textbf{Rationale: }Users must be able to perform an video equipment check to ensure their video capturing device is functioning.\\
+\textbf{Fit criterion: }Users must be able to verify their video capturing device is functioning with the system.\\
 
-\textbf{FR-SS4: } The system shall provide a tutorial for a user to learn the assessment process.\\
-\textbf{Rationale: } Users must be able to walkthrough a tutorial to understand how to properly complete the assessment.\\
-\textbf{Fit criterion: } Users must be brought to the tutorial upon completing the audio and video hardware checks.\\
+\textbf{FR-SS4: }The system shall provide a tutorial for a user to learn the assessment process.\\
+\textbf{Rationale: }Users must be able to walkthrough a tutorial to understand how to properly complete the assessment.\\
+\textbf{Fit criterion: }Users must be brought to the tutorial upon completing the audio and video hardware checks.\\
 
-\textbf{FR-SS5: } The system shall allow a user to start an assessment.\\
-\textbf{Rationale: } Users must be able to decide when they start an assessment.\\
-\textbf{Fit criterion: } Users must be brought to the first assessment question upon starting the assessment.\\
+\textbf{FR-SS5: }The system shall allow a user to start an assessment.\\
+\textbf{Rationale: }Users must be able to decide when they start an assessment.\\
+\textbf{Fit criterion: }Users must be brought to the first assessment question upon starting the assessment.\\
 
 \subsection{Assessment Interface}
-\textbf{FR-AI1: } The system shall record user's audio and video upon starting the assessment.\\
-\textbf{Rationale: } The system must be able to collect audio and video recordings for future analysis.\\
-\textbf{Fit criterion: } The system must indicate to the user that audio and video recordings are ongoing.\\
+\textbf{FR-AI1: }The system shall record user's audio and video upon starting the assessment.\\
+\textbf{Rationale: }The system must be able to collect audio and video recordings for future analysis.\\
+\textbf{Fit criterion: }The system must indicate to the user that audio and video recordings are ongoing.\\
 
-\textbf{FR-AI2: } The system shall play audio prompts at the beginning of each question.\\
-\textbf{Rationale: } The system must be able to play the respective question's audio to answer the given question.\\
-\textbf{Fit criterion: } The system must successfully play the respective question's audio upon entering a new question.\\
+\textbf{FR-AI2: }The system shall play audio prompts at the beginning of each question.\\
+\textbf{Rationale: }The system must be able to play the respective question's audio to answer the given question.\\
+\textbf{Fit criterion: }The system must successfully play the respective question's audio upon entering a new question.\\
 
-\textbf{FR-AI3: } The system shall display a question's options for a user to select.\\
-\textbf{Rationale: } Users must be able to provide a response to the question's audio for future analysis.\\
-\textbf{Fit criterion: } The system must display the question's respective options upon starting a new question.\\
+\textbf{FR-AI3: }The system shall display a question's options for a user to select.\\
+\textbf{Rationale: }Users must be able to provide a response to the question's audio for future analysis.\\
+\textbf{Fit criterion: }The system must display the question's respective options upon starting a new question.\\
 
-\textbf{FR-AI4: } The system shall allow a user to select one of the displayed options.\\
-\textbf{Rationale: } Users must be able to select their best option to answer the question.\\
-\textbf{Fit criterion: } The system must indicate to the user their selected response.\\
+\textbf{FR-AI4: }The system shall allow a user to select one of the displayed options.\\
+\textbf{Rationale: }Users must be able to select their best option to answer the question.\\
+\textbf{Fit criterion: }The system must indicate to the user their selected response.\\
 
-\textbf{FR-AI5: } The system shall allow a user to confirm their selection.\\
-\textbf{Rationale: } Users must be able to confirm their selection to proceed to the next stage.\\
-\textbf{Fit criterion: } Users must be brought to the next stage upon confirming their selection.\\
+\textbf{FR-AI5: }The system shall allow a user to confirm their selection.\\
+\textbf{Rationale: }Users must be able to confirm their selection to proceed to the next stage.\\
+\textbf{Fit criterion: }Users must be brought to the next stage upon confirming their selection.\\
 
-\textbf{FR-AI6: } The system shall keep track of the user's current question.\\
-\textbf{Rationale: } The system must be able to keep track of the time the user enters and exits each question, to synchronize with the audio and video recordings.\\
-\textbf{Fit criterion: } The system must store the user's timestamps upon completing each question.\\
+\textbf{FR-AI6: }The system shall keep track of the user's current question.\\
+\textbf{Rationale: }The system must be able to keep track of the time the user enters and exits each question, to synchronize with the audio and video recordings.\\
+\textbf{Fit criterion: }The system must store the user's timestamps upon completing each question.\\
 
-\textbf{FR-AI7: } The system shall inform the user about the assessment's completion.\\
-\textbf{Rationale: } The system must inform the user of the test's completion to indicate they can exit the system.\\
-\textbf{Fit criterion: } The user must be informed about the test's completion upon confirming the selection of the final question.\\
+\textbf{FR-AI7: }The system shall inform the user about the assessment's completion.\\
+\textbf{Rationale: }The system must inform the user of the test's completion to indicate they can exit the system.\\
+\textbf{Fit criterion: }The user must be informed about the test's completion upon confirming the selection of the final question.\\
 
 \subsection{Data Collection and Storage}
 \textbf{DCS1: }The database shall store multimedia files including video, audio, and JSON format files for each session.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } These file types are necessary to capture the full scope of the speech-language assessment, 
+\textbf{Rationale: }These file types are necessary to capture the full scope of the speech-language assessment, 
 including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
 timestamps).\\
-\textbf{Fit criterion: } The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
+\textbf{Fit criterion: }The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
 data per session without data corruption. \\\\
 \textbf{DCS2: }The database shall record the video, audio, flagged occurrences (e.g., errors or critical moments
  during the assessment), and timestamps for each question asked during the assessment.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
+\textbf{Rationale: }Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
 of patient responses and enables them to review specific moments of interest efficiently.\\
-\textbf{Fit criterion: } The database shall include video and audio files for 100 percent of assessment sessions,
+\textbf{Fit criterion: }The database shall include video and audio files for 100 percent of assessment sessions,
  and each recording must have flagged occurrences and timestamps associated with every question asked, 
  retrievable via query. \\\\
 \textbf{DSC3: }The system shall not store any personally identifiable textual information (e.g., patient name, address, 
 or medical record number) in the database.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
+\textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
 identifying textual information must be excluded from storage in the database.\\
-\textbf{Fit criterion: } ??.\\\\
+\textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
+accessible by clinicians are anonymized and contain no identifying textual information.\\\\
 \textbf{DSC4: }The database shall group all stored data by a unique user identifier to ensure data can be linked to 
 specific users without storing identifiable information.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Using a unique user identifier allows for data organization and retrieval by patient without 
+\textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
 compromising patient privacy, supporting the requirement for anonymized data storage.\\
-\textbf{Fit criterion: } The system must assign a unique identifier to every user and confirm through testing 
-that all session data is properly grouped and retrievable under that identifier, with no misassociated data.\\\\
-\textbf{DSC5: }Description.\\
-\textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here\\
+\textbf{Fit criterion: }The system must assign a unique identifier to every user and confirm through testing 
+that 100\% of session data is properly grouped and retrievable under that identifier, with no unassociated 
+data.\\\\
 
 \subsection{Video and Audio Data Analysis}
-\textbf{VADA1: } Description.\\
+\textbf{FR-VADA1: }The analysis model shall have access to the video and audio recordings of each session.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here \\\\
-\textbf{VADA2: } The analysis model shall have access to the video recordings of each session for the purpose of processing
- and analyzing patient speech patterns and behavior.\\
+\textbf{Rationale: }The data contains essential visual and auditory information that can help clinicians 
+efficiently assess any speech-related disturbances and non-verbal cues.\\
+\textbf{Fit criterion: }The model must successfully retrieve and process video data from 100\% of 
+completed assessment sessions without encountering data access errors.\\\\
+\textbf{FR-VADA2: }The analysis model shall identify speech disturbances, including interruptions, parental 
+assistance on the assessment, or other irregularities in the background.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } The video data contains essential visual and auditory information that the model needs to analyze in order to assess speech-related disturbances and non-verbal cues.\\
-\textbf{Fit criterion: } Insert criterion here \\\\
+\textbf{Rationale: }Detecting disturbances is critical for accurate assessment of speech disorders without 
+bias so that clinicians and speech language pathologists can accurately provide diagnosis and treatment.\\
+\textbf{Fit criterion: }The model must accurately identify and log at least 95\% of speech disturbances 
+from a set of test videos, validated against human observations.\\\\
+\textbf{FR-VADA3: }The system shall flag detected disturbances and associate them with specific timestamps in the 
+video recordings.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Flagging disturbances and marking the exact points where they occur enables clinicians and 
+speech-language pathologists to quickly review the relevant portions of the assessment, reducing the time needed 
+for manual analysis.\\
+\textbf{Fit criterion: }For each session, the model must accurately attach time stamps to disturbances
+identified in VADA2 with at least 95\% accuracy.\\\\
 
 \subsection{Data Processing and Display}
-\textbf{DPD1: } Description.\\
+\textbf{FR-DPD1: }The system shall retrieve processed assessment results from the database for report generation.\\
 \textit{Insert formal Specification}\\
-\textbf{Rationale: } Insert Rational\\
-\textbf{Fit criterion: } Insert criterion here 
+\textbf{Rationale: }In order to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
+\textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 10 seconds of a query being made.\\
+\\
+\noindent\textbf{FR-DPD2: }The system shall automatically generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
+\textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within 10 seconds of the request.\\
+\\
+\noindent\textbf{FR-DPD3: }The system shall display the generated report in a user-friendly format, accessible through the platform’s interface.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Clinicians need to be able to easily view and interpret the report to assess patient progress and determine next steps for therapy.\\
+\textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.\\
+\\
+\noindent\textbf{FR-DPD4: }The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
+\textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.\\
+\\
+\noindent\textbf{FR-DPD5: }Clinicians shall be able to securely access previously generated reports from the database at any time.\\
+\textit{Insert formal Specification}\\
+\textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
+\textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.\\
 
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
-\lips
+\textbf{NFR-LFA1: }The platform should maintain a modern, organized, and visually appealing design that looks clean and professional, while not overwhelming users with unnecessary clutter.\\
+\textbf{Rationale: }A clean layout reduces cognitive load, making it easier for users to use the platform effectively without distractions.\\
+\textbf{Fit criterion: }The user interface must contain no more than three levels of navigation depth and present no more than six major options per screen.\\\\
+\textbf{NFR-LFA2: }The platform’s navigation should be intuitive and allow users to quickly understand how to move between different sections.\\
+\textbf{Rationale: }Simple, user-friendly navigation ensures that users can move through the system without confusion, especially since the platform will be used by both children and adults.\\
+\textbf{Fit criterion: }100\% of users in user testing must be able to perform core tasks (like starting an assessment, viewing results) within five clicks or less without guidance.\\\\
+\textbf{NFR-LFA3: }The design should use calming colors and neutral tones to create a reassuring environment that is not visually overstimulating for children.\\
+\textbf{Rationale: }Children undergoing assessments may feel anxious; a calming design helps create a more comfortable and welcoming environment.\\
+\textbf{Fit criterion: }The design must use a maximum of three main colors, with a focus on neutral and pastel tones. User feedback from child participants should reflect a calm and non-stressful experience.\\\\
+\textbf{NFR-LFA4: }The assessment interface should be designed to be easily understood by children, with large buttons, simple instructions, and child-friendly imagery.\\
+\textbf{Rationale: }A simple design tailored to children’s comprehension levels ensures they can participate in the assessment without confusion or frustration.\\
+\textbf{Fit criterion: }In user testing, 95\% of children aged 6-12 must be able to complete a sample assessment without adult assistance.\\\\
+\textbf{NFR-LFA5: }The platform should provide immediate visual or audio feedback for all user interactions, such as clicking buttons, completing tasks, or submitting assessments.\\
+\textbf{Rationale: }Feedback is important to confirm that the system is responding to user inputs, which is especially critical for children who may be unsure if their actions have been registered.\\
+\textbf{Fit criterion: }100\% of user interactions (such as form submissions, button presses) must trigger an appropriate feedback response (e.g., color change, message confirmation) within 0.5 seconds.\\\\
 \subsection{Style Requirements}
-\lips
+\textbf{NFR-LFS1: }The design should maintain consistency across all pages in terms of colors, fonts, button styles, and overall layout to create a cohesive user experience.\\
+\textbf{Rationale: }Consistency in design elements helps reduce user confusion, making the platform easier to navigate and more aesthetically pleasing.\\
+\textbf{Fit criterion: }All visual elements must adhere to a style guide, ensuring consistent use of color, typography, and spacing across 100\% of the platform’s pages.\\\\
+\textbf{NFR-LFS2: }The design should align with the client's established company brand guidelines, including the use of specific colors, logos, or fonts.\\
+\textbf{Rationale: }Aligning with brand guidelines ensures that the platform reflects the client's professional image and maintains brand integrity.\\
+\textbf{Fit criterion: }100\% of the platform’s design elements must comply with the client’s branding guidelines as provided in the design brief.\\\\
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
@@ -303,19 +447,100 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
-\lips
+\noindent\textbf{NFR-PSLR1: }The system shall load web pages within 3 seconds of navigating to it.\\
+\textbf{Rationale: }Fast page loading is critical for maintaining user engagement and reducing user frustrations during the assessment process.\\
+\textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the 3 seconds of navigation on a standard broadband internet connection.\\
+
+\noindent\textbf{NFR-PSLR2: }The system must maintain video and audio recording latency of less than 1 second to support accurate data capture for speech assessment.\\
+\textbf{Rationale: }Having high latency could lead to desynchronization between audio and video, causing errors in the timestamps or making it difficult for speech-language pathologists (SLPs) to analyze the recordings properly.\\
+\textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed 1 second. \\
+
+\noindent\textbf{NFR-PSLR3: }The system must ensure that all video recordings are captured in a resolution of at least 720p.\\
+\textbf{Rationale: }A minimum resolution of 720p is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
+\textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of 720p.\\
+
+\noindent\textbf{NFR-PSLR4: }The system must process the data from a session and generate a report within 10 seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
+\textbf{Rationale: }Generating the assessment reports for clinicians under 10 seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
+\textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within 10 seconds\\
+
 \subsection{Safety-Critical Requirements}
-\lips
+\color{red} N/A. \color{black}
 \subsection{Precision or Accuracy Requirements}
-\lips
+
+\noindent\textbf{NFR-PPAR1: }The system must achieve a audio analysis accuracy of at least 95\% to ensure reliable assessment results for clinicians.\\
+\textbf{Rationale: }It is imporant that the audio analysis accuracy has a high percision rate. Without this level of percision, clinicians could 
+be mislead by inaccurate results affecting the quality of diagnosis and subsequent treatment.\\
+\textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of 95\%.\\
+
+\noindent\textbf{NFR-PPAR2: }The system must detect video disturbances with an accuracy of at least 90\% to minimize the impact of visual issues on the assessment data.\\
+\textbf{Rationale: }Detecting video disturbances with 90\% accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
+\textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed 90\%.\\
+
+\noindent\textbf{NFR-PPAR3: }The system must ensure that timestamp accuracy is within 1 second to align recorded events with real-time actions for precise analysis.\\
+\textbf{Rationale: }Timestamp accuracy within 1 second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
+\textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a 1-second window, verifying that all events are accurately synchronized.\\
+
+\noindent\textbf{NFR-PPAR4: }The system must guarantee 100\% accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
+\textbf{Rationale: }Any errors in the answer key could lead to misinterpretation of a child’s abilities or progress, undermining the purpose of the assessment.\\
+\textbf{Fit criterion: }The assessment answer key will be manually be verified to ensure that ti contatins no inaccuracies, ensuring complete correctness of answers.\\
+
+\noindent\textbf{NFR-PPAR5: }The system must ensure that all questions are 100\% relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
+\textbf{Rationale: }Ensuring that all questions are fully relevant to the platform’s purpose guarantees that the assessment focuses only on aspects critical to speech and language development. Irrelevant questions could confuse users and divert attention from important areas.\\
+\textbf{Fit criterion: }All assessment questions will be manual reviewed to confirm that they align perfectly with the platform's objectives.\\
+
 \subsection{Robustness or Fault-Tolerance Requirements}
-\lips
+
+\noindent\textbf{NFR-PRFTR1: }The system must manage errors effectively and provide clear feedback to users when issues occur\\
+\textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand what went wrong, leading to frustration.\\
+\textbf{Fit criterion: }The system must display error messages for at least 95\% of common user errors.\\
+
+\noindent\textbf{NFR-PRFTR2: }The system must implement data backup and recovery processes to protect user data and assessment results.\\
+\textbf{Rationale: }Effective backup and recovery ensure that user data is not lost during a system failure. Data loss could disrupt assessments and treatment plans.\\
+\textbf{Fit criterion: }The system must back up data on the first of every month within a 4hr timeframe.\\
+
+\noindent\textbf{NFR-PRFTR3: }The system must validate inputs to accept only specified formats during user interactions.\\
+\textbf{Rationale: }Strict input validation prevents errors and enhances data integrity. It also protects the system from malicious inputs that could cause issues.\\
+\textbf{Fit criterion: }The system must reject 100\% of invalid inputs and display appropriate error messages to users.\\
+
 \subsection{Capacity Requirements}
-\lips
+
+\noindent\textbf{NFR-PCR1: }The system must accommodate a minimum of 2000 user accounts at launch.\\
+\textbf{Rationale: }Supporting at least 2000 user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
+\textbf{Fit criterion: }The system must successfully manage 2000 user accounts at deployment without stability issues.\\
+
+\noindent\textbf{NFR-PCR2: }The system must have the capacity to store a minimum of 10TB of data each year.\\
+\textbf{Rationale: }Storing 10TB of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
+\textbf{Fit criterion: }The database must have 10TB of allocated space at the start of every year.\\
+
+\noindent\textbf{NFR-PCR3: }The system must support a minimum of 400 concurrent users simultaneously and have the capability to scale to accommodate more users as demand increases.\\
+\textbf{Rationale: }Supporting 400 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+\textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 400 concurrent users.\\
+
+
 \subsection{Scalability or Extensibility Requirements}
-\lips
+
+\noindent\textbf{NFR-PSER1: }The system must support the addition of new user accounts without compromising performance.\\
+\textbf{Rationale: }User scalability is essential to accommodate growth in the user base and ensure consistent performance as more users engage with the platform.\\
+\textbf{Fit criterion: }The system must effectively manage a user base increase of at least 10\% annually while maintaining performance metrics defined in the capacity requirements.\\
+
+\noindent\textbf{NFR-PSER2: }The system must handle increasing volumes of data without loss of performance or data integrity.\\
+\textbf{Rationale: }Data scalability ensures that as the volume of stored data grows, the system can still process, retrieve, and manage this data efficiently. This is crucial for maintaining system reliability and providing accurate insights from the collected data.\\
+\textbf{Fit criterion: }The system must manage a data increase of at least 10\% annually.\\
+
+\noindent\textbf{NFR-PSER3: }The system must expand processing capabilities to handle increased computational demands.\\
+\textbf{Rationale: }Processing scalability is vital for ensuring that the system can efficiently perform analyses and computations as the number of users or the complexity of tasks increases. This prevents bottlenecks in data processing and ensures timely results for clinicians.\\
+\textbf{Fit criterion: }The system must increase data processing capacity by at least 2\% without impacting response times for data processing tasks.\\
+
 \subsection{Longevity Requirements}
-\lips
+
+\noindent\textbf{NFR-PLR1: }The system must function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
+\textbf{Rationale: }Ensuring stability during ongoing development is crucial to maintain user trust and provide uninterrupted service. Any major malfunctions could lead to user frustration and potential loss of users, impacting the system's reputation.\\
+\textbf{Fit criterion: }The system must demonstrate a failure rate of less than 1\% in the release build during ongoing development, ensuring that users experience minimal disruptions.\\
+
+\noindent\textbf{NFR-PLR2: }The system must be compatible with major operating systems, including Windows, Mac, Linux, Android, and iOS.\\
+\textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
+\textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.\\
+
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
@@ -350,11 +575,23 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
-\lips
+\textbf{NFR-MSM1: }The platform should be built using a modular architecture so that different components may be updated or replaced independently without disrupting the entire system.\\
+\textbf{Rationale: }Modular systems are easier to maintain and update, reducing downtime and ensuring new features or bug fixes can be implemented without impacting the core functionality of the platform.\\
+\textbf{Fit criterion: }Any update of an individual component shall have no more than 10 lines of code edited outside of the component.\\\\
 \subsection{Supportability Requirements}
-\lips
+\textbf{NFR-MSS1: }Users should be able to submit feature requests or report issues directly to the platform’s GitHub repository, ensuring that the development team can track and prioritize improvements or bug fixes.\\
+\textbf{Rationale: }Centralizing feature requests and issue tracking in GitHub makes it easier for the development team to manage feedback and streamline future updates.\\
+\textbf{Fit criterion: }The platform must include a direct link to the GitHub repository, with a clear option for users to submit requests or report issues, and GitHub should have dedicated categories for issues, 
+feature requests, and feedback.\\\\
+\textbf{NFR-MSS2: }The platform should provide a comprehensive, easy-to-follow tutorial that guides users through the website and the assessment process.\\
+\textbf{Rationale: }Tutorials help users understand the functionality of the platform, reducing the need for external support and improving user experience, particularly for new users or children.\\
+\textbf{Fit criterion: }The tutorial must be accessible from the homepage and should cover all core functionalities. In usability testing, 90\% of users should be able to complete tasks correctly after following the
+ tutorial.\\\\
 \subsection{Adaptability Requirements}
-\lips
+\textbf{NFR-MSA1: }The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
+\textbf{Rationale: }A responsive design ensures the platform is accessible on any device, providing a seamless user experience regardless of screen size or resolution.\\
+\textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
+features are usable on all screen sizes.\\\\
 
 \section{Security Requirements}
 \subsection{Access Requirements}
@@ -401,7 +638,14 @@ that all session data is properly grouped and retrievable under that identifier,
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\lips
+\textbf{NFR-C1: }The platform must not contain any language or imagery that could be considered culturally insensitive or offensive to any users, particularly the primary user groups.\\
+\textbf{Rationale: }Ensuring cultural sensitivity is critical in a healthcare setting, especially when working with diverse populations. Avoiding insensitive content fosters a respectful and inclusive environment 
+for users.\\
+\textbf{Fit criterion: }During user acceptance testing and content review, 100\% of language and imagery used on the platform must be validated by a cultural consultant and user feedback to ensure no instances of 
+insensitivity.\\\\
+\textbf{NFR-C2: }The platform should be bilingual, supporting both English and Mandarin for all user interfaces and assessments to accommodate the language preferences of users.\\
+\textbf{Rationale: }Given that the target user base includes bilingual children, providing language options ensures accessibility and inclusivity, allowing users to complete assessments in their choice of language.\\
+\textbf{Fit criterion: }100\% of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.\\\\
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
