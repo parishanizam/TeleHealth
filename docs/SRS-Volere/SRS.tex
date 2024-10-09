@@ -11,6 +11,8 @@
 \usepackage{enumerate} 
 \usepackage{hyperref}
 \usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -274,7 +276,12 @@ involved in the Project}
 
 \section{The Scope of the Product}
 \subsection{Product Boundary}
-\lips
+% \includegraphics[width=\linewidth]{images/UseCaseDiagram2.jpg}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/UseCaseDiagram.jpg}
+  \caption{User Case Diagram}
+\end{figure}
 \subsection{Product Use Case Table}
 \lips
 \subsection{Individual Product Use Cases (PUC's)}
