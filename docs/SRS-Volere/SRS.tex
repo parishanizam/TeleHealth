@@ -11,6 +11,7 @@
 \usepackage{enumerate} 
 \usepackage{hyperref}
 \usepackage{enumerate}
+\usepackage{multirow}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -740,15 +741,94 @@ Inhibit the New Product}
 
 \section{Tasks}
 \subsection{Project Planning}
-\lips
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{3cm}|}
+  \hline
+  \textbf{Phase} & \textbf{Task} & \textbf{Deadline} \\ 
+  \hline
+  \multirow{6}{*}{Revision 0} & Requirements Document & Oct 11, 2024 \\
+  \cline{2-3}
+   & Hazard Analysis & Oct 23, 2024 \\ 
+  \cline{2-3}
+   & Verification and Validation Plan & Nov 1, 2024 \\ 
+  \cline{2-3}
+   & Proof of Concept Demo & Nov 11-22, 2024 \\ 
+  \cline{2-3}
+   & Design Document & Jan 15, 2025 \\ 
+  \cline{2-3}
+   & Demonstration & Feb 3-14, 2025 \\ 
+  \hline
+  \multirow{3}{*}{Revision 1} & Final Demonstration & Mar 24-30, 2025 \\ 
+  \cline{2-3}
+   & EXPO Demonstration & Apr TBD, 2024 \\ 
+  \cline{2-3}
+   & Final Documentation (Problem Statement, POC plan, Development Plan, Requirements Doc, Hazard Analysis, Design Document, V\&V Plan, V\&V Report, User Guide, Source Code) & Apr 2, 2024 \\ 
+  \hline
+  \end{tabular}
+  \caption{Project Task Deadlines}
+  \end{table}
+
 \subsection{Planning of the Development Phases}
-\lips
+
+The development of the TeleHealth System will be divided into two phases including; \\
+\begin{itemize}
+\item Revision 0: Intitial Development of Application and Reports \\
+\item Revision 1: Refinement/Revision of Project and Deliverables \\
+\end{itemize}
+Prior to Revision 0, Team 22 has defined the team members of the project, Problem Statement of the project, POC plan, and Development Plan.
+Revision 0 work encompasses all the work completed starting October 11 to February 14th.In the Revision 0 Phase, the team will work on design related deliverables for the project to define the scope, the requirements, stakeholders, use cases, risks, and define the plan for implementing the project. Using this information, the team will work towards creating a POC.
+A V\&V report will be made based on feedback and iterations will be made accordingly. 
+Revision 1 will focus on implementing refinements to Revision 0 documentation and adding extras to both application and deliverables. Feedback will be incorporated into any refinements from stakeholders and professor. \\
+
+\begin{tabularx}{\textwidth}{|p{10cm}|X|}
+  \hline
+  \textbf{Application Development Revision 0 Tasks} & \textbf{Deadline} \\
+  \hline
+  Frontend App Setup for Video/Audio Integration & Oct 15, 2024 \\
+  \hline
+  Video Capture \& Storage Module Development (Database \& Server Set Up) & Oct 25, 2024 \\
+  \hline
+  Data Security and Encryption Integration & Oct 28, 2024 \\
+  \hline
+  Basic Machine Learning Integration & Nov 5, 2024 \\
+  \hline
+  Video Testing in Controlled Setting for POC & Nov 5, 2024 \\
+  \hline
+  Proof of Concept Demo & Nov 11-22, 2024 \\
+  \hline
+  Application Frontend Design & Nov 10, 2024 \\
+  \hline
+  Audio Capture \& Storage Module Development & Nov 20, 2024 \\
+  \hline
+  Application Frontend Development First Iteration Complete (Application Integration, Login \& Authentication System) & Nov 25, 2024 \\
+  \hline
+  Deep Training of Machine Learning Model & Dec 16, 2024 \\
+  \hline
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{|p{10cm}|X|}
+  \hline
+  \textbf{Application Development Revision 1 Tasks} & \textbf{Deadline} \\
+  \hline
+  Authentication and Access Check & Jan 15,2025 \\
+  \hline 
+  Usability Survey & Feb 20, 2025 \\
+  \hline 
+  User Interface Completion/Iteration & Feb 30, 2025 \\
+  \hline 
+  Unit Testing & March, 4, 2025 \\
+  \hline 
+  Code Refinement & April 1, 2025 \\
+  \hline
+\end{tabularx}
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\lips
+N/A
 \subsection{Data That Has to be Modified or Translated for the New System}
-\lips
+N/A
 
 \section{Costs}
 \lips
@@ -762,7 +842,21 @@ Inhibit the New Product}
 \lips
 
 \section{Ideas for Solution}
-\lips
+
+Implementation for components of Telehealth System 
+
+\begin{itemize}
+\item Video and Audio Integration \\
+\subitem getUserMedia API: Enables capturing video and audio directly from user's device (camera \& microphone) and can be used on a React application \\
+\subitem MediaRecorder API: Works with getUserMedia to record the video and audio streams while the user completes the assessment, and it saves the media as files \\
+\subitem React Media Recorder: A React hook-based solution for integrating getUserMedia and MediaRecorder easily in React applications.\\
+\item Server
+\subitem AWS to securely store recorded video and audio files 
+\item User Interface 
+\subitem Figma: Use to design User Interface 
+\subitem Expo: Javascript/React Integration to allow for web-based and mobile-based support over cross-platforms
+\end{itemize}
+
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -778,6 +872,11 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
   least one item for each team member.
+  \subitem Parisha Nizam: 
+  Knowledge to Acquire: Deepen understanding of software architecture principles, especially related to building scalable web applications and usage of relevant frameworks for a React-based Application.
+  Skill to Develop: Enhance skills in designing RESTful APIs and integrating them with frontend applications to facilitate data flow between components. Understanding how to use EXPO, and additional tools with React.
+
+
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
