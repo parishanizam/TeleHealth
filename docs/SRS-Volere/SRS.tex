@@ -13,6 +13,7 @@
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{longtable}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -283,7 +284,74 @@ involved in the Project}
   \caption{User Case Diagram}
 \end{figure}
 \subsection{Product Use Case Table}
-\lips
+\begin{longtable}{|p{2cm}|p{3.2cm}|p{3.2cm}|p{3cm}|p{3cm}|}
+  \toprule {\textbf{PUC No.}} & {\textbf{PUC Name}} & {\textbf{Actor(s)}} & {\textbf{Input(s)}} & {\textbf{Output(s)}} \\
+  \midrule
+  PUC-01 & Create Parent Account & Parent & Username \& Password & \\
+  \hline
+  PUC-02 & Verify Unique Unused Username & Parent \& Authenticator & Username & Account Created or Failure Message\\
+  \hline
+  PUC-03 & Create Clinician Account & Admin User \& Authenticator & Username \& Password & \\
+  \hline
+  PUC-04 & Login to System & Parent \& Authenticator \& SLP & Username \& Password & \\
+  \hline
+  PUC-05 & Select Role & Parent \& SLP & Role Selection & \\
+  \hline
+  PUC-06 & Deny User & Parent \& Authenticator \& SLP & & Login failure message\\
+  \hline
+  PUC-07 & Authenticate User & Authenticator & Username \& Password & \\
+  \hline
+  PUC-08 & Accept User & Authenticator & & Go to View Assessment Description or View Clinician Dashboard\\
+  \hline
+  PUC-09 & View Assessment Description & Parent & & Display Assessment Description\\
+  \hline
+  PUC-10 & View Clinician Dashboard & SLP & & Display Clinician Dashboard\\
+  \hline
+  PUC-11 & Perform Video \& Audio Hardware Check & Parent \& Recorder & Sound Input \& Video Input & Confirmation Message or Repeat Procedure\\
+  \hline
+  PUC-12 & Store Recordings & Recorder \& Database & Audio Recordings \& Video Recordings & \\
+  \hline
+  PUC-13 & Record Video, Audio, Time & Recorder \& Assessment & Video Recordings \& Audio Recordings \& Timer & \\
+  \hline
+  PUC-14 & Play Tutorial & Child \& Assessment & Click Play Tutorial Button & Plays Tutorial\\
+  \hline
+  PUC-15 & Start Assessment & Child \& Authenticator & Click Start Assessment Button & Go to First Question\\
+  \hline
+  PUC-16 & Keep Track of Questions & Assessment & Click Confirm Selection& Question Number\\
+  \hline
+  PUC-17 & Display Question Options & Assessment & & Display Options\\
+  \hline
+  PUC-18 & Play Audio Prompt & Assessment & & Plays Audio\\
+  \hline
+  PUC-19 & Retrieve Assessment Results & Assessment \& Database & Complete Assessment &\\
+  \hline
+  PUC-20 & Select a Displayed Option & Child \& Assessment & Select Option & Highlight Option\\
+  \hline
+  PUC-21 & Confirm Selection & Child \& Assessment & Select Confirm Selection & Go to Next Question or Test Complete\\
+  \hline
+  PUC-22 & Display Test Complete Message & Child \& Assessment & Select final Confirm Selection & Display Message\\
+  \hline
+  PUC-23 & Store Test Results & Assessment \& Database & Test Results & Store Results\\
+  \hline
+  PUC-24 & Analyze Audio Recordings & Audio ML Model & Audio Recording & Analyzed Recording Data\\
+  \hline
+  PUC-25 & Identify Audio Disturbances & Audio ML Model & Analyzed Recording Data & List of disturbances\\
+  \hline
+  PUC-26 & Analyze Video Disturbances & Video ML Model & Video Recording & Analyzed Recording Data\\
+  \hline
+  PUC-27 & Identify Video Disturbances & Video ML Model Analyzed Recording Data & List of disturbances\\
+  \hline
+  PUC-28 & Flag Disturbances & Audio ML Model \& Video ML Model & List of disturbances & Timestamp Markers\\
+  \hline
+  PUC-29 & Note Timestamp of Disturbance & Audio ML Model \& Video ML Model & Timestampe Markers & Report Data\\
+  \hline
+  PUC-30 & Store Analysis Results & Audio ML Model \& Video ML Model \& Database & Report Data & Analaysis Results\\
+  \hline
+  PUC-31 & Generate Report & Database & Analysis Results & Assessment Report\\
+  \hline
+  PUC-32 & Store Report & Database & Assessment Report & Store Report\\
+  \bottomrule
+\end{longtable}
 \subsection{Individual Product Use Cases (PUC's)}
 \lips
 
