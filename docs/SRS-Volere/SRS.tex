@@ -360,26 +360,26 @@ involved in the Project}
 \subsection{Individual Product Use Cases (PUC's)}
 \begin{enumerate}[{PUC-}01. ]
   \item Create Parent Account\\
-  \textbf{Precondition: }Parent has a child engaging in language assessments.\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }\\
+  \textbf{Precondition: }None\\
+  \textbf{Trigger: }Parent selects 'Create Account'\\
+  \textbf{Outcome: }Parent is brought to screen to Create Account with their information\\
+  \textbf{Postcondition: } Parent's account creation is verified by authenticator\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}02. ]
   \item Verify Unique Unused Username\\
-  \textbf{Precondition: }\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }\\
+  \textbf{Precondition: }Parent or Admin user creates a new account\\
+  \textbf{Trigger: }User attempts to complete creating their account\\
+  \textbf{Outcome: }User is logged into their newly created account\\
+  \textbf{Postcondition: }User's account is created, or, User needs to select a unique username\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}03. ]
   \item Create Clinician Account\\
-  \textbf{Precondition: }\\
-  \textbf{Trigger: }\\
+  \textbf{Precondition: }Clinician goes to their admin user to request account creation\\
+  \textbf{Trigger: }Admin user creates a new clincian account\\
   \textbf{Outcome: }\\
-  \textbf{Postcondition: }\\
+  \textbf{Postcondition: }Clinician's account creation is verified by authenticator\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}04. ]
@@ -1138,7 +1138,10 @@ involved in the Project}
 \end{enumerate}
 
 \section{Open Issues}
-\lips
+\begin{enumerate}
+  \item Live video recording in clincian-led sessions, and future analysis of those recordings.
+  \item Using an external microphone and video capturing setup, utilizing other portable electronic devices, such as phones and tablets.
+\end{enumerate}
 
 \section{Off-the-Shelf Solutions}
 \subsection{Ready-Made Products}
