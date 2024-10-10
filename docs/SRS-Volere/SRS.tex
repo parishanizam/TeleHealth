@@ -246,11 +246,11 @@ involved in the Project}
 \end{itemize}
 \subsection{Assumptions}
 \begin{itemize}
-  \item[5.3.1] All users of the system have reliable internet connections that can support telehealth video sessions.
+  \item[5.3.1] All users of the system have reliable internet connections that can support uploading video and audio recordings to the database.
   \item[5.3.2] All patient data will be stored on servers located in regions that comply with healthcare data residency regulations.
-  \item[5.3.3] The platform is assumed to be accessible from various devices (desktops, tablets, mobile phones), though it may perform optimally on 
+  \item[5.3.3] The platform is assumed to be accessible from various devices with working microphone and camera, though it may perform optimally on 
   desktops.
-  \item[5.3.4] Assessments will not exceed 30 minutes per session to fit standard telehealth consultation times.
+  \item[5.3.4] Assessments will not exceed 30 minutes per session to fit standard telehealth assessment times.
   \item[5.3.5] It is assumed that users (both clinicians and patients) have a basic level of comfort with using web applications and online 
   communication tools.
   \item[5.3.6] The platform may need to accommodate additional users and storage demands as the client scales its telehealth services over time.
@@ -285,7 +285,7 @@ involved in the Project}
 
 \subsection{Authentication}
 \begin{enumerate}[{FR-A}1. ]
-  \item The system shall allow a user to choose between a Parent or Clinician account prior to logging in.\\
+  \item The system shall allow the user to choose between a Parent and  or Clinician account prior to logging in.\\
   \textbf{Rationale: }Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
   \textbf{Fit criterion: }Users must be able to directly select their account type prior to logging in. 
 \end{enumerate}
@@ -312,7 +312,7 @@ involved in the Project}
 
 \subsection{System Setup}
 \begin{enumerate}[{FR-SS}1. ]
-  \item The system shall allow a user to view information about the assessment.\\
+  \item The system shall allow the user to preview information about the assessment.\\
   \textbf{Rationale: }Users must be informed about relevant assessment information prior to starting the hardware checks.\\
   \textbf{Fit criterion: }Users must be able to view information about the assessment upon logging in.
 \end{enumerate}
@@ -413,6 +413,12 @@ involved in the Project}
   that 100\% of session data is properly grouped and retrievable under that identifier, with no unassociated 
   data.
 \end{enumerate}
+\begin{enumerate}[{FR-DSC}5. ]
+  \item The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
+  \textit{Insert formal Specification}\\
+  \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
+  \textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.
+\end{enumerate}
 
 \subsection{Video and Audio Data Analysis}
 \begin{enumerate}[{FR-VADA}4. ]
@@ -433,12 +439,12 @@ involved in the Project}
   from a set of test videos, validated against human observations.
 \end{enumerate}
 \begin{enumerate}[{FR-VADA}3. ]
-  \item The system shall flag detected disturbances and indicate them to the administrative user.\\
+  \item The system shall flag detected disturbances, and have some relational indicator to the timestamp, the assessment question, and the user's answer.\\
   \textit{Insert formal Specification}\\
   \textbf{Rationale: }Flagging disturbances and marking the exact points where they occur enables clinicians and 
   speech-language pathologists to quickly review the relevant portions of the assessment, reducing the time needed 
   for manual analysis.\\
-  \textbf{Fit criterion: }For each session, the model must accurately attach indicators to disturbances
+  \textbf{Fit criterion: }For each session, the model must accurately attach timestamps, the question and the user answer to disturbances
   identified in VADA2 with at least 95\% accuracy.
 \end{enumerate}
 
@@ -462,12 +468,6 @@ involved in the Project}
   \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.
 \end{enumerate}
 \begin{enumerate}[{FR-DPD}4. ]
-  \item The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
-  \textit{Insert formal Specification}\\
-  \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
-  \textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.
-\end{enumerate}
-\begin{enumerate}[{FR-DPD}5. ]
   \item Clinicians shall be able to access previously generated reports from the database.\\
   \textit{Insert formal Specification}\\
   \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
@@ -567,7 +567,7 @@ involved in the Project}
   \textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed 1 second.  
 \end{enumerate}
 \begin{enumerate}[{PR-SL}3. ]
-  \item The system must ensure that all video recordings are captured in a resolution of at least 720p.\\
+  \item The system must ensure that all video recordings are capture and stored in a resolution of at least 720p.\\
   \textbf{Rationale: }A minimum resolution of 720p is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
   \textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of 720p.
 \end{enumerate}
@@ -610,8 +610,8 @@ involved in the Project}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}[{PR-RFT}1. ]
-  \item The system must manage errors effectively and provide clear feedback to users when issues occur\\
-  \textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand what went wrong, leading to frustration.\\
+  \item The system must manage any technical errors effectively and provide clear feedback to users when issues occur.\\
+  \textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand if something is wrong or why the system is not working as they expect, leading to frustration.\\
   \textbf{Fit criterion: }The system must display error messages for at least 95\% of common user errors.  
 \end{enumerate}
 \begin{enumerate}[{PR-RFT}2. ]
@@ -637,9 +637,14 @@ involved in the Project}
   \textbf{Fit criterion: }The database must have 10TB of allocated space at the start of every year.  
 \end{enumerate}
 \begin{enumerate}[{PR-CR}3. ]
-  \item The system must support a minimum of 400 concurrent users simultaneously and have the capability to scale to accommodate more users as demand increases.\\
-  \textbf{Rationale: }Supporting 400 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
-  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 400 concurrent users.  
+  \item The system must support a minimum of 200 concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
+  \textbf{Rationale: }Supporting 200 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 200 concurrent users.  
+\end{enumerate}
+\begin{enumerate}[{PR-CR}4. ]
+  \item The system must support a minimum of 100 concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
+  \textbf{Rationale: }Supporting 100 concurrent user uploads is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 100 concurrent uploads.  
 \end{enumerate}
 
 \subsection{Scalability or Extensibility Requirements}
