@@ -234,6 +234,7 @@ N/A\\
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
 
+\begin{table}[h!]
 \begin{tabularx}{\textwidth}{p{2cm}X}
   \toprule {\textbf{Terms}} & {\textbf{Definition}}\\
   \midrule
@@ -248,6 +249,8 @@ involved in the Project}
   TB & Terabyte\\
   \bottomrule
 \end{tabularx}
+\caption{Naming Conventions and Terminology}
+\end{table}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
@@ -348,6 +351,7 @@ All incoming and outgoing data to and from the database will be processed throug
   Do Audio Analysis & IN: Assessmenet Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
 \bottomrule
 \end{tabularx}
+\caption{Work Partitioning of BUC}
 \end{table}
 \subsection{Specifying a Business Use Case (BUC)}
 The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
@@ -362,9 +366,47 @@ assessment and details such as the related assessment question, answer, and time
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-\lips
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{images/UML class.png}
+  \caption{UML Diagram of System's Data Layout}
+\end{figure}
 \subsection{Data Dictionary}
-\lips
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{p{2.5cm}p{3cm}X}
+  \toprule {\textbf{Name}} & {\textbf{Type}} & {\textbf{Content}}\\
+  \midrule
+  System Interface & Interface & Encompasses entire system that a user can view, using username \\ 
+  \hline
+  User & Parent Class & User Content \\ 
+  \hline 
+  Parent & Class & Parent Content \\ 
+  \hline
+  Clinician & Clinician Class & Clinician Content \\ 
+  \hline 
+  Email & Attribute & Login email \\
+  \hline 
+  Username & Attribute & Unique Login Username \\
+  \hline 
+  Password & Attribute & Unique Password \\
+  \hline 
+  Assessment Results & Class & Stores Result data from assessments \\
+  \hline 
+  Assessment Results & Attribute & Stores data from assessment questions (selected answers and results) in a json \\
+  \hline 
+  Timestamps & Attribute & Stores timestamp data at each question starting point in a json \\
+  \hline 
+  Video Recording & Attribute & Video Recordings of assessment is stored as blob \\
+  \hline 
+  Audio Recording & Attribute & Audio Recordings of assessment is stored as blob \\
+  \hline 
+  Assessment Results Interface & Interface & Stores assessment data and displays to clinicians \\ 
+  \hline 
+  Assessment Interface & Interface & Displays view for parent to learn, and complete assessment with child \\
+  \bottomrule
+  \end{tabularx}
+  \caption{Descriptions of Data Elements in Model}
+\end{table}
 
 \section{The Scope of the Product}
 \subsection{Product Boundary}
@@ -444,6 +486,7 @@ assessment and details such as the related assessment question, answer, and time
   \hline
   PUC-31 & Store Report & Database & Assessment Report & Store Report\\
   \bottomrule
+  \caption{Summary of TeleHealth System's Use Cases}
 \end{longtable}
 \subsection{Individual Product Use Cases (PUC's)}
 \begin{enumerate}[{PUC-}01. ]
@@ -896,6 +939,15 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
 \end{enumerate}
 
+\subsection*{Formal Specification}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/statemachine.png}
+  \caption{Finite State Machine that represents the Parent-Child interaction with the Assessmenet Interface}
+\end{figure}
+
+This is the project's most critical element because the system's primary objective is to support parents when conducting at home speech assessments for their child. 
+The success of the system is dependent on the parent-child correctly using the interface.
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
 \begin{enumerate}[{LF-AR}1. ]
@@ -1410,7 +1462,7 @@ Inhibit the New Product}
   \hline
   \end{tabular}
   \caption{Project Task Deadlines}
-  \end{table}
+\end{table}
 
 \subsection{Planning of the Development Phases}
 
@@ -1424,7 +1476,8 @@ Revision 0 work encompasses all the work completed starting October 11 to Februa
 A V\&V report will be made based on feedback and iterations will be made accordingly. 
 Revision 1 will focus on implementing refinements to Revision 0 documentation and adding extras to both application and deliverables. Feedback will be incorporated into any refinements from stakeholders and professor. \\
 
-\begin{tabularx}{\textwidth}{|p{10cm}|X|}
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}{|p{10cm}|X|}
   \hline
   \textbf{Application Development Revision 0 Tasks} & \textbf{Deadline} \\
   \hline
@@ -1448,9 +1501,12 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   \hline
   Deep Training of Machine Learning Model & Dec 16, 2024 \\
   \hline
-\end{tabularx}
+  \end{tabularx}
+  \caption{Development Revision 0 Deadlines}
+\end{table}
 
-\begin{tabularx}{\textwidth}{|p{10cm}|X|}
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}{|p{10cm}|X|}
   \hline
   \textbf{Application Development Revision 1 Tasks} & \textbf{Deadline} \\
   \hline
@@ -1464,7 +1520,10 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   \hline 
   Code Refinement & April 1, 2025 \\
   \hline
-\end{tabularx}
+  \end{tabularx}
+  \caption{Development Revision 1 Deadlines}
+\end{table}
+
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
@@ -1548,10 +1607,6 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
   least one item for each team member.
-  \subitem Parisha Nizam: 
-  Knowledge to Acquire: Deepen understanding of software architecture principles, especially related to building scalable web applications and usage of relevant frameworks for a React-based Application.
-  Skill to Develop: Enhance skills in designing RESTful APIs and integrating them with frontend applications to facilitate data flow between components. Understanding how to use EXPO, and additional tools with React.
-
 
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
