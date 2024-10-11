@@ -108,17 +108,26 @@ speech and language development remotely.
 
 \section{Stakeholders}
 \subsection{Client}
-This project's client is Researcher, Clinician Assistant, Professor at the University of Southern California, Dr. Yao Du.\\
-Another stakeholder is this project's supervisor, Dr. Irene Ye Yuan, Assistant Professor in the Department of Computing and Software at McMaster University.
-\subsection{Customer}
-This project's customers are Clinicians (SLPs) who work with children that have speech difficulties.\\
-Another one of the project's customers are the children with speech difficulties who take language assessments.\\
-Another one of the project's customers are the parents of children with speech difficulties.
-\subsection{Other Stakeholders}
-Data Analysts may be another stakeholder, if they decide to review and analyze the data.
-
+  \begin{itemize}
+    \item This project's client is Researcher, Clinician Assistant, Professor at the University of Southern California, Dr. Yao Du.
+    \item Another stakeholder is this project's supervisor, Dr. Irene Ye Yuan, Assistant Professor in the Department of Computing and Software at McMaster University.
+  \end{itemize}
+  \subsection{Customer}
+  \begin{itemize}
+    \item This project's customers are Clinicians (SLPs) who work with children that have speech difficulties.
+    \item Another one of the project's customers are the children with speech difficulties who take language assessments.
+    \item Another one of the project's customers are the parents of children with speech difficulties.
+  \end{itemize}
+  \subsection{Other Stakeholders}
+  \begin{itemize}
+    \item Data Analysts may be another stakeholder, if they decide to review and analyze the data.
+    \item Society is another important stakeholder to consider, as the system being developed is impactful for workers and technological developments in the healthcare field.
+          As well, as this is a healthcare application, the safety of society must be taken into account to ensure the project.
+          In addition, important cultural sensitivities and their appropriate contexts must be considered for the system to prevent unintentional offensiveness.
+  \end{itemize}
 \subsection{Hands-On Users of the Project}
-Hands-on users for this project include the parents of children that have speech difficulties, as well as the children themselves, who need to take language assessments.
+\hspace{2em}Hands-on users for this project include the parents of children that have speech difficulties, as well as the children themselves, who need to take language assessments.\\
+\indent In addition, speech language pathologists are important hands-on users for this project as they are assessing the assessment results, assessing children's performances, and keeping track of the children's improvements overtime. 
 \subsection{Personas}
 \textbf{User Profile:}\\
 Name: Paul Blart\\
@@ -229,6 +238,11 @@ involved in the Project}
   HIPAA & Health Insurance Portability and Accountability Act\\
   WCAG & Web Content Accessibility Guidelines\\
   ML & Machine Learning\\
+  PUC & Product Use Case\\
+  FR & Functional Requirement\\
+  NFG & Non-Functional Requirement\\
+  BUC & Business Use Case\\
+  TB & Terabyte\\
   \bottomrule
 \end{tabularx}
 
@@ -332,33 +346,31 @@ involved in the Project}
   \hline
   PUC-18 & Play Audio Prompt & Assessment & & Plays Audio\\
   \hline
-  PUC-19 & Retrieve Assessment Results & Assessment \& Database & Complete Assessment &\\
+  PUC-19 & Select a Displayed Option & Child \& Assessment & Select Option & Highlight Option\\
   \hline
-  PUC-20 & Select a Displayed Option & Child \& Assessment & Select Option & Highlight Option\\
+  PUC-20 & Confirm Selection & Child \& Assessment & Select Confirm Selection & Go to Next Question or Test Complete\\
   \hline
-  PUC-21 & Confirm Selection & Child \& Assessment & Select Confirm Selection & Go to Next Question or Test Complete\\
+  PUC-21 & Display Test Complete Message & Child \& Assessment & Select final Confirm Selection & Display Message\\
   \hline
-  PUC-22 & Display Test Complete Message & Child \& Assessment & Select final Confirm Selection & Display Message\\
+  PUC-22 & Store Test Results & Assessment \& Database & Test Results & Store Results\\
   \hline
-  PUC-23 & Store Test Results & Assessment \& Database & Test Results & Store Results\\
+  PUC-23 & Analyze Audio Recordings & Audio ML Model & Audio Recording & Analyzed Recording Data\\
   \hline
-  PUC-24 & Analyze Audio Recordings & Audio ML Model & Audio Recording & Analyzed Recording Data\\
+  PUC-24 & Identify Audio Disturbances & Audio ML Model & Analyzed Recording Data & List of disturbances\\
   \hline
-  PUC-25 & Identify Audio Disturbances & Audio ML Model & Analyzed Recording Data & List of disturbances\\
+  PUC-25 & Analyze Video Disturbances & Video ML Model & Video Recording & Analyzed Recording Data\\
   \hline
-  PUC-26 & Analyze Video Disturbances & Video ML Model & Video Recording & Analyzed Recording Data\\
+  PUC-26 & Identify Video Disturbances & Video ML Model & Analyzed Recording Data & List of disturbances\\
   \hline
-  PUC-27 & Identify Video Disturbances & Video ML Model & Analyzed Recording Data & List of disturbances\\
+  PUC-27 & Flag Disturbances & Audio ML Model \& Video ML Model & List of disturbances & Timestamp Markers\\
   \hline
-  PUC-28 & Flag Disturbances & Audio ML Model \& Video ML Model & List of disturbances & Timestamp Markers\\
+  PUC-28 & Note Timestamp of Disturbance & Audio ML Model \& Video ML Model & Timestampe Markers & Report Data\\
   \hline
-  PUC-29 & Note Timestamp of Disturbance & Audio ML Model \& Video ML Model & Timestampe Markers & Report Data\\
+  PUC-29 & Store Analysis Results & Audio ML Model \& Video ML Model \& Database & Report Data & Analaysis Results\\
   \hline
-  PUC-30 & Store Analysis Results & Audio ML Model \& Video ML Model \& Database & Report Data & Analaysis Results\\
+  PUC-30 & Generate Report & Database & Analysis Results & Assessment Report\\
   \hline
-  PUC-31 & Generate Report & Database & Analysis Results & Assessment Report\\
-  \hline
-  PUC-32 & Store Report & Database & Assessment Report & Store Report\\
+  PUC-31 & Store Report & Database & Assessment Report & Store Report\\
   \bottomrule
 \end{longtable}
 \subsection{Individual Product Use Cases (PUC's)}
@@ -367,47 +379,55 @@ involved in the Project}
   \textbf{Precondition: }None\\
   \textbf{Trigger: }Parent selects 'Create Account'\\
   \textbf{Outcome: }Parent is brought to screen to Create Account with their information\\
-  \textbf{Postcondition: } Parent's account creation is verified by authenticator\\
+  \textbf{Postcondition: } Parent's account creation is passed to authenticator to be verified\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}02. ]
   \item Verify Unique Unused Username\\
   \textbf{Precondition: }Parent or Admin user creates a new account\\
-  \textbf{Trigger: }User attempts to complete creating their account\\
-  \textbf{Outcome: }User is logged into their newly created account\\
-  \textbf{Postcondition: }User's account is created, or, User needs to select a unique username\\
+  \textbf{Trigger: }User types in their preferred account username for creating their account\\
+  \textbf{Outcome: }
+  \begin{itemize}
+  \item User's account is created
+  \item User needs to select a unique username
+  \end{itemize}
+  \textbf{Postcondition: }User is logged into their newly created account\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}03. ]
   \item Create Clinician Account\\
   \textbf{Precondition: }Clinician goes to their admin user to request account creation\\
   \textbf{Trigger: }Admin user creates a new clincian account\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Clinician's account creation is verified by authenticator\\
+  \textbf{Outcome: }Clinician's account creation is verified by authenticator\\
+  \textbf{Postcondition: }Clinician's account is created\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}04. ]
   \item Login to System\\
-  \textbf{Precondition: }User intentionally goes to login screen, or, authenticator denies user\\
-  \textbf{Trigger: }User selects login button from home screen, or, user logs in with incorrect credentials\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }User enters into system logged into their account\\
+  \textbf{Precondition: }User is on login screen\\
+  \textbf{Trigger: }User selects login button from home screen\\
+  \textbf{Outcome: }
+  \begin{itemize}
+    \item User logs into their account
+    \item Authenticator denies user (incorrect credentials)
+  \end{itemize}
+  \textbf{Postcondition: }User enters system logged into their account\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}05. ]
   \item Select Role\\
   \textbf{Precondition: }User is on login screen\\
   \textbf{Trigger: }User selects their role (choosing between parent or clinician)\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Role is selected for relevant system access\\
+  \textbf{Outcome: }User's permissions are set depending on chosen role\\
+  \textbf{Postcondition: }Role is selected for login\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}06. ]
   \item Deny User\\
   \textbf{Precondition: }Authenticator could not authenticate user with their credentials\\
   \textbf{Trigger: }User entered incorrect credentials for their account\\
-  \textbf{Outcome: }User is denied entry into their account\\
-  \textbf{Postcondition: }User is returned to the login screen\\
+  \textbf{Outcome: }User is returned to the login screen\\
+  \textbf{Postcondition: }User is denied entry into their account\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}07. ]
@@ -415,36 +435,39 @@ involved in the Project}
   \textbf{Precondition: }User attempted to login to their account\\
   \textbf{Trigger: }User entered their login information on login screen\\
   \textbf{Outcome: }Authenticator verifies against account details stored in system\\
-  \textbf{Postcondition: }User is accepted or denied\\
+  \textbf{Postcondition: }
+  \begin{itemize}
+    \item If user input correct credentials, user is accepted
+    \item If user input incorrect credentials, user is denied
+  \end{itemize}
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}08. ]
   \item Accept User\\
   \textbf{Precondition: }User login information has been verified by the Authenticator\\
   \textbf{Trigger: }User successfully inputs correct account information\\
-  \textbf{Outcome: }User is logged into their account in the system\\
-  \textbf{Postcondition: }
-  \begin{enumerate}
+  \textbf{Outcome: }
+  \begin{itemize}
     \item If user is a clinician, user is brought to clinician dashboard
     \item If user is a parent, user is brought to view assessment description and details
-  \end{enumerate}
-
+  \end{itemize}
+\textbf{Postcondition: }User is logged into their account in the system\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}09. ]
   \item View Assessment Description\\
   \textbf{Precondition: }User successfully logs into the system as a parent\\
   \textbf{Trigger: }User is verified by the authenticator upon logging in\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Assessment description details are displayed on screen\\
+  \textbf{Outcome: }Assessment description details are displayed on screen\\
+  \textbf{Postcondition: }User goes to assessment description screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}10. ]
   \item View Clinician Dashboard\\
-  \textbf{Precondition: }User successfully logs into the system as a clincian\\
+  \textbf{Precondition: }User successfully logs into the system as a clinician\\
   \textbf{Trigger: }User is verified by the authenticator upon logging in\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Clinician dashboard is displayed on screen\\
+  \textbf{Outcome: }Clinician dashboard is displayed on screen\\
+  \textbf{Postcondition: }User goes to clinician dashboard screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}11. ]
@@ -452,7 +475,7 @@ involved in the Project}
   \textbf{Precondition: }Parent read over the assessment details\\
   \textbf{Trigger: }Parent selects setup video and audio hardware check\\
   \textbf{Outcome: }Parent performs video and audio hardware check\\
-  \textbf{Postcondition: }Tutorial is displayed on screen for child to engage with\\
+  \textbf{Postcondition: }Prompt to 'go to tutorial' is displayed on screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}12. ]
@@ -467,23 +490,23 @@ involved in the Project}
   \item Record Video, Audio, Time\\
   \textbf{Precondition: }User has completed the video and hardware check\\
   \textbf{Trigger: }User confirms start of the assessment\\
-  \textbf{Outcome: }Recording has started\\
-  \textbf{Postcondition: }Record the user's video, audio, and time\\
+  \textbf{Outcome: }Record the user's video, audio, and time\\
+  \textbf{Postcondition: }Recording has started\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}14. ]
   \item Play Tutorial\\
   \textbf{Precondition: }Parent has completed video and audio hardware check\\
-  \textbf{Trigger: }Child confirms starting the tutorial\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Tutorial plays on-screen\\
+  \textbf{Trigger: }User confirms they want to start the tutorial\\
+  \textbf{Outcome: }Tutorial plays on screen\\
+  \textbf{Postcondition: }User goes to tutorial screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}15. ]
   \item Start Assessment\\
   \textbf{Precondition: }User has completed watching the tutorial\\
-  \textbf{Trigger: }User confirms selection of starting assessment\\
-  \textbf{Outcome: }Assessment begins\\
+  \textbf{Trigger: }User confirms they want to start the assessment\\
+  \textbf{Outcome: }Assessment starts\\
   \textbf{Postcondition: }Go to first question\\
 \end{enumerate}
 
@@ -491,134 +514,130 @@ involved in the Project}
   \item Keep Track of Questions\\
   \textbf{Precondition: }Assessment has started\\
   \textbf{Trigger: }Confirming selection after choosing from a question's options\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Displayed question information is updated\\
+  \textbf{Outcome: }Displayed question information is updated\\
+  \textbf{Postcondition: }Go to corresponding question's screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}17. ]
   \item Display Question Options\\
   \textbf{Precondition: }User started the assessment\\
   \textbf{Trigger: }A new question is displayed on screen\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Corresponding question options are displayed on screen\\
+  \textbf{Outcome: }Corresponding question options are displayed on screen\\
+  \textbf{Postcondition: }Options are displayed on question's screen\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}18. ]
   \item Play Audio Prompt\\
   \textbf{Precondition: }User is on a question page\\
   \textbf{Trigger: }Question options are displayed\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Audio prompt is played\\
+  \textbf{Outcome: }Audio prompt is played\\
+  \textbf{Postcondition: }Remain on question page\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}19. ]
-  \item Retrieve Assessment Results\\
-  \textbf{Precondition: }Assessment is complete\\
-  \textbf{Trigger: }User has confirmed their selection on the final question\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Assessment results are stored in the database\\
-\end{enumerate}
-
-\begin{enumerate}[{PUC-}20. ]
   \item Select a Displayed Option\\
   \textbf{Precondition: }Question's corresponding audio has played for the user\\
   \textbf{Trigger: }User selects amongst the options displayed\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Indicate to the user, visually, which option they selected\\
+  \textbf{Outcome: }Visually indicate the user's selected option\\
+  \textbf{Postcondition: }Remain on question page\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}21. ]
+\begin{enumerate}[{PUC-}20. ]
   \item Confirm Selection\\
   \textbf{Precondition: }User selected an option\\
   \textbf{Trigger: }User selects 'Confirm Selection'\\
-  \textbf{Outcome: }User's chosen option is confirmed and saved\\
-  \textbf{Postcondition: }User goes to next question, or, if this is the final question, display test completion message\\
+  \textbf{Outcome: }
+  \begin{itemize}
+    \item User goes to next question
+    \item If this is the final question, display test completion message
+  \end{itemize}
+  \textbf{Postcondition: }User's selected option is saved\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}22. ]
+\begin{enumerate}[{PUC-}21. ]
   \item Display Test Complete Message\\
   \textbf{Precondition: }User is on the final question\\
   \textbf{Trigger: }User confirmed their option selection\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Test complete message is displayed\\
+  \textbf{Outcome: }Test complete message is displayed\\
+  \textbf{Postcondition: }Go to test completion screen\\
+\end{enumerate}
+
+\begin{enumerate}[{PUC-}22. ]
+  \item Store Test Results\\
+  \textbf{Precondition: }Test is complete\\
+  \textbf{Trigger: }Test complete message has been displayed on screen\\
+  \textbf{Outcome: }Test results are stored in the database\\
+  \textbf{Postcondition: }Test results are available for future analysis and can be accessed by clinicians\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}23. ]
-  \item Store Test Results\\
-  \textbf{Precondition: }Test is complete\\
-  \textbf{Trigger: }Test complete message is displayed\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Test results are stored in the database\\
+  \item Analyze Audio Recordings\\
+  \textbf{Precondition: }Audio recordings are stored in the database\\
+  \textbf{Trigger: }New recordings have been sent to the database\\
+  \textbf{Outcome: }Audio recordings are processed by the audio machine learning model\\
+  \textbf{Postcondition: }Audio recordings are available for identification of disturbances\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}24. ]
-  \item Analyze Audio Recordings\\
-  \textbf{Precondition: }Audio recordings are stored in the database\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }Audio recordings are processed by the audio machine learning model\\
-  \textbf{Postcondition: }\\
+  \item Identify Audio Disturbances\\
+  \textbf{Precondition: }Audio recordings have been processed by the audio machine learning model\\
+  \textbf{Trigger: }New recordings have been analyzed\\
+  \textbf{Outcome: }Audio disturbances are identified\\
+  \textbf{Postcondition: }Identified audio disturbances are prepared to be flagged\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}25. ]
-  \item Identify Audio Disturbances\\
-  \textbf{Precondition: }Audio recordings have been processed by the audio machine learning model\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Audio disturbances are identified\\
+  \item Analyze Video Disturbances\\
+  \textbf{Precondition: }Video recordings are stored in the database\\
+  \textbf{Trigger: }New recordings have been sent to the database\\
+  \textbf{Outcome: }Video recordings are processed by the video machine learning model\\
+  \textbf{Postcondition: }Video recordings are available for identification of disturbances\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}26. ]
-  \item Analyze Video Disturbances\\
-  \textbf{Precondition: }Video recordings are stored in the database\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Video recordings are processed by the video machine learning model\\
+  \item Identify Video Disturbances\\
+  \textbf{Precondition: }Video recordings have been processed by the video machine learning model\\
+  \textbf{Trigger: }New recordings have been analyzed\\
+  \textbf{Outcome: }Video disturbances are identified\\
+  \textbf{Postcondition: }Identified video disturbances are prepared to be flagged\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}27. ]
-  \item Identify Video Disturbances\\
-  \textbf{Precondition: }Video recordings have been processed by the video machine learning model\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Video disturbances are identified\\
+  \item Flag Disturbances\\
+  \textbf{Precondition: }Audio and Video disturbances have been identified.\\
+  \textbf{Trigger: }New disturbances have been identified\\
+  \textbf{Outcome: }Disturbances are flagged for the clinician to review\\
+  \textbf{Postcondition: }Flagged disturbances are recorded\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}28. ]
-  \item Flag Disturbances\\
-  \textbf{Precondition: }Audio and Video disturbances have been identified.\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }Disturbances are flagged for the clinician to review\\
-  \textbf{Postcondition: }Flagged disturbances are noted to find the corresponding timestamp of the occurrence\\
+  \item Note Timestamp of Disturbance\\
+  \textbf{Precondition: }Flagged disturbances have been recorded\\
+  \textbf{Trigger: }None\\
+  \textbf{Outcome: }Flagged disturbances are prepared for further review by clinicians\\
+  \textbf{Postcondition: }Timestamps of flagged disturbances are recorded and matched with recordings\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}29. ]
-  \item Note Timestamp of Disturbance\\
-  \textbf{Precondition: }Flagged disturbances have been recorded\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }Timestamps to be synced with the video and audio recordings are noted\\
-  \textbf{Postcondition: }Timestamps of flags are stored in the analysis results\\
+  \item Store Analysis Results\\
+  \textbf{Precondition: }Disturbances have been identified, flagged, and corresponding timestamps have been recorded\\
+  \textbf{Trigger: }Model has completed processing and analyzing recording\\
+  \textbf{Outcome: }Analysis results are stored as data for the clinician report\\
+  \textbf{Postcondition: }Analysis results are stored in the database\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}30. ]
-  \item Store Analysis Results\\
-  \textbf{Precondition: }Disturbances have been identified, flagged, and corresponding timestamps have been recorded\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Analysis results are stored as data for the clinician report\\
+  \item Generate Report\\
+  \textbf{Precondition: }Analysis results have been analyzed and processed\\
+  \textbf{Trigger: }All analysis results have been stored\\
+  \textbf{Outcome: }Clinician report is generated with data from the assessment analysis\\
+  \textbf{Postcondition: }Report is created to be stored in the database\\
 \end{enumerate}
 
 \begin{enumerate}[{PUC-}31. ]
-  \item Generate Report\\
-  \textbf{Precondition: }Analysis results have been stored\\
-  \textbf{Trigger: }\\
-  \textbf{Outcome: }\\
-  \textbf{Postcondition: }Clincian report is generated with data from the assessment analysis\\
-\end{enumerate}
-
-\begin{enumerate}[{PUC-}32. ]
   \item Store Report\\
   \textbf{Precondition: }Clinician report is generated\\
-  \textbf{Trigger: }\\
+  \textbf{Trigger: }None\\
   \textbf{Outcome: }Report is available to be viewed and accessed by the clinician\\
   \textbf{Postcondition: }Clinician report is stored in the database\\
 \end{enumerate}
