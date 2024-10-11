@@ -11,6 +11,9 @@
 \usepackage{enumerate} 
 \usepackage{hyperref}
 \usepackage{enumerate}
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage{longtable}  
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -191,7 +194,7 @@ N/A\\
 \end{itemize}
 \subsection{Off-the-Shelf Software}
 \begin{itemize}
-  \item[3.4.1] \color{red} There are no mandated off-the-shelf software constraints. \color{black}
+  \item[3.4.1] There are no mandated off-the-shelf software constraints.
 \end{itemize}
 \subsection{Anticipated Workplace Environment}
 \begin{itemize}
@@ -209,7 +212,7 @@ N/A\\
 \end{itemize}
 \subsection{Enterprise Constraints}
 \begin{itemize}
-  \item[3.8.1] \color{red} There are no mandated enterprise constraints. \color{black}
+  \item[3.8.1] There are no mandated enterprise constraints.
 \end{itemize}
 
 \section{Naming Conventions and Terminology}
@@ -270,8 +273,14 @@ time. Moreover, a solution that tracks the interactions between the user and the
 review an assessment session and either accept the remote assessment results with confidence or recognize where points of bias occur.
 
 \subsection{The Context of the Work}
-The diagram below models the high level interactions within the system as well as with any external systems.
+\hspace{1.5em}The diagram below models the high level interactions within the system as well as with any external systems.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/ContextoftheWork.png}
+  \caption{Context of the Work}
+\end{figure}
 
+All incoming and outgoing data to and from the database will be processed through the backend server first, the arrows are drawn directly for a simpler high-level diagram. 
 \subsection{Work Partitioning}
 \lips
 \subsection{Specifying a Business Use Case (BUC)}
