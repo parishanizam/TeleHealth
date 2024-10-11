@@ -284,7 +284,15 @@ All incoming and outgoing data to and from the database will be processed throug
 \subsection{Work Partitioning}
 \lips
 \subsection{Specifying a Business Use Case (BUC)}
-\lips
+The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
+when they submit an assessment. The output will be the video analysis detecting and identifying any disturbances during the 
+assessment and details such as the related assessment question, answer, and timestamp.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/BUC.png}
+  \caption{BUC Video Analysis Sequence Diagram}
+\end{figure}
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
@@ -598,7 +606,9 @@ All incoming and outgoing data to and from the database will be processed throug
 \end{enumerate}
 
 \subsection{Safety-Critical Requirements}
-\color{red} N/A. \color{black}
+\begin{enumerate}[{PR-SCL}1. ]
+  \item There are no safety-critical requirements
+\end{enumerate}
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}[{PR-PA}1. ]
