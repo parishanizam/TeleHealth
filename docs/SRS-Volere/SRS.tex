@@ -55,8 +55,9 @@ Oct 4 2024 & 1.2 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requi
 Oct 4 2024 & 1.3 & Jasmine Sun-Hu & Added Nonfunctional Requirements 10,14,16\\
 Oct 5 2024 & 1.4 & Promish Kandel & Added Nonfunctional Requirements 12\\
 Oct 6 2024 & 1.5 & Mitchell Weingust, Parisha Nizam & Added Sections 2, 4\\
-Oct 9 2024 & 1.6 & Mitchell Weingust & Added Sections 8, 18\\
-Oct 10 2024 & 1.7 & Mitchell Weingust & Added Sections 8, 19\\
+Oct 9 2024 & 1.6 & Jasmine Sun-Hu & Added Scope of the Work: Current Situation, Costs 6.1, 23\\
+Oct 9 2024 & 1.7 & Mitchell Weingust & Added Sections 8, 18\\
+Oct 10 2024 & 1.8 & Mitchell Weingust & Added Sections 8, 19\\
 \bottomrule
 \end{tabularx}
 
@@ -65,7 +66,7 @@ Oct 10 2024 & 1.7 & Mitchell Weingust & Added Sections 8, 19\\
 ~\newpage
 \section{Purpose of the Project}
 \subsection{User Business}
-\hspace{2em}The project being outlined in this document is an at-home bilingual speech 
+\hspace{1.5em}The project being outlined in this document is an at-home bilingual speech 
 assessment system with video and audio analysis features. The system is designed 
 to provide clear guidance to parents when administering the assessment to their 
 children, in an environment where speech-language pathologists (SLPs) are 
@@ -206,7 +207,7 @@ N/A\\
 \end{itemize}
 \subsection{Off-the-Shelf Software}
 \begin{itemize}
-  \item[3.4.1] \color{red} There are no mandated off-the-shelf software constraints. \color{black}
+  \item[3.4.1] There are no mandated off-the-shelf software constraints.
 \end{itemize}
 \subsection{Anticipated Workplace Environment}
 \begin{itemize}
@@ -224,7 +225,7 @@ N/A\\
 \end{itemize}
 \subsection{Enterprise Constraints}
 \begin{itemize}
-  \item[3.8.1] \color{red} There are no mandated enterprise constraints. \color{black}
+  \item[3.8.1] There are no mandated enterprise constraints.
 \end{itemize}
 
 \section{Naming Conventions and Terminology}
@@ -280,13 +281,37 @@ involved in the Project}
 
 \section{The Scope of the Work}
 \subsection{The Current Situation}
-\lips
+\hspace{1.5em}Currently, speech language assessments for bilingual children with speech difficulties require in-person visits, which can be logistically challenging 
+for families and clinicians. While there are some existing telehealth solutions, they are much more generalized and there are no existing solutions 
+specifically for the unique needs of bilingual children with speech difficulties such as a platform that offers assessments in multiple languages. 
+There is a need for a remote online solution where parents can administer language assessments to their children while minimizing the bias the parent 
+may introduce during the assessment. \\\\
+\indent Additionally, clinicians currently store all unprocessed data on excel files which can be tedious, disorganized, and require extra time from the clinician 
+to go through. A solution that tracks the remote assessment responses and generates a report from processed data will save the clinician or SLP significant 
+time. Moreover, a solution that tracks the interactions between the user and the interface which can detect points of bias or disturbance can help a clinician 
+review an assessment session and either accept the remote assessment results with confidence or recognize where points of bias occur.
+
 \subsection{The Context of the Work}
-\lips
+\hspace{1.5em}The diagram below models the high level interactions within the system as well as with any external systems.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/ContextoftheWork.png}
+  \caption{Context of the Work}
+\end{figure}
+
+All incoming and outgoing data to and from the database will be processed through the backend server first, the arrows are drawn directly for a simpler high-level diagram. 
 \subsection{Work Partitioning}
 \lips
 \subsection{Specifying a Business Use Case (BUC)}
-\lips
+The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
+when they submit an assessment. The output will be the video analysis detecting and identifying any disturbances during the 
+assessment and details such as the related assessment question, answer, and timestamp.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/BUC.png}
+  \caption{BUC Video Analysis Sequence Diagram}
+\end{figure}
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
@@ -739,7 +764,6 @@ involved in the Project}
 \subsection{Data Collection and Storage}
 \begin{enumerate}[{FR-DSC}1. ]
   \item The database shall be able to store multimedia files including video, audio, and structured data files for each session.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }These file types are necessary to capture the full scope of the speech-language assessment, 
   including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
   timestamps).\\
@@ -749,7 +773,6 @@ involved in the Project}
 \begin{enumerate}[{FR-DSC}2. ]
   \item The database shall store the video, audio, flagged occurrences (e.g., errors or critical moments
   during the assessment), and timestamps for each question during the assessment.\\
- \textit{Insert formal Specification}\\
  \textbf{Rationale: }Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
  of patient responses and enables them to review specific moments of interest efficiently.\\
  \textbf{Fit criterion: }The database shall include video and audio files for 100 percent of assessment sessions,
@@ -759,7 +782,6 @@ involved in the Project}
 \begin{enumerate}[{FR-DSC}3. ]
   \item The system shall not store any personally identifiable textual information (e.g., patient name, address, 
   or medical record number) in the database.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
   identifying textual information must be excluded from storage in the database.\\
   \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
@@ -768,7 +790,6 @@ involved in the Project}
 \begin{enumerate}[{FR-DSC}4. ]
   \item The database shall group all stored data by a unique user identifier to ensure data can be linked to 
   individual users.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
   compromising patient privacy, supporting the requirement for anonymized data storage.\\
   \textbf{Fit criterion: }The system must assign a unique identifier to every user and confirm through testing 
@@ -777,7 +798,6 @@ involved in the Project}
 \end{enumerate}
 \begin{enumerate}[{FR-DSC}5. ]
   \item The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
   \textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.
 \end{enumerate}
@@ -785,7 +805,6 @@ involved in the Project}
 \subsection{Video and Audio Data Analysis}
 \begin{enumerate}[{FR-VADA}4. ]
   \item The analysis model shall have access to the video and audio recordings of each session.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }The data contains essential visual and auditory information that can help clinicians 
   efficiently assess any speech-related disturbances and non-verbal cues.\\
   \textbf{Fit criterion: }The model must successfully retrieve and process video data from 100\% of 
@@ -794,7 +813,6 @@ involved in the Project}
 \begin{enumerate}[{FR-VADA}2. ]
   \item The analysis model shall identify speech disturbances, including interruptions, parental 
   assistance on the assessment, or other irregularities in the background.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Detecting disturbances is critical for accurate assessment of speech disorders without 
   bias so that clinicians and speech language pathologists can accurately provide diagnosis and treatment.\\
   \textbf{Fit criterion: }The model must accurately identify and log at least 95\% of speech disturbances 
@@ -802,7 +820,6 @@ involved in the Project}
 \end{enumerate}
 \begin{enumerate}[{FR-VADA}3. ]
   \item The system shall flag detected disturbances, and have some relational indicator to the timestamp, the assessment question, and the user's answer.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Flagging disturbances and marking the exact points where they occur enables clinicians and 
   speech-language pathologists to quickly review the relevant portions of the assessment, reducing the time needed 
   for manual analysis.\\
@@ -813,25 +830,21 @@ involved in the Project}
 \subsection{Data Processing and Display}
 \begin{enumerate}[{FR-DPD}1. ]
   \item The system shall retrieve processed assessment results from the database for report generation.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }In order to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
   \textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 10 seconds of a query being made.
 \end{enumerate}
 \begin{enumerate}[{FR-DPD}2. ]
   \item The system shall generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
   \textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within 10 seconds of the request.
 \end{enumerate}
 \begin{enumerate}[{FR-DPD}3. ]
   \item The system shall display the generated report through the platform’s interface.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Clinicians need to be able to view and interpret the report to assess patient progress to determine next steps for the patient.\\
   \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.
 \end{enumerate}
 \begin{enumerate}[{FR-DPD}4. ]
   \item Clinicians shall be able to access previously generated reports from the database.\\
-  \textit{Insert formal Specification}\\
   \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
   \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
 \end{enumerate}
@@ -878,7 +891,7 @@ involved in the Project}
 \end{enumerate}
 
 \section{Usability and Humanity Requirements}
-\subsection{Ease of Use Requirements}
+\subsection{Ease of Use Requirements} 
 \begin{enumerate}[{UH-EOU}1. ]
   \item The system shall be intuitive for new users to understand.\\
   \textbf{Rationale: }New users should not be overwhelmed with the system. New users must be able to understand the system to effectively perform the assessment (parents and children), or view the results (clinicians).\\
@@ -940,7 +953,9 @@ involved in the Project}
 \end{enumerate}
 
 \subsection{Safety-Critical Requirements}
-\color{red} N/A. \color{black}
+\begin{enumerate}[{PR-SCL}1. ]
+  \item There are no safety-critical requirements
+\end{enumerate}
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}[{PR-PA}1. ]
@@ -1170,6 +1185,112 @@ involved in the Project}
 
 \end{enumerate}
 
+\section{Traceability Matrix}
+\begin{table}[!ht]
+  \centering
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      PUC no & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 \\ \hline
+      FR-A1 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A2 & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A3 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A4 & ~ & ~ & ~ & X & ~ & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A5 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI6 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI7 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & ~ & ~ \\ \hline
+      FR-DSC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      FR-VADA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-VADA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-VADA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & ~ & ~ \\ \hline
+      FR-DPD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ \\ \hline
+      FR-DPD2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      FR-DPD3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      FR-DPD4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+  \end{tabular}}
+  \caption{Traceability Matrix for PUCs and FRs}
+\end{table}
+
+\begin{table}[!ht]
+  \centering
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      PUC no & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 \\ \hline
+      LF-AR1 & X & ~ & X & X & X & X & X & X & X & X & X & ~ & ~ & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      LF-AR2 & X & ~ & X & X & X & ~ & ~ & ~ & X & X & X & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      LF-AR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR5 & X & X & X & X & X & X & X & X & ~ & ~ & X & ~ & X & ~ & X & X & ~ & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      LF-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      LF-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      UH-EOU1 & X & ~ & X & X & X & ~ & ~ & ~ & X & X & X & ~ & X & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      UH-EOU2 & X & X & X & ~ & X & ~ & ~ & ~ & X & X & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-PI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & X & X & ~ & X & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      UH-LI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      UH-LI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-UP1 & X & X & ~ & X & X & ~ & ~ & ~ & X & ~ & X & ~ & ~ & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X & ~ & ~ & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL1 & X & ~ & X & X & ~ & ~ & X & ~ & X & X & X & ~ & ~ & X & X & ~ & X & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      PR-SL2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & X & X & X & X & X & ~ \\ \hline
+      PR-PA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      PR-PA4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      PR-PA5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT1 & X & X & X & X & X & X & X & ~ & X & X & X & ~ & X & X & X & X & X & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      PR-RFT2 & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      PR-RFT3 & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR1 & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR2 & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      PR-CR3 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE1 & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      PR-SE3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & X & X & X & ~ & ~ & ~ \\ \hline
+      PR-LR1 & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X \\ \hline
+      PR-LR2 & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X \\ \hline
+      OE-EPE1 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & X & X & ~ & X & X & X & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      OE-WE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE2 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & X & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X \\ \hline
+      OE-IA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      MS-MR1 & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X & X \\ \hline
+      MS-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & X & X & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      MS-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-AR1 & X & ~ & X & X & X & ~ & ~ & ~ & X & X & X & ~ & ~ & X & X & ~ & X & ~ & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      SR-AC1 & ~ & ~ & X & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC2 & X & ~ & ~ & X & X & X & X & X & X & ~ & X & ~ & X & X & X & ~ & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      SR-AC4 & ~ & X & ~ & X & ~ & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      SR-P2 & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & X & X & X & X & X & X & X & X & X \\ \hline
+      SR-P3 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+      SR-IM1 & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR1 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & X & X & X & ~ & ~ & ~ & ~ & ~ & X & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      CU-CR2 & X & ~ & X & X & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
+  \end{tabular}}
+  \caption{Traceability Matrix for PUCs and NFRs}
+\end{table}
+
+\newpage
+
 \section{Open Issues}
 \begin{enumerate}
   \item Live video recording in clincian-led sessions, and future analysis of those recordings.
@@ -1220,7 +1341,14 @@ Inhibit the New Product}
 \lips
 
 \section{Costs}
-\lips
+\hspace{1.5em}The initial release of the web application will have no costs that will be covered by the development team. 
+This will be achieved by utilizing free services such as Figma for prototype design, GitHub Actions for automating CI pipeline, and ESLint, Jest and Pytest 
+for testing. Power BI's free version will be used for data analytics and assisting report generation. The client already has an AWS 
+server available to use for web hosting and data storage for this project, so the development team will not have to cover those costs.
+\\\\
+\indent There may be need for adding or increasing a budget in future releases as the project expands, or if the intended
+technology solutions need to change as the project progresses; however, there are no planned costs for the initial release.
+
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
 \lips
