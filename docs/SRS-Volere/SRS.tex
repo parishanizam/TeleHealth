@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{longtable}
+\usepackage{multirow}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -60,6 +61,10 @@
 10/09/24 & 1.7 & Mitchell Weingust & Added Sections 8, 18\\
 10/10/24 & 1.8 & Mitchell Weingust & Added Sections 8, 19\\
 10/11/24 & 1.9 & Jasmine Sun-Hu & Added Section 6.4, Traceability Matrix, References\\
+10/11/24 & 2.0 & Promish Kandel & Added Section 20,24,25 and Formal Specification\\
+10/11/24 & 2.1 & Parisha Nizam & Added Section 21,22,26 Traceability Matrix \\
+10/11/24 & 2.2 & All & Added Reflection and minor edits \\
+
 \bottomrule
 \end{tabularx}
 
@@ -234,6 +239,7 @@ N/A\\
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
 
+\begin{table}[h!]
 \begin{tabularx}{\textwidth}{p{2cm}X}
   \toprule {\textbf{Terms}} & {\textbf{Definition}}\\
   \midrule
@@ -248,6 +254,8 @@ involved in the Project}
   TB & Terabyte\\
   \bottomrule
 \end{tabularx}
+\caption{Naming Conventions and Terminology}
+\end{table}
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
@@ -348,6 +356,7 @@ All incoming and outgoing data to and from the database will be processed throug
   Do Audio Analysis & IN: Assessmenet Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
 \bottomrule
 \end{tabularx}
+\caption{Work Partitioning of BUC}
 \end{table}
 \subsection{Specifying a Business Use Case (BUC)}
 The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
@@ -362,9 +371,47 @@ assessment and details such as the related assessment question, answer, and time
 
 \section{Business Data Model and Data Dictionary}
 \subsection{Business Data Model}
-\lips
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.35]{images/UML class.png}
+  \caption{UML Diagram of System's Data Layout}
+\end{figure}
 \subsection{Data Dictionary}
-\lips
+\begin{table}[h!]
+\begin{tabularx}{\textwidth}{p{2.5cm}p{3cm}X}
+  \toprule {\textbf{Name}} & {\textbf{Type}} & {\textbf{Content}}\\
+  \midrule
+  System Interface & Interface & Encompasses entire system that a user can view, using username \\ 
+  \hline
+  User & Parent Class & User Content \\ 
+  \hline 
+  Parent & Class & Parent Content \\ 
+  \hline
+  Clinician & Clinician Class & Clinician Content \\ 
+  \hline 
+  Email & Attribute & Login email \\
+  \hline 
+  Username & Attribute & Unique Login Username \\
+  \hline 
+  Password & Attribute & Unique Password \\
+  \hline 
+  Assessment Results & Class & Stores Result data from assessments \\
+  \hline 
+  Assessment Results & Attribute & Stores data from assessment questions (selected answers and results) in a json \\
+  \hline 
+  Timestamps & Attribute & Stores timestamp data at each question starting point in a json \\
+  \hline 
+  Video Recording & Attribute & Video Recordings of assessment is stored as blob \\
+  \hline 
+  Audio Recording & Attribute & Audio Recordings of assessment is stored as blob \\
+  \hline 
+  Assessment Results Interface & Interface & Stores assessment data and displays to clinicians \\ 
+  \hline 
+  Assessment Interface & Interface & Displays view for parent to learn, and complete assessment with child \\
+  \bottomrule
+  \end{tabularx}
+  \caption{Descriptions of Data Elements in Model}
+\end{table}
 
 \section{The Scope of the Product}
 \subsection{Product Boundary}
@@ -444,6 +491,7 @@ assessment and details such as the related assessment question, answer, and time
   \hline
   PUC-31 & Store Report & Database & Assessment Report & Store Report\\
   \bottomrule
+  \caption{Summary of TeleHealth System's Use Cases}
 \end{longtable}
 \subsection{Individual Product Use Cases (PUC's)}
 \begin{enumerate}[{PUC-}01. ]
@@ -896,6 +944,15 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
 \end{enumerate}
 
+\subsection*{Formal Specification}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/TeleHealth_StateMachine.png}
+  \caption{Finite State Machine that represents the Parent-Child interaction with the Assessmenet Interface}
+\end{figure}
+
+This is the project's most critical element because the system's primary objective is to support parents when conducting at home speech assessments for their child. 
+The success of the system is dependent on the parent-child correctly using the interface.
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
 \begin{enumerate}[{LF-AR}1. ]
@@ -1154,7 +1211,7 @@ assessment and details such as the related assessment question, answer, and time
 \end{enumerate}
 
 \subsection{Adaptability Requirements}
-\begin{enumerate}[{MS-AR}2. ]
+\begin{enumerate}[{MS-AR}1. ]
   \item The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
   \textbf{Rationale: }A responsive design ensures the platform is accessible on any device, providing a seamless user experience regardless of screen size or resolution.\\
   \textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
@@ -1383,15 +1440,101 @@ There are no liminations in the Anticipated implement environment
 The system has no follow up problem
 \section{Tasks}
 \subsection{Project Planning}
-\lips
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{3cm}|}
+  \hline
+  \textbf{Phase} & \textbf{Task} & \textbf{Deadline} \\ 
+  \hline
+  \multirow{6}{*}{Revision 0} & Requirements Document & Oct 11, 2024 \\
+  \cline{2-3}
+   & Hazard Analysis & Oct 23, 2024 \\ 
+  \cline{2-3}
+   & Verification and Validation Plan & Nov 1, 2024 \\ 
+  \cline{2-3}
+   & Proof of Concept Demo & Nov 11-22, 2024 \\ 
+  \cline{2-3}
+   & Design Document & Jan 15, 2025 \\ 
+  \cline{2-3}
+   & Demonstration & Feb 3-14, 2025 \\ 
+  \hline
+  \multirow{3}{*}{Revision 1} & Final Demonstration & Mar 24-30, 2025 \\ 
+  \cline{2-3}
+   & EXPO Demonstration & Apr TBD, 2024 \\ 
+  \cline{2-3}
+   & Final Documentation (Problem Statement, POC plan, Development Plan, Requirements Doc, Hazard Analysis, Design Document, V\&V Plan, V\&V Report, User Guide, Source Code) & Apr 2, 2024 \\ 
+  \hline
+  \end{tabular}
+  \caption{Project Task Deadlines}
+\end{table}
+
 \subsection{Planning of the Development Phases}
-\lips
+
+The development of the TeleHealth System will be divided into two phases including; \\
+\begin{itemize}
+\item Revision 0: Intitial Development of Application and Reports \\
+\item Revision 1: Refinement/Revision of Project and Deliverables \\
+\end{itemize}
+Prior to Revision 0, Team 22 has defined the team members of the project, Problem Statement of the project, POC plan, and Development Plan.
+Revision 0 work encompasses all the work completed starting October 11 to February 14th.In the Revision 0 Phase, the team will work on design related deliverables for the project to define the scope, the requirements, stakeholders, use cases, risks, and define the plan for implementing the project. Using this information, the team will work towards creating a POC.
+A V\&V report will be made based on feedback and iterations will be made accordingly. 
+Revision 1 will focus on implementing refinements to Revision 0 documentation and adding extras to both application and deliverables. Feedback will be incorporated into any refinements from stakeholders and professor. \\
+
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
+  \hline
+  \textbf{Application Development Revision 0 Tasks} & \textbf{Priority} &  \textbf{Deadline} \\
+  \hline
+  Frontend App Setup for Video/Audio Integration & Medium &  Oct 15, 2024 \\
+  \hline
+  Video Capture \& Storage Module Development (Database \& Server Set Up) & High &  Oct 25, 2024 \\
+  \hline
+  Data Security and Encryption Integration & High & Oct 28, 2024 \\
+  \hline
+  Basic Machine Learning Integration & High & Nov 5, 2024 \\
+  \hline
+  Video Testing in Controlled Setting for POC & High & Nov 5, 2024 \\
+  \hline
+  Proof of Concept Demo & High &  Nov 11-22, 2024 \\
+  \hline
+  Application Frontend Design & Low & Nov 10, 2024 \\
+  \hline
+  Audio Capture \& Storage Module Development & Medium & Nov 20, 2024 \\
+  \hline
+  Application Frontend Development First Iteration Complete (Application Integration, Login \& Authentication System) & Medium & Nov 25, 2024 \\
+  \hline
+  Deep Training of Machine Learning Model & High & Dec 16, 2024 \\
+  \hline
+  \end{tabularx}
+  \caption{Development Revision 0 Deadlines}
+\end{table}
+
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
+  \hline
+  \textbf{Application Development Revision 1 Tasks} & \textbf{Priority} & \textbf{Deadline} \\
+  \hline
+  Authentication and Access Check & High & Jan 15,2025 \\
+  \hline 
+  Usability Survey & Medium & Feb 20, 2025 \\
+  \hline 
+  User Interface Completion/Iteration & Medium & Feb 30, 2025 \\
+  \hline 
+  Unit Testing & High & March, 4, 2025 \\
+  \hline 
+  Code Refinement & Medium & April 1, 2025 \\
+  \hline
+  \end{tabularx}
+  \caption{Development Revision 1 Deadlines}
+\end{table}
+
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
-\lips
+N/A
 \subsection{Data That Has to be Modified or Translated for the New System}
-\lips
+N/A
 
 \section{Costs}
 \hspace{1.5em}The initial release of the web application will have no costs that will be covered by the development team. 
@@ -1439,7 +1582,21 @@ Motivation: Providing comprehensive user documentation will enhance the user exp
   \item Integrating live video and audio analysis for clinicians during an assesment
 \end{itemize}
 \section{Ideas for Solution}
-\lips
+
+Implementation for components of Telehealth System 
+
+\begin{itemize}
+\item Video and Audio Integration \\
+\subitem getUserMedia API: Enables capturing video and audio directly from user's device (camera \& microphone) and can be used on a React application \\
+\subitem MediaRecorder API: Works with getUserMedia to record the video and audio streams while the user completes the assessment, and it saves the media as files \\
+\subitem React Media Recorder: A React hook-based solution for integrating getUserMedia and MediaRecorder easily in React applications.\\
+\item Server
+\subitem AWS to securely store recorded video and audio files 
+\item User Interface 
+\subitem Figma: Use to design User Interface 
+\subitem Expo: Javascript/React Integration to allow for web-based and mobile-based support over cross-platforms
+\end{itemize}
+
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -1455,10 +1612,107 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   computer science knowledge.  Skills may be related to technology, or writing,
   or presentation, or team management, etc.  You should look to identify at
   least one item for each team member.
+
+  \textbf{Interface Knowledge} 
+  \begin{itemize}
+    \item Frontend - Javascript
+    \item Backend - Javascript, API's , Expo Framework
+    \item Knowledge of Component Management - React
+  \end{itemize}
+  \textbf{Machine Learning} 
+  \begin{itemize}
+    \item Video Integration Skills \& Video Processing
+    \item Audio Integration Skills \& Audio Processing
+    \item Python Data Analysis Processing
+  \end{itemize}
+\textbf{Database Knowledge} 
+\begin{itemize}
+  \item Database Integration - AWS
+  \item Knowledge of Data Security \& Encryption
+\end{itemize}
+
+\textbf{Architecture and Design Knowledge} 
+\begin{itemize}
+  \item Deepen knowledge on system architecture and design principles
+  \item Interface Design - Figma
+  \item Knowledge on how to use Continuous Integration
+\end{itemize}
+
+\textbf{Softskill Learning}
+\begin{itemize}
+  \item Presentation Skills
+  \item Organization \& Communication Skills
+  \item Knowledge of Agile Team Development
+  \item Domain Knowledge on Main User Group
+  \item Knowledge on Application of Regulatory Standards
+\end{itemize}
+
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
+
+  \textbf{Interface Knowledge} 
+  \begin{itemize}
+    \item Parisha 
+    \subitem Approach: Approach will include using online platforms such as Udemy that cover the basics of frontend and backend development in React, 
+    as well as using API integration, and Expo Framework. 
+    \subitem Why: I chose this approach as I have learnt many skills, specifically React from Udemy before and it is a very detailed way to learn skills. 
+    Udemy courses include step by step tutorials as well as quizzes to learn and apply the learnt knowledge. 
+    \item Promish 
+    \subitem Approach: Following a React project-based guide on YouTube.
+    \subitem Why: This approach will help me understand how the language is integrated while learning about the various features React has to offer. 
+  I chose this method to solidify my knowledge of React and to better grasp how to code component-based designs. As a visual learner, YouTube is where I acquire most of my knowledge, and it is my preferred way of learning.
+  \end{itemize}
+
+  \textbf{Machine Learning} 
+  \begin{itemize}
+    \item Promish 
+    \subitem Approach: Reading a variety of machine learning documentation to stay updated on new research.
+    \subitem Why: I chose to read a variety of documentation because I'm always curious about the advancements in machine learning. Exploring new research will help me understand what's available that could be integrated into our capstone project, with the goal of making it more efficient and optimized. 
+    \item Mitchell 
+    \subitem Approach: Watch and follow along with online tutorials
+    \subitem Why: For machine learning knowledge, I will watch a variety of online tutorials and follow along to make small examples. This will help me understand the functionality of the different machine learning models and libraries available, along with how to use them. I decided to pursue this approach because this learning model worked for me in my past research position, where I watched numerous tutorials on a variety of topics, culminating in more informed decision making.
+  \end{itemize}
+
+  \textbf{Database Knowledge} 
+  \begin{itemize}
+    \item Parisha 
+    \subitem One Approach includes using video playlists available online to learn the fundamentals of Database and Security. 
+    \subitem Why: This is an area I have had previous experience in, being on coop as a Database Engineer for 8 months, I learnt a lot of content by visually learning and will continue to for this project.
+    \item Jasmine
+    \subitem Approach: Reviewing course notes and expanding on them
+    \subitem Why: I chose this approach because I have notes from a databases course I took and am currently enrolled in an information security course. By revisiting my databases course materials from SFWRENG 3DB3, I can reinforce foundational knowledge and build upon it for deeper research specific to the project. For data security and encryption, I plan to apply what I've learned from my current information security course, making sure that data is encrypted properly and that our project meets the necessary data security standards.
+  \end{itemize}
+
+  \textbf{Architecture amd Design Knowledge} 
+  \begin{itemize}
+    \item Jasmine 
+    \subitem Approach: Self-learning through online platforms and studying existing designs
+    \item Why: I chose self-learning for interface design because I have a passion for art and design. I’ve already begun learning Figma on my own, and this project provides extra motivation to continue doing so. By studying existing examples of good interface designs and practicing Figma in my free time, I can ensure our interface is well designed practically and aesthetically.
+    \item Mitchell 
+    \subitem Approach: Explore past course notes
+    \subitem Why: For architecture and design knowledge, I will explore my past course notes to familiarize myself with important past topics. The courses I plan on reviewing are SFWRENG 3A04 - Large System Design, and SFWRENG 2AA4 - Introduction to Software Development. These courses cover important topics for building software systems at different scales. This will allow me to make informed decisions on choosing the best tool for the job. In this case, I will explore the uses of different software architectures and design patterns so that the team can implement the most beneficial solution. 
+  \end{itemize}
+  \textbf{Soft skill Learning}
+  Everyone on the team is responsible to develop their soft skills in these areas to ensure consistency, professionalism and success for the team.
+  \begin{itemize}
+    \item Presentation Skills
+    \subitem The team will improve our presentation skills by performing mock presentations in front of the team's supervisor for initial feedback and constructive criticism. This will result in the overall improvement of the team's comfort when presenting in front of an audience. As well, the team will master presentations by scheduling presentation rehearsals to practice and improve our confidence.
+    
+    \item Organization \& Communication Skills
+    \subitem The team will improve our organization skills by reformatting the team's main communication platform, Discord, to have improved text channel naming conventions. Currently the team's Discord server is difficult to navigate with irrelevant information spread throughout. The team wants to improve this by utilizing new text channels for recurring meetings, reminders, and notes. As well, the team will improve our communication skills by informing each other at least 12 hours in advance of any team meetings. If a team meeting is urgent, the team member is required to state its importance. This will improve the team's organization and communication. 
+
+    \item Knowledge of Agile Team Development
+    \subitem The team will improve on knowledge of agile team development by reading about the specifics of agile team development and reviewing our course notes on agile team development from SFWRENG 2AA4. This will help the team be more efficient when it comes to developing our capstone as everyone will be on the same page about the development process. Agile team development also allows for continuous integration in a seamless way as it its based around it. 
+
+    \item Domain Knowledge on Main User Group
+    \subitem The team will enhance their domain knowledge of the primary user groups by reviewing research papers written by the speech-language pathology (SLP) client, and other studies on bilingual children with speech difficulties available online. Additionally, we will facilitate discussions with our capstone supervisor and the speech-language pathologist client to ensure that the interface design of the project is tailored appropriately to meet the needs of the parents and children who will be using the assessment.
+    
+    \item Knowledge on Application of Regulatory Standards
+    \subitem The team will improve our knowledge on applying regulatory standards by tracking the relevant requirements that healthcare applications need for international standards. As we are dealing with health related data, the team wants to ensure that regulatory standards are being met. The team wants to plan in advance how we want to ensure these requirements are being met and applied. Another method the team will use is communicating with the project's supervisor about their knowledge on relevant requirements, as they are more experienced with healthcare research, and the necessary regulatory standards required.
+  \end{itemize}
+
 \end{enumerate}
 
 \newpage
