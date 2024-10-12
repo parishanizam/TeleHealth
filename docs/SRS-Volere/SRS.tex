@@ -47,18 +47,19 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{2cm}p{1.5cm}p{3.5cm}X}
-\toprule {\textbf{Date}} & {\textbf{Version}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+\begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+\toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
 \midrule
-Oct 3 2024 & 1.0 & Mitchell Weingust, Parisha Nizam & Added Functional Requirements 9.1, 9.2, 9.3 \\
-Oct 3 2024 & 1.1 & Promish Kandel, Jasmine Sun-Hu & Added Functional Requirements 9.4,9.5,9.6, and sections 1,3,5\\
-Oct 4 2024 & 1.2 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
-Oct 4 2024 & 1.3 & Jasmine Sun-Hu & Added Nonfunctional Requirements 10,14,16\\
-Oct 5 2024 & 1.4 & Promish Kandel & Added Nonfunctional Requirements 12\\
-Oct 6 2024 & 1.5 & Mitchell Weingust, Parisha Nizam & Added Sections 2, 4\\
-Oct 9 2024 & 1.6 & Jasmine Sun-Hu & Added Scope of the Work: Current Situation, Costs 6.1, 23\\
-Oct 9 2024 & 1.7 & Mitchell Weingust & Added Sections 8, 18\\
-Oct 10 2024 & 1.8 & Mitchell Weingust & Added Sections 8, 19\\
+10/03/24 & 1.0 & Mitchell Weingust, Parisha Nizam & Added Functional Requirements 9.1, 9.2, 9.3 \\
+10/03/24 & 1.1 & Promish Kandel, Jasmine Sun-Hu & Added Functional Requirements 9.4,9.5,9.6, and sections 1,3,5\\
+10/04/24 & 1.2 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
+10/04/24 & 1.3 & Jasmine Sun-Hu & Added Nonfunctional Requirements 10,14,16\\
+10/05/24 & 1.4 & Promish Kandel & Added Nonfunctional Requirements 12\\
+10/06/24 & 1.5 & Mitchell Weingust, Parisha Nizam & Added Sections 2, 4\\
+10/09/24 & 1.6 & Jasmine Sun-Hu & Added Scope of the Work: Current Situation, Costs 6.1, 23\\
+10/09/24 & 1.7 & Mitchell Weingust & Added Sections 8, 18\\
+10/10/24 & 1.8 & Mitchell Weingust & Added Sections 8, 19\\
+10/11/24 & 1.9 & Jasmine Sun-Hu & Added Section 6.4, Traceability Matrix, References\\
 \bottomrule
 \end{tabularx}
 
@@ -186,18 +187,18 @@ N/A\\
 \subsection{Solution Constraints}
 \begin{itemize}
   \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
-  \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security.
+  \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security \cite{hipaa}.
   \item[3.1.3] Access to the platform must be restricted to authorized users, with secure authentication processes in place.
   \item[3.1.4] The system must be capable of scaling to accommodate an increasing number of users and growing data storage needs as the client expands.
   \item[3.1.5] The platform must support assessment sessions of up to at least 30 minutes to align with standard telehealth consultation times.
   \item[3.1.6] The platform must support adaptable video and audio quality based on internet bandwidth, ensuring clarity and reliability during assessments.
-  \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs.
+  \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs \cite{wcag}.
   \item[3.1.8] Patient records must be retained for a minimum of 7 years from the last visit or at least 1 year after the patient turns 18, whichever is 
   longer, in accordance with California law.
 \end{itemize}
 \subsection{Implementation Environment of the Current System}
 \begin{itemize}
-  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security.
+  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security \cite{hipaa}.
   \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
   infrastructure.
 \end{itemize}
@@ -237,8 +238,8 @@ involved in the Project}
   \toprule {\textbf{Terms}} & {\textbf{Definition}}\\
   \midrule
   SLP & Speech Language Pathologist\\
-  HIPAA & Health Insurance Portability and Accountability Act\\
-  WCAG & Web Content Accessibility Guidelines\\
+  HIPAA & Health Insurance Portability and Accountability Act \cite{hipaa}\\
+  WCAG & Web Content Accessibility Guidelines \cite{wcag}\\
   ML & Machine Learning\\
   PUC & Product Use Case\\
   FR & Functional Requirement\\
@@ -251,7 +252,7 @@ involved in the Project}
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
 \begin{itemize}
-  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA, ensuring that patient data is securely stored and managed.
+  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA, ensuring that patient data is securely stored and managed \cite{hipaa}.
   \item[5.1.2] The client has requested a web-based platform, indicating a preference for accessibility without the need for specialized 
   software installations.
   \item[5.1.3] The platform will have two primary user roles. The clinicians who perform assessments and review results and the parents who 
@@ -262,7 +263,7 @@ involved in the Project}
   \item[5.2.1] Only authorized users (clinicians) can access patient data.
   \item[5.2.2] Patient records must be retained for at least 7 years from the last visit, or 1 year after the patient turns 18, whichever is longer, 
   to comply with California state law.
-  \item[5.2.3] The platform must comply with WCAG 2.1 to ensure it is accessible to users with disabilities.
+  \item[5.2.3] The platform must comply with WCAG 2.1 to ensure it is accessible to users with disabilities \cite{wcag}.
   \item[5.2.4] All patient data must be encrypted both in transit and at rest to maintain confidentiality and meet regulatory standards.
   \item[5.2.5] The platform must generate reports based on assessment data, which can be reviewed and stored within the system 
   \item[5.2.6] Video and audio recordings must automatically adjust to optimize based on internet bandwidth, ensuring quality without excessive 
@@ -829,7 +830,7 @@ assessment and details such as the related assessment question, answer, and time
   \item The system shall not store any personally identifiable textual information (e.g., patient name, address, 
   or medical record number) in the database.\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
-  identifying textual information must be excluded from storage in the database.\\
+  identifying textual information must be excluded from storage in the database \cite{hipaa}.\\
   \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
   accessible by clinicians are anonymized and contain no identifying textual information.
 \end{enumerate}
@@ -1094,7 +1095,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }The system must demonstrate a failure rate of less than 1\% in the release build during ongoing development, ensuring that users experience minimal disruptions.  
 \end{enumerate}
 \begin{enumerate}[{PR-LR}2. ]
-  \item The system must be compatible with major operating systems, including Windows, Mac, Linux, Android, and iOS.\\
+  \item The system must be compatible with major operating systems, including Windows, macOS, Linux, Android, and iOS.\\
   \textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
   \textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.  
 \end{enumerate}
@@ -1231,7 +1232,7 @@ assessment and details such as the related assessment question, answer, and time
 
 \end{enumerate}
 
-\section{Traceability Matrix}
+\section*{Traceability Matrix}
 \begin{table}[!ht]
   \centering
   \resizebox{\textwidth}{!}{
@@ -1346,19 +1347,19 @@ assessment and details such as the related assessment question, answer, and time
 \section{Off-the-Shelf Solutions}
 \subsection{Ready-Made Products}
 \begin{itemize}
-  \item VSee: A telehealth platform for virtual visits and remote exams.
+  \item VSee: A telehealth platform for virtual visits and remote exams \cite{vsee}.
 \end{itemize}
 \subsection{Reusable Components}
 \begin{itemize}
-  \item Amazon Web Services: Cloud storage solution for securely storing video and audio recordings. 
-  \item TensorFlow: Machine Learning library for building and deploying audio and video models.
-  \item PyTorch: Machine Learning library for building and deploying audio and video models.
-  \item WebRTC (Real-Time Communication): APIs for secure video and audio communication.
+  \item Amazon Web Services: Cloud storage solution for securely storing video and audio recordings \cite{aws}. 
+  \item TensorFlow: Machine Learning library for building and deploying audio and video models \cite{tensorflow}.
+  \item PyTorch: Machine Learning library for building and deploying audio and video models \cite{pytorch}.
+  \item WebRTC (Real-Time Communication): APIs for secure video and audio communication \cite{webrtc}.
 \end{itemize}
 \subsection{Products That Can Be Copied}
 \begin{itemize}
-  \item Kahoot: Similar question interface with 4 options displayed
-  \item Zoom: Recording audio, video, screen-sharing capabilities
+  \item Kahoot: Similar question interface with 4 options displayed \cite{kahoot}
+  \item Zoom: Recording audio, video, screen-sharing capabilities \cite{zoom}
 \end{itemize}
 
 \section{New Problems}
@@ -1377,9 +1378,9 @@ Additionally, it increases accessibility for parents, especially those who may n
 \end{itemize}
 \subsection{Limitations in the Anticipated Implementation Environment That May
 Inhibit the New Product}
-\textcolor{red}{There are no liminations in the Anticipated implement environment}
+There are no liminations in the Anticipated implement environment
 \subsection{Follow-Up Problems}
-\textcolor{red}{The system has no follow up problem}
+The system has no follow up problem
 \section{Tasks}
 \subsection{Project Planning}
 \lips
@@ -1459,5 +1460,39 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?
 \end{enumerate}
+
+\newpage
+
+\begin{thebibliography}{9}
+
+  \bibitem{hipaa}
+  U.S. Department of Health and Human Services, “HIPAA Home,” \textit{HIPAA Home}, https://www.hhs.gov/hipaa/index.html (accessed Oct. 11, 2024).
+  
+  \bibitem{wcag}
+  S. L. Henry, “WCAG 2 Overview,” \textit{Web Accessibility Initiative (WAI)}, https://www.w3.org/WAI/standards-guidelines/wcag/ (accessed Oct. 11, 2024).
+  
+  \bibitem{vsee}
+  VSee, “Most Trusted HIPAA Compliant Telemedicine Solution,” https://vsee.com/ (accessed Oct. 11, 2024).
+  
+  \bibitem{aws}
+  AWS, “Free Cloud Computing Services - AWS Free Tier,” https://aws.amazon.com/free/ (accessed Oct. 11, 2024).
+
+  \bibitem{tensorflow}
+  TensorFlow, “Tensorflow,” https://www.tensorflow.org/ (accessed Oct. 11, 2024).
+  
+  \bibitem{pytorch}
+  PyTorch, “Pytorch - Get Started,” https://pytorch.org/ (accessed Oct. 11, 2024).
+  
+  \bibitem{webrtc}
+  WebRTC, https://webrtc.org/ (accessed Oct. 11, 2024).
+  
+  \bibitem{kahoot}
+  Kahoot!, “Kahoot! For Schools: How it Works: Feature overview,” https://kahoot.com/schools/how-it-works/ (accessed Oct. 11, 2024).
+  
+  \bibitem{zoom}
+  Zoom, “One Platform to Connect,” https://www.zoom.com/ (accessed Oct. 11, 2024).
+  
+  \end{thebibliography}
+  
 
 \end{document}
