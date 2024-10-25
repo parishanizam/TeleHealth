@@ -36,8 +36,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-October 24 2024 & Jasmine & Added Sections 1,2,3\\
-Date2 & Name(s) & Description of changes\\
+October 24 2024 & Jasmine Sun-Hu & Added Sections 1,2,3\\
+October 25 2024 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -105,6 +105,14 @@ will be considered within the system boundary and may be included in the hazard 
 minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
+This is just my brainstorm, feel free to change the formatting or add/remove constraints -Jasmine
+\begin{enumerate}
+    \item Users have reliable internet access while using the web application.
+    \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
+    \item Users will not share their password with anyone. (maybe remove? it's not about the software or the system directly -JS)
+    \item Any third-party services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
+    \item When a user is taking the assessment they will have a functional microphone and camera that meet the minimum requirements for recording assessment sessions.
+\end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
 
@@ -131,21 +139,44 @@ Which requirements will be implemented in the future?}
 
 \section*{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
 \input{../Reflection.tex}
 
 \begin{enumerate}
     \item What went well while writing this deliverable? 
+    
+    The structured format and clear guidelines from both the document outline and lecture slides for writing the hazard 
+    analysis, as well as the student examples from previous years were helpful and provided a clear idea of what was 
+    expected from us for this deliverable.\\
+
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+
+    One of our main challenges was defining the system components and boundaries clearly, especially in deciding which 
+    external components to include or exclude in the hazard analysis. The team considered including third-party services 
+    and user devices as part of the boundary, but after further discussion, we decided to limit our scope to only include 
+    components the team can have control over. The reasoning for this is because including external components would have 
+    added complexities out of our control, such as third-party security protocols and user device management, which could 
+    vary and introduce risks that are outside our scope to address. This approach still lets us focus on designing reliable 
+    interactions with external systems, but not need to address the external components themselves.\\
+
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
     the latter ones (ones you thought of while doing the Hazard Analysis), how
     did they come about?
+
+
+
     \item Other than the risk of physical harm (some projects may not have any
     appreciable risks of this form), list at least 2 other types of risk in
     software products. Why are they important to consider?
+
+    1. Data Security Risks: Risks such as unauthorized access, data breaches, and data leaks are critical because of the 
+    increased reliance on digital storage of sensitive information. A data breach could result in severe legal and 
+    financial repercussions, especially in healthcare applications where patient confidentiality is extremely important. \\\\
+	2. User Experience (UX) Risks: Things like confusing navigation or unresponsive interfaces can lead to user 
+    frustration, decreased usage, and even refusal to use the software. This is particularly important for non-technical 
+    users such as parents and children in a telehealth setting.
+
 \end{enumerate}
 
 \end{document}
