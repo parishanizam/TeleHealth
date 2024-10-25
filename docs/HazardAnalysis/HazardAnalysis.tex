@@ -53,7 +53,7 @@
 \midrule
 October 24 2024 & Jasmine Sun-Hu & Added Sections 1,2,3\\
 October 25 2024 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
-... & ... & ...\\
+October 25 2024 & Promish Kandel & Created FMEA table, Added Section 6,7, Reflection\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -115,12 +115,6 @@ the capstone team and will not be directly considered in the hazard analysis. Th
 will be considered within the system boundary and may be included in the hazard analysis.
 
 \section{Critical Assumptions}
-
-\wss{These assumptions that are made about the software or system.  You should
-minimize the number of assumptions that remove potential hazards.  For instance,
-you could assume a part will never fail, but it is generally better to include
-this potential failure mode.}
-This is just my brainstorm, feel free to change the formatting or add/remove constraints -Jasmine
 \begin{enumerate}
     \item Users have reliable internet access while using the web application.
     \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
@@ -130,15 +124,12 @@ This is just my brainstorm, feel free to change the formatting or add/remove con
 \end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
-\wss{Include your FMEA table here. This is the most important part of this document.}
-\wss{The safety requirements in the table do not have to have the prefix SR.
-The most important thing is to show traceability to your SRS. You might trace to
-requirements you have already written, or you might need to add new
-requirements.}
-\wss{If no safety requirement can be devised, other mitigation strategies can be
-entered in the table, including strategies involving providing additional
-documentation, and/or test cases.}
-
+\subsection{Hazards Out of Scope}
+The following are hazards that could occure outside the control of the system, thus they can't be fixed or mitigated.
+\begin{itemize}
+    \item Wifi shuts down during assessment
+    \item User hardware malfunctions during assessment
+\end{itemize}
 \subsection{Failure Mode \& Effect Analysis Table}
 The following FMEA table is a breakdown of the hazards that could occure within the system with a reccomended action to mitigate them.
 
@@ -426,16 +417,30 @@ The following FMEA table is a breakdown of the hazards that could occure within 
 
 
 \section{Safety and Security Requirements}
-
-\wss{Newly discovered requirements.  These should also be added to the SRS.  (A
-rationale design process how and why to fake it.)}
-
+\subsection{Security Requirements}
+\begin{enumerate}[{HA-SER}1. ]
+    \item The system shall validate all SQL queries and ensure that input data is properly sanitized to prevent SQL injection attacks.\\
+    \textbf{Rationale: }Prevent unauthorized access, data corruption, and breaches of sensitive user information.\\
+    \textbf{Fit criterion: }All SQL queries must be parameterized, and inputs must be validated for known SQL injection vulnerabilities before execution.\\ 
+  \end{enumerate}
+\begin{enumerate}[{HA-SER}2. ]
+    \item The system shall implement multi-factor authentication (MFA) for all users accessing sensitive patient data.\\
+    \textbf{Rationale: }Unauthorized access to patient data, which could lead to data breaches and violations of HIPAA.\\
+    \textbf{Fit criterion: } Users accessing sensitive data must pass a multi-factor authentication process within 2 minutes of a code being sent\\
+  \end{enumerate}
+\begin{enumerate}[{HA-SER}3. ]
+    \item The system shall monitor server health and implement exception handling mechanisms to manage unexpected errors.\\
+    \textbf{Rationale: }Minimize downtime and data loss due to server crashes or overload\\
+    \textbf{Fit criterion: }The system should trigger a warning alert for server overload within 2 minutes, with exception handling enabling automatic recovery or failover mechanisms within 5 minutes.\\
+  \end{enumerate}
 \section{Roadmap}
-
-\wss{Which safety requirements will be implemented as part of the capstone timeline?
-Which requirements will be implemented in the future?}
-
-\newpage{}
+The hazard analysis has identified several new security requirements that were 
+not initially considered. However, due to the time constraints of the capstone 
+project, not all of these requirements will be implemented at this stage. The 
+team has decided to prioritize the implementation of requirement HA-SER1, as it
+is essential to ensure the security of the database. Requirements HA-SER2 and
+HA-SER3 will be addressed in future development phases after the capstone timeline.
+\newpage
 
 \section*{Appendix --- Reflection}
 
@@ -462,8 +467,17 @@ Which requirements will be implemented in the future?}
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
     the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?
-
+    did they come about?\\
+    Before conducting the hazard analysis, our team had already considered risks 
+    related to video and audio processing by asking "what if" questions, such 
+    as "What if the video is broken?" or "What if the audio is noisy?" However, 
+    during the hazard analysis, we began to explore deeper concerns related to database 
+    management and the hazards associated with it, which directly informed the new security 
+    requirements. We started by discussing the importance of securing patient data and 
+    recognized that for a software hazard analysis, database security was crucial to 
+    prevent any potential data leakage. This led to further discussions about other risks, 
+    such as SQL injection attacks and incorrect assignment of user roles, which are now 
+    captured in the updated security requirements.
 
 
     \item Other than the risk of physical harm (some projects may not have any
