@@ -36,8 +36,8 @@
 \toprule
 \textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-Date1 & Name(s) & Description of changes\\
-Date2 & Name(s) & Description of changes\\
+October 24 2024 & Jasmine Sun-Hu & Added Sections 1,2,3\\
+October 25 2024 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
 ... & ... & ...\\
 \bottomrule
 \end{tabularx}
@@ -51,24 +51,53 @@ Date2 & Name(s) & Description of changes\\
 
 \pagenumbering{arabic}
 
-\wss{You are free to modify this template.}
-
 \section{Introduction}
 
-\wss{You can include your definition of what a hazard is here.}
+\hspace{1.5em} This document contains the hazard analysis for Telehealth Insights, a project for a website that will help 
+parents administer language tests at home for bilingual children with speech difficulties. A hazard is defined as a 
+property or condition in a system that when combined with a condition in the environment has the potential to harm or 
+damage to the system. A hazard is not limited to safety, it can also be related to system security, user sensitivity and 
+unexpected human or technology interactions. The purpose of this document is to identify any hazards to the project, and 
+develop newsafety and security requirements from a Failure Mode and Effect Analysis.
 
 \section{Scope and Purpose of Hazard Analysis}
 
-\wss{You should say what \textbf{loss} could be incurred because of the
-hazards.}
+\hspace{1.5em} The hazard analysis focuses on identifying, evaluating, and mitigating any hazards that could negatively 
+impact the speech language assessment platofrm. This includes both technical and user interaction hazards in particular 
+since the project will include handling sensitive patient data. The analysis will cover many aspects of the system such as 
+data handling, software stability and user sensitivity. \\
+\indent The purpose of the hazard analysis is to identify any risks that could 
+affect data privacy and security, system reliability, data collection accuracy, and compliance with relevant standards. A 
+hazzrd analysis minimizes these risks, as the loss from unaddressed hazards could involve patient safety, data breaches, 
+and legal or financial consequences for the assessment organization.
 
 \section{System Boundaries and Components}
 
-\wss{Dividing the system into components will help you brainstorm the hazards.
-You shouldn't do a full design of the components, just get a feel for the major
-ones.  For projects that involve hardware, the components will typically include
-each individual piece of hardware.  If your software will have a database, or an
-important library, these are also potential components.}
+The system referred to throughout the document consists of several major components: 
+\begin{enumerate}
+    \item \textbf{User Interface (UI)}: The front-end platform where users interact with the system. It allows users to navigate through the assessment, accepts inputs, and displays results.
+    \item \textbf{Backend Server}: The back-end platform handles data collection and processing, business logic, and communcation between all system components.
+        \begin{itemize}
+            \item \textbf{Authentication}: Manages the login and access control mechanisms.
+        \end{itemize}
+    \item Assessment Recording
+        \begin{itemize}
+            \item \textbf{Video Recording Module}: Responsible for capturing and transmitting video data during an assessment session.
+            \item \textbf{Audio Recording Module}: Responsible for capturing and transmitting audio data during an assessment session.
+        \end{itemize}
+    \item Assessment Analysis
+        \begin{itemize}
+            \item \textbf{Video Analysis Model}: Processes and analyzes the video recording for disturbances and other behaviours against assessment instructions.
+            \item \textbf{Audio Analysis Model}:Processes and analyzes the audio recording for disturbances and other behaviours against assessment instructions.
+        \end{itemize}
+    \item \textbf{Database}: A centralized storage for all assessment results, recordings, analysis results, user data, and any other data as necessary.
+\end{enumerate}
+
+The system boundary for this project includes the entire platform, consisting of the user interface, backend server, 
+assessment recording and analysis components, and the database. Components such as the user's device (e.g. computer or 
+tablet used for the assessment), and any third-party services used are external to the system and outside the control of 
+the capstone team and will not be directly considered in the hazard analysis. The connections to external components however
+will be considered within the system boundary and may be included in the hazard analysis.
 
 \section{Critical Assumptions}
 
@@ -76,6 +105,14 @@ important library, these are also potential components.}
 minimize the number of assumptions that remove potential hazards.  For instance,
 you could assume a part will never fail, but it is generally better to include
 this potential failure mode.}
+This is just my brainstorm, feel free to change the formatting or add/remove constraints -Jasmine
+\begin{enumerate}
+    \item Users have reliable internet access while using the web application.
+    \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
+    \item Users will not share their password with anyone. (maybe remove? it's not about the software or the system directly -JS)
+    \item Any third-party services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
+    \item When a user is taking the assessment they will have a functional microphone and camera that meet the minimum requirements for recording assessment sessions.
+\end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
 
@@ -102,21 +139,44 @@ Which requirements will be implemented in the future?}
 
 \section*{Appendix --- Reflection}
 
-\wss{Not required for CAS 741}
-
 \input{../Reflection.tex}
 
 \begin{enumerate}
     \item What went well while writing this deliverable? 
+    
+    The structured format and clear guidelines from both the document outline and lecture slides for writing the hazard 
+    analysis, as well as the student examples from previous years were helpful and provided a clear idea of what was 
+    expected from us for this deliverable.\\
+
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+
+    One of our main challenges was defining the system components and boundaries clearly, especially in deciding which 
+    external components to include or exclude in the hazard analysis. The team considered including third-party services 
+    and user devices as part of the boundary, but after further discussion, we decided to limit our scope to only include 
+    components the team can have control over. The reasoning for this is because including external components would have 
+    added complexities out of our control, such as third-party security protocols and user device management, which could 
+    vary and introduce risks that are outside our scope to address. This approach still lets us focus on designing reliable 
+    interactions with external systems, but not need to address the external components themselves.\\
+
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
     the latter ones (ones you thought of while doing the Hazard Analysis), how
     did they come about?
+
+
+
     \item Other than the risk of physical harm (some projects may not have any
     appreciable risks of this form), list at least 2 other types of risk in
     software products. Why are they important to consider?
+
+    1. Data Security Risks: Risks such as unauthorized access, data breaches, and data leaks are critical because of the 
+    increased reliance on digital storage of sensitive information. A data breach could result in severe legal and 
+    financial repercussions, especially in healthcare applications where patient confidentiality is extremely important. \\\\
+	2. User Experience (UX) Risks: Things like confusing navigation or unresponsive interfaces can lead to user 
+    frustration, decreased usage, and even refusal to use the software. This is particularly important for non-technical 
+    users such as parents and children in a telehealth setting.
+
 \end{enumerate}
 
 \end{document}
