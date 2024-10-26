@@ -122,8 +122,8 @@ will be considered within the system boundary and may be included in the hazard 
 \begin{enumerate}
     \item Users have reliable internet access while using the web application.
     \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
-    \item Users will not share their password with anyone. (maybe remove? it's not about the software or the system directly -JS)
-    \item Any third-party services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
+    \item Users will keep their account details confidential.
+    \item Any third-party hosting services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
     \item When a user is taking the assessment they will have a functional microphone and camera that meet the minimum requirements for recording assessment sessions.
 \end{enumerate}
 
@@ -461,12 +461,12 @@ HA-SER3 will be addressed in future development phases after the capstone timeli
     did you resolve them?
 
     \hspace{1.5em} One of our main challenges was clearly defining the system components and boundaries, especially in deciding which 
-    external components to include or exclude in the hazard analysis. The team considered including third-party services 
+    external components to include or exclude in the hazard analysis. The team considered including third-party hosting services 
     and user devices as part of the boundary, but after further discussion, we decided to limit our scope to only include 
     components the team can have control over. The reasoning for this is because including external components would have 
     added complexities out of our control, such as third-party security protocols and user device management, which could 
-    vary and introduce risks that are outside our scope to address. This approach still lets us focus on designing reliable 
-    interactions with external systems, but not need to address the external components themselves.\\
+    vary and introduce risks that are outside our scope to address. This approach lets us focus on designing reliable 
+    interactions with external components, but does not require addressing the risks of the external components themselves.\\
 
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
