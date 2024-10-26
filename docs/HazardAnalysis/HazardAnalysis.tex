@@ -47,13 +47,13 @@
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+\toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
 \midrule
-October 24 2024 & Jasmine Sun-Hu & Added Sections 1,2,3\\
-October 25 2024 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
-October 25 2024 & Promish Kandel & Created FMEA table, Added Section 6,7, Reflection\\
+10/24/2024 & 1.0 & Jasmine Sun-Hu & Added Sections 1,2,3\\
+10/25/2024 & 1.1 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
+10/25/2024 & 1.2 & Promish Kandel & Added FMEA Table, Sections 6,7, Reflection\\
+10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -61,6 +61,8 @@ October 25 2024 & Promish Kandel & Created FMEA table, Added Section 6,7, Reflec
 ~\newpage
 
 \tableofcontents
+\listoffigures
+\listoftables
 
 ~\newpage
 
@@ -68,30 +70,32 @@ October 25 2024 & Promish Kandel & Created FMEA table, Added Section 6,7, Reflec
 
 \section{Introduction}
 
-\hspace{1.5em} This document contains the hazard analysis for Telehealth Insights, a project for a website that will help 
-parents administer language tests at home for bilingual children with speech difficulties. A hazard is defined as a 
-property or condition in a system that when combined with a condition in the environment has the potential to harm or 
-damage to the system. A hazard is not limited to safety, it can also be related to system security, user sensitivity and 
+\hspace{1.5em} This document outlines the hazard analysis for TeleHealth Insights, an at-home bilingual speech 
+assessment system with video and audio analysis features. The system will provide clear guidance to
+parents when administering the assessment to their children so speech language pathologists can assess and support
+their patients' speech and language development remotely. A hazard is defined as a 
+property or condition in a system, that when combined with a condition in the environment, has the potential to cause harm or 
+damage. A hazard is not limited to safety, it can also be related to system security, user sensitivity and 
 unexpected human or technology interactions. The purpose of this document is to identify any hazards to the project, and 
-develop newsafety and security requirements from a Failure Mode and Effect Analysis.
+develop new safety and security requirements from a Failure Mode and Effect Analysis (FMEA).
 
 \section{Scope and Purpose of Hazard Analysis}
 
 \hspace{1.5em} The hazard analysis focuses on identifying, evaluating, and mitigating any hazards that could negatively 
-impact the speech language assessment platofrm. This includes both technical and user interaction hazards in particular 
-since the project will include handling sensitive patient data. The analysis will cover many aspects of the system such as 
+impact the speech language assessment platform. This includes both technical and user interaction hazards,
+as the project will include handling sensitive patient data. The analysis will cover a variety of aspects of the system, such as 
 data handling, software stability and user sensitivity. \\
 \indent The purpose of the hazard analysis is to identify any risks that could 
 affect data privacy and security, system reliability, data collection accuracy, and compliance with relevant standards. A 
-hazzrd analysis minimizes these risks, as the loss from unaddressed hazards could involve patient safety, data breaches, 
-and legal or financial consequences for the assessment organization.
+hazard analysis minimizes these risks, as the loss from unaddressed hazards could involve patient safety, data breaches, 
+and legal or financial consequences for the organization administering the assessment.
 
 \section{System Boundaries and Components}
 
 The system referred to throughout the document consists of several major components: 
 \begin{enumerate}
-    \item \textbf{User Interface (UI)}: The front-end platform where users interact with the system. It allows users to navigate through the assessment, accepts inputs, and displays results.
-    \item \textbf{Backend Server}: The back-end platform handles data collection and processing, business logic, and communcation between all system components.
+    \item \textbf{User Interface (UI)}: The front-end platform where users interact with the system. It allows users to navigate through the assessment, accept inputs, and display results.
+    \item \textbf{Backend Server}: The back-end platform handles data collection and processing, business logic, and communication between all system components.
         \begin{itemize}
             \item \textbf{Authentication}: Manages the login and access control mechanisms.
         \end{itemize}
@@ -103,35 +107,35 @@ The system referred to throughout the document consists of several major compone
     \item Assessment Analysis
         \begin{itemize}
             \item \textbf{Video Analysis Model}: Processes and analyzes the video recording for disturbances and other behaviours against assessment instructions.
-            \item \textbf{Audio Analysis Model}:Processes and analyzes the audio recording for disturbances and other behaviours against assessment instructions.
+            \item \textbf{Audio Analysis Model}: Processes and analyzes the audio recording for disturbances and other behaviours against assessment instructions.
         \end{itemize}
     \item \textbf{Database}: A centralized storage for all assessment results, recordings, analysis results, user data, and any other data as necessary.
 \end{enumerate}
 
 The system boundary for this project includes the entire platform, consisting of the user interface, backend server, 
-assessment recording and analysis components, and the database. Components such as the user's device (e.g. computer or 
-tablet used for the assessment), and any third-party services used are external to the system and outside the control of 
-the capstone team and will not be directly considered in the hazard analysis. The connections to external components however
+assessment recording, assessment analysis, and the database. Components such as the user's device (e.g. computer or 
+tablet used for the assessment), and any third-party services used, are external to the system and outside the control of 
+the capstone team. Therefore, they will not be directly considered in the hazard analysis. The connections to external hardware, such as a webcam, speakers, or microphone,
 will be considered within the system boundary and may be included in the hazard analysis.
 
 \section{Critical Assumptions}
 \begin{enumerate}
     \item Users have reliable internet access while using the web application.
     \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
-    \item Users will not share their password with anyone. (maybe remove? it's not about the software or the system directly -JS)
-    \item Any third-party services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
+    \item Users will keep their account details confidential.
+    \item Any third-party hosting services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
     \item When a user is taking the assessment they will have a functional microphone and camera that meet the minimum requirements for recording assessment sessions.
 \end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
 \subsection{Hazards Out of Scope}
-The following are hazards that could occure outside the control of the system, thus they can't be fixed or mitigated.
+The following are hazards that could occur outside the control of the system, thus they can't be fixed or mitigated.
 \begin{itemize}
-    \item Wifi shuts down during assessment
+    \item Wi-Fi shuts down during assessment
     \item User hardware malfunctions during assessment
 \end{itemize}
 \subsection{Failure Mode \& Effect Analysis Table}
-The following FMEA table is a breakdown of the hazards that could occure within the system with a reccomended action to mitigate them.
+The following FMEA table is a breakdown of the hazards that could occur within the system, along with recommended actions to mitigate them.
 
 \newgeometry{margin=0.5in}
 \begin{landscape}
@@ -163,7 +167,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
  \end{enumerate}
 & 
   \begin{enumerate}
-     \item Inadequate input validation or unparameterized SQL queries.
+     \item Inadequate input validation or un-parameterized SQL queries.
      \item Administrative access is not validated and user accesses database directly.
  \end{enumerate}
 &
@@ -317,7 +321,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
  Audio Recording 
  & 
  \begin{enumerate}
-    \item Audio recording has static
+    \item Audio recording has noise
  \end{enumerate}
  & 
   \begin{enumerate}
@@ -329,7 +333,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
  \end{enumerate}
 &
   \begin{enumerate}
-     \item Filter static using software tools, and provide best practices for recording.
+     \item Filter noise using software tools, and provide best practices for recording.
  \end{enumerate}
 
 &  
@@ -351,7 +355,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
  & 
   \begin{enumerate}
     \item Partial or complete loss of data during video/audio processing could result in incomplete analysis
-    \item Users may be unable to complete the assessment, or the server crashing could destory user data.
+    \item Users may be unable to complete the assessment, or the server crashing could destroy user data.
  \end{enumerate}
 & 
   \begin{enumerate}
@@ -385,7 +389,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
  & 
   \begin{enumerate}
     \item Users cannot move through the application smoothly, leading to frustration and a poor user experience.
-    \item Users cannot complete quizzes or perform specific actions and are unable to proceed through the interface.
+    \item Users cannot complete quizzes, or perform interactions with clickable objects and are unable to proceed through the interface.
  \end{enumerate}
 & 
   \begin{enumerate}
@@ -426,7 +430,7 @@ The following FMEA table is a breakdown of the hazards that could occure within 
 \begin{enumerate}[{HA-SER}2. ]
     \item The system shall implement multi-factor authentication (MFA) for all users accessing sensitive patient data.\\
     \textbf{Rationale: }Unauthorized access to patient data, which could lead to data breaches and violations of HIPAA.\\
-    \textbf{Fit criterion: } Users accessing sensitive data must pass a multi-factor authentication process within 2 minutes of a code being sent\\
+    \textbf{Fit criterion: }Users accessing sensitive data must pass a multi-factor authentication process within 2 minutes of a code being sent\\
   \end{enumerate}
 \begin{enumerate}[{HA-SER}3. ]
     \item The system shall monitor server health and implement exception handling mechanisms to manage unexpected errors.\\
@@ -434,11 +438,11 @@ The following FMEA table is a breakdown of the hazards that could occure within 
     \textbf{Fit criterion: }The system should trigger a warning alert for server overload within 2 minutes, with exception handling enabling automatic recovery or failover mechanisms within 5 minutes.\\
   \end{enumerate}
 \section{Roadmap}
-The hazard analysis has identified several new security requirements that were 
+\hspace{1.5em} The hazard analysis has identified several new security requirements that were 
 not initially considered. However, due to the time constraints of the capstone 
 project, not all of these requirements will be implemented at this stage. The 
 team has decided to prioritize the implementation of requirement HA-SER1, as it
-is essential to ensure the security of the database. Requirements HA-SER2 and
+is essential to ensure the security of assessment data and recordings stored in the database. Requirements HA-SER2 and
 HA-SER3 will be addressed in future development phases after the capstone timeline.
 \newpage
 
@@ -449,35 +453,36 @@ HA-SER3 will be addressed in future development phases after the capstone timeli
 \begin{enumerate}
     \item What went well while writing this deliverable? 
     
-    The structured format and clear guidelines from both the document outline and lecture slides for writing the hazard 
+    \hspace{1.5em} The structured format and clear guidelines from both the document outline and lecture slides for writing the hazard 
     analysis, as well as the student examples from previous years were helpful and provided a clear idea of what was 
     expected from us for this deliverable.\\
 
     \item What pain points did you experience during this deliverable, and how
     did you resolve them?
 
-    One of our main challenges was defining the system components and boundaries clearly, especially in deciding which 
-    external components to include or exclude in the hazard analysis. The team considered including third-party services 
+    \hspace{1.5em} One of our main challenges was clearly defining the system components and boundaries, especially in deciding which 
+    external components to include or exclude in the hazard analysis. The team considered including third-party hosting services 
     and user devices as part of the boundary, but after further discussion, we decided to limit our scope to only include 
     components the team can have control over. The reasoning for this is because including external components would have 
     added complexities out of our control, such as third-party security protocols and user device management, which could 
-    vary and introduce risks that are outside our scope to address. This approach still lets us focus on designing reliable 
-    interactions with external systems, but not need to address the external components themselves.\\
+    vary and introduce risks that are outside our scope to address. This approach lets us focus on designing reliable 
+    interactions with external components, but does not require addressing the risks of the external components themselves.\\
 
     \item Which of your listed risks had your team thought of before this
     deliverable, and which did you think of while doing this deliverable? For
     the latter ones (ones you thought of while doing the Hazard Analysis), how
-    did they come about?\\
-    Before conducting the hazard analysis, our team had already considered risks 
-    related to video and audio processing by asking "what if" questions, such 
-    as "What if the video is broken?" or "What if the audio is noisy?" However, 
+    did they come about?
+
+    \hspace{1.5em} Before conducting the hazard analysis, our team had already considered risks 
+    related to video and audio processing by asking 'what if' questions, such 
+    as "what if the video is broken?" or "what if the audio is noisy?". However, 
     during the hazard analysis, we began to explore deeper concerns related to database 
     management and the hazards associated with it, which directly informed the new security 
     requirements. We started by discussing the importance of securing patient data and 
     recognized that for a software hazard analysis, database security was crucial to 
     prevent any potential data leakage. This led to further discussions about other risks, 
     such as SQL injection attacks and incorrect assignment of user roles, which are now 
-    captured in the updated security requirements.
+    captured in the updated security requirements.\\
 
 
     \item Other than the risk of physical harm (some projects may not have any
@@ -487,9 +492,9 @@ HA-SER3 will be addressed in future development phases after the capstone timeli
     1. Data Security Risks: Risks such as unauthorized access, data breaches, and data leaks are critical because of the 
     increased reliance on digital storage of sensitive information. A data breach could result in severe legal and 
     financial repercussions, especially in healthcare applications where patient confidentiality is extremely important. \\\\
-	2. User Experience (UX) Risks: Things like confusing navigation or unresponsive interfaces can lead to user 
+	  2. User Experience (UX) Risks: Things like confusing navigation or unresponsive interfaces can lead to user 
     frustration, decreased usage, and even refusal to use the software. This is particularly important for non-technical 
-    users such as parents and children in a telehealth setting.
+    users such as parents and children in a remote setting.
 
 \end{enumerate}
 
