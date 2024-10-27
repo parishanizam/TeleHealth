@@ -1,0 +1,4 @@
+# src/pythonDependices.txt
+flask
+opencv-python-headless
+mediapipe
