@@ -14,6 +14,7 @@
 \usepackage{enumitem, amssymb}
 \newlist{todolist}{itemize}{2}
 \setlist[todolist]{label=$\square$}
+\usepackage{tcolorbox}
 
 \input{../Comments}
 \input{../Common}
@@ -568,8 +569,49 @@ The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
+The following questions depict the first draft of the team's usability.\\
+The usability survey will be conducted after participants have engaged with testing and using the system for at least one iteration of the assessment.\\
 
-\wss{This is a section that would be appropriate for some projects.}
+\newcommand{\likertScale}{
+    \begin{center}
+        Strongly Disagree \hfill Disagree \hfill Neutral \hfill Agree \hfill Strongly Agree
+    \end{center}
+}
+
+\newcommand{\insertAnswerHere}{
+  \begin{tcolorbox}[width=0.5\textwidth,
+    colframe=black,
+    colback=white,
+    boxrule=0.1mm,
+    sharp corners]
+  \textit{Insert answer here...}
+  \end{tcolorbox}
+}
+
+\textbf{Please select the statement that best describes your experience for each of the following:}
+\begin{enumerate}
+  \item Learning how to use the system was easy:\likertScale
+  \item Setting up the system was easy:\likertScale
+  \item I found the assessment interface easy to use:\likertScale
+  \item Navigating the interface was easy:\likertScale
+  \item All the button interactions reacted and responded how I thought they should:\likertScale
+  \item The information on screen was easy to read and understand:\likertScale
+  \item I like the organization of the assessment interface:\likertScale
+  \item I enjoyed my overall experience using the TeleHealth Insights platform:\likertScale
+\end{enumerate}
+\textbf{Answer the following:}
+
+\begin{enumerate}
+    \setcounter{enumi}{8}
+    \item What was the most difficult part of using the platform? \insertAnswerHere
+    \item Did you encounter any bugs/problems while using the platform? If so, what were they? \insertAnswerHere
+    \item What was your favourite part of the experience? Why? \insertAnswerHere
+    \item What was your least favourite part of the experience? Why? \insertAnswerHere
+    \item Were there any aspects of the platform that you found unnecessary? Why? \insertAnswerHere
+    \item Which part of the platform needs the most improvement? Why? \insertAnswerHere
+    \item What would you like changed to make the platform easier to use? \insertAnswerHere
+    \item Do you have any additional feedback? \insertAnswerHere
+\end{enumerate}
 
 \newpage{}
 \section*{Appendix --- Reflection}
