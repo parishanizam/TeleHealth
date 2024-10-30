@@ -6,37 +6,32 @@ import cv2
 from io import BytesIO
 from PIL import Image
 import mediapipe as mp
-import os
-
-#Ignore noise is comand prompt for lite errors
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 # Initialize MediaPipe Hands for gesture detection
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.7)
-mp_drawing = mp.solutions.drawing_utils
 
 def detect_faces_and_gestures(frame):
-    # Face detection using OpenCV
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-    num_faces = len(faces)
 
-    # Gesture detection using MediaPipe
-    gestures = detect_gestures(frame)
+    # Get bounding boxes for each face
+    face_boxes = [{"x": int(x), "y": int(y), "width": int(w), "height": int(h)} for (x, y, w, h) in faces]
 
-    return num_faces, gestures
+    # Gesture detection
+    gestures, gesture_boxes = detect_gestures(frame)
+
+    return len(faces), gestures, face_boxes, gesture_boxes
 
 def detect_gestures(frame):
-    # Convert the image to RGB (MediaPipe expects RGB format)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result = hands.process(rgb_frame)
-
     gestures = []
+    gesture_boxes = []
+
     if result.multi_hand_landmarks:
         for hand_landmarks in result.multi_hand_landmarks:
-            # Get the landmarks for the index finger tip and wrist
             index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
             wrist = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST]
 
@@ -44,29 +39,29 @@ def detect_gestures(frame):
             if index_tip.y < wrist.y:
                 gestures.append("pointing")
 
-            # Draw landmarks on the hand (optional for debugging)
-            mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                # Calculate bounding box coordinates for wrist and index finger
+                h, w, _ = frame.shape
+                gesture_boxes.append({
+                    "wrist": {"x": int(wrist.x * w), "y": int(wrist.y * h), "width": 10, "height": 10},
+                    "index_tip": {"x": int(index_tip.x * w), "y": int(index_tip.y * h), "width": 10, "height": 10}
+                })
 
-    return gestures
+    return gestures, gesture_boxes
 
 if __name__ == "__main__":
-    # Read JSON data from stdin
     input_data = json.loads(sys.stdin.read())
     image_data = input_data['image']
-    
-    # Decode the base64 image data
     image = Image.open(BytesIO(base64.b64decode(image_data)))
     frame = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
 
-    # Perform face and gesture detection
-    num_faces, gestures = detect_faces_and_gestures(frame)
+    num_faces, gestures, face_boxes, gesture_boxes = detect_faces_and_gestures(frame)
 
-    # Prepare output
     output = {
         "gestureDetected": "pointing" in gestures,
-        "multipleFacesDetected": num_faces > 1
+        "multipleFacesDetected": num_faces > 1,
+        "faceBoxes": face_boxes,
+        "gestureBoxes": gesture_boxes  # Includes coordinates for wrist and index finger
     }
 
-    # Print JSON result to stdout for Node.js to read
     print(json.dumps(output))
-    sys.stdout.flush()  # Ensure output is sent immediately
+    sys.stdout.flush()

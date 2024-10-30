@@ -15,6 +15,7 @@ create python virtual enviroment with:
         source venv/bin/activate #macOS
 Install dependices with:
         pip install -r requirements.txt
+        npm install
 
 run the server by:
         node server.js
