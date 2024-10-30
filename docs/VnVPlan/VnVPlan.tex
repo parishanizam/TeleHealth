@@ -11,6 +11,9 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{enumitem, amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
 
 \input{../Comments}
 \input{../Common}
@@ -55,8 +58,6 @@ in.}
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-
 \listoffigures
 \wss{Remove this section if it isn't needed}
 
@@ -151,49 +152,52 @@ how they relate to your VnV efforts.}
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
-
-\begin{tabular}{ | m{5cm} | m{8cm} | }
-  \toprule
-  Name & Roles and Responsibilities \\
-  \hline
-  Mitchell Weingust & \begin{itemize}
-    \item Audio Analysis Model verification
-    \item System Architecture and Design Validation
-    \item SRS Verification
-  \end{itemize}\\
-  \hline
-  Parisha Nizam & \begin{itemize}
-    \item Frontend Interface Verification
-    \item Backend Database Verification
-    \item VnV Verification
-  \end{itemize}\\
-  \hline
-  Promish Kandel & \begin{itemize}
-    \item Frontend Interface Verification
-    \item Video Analysis Model verification
-    \item VnV Verification
-  \end{itemize}\\
-  \hline
-  Jasmine Sun-Hu & \begin{itemize}
-    \item Backend Database Verification
-    \item System Architecture and Design Validation
-    \item SRS Verification
-  \end{itemize}\\
-  \hline
-  Dr. Irene Yuan & \begin{itemize}
-    \item Providing feedback (including Hands-On) during project development
-  \end{itemize}\\
-  \hline
-  Dr. Yao Du & \begin{itemize}
-    \item Providing written feedback on user experiences and testing
-  \end{itemize}\\
-  \hline
-  Chris Schankula & \begin{itemize}
-    \item Providing feedback during project development
-    \item Revision recommendations
-  \end{itemize}\\
-  \bottomrule
-\end{tabular}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ | m{5cm} | m{8cm} | }
+    \toprule
+    Name & Roles and Responsibilities \\
+    \hline
+    Mitchell Weingust & \begin{itemize}
+      \item Audio Analysis Model verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Parisha Nizam & \begin{itemize}
+      \item Frontend Interface Verification
+      \item Backend Database Verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Promish Kandel & \begin{itemize}
+      \item Frontend Interface Verification
+      \item Video Analysis Model verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Jasmine Sun-Hu & \begin{itemize}
+      \item Backend Database Verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Dr. Irene Yuan & \begin{itemize}
+      \item Providing feedback (including Hands-On) during project development
+    \end{itemize}\\
+    \hline
+    Dr. Yao Du & \begin{itemize}
+      \item Providing written feedback on user experiences and testing
+    \end{itemize}\\
+    \hline
+    Chris Schankula & \begin{itemize}
+      \item Providing feedback during project development
+      \item Revision recommendations
+    \end{itemize}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Verification and Validation Team Table}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
@@ -218,6 +222,28 @@ issue tracker?}
 \wss{Create a checklists?}
 
 \subsection{Verification and Validation Plan Verification Plan}
+
+As the verification and validation plan is an artifact, it must be verified too. The team's verification of the VnV plan follows:
+\begin{itemize}
+  \item Peer reviews by classmates, including other teams' peer reviews, to identify areas of improvement and general feedback
+  \item Documentation review by the project's supervisor, Dr. Irene Ye Yuan, to ensure that the team's planned verification and validation plan is realistic and feasible
+  \item Teammate documentation reviews, to provide critical feedback and ensure that all intended goals and outcomes are met
+  \item Mutation testing to ensure that changes to aspects of the source plan can be detected by test cases.
+\end{itemize}
+
+The below checklist will be used, in addition, to ensure the team's VnV plan is correct and complete.
+
+\begin{todolist}
+\item Does the VnV Plan verify all functional requirements are met?
+\item Does the VnV Plan verify all non-functional requirements are met?
+\item Have all peer-review issues been addressed and closed?
+\item Have all members of the Verification and Validation Team contributed to the review and approved the document?
+\item Are all aspects of the system boundary being verified, validated, and tested?
+\item Do the system tests cover all requirements mentioned in the SRS?
+\item Did the test cases detect mutations and give desired outputs?
+\item Did the test cases' expected output match the actual output?
+\item Is there a process for documenting and resolving defects?
+\end{todolist}
 
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
