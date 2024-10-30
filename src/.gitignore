@@ -7,15 +7,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Node.js / Frontend dependencies and build artifacts
+node_modules/
+dist/
+dist-ssr/
 *.local
 
+# Python virtual environment and cache files
+venv/
+__pycache__/
+*.pyc
+
 # Editor directories and files
-.vscode/*
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -23,5 +29,7 @@ dist-ssr
 *.sln
 *.sw?
 
-#Ignore Python dependices
-backend/pythondependices/
+# Additional settings and environment files (optional)
+.env
+.env.local
+.env.*.local
