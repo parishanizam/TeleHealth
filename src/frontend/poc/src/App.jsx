@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 
 const App = () => {
@@ -6,15 +6,14 @@ const App = () => {
   const [detectionResult, setDetectionResult] = useState(null);
   const videoRef = useRef(null);
 
-  // Toggles the webcam on or off
-  const toggleWebcam = useCallback(() => {
+  const toggleWebcam = () => {
     setIsStreaming((prevStreaming) => !prevStreaming);
-  }, []);
+    if (!isStreaming) {
+      captureImage();
+    }
+  };
 
-  // Capture an image from the webcam stream
-  const captureImage = useCallback(() => {
-    if (!videoRef.current) return;
-
+  const captureImage = () => {
     const canvas = document.createElement("canvas");
     const video = videoRef.current;
     canvas.width = video.videoWidth;
@@ -22,22 +21,29 @@ const App = () => {
     const context = canvas.getContext("2d");
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const base64Image = canvas.toDataURL("image/jpeg").split(",")[1]; // Get the base64 string without prefix
-    analyzeWebcamFeed(base64Image);
-  }, [analyzeWebcamFeed]);
 
-  // Send captured image to the backend for analysis
-  const analyzeWebcamFeed = useCallback(async (base64Image) => {
+    analyzeWebcamFeed(base64Image);
+  };
+
+  const analyzeWebcamFeed = async (base64Image) => {
     try {
       const response = await axios.post("http://localhost:5000/api/detect", {
         image: base64Image,
       });
       setDetectionResult(response.data);
-    } catch (error) {
-      console.error("Error during detection:", error);
+      console.log(response.data)
+    } catch (err) {
+      console.error("Error during detection:", err);
     }
-  }, []);
+  };
 
-  // Webcam streaming logic
+  useEffect(() => {
+    if (isStreaming) {
+      const interval = setInterval(captureImage, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [isStreaming]);
+
   useEffect(() => {
     let stream = null;
 
@@ -48,31 +54,28 @@ const App = () => {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
-      } catch (error) {
-        console.error("Error accessing webcam:", error);
+      } catch (err) {
+        console.error("Error accessing webcam:", err);
         setIsStreaming(false);
-      }
-    };
-
-    const stopWebcam = () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        const tracks = videoRef.current.srcObject.getTracks();
-        tracks.forEach((track) => track.stop());
-        videoRef.current.srcObject = null;
       }
     };
 
     if (isStreaming) {
       startWebcam();
-      const captureInterval = setInterval(captureImage, 1000);
-      return () => {
-        clearInterval(captureInterval);
-        stopWebcam();
-      };
     } else {
-      stopWebcam();
+      if (videoRef.current && videoRef.current.srcObject) {
+        const tracks = videoRef.current.srcObject.getTracks();
+        tracks.forEach((track) => track.stop());
+        videoRef.current.srcObject = null;
+      }
     }
-  }, [isStreaming, captureImage]);
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [isStreaming]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -89,6 +92,7 @@ const App = () => {
       >
         {isStreaming ? "Off" : "On"}
       </button>
+
 
       {detectionResult && (
         <div className="mt-4">
