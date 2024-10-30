@@ -212,6 +212,21 @@ that document.}
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
 
+The following are the automated testing and verification tools to be used during the validation and 
+verification process for the software being tested in this VnV plan:
+\begin{itemize}
+  \item Unit Tests: Jest, Pytest
+  \item Linters: Flake9, Prettier, ESLint
+  \item Continuous Intergration: GitHub Actions
+\end{itemize}
+\hspace{2em} For our code coverage, we will use Istanbul and Coverage.py. Istanbul is a code coverage 
+tool that works with JavaScript testing frameworks like Jest. It helps developers see how much of their 
+code is tested by creating reports that show untested lines and functions. Coverage.py is a code coverage 
+tool for Python, which we use for our machine learning model. It measures how much of the code runs during 
+tests and generates reports in different formats, helping developers find untested parts of their Python 
+applications and improve test coverage.
+
+
 \subsection{Software Validation Plan}
 
 \wss{If there is any external data that can be used for validation, you should
@@ -231,6 +246,20 @@ The feedback from your supervisor will be very useful for improving your project
 as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
+
+Our plan for validating the software includes review sessions with 
+stakeholders and extensive user testing. Dr.Yao Du, one of our key 
+stakeholders, will provide the software to clinicians and patients for 
+real-world testing in clinical settings. This will allow us to gather 
+valuable feedback on the software’s functionality and usability in 
+actual healthcare environments. In addition to this field testing, we 
+will conduct structured user testing sessions where participants will 
+simulate the experience of being a patient. During these sessions, 
+users will navigate through the software, interacting with its features,
+and afterward, they will share their insights on what worked well and 
+what didn’t. Overall, using both field testing and targeted user testing, the information
+gathered will help us refine the 
+software and ensure it meets the needs of its intended users. 
 
 \section{System Tests}
 
