@@ -11,6 +11,15 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage[none]{hyphenat}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage[many]{tcolorbox}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{diagbox}
 
 \input{../Comments}
 \input{../Common}
@@ -275,50 +284,146 @@ the contents of the subsections.}
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Data Processing and Display}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
-		
-\paragraph{Title for Test}
 
-\begin{enumerate}
+\hspace{2em}The test cases below focus on ensuring reliable storage and retrieval 
+of multimedia data, privacy compliance by excluding PII, accurate grouping under 
+unique identifiers, and long-term report accessibility, meeting all data storage 
+and organization requirements.
+\begin{itemize}
+  \item FR-ST-DSC1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database is empty or initialized with test data. \par
+      \textbf{Input:} Multimedia files (video, audio, and structured data files). \par
+      \textbf{Output:} The expected result is a success message in console for both storing data and retriving data \par
+      \textbf{Test Case Derivation:} Ensures the database meets storage \\capacity and integrity requirements as per FR-DSC1 in SRS \\document. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a session containing multimedia files (video, audio, JSON) into the database.
+        \item Retrieve the session files and check for data integrity by \\comparing size of stored data with retrieved data.
+        \item Verify that the retrieved files are uncorrupted and correctly match the original files.
+      \end{enumerate}
+  \end{mdframed}
 
-\item{test-id1\\}
+  \item FR-ST-DSC2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database is set up to store assessment session data. \par
+      \textbf{Input:} Video, audio files, flagged occurrences, and timestamps for each assessment question. \par
+      \textbf{Output:} The expected result is the creation of a JSON file that contains flagged occurrences and timestamps which is stored alongside the data. \par
+      \textbf{Test Case Derivation:} Allows the system to store all important information for clinicians to use. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a test assessment session with video and audio files, flagged occurrences, and timestamps.
+        \item Query the database to retrieve the session’s data and verify the presence of a JSON file with accuracy of flagged occurrences and timestamps.
+      \end{enumerate}
+  \end{mdframed}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+  \item FR-ST-DSC3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database configured to prevent storage of personally identifiable information (PII). \par
+      \textbf{Input:} Attempted insertion of a record containing personally \\identifiable information. \par
+      \textbf{Output:} The expected result is that the database rejects any PII-containing records and stores only anonymized data. \par
+      \textbf{Test Case Derivation:} Ensures compliance with privacy standards, verifying that no PII is stored in the database. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Attempt to insert a record with PII (e.g., name, address).
+        \item Verify that the system blocks or anonymizes PII, preventing its storage.
+        \item Retrieve all clinician-accessible data and confirm the absence of PII.
+      \end{enumerate}
+  \end{mdframed}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+  \item FR-ST-DSC4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database initialized and ready for storing user session data. \par
+      \textbf{Input:} Multiple sessions, each with unique user identifiers. \par
+      \textbf{Output:} The expected result is that all session data is stored and grouped correctly according to the unique user identifiers. \par
+      \textbf{Test Case Derivation:} Confirms database's grouping and \\retrievable capabilites, ensuring accurate data organization.\par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert multiple sessions into the database, each tagged with a unique user identifier.
+        \item Query the database for each user identifier and verify that all associated session data is correctly grouped.
+        \item Confirm no data is incorrectly associated or left unassociated.
+      \end{enumerate}
+  \end{mdframed}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+  \item FR-ST-DSC5
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database initialized and ready to store reports with unique identifiers. \par
+      \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
+      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least 7 years. \par
+      \textbf{Test Case Derivation:} Verifies long-term storage and retrieval of assessment reports, supporting patient progress tracking. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a test report with a unique patient identifier into the database.
+        \item Retrieve the report using the identifier and confirm the report’s accuracy and timestamp.
+        \item Check when database will be wiped out and when backups occure
+      \end{enumerate}
+  \end{mdframed}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\end{itemize}
 
-How test will be performed: 
+\subsubsection{Video and Audio Data Analysis}
 
-\end{enumerate}
+\hspace{2em}The test cases below focus on ensuring the video analysis model can reliably access 
+session recordings, accurately detect and log speech disturbances, and correctly flag 
+disturbances with timestamps, questions, and user responses to support efficient clinical review.
+\begin{itemize}
+  \item FR-ST-VDA1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Completed assessment sessions are available in the database, with video and audio recordings accessible for processing. \par
+      \textbf{Input:} Request by the analysis model to access video and audio data from a completed session. \par
+      \textbf{Output:} The expected result is that all videos requested are processed with a success message in the logs \par
+      \textbf{Test Case Derivation:} Verifies that the model has reliable access to stored multimedia data, which is critical for processing and analysis. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Retrivee the video and audio recordings from several completed sessions.
+        \item Check that the model successfully accesses the multimedia files for each session without data access errors.
+        \item Verify that the files are correctly loaded for analysis with no corruption or access issues.
+      \end{enumerate}
+  \end{mdframed}
 
-\subsubsection{Area of Testing2}
+  \item FR-ST-VDA2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} The analysis model is initialized and ready to process test video and audio data. \par
+      \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis. \par
+      \textbf{Output:} The expected results is an accuracy of 95\% in a JSON file for number of disturbances found by the model \par
+      \textbf{Test Case Derivation:} Confirms that the model’s disturbance detection meets the accuracy requirement, reducing bias in the analysis process. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Run the model on a test dataset containing known speech disturbances.
+        \item Compare the disturbances identified by the model with human observations for accuracy validation.
+        \item Verify that the model achieves at least 95\% accuracy in \\identifying and logging disturbances.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-VDA3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Video and audio data with disturbances has been processed by the analysis model. \par
+      \textbf{Input:} Disturbances identified by the model, requiring flags with associated timestamps, assessment questions, and user answers. \par
+      \textbf{Output:} The expected result is an accuracy of 95\% in a JSON file for timestamp accuracy\par
+      \textbf{Test Case Derivation:} Ensures clinicians can quickly access relevant parts of the assessment with accuracy, aiding in efficient diagnosis. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Process a test assessment session with the model, identifying and flagging disturbances.
+        \item Retrieve flagged disturbances and confirm each has an accurate timestamp, associated question, and user response.
+        \item Compare the flagged data with human observations and verify at least 95\% accuracy in the model’s associations.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
 
 ...
 
@@ -345,37 +450,218 @@ format for the tests given below.}
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
 
-\subsubsection{Area of Testing1}
-		
-\paragraph{Title for Test}
+\subsubsection{Performance}
+\hspace{2em}The test cases below ensures that the system meets essential performance metrics, 
+including quick page load times, low latency in video and audio recording, high video 
+resolution, and efficient report generation. 
 
-\begin{enumerate}
+\begin{itemize}
+  \item PR-ST-SL1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic\par
+      \textbf{Initial State:} System initialized, strong internet connection \par
+      \textbf{Input/Condition:} User navigates to different web pages within the system. \par
+      \textbf{Output/Results:} The expect output is that each web page loads fully with all functionalities within 3 seconds. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Navigate to various web pages within the system.
+        \item Measure the time taken for each page to load completely.
+        \item Confirm that all pages load within 3 seconds.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-SL2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} Video and audio recording session initialized. \par
+      \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
+      \textbf{Output/Results:} The expected output is the latency between actions and recorded playback remains under 1 second, ensuring synchronization. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Begin recording a session.
+        \item Have the user perform timed actions while recording.
+        \item Play back the recording and measure the latency between actions and their corresponding timestamps.
+        \item Confirm latency does not exceed 1 second.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-SL3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System configured to store video data. \par
+      \textbf{Input/Condition:} Video recorded and stored from assessment an session. \par
+      \textbf{Output/Results:} The exepect output is the video quality is at least 720p resolution upon when retriving or storing. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Record a session and store the video.
+        \item Retrieve the stored video and verify its resolution.
+        \item Confirm the resolution is 720p or higher.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
 
-\item{test-id1\\}
+\hspace{2em}The test cases below focus on verifying the system's precision in detecting and 
+analyzing speech disturbances, ensuring timestamp alignment, and maintaining 
+100\% accuracy in assessment data. 
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\begin{itemize}
+  \item PR-ST-PA1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} Audio analysis model is loaded with sample audio data. \par
+      \textbf{Input/Condition:} Audio data containing speech patterns with known disturbances. \par
+      \textbf{Output/Results:} The expected output is that the analysis \\achieves 95\% accuracy in detecting speech disturbances. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Load test audio files with known disturbances into the analysis model.
+        \item Compare detected disturbances with human-reviewed \\observations.
+        \item Verify that the model correctly identifies at least 95\% of disturbances.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-PA3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} Timestamp function is synchronized with real-time actions. \par
+      \textbf{Input/Condition:} User performs actions in the recorded session. \par
+      \textbf{Output/Results:} The expected output is that the timestamps delay within 1 second of the real-time action. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Record a session with specific user actions.
+        \item Analyze timestamps and compare them to the actual timing of the actions.
+        \item Confirm each timestamp falls within a 1-second margin of the real action.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-PA4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Static \par
+      \textbf{Initial State:} Assessment answer key is loaded. \par
+      \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
+      \textbf{Output/Results:} The expected output is that the answer key is 100\% accurate. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Manually review each entry in the assessment answer key.
+        \item Check for errors or inconsistencies in each answer.
+        \item Confirm all answers are correct, ensuring 100\% accuracy.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+\hspace{2em}The test cases below validate the system’s ability to handle errors, 
+back up data reliably, and enforce strict input validation.
 
-\end{enumerate}
+\begin{itemize}
+  \item PR-ST-RFT1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System is operational with error handling in place. \par
+      \textbf{Input/Condition:} User initiates actions known to cause common errors. \par
+      \textbf{Output/Results:} The expected output is the system displays clear error messages for at least 95\% of the common errors \\encountered. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Simulate common user errors, such as invalid inputs or incorrect file uploads.
+        \item Observe system response and displayed error messages.
+        \item Verify clarity and accuracy of error messages in at least 95\% of cases.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-RFT2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} Database backup processes configured and \\operational in the system. \par
+      \textbf{Input/Condition:} Monthly data backup event. \par
+      \textbf{Output/Results:} The expected output is that the system performs a data backup within a 4-hour timeframe on the first of each month. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item A data backup is triggered.
+        \item Record the duration of the backup process.
+        \item Confirm that backup completes within 4 hours.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below ensure that the system can handle the expected user load, 
+data storage needs, and simultaneous uploads without performance degradation. 
+
+\begin{itemize}
+  \item PR-ST-CR1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System initialized with maximum user capacity parameters. \par
+      \textbf{Input/Condition:} System loaded with 2000 user accounts. \par
+      \textbf{Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Create and load 2000 user accounts into the system.
+        \item Monitor system performance metrics, including stability and response time.
+        \item Confirm system maintains stable performance.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-CR2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System is initialized with required storage capacity. \par
+      \textbf{Input/Condition:} Data stored in the database approaches 10TB annually. \par
+      \textbf{Output/Results:} The expected result is that the system \\accommodates 10TB of data without loss of performance. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Load 10TB data into database.
+        \item Monitor database performance metrics, such as access time and error rate.
+        \item Confirm system’s ability to manage 10TB without performance impact.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below confirm that the system can scale effectively to 
+accommodate an increasing user base, data volume, and computational needs over time. 
+
+\begin{itemize}
+  \item PR-ST-SE1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System operational with current allocated user amount. \par
+      \textbf{Input/Condition:} Increase user base by 10\% annually. \par
+      \textbf{Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Simulate a 10\% increase in the user base by increase user base parameters by 10\%.
+        \item Monitor system metrics such as response time and error rate.
+        \item Confirm that the system operates within acceptable \\performance metrics post-increase.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below verify the system’s reliability across updates and 
+compatibility with major operating systems. 
+
+\begin{itemize}
+  \item PR-ST-LR1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System release build in use, with ongoing \\development updates. \par
+      \textbf{Input/Condition:} System stability monitored over successive updates. \par
+      \textbf{Output/Results:} The expected result is that the system maintains a failure rate below 1\% in release builds. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Conduct routine tests on the release build during ongoing development updates.
+        \item Monitor system logs for errors or malfunctions.
+        \item Verify that the failure rate remains below 1\%.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-LR2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System configured for compatibility testing across platforms. \par
+      \textbf{Input/Condition:} System loaded on Windows, macOS, Linux, Android, and iOS. \par
+      \textbf{Output/Results:} The expected result is that the system functions correctly across all platforms. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Run the system on each specified operating system.
+        \item Perform standard operations and monitor user experience on each platform.
+        \item Confirm that the system operates without issues on all platforms.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+
+
+
 
 \subsubsection{Area of Testing2}
 
