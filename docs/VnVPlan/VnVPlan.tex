@@ -11,6 +11,15 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage[none]{hyphenat}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage[many]{tcolorbox}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{diagbox}
 
 \input{../Comments}
 \input{../Common}
@@ -165,6 +174,34 @@ issue tracker?}
 
 \wss{Maybe create an SRS checklist?}
 
+The following approaches will be used to verify the SRS:
+
+\begin{itemize}
+  \item \textbf{Ad hoc Peer Review}: Informal reviews of the SRS will be conducted after every major revision 
+  to the SRS with classmates who will serve as peer reviewers. This will provide new perspectives that can 
+  help identify ambiguities, missing requirements and/or areas of improvement. 
+  \begin{itemize}
+    \item Peer reviewers will submit feedback using GitHub issue tracker for organized task assignment and tracking.
+  \end{itemize}
+  \item \textbf{Supervisor Review}: Before every major SRS revision submission, the team will 
+  send a copy of the SRS to the project supervisor a week before meeting, along with a checklist highlighing 
+  priority areas for their feedback. The team will also prepare questions about the requirements related to 
+  interfaces and usability which is the supervisor's area of expertise. During the review meeting, the team will 
+  first review the supervisor's initial feedback with the supervisor, and then ask the prepared questions.
+  \begin{itemize}
+    \item The meeting notes will be documented using GitHub issue tracker.
+  \end{itemize}
+  \item \textbf{Internal Team Walkthrough}: The team will hold a collaborative session 
+  before every major SRS revision submission where the team will discuss each section one 
+  by one to verify that all requirements are understood by all members, and that each section 
+  is consistent with the project goals/objectives. A checklist will act as a guide to highlight the key concepts 
+  the review should focus on, and will help ensure no critical areas are missed in review. The checklist can be found 
+  below.
+  \begin{itemize}
+    \item Any corrections or modifications that need to be made will be noted in the team 
+    meeting's GitHub issue tracker.
+  \end{itemize}
+\end{itemize}
 \subsection{Design Verification Plan}
 
 \wss{Plans for design verification}
@@ -393,6 +430,25 @@ needs to be well-documented, with meaningful names for all of the tests.}
   References to the MIS would be good.  You will want tests from a black box
   perspective and from a white box perspective.  Explain to the reader how the
   tests were selected.}
+
+\begin{itemize}
+  \begin{item}
+      FR-ST-DPD1
+      \begin{mdframed}[linewidth=0.5mm]
+          \textbf{Control:} Manual vs Automatic \par
+          \textbf{Initial State:}  \par
+          \textbf{Input:}  \par
+          \textbf{Output:} The expected results for the testcase not how you are getting results\par
+          \textbf{Test Case Derivation:} Justify expected value giveint in the output field \par
+          \textbf{How the test will be performed:}
+          \begin{enumerate}[noitemsep]
+            \item step 1
+            \item step 2
+            \item ...
+          \end{enumerate}
+      \end{mdframed}
+  \end{item}
+\end{itemize}
 
 \begin{enumerate}
 
