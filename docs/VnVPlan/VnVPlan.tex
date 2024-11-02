@@ -16,6 +16,15 @@
 \setlist[todolist]{label=$\square$}
 \usepackage{tcolorbox}
 
+\usepackage[none]{hyphenat}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{diagbox}
+
 \input{../Comments}
 \input{../Common}
 
@@ -317,34 +326,157 @@ the contents of the subsections.}
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Authentication}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
-		
-\paragraph{Title for Test}
 
-\begin{enumerate}
+The test cases below focus on ensuring users can safely and securely login, create and access
+their accounts without worrying about others accessing their information.
 
-\item{test-id1\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\begin{itemize}
+  \begin{item}
+      FR-ST-A1
+      \begin{mdframed}[linewidth=0.5mm]
+          \textbf{Control:} Manual \par
+          \textbf{Initial State:} User has a Parent account already created and stored in the database \par
+          \textbf{Input:} Selection of Parent account role for login \par
+          \textbf{Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
+          \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+          \textbf{How the test will be performed:}
+          \begin{enumerate}[noitemsep]
+            \item Select 'Login' to go to login screen
+            \item Select 'Parent' when prompted to select between Parent and Clinician roles
+            \item User is brought to the Parent login screen
+          \end{enumerate}
+      \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has a Clinician account already created and stored in the database \par
+      \textbf{Input:} Selection of Clinician account role for login \par
+      \textbf{Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Login' to go to login screen
+        \item Select 'Clinician' when prompted to select between Parent and Clinician roles
+        \item User is brought to the Clinician login screen
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account is created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter unique username that is not in the database
+        \item Enter account credentials (to complete account create process)
+        \item Parent account is created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account fails to be created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter username that already exists in the database
+        \item System communicates the account could not be created
+        \item System prompts user to select a new username
+        \item Parent account is not created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+\begin{item}
+  FR-ST-A5
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account is created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter unique username that is not in the database
+      \item Enter account credentials (to complete account create process)
+      \item Clinician account is created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A6
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account fails to be created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter username that already exists in the database
+      \item System communicates the account could not be created
+      \item System prompts admin user to select a new username
+      \item Clinician account is not created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A7
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is on their corresponding role's login page, with an account already created and stored in the database \par
+    \textbf{Input:} Unique username and corresponding password that exists in the database \par
+    \textbf{Output:} The expected result is a successful login to a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A4 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item On login screen
+      \item Enter unique username
+      \item Enter corresponding password
+      \item Select login to enter account
+      \item Logged into account
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A8
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is logged into their account \par
+    \textbf{Input:} Selection of 'logout' \par
+    \textbf{Output:} The expected result is a successful logout from a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A5 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Logged into account
+      \item Select 'logout'
+      \item System logs user out of their account
+      \item Logout confirmation is displayed to the user
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\end{itemize}
 
 Control: Manual versus Automatic
 					
@@ -357,8 +489,6 @@ Output: \wss{The expected result for the given inputs}
 Test Case Derivation: \wss{Justify the expected value given in the Output field}
 
 How test will be performed: 
-
-\end{enumerate}
 
 \subsubsection{Area of Testing2}
 
