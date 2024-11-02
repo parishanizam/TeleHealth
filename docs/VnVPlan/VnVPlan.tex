@@ -333,7 +333,7 @@ the contents of the subsections.}
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
 
-The test cases below focus on ensuring users can safely and securely login, create and access
+\hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and access
 their accounts without worrying about others accessing their information.
 
 \begin{itemize}
@@ -478,18 +478,6 @@ their accounts without worrying about others accessing their information.
 \end{item}
 \end{itemize}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
 \subsubsection{Area of Testing2}
 
 ...
@@ -517,7 +505,52 @@ format for the tests given below.}
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Usability and Humanity}
+\hspace{2em}The test cases below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
+
+\begin{itemize}
+  \item UH-ST-EOU1 (covers UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Users complete one full assessment using the system. \par
+      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User have access to the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item Results are stored
+        \item Usability scores are averaged across users
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-PI1 (covers UH-PI1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed\par
+      \textbf{Output/Results:} Count the number of available languages for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item View list of available languages
+        \item Count number of languages are available for the assessment
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-LI2 (covers UH-LI2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual \par
+      \textbf{Initial State:} User documentation has been completed and made available to users. \par
+      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed\par
+      \textbf{Output/Results:} Verify link takes user to access documentation \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'documentation'
+        \item User goes to documentation screen
+        \item User can view up-to-date, available documentation
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
 		
 \paragraph{Title for Test}
 
