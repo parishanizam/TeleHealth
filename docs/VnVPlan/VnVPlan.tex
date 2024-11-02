@@ -21,6 +21,9 @@
 \usepackage{float}
 \usepackage{diagbox}
 
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+
 \input{../Comments}
 \input{../Common}
 
@@ -202,6 +205,19 @@ The following approaches will be used to verify the SRS:
     meeting's GitHub issue tracker.
   \end{itemize}
 \end{itemize}
+
+The following checklist will be used for the internal team walkthrough: \\
+\begin{todolist}
+  \item Are all major functions required for the website (interface, backend, recording, analysis, storage) covered?
+  \item Does each function have clear input and output specifications?
+  \item Are all requirements written with consistent terminology?
+  \item Do all requirements avoid conflict with each other?
+  \item Does each requirement avoid ambiguous language?
+  \item Are all requirements verifiable and testable?
+  \item Is each requirement written in a way all teawm members and stakeholders can understand?
+  \item Are any assumptions about user behavior or system behaviour explicity stated?
+\end{todolist}
+
 \subsection{Design Verification Plan}
 
 \wss{Plans for design verification}
@@ -281,8 +297,76 @@ the contents of the subsections.}
   level of document structure can be removed.}
 
 \wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+  cover the requirements. References to the SRS would be good here.}
 
+\subsubsection{Data Processing and Display}
+
+\hspace{2em}This set of test cases will help confirm the system's data retrieval, report generation, 
+and display functionalities to ensure the clinician experience aligns with the project’s goals.
+
+\begin{itemize}
+  \item FR-ST-DPD1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database is populated with processed assessment data. \par
+      \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
+      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within 10 seconds \par
+      \textbf{Test Case Derivation:} Ensures the system can retrieve data efficiently for report generation, meeting retrieval speed and \\completeness requirements. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the database for a test patient’s processed assessment results. 
+        \item Measure and record retrieval time, ensuring it does not exceed 10 seconds. 
+        \item Verify that all required data is retrieved and matches the stored information.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database has assessment data including flagged occurrences, timestamps, and patient performance metrics. \par
+      \textbf{Input:} Trigger for report generation based on a retrieved \\assessment dataset. \par
+      \textbf{Output:} The expected result is a generated report containing all required data within 10 seconds. \par
+      \textbf{Test Case Derivation:} Confirms that report generation is \\complete, accurate, and within performance constraints. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Retrieve a patient’s assessment data from the database. 
+        \item Trigger report generation. 
+        \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
+        \item Measure and confirm report generation time does not exceed 10 seconds.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Generated report available in the database. \par
+      \textbf{Input:} Clinician dashboard query to display the generated report. \par
+      \textbf{Output:} Report displayed in the clinician’s dashboard with \\accurate formatting, charts, and tables, fully loaded within 10 seconds. \par
+      \textbf{Test Case Derivation:} Validates the report display function, ensuring usability and speed requirements are met. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the clinician’s dashboard to load the report. 
+        \item Confirm that the report is displayed with correct charts, tables, and formatting. 
+        \item Verify full loading of the report within 10 seconds.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database has stored reports for previous sessions, each with a unique patient identifier. \par
+      \textbf{Input:} Clinician request to access a specific previously generated report. \par
+      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within 10 seconds. \par
+      \textbf{Test Case Derivation:} Ensures that clinicians can reliably access and view past reports, supporting longitudinal patient assessment.\par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the database for a stored report using a unique patient identifier. 
+        \item Verify that the retrieved report is complete and accurate. 
+        \item Confirm that the report is displayed within 10 seconds.
+      \end{enumerate}
+  \end{mdframed}
+
+\end{itemize}
 \subsubsection{Area of Testing1}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
@@ -352,6 +436,142 @@ format for the tests given below.}
 \wss{If you introduce static tests in your plan, you need to provide details.
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
+
+\subsubsection{Look and Feel Requirements}
+
+These test cases ensure that all appearance and style requirements are addressed effectively, 
+covering navigation, user-friendliness, brand consistency, visual appeal, and responsiveness.
+
+\begin{itemize} 
+  \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
+    \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating menus, and viewing results. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
+      \item 100\% of users complete core tasks within five clicks. 
+      \item 95\% of children aged 6-12 can complete a sample assessment independently. 
+    \end{itemize} \par \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Observe and record the number of clicks taken by each user to complete key tasks. 
+      \item Inspect the navigation structure to ensure it meets depth and option constraints. 
+      \item Test with children to verify completion of assessments \\independently. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item LF-ST-LFR1 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user interaction tests. \par 
+    \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
+      \item Positive feedback from child participants indicating a calm, non-stressful environment. 
+      \item 100\% consistency in design across all pages. 
+      \item 100\% of user interactions provide immediate feedback within 0.5 seconds. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Compare platform’s design elements against the client’s brand and style guidelines. 
+      \item Collect feedback from child participants about the visual \\atmosphere. 
+      \item Test and measure feedback response times for various \\interactions. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+
+These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
+
+\begin{itemize} 
+  \item MS-ST-MSA1 (covers MS-MR1, MS-SR1)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
+    \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
+    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed 10 lines of code edited outside the updated module. 
+      \item Users can submit issues and feature requests directly to GitHub, categorized as issues, feature requests, or feedback. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Perform code updates on isolated components and verify \\changes are contained within 10 lines outside the component. 
+      \item Test submission flow to GitHub, verifying links are accessible and that issues and requests are categorized correctly. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item MS-ST-MSA2 (covers MS-SR2) 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
+    \textbf{Input/Condition:} New user group follows the tutorial to complete primary tasks (e.g., starting an assessment). \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item 90\% of users can complete core tasks correctly after following the tutorial. 
+    \end{itemize} \par \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Guide users through the tutorial and observe task completion rates. 
+      \item Collect feedback on tutorial clarity and assess if 90\% of users can independently complete tasks. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item MS-ST-MSA3 (covers MS-AR1)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform accessible across various devices and screen sizes, from mobile (4”) to desktop (27”). \par 
+    \textbf{Input/Condition:} Load and navigate the platform across multiple devices to evaluate responsive design and functionality. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item 100\% of essential features are fully functional and readable across all screen sizes tested. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Access the platform on various screen sizes and test for display, layout, and functionality. 
+      \item Verify that all features are usable and adapt responsively without readability or functionality loss. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
+
+\subsubsection{Cultural Requirements}
+
+These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
+
+\begin{itemize} 
+  \item CU-ST-CUR1 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Platform content (language and imagery) is finalized and presented for review. \par 
+    \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item 100\% of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item A cultural consultant examines all text and imagery for \\potential cultural insensitivity. 
+      \item Conduct user acceptance testing with a diverse group and gather feedback on the platform's cultural sensitivity. 
+      \item Validate that all feedback confirms no culturally insensitive content. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item CU-ST-CUR2 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static \par 
+    \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
+    \textbf{Input/Condition:} Switch between language settings to review each text, instruction, and assessment in both languages. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item 100\% of content is fully translated and functional in both English and Mandarin with no untranslated elements. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Navigate through the platform in both English and Mandarin settings, verifying translations for each section. 
+      \item Confirm that all assessments, instructions, and interface \\elements are accurately translated and free from language discrepancies. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
 
 \subsubsection{Area of Testing1}
 		
@@ -430,25 +650,6 @@ needs to be well-documented, with meaningful names for all of the tests.}
   References to the MIS would be good.  You will want tests from a black box
   perspective and from a white box perspective.  Explain to the reader how the
   tests were selected.}
-
-\begin{itemize}
-  \begin{item}
-      FR-ST-DPD1
-      \begin{mdframed}[linewidth=0.5mm]
-          \textbf{Control:} Manual vs Automatic \par
-          \textbf{Initial State:}  \par
-          \textbf{Input:}  \par
-          \textbf{Output:} The expected results for the testcase not how you are getting results\par
-          \textbf{Test Case Derivation:} Justify expected value giveint in the output field \par
-          \textbf{How the test will be performed:}
-          \begin{enumerate}[noitemsep]
-            \item step 1
-            \item step 2
-            \item ...
-          \end{enumerate}
-      \end{mdframed}
-  \end{item}
-\end{itemize}
 
 \begin{enumerate}
 
