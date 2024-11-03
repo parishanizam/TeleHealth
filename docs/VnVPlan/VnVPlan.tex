@@ -547,7 +547,59 @@ requirements for users to have an enjoyable and accessible experience.
       \begin{enumerate}[noitemsep]
         \item Select 'documentation'
         \item User goes to documentation screen
-        \item User can view up-to-date, available documentation
+        \item User has access to view up-to-date, available documentation
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Operational and Environmental}
+\hspace{2em}The test cases below ensures that the system can be used in a variety of environments,
+along with the requirements for which users are expected to use the system within, and the capabilities
+and qualities the system has to interact with adjacent systems in the environment.
+
+\begin{itemize}
+  \item OE-ST-EPE1 (covers OE-EPE1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes \par
+      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User logs into the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item User answers questions about their screensize and if the test scaled accordingly
+        \item Results are stored for review
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-WE1 (covers OE-WE1, OE-WE2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic, Manual \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} User attempts to start system setup\par
+      \textbf{Output/Results:} Device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'system setup'
+        \item System checks if connected to the internet
+        \item System checks audio input is not noisy
+        \item System checks video input is clear
+        \item System displays to the user their device is ready for the assessment to be used in the current environment
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-IA1 (covers OE-IA1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Functional, Dynamic \par
+      \textbf{Initial State:} System is connected to external server for retrieving and storing data \par
+      \textbf{Input/Condition:} Assessment is complete, and results need to be stored\par
+      \textbf{Output/Results:} Verify results are stored in the external server \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Complete assessment
+        \item Access external server
+        \item Check if results have been uploaded to server
+        \item Access results to ensure data has been uploaded successfully
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -773,6 +825,8 @@ The usability survey will be conducted after participants have engaged with test
     \item Were there any aspects of the platform that you found unnecessary? Why? \insertAnswerHere
     \item Which part of the platform needs the most improvement? Why? \insertAnswerHere
     \item What would you like changed to make the platform easier to use? \insertAnswerHere
+    \item What is the device you ran the system on? \insertAnswerHere
+    \item Did the screen's visuals scale appropriately to the screen size? \insertAnswerHere
     \item Do you have any additional feedback? \insertAnswerHere
 \end{enumerate}
 
