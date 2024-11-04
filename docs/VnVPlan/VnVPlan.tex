@@ -3,6 +3,12 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage{mdframed}
+
+\newcommand{\checkbox}{\ding{113}} % 113 corresponds to an open square box
+
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -92,7 +98,60 @@ This document ... \wss{provide an introductory blurb and roadmap of the
 \wss{Say what software is being tested.  Give its name and a brief overview of
   its general functions.}
 
+  The software being tested TeleHealth Insights, is a web-based at-home bilingual
+  speech assessment system with video and audio analysis features. The system is designed to provide clear 
+  guidance to parents when administering the assessment to their children, in an environment where speech-language
+  pathologists (SLPs) are unavailable. By streamlining the assessment pro-
+  cess, the project aims to provide a convenient and comprehensive solution
+  for SLPs to assess and support their patient's speech and language development remotely.
+
+  TeleHealth System comprises of several software components to efficiently provide 
+  a platform for children assessments to occur while actively recording for clinicians to review and analyze. 
+
+  \subsubsection{User Interface}
+
+  We must ensure that the interface is easy to navigate for all stakeholders involved, the parents, 
+  clinicians as well as the parents. The system should be simple and testing will include ensuring 
+  there is an intuitive layouts, clear instructions and labels, as well as a logical workflow.
+
+  \subsubsection{Video and Audio Recording}
+
+  Ensure set up of hardware devices used on application is intuitive and done properly. 
+
+  \subsubsection{Video and Audio Analysis}
+
+  Integrate web-based application to store recorded audio and video footage. The system will be tested to ensure it is able to 
+  appropriately analyze and identify flags and bias when conducting assessments. The analyzed data should be presented 
+  in a easy to understand representation
+
 \subsection{Objectives}
+
+
+The Vnv Plan will focus on the following objectives
+\subsubsection{Ensure Accuracy and Correctness of Software Reading and Identifying Bias}
+The main objective of this VnV Plan is ensure correctness of the system's ability to 
+record video and audio of our clients completing speech therapy assessments, store and train an AI model to 
+to be able to detect any disturbances and bias in the assessment taking process. A report or dashboard should be made to present its findings and ensure the results are accurate.
+
+
+\subsubsection{Security and Authentication}
+
+Second main objective of this VnV plan is to ensure security and strong authentication capabilities of the software. 
+\begin{itemize}
+  \item Check security and anonymity of all patient data (recording), ensuring its secure storage of information and access.
+  \item Check software correctness, ensuring authorized users are allowed in the system, and their appropriate role. 
+  \subitem{Parents should be able to view the assessment and complete it with their child.}
+  \subitem{Clinicians should be able to view assessment results and recordings}
+  \subitem{Admins should be able to view and create accounts.}
+  \item Check the software correctly blocked unauthorized users and grants them access to the assessment portal and assessment results.
+\end{itemize}
+
+\subsubsection{Demonstrate Usability}
+The last main object of the VnV plan is to check that the application is easy and intuitive to use. The main goal of the system is to create an application that stores correct results and allows users to complete their task quickly and efficiently. 
+Given that the system will be used by parents, children, and medical professionals, the UI needs to be easy to understand and use. 
+
+
+Out of scope Objectives 
 
 \wss{State what is intended to be accomplished.  The objective will be around
   the qualities that are most important for your project.  You might have
@@ -127,6 +186,24 @@ been approved by the course instructor as included in your problem statement.
 You can use a pull request to update your extras (in TeamComposition.csv or
 Repos.csv) if your plan changes as a result of the VnV planning exercise.}
 
+
+\subsubsection{Challenge Level} 
+
+Our challenge level is general as the project scope is limited in terms of how much
+research is required. The required domain knowledge is basic web-design in a
+stack of our choice. We are also planning on using open-source large language
+models for audio and video processing.
+
+\subsubsection{Extras}
+Our project has the following extras;
+\begin{itemize}
+  \item \textbf{User Documentation: } Providing users with a guide on how to use and
+  better understand the system. 
+  \item \textbf{Usability Testing: } Receive user feedback on usability of design of the ap-
+plication, including improvements on how the system looks and functions. This will help to ensure an intuitive and easy system for both clinicians and parents/children to navigate through.
+\end{itemize}
+
+
 \subsection{Relevant Documentation}
 
 \wss{Reference relevant documentation.  This will definitely include your SRS
@@ -134,6 +211,15 @@ Repos.csv) if your plan changes as a result of the VnV planning exercise.}
   can include these even before they are written, since by the time the project
   is done, they will be written.  You can create BibTeX entries for your
   documents and within those entries include a hyperlink to the documents.}
+
+  The two main relevant documentation that helped guide us in System Verification and Validation Plan (VnV) was Software Requirements Specification
+  (SRS) and Development plan.  
+  
+  \begin{itemize}
+    \item The SRS document was crucial to define descriptions, rationals and fit criteria for all of the systems main functional and non functional requirements. This outlines the basis of what needs to be verified and tested in the VnV Plan. 
+    \item Development Plan: Defined the main Goals, Objectives and extras for the system, aiding the team to understand what needs to be done and focused on. 
+  \end{itemize}
+  
 
 \citet{SRS}
 
@@ -173,6 +259,20 @@ issue tracker?}
 
 \wss{Create a checklists?}
 
+
+The design verification plan outlines the strategies that the team will use to verify the usability and correctness of our system. The following outlines the plan for verifying the User Interface of the software. 
+\begin{itemize}
+  \item Shall conduct a quick review with supervisor after design documents (MIS) have been completed 
+  \item Conduct peer review sessions from classmates to provide critical suggestions on improvements of the system. 
+  \item Conduct final formal review with clinician Dr. Du and the team, following defined SRS and MIS documents. 
+\end{itemize}
+
+The following checklist will be used to verify the system's design documents \\
+\checkbox Are all requirements traceable to at least one feature/module in the MIS? \\
+\checkbox Do all modules and components follow SOLID design principles? \\
+\checkbox Have the creation of all modules been tracked via issues and closed once reviewed? \\
+
+
 \subsection{Verification and Validation Plan Verification Plan}
 
 \wss{The verification and validation plan is an artifact that should also be
@@ -195,6 +295,16 @@ verified.  Techniques for this include review and mutation testing.}
 walkthrough.  There is also a possibility of using the final presentation (in
 CAS741) for a partial usability survey.}
 
+The following outlines the plan for verifying implementation of the system, using both static and dynamic techniques 
+
+\begin{itemize}
+  \item Walkthrough of key components of the system with the supervisor (UI design, user authentication, video and audio analysis)
+  \item Walkthrough of each components with other teammates 
+  \item Running unit tests (to be implemented in VnV Plan) to verify that the implementation matches the specified design outlined in MIS. This will be done automatically (dynamic) using Github Actions for each pull request made, following
+  \item Running system tests (both functional and non functional) described in the VnV plan to verify that the implementation meets requirements
+  \item Running Static analyzers including linters to help discover any potential errors or bugs in the code. Linters and tools will also be used to help make the code more organized and readable. 
+  \item Major code commits will be reviewed by at least one other team member before merging to main branch to ensure consistency and minimize chance of conflicts. 
+\end{itemize}
 \subsection{Automated Testing and Verification Tools}
 
 \wss{What tools are you using for automated testing.  Likely a unit testing
@@ -239,118 +349,350 @@ the contents of the subsections.}
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
+\subsubsection{System Set Up}
 
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.}
+\begin{itemize}
+  \item FR-ST-SS1
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User is logged into the system and has access to the assessment information page. \par
+      \textbf{Input:} User navigates to the page where assessment information is displayed before starting hardware checks. \par
+      \textbf{Output:} User is able to view relevant information about the assessment before beginning any hardware checks. \par
+      \textbf{Test Case Derivation:} Users need to be aware of the assessment requirements and goals prior to starting the hardware setup to ensure they are prepared. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Log in as a user and navigate to the assessment information section.
+        \item Verify that the page displays necessary details about the assessment, such as the purpose, requirements, and overview.
+        \item Confirm that the information is accessible and readable to the user.
+      \end{enumerate}
+    \end{mdframed}
 
-\subsubsection{Area of Testing1}
+  \item FR-ST-SS2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User is on the hardware check section of the system with audio devices connected. \par
+      \textbf{Input:} User initiates the audio hardware check through the system. \par
+      \textbf{Output:} User receives confirmation that the audio input and output devices are functioning correctly. \par
+      \textbf{Test Case Derivation:} Verifying that audio devices are functional before the assessment prevents issues of recording audio during
+      the assessment, which could effect proper identification of bias. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Start the audio hardware check.
+        \item Confirm that the system prompts the user to test both audio input (microphone) and output (speakers/headphones).
+        \item Verify that the system indicates successful audio detection when the test is performed.
+        \item Test with a non-functional audio device and confirm that the system displays an appropriate error.
+      \end{enumerate}
+    \end{mdframed}
 
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
-		
-\paragraph{Title for Test}
+  \item FR-ST-SS3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User is on the hardware check section of the system with a video device connected. \par
+      \textbf{Input:} User initiates the video hardware check through the system. \par
+      \textbf{Output:} User receives confirmation that the video capturing device is functioning correctly. \par
+      \textbf{Test Case Derivation:} Ensuring video functionality prevents disruptions in assessments that require visual input or interaction and ensures 
+      proper recording is taken for accurate data analysis \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Start the video hardware check.
+        \item Confirm that the system activates the video device and displays a live feed.
+        \item Verify that the system confirms successful video detection if the feed is displayed correctly.
+        \item Test with a non-functional video device and confirm that the system displays an error.
+      \end{enumerate}
+    \end{mdframed}
 
-\begin{enumerate}
+  \item FR-ST-SS4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has successfully completed audio and video hardware checks. \par
+      \textbf{Input:} User proceeds to the tutorial section after completing hardware checks. \par
+      \textbf{Output:} User is directed to a tutorial that explains the assessment process in a step-by-step manner. \par
+      \textbf{Test Case Derivation:} Providing a tutorial ensures that users understand the assessment process, improving accuracy and compliance. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Complete the audio and video hardware checks.
+        \item Verify that the system automatically navigates the user to a tutorial section upon completion of the hardware checks.
+        \item Confirm that the tutorial provides clear, step-by-step instructions on how to proceed with the assessment.
+      \end{enumerate}
+    \end{mdframed}
 
-\item{test-id1\\}
+  \item FR-ST-SS5
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has completed the tutorial and is ready to begin the assessment. \par
+      \textbf{Input:} User initiates the start of the assessment through the system. \par
+      \textbf{Output:} User is taken to the first assessment question, and the assessment begins. \par
+      \textbf{Test Case Derivation:} Allowing users to start the assessment on their own terms helps them feel prepared and reduces errors. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item After completing the tutorial, select the option to start the assessment.
+        \item Confirm that the system directs the user to the first assessment question.
+        \item Verify that the assessment interface is properly displayed and ready for the user to begin answering.
+      \end{enumerate}
+    \end{mdframed}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
+\end{itemize}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+\subsubsection{Assessment Interface}
 
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\begin{itemize}
+  \item FR-ST-AI1
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} User has started the assessment and is ready to begin answering questions. \par
+      \textbf{Input:} User initiates the assessment. \par
+      \textbf{Output:} System begins recording both audio and video, with an indicator showing recording is active. \par
+      \textbf{Test Case Derivation:} Audio and video recording are essential for capturing user responses accurately, and an indicator reassures users that recording is in progress. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Start the assessment as a user.
+        \item Confirm that the system begins recording audio and video.
+        \item Verify that a visible indicator shows that recording is ongoing.
+      \end{enumerate}
+    \end{mdframed}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+  \item FR-ST-AI2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} User is on a new question within the assessment. \par
+      \textbf{Input:} System progresses to a new question in the assessment. \par
+      \textbf{Output:} The system plays the corresponding audio prompt for the new question. \par
+      \textbf{Test Case Derivation:} The audio prompt ensures users understand each question and assessment is running as intended. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Progress to a new question in the assessment.
+        \item Verify that the system automatically plays the corresponding audio prompt.
+      \end{enumerate}
+    \end{mdframed}
 
-How test will be performed: 
+  \item FR-ST-AI3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} User has progressed to a new question in the assessment. \par
+      \textbf{Input:} System loads a new question. \par
+      \textbf{Output:} System displays all possible answer options for the user to select from. \par
+      \textbf{Test Case Derivation:} Presenting options ensures the user can make a response selection based on the question, system must mark answer select as right or wrong \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Go to a new question in the assessment.
+        \item Confirm that all answer options associated with the question are displayed.
+      \end{enumerate}
+    \end{mdframed}
 
-\end{enumerate}
+  \item FR-ST-AI4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User is viewing the answer options for a question in the assessment. \par
+      \textbf{Input:} User selects one of the displayed answer options. \par
+      \textbf{Output:} System highlights or otherwise indicates the user’s selected option. \par
+      \textbf{Test Case Derivation:} Visual confirmation of selection minimizes user error and allows the user to review their choice before confirmation. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select an answer option for a question.
+        \item Verify that the system indicates the selected option visually (e.g., highlighting).
+      \end{enumerate}
+    \end{mdframed}
 
-\subsubsection{Area of Testing2}
+  \item FR-ST-AI5
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has selected an answer option and is ready to proceed. \par
+      \textbf{Input:} User confirms their selection. \par
+      \textbf{Output:} System moves the user to the next question or stage. \par
+      \textbf{Test Case Derivation:} Confirmation helps prevent unintended answers, ensuring accuracy in user responses. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select and confirm an answer for a question.
+        \item Verify that the system progresses to the next question or stage upon confirmation.
+      \end{enumerate}
+    \end{mdframed}
 
-...
+  \item FR-ST-AI6
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} User is in the process of answering questions within the assessment. \par
+      \textbf{Input:} User enters and exits each question. \par
+      \textbf{Output:} System records timestamps for entry and exit for each question. \par
+      \textbf{Test Case Derivation:} Timestamping provides valuable tracking information for synchronizing recordings and analyzing response timing. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Begin the assessment and progress through several questions.
+        \item Verify that the system logs entry and exit timestamps for each question.
+      \end{enumerate}
+    \end{mdframed}
+
+  \item FR-ST-AI7
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} User has reached the final question in the assessment. \par
+      \textbf{Input:} User completes the final question and confirms the selection. \par
+      \textbf{Output:} System displays a message informing the user that the assessment is complete. \par
+      \textbf{Test Case Derivation:} Notifying the user of completion provides a clear end to the assessment and allows users to exit confidently. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Complete the final question in the assessment and confirm the selection.
+        \item Verify that the system displays a completion message.
+      \end{enumerate}
+    \end{mdframed}
+\end{itemize}
+
+\pagebreak
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
+\subsubsection{Security}
 
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
-
-\subsubsection{Area of Testing1}
+The test cases below ensures that the system meets essential 
+security requirements including authentication of users and encryption of 
+confidential data in the system
 		
-\paragraph{Title for Test}
+\begin{itemize}
+  \begin{item}
+      SR-ST-AC1
+      \begin{mdframed}[linewidth=0.5mm]
+          \textbf{Type:} Dynamic \par
+          \textbf{Initial State:} System has multiple user roles: Admin, Parent, and Clinician. \par
+          \textbf{Input/Conditiont:}   User with Admin role attempts to create and assign accounts to clinicians \par
+          \textbf{Output/Results:}  Only Admin users can access and execute functions related to clinician account creation \par
+          \textbf{How the test will be performed:}
+          \begin{enumerate}[noitemsep]
+            \item Log in as an Admin and attempt to create and view clinician accounts. Verify that the action succeeds
+            \item Log in as a non-Admin (e.g., Parent or Clinician) and try to access the same function. Confirm that access is denied with an appropriate error message.
+          \end{enumerate}
+      \end{mdframed}
+  \end{item}
 
-\begin{enumerate}
+  \begin{item}
+    SR-ST-AC2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} Parent role created and available for testing. \par
+      \textbf{Input/Condition:} User with Parent role logs in and attempts to complete assessments. \par
+      \textbf{Output/Results:} Parent users can create their account, complete assessments, and log out successfully. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Log in as a Parent user and attempt to start and complete an assessment. Verify successful completion and logout.
+        \item Attempt to access administrative functions (e.g., creating clinician accounts). Verify that access is denied with an appropriate message.
+      \end{enumerate}
+    \end{mdframed}
+  
+    \begin{item}
+    SR-ST-AC3
+      \begin{mdframed}[linewidth=0.5mm]
+        \textbf{Type:} Dynamic \par
+        \textbf{Initial State:} Clinician role with restricted access is created and available for testing. \par
+        \textbf{Input/Condition:} User with Clinician role logs in and attempts to view assessment results. \par
+        \textbf{Output/Results:} Clinician users can view assessment results but cannot start or complete assessments as a Parent user would. \par
+        \textbf{How the test will be performed:}
+        \begin{enumerate}[noitemsep]
+          \item Log in as a Clinician and attempt to view completed assessment results. Confirm access is granted.
+          \item Attempt to start or complete an assessment and confirm access is denied with an error message indicating unauthorized action.
+        \end{enumerate}
+      \end{mdframed}
+    \end{item}
 
-\item{test-id1\\}
+    \begin{item}
+    \end{item} SR-ST-AC4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System with user login functionality. \par
+      \textbf{Input/Condition:} Users attempt to log in with correct and incorrect credentials. \par
+      \textbf{Output/Results:} Users can only log in with correct credentials; unauthorized access attempts are denied. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Attempt to log in with valid credentials for multiple roles (Admin, Parent, Clinician). Confirm successful login.
+        \item Attempt to log in with incorrect credentials (e.g., incorrect username or password). Confirm that login is denied and an error message is shown.
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
+  \begin{item}
+    SR-ST-P1
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System ready for pre-release review. \par
+      \textbf{Input/Condition:} Review documentation to ensure adherence to data protection and privacy laws in the region. \par
+      \textbf{Output/Results:} Confirm all applicable data protection requirements are met. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Conduct a documentation review with legal and compliance teams, focusing on privacy policies, data handling, and retention practices.
+        \item Verify that all data collection, storage, and usage adhere to regional privacy laws (e.g., GDPR if applicable).
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
 
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+  \begin{item}
+    SR-ST-P2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static, Automated \par
+      \textbf{Initial State:} System with sensitive data handling enabled. \par
+      \textbf{Input/Condition:} Examine data in transit and at rest. \par
+      \textbf{Output/Results:} Data remains encrypted according to standard encryption protocols during transit and at rest. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Use network monitoring tools to capture data packets during transmission to ensure data is encrypted.
+        \item Review database configuration to verify that data at rest is encrypted. Decrypting should only be possible by authorized clinician accounts.
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
 
-\end{enumerate}
+  \begin{item}
+    SR-ST-P3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System configured for data collection. \par
+      \textbf{Input/Condition:} Examine data storage for PII. \par
+      \textbf{Output/Results:} System does not store any personal identifiable information beyond username and assessment recordings. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Conduct a database inspection and audit to ensure no PII (e.g., address, date of birth, names) is stored.
+        \item Verify data schema to confirm that only usernames and recordings are stored.
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
 
-\subsubsection{Area of Testing2}
+  \begin{item}
+    SR-ST-IM1
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System is in the account creation phase, requiring users to set up passwords. \par
+      \textbf{Input/Condition:} User attempts to create an account with both weak and strong passwords. \par
+      \textbf{Output/Results:} Account creation is completed only when a strong password, meeting specified security criteria, is entered. Weak passwords are rejected with an error message detailing the password requirements. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Attempt to create an account with a weak password (e.g., fewer than 8 characters, no special characters or numbers). Verify that the system rejects the password and displays an error message with the password requirements.
+        \item Attempt to create an account with a password that meets all the specified criteria (e.g., at least 8 characters, containing upper and lowercase letters, numbers, and special characters). Verify that account creation is successful.
+        \item Repeat with different combinations of weak and strong passwords to confirm consistent enforcement of the password policy.
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
 
-...
+\end{itemize}
+
+\subsubsection{Compliance}
+
+The test cases below ensures that the system meets essential 
+compliance requirements including security of the system, following the rules of the clinician and law.
+		
+\begin{itemize}
+  \begin{item}
+    SR-ST-STD1
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static, Automated \par
+      \textbf{Initial State:} User assessment data, including video and audio recordings, is stored in the system. \par
+      \textbf{Input/Condition:} Examine the storage configuration and security measures applied to user assessment data. \par
+      \textbf{Output/Results:} User assessment data is securely stored and associated only with usernames, ensuring no additional personally identifiable information is included. Data at rest is protected by strong encryption. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Review database schema to confirm that assessment data is linked only to usernames and does not include any additional identifiable information.
+        \item Conduct an inspection of the encryption protocols used for stored data to verify compliance with security standards.
+        \item Attempt unauthorized access to stored assessment data to ensure encryption and security measures prevent access by unauthorized users.
+      \end{enumerate}
+    \end{mdframed}
+  \end{item}
+
+\end{itemize}
+
 
 \subsection{Traceability Between Test Cases and Requirements}
 
