@@ -11,6 +11,19 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{enumitem, amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{tcolorbox}
+
+\usepackage[none]{hyphenat}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{diagbox}
 
 \input{../Comments}
 \input{../Common}
@@ -55,8 +68,6 @@ in.}
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-
 \listoffigures
 \wss{Remove this section if it isn't needed}
 
@@ -69,7 +80,8 @@ in.}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  T & Test\\
+  SRS & Software Requirements Specification\\
+  VnV & Verification and Validation\\
   \bottomrule
 \end{tabular}\\
 
@@ -150,6 +162,52 @@ how they relate to your VnV efforts.}
 \wss{Your teammates.  Maybe your supervisor.
   You should do more than list names.  You should say what each person's role is
   for the project's verification.  A table is a good way to summarize this information.}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ | m{5cm} | m{8cm} | }
+    \toprule
+    Name & Roles and Responsibilities \\
+    \hline
+    Mitchell Weingust & \begin{itemize}
+      \item Audio Analysis Model verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Parisha Nizam & \begin{itemize}
+      \item Frontend Interface Verification
+      \item Backend Database Verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Promish Kandel & \begin{itemize}
+      \item Frontend Interface Verification
+      \item Video Analysis Model verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Jasmine Sun-Hu & \begin{itemize}
+      \item Backend Database Verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Dr. Irene Yuan & \begin{itemize}
+      \item Providing feedback (including Hands-On) during project development
+    \end{itemize}\\
+    \hline
+    Dr. Yao Du & \begin{itemize}
+      \item Providing written feedback on user experiences and testing
+    \end{itemize}\\
+    \hline
+    Chris Schankula & \begin{itemize}
+      \item Providing feedback during project development
+      \item Revision recommendations
+    \end{itemize}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Verification and Validation Team Table}
+\end{table}
 
 \subsection{SRS Verification Plan}
 
@@ -174,6 +232,28 @@ issue tracker?}
 \wss{Create a checklists?}
 
 \subsection{Verification and Validation Plan Verification Plan}
+
+As the verification and validation plan is an artifact, it must be verified too. The team's verification of the VnV plan follows:
+\begin{itemize}
+  \item Peer reviews by classmates, including other teams' peer reviews, to identify areas of improvement and general feedback
+  \item Documentation review by the project's supervisor, Dr. Irene Ye Yuan, to ensure that the team's planned verification and validation plan is realistic and feasible
+  \item Teammate documentation reviews, to provide critical feedback and ensure that all intended goals and outcomes are met
+  \item Mutation testing to ensure that changes to aspects of the source plan can be detected by test cases.
+\end{itemize}
+
+The below checklist will be used, in addition, to ensure the team's VnV plan is correct and complete.
+
+\begin{todolist}
+\item Does the VnV Plan verify all functional requirements are met?
+\item Does the VnV Plan verify all non-functional requirements are met?
+\item Have all peer-review issues been addressed and closed?
+\item Have all members of the Verification and Validation Team contributed to the review and approved the document?
+\item Are all aspects of the system boundary being verified, validated, and tested?
+\item Do the system tests cover all requirements mentioned in the SRS?
+\item Did the test cases detect mutations and give desired outputs?
+\item Did the test cases' expected output match the actual output?
+\item Is there a process for documenting and resolving defects?
+\end{todolist}
 
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
@@ -246,48 +326,157 @@ the contents of the subsections.}
 \wss{Include a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Authentication}
 
 \wss{It would be nice to have a blurb here to explain why the subsections below
   cover the requirements.  References to the SRS would be good here.  If a section
   covers tests for input constraints, you should reference the data constraints
   table in the SRS.}
-		
-\paragraph{Title for Test}
 
-\begin{enumerate}
+\hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and access
+their accounts without worrying about others accessing their information.
 
-\item{test-id1\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs.  Output is not how you
-are going to return the results of the test.  The output is the expected
-result.}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Control: Manual versus Automatic
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
-
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
-
-How test will be performed: 
-
-\end{enumerate}
+\begin{itemize}
+  \begin{item}
+      FR-ST-A1
+      \begin{mdframed}[linewidth=0.5mm]
+          \textbf{Control:} Manual \par
+          \textbf{Initial State:} User has a Parent account already created and stored in the database \par
+          \textbf{Input:} Selection of Parent account role for login \par
+          \textbf{Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
+          \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+          \textbf{How the test will be performed:}
+          \begin{enumerate}[noitemsep]
+            \item Select 'Login' to go to login screen
+            \item Select 'Parent' when prompted to select between Parent and Clinician roles
+            \item User is brought to the Parent login screen
+          \end{enumerate}
+      \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has a Clinician account already created and stored in the database \par
+      \textbf{Input:} Selection of Clinician account role for login \par
+      \textbf{Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Login' to go to login screen
+        \item Select 'Clinician' when prompted to select between Parent and Clinician roles
+        \item User is brought to the Clinician login screen
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account is created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter unique username that is not in the database
+        \item Enter account credentials (to complete account create process)
+        \item Parent account is created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account fails to be created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter username that already exists in the database
+        \item System communicates the account could not be created
+        \item System prompts user to select a new username
+        \item Parent account is not created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+\begin{item}
+  FR-ST-A5
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account is created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter unique username that is not in the database
+      \item Enter account credentials (to complete account create process)
+      \item Clinician account is created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A6
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account fails to be created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter username that already exists in the database
+      \item System communicates the account could not be created
+      \item System prompts admin user to select a new username
+      \item Clinician account is not created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A7
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is on their corresponding role's login page, with an account already created and stored in the database \par
+    \textbf{Input:} Unique username and corresponding password that exists in the database \par
+    \textbf{Output:} The expected result is a successful login to a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A4 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item On login screen
+      \item Enter unique username
+      \item Enter corresponding password
+      \item Select login to enter account
+      \item Logged into account
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A8
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is logged into their account \par
+    \textbf{Input:} Selection of 'logout' \par
+    \textbf{Output:} The expected result is a successful logout from a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A5 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Logged into account
+      \item Select 'logout'
+      \item System logs user out of their account
+      \item Logout confirmation is displayed to the user
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\end{itemize}
 
 \subsubsection{Area of Testing2}
 
@@ -316,7 +505,104 @@ format for the tests given below.}
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Usability and Humanity}
+\hspace{2em}The test cases below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
+
+\begin{itemize}
+  \item UH-ST-EOU1 (covers UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Users complete one full assessment using the system. \par
+      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User have access to the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item Results are stored
+        \item Usability scores are averaged across users
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-PI1 (covers UH-PI1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed\par
+      \textbf{Output/Results:} Count the number of available languages for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item View list of available languages
+        \item Count number of languages are available for the assessment
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-LI2 (covers UH-LI2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual \par
+      \textbf{Initial State:} User documentation has been completed and made available to users. \par
+      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed\par
+      \textbf{Output/Results:} Verify link takes user to access documentation \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'documentation'
+        \item User goes to documentation screen
+        \item User has access to view up-to-date, available documentation
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Operational and Environmental}
+\hspace{2em}The test cases below ensures that the system can be used in a variety of environments,
+along with the requirements for which users are expected to use the system within, and the capabilities
+and qualities the system has to interact with adjacent systems in the environment.
+
+\begin{itemize}
+  \item OE-ST-EPE1 (covers OE-EPE1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes \par
+      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User logs into the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item User answers questions about their screensize and if the test scaled accordingly
+        \item Results are stored for review
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-WE1 (covers OE-WE1, OE-WE2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic, Manual \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} User attempts to start system setup\par
+      \textbf{Output/Results:} Device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'system setup'
+        \item System checks if connected to the internet
+        \item System checks audio input is not noisy
+        \item System checks video input is clear
+        \item System displays to the user their device is ready for the assessment to be used in the current environment
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-IA1 (covers OE-IA1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Functional, Dynamic \par
+      \textbf{Initial State:} System is connected to external server for retrieving and storing data \par
+      \textbf{Input/Condition:} Assessment is complete, and results need to be stored\par
+      \textbf{Output/Results:} Verify results are stored in the external server \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Complete assessment
+        \item Access external server
+        \item Check if results have been uploaded to server
+        \item Access results to ensure data has been uploaded successfully
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
 		
 \paragraph{Title for Test}
 
@@ -498,8 +784,51 @@ The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
 \subsection{Usability Survey Questions?}
+The following questions depict the first draft of the team's usability.\\
+The usability survey will be conducted after participants have engaged with testing and using the system for at least one iteration of the assessment.\\
 
-\wss{This is a section that would be appropriate for some projects.}
+\newcommand{\likertScale}{
+    \begin{center}
+        Strongly Disagree \hfill Disagree \hfill Neutral \hfill Agree \hfill Strongly Agree
+    \end{center}
+}
+
+\newcommand{\insertAnswerHere}{
+  \begin{tcolorbox}[width=0.5\textwidth,
+    colframe=black,
+    colback=white,
+    boxrule=0.1mm,
+    sharp corners]
+  \textit{Insert answer here...}
+  \end{tcolorbox}
+}
+
+\textbf{Please select the statement that best describes your experience for each of the following:}
+\begin{enumerate}
+  \item Learning how to use the system was easy:\likertScale
+  \item Setting up the system was easy:\likertScale
+  \item I found the assessment interface easy to use:\likertScale
+  \item Navigating the interface was easy:\likertScale
+  \item All the button interactions reacted and responded how I thought they should:\likertScale
+  \item The information on screen was easy to read and understand:\likertScale
+  \item I like the organization of the assessment interface:\likertScale
+  \item I enjoyed my overall experience using the TeleHealth Insights platform:\likertScale
+\end{enumerate}
+\textbf{Answer the following:}
+
+\begin{enumerate}
+    \setcounter{enumi}{8}
+    \item What was the most difficult part of using the platform? \insertAnswerHere
+    \item Did you encounter any bugs/problems while using the platform? If so, what were they? \insertAnswerHere
+    \item What was your favourite part of the experience? Why? \insertAnswerHere
+    \item What was your least favourite part of the experience? Why? \insertAnswerHere
+    \item Were there any aspects of the platform that you found unnecessary? Why? \insertAnswerHere
+    \item Which part of the platform needs the most improvement? Why? \insertAnswerHere
+    \item What would you like changed to make the platform easier to use? \insertAnswerHere
+    \item What is the device you ran the system on? \insertAnswerHere
+    \item Did the screen's visuals scale appropriately to the screen size? \insertAnswerHere
+    \item Do you have any additional feedback? \insertAnswerHere
+\end{enumerate}
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -512,18 +841,45 @@ graduate attribute of Lifelong Learning.
 \input{../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
+  \item What went well while writing this deliverable?\\
+  \newline
+  \hspace{2em} Mitchell: One of the things that went well during this deliverable was splitting up
+  the System Tests for both Functional Requirements and Nonfunctional Requirements. The team decided
+  to assign the functional and nonfunctional tests to the team members that wrote those particular
+  requirements in the SRS. This allowed the team to use their prior knowledge on the requirements
+  to develop detailed test plans to accurately test the requirements. This also meant that team members
+  that were familiar with the requirements knew the limitations of the tests, and could improve upon
+  given feedback to strengthen the plan further.\\
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+    did you resolve them?\\
+  \newline
+  \hspace{2em} Mitchell: One of the pain points I experienced during this deliverable was understanding the
+  format needed for the System Tests section. I found it difficult to get started because of the formality
+  of the tests. As well, I wanted to make sure that the tests were consistent among team members, and a difference
+  in formatting would be difficult for someone reading the document to understand. To resolve this, the team decided
+  to follow a consistent formatting outline, and follow along a sample so that everyone knew what test cases
+  should look like for this deliverable.\\
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
   static testing knowledge, specific tool usage, Valgrind etc.  You should look to
-  identify at least one item for each team member.
+  identify at least one item for each team member.\\
+  \newline
+  \hspace{2em} Mitchell: One of the pieces of knowledge and skills the team collectively needs to acquire to 
+  successfully complete the verification and validation of the project is understanding how to properly perform
+  usability testing. This will be important to the team because it is one of the project's chosen extras, so understanding
+  usability testing is crucial for the success of the project. As well, it will inform us on how users actually engage,
+  interact, and understand our system. Another skill the team will need to acquire is dynamic testing using different frameworks.
+  It will be beneficial to perform dynamic testing to get verify each of our desired outcomes of tests against the actual outcomes.
+  This will provide the team with accurate, reliable results and conclusions.\\
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+  member pursue, and why did they make this choice?\\
+  \newline
+  \hspace{2em} Mitchell: One approach to acquire knowledge for usability testing is referring to SFWRENG 4HC3 course notes,
+  as usability testing is one of the major topics the course focuses on, with lots of examples and details. To obtain knowledge for dynamic tests, I plan on learning pytest to learn about dynamic testing in Python, which will be the
+  team's language of choice for developing machine learning models.\\
 \end{enumerate}
 
 \end{document}
