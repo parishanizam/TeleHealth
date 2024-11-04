@@ -40,13 +40,34 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+\begin{table}[hp]
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+  \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+  \midrule
+  10/30/24 & 1.0 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 3.1 Verification and Validation Team
+    \item 3.4 Verification and Validation Plan
+    \item 6.2 Usability Survey Questions
+  \end{itemize}\\
+  11/01/24 & 1.1 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 3.2 SRS Validation Plan
+    \item 4.1 Data Processing and Display
+    \item 4.2 Look and Feel FR tests
+    \item 4.2 Maintainence and Support NFR tests
+    \item 4.2 Cultural NFR tests
+  \end{itemize}\\
+  11/02/24 & 1.2 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 4.1 Authentication FR tests
+    \item 4.2 Usability and Humanity NFR tests
+    \item 4.2 Operational and Environmental NFR tests
+  \end{itemize}\\
+  11/04/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item Reflection
+  \end{itemize}\\
+  \bottomrule
+  \end{tabularx}
+  \end{table}
 
 ~\\
 \wss{The intention of the VnV plan is to increase confidence in the software.
@@ -151,6 +172,8 @@ Repos.csv) if your plan changes as a result of the VnV planning exercise.}
 
 \wss{Don't just list the other documents.  You should explain why they are relevant and 
 how they relate to your VnV efforts.}
+
+\newpage
 
 \section{Plan}
 
@@ -622,7 +645,7 @@ These test cases ensure that all appearance and style requirements are addressed
 covering navigation, user-friendliness, brand consistency, visual appeal, and responsiveness.
 
 \begin{itemize} 
-  \item LF-ST-LFR1 
+  \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
@@ -640,7 +663,7 @@ covering navigation, user-friendliness, brand consistency, visual appeal, and re
     \end{enumerate} 
   \end{mdframed}
 
-  \item LF-ST-LFR2 
+  \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user interaction tests. \par 
@@ -767,7 +790,7 @@ and qualities the system has to interact with adjacent systems in the environmen
 These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
 
 \begin{itemize} 
-  \item MS-ST-MSA1 
+  \item MS-ST-MSA1 (covers MS-MR1, MS-SR1)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
@@ -782,7 +805,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \end{enumerate} 
   \end{mdframed}
 
-  \item MS-ST-MSA2 
+  \item MS-ST-MSA2 (covers MS-SR2) 
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
@@ -797,7 +820,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \end{enumerate} 
   \end{mdframed}
 
-  \item MS-ST-MSA3 
+  \item MS-ST-MSA3 (covers MS-AR1)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform accessible across various devices and screen sizes, from mobile (4”) to desktop (27”). \par 
@@ -821,7 +844,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
 These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
 
 \begin{itemize} 
-  \item CU-ST-CUR1 
+  \item CU-ST-CUR1 (covers CU-CR1)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Platform content (language and imagery) is finalized and presented for review. \par 
@@ -838,7 +861,7 @@ These tests ensure that the platform respects cultural sensitivities and provide
     \end{enumerate} 
   \end{mdframed}
 
-  \item CU-ST-CUR2 
+  \item CU-ST-CUR2 (covers CU-CR2)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static \par 
     \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
@@ -1031,7 +1054,7 @@ How test will be performed:
 
 \section{Appendix}
 
-This is where you can place additional information.
+Below is additional information relevant to the document.
 
 \subsection{Symbolic Parameters}
 
