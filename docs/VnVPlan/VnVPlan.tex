@@ -65,6 +65,10 @@
   11/04/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item Reflection
   \end{itemize}\\
+  11/04/24 & 1.4 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 6.1 Symbolic Parameters
+    \item Reflection
+  \end{itemize}\\
   \bottomrule
   \end{tabularx}
   \end{table}
@@ -554,12 +558,12 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{Control:} Automatic \par
       \textbf{Initial State:} Database is populated with processed assessment data. \par
       \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
-      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within 10 seconds \par
+      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within \\MAX\_PROCESSING\_TIME \par
       \textbf{Test Case Derivation:} Ensures the system can retrieve data efficiently for report generation, meeting retrieval speed and \\completeness requirements. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the database for a test patient’s processed assessment results. 
-        \item Measure and record retrieval time, ensuring it does not exceed 10 seconds. 
+        \item Measure and record retrieval time, ensuring it does not exceed MAX\_PROCESSING\_TIME. 
         \item Verify that all required data is retrieved and matches the stored information.
       \end{enumerate}
   \end{mdframed}
@@ -569,14 +573,14 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{Control:} Automatic \par
       \textbf{Initial State:} Database has assessment data including flagged occurrences, timestamps, and patient performance metrics. \par
       \textbf{Input:} Trigger for report generation based on a retrieved \\assessment dataset. \par
-      \textbf{Output:} The expected result is a generated report containing all required data within 10 seconds. \par
+      \textbf{Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Confirms that report generation is \\complete, accurate, and within performance constraints. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Retrieve a patient’s assessment data from the database. 
         \item Trigger report generation. 
         \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
-        \item Measure and confirm report generation time does not exceed 10 seconds.
+        \item Measure and confirm report generation time does not exceed MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
@@ -585,13 +589,13 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{Control:} Manual \par
       \textbf{Initial State:} Generated report available in the database. \par
       \textbf{Input:} Clinician dashboard query to display the generated report. \par
-      \textbf{Output:} Report displayed in the clinician’s dashboard with \\accurate formatting, charts, and tables, fully loaded within 10 seconds. \par
+      \textbf{Output:} Report displayed in the clinician’s dashboard with \\accurate formatting, charts, and tables, fully loaded within \\MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Validates the report display function, ensuring usability and speed requirements are met. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the clinician’s dashboard to load the report. 
-        \item Confirm that the report is displayed with correct charts, tables, and formatting. 
-        \item Verify full loading of the report within 10 seconds.
+        \item Confirm that the report is displayed with correct charts, \\tables, and formatting. 
+        \item Verify full loading of the report within \\MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
@@ -600,13 +604,13 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{Control:} Manual \par
       \textbf{Initial State:} Database has stored reports for previous sessions, each with a unique patient identifier. \par
       \textbf{Input:} Clinician request to access a specific previously generated report. \par
-      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within 10 seconds. \par
+      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within \\MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Ensures that clinicians can reliably access and view past reports, supporting longitudinal patient assessment.\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the database for a stored report using a unique patient identifier. 
         \item Verify that the retrieved report is complete and accurate. 
-        \item Confirm that the report is displayed within 10 seconds.
+        \item Confirm that the report is displayed within \\MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
@@ -641,20 +645,21 @@ be involved? Be specific.}
 
 \subsubsection{Look and Feel Requirements}
 
-These test cases ensure that all appearance and style requirements are addressed effectively, 
-covering navigation, user-friendliness, brand consistency, visual appeal, and responsiveness.
+These test cases ensure that all appearance and style requirements are\\
+addressed effectively, covering navigation, user-friendliness, brand \\
+consistency, visual appeal, and responsiveness.
 
 \begin{itemize} 
   \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
-    \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating menus, and viewing results. \par 
+    \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
-      \item 100\% of users complete core tasks within five clicks. 
-      \item 95\% of children aged 6-12 can complete a sample assessment independently. 
+      \item MAX\_SUCESS\_RATE of users complete core tasks within five clicks. 
+      \item VERY\_HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
     \end{itemize} \par \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Observe and record the number of clicks taken by each user to complete key tasks. 
@@ -666,14 +671,14 @@ covering navigation, user-friendliness, brand consistency, visual appeal, and re
   \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user interaction tests. \par 
+    \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
     \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
       \item Positive feedback from child participants indicating a calm, non-stressful environment. 
-      \item 100\% consistency in design across all pages. 
-      \item 100\% of user interactions provide immediate feedback within 0.5 seconds. 
+      \item MAX\_SUCESS\_RATE consistency in design across all pages. 
+      \item MAX\_SUCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -796,7 +801,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
     \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
     \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed 10 lines of code edited outside the updated module. 
-      \item Users can submit issues and feature requests directly to GitHub, categorized as issues, feature requests, or feedback. 
+      \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -809,10 +814,10 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
-    \textbf{Input/Condition:} New user group follows the tutorial to complete primary tasks (e.g., starting an assessment). \par 
+    \textbf{Input/Condition:} New user group follows the tutorial to \\complete primary tasks (e.g., starting an assessment). \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item 90\% of users can complete core tasks correctly after following the tutorial. 
+      \item HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. 
     \end{itemize} \par \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Guide users through the tutorial and observe task completion rates. 
@@ -823,15 +828,15 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
   \item MS-ST-MSA3 (covers MS-AR1)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform accessible across various devices and screen sizes, from mobile (4”) to desktop (27”). \par 
-    \textbf{Input/Condition:} Load and navigate the platform across multiple devices to evaluate responsive design and functionality. \par 
+    \textbf{Initial State:} Platform accessible across various devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
+    \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item 100\% of essential features are fully functional and readable across all screen sizes tested. 
+      \item MAX\_SUCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
-      \item Access the platform on various screen sizes and test for display, layout, and functionality. 
+      \item Access the platform on various screen sizes and test for \\display, layout, and functionality. 
       \item Verify that all features are usable and adapt responsively without readability or functionality loss. 
     \end{enumerate} 
   \end{mdframed} 
@@ -841,17 +846,17 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
 
 \subsubsection{Cultural Requirements}
 
-These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
+These tests ensure that the platform respects cultural sensitivities and \\provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
 
 \begin{itemize} 
   \item CU-ST-CUR1 (covers CU-CR1)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Platform content (language and imagery) is finalized and presented for review. \par 
+    \textbf{Initial State:} Platform content (language and imagery) is \\finalized and presented for review. \par 
     \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item 100\% of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
+      \item MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -868,7 +873,7 @@ These tests ensure that the platform respects cultural sensitivities and provide
     \textbf{Input/Condition:} Switch between language settings to review each text, instruction, and assessment in both languages. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item 100\% of content is fully translated and functional in both English and Mandarin with no untranslated elements. 
+      \item MAX\_SUCESS\_RATE of content is fully translated and \\functional in both English and Mandarin with no \\untranslated elements. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -1063,6 +1068,33 @@ Below is additional information relevant to the document.
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Variable Name} & \textbf{Value} \\
+      \hline
+      MAX\_PROCESSING\_TIME & 10 seconds \\
+      \hline
+      SHORT\_PROCESSING\_TIME & 0.5 seconds \\
+      \hline
+      MAX\_SUCESS\_RATE & 100\% \\
+      \hline
+      VERY\_HIGH\_SUCCESS\_RATE & 95\% \\
+      \hline
+      HIGH\_SUCCESS\_RATE & 90\% \\
+      \hline
+      NUM\_CODE\_LINES & 10 \\
+      \hline
+      MIN\_SCREEN\_SIZE & 4 inches \\
+      \hline
+      MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+  \end{tabular}
+  \caption{Variable Names and Values}
+  \label{tab:variables}
+\end{table}
+
 \subsection{Usability Survey Questions?}
 The following questions depict the first draft of the team's usability.\\
 The usability survey will be conducted after participants have engaged with testing and using the system for at least one iteration of the assessment.\\
@@ -1129,16 +1161,26 @@ graduate attribute of Lifelong Learning.
   requirements in the SRS. This allowed the team to use their prior knowledge on the requirements
   to develop detailed test plans to accurately test the requirements. This also meant that team members
   that were familiar with the requirements knew the limitations of the tests, and could improve upon
-  given feedback to strengthen the plan further.\\
+  given feedback to strengthen the plan further.\\\\
+  \hspace{2em} Jasmine: I think the team worked well together as usual, especially when it came to 
+  distributing tasks. Our team was very efficient and decided to split test cases for the functional and 
+  nonfunctional requirements in the same way we split up writing the requirements for the SRS, and the 
+  rest of the document was split up fairly quickly within a team meeeting. Another thing that went well 
+  while writing this deliverable is organzation. Now that we have written several pieces of documentation, 
+  the team is comfortable navigating LaTex formatting, as well as GitHub project and issue tracking.\\
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them?\\
+    did you resolve them?\\\\
   \newline
   \hspace{2em} Mitchell: One of the pain points I experienced during this deliverable was understanding the
   format needed for the System Tests section. I found it difficult to get started because of the formality
   of the tests. As well, I wanted to make sure that the tests were consistent among team members, and a difference
   in formatting would be difficult for someone reading the document to understand. To resolve this, the team decided
   to follow a consistent formatting outline, and follow along a sample so that everyone knew what test cases
-  should look like for this deliverable.\\
+  should look like for this deliverable.\\\\
+  \hspace{2em} Jasmine: One pain point during this deliverable was clarification of document instructions, 
+  such as what area testing is or what exactly the symbolic constraints were. We resolved this by preparing 
+  questions to ask the TA during our informal TA meeting, and looking at examples from other capstone projects 
+  from the same course completed in previous years.\\\\
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
@@ -1151,7 +1193,12 @@ graduate attribute of Lifelong Learning.
   usability testing is crucial for the success of the project. As well, it will inform us on how users actually engage,
   interact, and understand our system. Another skill the team will need to acquire is dynamic testing using different frameworks.
   It will be beneficial to perform dynamic testing to get verify each of our desired outcomes of tests against the actual outcomes.
-  This will provide the team with accurate, reliable results and conclusions.\\
+  This will provide the team with accurate, reliable results and conclusions.\\\\
+  \hspace{2em} Jasmine: The team will need skills in both dynamic and static testing to successfully complete the 
+  verification and validation of the project, including knowledge of effective test case creation and debugging. 
+  Being familiar with tools like automated test frameworks and static analysis tools that our team can use for our 
+  project will be important to improving efficiency and accuracy in our testing processes. Additionally, understanding 
+  quality assurance practices and common code review techniques will help make sure our validation is thorough and reliable. \\\\
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
@@ -1159,7 +1206,13 @@ graduate attribute of Lifelong Learning.
   \newline
   \hspace{2em} Mitchell: One approach to acquire knowledge for usability testing is referring to SFWRENG 4HC3 course notes,
   as usability testing is one of the major topics the course focuses on, with lots of examples and details. To obtain knowledge for dynamic tests, I plan on learning pytest to learn about dynamic testing in Python, which will be the
-  team's language of choice for developing machine learning models.\\
+  team's language of choice for developing machine learning models.\\\\
+  \hspace{2em} Jasmine: I will choose to focus on static testing knowledge since it is something I usually overlook 
+  and would like to improve on. To acquire knowledge in static testing, one approach would be to use online static 
+  testing tutorials and resources, especially platforms with specialized online courses such as Coursera or Udacity. 
+  Another approach would be to use an open-source static analysis tool and apply it to previous projects or example 
+  codebases to get hands on experience identifying common code issues, warnings, and even security vulnerabilities.\\\\
+
 \end{enumerate}
 
 \end{document}
