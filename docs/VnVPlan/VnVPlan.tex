@@ -50,6 +50,12 @@
     \item 3.4 Verification and Validation Plan
     \item 6.2 Usability Survey Questions
   \end{itemize}\\
+  10/30/24 & 1.0 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+    \item 3.6 Automated Testing and Verification Tools
+    \item 3.7 Software Validation Plan
+    \item 4.1 Tests for Functional Requirements 
+    \item 4.2 Tests for Nonfunctional Requirements
+  \end{itemize}\\
   11/01/24 & 1.1 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 3.2 SRS Validation Plan
     \item 4.1 Data Processing and Display
@@ -67,6 +73,10 @@
   \end{itemize}\\
   11/04/24 & 1.4 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 6.1 Symbolic Parameters
+    \item Reflection
+  \end{itemize}\\
+  11/04/24 & 1.5 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+    \item section 1 Symbols, Abbreviations and Acronyms
     \item Reflection
   \end{itemize}\\
   \bottomrule
@@ -107,6 +117,7 @@ in.}
   \midrule 
   SRS & Software Requirements Specification\\
   VnV & Verification and Validation\\
+  PII & Personally Identifiable Information\\
   \bottomrule
 \end{tabular}\\
 
@@ -393,20 +404,6 @@ The feedback from your supervisor will be very useful for improving your project
 as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
-
-Our plan for validating the software includes review sessions with 
-stakeholders and extensive user testing. Dr.Yao Du, one of our key 
-stakeholders, will provide the software to clinicians and patients for 
-real-world testing in clinical settings. This will allow us to gather 
-valuable feedback on the software’s functionality and usability in 
-actual healthcare environments. In addition to this field testing, we 
-will conduct structured user testing sessions where participants will 
-simulate the experience of being a patient. During these sessions, 
-users will navigate through the software, interacting with its features,
-and afterward, they will share their insights on what worked well and 
-what didn’t. Overall, using both field testing and targeted user testing, the information
-gathered will help us refine the 
-software and ensure it meets the needs of its intended users. 
 
 Our plan for validating the software includes review sessions with 
 stakeholders and extensive user testing. Dr.Yao Du, one of our key 
@@ -817,248 +814,6 @@ format for the tests given below.}
 \wss{If you introduce static tests in your plan, you need to provide details.
 How will they be done?  In cases like code (or document) walkthroughs, who will
 be involved? Be specific.}
-
-\subsubsection{Look and Feel Requirements}
-
-These test cases ensure that all appearance and style requirements are\\
-addressed effectively, covering navigation, user-friendliness, brand \\
-consistency, visual appeal, and responsiveness.
-
-\begin{itemize} 
-  \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
-    \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
-      \item MAX\_SUCESS\_RATE of users complete core tasks within five clicks. 
-      \item VERY\_HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
-    \end{itemize} \par \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Observe and record the number of clicks taken by each user to complete key tasks. 
-      \item Inspect the navigation structure to ensure it meets depth and option constraints. 
-      \item Test with children to verify completion of assessments \\independently. 
-    \end{enumerate} 
-  \end{mdframed}
-
-  \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
-    \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
-      \item Positive feedback from child participants indicating a calm, non-stressful environment. 
-      \item MAX\_SUCESS\_RATE consistency in design across all pages. 
-      \item MAX\_SUCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
-    \end{itemize} \par 
-    \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Compare platform’s design elements against the client’s brand and style guidelines. 
-      \item Collect feedback from child participants about the visual \\atmosphere. 
-      \item Test and measure feedback response times for various \\interactions. 
-    \end{enumerate} 
-  \end{mdframed} 
-\end{itemize}
-
-\subsubsection{Usability and Humanity}
-\hspace{2em}The test cases below ensures that the system meets usability and humanity
-requirements for users to have an enjoyable and accessible experience.
-
-\begin{itemize}
-  \item UH-ST-EOU1 (covers UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Usability, Manual\par
-      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
-      \textbf{Input/Condition:} Users complete one full assessment using the system. \par
-      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item User have access to the system
-        \item User completes one full assessment using the system
-        \item Upon completion of the assessment, user is requested to fill out a usability survey
-        \item Results are stored
-        \item Usability scores are averaged across users
-      \end{enumerate}
-  \end{mdframed}
-  \item UH-ST-PI1 (covers UH-PI1)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
-      \textbf{Initial State:} System, including assessments, have been completed. \par
-      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed\par
-      \textbf{Output/Results:} Count the number of available languages for the assessment \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item View list of available languages
-        \item Count number of languages are available for the assessment
-      \end{enumerate}
-  \end{mdframed}
-  \item UH-ST-LI2 (covers UH-LI2)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Manual \par
-      \textbf{Initial State:} User documentation has been completed and made available to users. \par
-      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed\par
-      \textbf{Output/Results:} Verify link takes user to access documentation \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item Select 'documentation'
-        \item User goes to documentation screen
-        \item User has access to view up-to-date, available documentation
-      \end{enumerate}
-  \end{mdframed}
-\end{itemize}
-
-
-
-\subsubsection{Operational and Environmental}
-\hspace{2em}The test cases below ensures that the system can be used in a variety of environments,
-along with the requirements for which users are expected to use the system within, and the capabilities
-and qualities the system has to interact with adjacent systems in the environment.
-
-\begin{itemize}
-  \item OE-ST-EPE1 (covers OE-EPE1)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Usability, Manual\par
-      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
-      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes \par
-      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item User logs into the system
-        \item User completes one full assessment using the system
-        \item Upon completion of the assessment, user is requested to fill out a usability survey
-        \item User answers questions about their screensize and if the test scaled accordingly
-        \item Results are stored for review
-      \end{enumerate}
-  \end{mdframed}
-  \item OE-ST-WE1 (covers OE-WE1, OE-WE2)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic, Manual \par
-      \textbf{Initial State:} System, including assessments, have been completed. \par
-      \textbf{Input/Condition:} User attempts to start system setup\par
-      \textbf{Output/Results:} Device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item Select 'system setup'
-        \item System checks if connected to the internet
-        \item System checks audio input is not noisy
-        \item System checks video input is clear
-        \item System displays to the user their device is ready for the assessment to be used in the current environment
-      \end{enumerate}
-  \end{mdframed}
-  \item OE-ST-IA1 (covers OE-IA1)
-  \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Functional, Dynamic \par
-      \textbf{Initial State:} System is connected to external server for retrieving and storing data \par
-      \textbf{Input/Condition:} Assessment is complete, and results need to be stored\par
-      \textbf{Output/Results:} Verify results are stored in the external server \par
-      \textbf{How the test will be performed:}
-      \begin{enumerate}[noitemsep]
-        \item Complete assessment
-        \item Access external server
-        \item Check if results have been uploaded to server
-        \item Access results to ensure data has been uploaded successfully
-      \end{enumerate}
-  \end{mdframed}
-\end{itemize}
-
-\subsubsection{Maintainability and Support Requirements}
-
-These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
-
-\begin{itemize} 
-  \item MS-ST-MSA1 (covers MS-MR1, MS-SR1)
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
-    \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
-    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed 10 lines of code edited outside the updated module. 
-      \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback. 
-    \end{itemize} \par 
-    \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Perform code updates on isolated components and verify \\changes are contained within 10 lines outside the component. 
-      \item Test submission flow to GitHub, verifying links are accessible and that issues and requests are categorized correctly. 
-    \end{enumerate} 
-  \end{mdframed}
-
-  \item MS-ST-MSA2 (covers MS-SR2) 
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
-    \textbf{Input/Condition:} New user group follows the tutorial to \\complete primary tasks (e.g., starting an assessment). \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. 
-    \end{itemize} \par \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Guide users through the tutorial and observe task completion rates. 
-      \item Collect feedback on tutorial clarity and assess if 90\% of users can independently complete tasks. 
-    \end{enumerate} 
-  \end{mdframed}
-
-  \item MS-ST-MSA3 (covers MS-AR1)
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform accessible across various devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
-    \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
-    \end{itemize} \par 
-    \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Access the platform on various screen sizes and test for \\display, layout, and functionality. 
-      \item Verify that all features are usable and adapt responsively without readability or functionality loss. 
-    \end{enumerate} 
-  \end{mdframed} 
-\end{itemize}
-
-
-
-\subsubsection{Cultural Requirements}
-
-These tests ensure that the platform respects cultural sensitivities and \\provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
-
-\begin{itemize} 
-  \item CU-ST-CUR1 (covers CU-CR1)
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Platform content (language and imagery) is \\finalized and presented for review. \par 
-    \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
-    \end{itemize} \par 
-    \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item A cultural consultant examines all text and imagery for \\potential cultural insensitivity. 
-      \item Conduct user acceptance testing with a diverse group and gather feedback on the platform's cultural sensitivity. 
-      \item Validate that all feedback confirms no culturally insensitive content. 
-    \end{enumerate} 
-  \end{mdframed}
-
-  \item CU-ST-CUR2 (covers CU-CR2)
-  \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static \par 
-    \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
-    \textbf{Input/Condition:} Switch between language settings to review each text, instruction, and assessment in both languages. \par 
-    \textbf{Output/Results:} Expected results include: 
-    \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of content is fully translated and \\functional in both English and Mandarin with no \\untranslated elements. 
-    \end{itemize} \par 
-    \textbf{How the test will be performed:} 
-    \begin{enumerate}[noitemsep] 
-      \item Navigate through the platform in both English and Mandarin settings, verifying translations for each section. 
-      \item Confirm that all assessments, instructions, and interface \\elements are accurately translated and free from language discrepancies. 
-    \end{enumerate} 
-  \end{mdframed} 
-\end{itemize}
-
-
 
 \subsubsection{Look and Feel Requirements}
 
@@ -1765,7 +1520,14 @@ graduate attribute of Lifelong Learning.
   nonfunctional requirements in the same way we split up writing the requirements for the SRS, and the 
   rest of the document was split up fairly quickly within a team meeeting. Another thing that went well 
   while writing this deliverable is organzation. Now that we have written several pieces of documentation, 
-  the team is comfortable navigating LaTex formatting, as well as GitHub project and issue tracking.\\
+  the team is comfortable navigating LaTex formatting, as well as GitHub project and issue tracking.\\\\
+  \hspace{2em} Promish: One thing that went well during this deliverable was how 
+  comfortable everyone became using GitHub. We created issues for each task, and 
+  handling merge conflicts was faster. As a team, we quickly divided the work, 
+  understanding that writing system tests for the requirements each of us specialized in 
+  was the most efficient approach. We also recognized the importance of consistent naming 
+  for our tests to maintain traceability with our SRS, so we decided to include "ST" in 
+  the middle of our SRS requirements tags.\\\\
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?\\\\
   \newline
@@ -1779,6 +1541,13 @@ graduate attribute of Lifelong Learning.
   such as what area testing is or what exactly the symbolic constraints were. We resolved this by preparing 
   questions to ask the TA during our informal TA meeting, and looking at examples from other capstone projects 
   from the same course completed in previous years.\\\\
+  \hspace{2em} Promish: A challenge we faced during this deliverable was the 
+  large number of tests we had to write within a limited timeframe. With only a week 
+  to work on the document, we didn’t have time for extra meetings with our advisor and 
+  TA to clarify certain sections as much as I would have liked. Overall, the team did a 
+  great job with the time and resources available, but some parts of the document were a 
+  bit unclear, especially regarding formatting and focus. The rubric was also quite 
+  general, making it harder to understand the exact requirements.\\\\
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
@@ -1797,6 +1566,10 @@ graduate attribute of Lifelong Learning.
   Being familiar with tools like automated test frameworks and static analysis tools that our team can use for our 
   project will be important to improving efficiency and accuracy in our testing processes. Additionally, understanding 
   quality assurance practices and common code review techniques will help make sure our validation is thorough and reliable. \\\\
+  \hspace{2em} Promish: As a team, we’ll need to focus on learning to use the frameworks outlined 
+  in section 3.6 to automate our unit tests. We’ll also need to understand how to evaluate our 
+  SRS and the processes for making changes. Lastly, we’ll need to know where testing fits 
+  into continuous development and how to follow Agile practices effectively.\\\\
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
@@ -1810,6 +1583,12 @@ graduate attribute of Lifelong Learning.
   testing tutorials and resources, especially platforms with specialized online courses such as Coursera or Udacity. 
   Another approach would be to use an open-source static analysis tool and apply it to previous projects or example 
   codebases to get hands on experience identifying common code issues, warnings, and even security vulnerabilities.\\\\
+  \hspace{2em} Promish: One of the best ways to learn a framework is to read its 
+  documentation or watch YouTube tutorials. After that, testing it out in a separate IDE 
+  with a small example would be helpful for something like Pytest. For a better 
+  understanding of Agile development, we could look into resources that explain Agile 
+  principles and methods. Additionally, consulting our TA, supervisor, and professor 
+  would be valuable for understanding how our team can function effectively.\\\\
 
 \end{enumerate}
 
