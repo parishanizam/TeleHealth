@@ -499,19 +499,19 @@ resolution, and efficient report generation.
 \end{itemize}
 
 \hspace{2em}The test cases below focus on verifying the system's precision in detecting and 
-analyzing speech disturbances, ensuring timestamp alignment, and maintaining 
+analyzing speech and gesture disturbances, ensuring timestamp alignment, and maintaining 
 100\% accuracy in assessment data. 
 
 \begin{itemize}
   \item PR-ST-PA1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Manual, Dynamic \par
-      \textbf{Initial State:} Audio analysis model is loaded with sample audio data. \par
-      \textbf{Input/Condition:} Audio data containing speech patterns with known disturbances. \par
-      \textbf{Output/Results:} The expected output is that the analysis \\achieves 95\% accuracy in detecting speech disturbances. \par
+      \textbf{Initial State:} Video and Audio analysis model is loaded with sample audio data. \par
+      \textbf{Input/Condition:} Data containing speech patterns and video with known disturbances. \par
+      \textbf{Output/Results:} The expected output is that the analysis \\achieves 95\% accuracy in detecting speech and gesture disturbances. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Load test audio files with known disturbances into the analysis model.
+        \item Load test data files with known disturbances into the analysis model.
         \item Compare detected disturbances with human-reviewed \\observations.
         \item Verify that the model correctly identifies at least 95\% of disturbances.
       \end{enumerate}
