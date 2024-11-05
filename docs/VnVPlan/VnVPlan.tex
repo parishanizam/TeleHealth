@@ -236,12 +236,6 @@ intuitive and easy system for both clinicians and parents/children to navigate t
 
 \subsection{Relevant Documentation}
 
-\wss{Reference relevant documentation.  This will definitely include your SRS
-  and your other project documents (design documents, like MG, MIS, etc).  You
-  can include these even before they are written, since by the time the project
-  is done, they will be written.  You can create BibTeX entries for your
-  documents and within those entries include a hyperlink to the documents.}
-
   The three main relevant documentation that helped guide us in System Verification and Validation Plan (VnV) was Software Requirements Specification
   (SRS), Development plan and MIS.  
   
@@ -254,10 +248,8 @@ intuitive and easy system for both clinicians and parents/children to navigate t
     \item MIS : The Module Interface Specification (MIS) will shape the scope of unit testing in the VnV plan and guides 
     the development of both functional and nonfunctional tests to verify specific software functions and attributes.
   \end{itemize}
-  
 
-\citet{SRS}
-
+  % \citet{SRS}
 
 \newpage
 
@@ -372,13 +364,13 @@ The design verification plan outlines the strategies that the team will use to v
   \item Conduct ad-hoc review(s) with other teams.
 \end{itemize}
 
-The following checklist will be used to verify the system's design documents over the course of completion \\\\
-\checkbox Are all requirements traceable to at least one feature/module in the MIS? \\
-\checkbox Do all modules and components follow SOLID design principles? \\
-\checkbox Have the creation of all modules been tracked via issues and closed once reviewed? \\
-\checkbox Are all inputs and outputs of system components defined well and correctly? \\
-
-
+The following checklist will be used to verify the system's design documents over the course of completion.
+\begin{todolist}
+\item Are all requirements traceable to at least one feature/module in the MIS?
+\item Do all modules and components follow SOLID design principles?
+\item Have the creation of all modules been tracked via issues and closed once reviewed?
+\item Are all inputs and outputs of system components defined well and correctly?
+\end{todolist}
 
 \subsection{Verification and Validation Plan Verification Plan}
 
@@ -463,6 +455,9 @@ requirements mentioned in the SRS. For traceability, the team created a traceabi
 matrix to correlate the system tests to the requirement(s) they cover.
 
 \subsection{Tests for Functional Requirements}
+\hspace{2em}The following section covers all the functional requirements specified in the project's
+SRS document. Each of the functional requirements are covered by a test in section 4.1. The coverage
+can be traced in Table 3.
 
 \subsubsection{Authentication}
 
@@ -1022,6 +1017,9 @@ and display functionalities to ensure the clinician experience aligns with the p
 \pagebreak
 
 \subsection{Tests for Nonfunctional Requirements}
+
+\hspace{2em}The following section covers all the nonfunctional requirements specified in the project's SRS document.
+Each of the nonfunctional requirements are covered by a test in section 4.2. The coverage can be traced in Table 4.
 
 \subsubsection{Look and Feel Requirements}
 
@@ -1752,7 +1750,7 @@ compliance requirements including security of the system, following the rules of
 
 \newpage
 \section{Unit Test Description}
-Section 5, Unit Test Description, will be filled in prior to the revision 0 deliverable. The team decided to leave in the template instructions as a guide to indicate our desried return to the document.\\
+\hspace{2em}\textbf{Section 5, Unit Test Description, will be filled in prior to the revision 0 deliverable. The team decided to leave in the template instructions as a guide to indicate our desired return to the document.}\\
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
 
@@ -1876,10 +1874,10 @@ How test will be performed:
 
 \wss{Provide evidence that all of the modules have been considered.}
 				
-\bibliographystyle{plainnat}
+% \bibliographystyle{plainnat}
 
 \newpage
-\bibliography{../../refs/References}
+% \bibliography{../../refs/References}
 
 \newpage
 
@@ -1999,7 +1997,7 @@ graduate attribute of Lifelong Learning.
   \hspace{2em} Parisha: The work of the VnV plan was divided very well, 
   with team members working on testing of non functional and functional requirements that match
   the ones they worked on for the SRS document. This made it a lot more efficient and easier to understand
-  what to write for the testing requirements. 
+  what to write for the testing requirements. \\\\
   \hspace{2em} Mitchell: One of the things that went well during this deliverable was splitting up
   the System Tests for both Functional Requirements and Nonfunctional Requirements. The team decided
   to assign the functional and nonfunctional tests to the team members that wrote those particular
@@ -2021,13 +2019,13 @@ graduate attribute of Lifelong Learning.
   for our tests to maintain traceability with our SRS, so we decided to include "ST" in 
   the middle of our SRS requirements tags.\\\\
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them?\\\\
+    did you resolve them?\\
   \newline
   \hspace{2em} Parisha: A challenge I found was due to time constraints and responsibilities
    in other classes it become very hard to coordinate meetings with all members of the team. 
    In order to optimize our time, team members communicated progress consistently and we worked together
     in the end to merge branches ( a lot of merge conflicts due to structure) and then reviewed the documentation
-    against rubric and added reflection
+    against rubric and added reflection \\\\
   \hspace{2em} Mitchell: One of the pain points I experienced during this deliverable was understanding the
   format needed for the System Tests section. I found it difficult to get started because of the formality
   of the tests. As well, I wanted to make sure that the tests were consistent among team members, and a difference
@@ -2053,7 +2051,7 @@ graduate attribute of Lifelong Learning.
   \newline
   \hspace{2em} Parisha: One piece of knowledge and skills the team should acquire for the project is a good understanding 
   of all the different types of testing like static, dynamic, manual, automatic and functional testing. Understanding the difference
-  between these types and what cases are the best to use them are important to design correct and efficient tests for the system.
+  between these types and what cases are the best to use them are important to design correct and efficient tests for the system.\\\\
   \hspace{2em} Mitchell: One of the pieces of knowledge and skills the team collectively needs to acquire to 
   successfully complete the verification and validation of the project is understanding how to properly perform
   usability testing. This will be important to the team because it is one of the project's chosen extras, so understanding
@@ -2078,7 +2076,7 @@ graduate attribute of Lifelong Learning.
   \hspace{2em} Parisha: One approach to acquire knowledge specially in manual vs automatic testing is using course material from our Software Testing course SFWRENG 3S03
   to get a good summary of the different between the two and find some small examples/ practice problems to go through from tutorial to refresh our memory/ 
   Another good approach would be to use testing modules online (such as Geeks4Geeks) to understand the different types of testing with good examples.
-  I will be using approach 2 to acquire knowledge as I learn best with a combination of reading, watching and doing. 
+  I will be using approach 2 to acquire knowledge as I learn best with a combination of reading, watching and doing. \\\\
   \hspace{2em} Mitchell: One approach to acquire knowledge for usability testing is referring to SFWRENG 4HC3 course notes,
   as usability testing is one of the major topics the course focuses on, with lots of examples and details. To obtain knowledge for dynamic tests, I plan on learning pytest to learn about dynamic testing in Python, which will be the
   team's language of choice for developing machine learning models.\\\\
