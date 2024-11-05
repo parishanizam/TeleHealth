@@ -348,7 +348,7 @@ the contents of the subsections.}
       \textbf{Input:} User navigates to the page where assessment information is displayed before starting hardware checks. \par
       \textbf{Output:} User is able to view relevant information about the assessment before beginning any hardware checks. \par
       \textbf{Test Case Derivation:} Users need to be aware of the assessment requirements and goals prior to starting 
-      the hardware setup to ensure they are prepared. \par
+      the hardware setup to ensure they are prepared. This follows expected output found in FR-SS1 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Log in as a user and navigate to the assessment information section.
@@ -364,7 +364,7 @@ the contents of the subsections.}
       \textbf{Input:} User initiates the audio hardware check through the system. \par
       \textbf{Output:} User receives confirmation that the audio input and output devices are functioning correctly. \par
       \textbf{Test Case Derivation:} Verifying that audio devices are functional before the assessment prevents issues of recording audio during
-      the assessment, which could effect proper identification of bias. \par
+      the assessment, which could effect proper identification of bias. This follows expected output found in FR-SS2 in (SRS) Document\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the audio hardware check.
@@ -382,7 +382,7 @@ the contents of the subsections.}
       \textbf{Output:} User receives confirmation that the video capturing device is functioning correctly. \par
       \textbf{Test Case Derivation:} Ensuring video functionality prevents disruptions in assessments that require 
       visual input or interaction and ensures 
-      proper recording is taken for accurate data analysis \par
+      proper recording is taken for accurate data analysis. This follows expected output found in FR-SS3 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the video hardware check.
@@ -399,7 +399,7 @@ the contents of the subsections.}
       \textbf{Input:} User proceeds to the tutorial section after completing hardware checks. \par
       \textbf{Output:} User is directed to a tutorial that explains the assessment process in a step-by-step manner. \par
       \textbf{Test Case Derivation:} Providing a tutorial ensures that users understand the assessment process,
-       improving accuracy and compliance. \par
+       improving accuracy and compliance. This follows expected output found in FR-SS4 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Complete the audio and video hardware checks.
@@ -414,7 +414,8 @@ the contents of the subsections.}
       \textbf{Initial State:} User has completed the tutorial and is ready to begin the assessment. \par
       \textbf{Input:} User initiates the start of the assessment through the system. \par
       \textbf{Output:} User is taken to the first assessment question, and the assessment begins. \par
-      \textbf{Test Case Derivation:} Allowing users to start the assessment on their own terms helps them feel prepared and reduces errors. \par
+      \textbf{Test Case Derivation:} Allowing users to start the assessment on their own terms helps them feel prepared and reduces errors. 
+      This follows expected output found in FR-SS5 in (SRS) Document\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item After completing the tutorial, select the option to start the assessment.
@@ -435,7 +436,7 @@ the contents of the subsections.}
       \textbf{Input:} User initiates the assessment. \par
       \textbf{Output:} System begins recording both audio and video, with an indicator showing recording is active. \par
       \textbf{Test Case Derivation:} Audio and video recording are essential for capturing user responses accurately,
-       and an indicator reassures users that recording is in progress. \par
+       and an indicator reassures users that recording is in progress. This follows expected output found in FR-AI1 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the assessment as a user.
@@ -450,7 +451,8 @@ the contents of the subsections.}
       \textbf{Initial State:} User is on a new question within the assessment. \par
       \textbf{Input:} System progresses to a new question in the assessment. \par
       \textbf{Output:} The system plays the corresponding audio prompt for the new question. \par
-      \textbf{Test Case Derivation:} The audio prompt ensures users understand each question and assessment is running as intended. \par
+      \textbf{Test Case Derivation:} The audio prompt ensures users understand each question and assessment is running as intended.
+      This follows expected output found in FR-AI2 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Progress to a new question in the assessment.
@@ -465,7 +467,8 @@ the contents of the subsections.}
       \textbf{Input:} System loads a new question. \par
       \textbf{Output:} System displays all possible answer options for the user to select from. \par
       \textbf{Test Case Derivation:} Presenting options ensures the user can make a response selection based
-       on the question, system must mark answer select as right or wrong \par
+       on the question, system must mark answer select as right or wrong. 
+       This follows expected output found in FR-AI3 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Go to a new question in the assessment.
@@ -480,7 +483,8 @@ the contents of the subsections.}
       \textbf{Input:} User selects one of the displayed answer options. \par
       \textbf{Output:} System highlights or otherwise indicates the user’s selected option. \par
       \textbf{Test Case Derivation:} Visual confirmation of selection minimizes user error and allows
-       the user to review their choice before confirmation. \par
+       the user to review their choice before confirmation. 
+       This follows expected output found in FR-AI4 in (SRS) Document  \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Select an answer option for a question.
@@ -495,7 +499,7 @@ the contents of the subsections.}
       \textbf{Input:} User confirms their selection. \par
       \textbf{Output:} System moves the user to the next question or stage. \par
       \textbf{Test Case Derivation:} Confirmation helps prevent unintended answers, ensuring 
-      accuracy in user responses. \par
+      accuracy in user responses. This follows expected output found in FR-AI5 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Select and confirm an answer for a question.
@@ -510,7 +514,8 @@ the contents of the subsections.}
       \textbf{Input:} User enters and exits each question. \par
       \textbf{Output:} System records timestamps for entry and exit for each question. \par
       \textbf{Test Case Derivation:} Timestamping provides valuable tracking information for 
-      synchronizing recordings and analyzing response timing. \par
+      synchronizing recordings and analyzing response timing. 
+      This follows expected output found in FR-AI6 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Begin the assessment and progress through several questions.
@@ -525,7 +530,8 @@ the contents of the subsections.}
       \textbf{Input:} User completes the final question and confirms the selection. \par
       \textbf{Output:} System displays a message informing the user that the assessment is complete. \par
       \textbf{Test Case Derivation:} Notifying the user of completion provides a clear end to 
-      the assessment and allows users to exit confidently. \par
+      the assessment and allows users to exit confidently. 
+      This follows expected output found in FR-AI7 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Complete the final question in the assessment and confirm the selection.
@@ -550,7 +556,7 @@ confidential data in the system
       \begin{mdframed}[linewidth=0.5mm]
           \textbf{Type:} Dynamic \par
           \textbf{Initial State:} System has multiple user roles: Admin, Parent, and Clinician. \par
-          \textbf{Input/Conditiont:}   User with Admin role attempts to create and assign accounts to clinicians \par
+          \textbf{Input/Condition:}   User with Admin role attempts to create and assign accounts to clinicians \par
           \textbf{Output/Results:}  Only Admin users can access and execute functions related 
           to clinician account creation \par
           \textbf{How the test will be performed:}
