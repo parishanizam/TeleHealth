@@ -54,33 +54,33 @@
     \item 3.4 Verification and Validation Plan
     \item 6.2 Usability Survey Questions
   \end{itemize}\\
-  10/30/24 & 1.0 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+  10/30/24 & 1.1 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
     \item 3.6 Automated Testing and Verification Tools
     \item 3.7 Software Validation Plan
-    \item 4.1 Tests for Functional Requirements 
-    \item 4.2 Tests for Nonfunctional Requirements
+    \item 4.1 Data Collection and Storage, Video and Audio Data Analysis FR tests
+    \item 4.2 Performance NFR tests
   \end{itemize}\\
-  11/01/24 & 1.1 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+  11/01/24 & 1.2 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 3.2 SRS Validation Plan
     \item 4.1 Data Processing and Display
     \item 4.2 Look and Feel FR tests
-    \item 4.2 Maintainence and Support NFR tests
+    \item 4.2 Maintenance and Support NFR tests
     \item 4.2 Cultural NFR tests
   \end{itemize}\\
-  11/02/24 & 1.2 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+  11/02/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item 4.1 Authentication FR tests
     \item 4.2 Usability and Humanity NFR tests
     \item 4.2 Operational and Environmental NFR tests
   \end{itemize}\\
-  11/04/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+  11/04/24 & 1.4 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item Reflection
   \end{itemize}\\
-  11/04/24 & 1.4 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+  11/04/24 & 1.5 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 6.1 Symbolic Parameters
     \item Reflection
   \end{itemize}\\
-  11/04/24 & 1.5 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
-    \item section 1 Symbols, Abbreviations and Acronyms
+  11/04/24 & 1.6 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+    \item 1 Symbols, Abbreviations and Acronyms
     \item Reflection
   \end{itemize}\\
   \bottomrule
@@ -134,8 +134,9 @@ in.}
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document contains the team's verification and validation plan for the TeleHealth
+Insights project. This document features general information, overall plan, system tests,
+the eventual addition of unit tests, and usability survey questions.
 
 \section{General Information}
 
@@ -301,8 +302,8 @@ The following checklist will be used for the internal team walkthrough: \\
   \item Do all requirements avoid conflict with each other?
   \item Does each requirement avoid ambiguous language?
   \item Are all requirements verifiable and testable?
-  \item Is each requirement written in a way all teawm members and stakeholders can understand?
-  \item Are any assumptions about user behavior or system behaviour explicity stated?
+  \item Is each requirement written in a way all team members and stakeholders can understand?
+  \item Are any assumptions about user behavior or system behaviour explicitly stated?
 \end{todolist}
 
 \subsection{Design Verification Plan}
@@ -379,7 +380,7 @@ verification process for the software being tested in this VnV plan:
 \begin{itemize}
   \item Unit Tests: Jest, Pytest
   \item Linters: Flake9, Prettier, ESLint
-  \item Continuous Intergration: GitHub Actions
+  \item Continuous Integration: GitHub Actions
 \end{itemize}
 \hspace{2em} For our code coverage, we will use Istanbul and Coverage.py. Istanbul is a code coverage 
 tool that works with JavaScript testing frameworks like Jest. It helps developers see how much of their 
@@ -603,7 +604,7 @@ and organization requirements.
       \textbf{Control:} Automatic \par
       \textbf{Initial State:} Database is empty or initialized with test data. \par
       \textbf{Input:} Multimedia files (video, audio, and structured data files). \par
-      \textbf{Output:} The expected result is a success message in console for both storing data and retriving data \par
+      \textbf{Output:} The expected result is a success message in console for both storing data and retrieving data \par
       \textbf{Test Case Derivation:} Ensures the database meets storage \\capacity and integrity requirements as per FR-DSC1 in SRS \\document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
@@ -648,7 +649,7 @@ and organization requirements.
       \textbf{Initial State:} Database initialized and ready for storing user session data. \par
       \textbf{Input:} Multiple sessions, each with unique user identifiers. \par
       \textbf{Output:} The expected result is that all session data is stored and grouped correctly according to the unique user identifiers. \par
-      \textbf{Test Case Derivation:} Confirms database's grouping and \\retrievable capabilites, ensuring accurate data organization.\par
+      \textbf{Test Case Derivation:} Confirms database's grouping and \\retrievable capabilities, ensuring accurate data organization.\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Insert multiple sessions into the database, each tagged with a unique user identifier.
@@ -668,7 +669,7 @@ and organization requirements.
       \begin{enumerate}[noitemsep]
         \item Insert a test report with a unique patient identifier into the database.
         \item Retrieve the report using the identifier and confirm the report’s accuracy and timestamp.
-        \item Check when database will be wiped out and when backups occure
+        \item Check when database will be wiped out and when backups occur
       \end{enumerate}
   \end{mdframed}
 
@@ -689,7 +690,7 @@ disturbances with timestamps, questions, and user responses to support efficient
       \textbf{Test Case Derivation:} Verifies that the model has reliable access to stored multimedia data, which is critical for processing and analysis. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Retrivee the video and audio recordings from several completed sessions.
+        \item Retrieve the video and audio recordings from several completed sessions.
         \item Check that the model successfully accesses the multimedia files for each session without data access errors.
         \item Verify that the files are correctly loaded for analysis with no corruption or access issues.
       \end{enumerate}
@@ -742,7 +743,8 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the database for a test patient’s processed assessment results. 
-        \item Measure and record retrieval time, ensuring it does not exceed MAX\_PROCESSING\_TIME. 
+        \item Measure and record retrieval time, ensuring it does not exceed\\
+        MAX\_PROCESSING\_TIME. 
         \item Verify that all required data is retrieved and matches the stored information.
       \end{enumerate}
   \end{mdframed}
@@ -750,7 +752,8 @@ and display functionalities to ensure the clinician experience aligns with the p
   \item FR-ST-DPD2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Control:} Automatic \par
-      \textbf{Initial State:} Database has assessment data including flagged occurrences, timestamps, and patient performance metrics. \par
+      \textbf{Initial State:} Database has assessment data including flagged occurrences,\\
+      timestamps, and patient performance metrics. \par
       \textbf{Input:} Trigger for report generation based on a retrieved \\assessment dataset. \par
       \textbf{Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Confirms that report generation is \\complete, accurate, and within performance constraints. \par
@@ -830,12 +833,13 @@ consistency, visual appeal, and responsiveness.
   \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform initialized and navigatable on a test \\device, prepared for user testing with adults and children. \par 
+    \textbf{Initial State:} Platform initialized and navigable on a test \\device, prepared for user testing with adults and children. \par 
     \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
-      \item VERY\_HIGH\_SUCCESS\_RATE of users complete core tasks within MAX\_CLICKS clicks. 
+      \item VERY\_HIGH\_SUCCESS\_RATE of users complete core tasks within\\
+      MAX\_CLICKS clicks. 
       \item HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
     \end{itemize} \par \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -876,14 +880,15 @@ requirements for users to have an enjoyable and accessible experience.
       \textbf{Type:} Usability, Manual\par
       \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
       \textbf{Input/Condition:} Users complete one full assessment using the system. \par
-      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated \par
+      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
+      Averages should be at least 'Agree' on the answer scale in section 6.2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item User have access to the system
         \item User completes one full assessment using the system
         \item Upon completion of the assessment, user is requested to fill out a usability survey
         \item Results are stored
-        \item Usability scores are averaged across users
+        \item Usability scores for questions 1 through 8 are averaged across users
       \end{enumerate}
   \end{mdframed}
   \item UH-ST-PI1 (covers UH-PI1)
@@ -924,7 +929,7 @@ resolution, and efficient report generation.
       \textbf{Type:} Dynamic\par
       \textbf{Initial State:} System initialized, strong internet connection \par
       \textbf{Input/Condition:} User navigates to different web pages within the system. \par
-      \textbf{Output/Results:} The expect output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
+      \textbf{Output/Results:} The expected output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Navigate to various web pages within the system.
@@ -951,7 +956,7 @@ resolution, and efficient report generation.
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System configured to store video data. \par
       \textbf{Input/Condition:} Video recorded and stored from assessment an session. \par
-      \textbf{Output/Results:} The exepect output is the video quality is at least \\AVERAGE\_RESOLUTION upon when retriving or storing. \par
+      \textbf{Output/Results:} The expected output is the video quality is at least \\AVERAGE\_RESOLUTION upon when retrieving or storing. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Record a session and store the video.
@@ -1252,7 +1257,8 @@ These tests ensure that the platform respects cultural sensitivities and \\provi
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static \par 
     \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
-    \textbf{Input/Condition:} Switch between language settings to review each text, instruction, and assessment in both languages. \par 
+    \textbf{Input/Condition:} Switch between language settings to review each text,\\
+    instruction, and assessment in both languages. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. 
@@ -1639,8 +1645,8 @@ graduate attribute of Lifelong Learning.
   \hspace{2em} Jasmine: I think the team worked well together as usual, especially when it came to 
   distributing tasks. Our team was very efficient and decided to split test cases for the functional and 
   nonfunctional requirements in the same way we split up writing the requirements for the SRS, and the 
-  rest of the document was split up fairly quickly within a team meeeting. Another thing that went well 
-  while writing this deliverable is organzation. Now that we have written several pieces of documentation, 
+  rest of the document was split up fairly quickly within a team meeting. Another thing that went well 
+  while writing this deliverable is organization. Now that we have written several pieces of documentation, 
   the team is comfortable navigating LaTex formatting, as well as GitHub project and issue tracking.\\\\
   \hspace{2em} Promish: One thing that went well during this deliverable was how 
   comfortable everyone became using GitHub. We created issues for each task, and 
