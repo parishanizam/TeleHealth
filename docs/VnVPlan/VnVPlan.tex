@@ -17,6 +17,23 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{enumitem, amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{tcolorbox}
+
+\usepackage[none]{hyphenat}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{parskip}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{diagbox}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\geometry{margin=1in}
 
 \input{../Comments}
 \input{../Common}
@@ -33,13 +50,48 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+\begin{table}[hp]
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+  \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+  \midrule
+  10/30/24 & 1.0 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 3.1 Verification and Validation Team
+    \item 3.4 Verification and Validation Plan
+    \item 6.2 Usability Survey Questions
+  \end{itemize}\\
+  10/30/24 & 1.1 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+    \item 3.6 Automated Testing and Verification Tools
+    \item 3.7 Software Validation Plan
+    \item 4.1 Data Collection and Storage, Video and Audio Data Analysis FR tests
+    \item 4.2 Performance NFR tests
+  \end{itemize}\\
+  11/01/24 & 1.2 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 3.2 SRS Validation Plan
+    \item 4.1 Data Processing and Display
+    \item 4.2 Look and Feel FR tests
+    \item 4.2 Maintenance and Support NFR tests
+    \item 4.2 Cultural NFR tests
+  \end{itemize}\\
+  11/02/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 4.1 Authentication FR tests
+    \item 4.2 Usability and Humanity NFR tests
+    \item 4.2 Operational and Environmental NFR tests
+  \end{itemize}\\
+  11/04/24 & 1.4 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item Reflection
+  \end{itemize}\\
+  11/04/24 & 1.5 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 6.1 Symbolic Parameters
+    \item Reflection
+  \end{itemize}\\
+  11/04/24 & 1.6 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+    \item 1 Symbols, Abbreviations and Acronyms
+    \item Reflection
+  \end{itemize}\\
+  \bottomrule
+  \end{tabularx}
+  \end{table}
 
 ~\\
 \wss{The intention of the VnV plan is to increase confidence in the software.
@@ -61,8 +113,6 @@ in.}
 \tableofcontents
 
 \listoftables
-\wss{Remove this section if it isn't needed}
-
 \listoffigures
 \wss{Remove this section if it isn't needed}
 
@@ -75,7 +125,9 @@ in.}
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  T & Test\\
+  SRS & Software Requirements Specification\\
+  VnV & Verification and Validation\\
+  PII & Personally Identifiable Information\\
   \bottomrule
 \end{tabular}\\
 
@@ -88,8 +140,9 @@ in.}
 
 \pagenumbering{arabic}
 
-This document ... \wss{provide an introductory blurb and roadmap of the
-  Verification and Validation plan}
+This document contains the team's verification and validation plan for the TeleHealth
+Insights project. This document features general information, overall plan, system tests,
+the eventual addition of unit tests, and usability survey questions.
 
 \section{General Information}
 
@@ -215,17 +268,64 @@ intuitive and easy system for both clinicians and parents/children to navigate t
 \citet{SRS}
 
 
-\section{Plan}
+\newpage
 
-\wss{Introduce this section.  You can provide a roadmap of the sections to
-  come.}
+\section{Plan}
+\hspace{2em}This section includes plans for how the team's verification and validation processes will
+be implemented. This covers the team and its roles, the SRS verification plan, the design
+verification plan, the verification and validation plan verification plan, the implementation
+verification plan, automated testing and verification tools, and the software validation plan.
 
 \subsection{Verification and Validation Team}
 
-\wss{Your teammates.  Maybe your supervisor.
-  You should do more than list names.  You should say what each person's role is
-  for the project's verification.  A table is a good way to summarize this information.}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ | m{5cm} | m{8cm} | }
+    \toprule
+    Name & Roles and Responsibilities \\
+    \hline
+    Mitchell Weingust & \vspace{2mm}\begin{itemize}
+      \item Audio Analysis Model verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Parisha Nizam & \vspace{2mm}\begin{itemize}
+      \item Frontend Interface Verification
+      \item Backend Database Verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Promish Kandel & \vspace{2mm}\begin{itemize}
+      \item Frontend Interface Verification
+      \item Video Analysis Model verification
+      \item VnV Verification
+    \end{itemize}\\
+    \hline
+    Jasmine Sun-Hu & \vspace{2mm}\begin{itemize}
+      \item Backend Database Verification
+      \item System Architecture and Design Validation
+      \item SRS Verification
+    \end{itemize}\\
+    \hline
+    Dr. Irene Yuan & \vspace{2mm}\begin{itemize}
+      \item Providing feedback (including Hands-On) during project development
+    \end{itemize}\\
+    \hline
+    Dr. Yao Du & \vspace{2mm}\begin{itemize}
+      \item Providing written feedback on user experiences and testing
+    \end{itemize}\\
+    \hline
+    Chris Schankula & \vspace{2mm}\begin{itemize}
+      \item Providing feedback during project development
+      \item Revision recommendations
+    \end{itemize}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Verification and Validation Team Table}
+\end{table}
 
+\newpage
 \subsection{SRS Verification Plan}
 
 \wss{List any approaches you intend to use for SRS verification.  This may
@@ -239,6 +339,47 @@ Will you give them instructions for a task-based inspection?  Will you use your
 issue tracker?}
 
 \wss{Maybe create an SRS checklist?}
+
+The following approaches will be used to verify the SRS:
+
+\begin{itemize}
+  \item \textbf{Ad hoc Peer Review}: Informal reviews of the SRS will be conducted after every major revision 
+  to the SRS with classmates who will serve as peer reviewers. This will provide new perspectives that can 
+  help identify ambiguities, missing requirements and/or areas of improvement. 
+  \begin{itemize}
+    \item Peer reviewers will submit feedback using GitHub issue tracker for organized task assignment and tracking.
+  \end{itemize}
+  \item \textbf{Supervisor Review}: Before every major SRS revision submission, the team will 
+  send a copy of the SRS to the project supervisor a week before meeting, along with a checklist highlighing 
+  priority areas for their feedback. The team will also prepare questions about the requirements related to 
+  interfaces and usability which is the supervisor's area of expertise. During the review meeting, the team will 
+  first review the supervisor's initial feedback with the supervisor, and then ask the prepared questions.
+  \begin{itemize}
+    \item The meeting notes will be documented using GitHub issue tracker.
+  \end{itemize}
+  \item \textbf{Internal Team Walkthrough}: The team will hold a collaborative session 
+  before every major SRS revision submission where the team will discuss each section one 
+  by one to verify that all requirements are understood by all members, and that each section 
+  is consistent with the project goals/objectives. A checklist will act as a guide to highlight the key concepts 
+  the review should focus on, and will help ensure no critical areas are missed in review. The checklist can be found 
+  below.
+  \begin{itemize}
+    \item Any corrections or modifications that need to be made will be noted in the team 
+    meeting's GitHub issue tracker.
+  \end{itemize}
+\end{itemize}
+
+The following checklist will be used for the internal team walkthrough: \\
+\begin{todolist}
+  \item Are all major functions required for the website (interface, backend, recording, analysis, storage) covered?
+  \item Does each function have clear input and output specifications?
+  \item Are all requirements written with consistent terminology?
+  \item Do all requirements avoid conflict with each other?
+  \item Does each requirement avoid ambiguous language?
+  \item Are all requirements verifiable and testable?
+  \item Is each requirement written in a way all team members and stakeholders can understand?
+  \item Are any assumptions about user behavior or system behaviour explicitly stated?
+\end{todolist}
 
 \subsection{Design Verification Plan}
 
@@ -267,6 +408,28 @@ The following checklist will be used to verify the system's design documents ove
 
 
 \subsection{Verification and Validation Plan Verification Plan}
+
+As the verification and validation plan is an artifact, it must be verified too. The team's verification of the VnV plan follows:
+\begin{itemize}
+  \item Peer reviews by classmates, including other teams' peer reviews, to identify areas of improvement and general feedback
+  \item Documentation review by the project's supervisor, Dr. Irene Ye Yuan, to ensure that the team's planned verification and validation plan is realistic and feasible
+  \item Teammate documentation reviews, to provide critical feedback and ensure that all intended goals and outcomes are met
+  \item Mutation testing to ensure that changes to aspects of the source plan can be detected by test cases.
+\end{itemize}
+
+The below checklist will be used, in addition, to ensure the team's VnV plan is correct and complete.
+
+\begin{todolist}
+\item Does the VnV Plan verify all functional requirements are met?
+\item Does the VnV Plan verify all non-functional requirements are met?
+\item Have all peer-review issues been addressed and closed?
+\item Have all members of the Verification and Validation Team contributed to the review and approved the document?
+\item Are all aspects of the system boundary being verified, validated, and tested?
+\item Do the system tests cover all requirements mentioned in the SRS?
+\item Did the test cases detect mutations and give desired outputs?
+\item Did the test cases' expected output match the actual output?
+\item Is there a process for documenting and resolving defects?
+\end{todolist}
 
 \wss{The verification and validation plan is an artifact that should also be
 verified.  Techniques for this include review and mutation testing.}
@@ -311,6 +474,21 @@ that document.}
 \wss{The details of this section will likely evolve as you get closer to the
   implementation.}
 
+The following are the automated testing and verification tools to be used during the validation and 
+verification process for the software being tested in this VnV plan:
+\begin{itemize}
+  \item Unit Tests: Jest, Pytest
+  \item Linters: Flake9, Prettier, ESLint
+  \item Continuous Integration: GitHub Actions
+\end{itemize}
+\hspace{2em} For our code coverage, we will use Istanbul and Coverage.py. Istanbul is a code coverage 
+tool that works with JavaScript testing frameworks like Jest. It helps developers see how much of their 
+code is tested by creating reports that show untested lines and functions. Coverage.py is a code coverage 
+tool for Python, which we use for our machine learning model. It measures how much of the code runs during 
+tests and generates reports in different formats, helping developers find untested parts of their Python 
+applications and improve test coverage.
+
+
 \subsection{Software Validation Plan}
 
 \wss{If there is any external data that can be used for validation, you should
@@ -331,13 +509,395 @@ as a Rev 0 demo for the supervisor.}
 
 \wss{This section might reference back to the SRS verification section.}
 
-\section{System Tests}
+Our plan for validating the software includes review sessions with 
+stakeholders and extensive user testing. Dr.Yao Du, one of our key 
+stakeholders, will provide the software to clinicians and patients for 
+real-world testing in clinical settings. This will allow us to gather 
+valuable feedback on the software’s functionality and usability in 
+actual healthcare environments. In addition to this field testing, we 
+will conduct structured user testing sessions where participants will 
+simulate the experience of being a patient. During these sessions, 
+users will navigate through the software, interacting with its features,
+and afterward, they will share their insights on what worked well and 
+what didn’t. Overall, using both field testing and targeted user testing, the information
+gathered will help us refine the 
+software and ensure it meets the needs of its intended users. 
 
-\wss{There should be text between all headings, even if it is just a roadmap of
-the contents of the subsections.}
+\newpage
+\section{System Tests}
+\hspace{2em}This section includes systems tests for functional requirements and nonfunctional
+requirements mentioned in the SRS. For traceability, the team created a traceability
+matrix to correlate the system tests to the requirement(s) they cover.
 
 \subsection{Tests for Functional Requirements}
 
+\wss{Subsets of the tests may be in related, so this section is divided into
+  different areas.  If there are no identifiable subsets for the tests, this
+  level of document structure can be removed.}
+
+\wss{Include a blurb here to explain why the subsections below
+  cover the requirements. References to the SRS would be good here.}
+
+\subsubsection{Area of Testing1}
+\subsubsection{Authentication}
+
+\wss{It would be nice to have a blurb here to explain why the subsections below
+  cover the requirements.  References to the SRS would be good here.  If a section
+  covers tests for input constraints, you should reference the data constraints
+  table in the SRS.}
+
+\hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and access
+their accounts without worrying about others accessing their information.
+
+\begin{itemize}
+  \begin{item}
+      FR-ST-A1
+      \begin{mdframed}[linewidth=0.5mm]
+          \textbf{Control:} Manual \par
+          \textbf{Initial State:} User has a Parent account already created and stored in the database \par
+          \textbf{Input:} Selection of Parent account role for login \par
+          \textbf{Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
+          \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+          \textbf{How the test will be performed:}
+          \begin{enumerate}[noitemsep]
+            \item Select 'Login' to go to login screen
+            \item Select 'Parent' when prompted to select between Parent and Clinician roles
+            \item User is brought to the Parent login screen
+          \end{enumerate}
+      \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A2
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User has a Clinician account already created and stored in the database \par
+      \textbf{Input:} Selection of Clinician account role for login \par
+      \textbf{Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Login' to go to login screen
+        \item Select 'Clinician' when prompted to select between Parent and Clinician roles
+        \item User is brought to the Clinician login screen
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A3
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account is created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter unique username that is not in the database
+        \item Enter account credentials (to complete account create process)
+        \item Parent account is created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+  \begin{item}
+    FR-ST-A4
+    \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} User does not have a Parent account stored in the database \par
+      \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Parent account fails to be created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A2 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Create Account' to go to create account screen
+        \item Enter username that already exists in the database
+        \item System communicates the account could not be created
+        \item System prompts user to select a new username
+        \item Parent account is not created
+      \end{enumerate}
+  \end{mdframed}
+  \end{item}
+\begin{item}
+  FR-ST-A5
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account is created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter unique username that is not in the database
+      \item Enter account credentials (to complete account create process)
+      \item Clinician account is created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A6
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+    \textbf{Input:} Admin user selects option to 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+    \textbf{Output:} The expected result is a new Clinician account fails to be created \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Admin user is logged into their account
+      \item Select 'Create Account' to go to create account screen
+      \item Enter username that already exists in the database
+      \item System communicates the account could not be created
+      \item System prompts admin user to select a new username
+      \item Clinician account is not created
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A7
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is on their corresponding role's login page, with an account already created and stored in the database \par
+    \textbf{Input:} Unique username and corresponding password that exists in the database \par
+    \textbf{Output:} The expected result is a successful login to a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A4 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item On login screen
+      \item Enter unique username
+      \item Enter corresponding password
+      \item Select login to enter account
+      \item Logged into account
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\begin{item}
+  FR-ST-A8
+  \begin{mdframed}[linewidth=0.5mm]
+    \textbf{Control:} Manual \par
+    \textbf{Initial State:} User is logged into their account \par
+    \textbf{Input:} Selection of 'logout' \par
+    \textbf{Output:} The expected result is a successful logout from a user's account \par
+    \textbf{Test Case Derivation:} The expected output is justified based on FR-A5 in the SRS document \par
+    \textbf{How the test will be performed:}
+    \begin{enumerate}[noitemsep]
+      \item Logged into account
+      \item Select 'logout'
+      \item System logs user out of their account
+      \item Logout confirmation is displayed to the user
+    \end{enumerate}
+\end{mdframed}
+\end{item}
+\end{itemize}
+
+\subsubsection{Data Collection and Storage}
+
+\hspace{2em}The test cases below focus on ensuring reliable storage and retrieval 
+of multimedia data, privacy compliance by excluding PII, accurate grouping under 
+unique identifiers, and long-term report accessibility, meeting all data storage 
+and organization requirements.
+\begin{itemize}
+  \item FR-ST-DSC1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database is empty or initialized with test data. \par
+      \textbf{Input:} Multimedia files (video, audio, and structured data files). \par
+      \textbf{Output:} The expected result is a success message in console for both storing data and retrieving data \par
+      \textbf{Test Case Derivation:} Ensures the database meets storage \\capacity and integrity requirements as per FR-DSC1 in SRS \\document. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a session containing multimedia files (video, audio, JSON) into the database.
+        \item Retrieve the session files and check for data integrity by \\comparing size of stored data with retrieved data.
+        \item Verify that the retrieved files are uncorrupted and correctly match the original files.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DSC2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database is set up to store assessment session data. \par
+      \textbf{Input:} Video, audio files, flagged occurrences, and timestamps for each assessment question. \par
+      \textbf{Output:} The expected result is the creation of a JSON file that contains flagged occurrences and timestamps which is stored alongside the data. \par
+      \textbf{Test Case Derivation:} Allows the system to store all important information for clinicians to use. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a test assessment session with video and audio files, flagged occurrences, and timestamps.
+        \item Query the database to retrieve the session’s data and verify the presence of a JSON file with accuracy of flagged occurrences and timestamps.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DSC3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database configured to prevent storage of personally identifiable information (PII). \par
+      \textbf{Input:} Attempted insertion of a record containing personally \\identifiable information. \par
+      \textbf{Output:} The expected result is that the database rejects any PII-containing records and stores only anonymized data. \par
+      \textbf{Test Case Derivation:} Ensures compliance with privacy standards, verifying that no PII is stored in the database. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Attempt to insert a record with PII (e.g., name, address).
+        \item Verify that the system blocks or anonymizes PII, preventing its storage.
+        \item Retrieve all clinician-accessible data and confirm the absence of PII.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DSC4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database initialized and ready for storing user session data. \par
+      \textbf{Input:} Multiple sessions, each with unique user identifiers. \par
+      \textbf{Output:} The expected result is that all session data is stored and grouped correctly according to the unique user identifiers. \par
+      \textbf{Test Case Derivation:} Confirms database's grouping and \\retrievable capabilities, ensuring accurate data organization.\par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert multiple sessions into the database, each tagged with a unique user identifier.
+        \item Query the database for each user identifier and verify that all associated session data is correctly grouped.
+        \item Confirm no data is incorrectly associated or left unassociated.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DSC5
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database initialized and ready to store reports with unique identifiers. \par
+      \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
+      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least MAX\_STORAGE\_TIME. \par
+      \textbf{Test Case Derivation:} Verifies long-term storage and retrieval of assessment reports, supporting patient progress tracking. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Insert a test report with a unique patient identifier into the database.
+        \item Retrieve the report using the identifier and confirm the report’s accuracy and timestamp.
+        \item Check when database will be wiped out and when backups occur
+      \end{enumerate}
+  \end{mdframed}
+
+\end{itemize}
+
+\subsubsection{Video and Audio Data Analysis}
+
+\hspace{2em}The test cases below focus on ensuring the video analysis model can reliably access 
+session recordings, accurately detect and log speech disturbances, and correctly flag 
+disturbances with timestamps, questions, and user responses to support efficient clinical review.
+\begin{itemize}
+  \item FR-ST-VDA1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Completed assessment sessions are available in the database, with video and audio recordings accessible for processing. \par
+      \textbf{Input:} Request by the analysis model to access video and audio data from a completed session. \par
+      \textbf{Output:} The expected result is that all videos requested are processed with a success message in the logs \par
+      \textbf{Test Case Derivation:} Verifies that the model has reliable access to stored multimedia data, which is critical for processing and analysis. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Retrieve the video and audio recordings from several completed sessions.
+        \item Check that the model successfully accesses the multimedia files for each session without data access errors.
+        \item Verify that the files are correctly loaded for analysis with no corruption or access issues.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-VDA2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} The analysis model is initialized and ready to process test video and audio data. \par
+      \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis. \par
+      \textbf{Output:} The expected results is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for number of disturbances found by the model \par
+      \textbf{Test Case Derivation:} Confirms that the model’s disturbance detection meets the accuracy requirement, reducing bias in the analysis process. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Run the model on a test dataset containing known speech disturbances.
+        \item Compare the disturbances identified by the model with human observations for accuracy validation.
+        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE accuracy in identifying and logging disturbances.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-VDA3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Video and audio data with disturbances has been processed by the analysis model. \par
+      \textbf{Input:} Disturbances identified by the model, requiring flags with associated timestamps, assessment questions, and user answers. \par
+      \textbf{Output:} The expected result is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for timestamp accuracy\par
+      \textbf{Test Case Derivation:} Ensures clinicians can quickly access relevant parts of the assessment with accuracy, aiding in efficient diagnosis. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Process a test assessment session with the model, identifying and flagging disturbances.
+        \item Retrieve flagged disturbances and confirm each has an accurate timestamp, associated question, and user response.
+        \item Compare the flagged data with human observations and verify at least \\VERY\_HIGH\_SUCCESS\_RATE accuracy in the model’s associations.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Data Processing and Display}
+
+\hspace{2em}This set of test cases will help confirm the system's data retrieval, report generation, 
+and display functionalities to ensure the clinician experience aligns with the project’s goals.
+
+\begin{itemize}
+  \item FR-ST-DPD1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database is populated with processed assessment data. \par
+      \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
+      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within \\MAX\_PROCESSING\_TIME \par
+      \textbf{Test Case Derivation:} Ensures the system can retrieve data efficiently for report generation, meeting retrieval speed and \\completeness requirements. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the database for a test patient’s processed assessment results. 
+        \item Measure and record retrieval time, ensuring it does not exceed\\
+        MAX\_PROCESSING\_TIME. 
+        \item Verify that all required data is retrieved and matches the stored information.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Automatic \par
+      \textbf{Initial State:} Database has assessment data including flagged occurrences,\\
+      timestamps, and patient performance metrics. \par
+      \textbf{Input:} Trigger for report generation based on a retrieved \\assessment dataset. \par
+      \textbf{Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
+      \textbf{Test Case Derivation:} Confirms that report generation is \\complete, accurate, and within performance constraints. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Retrieve a patient’s assessment data from the database. 
+        \item Trigger report generation. 
+        \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
+        \item Measure and confirm report generation time does not exceed\\ MAX\_PROCESSING\_TIME.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Generated report available in the database. \par
+      \textbf{Input:} Clinician dashboard query to display the generated report. \par
+      \textbf{Output:} Report displayed in the clinician’s dashboard with \\accurate formatting, charts, and tables, fully loaded within \\MAX\_PROCESSING\_TIME. \par
+      \textbf{Test Case Derivation:} Validates the report display function, ensuring usability and speed requirements are met. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the clinician’s dashboard to load the report. 
+        \item Confirm that the report is displayed with correct charts, \\tables, and formatting. 
+        \item Verify full loading of the report within \\MAX\_PROCESSING\_TIME.
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-DPD4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Control:} Manual \par
+      \textbf{Initial State:} Database has stored reports for previous sessions, each with a unique patient identifier. \par
+      \textbf{Input:} Clinician request to access a specific previously generated report. \par
+      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within \\MAX\_PROCESSING\_TIME. \par
+      \textbf{Test Case Derivation:} Ensures that clinicians can reliably access and view past reports, supporting longitudinal patient assessment.\par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Query the database for a stored report using a unique patient identifier. 
+        \item Verify that the retrieved report is complete and accurate. 
+        \item Confirm that the report is displayed within \\MAX\_PROCESSING\_TIME.
+      \end{enumerate}
+  \end{mdframed}
+
+\end{itemize}
+
+...
 \subsubsection{System Set Up}
 
 \begin{itemize}
@@ -544,6 +1104,482 @@ the contents of the subsections.}
 
 \subsection{Tests for Nonfunctional Requirements}
 
+\wss{The nonfunctional requirements for accuracy will likely just reference the
+  appropriate functional tests from above.  The test cases should mention
+  reporting the relative error for these tests.  Not all projects will
+  necessarily have nonfunctional requirements related to accuracy.}
+
+\wss{For some nonfunctional tests, you won't be setting a target threshold for
+passing the test, but rather describing the experiment you will do to measure
+the quality for different inputs.  For instance, you could measure speed versus
+the problem size.  The output of the test isn't pass/fail, but rather a summary
+table or graph.}
+
+\wss{Tests related to usability could include conducting a usability test and
+  survey.  The survey will be in the Appendix.}
+
+\wss{Static tests, review, inspections, and walkthroughs, will not follow the
+format for the tests given below.}
+
+\wss{If you introduce static tests in your plan, you need to provide details.
+How will they be done?  In cases like code (or document) walkthroughs, who will
+be involved? Be specific.}
+
+\subsubsection{Look and Feel Requirements}
+
+These test cases ensure that all appearance and style requirements are\\
+addressed effectively, covering navigation, user-friendliness, brand \\
+consistency, visual appeal, and responsiveness.
+
+\begin{itemize} 
+  \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform initialized and navigable on a test \\device, prepared for user testing with adults and children. \par 
+    \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
+      \item VERY\_HIGH\_SUCCESS\_RATE of users complete core tasks within\\
+      MAX\_CLICKS clicks. 
+      \item HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
+    \end{itemize} \par \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Observe and record the number of clicks taken by each user to complete key tasks. 
+      \item Inspect the navigation structure to ensure it meets depth and option constraints. 
+      \item Test with children to verify completion of assessments \\independently. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Platform with finalized colour schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
+    \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
+      \item Positive feedback from child participants indicating a calm, non-stressful environment. 
+      \item VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages. 
+      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Compare platform’s design elements against the client’s brand and style guidelines. 
+      \item Collect feedback from child participants about the visual \\atmosphere. 
+      \item Test and measure feedback response times for various \\interactions. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
+
+\subsubsection{Usability and Humanity}
+\hspace{2em}The test cases below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
+
+\begin{itemize}
+  \item UH-ST-EOU1 (covers UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Users complete one full assessment using the system. \par
+      \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
+      Averages should be at least 'Agree' on the answer scale in section 6.2. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User have access to the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item Results are stored
+        \item Usability scores for questions 1 through 8 are averaged across users
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-PI1 (covers UH-PI1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed\par
+      \textbf{Output/Results:} Count the number of available languages for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item View list of available languages
+        \item Count number of languages are available for the assessment
+      \end{enumerate}
+  \end{mdframed}
+  \item UH-ST-LI2 (covers UH-LI2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual \par
+      \textbf{Initial State:} User documentation has been completed and made available to users. \par
+      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed\par
+      \textbf{Output/Results:} Verify link takes user to access documentation \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'documentation'
+        \item User goes to documentation screen
+        \item User has access to view up-to-date, available documentation
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Performance}
+\hspace{2em}The test cases below ensures that the system meets essential performance metrics, 
+including quick page load times, low latency in video and audio recording, high video 
+resolution, and efficient report generation. 
+
+\begin{itemize}
+  \item PR-ST-SL1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic\par
+      \textbf{Initial State:} System initialized, strong internet connection \par
+      \textbf{Input/Condition:} User navigates to different web pages within the system. \par
+      \textbf{Output/Results:} The expected output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Navigate to various web pages within the system.
+        \item Measure the time taken for each page to load completely.
+        \item Confirm that all pages load within MAX\_LOAD\_TIME.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-SL2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} Video and audio recording session initialized. \par
+      \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
+      \textbf{Output/Results:} The expected output is the latency between actions and recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring synchronization. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Begin recording a session.
+        \item Have the user perform timed actions while recording.
+        \item Play back the recording and measure the latency between actions and their corresponding timestamps.
+        \item Confirm latency does not exceed SHORT\_PROCESSING\_TIME.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-SL3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System configured to store video data. \par
+      \textbf{Input/Condition:} Video recorded and stored from assessment an session. \par
+      \textbf{Output/Results:} The expected output is the video quality is at least \\AVERAGE\_RESOLUTION upon when retrieving or storing. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Record a session and store the video.
+        \item Retrieve the stored video and verify its resolution.
+        \item Confirm the resolution is AVERAGE\_RESOLUTION or higher.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below focus on verifying the system's precision in detecting and 
+analyzing speech and gesture disturbances, ensuring timestamp alignment, and maintaining 
+100\% accuracy in assessment data. 
+
+\begin{itemize}
+  \item PR-ST-PA1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} Video and Audio analysis model is loaded with sample audio data. \par
+      \textbf{Input/Condition:} Data containing speech patterns and video with known \\disturbances. \par
+      \textbf{Output/Results:} The expected output is that the analysis achieves \\VERY\_HIGH\_SUCCESS\_RATE in detecting speech and gesture disturbances. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Load test data files with known disturbances into the analysis model.
+        \item Compare detected disturbances with human-reviewed \\observations.
+        \item Verify that the model correctly identifies at least \\VERY\_HIGH\_SUCCESS\_RATE of disturbances.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-PA3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} Timestamp function is synchronized with real-time actions. \par
+      \textbf{Input/Condition:} User performs actions in the recorded session. \par
+      \textbf{Output/Results:} The expected output is that the timestamps delay within SHORT\_PROCESSING\_TIME of the real-time action. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Record a session with specific user actions.
+        \item Analyze timestamps and compare them to the actual timing of the actions.
+        \item Confirm each timestamp falls within SHORT\_PROCESSING\_TIME margin of the real action.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-PA4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Static \par
+      \textbf{Initial State:} Assessment answer key is loaded. \par
+      \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
+      \textbf{Output/Results:} The expected output is that the answer key is \\MAX\_SUCESS\_RATE. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Manually review each entry in the assessment answer key.
+        \item Check for errors or inconsistencies in each answer.
+        \item Confirm all answers are correct, ensuring MAX\_SUCESS\_RATE.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below validate the system’s ability to handle errors, 
+back up data reliably, and enforce strict input validation.
+
+\begin{itemize}
+  \item PR-ST-RFT1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System is operational with error handling in place. \par
+      \textbf{Input/Condition:} User initiates actions known to cause common errors. \par
+      \textbf{Output/Results:} The expected output is the system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the common errors encountered. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Simulate common user errors, such as invalid inputs or incorrect file uploads.
+        \item Observe system response and displayed error messages.
+        \item Verify clarity and accuracy of error messages in at least \\VERY\_HIGH\_SUCCESS\_RATE.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-RFT2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} Database backup processes configured and \\operational in the system. \par
+      \textbf{Input/Condition:} Monthly data backup event. \par
+      \textbf{Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item A data backup is triggered.
+        \item Record the duration of the backup process.
+        \item Confirm that backup completes within MONTHLY\_BACKUP.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below ensure that the system can handle the expected user load, 
+data storage needs, and simultaneous uploads without performance degradation. 
+
+\begin{itemize}
+  \item PR-ST-CR1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic \par
+      \textbf{Initial State:} System initialized with maximum user capacity parameters. \par
+      \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
+      \textbf{Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Create and load MIN\_USERS accounts into the system.
+        \item Monitor system performance metrics, including stability and response time.
+        \item Confirm system maintains stable performance.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-CR2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System is initialized with required storage capacity. \par
+      \textbf{Input/Condition:} Data stored in the database approaches MIN\_STORAGE annually. \par
+      \textbf{Output/Results:} The expected result is that the system \\accommodates MIN\_STORAGE of data without loss of performance. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Load MIN\_STORAGE data into database.
+        \item Monitor database performance metrics, such as access time and error rate.
+        \item Confirm system’s ability to manage MIN\_STORAGE without performance impact.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below confirm that the system can scale effectively to 
+accommodate an increasing user base, data volume, and computational needs over time. 
+
+\begin{itemize}
+  \item PR-ST-SE1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System operational with current allocated user amount. \par
+      \textbf{Input/Condition:} Increase user base by YEARLY\_INCREASE\_PERCENTAGE. \par
+      \textbf{Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Simulate a YEARLY\_INCREASE\_PERCENTAGE increase in the user base by increase user base parameters by YEARLY\_INCREASE\_PERCENTAGE.
+        \item Monitor system metrics such as response time and error rate.
+        \item Confirm that the system operates within acceptable \\performance metrics post-increase.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\hspace{2em}The test cases below verify the system’s reliability across updates and 
+compatibility with major operating systems. 
+
+\begin{itemize}
+  \item PR-ST-LR1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System release build in use, with ongoing \\development updates. \par
+      \textbf{Input/Condition:} System stability monitored over successive updates. \par
+      \textbf{Output/Results:} The expected result is that the system maintains a failure rate below LOW\_FAILURE\_RATE in release builds. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Conduct routine tests on the release build during ongoing development updates.
+        \item Monitor system logs for errors or malfunctions.
+        \item Verify that the failure rate remains below LOW\_FAILURE\_RATE.
+      \end{enumerate}
+  \end{mdframed}
+  \item PR-ST-LR2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Static \par
+      \textbf{Initial State:} System configured for compatibility testing across platforms. \par
+      \textbf{Input/Condition:} System loaded on Windows, macOS, Linux, Android, and iOS. \par
+      \textbf{Output/Results:} The expected result is that the system functions correctly across all platforms. \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Run the system on each specified operating system.
+        \item Perform standard operations and monitor user experience on each platform.
+        \item Confirm that the system operates without issues on all platforms.
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Operational and Environmental}
+\hspace{2em}The test cases below ensures that the system can be used in a variety of environments,
+along with the requirements for which users are expected to use the system within, and the capabilities
+and qualities the system has to interact with adjacent systems in the environment.
+
+\begin{itemize}
+  \item OE-ST-EPE1 (covers OE-EPE1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Usability, Manual\par
+      \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
+      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes \par
+      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item User logs into the system
+        \item User completes one full assessment using the system
+        \item Upon completion of the assessment, user is requested to fill out a usability survey
+        \item User answers questions about their screensize and if the test scaled accordingly
+        \item Results are stored for review
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-WE1 (covers OE-WE1, OE-WE2)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Dynamic, Manual \par
+      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Input/Condition:} User attempts to start system setup\par
+      \textbf{Output/Results:} Device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'system setup'
+        \item System checks if connected to the internet
+        \item System checks audio input is not noisy
+        \item System checks video input is clear
+        \item System displays to the user their device is ready for the assessment to be used in the current environment
+      \end{enumerate}
+  \end{mdframed}
+  \item OE-ST-IA1 (covers OE-IA1)
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Functional, Dynamic \par
+      \textbf{Initial State:} System is connected to external server for retrieving and storing data \par
+      \textbf{Input/Condition:} Assessment is complete, and results need to be stored\par
+      \textbf{Output/Results:} Verify results are stored in the external server \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Complete assessment
+        \item Access external server
+        \item Check if results have been uploaded to server
+        \item Access results to ensure data has been uploaded successfully
+      \end{enumerate}
+  \end{mdframed}
+\end{itemize}
+
+\subsubsection{Maintainability and Support Requirements}
+
+These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
+
+\begin{itemize} 
+  \item MS-ST-MSA1 (covers MS-MR1, MS-SR1)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
+    \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
+    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module. 
+      \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Perform code updates on isolated components and verify \\changes are contained within NUM\_CODE\_LINES lines \\outside the component. 
+      \item Test submission flow to GitHub, verifying links are accessible and that issues and requests are categorized correctly. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item MS-ST-MSA2 (covers MS-SR2) 
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
+    \textbf{Input/Condition:} New user group follows the tutorial to \\complete primary tasks (e.g., starting an assessment). \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. 
+    \end{itemize} \par \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Guide users through the tutorial and observe task completion rates. 
+      \item Collect feedback on tutorial clarity and assess if 90\% of users can independently complete tasks. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item MS-ST-MSA3 (covers MS-AR1)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Dynamic \par 
+    \textbf{Initial State:} Platform accessible across various devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
+    \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item MAX\_SUCCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Access the platform on various screen sizes and test for \\display, layout, and functionality. 
+      \item Verify that all features are usable and adapt responsively without readability or functionality loss. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
+
+\subsubsection{Cultural Requirements}
+
+These tests ensure that the platform respects cultural sensitivities and \\provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
+
+\begin{itemize} 
+  \item CU-ST-CUR1 (covers CU-CR1)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Initial State:} Platform content (language and imagery) is \\finalized and presented for review. \par 
+    \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item A cultural consultant examines all text and imagery for \\potential cultural insensitivity. 
+      \item Conduct user acceptance testing with a diverse group and gather feedback on the platform's cultural sensitivity. 
+      \item Validate that all feedback confirms no culturally insensitive content. 
+    \end{enumerate} 
+  \end{mdframed}
+
+  \item CU-ST-CUR2 (covers CU-CR2)
+  \begin{mdframed}[linewidth=0.5mm] 
+    \textbf{Type:} Static \par 
+    \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
+    \textbf{Input/Condition:} Switch between language settings to review each text,\\
+    instruction, and assessment in both languages. \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. 
+    \end{itemize} \par 
+    \textbf{How the test will be performed:} 
+    \begin{enumerate}[noitemsep] 
+      \item Navigate through the platform in both English and Mandarin settings, verifying translations for each section. 
+      \item Confirm that all assessments, instructions, and interface \\elements are accurately translated and free from language discrepancies. 
+    \end{enumerate} 
+  \end{mdframed} 
+\end{itemize}
+
+
+
+
+
+\subsubsection{Area of Testing2}
+...
+\begin{landscape}
 \subsubsection{Security}
 
 The test cases below ensures that the system meets essential 
@@ -719,8 +1755,114 @@ compliance requirements including security of the system, following the rules of
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
-\section{Unit Test Description}
+  \begin{table}[!ht]
+    \caption{Traceability Table Between System Test Cases and Functional Requirements}
+    \resizebox{1.5\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        ~ & FR-ST-A1 & FR-ST-A2 & FR-ST-A3 & FR-ST-A4 & FR-ST-A5 & FR-ST-A6 & FR-ST-A7 & FR-ST-A8 & FR-ST-DSC1 & FR-ST-DSC2 & FR-ST-DSC3 & FR-ST-DSC4 & FR-ST-DSC5 & FR-ST-VDA1 & FR-ST-VDA2 & FR-ST-VDA3 & FR-ST-DPD1 & FR-ST-DPD2 & FR-ST-DPD3 & FR-ST-DPD4 & FR-ST-SS1 & FR-ST-SS2 & FR-ST-SS3 & FR-ST-SS4 & FR-ST-SS5 & FR-ST-AI1 & FR-ST-AI2 & FR-ST-AI3 & FR-ST-AI4 & FR-ST-AI5 & FR-ST-AI6 & FR-ST-AI7 \\ \hline
+        FR-A1 & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A2 & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A3 & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A4 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+        FR-AI5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+        FR-AI6 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+        FR-AI7 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+        FR-DSC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+    \end{tabular}
+    }
+\end{table}
 
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements}
+  \resizebox{1.5\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      System test  & LF-ST-LFR1 & LF-ST-LFR2 & UH-ST-EOU1 & UH-ST-PI1 & UH-ST-LI2 & PR-ST-SL1 & PR-ST-SL2 & PR-ST-SL3 & PR-ST-PA1 & PR-ST-PA3 & PR-ST-PA4 & PR-ST-RFT1 & PR-ST-RFT2 & PR-ST-CR1 & PR-ST-CR2 & PR-ST-SE1 & PR-ST-LR1 & PR-ST-LR2 & OE-ST-EPE1 & EO-ST-WE1 & OE-ST-IA1 & MS-ST-MSA1 & MS-ST-MSA2 & MS-ST-MSA3 & CU-ST-CUR1 & CU-ST-CUR1 & SR-ST-AC1 & SR-ST-AC2 & SR-ST-AC3 & SR-ST-AC4 & SR-ST-IM1 & CR-ST-D1 & SR-ST-P1 & SR-ST-P2 & SR-ST-P3 \\ \hline
+      LF-AR1 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR2 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR3 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR4 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR5 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR1 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR2 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU2 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-PI1 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI2 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-UP1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-AR1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL1 & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL2 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SCL1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-EPE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-IA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-MR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      SR-P2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      SR-P3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      SR-IM1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+  \end{tabular}
+  }
+\end{table}
+\end{landscape}
+
+\newpage
+\section{Unit Test Description}
+Section 5, Unit Test Description, will be filled in prior to the revision 0 deliverable. The team decided to leave in the template instructions as a guide to indicate our desried return to the document.\\
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
 
@@ -846,22 +1988,111 @@ How test will be performed:
 				
 \bibliographystyle{plainnat}
 
+\newpage
 \bibliography{../../refs/References}
 
 \newpage
 
 \section{Appendix}
 
-This is where you can place additional information.
+Below is additional information relevant to the document.
 
 \subsection{Symbolic Parameters}
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
 
-\subsection{Usability Survey Questions?}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Variable Name} & \textbf{Value} \\
+      \hline
+      MAX\_PROCESSING\_TIME & 10 seconds \\
+      \hline
+      SHORT\_PROCESSING\_TIME & 0.5 seconds \\
+      \hline
+      MAX\_SUCCESS\_RATE & 100\% \\
+      \hline
+      VERY\_HIGH\_SUCCESS\_RATE & 95\% \\
+      \hline
+      HIGH\_SUCCESS\_RATE & 90\% \\
+      \hline
+      NUM\_CODE\_LINES & 10 \\
+      \hline
+      MIN\_SCREEN\_SIZE & 4 inches \\
+      \hline
+      MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+      MAX\_STORAGE\_TIME & 7 years \\
+      \hline
+      MAX\_LOAD\_TIME & 3 seconds \\
+      \hline
+      AVERAGE\_RESOLUTION & 720p \\
+      \hline
+      MONTHLY\_BACKUP & 4 hour \\
+      \hline
+      MIN\_USERS & 2000 users \\
+      \hline
+      MIN\_STORAGE & 10TB \\
+      \hline
+      YEARLY\_INCREASE\_PERCENTAGE & 10\% \\
+      \hline
+      LOW\_FAILURE\_RATE & 1\% \\
+      \hline
+      MAX\_CLICKS & 5 \\
+      \hline
+  \end{tabular}
+  \caption{Variable Names and Values}
+  \label{tab:variables}
+\end{table}
 
-\wss{This is a section that would be appropriate for some projects.}
+\subsection{Usability Survey Questions?}
+The following questions depict the first draft of the team's usability.\\
+The usability survey will be conducted after participants have engaged with testing and using the system for at least one iteration of the assessment.\\
+
+\newcommand{\likertScale}{
+    \begin{center}
+        Strongly Disagree \hfill Disagree \hfill Neutral \hfill Agree \hfill Strongly Agree
+    \end{center}
+}
+
+\newcommand{\insertAnswerHere}{
+  \begin{tcolorbox}[width=0.5\textwidth,
+    colframe=black,
+    colback=white,
+    boxrule=0.1mm,
+    sharp corners]
+  \textit{Insert answer here...}
+  \end{tcolorbox}
+}
+
+\textbf{Please select the statement that best describes your experience for each of the following:}
+\begin{enumerate}
+  \item Learning how to use the system was easy:\likertScale
+  \item Setting up the system was easy:\likertScale
+  \item I found the assessment interface easy to use:\likertScale
+  \item Navigating the interface was easy:\likertScale
+  \item All the button interactions reacted and responded how I thought they should:\likertScale
+  \item The information on screen was easy to read and understand:\likertScale
+  \item I like the organization of the assessment interface:\likertScale
+  \item I enjoyed my overall experience using the TeleHealth Insights platform:\likertScale
+\end{enumerate}
+\textbf{Answer the following:}
+
+\begin{enumerate}
+    \setcounter{enumi}{8}
+    \item What was the most difficult part of using the platform? \insertAnswerHere
+    \item Did you encounter any bugs/problems while using the platform? If so, what were they? \insertAnswerHere
+    \item What was your favourite part of the experience? Why? \insertAnswerHere
+    \item What was your least favourite part of the experience? Why? \insertAnswerHere
+    \item Were there any aspects of the platform that you found unnecessary? Why? \insertAnswerHere
+    \item Which part of the platform needs the most improvement? Why? \insertAnswerHere
+    \item What would you like changed to make the platform easier to use? \insertAnswerHere
+    \item What is the device you ran the system on? \insertAnswerHere
+    \item Did the screen's visuals scale appropriately to the screen size? \insertAnswerHere
+    \item Do you have any additional feedback? \insertAnswerHere
+\end{enumerate}
 
 \newpage{}
 \section*{Appendix --- Reflection}
@@ -874,18 +2105,90 @@ graduate attribute of Lifelong Learning.
 \input{../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
+  \item What went well while writing this deliverable?\\
+  \newline
+  \hspace{2em} Mitchell: One of the things that went well during this deliverable was splitting up
+  the System Tests for both Functional Requirements and Nonfunctional Requirements. The team decided
+  to assign the functional and nonfunctional tests to the team members that wrote those particular
+  requirements in the SRS. This allowed the team to use their prior knowledge on the requirements
+  to develop detailed test plans to accurately test the requirements. This also meant that team members
+  that were familiar with the requirements knew the limitations of the tests, and could improve upon
+  given feedback to strengthen the plan further.\\\\
+  \hspace{2em} Jasmine: I think the team worked well together as usual, especially when it came to 
+  distributing tasks. Our team was very efficient and decided to split test cases for the functional and 
+  nonfunctional requirements in the same way we split up writing the requirements for the SRS, and the 
+  rest of the document was split up fairly quickly within a team meeting. Another thing that went well 
+  while writing this deliverable is organization. Now that we have written several pieces of documentation, 
+  the team is comfortable navigating LaTex formatting, as well as GitHub project and issue tracking.\\\\
+  \hspace{2em} Promish: One thing that went well during this deliverable was how 
+  comfortable everyone became using GitHub. We created issues for each task, and 
+  handling merge conflicts was faster. As a team, we quickly divided the work, 
+  understanding that writing system tests for the requirements each of us specialized in 
+  was the most efficient approach. We also recognized the importance of consistent naming 
+  for our tests to maintain traceability with our SRS, so we decided to include "ST" in 
+  the middle of our SRS requirements tags.\\\\
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+    did you resolve them?\\\\
+  \newline
+  \hspace{2em} Mitchell: One of the pain points I experienced during this deliverable was understanding the
+  format needed for the System Tests section. I found it difficult to get started because of the formality
+  of the tests. As well, I wanted to make sure that the tests were consistent among team members, and a difference
+  in formatting would be difficult for someone reading the document to understand. To resolve this, the team decided
+  to follow a consistent formatting outline, and follow along a sample so that everyone knew what test cases
+  should look like for this deliverable.\\\\
+  \hspace{2em} Jasmine: One pain point during this deliverable was clarification of document instructions, 
+  such as what area testing is or what exactly the symbolic constraints were. We resolved this by preparing 
+  questions to ask the TA during our informal TA meeting, and looking at examples from other capstone projects 
+  from the same course completed in previous years.\\\\
+  \hspace{2em} Promish: A challenge we faced during this deliverable was the 
+  large number of tests we had to write within a limited timeframe. With only a week 
+  to work on the document, we didn’t have time for extra meetings with our advisor and 
+  TA to clarify certain sections as much as I would have liked. Overall, the team did a 
+  great job with the time and resources available, but some parts of the document were a 
+  bit unclear, especially regarding formatting and focus. The rubric was also quite 
+  general, making it harder to understand the exact requirements.\\\\
   \item What knowledge and skills will the team collectively need to acquire to
   successfully complete the verification and validation of your project?
   Examples of possible knowledge and skills include dynamic testing knowledge,
   static testing knowledge, specific tool usage, Valgrind etc.  You should look to
-  identify at least one item for each team member.
+  identify at least one item for each team member.\\
+  \newline
+  \hspace{2em} Mitchell: One of the pieces of knowledge and skills the team collectively needs to acquire to 
+  successfully complete the verification and validation of the project is understanding how to properly perform
+  usability testing. This will be important to the team because it is one of the project's chosen extras, so understanding
+  usability testing is crucial for the success of the project. As well, it will inform us on how users actually engage,
+  interact, and understand our system. Another skill the team will need to acquire is dynamic testing using different frameworks.
+  It will be beneficial to perform dynamic testing to get verify each of our desired outcomes of tests against the actual outcomes.
+  This will provide the team with accurate, reliable results and conclusions.\\\\
+  \hspace{2em} Jasmine: The team will need skills in both dynamic and static testing to successfully complete the 
+  verification and validation of the project, including knowledge of effective test case creation and debugging. 
+  Being familiar with tools like automated test frameworks and static analysis tools that our team can use for our 
+  project will be important to improving efficiency and accuracy in our testing processes. Additionally, understanding 
+  quality assurance practices and common code review techniques will help make sure our validation is thorough and reliable. \\\\
+  \hspace{2em} Promish: As a team, we’ll need to focus on learning to use the frameworks outlined 
+  in section 3.6 to automate our unit tests. We’ll also need to understand how to evaluate our 
+  SRS and the processes for making changes. Lastly, we’ll need to know where testing fits 
+  into continuous development and how to follow Agile practices effectively.\\\\
   \item For each of the knowledge areas and skills identified in the previous
   question, what are at least two approaches to acquiring the knowledge or
   mastering the skill?  Of the identified approaches, which will each team
-  member pursue, and why did they make this choice?
+  member pursue, and why did they make this choice?\\
+  \newline
+  \hspace{2em} Mitchell: One approach to acquire knowledge for usability testing is referring to SFWRENG 4HC3 course notes,
+  as usability testing is one of the major topics the course focuses on, with lots of examples and details. To obtain knowledge for dynamic tests, I plan on learning pytest to learn about dynamic testing in Python, which will be the
+  team's language of choice for developing machine learning models.\\\\
+  \hspace{2em} Jasmine: I will choose to focus on static testing knowledge since it is something I usually overlook 
+  and would like to improve on. To acquire knowledge in static testing, one approach would be to use online static 
+  testing tutorials and resources, especially platforms with specialized online courses such as Coursera or Udacity. 
+  Another approach would be to use an open-source static analysis tool and apply it to previous projects or example 
+  codebases to get hands on experience identifying common code issues, warnings, and even security vulnerabilities.\\\\
+  \hspace{2em} Promish: One of the best ways to learn a framework is to read its 
+  documentation or watch YouTube tutorials. After that, testing it out in a separate IDE 
+  with a small example would be helpful for something like Pytest. For a better 
+  understanding of Agile development, we could look into resources that explain Agile 
+  principles and methods. Additionally, consulting our TA, supervisor, and professor 
+  would be valuable for understanding how our team can function effectively.\\\\
+
 \end{enumerate}
 
 \end{document}
