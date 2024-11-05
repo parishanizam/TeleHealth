@@ -66,55 +66,51 @@
     \item 4.1 Data Collection and Storage, Video and Audio Data Analysis FR tests
     \item 4.2 Performance NFR tests
   \end{itemize}\\
-  11/01/24 & 1.2 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+  10/30/24 & 1.2 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
+    \item 2.1 Summary
+    \item 2.2 Objectives
+    \item 2.3 Challenge Level and Extras
+    \item 2.4 Relevant Documentation
+  \end{itemize}\\
+  11/01/24 & 1.3 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 3.2 SRS Validation Plan
     \item 4.1 Data Processing and Display
     \item 4.2 Look and Feel FR tests
     \item 4.2 Maintenance and Support NFR tests
     \item 4.2 Cultural NFR tests
   \end{itemize}\\
-  11/02/24 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+  11/02/24 & 1.4 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item 4.1 Authentication FR tests
     \item 4.2 Usability and Humanity NFR tests
     \item 4.2 Operational and Environmental NFR tests
   \end{itemize}\\
-  11/04/24 & 1.4 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+  11/02/24 & 1.5 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
+    \item 4.1 System Set Up \& Assessment Interface FR tests
+    \item 4.2 Security and Compliance NFR Tests
+  \end{itemize}\\
+  11/04/24 & 1.6 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item Reflection
   \end{itemize}\\
-  11/04/24 & 1.5 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+  11/04/24 & 1.7 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
     \item 6.1 Symbolic Parameters
     \item Reflection
   \end{itemize}\\
-  11/04/24 & 1.6 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
+  11/04/24 & 1.8 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
     \item 1 Symbols, Abbreviations and Acronyms
+    \item Reflection
+  \end{itemize}\\
+  11/04/24 & 1.9 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
     \item Reflection
   \end{itemize}\\
   \bottomrule
   \end{tabularx}
   \end{table}
 
-~\\
-\wss{The intention of the VnV plan is to increase confidence in the software.
-However, this does not mean listing every verification and validation technique
-that has ever been devised.  The VnV plan should also be a \textbf{feasible}
-plan. Execution of the plan should be possible with the time and team available.
-If the full plan cannot be completed during the time available, it can either be
-modified to ``fake it'', or a better solution is to add a section describing
-what work has been completed and what work is still planned for the future.}
-
-\wss{The VnV plan is typically started after the requirements stage, but before
-the design stage.  This means that the sections related to unit testing cannot
-initially be completed.  The sections will be filled in after the design stage
-is complete.  the final version of the VnV plan should have all sections filled
-in.}
-
 \newpage
 
 \tableofcontents
 
 \listoftables
-\listoffigures
-\wss{Remove this section if it isn't needed}
 
 \newpage
 
@@ -131,16 +127,11 @@ in.}
   \bottomrule
 \end{tabular}\\
 
-\wss{symbols, abbreviations, or acronyms --- you can simply reference the SRS
-  \citep{SRS} tables, if appropriate}
-
-\wss{Remove this section if it isn't needed}
-
 \newpage
 
 \pagenumbering{arabic}
 
-This document contains the team's verification and validation plan for the TeleHealth
+\hspace{2 em} This document contains the team's verification and validation plan for the TeleHealth
 Insights project. This document features general information, overall plan, system tests,
 the eventual addition of unit tests, and usability survey questions.
 
@@ -328,18 +319,6 @@ verification plan, automated testing and verification tools, and the software va
 \newpage
 \subsection{SRS Verification Plan}
 
-\wss{List any approaches you intend to use for SRS verification.  This may
-  include ad hoc feedback from reviewers, like your classmates (like your
-  primary reviewer), or you may plan for something more rigorous/systematic.}
-
-\wss{If you have a supervisor for the project, you shouldn't just say they will
-read over the SRS.  You should explain your structured approach to the review.
-Will you have a meeting?  What will you present?  What questions will you ask?
-Will you give them instructions for a task-based inspection?  Will you use your
-issue tracker?}
-
-\wss{Maybe create an SRS checklist?}
-
 The following approaches will be used to verify the SRS:
 
 \begin{itemize}
@@ -383,12 +362,6 @@ The following checklist will be used for the internal team walkthrough: \\
 
 \subsection{Design Verification Plan}
 
-\wss{Plans for design verification}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
-
 
 The design verification plan outlines the strategies that the team will use to verify the usability and correctness of our
  system. The following outlines the plan for verifying the User Interface of the software as captured by system design
@@ -431,13 +404,6 @@ The below checklist will be used, in addition, to ensure the team's VnV plan is 
 \item Is there a process for documenting and resolving defects?
 \end{todolist}
 
-\wss{The verification and validation plan is an artifact that should also be
-verified.  Techniques for this include review and mutation testing.}
-
-\wss{The review will include reviews by your classmates}
-
-\wss{Create a checklists?}
-
 \subsection{Implementation Verification Plan}
 
 The following outlines the plan for verifying implementation of the system, using both static and dynamic techniques 
@@ -459,21 +425,6 @@ The following outlines the plan for verifying implementation of the system, usin
 
 \subsection{Automated Testing and Verification Tools}
 
-\wss{What tools are you using for automated testing.  Likely a unit testing
-  framework and maybe a profiling tool, like ValGrind.  Other possible tools
-  include a static analyzer, make, continuous integration tools, test coverage
-  tools, etc.  Explain your plans for summarizing code coverage metrics.
-  Linters are another important class of tools.  For the programming language
-  you select, you should look at the available linters.  There may also be tools
-  that verify that coding standards have been respected, like flake9 for
-  Python.}
-
-\wss{If you have already done this in the development plan, you can point to
-that document.}
-
-\wss{The details of this section will likely evolve as you get closer to the
-  implementation.}
-
 The following are the automated testing and verification tools to be used during the validation and 
 verification process for the software being tested in this VnV plan:
 \begin{itemize}
@@ -490,24 +441,6 @@ applications and improve test coverage.
 
 
 \subsection{Software Validation Plan}
-
-\wss{If there is any external data that can be used for validation, you should
-  point to it here.  If there are no plans for validation, you should state that
-  here.}
-
-\wss{You might want to use review sessions with the stakeholder to check that
-the requirements document captures the right requirements.  Maybe task based
-inspection?}
-
-\wss{For those capstone teams with an external supervisor, the Rev 0 demo should 
-be used as an opportunity to validate the requirements.  You should plan on 
-demonstrating your project to your supervisor shortly after the scheduled Rev 0 demo.  
-The feedback from your supervisor will be very useful for improving your project.}
-
-\wss{For teams without an external supervisor, user testing can serve the same purpose 
-as a Rev 0 demo for the supervisor.}
-
-\wss{This section might reference back to the SRS verification section.}
 
 Our plan for validating the software includes review sessions with 
 stakeholders and extensive user testing. Dr.Yao Du, one of our key 
@@ -531,20 +464,7 @@ matrix to correlate the system tests to the requirement(s) they cover.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Subsets of the tests may be in related, so this section is divided into
-  different areas.  If there are no identifiable subsets for the tests, this
-  level of document structure can be removed.}
-
-\wss{Include a blurb here to explain why the subsections below
-  cover the requirements. References to the SRS would be good here.}
-
-\subsubsection{Area of Testing1}
 \subsubsection{Authentication}
-
-\wss{It would be nice to have a blurb here to explain why the subsections below
-  cover the requirements.  References to the SRS would be good here.  If a section
-  covers tests for input constraints, you should reference the data constraints
-  table in the SRS.}
 
 \hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and access
 their accounts without worrying about others accessing their information.
@@ -897,7 +817,6 @@ and display functionalities to ensure the clinician experience aligns with the p
 
 \end{itemize}
 
-...
 \subsubsection{System Set Up}
 
 \begin{itemize}
@@ -1103,27 +1022,6 @@ and display functionalities to ensure the clinician experience aligns with the p
 \pagebreak
 
 \subsection{Tests for Nonfunctional Requirements}
-
-\wss{The nonfunctional requirements for accuracy will likely just reference the
-  appropriate functional tests from above.  The test cases should mention
-  reporting the relative error for these tests.  Not all projects will
-  necessarily have nonfunctional requirements related to accuracy.}
-
-\wss{For some nonfunctional tests, you won't be setting a target threshold for
-passing the test, but rather describing the experiment you will do to measure
-the quality for different inputs.  For instance, you could measure speed versus
-the problem size.  The output of the test isn't pass/fail, but rather a summary
-table or graph.}
-
-\wss{Tests related to usability could include conducting a usability test and
-  survey.  The survey will be in the Appendix.}
-
-\wss{Static tests, review, inspections, and walkthroughs, will not follow the
-format for the tests given below.}
-
-\wss{If you introduce static tests in your plan, you need to provide details.
-How will they be done?  In cases like code (or document) walkthroughs, who will
-be involved? Be specific.}
 
 \subsubsection{Look and Feel Requirements}
 
@@ -1611,8 +1509,9 @@ confidential data in the system
         Verify that access is denied with an appropriate message.
       \end{enumerate}
     \end{mdframed}
+  \end{item}
   
-    \begin{item}
+  \begin{item}
     SR-ST-AC3
       \begin{mdframed}[linewidth=0.5mm]
         \textbf{Type:} Dynamic \par
@@ -1627,10 +1526,10 @@ confidential data in the system
           error message indicating unauthorized action.
         \end{enumerate}
       \end{mdframed}
-    \end{item}
+  \end{item}
 
-    \begin{item}
-    \end{item} SR-ST-AC4
+  \begin{item}
+     SR-ST-AC4
     \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System with user login functionality. \par
@@ -1742,10 +1641,9 @@ compliance requirements including security of the system, following the rules of
 
 \end{itemize}
 
-\subsection{Traceability Between Test Cases and Requirements}
+\newpage 
 \begin{landscape}
-\wss{Provide a table that shows which test cases are supporting which
-  requirements.}
+\subsection{Traceability Between Test Cases and Requirements}
 
   \begin{table}[!ht]
     \caption{Traceability Table Between System Test Cases and Functional Requirements}
@@ -2089,7 +1987,6 @@ The usability survey will be conducted after participants have engaged with test
 \newpage{}
 \section*{Appendix --- Reflection}
 
-\wss{This section is not required for CAS 741}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Lifelong Learning.
@@ -2099,6 +1996,10 @@ graduate attribute of Lifelong Learning.
 \begin{enumerate}
   \item What went well while writing this deliverable?\\
   \newline
+  \hspace{2em} Parisha: The work of the VnV plan was divided very well, 
+  with team members working on testing of non functional and functional requirements that match
+  the ones they worked on for the SRS document. This made it a lot more efficient and easier to understand
+  what to write for the testing requirements. 
   \hspace{2em} Mitchell: One of the things that went well during this deliverable was splitting up
   the System Tests for both Functional Requirements and Nonfunctional Requirements. The team decided
   to assign the functional and nonfunctional tests to the team members that wrote those particular
@@ -2122,6 +2023,11 @@ graduate attribute of Lifelong Learning.
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?\\\\
   \newline
+  \hspace{2em} Parisha: A challenge I found was due to time constraints and responsibilities
+   in other classes it become very hard to coordinate meetings with all members of the team. 
+   In order to optimize our time, team members communicated progress consistently and we worked together
+    in the end to merge branches ( a lot of merge conflicts due to structure) and then reviewed the documentation
+    against rubric and added reflection
   \hspace{2em} Mitchell: One of the pain points I experienced during this deliverable was understanding the
   format needed for the System Tests section. I found it difficult to get started because of the formality
   of the tests. As well, I wanted to make sure that the tests were consistent among team members, and a difference
@@ -2145,6 +2051,9 @@ graduate attribute of Lifelong Learning.
   static testing knowledge, specific tool usage, Valgrind etc.  You should look to
   identify at least one item for each team member.\\
   \newline
+  \hspace{2em} Parisha: One piece of knowledge and skills the team should acquire for the project is a good understanding 
+  of all the different types of testing like static, dynamic, manual, automatic and functional testing. Understanding the difference
+  between these types and what cases are the best to use them are important to design correct and efficient tests for the system.
   \hspace{2em} Mitchell: One of the pieces of knowledge and skills the team collectively needs to acquire to 
   successfully complete the verification and validation of the project is understanding how to properly perform
   usability testing. This will be important to the team because it is one of the project's chosen extras, so understanding
@@ -2166,6 +2075,10 @@ graduate attribute of Lifelong Learning.
   mastering the skill?  Of the identified approaches, which will each team
   member pursue, and why did they make this choice?\\
   \newline
+  \hspace{2em} Parisha: One approach to acquire knowledge specially in manual vs automatic testing is using course material from our Software Testing course SFWRENG 3S03
+  to get a good summary of the different between the two and find some small examples/ practice problems to go through from tutorial to refresh our memory/ 
+  Another good approach would be to use testing modules online (such as Geeks4Geeks) to understand the different types of testing with good examples.
+  I will be using approach 2 to acquire knowledge as I learn best with a combination of reading, watching and doing. 
   \hspace{2em} Mitchell: One approach to acquire knowledge for usability testing is referring to SFWRENG 4HC3 course notes,
   as usability testing is one of the major topics the course focuses on, with lots of examples and details. To obtain knowledge for dynamic tests, I plan on learning pytest to learn about dynamic testing in Python, which will be the
   team's language of choice for developing machine learning models.\\\\
