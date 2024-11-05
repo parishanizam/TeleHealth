@@ -825,13 +825,13 @@ consistency, visual appeal, and responsiveness.
   \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
+    \textbf{Initial State:} Platform initialized and navigatable on a test \\device, prepared for user testing with adults and children. \par 
     \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
-      \item MAX\_SUCESS\_RATE of users complete core tasks within five clicks. 
-      \item VERY\_HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
+      \item VERY\_HIGH\_SUCCESS\_RATE of users complete core tasks within MAX\_CLICKS clicks. 
+      \item HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
     \end{itemize} \par \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Observe and record the number of clicks taken by each user to complete key tasks. 
@@ -843,14 +843,14 @@ consistency, visual appeal, and responsiveness.
   \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
-    \textbf{Initial State:} Platform with finalized color schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
+    \textbf{Initial State:} Platform with finalized colour schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
     \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
       \item Positive feedback from child participants indicating a calm, non-stressful environment. 
-      \item MAX\_SUCESS\_RATE consistency in design across all pages. 
-      \item MAX\_SUCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
+      \item VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages. 
+      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -972,12 +972,12 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
     \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
-    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed 10 lines of code edited outside the updated module. 
+    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module. 
       \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
-      \item Perform code updates on isolated components and verify \\changes are contained within 10 lines outside the component. 
+      \item Perform code updates on isolated components and verify \\changes are contained within NUM\_CODE\_LINES lines \\outside the component. 
       \item Test submission flow to GitHub, verifying links are accessible and that issues and requests are categorized correctly. 
     \end{enumerate} 
   \end{mdframed}
@@ -1004,7 +1004,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
+      \item MAX\_SUCCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -1045,7 +1045,7 @@ These tests ensure that the platform respects cultural sensitivities and \\provi
     \textbf{Input/Condition:} Switch between language settings to review each text, instruction, and assessment in both languages. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of content is fully translated and \\functional in both English and Mandarin with no \\untranslated elements. 
+      \item MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -1431,7 +1431,7 @@ Their values are defined in this section for easy maintenance.
       \hline
       SHORT\_PROCESSING\_TIME & 0.5 seconds \\
       \hline
-      MAX\_SUCESS\_RATE & 100\% \\
+      MAX\_SUCCESS\_RATE & 100\% \\
       \hline
       VERY\_HIGH\_SUCCESS\_RATE & 95\% \\
       \hline
@@ -1442,6 +1442,8 @@ Their values are defined in this section for easy maintenance.
       MIN\_SCREEN\_SIZE & 4 inches \\
       \hline
       MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+      MAX\_CLICKS & 5 \\
       \hline
   \end{tabular}
   \caption{Variable Names and Values}
