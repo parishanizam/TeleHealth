@@ -24,6 +24,10 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{diagbox}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\geometry{margin=1in}
 
 \input{../Comments}
 \input{../Common}
@@ -620,7 +624,7 @@ and display functionalities to ensure the clinician experience aligns with the p
         \item Retrieve a patient’s assessment data from the database. 
         \item Trigger report generation. 
         \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
-        \item Measure and confirm report generation time does not exceed MAX\_PROCESSING\_TIME.
+        \item Measure and confirm report generation time does not exceed\\ MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
@@ -727,7 +731,7 @@ and organization requirements.
       \textbf{Control:} Manual \par
       \textbf{Initial State:} Database initialized and ready to store reports with unique identifiers. \par
       \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
-      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least 7 years. \par
+      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least MAX\_STORAGE\_TIME. \par
       \textbf{Test Case Derivation:} Verifies long-term storage and retrieval of assessment reports, supporting patient progress tracking. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
@@ -765,13 +769,13 @@ disturbances with timestamps, questions, and user responses to support efficient
       \textbf{Control:} Automatic \par
       \textbf{Initial State:} The analysis model is initialized and ready to process test video and audio data. \par
       \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis. \par
-      \textbf{Output:} The expected results is an accuracy of 95\% in a JSON file for number of disturbances found by the model \par
+      \textbf{Output:} The expected results is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for number of disturbances found by the model \par
       \textbf{Test Case Derivation:} Confirms that the model’s disturbance detection meets the accuracy requirement, reducing bias in the analysis process. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Run the model on a test dataset containing known speech disturbances.
         \item Compare the disturbances identified by the model with human observations for accuracy validation.
-        \item Verify that the model achieves at least 95\% accuracy in \\identifying and logging disturbances.
+        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE accuracy in identifying and logging disturbances.
       \end{enumerate}
   \end{mdframed}
 
@@ -780,13 +784,13 @@ disturbances with timestamps, questions, and user responses to support efficient
       \textbf{Control:} Automatic \par
       \textbf{Initial State:} Video and audio data with disturbances has been processed by the analysis model. \par
       \textbf{Input:} Disturbances identified by the model, requiring flags with associated timestamps, assessment questions, and user answers. \par
-      \textbf{Output:} The expected result is an accuracy of 95\% in a JSON file for timestamp accuracy\par
+      \textbf{Output:} The expected result is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for timestamp accuracy\par
       \textbf{Test Case Derivation:} Ensures clinicians can quickly access relevant parts of the assessment with accuracy, aiding in efficient diagnosis. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Process a test assessment session with the model, identifying and flagging disturbances.
         \item Retrieve flagged disturbances and confirm each has an accurate timestamp, associated question, and user response.
-        \item Compare the flagged data with human observations and verify at least 95\% accuracy in the model’s associations.
+        \item Compare the flagged data with human observations and verify at least \\VERY\_HIGH\_SUCCESS\_RATE accuracy in the model’s associations.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1068,12 +1072,12 @@ resolution, and efficient report generation.
       \textbf{Type:} Dynamic\par
       \textbf{Initial State:} System initialized, strong internet connection \par
       \textbf{Input/Condition:} User navigates to different web pages within the system. \par
-      \textbf{Output/Results:} The expect output is that each web page loads fully with all functionalities within 3 seconds. \par
+      \textbf{Output/Results:} The expect output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Navigate to various web pages within the system.
         \item Measure the time taken for each page to load completely.
-        \item Confirm that all pages load within 3 seconds.
+        \item Confirm that all pages load within MAX\_LOAD\_TIME.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-SL2
@@ -1081,13 +1085,13 @@ resolution, and efficient report generation.
       \textbf{Type:} Static \par
       \textbf{Initial State:} Video and audio recording session initialized. \par
       \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
-      \textbf{Output/Results:} The expected output is the latency between actions and recorded playback remains under 1 second, ensuring synchronization. \par
+      \textbf{Output/Results:} The expected output is the latency between actions and recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring synchronization. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Begin recording a session.
         \item Have the user perform timed actions while recording.
         \item Play back the recording and measure the latency between actions and their corresponding timestamps.
-        \item Confirm latency does not exceed 1 second.
+        \item Confirm latency does not exceed SHORT\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-SL3
@@ -1095,12 +1099,12 @@ resolution, and efficient report generation.
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System configured to store video data. \par
       \textbf{Input/Condition:} Video recorded and stored from assessment an session. \par
-      \textbf{Output/Results:} The exepect output is the video quality is at least 720p resolution upon when retriving or storing. \par
+      \textbf{Output/Results:} The exepect output is the video quality is at least \\AVERAGE\_RESOLUTION upon when retriving or storing. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Record a session and store the video.
         \item Retrieve the stored video and verify its resolution.
-        \item Confirm the resolution is 720p or higher.
+        \item Confirm the resolution is AVERAGE\_RESOLUTION or higher.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1114,13 +1118,13 @@ analyzing speech and gesture disturbances, ensuring timestamp alignment, and mai
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} Video and Audio analysis model is loaded with sample audio data. \par
-      \textbf{Input/Condition:} Data containing speech patterns and video with known disturbances. \par
-      \textbf{Output/Results:} The expected output is that the analysis \\achieves 95\% accuracy in detecting speech and gesture disturbances. \par
+      \textbf{Input/Condition:} Data containing speech patterns and video with known \\disturbances. \par
+      \textbf{Output/Results:} The expected output is that the analysis achieves \\VERY\_HIGH\_SUCCESS\_RATE in detecting speech and gesture disturbances. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Load test data files with known disturbances into the analysis model.
         \item Compare detected disturbances with human-reviewed \\observations.
-        \item Verify that the model correctly identifies at least 95\% of disturbances.
+        \item Verify that the model correctly identifies at least \\VERY\_HIGH\_SUCCESS\_RATE of disturbances.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-PA3
@@ -1128,12 +1132,12 @@ analyzing speech and gesture disturbances, ensuring timestamp alignment, and mai
       \textbf{Type:} Static \par
       \textbf{Initial State:} Timestamp function is synchronized with real-time actions. \par
       \textbf{Input/Condition:} User performs actions in the recorded session. \par
-      \textbf{Output/Results:} The expected output is that the timestamps delay within 1 second of the real-time action. \par
+      \textbf{Output/Results:} The expected output is that the timestamps delay within SHORT\_PROCESSING\_TIME of the real-time action. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Record a session with specific user actions.
         \item Analyze timestamps and compare them to the actual timing of the actions.
-        \item Confirm each timestamp falls within a 1-second margin of the real action.
+        \item Confirm each timestamp falls within SHORT\_PROCESSING\_TIME margin of the real action.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-PA4
@@ -1141,12 +1145,12 @@ analyzing speech and gesture disturbances, ensuring timestamp alignment, and mai
       \textbf{Type:} Manual, Static \par
       \textbf{Initial State:} Assessment answer key is loaded. \par
       \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
-      \textbf{Output/Results:} The expected output is that the answer key is 100\% accurate. \par
+      \textbf{Output/Results:} The expected output is that the answer key is \\MAX\_SUCESS\_RATE. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Manually review each entry in the assessment answer key.
         \item Check for errors or inconsistencies in each answer.
-        \item Confirm all answers are correct, ensuring 100\% accuracy.
+        \item Confirm all answers are correct, ensuring MAX\_SUCESS\_RATE.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1160,12 +1164,12 @@ back up data reliably, and enforce strict input validation.
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System is operational with error handling in place. \par
       \textbf{Input/Condition:} User initiates actions known to cause common errors. \par
-      \textbf{Output/Results:} The expected output is the system displays clear error messages for at least 95\% of the common errors \\encountered. \par
+      \textbf{Output/Results:} The expected output is the system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the common errors encountered. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Simulate common user errors, such as invalid inputs or incorrect file uploads.
         \item Observe system response and displayed error messages.
-        \item Verify clarity and accuracy of error messages in at least 95\% of cases.
+        \item Verify clarity and accuracy of error messages in at least \\VERY\_HIGH\_SUCCESS\_RATE.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-RFT2
@@ -1173,12 +1177,12 @@ back up data reliably, and enforce strict input validation.
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} Database backup processes configured and \\operational in the system. \par
       \textbf{Input/Condition:} Monthly data backup event. \par
-      \textbf{Output/Results:} The expected output is that the system performs a data backup within a 4-hour timeframe on the first of each month. \par
+      \textbf{Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item A data backup is triggered.
         \item Record the duration of the backup process.
-        \item Confirm that backup completes within 4 hours.
+        \item Confirm that backup completes within MONTHLY\_BACKUP.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1191,11 +1195,11 @@ data storage needs, and simultaneous uploads without performance degradation.
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System initialized with maximum user capacity parameters. \par
-      \textbf{Input/Condition:} System loaded with 2000 user accounts. \par
+      \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
       \textbf{Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Create and load 2000 user accounts into the system.
+        \item Create and load MIN\_USERS accounts into the system.
         \item Monitor system performance metrics, including stability and response time.
         \item Confirm system maintains stable performance.
       \end{enumerate}
@@ -1204,13 +1208,13 @@ data storage needs, and simultaneous uploads without performance degradation.
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System is initialized with required storage capacity. \par
-      \textbf{Input/Condition:} Data stored in the database approaches 10TB annually. \par
-      \textbf{Output/Results:} The expected result is that the system \\accommodates 10TB of data without loss of performance. \par
+      \textbf{Input/Condition:} Data stored in the database approaches MIN\_STORAGE annually. \par
+      \textbf{Output/Results:} The expected result is that the system \\accommodates MIN\_STORAGE of data without loss of performance. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Load 10TB data into database.
+        \item Load MIN\_STORAGE data into database.
         \item Monitor database performance metrics, such as access time and error rate.
-        \item Confirm system’s ability to manage 10TB without performance impact.
+        \item Confirm system’s ability to manage MIN\_STORAGE without performance impact.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1223,11 +1227,11 @@ accommodate an increasing user base, data volume, and computational needs over t
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System operational with current allocated user amount. \par
-      \textbf{Input/Condition:} Increase user base by 10\% annually. \par
+      \textbf{Input/Condition:} Increase user base by YEARLY\_INCREASE\_PERCENTAGE. \par
       \textbf{Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Simulate a 10\% increase in the user base by increase user base parameters by 10\%.
+        \item Simulate a YEARLY\_INCREASE\_PERCENTAGE increase in the user base by increase user base parameters by YEARLY\_INCREASE\_PERCENTAGE.
         \item Monitor system metrics such as response time and error rate.
         \item Confirm that the system operates within acceptable \\performance metrics post-increase.
       \end{enumerate}
@@ -1243,12 +1247,12 @@ compatibility with major operating systems.
       \textbf{Type:} Static \par
       \textbf{Initial State:} System release build in use, with ongoing \\development updates. \par
       \textbf{Input/Condition:} System stability monitored over successive updates. \par
-      \textbf{Output/Results:} The expected result is that the system maintains a failure rate below 1\% in release builds. \par
+      \textbf{Output/Results:} The expected result is that the system maintains a failure rate below LOW\_FAILURE\_RATE in release builds. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Conduct routine tests on the release build during ongoing development updates.
         \item Monitor system logs for errors or malfunctions.
-        \item Verify that the failure rate remains below 1\%.
+        \item Verify that the failure rate remains below LOW\_FAILURE\_RATE.
       \end{enumerate}
   \end{mdframed}
   \item PR-ST-LR2
@@ -1266,22 +1270,122 @@ compatibility with major operating systems.
   \end{mdframed}
 \end{itemize}
 
-
-
-
-
 \subsubsection{Area of Testing2}
-
 ...
-
+\begin{landscape}
 \subsection{Traceability Between Test Cases and Requirements}
 
 \wss{Provide a table that shows which test cases are supporting which
   requirements.}
 
+  \begin{table}[!ht]
+    \caption{Traceability Table Between System Test Cases and Functional Requirements}
+    \resizebox{1.5\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        ~ & FR-ST-A1 & FR-ST-A2 & FR-ST-A3 & FR-ST-A4 & FR-ST-A5 & FR-ST-A6 & FR-ST-A7 & FR-ST-A8 & FR-ST-DSC1 & FR-ST-DSC2 & FR-ST-DSC3 & FR-ST-DSC4 & FR-ST-DSC5 & FR-ST-VDA1 & FR-ST-VDA2 & FR-ST-VDA3 & FR-ST-DPD1 & FR-ST-DPD2 & FR-ST-DPD3 & FR-ST-DPD4 & FR-ST-SS1 & FR-ST-SS2 & FR-ST-SS3 & FR-ST-SS4 & FR-ST-SS5 & FR-ST-AI1 & FR-ST-AI2 & FR-ST-AI3 & FR-ST-AI4 & FR-ST-AI5 & FR-ST-AI6 & FR-ST-AI7 \\ \hline
+        FR-A1 & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A2 & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A3 & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A4 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-A5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-SS5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+        FR-AI4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+        FR-AI5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+        FR-AI6 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+        FR-AI7 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+        FR-DSC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DSC5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-VADA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+        FR-DPD4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+    \end{tabular}
+    }
+\end{table}
+
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements}
+  \resizebox{1.5\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      System test  & LF-ST-LFR1 & LF-ST-LFR2 & UH-ST-EOU1 & UH-ST-PI1 & UH-ST-LI2 & PR-ST-SL1 & PR-ST-SL2 & PR-ST-SL3 & PR-ST-PA1 & PR-ST-PA3 & PR-ST-PA4 & PR-ST-RFT1 & PR-ST-RFT2 & PR-ST-CR1 & PR-ST-CR2 & PR-ST-SE1 & PR-ST-LR1 & PR-ST-LR2 & OE-ST-EPE1 & EO-ST-WE1 & OE-ST-IA1 & MS-ST-MSA1 & MS-ST-MSA2 & MS-ST-MSA3 & CU-ST-CUR1 & CU-ST-CUR1 & SR-ST-AC1 & SR-ST-AC2 & SR-ST-AC3 & SR-ST-AC4 & SR-ST-IM1 & CR-ST-D1 & SR-ST-P1 & SR-ST-P2 & SR-ST-P3 \\ \hline
+      LF-AR1 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR2 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR3 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR4 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR5 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR1 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR2 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU2 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-PI1 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI2 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-UP1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-AR1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL1 & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL2 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SCL1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-EPE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-IA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-MR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      SR-P2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      SR-P3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      SR-IM1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+  \end{tabular}
+  }
+\end{table}
+\end{landscape}
+
 \newpage
 \section{Unit Test Description}
-
+Section 5, Unit Test Description, will be filled in prior to the revision 0 deliverable. The team decided to leave in the template instructions as a guide to indicate our desried return to the document.\\
 \wss{This section should not be filled in until after the MIS (detailed design
   document) has been completed.}
 
@@ -1442,6 +1546,22 @@ Their values are defined in this section for easy maintenance.
       MIN\_SCREEN\_SIZE & 4 inches \\
       \hline
       MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+      MAX\_STORAGE\_TIME & 7 years \\
+      \hline
+      MAX\_LOAD\_TIME & 3 seconds \\
+      \hline
+      AVERAGE\_RESOLUTION & 720p \\
+      \hline
+      MONTHLY\_BACKUP & 4 hour \\
+      \hline
+      MIN\_USERS & 2000 users \\
+      \hline
+      MIN\_STORAGE & 10TB \\
+      \hline
+      YEARLY\_INCREASE\_PERCENTAGE & 10\% \\
+      \hline
+      LOW\_FAILURE\_RATE & 1\% \\
       \hline
   \end{tabular}
   \caption{Variable Names and Values}
