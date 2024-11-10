@@ -1,0 +1,40 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore Python virtual environment directory
+venv/
+
+# Ignore log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Ignore environment variable files
+.env
+.env.local
+.env.*.local
+
+# Ignore lock files (optional if you use both npm and yarn)
+package-lock.json
+yarn.lock
+
+# Ignore build output directories
+dist/
+build/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore temporary files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor files
+.idea/
+.vscode/
+*.swp
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
