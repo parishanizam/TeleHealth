@@ -21,7 +21,7 @@ run the server by:
         node server.js
 
 Instructions for terminal 2:
-cd to frontend in src folder
+cd to frontend/poc in src folder
 install react dependices wih:
         npm install
 run frontend with:
