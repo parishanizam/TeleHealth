@@ -19,13 +19,13 @@ app.get('/ping', (req, res) => {
 });
 
 // Placeholder Routes for Microservices
-app.use('/auth', (req, res) => res.send({ message: 'Authentication Service' }));
-app.use('/media', (req, res) => res.send({ message: 'Media Processing Service' }));
-app.use('/storage', (req, res) => res.send({ message: 'Data Storage Service' }));
-app.use('/reports', (req, res) => res.send({ message: 'Report Generation Service' }));
-app.use('/feedback', (req, res) => res.send({ message: 'Real-Time Feedback Service' }));
-app.use('/admin', (req, res) => res.send({ message: 'Admin Service' }));
-app.use('/logs', (req, res) => res.send({ message: 'Logging and Monitoring Service' }));
+app.use('/auth', require('./services/authentication-service'));
+app.use('/media', require('./services/media-processing-service'));
+app.use('/storage', require('./services/data-storage-service'));
+app.use('/reports', require('./services/report-generation-service'));
+app.use('/feedback', require('./services/real-time-feedback-service'));
+app.use('/admin', require('./services/admin-service'));
+app.use('/logs', require('./services/logging-monitoring-service'));
 
 // Start the server
 const PORT = process.env.PORT || 3000;
