@@ -1,56 +1,23 @@
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
-const router = express.Router();
-const User = require('./models/User');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/auth.routes');
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/authentication', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Connect to the database
+connectDB();
+
+// Use auth routes
+app.use('/auth', authRoutes);
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Auth service running on port ${PORT}`);
 });
-
-// Signup Route
-router.post('/signup', async (req, res) => {
-    const { username, email, password, role } = req.body;
-
-    try {
-        // Check if the username or email already exists
-        const existingUser = await User.findOne({ 
-            $or: [{ username }, { email }] 
-        });
-        if (existingUser) {
-            return res.status(400).json({ 
-                message: 'Username or email already exists' 
-            });
-        }
-
-        // Create the new user
-        const user = await User.create({ username, email, password, role });
-        res.status(201).json({ 
-            message: 'User created successfully', 
-            user 
-        });
-    } catch (err) {
-        res.status(500).json({ 
-            message: 'Error creating user', 
-            error: err.message 
-        });
-    }
-});
-
-// Login Route
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    res.status(200).json({ message: 'Login successful', token: 'mock-jwt-token' });
-});
-
-// Logout Route
-router.post('/logout', (req, res) => {
-    res.status(200).json({ message: 'Logged out successfully' });
-});
-
-module.exports = router;
