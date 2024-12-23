@@ -1,34 +1,26 @@
+// Load environment variables early
+require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 
-// Initialize environment variables
-dotenv.config();
+// Import the central router
+const routes = require('./routes');
 
 // Create Express app
 const app = express();
 
-// Middleware
+// Global Middleware
 app.use(cors());
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+// Parse JSON bodies
+app.use(express.json());              
+app.use(express.urlencoded({ extended: true }));
 
-// Health Check
-app.get('/ping', (req, res) => {
-    res.send({ message: 'API Gateway is working!' });
-});
-
-// Placeholder Routes for Microservices
-app.use('/auth', require('./services/authentication-service'));
-app.use('/media', require('./services/media-processing-service'));
-app.use('/storage', require('./services/data-storage-service'));
-app.use('/reports', require('./services/report-generation-service'));
-app.use('/feedback', require('./services/real-time-feedback-service'));
-app.use('/admin', require('./services/admin-service'));
-app.use('/logs', require('./services/logging-monitoring-service'));
+// Mount all routes
+// (i.e., /ping, /auth, /media, etc.)
+app.use('/', routes);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

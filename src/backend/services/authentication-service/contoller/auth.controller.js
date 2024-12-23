@@ -39,7 +39,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-// Login Controller (No JWT)
+// Login Controller
 exports.login = async (req, res) => {
   const { username, password } = req.body;
 
