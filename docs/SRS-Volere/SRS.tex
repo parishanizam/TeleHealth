@@ -195,47 +195,79 @@ N/A\\
 \subsection{Solution Constraints}
 \begin{itemize}
   \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
+  \item[] Rationale: A web-based platform maximizes accessibility for users across various devices, and prevents installation of external software which could be a barrier of entry.
+  \item[] Fit Criterion: The platform must run without requiring the installation of external software, and display with visual consistency across at least 3 different browsers.
   \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security \cite{hipaa}.
+  \item[] Rationale: Compliance with HIPAA will maintain trust that sensitive data is protected for patients and users of the website.
+  \item[] Fit Criterion: A HIPAA compliance audit must confirm data encryption, user authentication and data storage adhere to HIPAA
   \item[3.1.3] Access to the platform must be restricted to authorized users, with secure authentication processes in place.
+  \item[] Rationale: This ensures data privacy and prevents data breaches from unauthorized users.
+  \item[] Fit Criterion: The platform must require secure authentication of all users, and testing must confirm there are no unauthorized access vulnerabilities found before deployment.
   \item[3.1.4] The system must be capable of scaling to accommodate an increasing number of users and growing data storage needs as the client expands.
+  \item[] Rationale: Scalability ensures the system can handle future growth without degrading performance
+  \item[] Fit Criterion: Load testing must demonstrate the system can support 200 concurrent users without performance degradation
   \item[3.1.5] The platform must support assessment sessions of up to at least 30 minutes to align with standard telehealth consultation times.
+  \item[] Rationale: Telehealth sessions often last for extended periods of time, the platform should maintain uninterrupted functionality.
+  \item[] Fit Criterion: System testing must confirm that the platform can maintain video and audio recordings for at least 30 minutes without any interruptions or crashes.
   \item[3.1.6] The platform must support adaptable video and audio quality based on internet bandwidth, ensuring clarity and reliability during assessments.
+  \item[] Rationale: A smooth and consistent performance improves user experience.
+  \item[] Fit Criterion: Testing must confirm that video and audio streams automatically adjust quality within a bandwidth range of 0.5 Mbps to 5 Mbps without freezing or loss of synchronization.
   \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs \cite{wcag}.
+  \item[] Rationale: The project is focused around children with speech difficulties, meeting accessibility standards is necessary to ensure the platform is usable by the user base.
+  \item[] Fit Criterion: A WCAG compliance audit must confirm adherence to at least Level AA standards.
   \item[3.1.8] Patient records must be retained for a minimum of 7 years from the last visit or at least 1 year after the patient turns 18, whichever is 
-  longer, in accordance with California law.
+  longer, in accordance with California law \cite{californialaw}.
+  \item[] Rationale: Keeping records for the specified duration ensures compliance with legal obligations and supports continuous care.
+  \item[] Fit Criterion: System audits must confirm patient records are kept for the required amount of time and the data can be archived securely beyond the active period
 \end{itemize}
 \subsection{Implementation Environment of the Current System}
 \begin{itemize}
   \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security \cite{hipaa}.
+  \item[] Rationale: A compliant hosting environment is important for protecting sensitive data.
+  \item[] Fit Criterion: An infrastructure compliance review must confirm that the hosting environment meets encryption, access control, and logging requirements for HIPAA.
   \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
   infrastructure.
+  \item[] Rationale: A compatible framework is important to ensure scalability and security, and also reduces technical overhead.
+  \item[] Fit Criterion: The website must achieve a response time of less than 300ms for 95\% of requests and pass security evaluations with no more than one low severity vulnerability identified during testing.
 \end{itemize}
 \subsection{Partner or Collaborative Applications}
 \begin{itemize}
   \item[3.3.1] The platform must be capable of exporting data as an Excel file, allowing for easy sharing, analysis, and compatibility with other systems
   that clinicians may use for data processing.
+  \item[] Rationale: Universally accepted format files make any integration with third party systems and enables flexible data handling.
+  \item[] Fit Criterion: Testing must confirm that exported files retain all data fields and formatting accurately when opened in Excel.
 \end{itemize}
 \subsection{Off-the-Shelf Software}
 \begin{itemize}
-  \item[3.4.1] N/A. There are no mandated off-the-shelf software constraints.
+  \item[3.4.1] N/A. There are no mandated off-the-shelf software constraints. 
 \end{itemize}
 \subsection{Anticipated Workplace Environment}
 \begin{itemize}
   \item[3.5.1] The platform must be compatible across a range of devices, including desktops, tablets, and mobile phones.
+  \item[] Rationale: Device compatibility ensures users can access the platform from their preferred device, enhancing accessibility and convenience.
+  \item[] Fit Criterion: Testing must confirm that the platform is fully functional and displays correctly on devices with screen sizes ranging from 4” to 27”.
 \end{itemize}
 \subsection{Schedule Constraints}
 \begin{itemize}
   \item[3.6.1] The proof-of-concept shall be complete and demonstrated between Nov. 11-22, 2024.
+  \item[] Rationale: Required by the Capstone course instructors.
+  \item[] Fit Criterion: Proof-of-concept must be operational and ready for demonstration by Nov. 11, 2024.
   \item[3.6.2] Revision 0 of the project shall be complete and demonstrated between February 3-14, 2025.
+  \item[] Rationale: Required by the Capstone course instructors.
+  \item[] Fit Criterion:  Revision 0 must incorporate feedback and meet all baseline requirements by February 3, 2025.
   \item[3.6.3] The final product shall be complete and demonstrated between March 24-30, 2025.
+  \item[] Rationale: Required by the Capstone course instructors.
+  \item[] Fit Criterion: The final product must be operational and meet all specifications, verified through testing and stakeholder acceptance by March 24, 2025
 \end{itemize}
 \subsection{Budget Constraints}
 \begin{itemize}
   \item[3.7.1] The project budget must not exceed \$750 CAD. 
+  \item[] Rationale: Staying within budget ensures the project remains financially feasible.
+  \item[] Fit Criterion: Financial tracking must confirm that total expenses do not exceed \$750 CAD throughout the project lifecycle.
 \end{itemize}
 \subsection{Enterprise Constraints}
 \begin{itemize}
-  \item[3.8.1] There are no mandated enterprise constraints.
+  \item[3.8.1] N/A. There are no mandated enterprise constraints.
 \end{itemize}
 
 \section{Naming Conventions and Terminology}
@@ -308,7 +340,7 @@ review an assessment session and either accept the remote assessment results wit
 \hspace{1.5em}The diagram below models the high level interactions within the system as well as with any external systems.
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{images/ContextoftheWork.png}
+  \includegraphics[scale=0.7]{images/ContextoftheWork.png}
   \caption{Context of the Work}
 \end{figure}
 
@@ -1727,6 +1759,9 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
   
   \bibitem{wcag}
   S. L. Henry, “WCAG 2 Overview,” \textit{Web Accessibility Initiative (WAI)}, https://www.w3.org/WAI/standards-guidelines/wcag/ (accessed Oct. 11, 2024).
+
+  \bibitem{californialaw}
+  National Coordinator of Health Infomration Technology, "Table A-7. State Medical Record Laws," https://www.healthit.gov/sites/default/files/appa7-1.pdf (accessed Oct. 11, 2024). 
   
   \bibitem{vsee}
   VSee, “Most Trusted HIPAA Compliant Telemedicine Solution,” https://vsee.com/ (accessed Oct. 11, 2024).
