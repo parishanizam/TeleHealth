@@ -1,22 +1,35 @@
+require('dotenv').config();
 const express = require('express');
-const router = express.Router();
+const cors = require('cors');
 
-// Store Data Route
-router.post('/store', (req, res) => {
-    const { data_type, file, metadata } = req.body;
-    res.status(201).json({ message: 'Data stored successfully', data: { data_type, metadata } });
+//For Dev: Still need to add the video upload routes and everything AWS related still
+
+// MongoDB connection
+const connectDB = require('./config/db');
+
+// Import any routes you need
+const testSessionRoutes = require('./routes/testSession.routes');
+
+// Initialize Express app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Connect to MongoDB
+connectDB();
+
+// Mount your routes
+app.use('/test-sessions', testSessionRoutes);
+
+// Health-check or root endpoint
+app.get('/', (req, res) => {
+  res.send('Data Storage Service is running');
 });
 
-// Retrieve Data Route
-router.get('/retrieve/:id', (req, res) => {
-    const { id } = req.params;
-    res.status(200).json({ message: 'Data retrieved successfully', data: { id, content: 'mocked-data-content' } });
+// Start the server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Data Storage Service running on port ${PORT}`);
 });
-
-// Delete Data Route
-router.delete('/delete/:id', (req, res) => {
-    const { id } = req.params;
-    res.status(200).json({ message: `Data with ID ${id} deleted successfully` });
-});
-
-module.exports = router;

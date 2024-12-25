@@ -2,3 +2,11 @@ Dec 22 2024 - Promish
 ### Added
 - Added bolier play for services and main serve
 - Added model for auth user and duplication check
+
+Dec 23 2024 - Promish
+### Added
+- Auth service routes, controllers, config and tested on postman
+
+Dec 24 2024 - Promish
+### Added
+- Data storage routes, controllers, config
