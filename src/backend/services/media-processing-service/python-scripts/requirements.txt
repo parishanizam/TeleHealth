@@ -1,0 +1,6 @@
+pyannote.audio==2.1.1
+torch==2.0.0
+torchaudio==2.0.0
+opencv-python==4.8.0
+mediapipe==0.10.0
+
