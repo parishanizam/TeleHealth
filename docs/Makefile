@@ -2,7 +2,7 @@
 # TODO: Missing artifacts should be added to this file
 .PHONY:	SRS
 
-all:	SRS MG MIS SystDes PS VnVP VnVR DevP HazA Refl UGde
+all:	SRS MG MIS PS VnVP VnVR DevP HazA Refl UGde
 
 SRS:
 	cd SRS && make && cd ..
