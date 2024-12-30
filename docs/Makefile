@@ -13,8 +13,9 @@ MG:
 MIS:
 	cd Design/SoftDetailedDes && make && cd ../..
 
-SystDes:
-	cd Design/SystDesign && make && cd ../..
+#Does not exist
+# SystDes:
+# 	cd Design/SystDesign && make && cd ../..
 
 PS:
 	cd ProblemStatementAndGoals && make && cd ..
@@ -37,7 +38,7 @@ Refl:
 UGde:
 	cd UserGuide && make && cd ../..
 
-clean:	cleanSRS cleanMG cleanMIS cleanSystDes cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
+clean:	cleanSRS cleanMG cleanMIS cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
 
 cleanPS:
 	cd ProblemStatementAndGoals && make clean && cd ..
@@ -51,8 +52,8 @@ cleanMG:
 cleanMIS:
 	cd Design/SoftDetailedDes && make clean && cd ..
 
-cleanSystDes:
-	cd Design/SystDesign && make clean && cd ..
+# cleanSystDes:
+# 	cd Design/SystDesign && make clean && cd ..
 
 cleanVnVP:
 	cd VnVPlan && make clean && cd ..

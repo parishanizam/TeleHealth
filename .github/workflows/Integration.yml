@@ -2,24 +2,23 @@ name: Continuous Integration
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build-documentation:
-    name: Build LaTeX Documentation
     runs-on: ubuntu-latest
+
+    container:
+      image: danteev/texlive:latest
+      # No need to build your own Dockerfile or push an image
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install LaTeX
-        run: sudo apt-get update && sudo apt-get install -y texlive-full
-
+      # No apt-get install needed because the container already has TeX Live
       - name: Build PDFs
         working-directory: docs
         run: |
