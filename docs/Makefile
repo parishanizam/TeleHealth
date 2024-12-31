@@ -33,7 +33,7 @@ HazA:
 	cd HazardAnalysis && make && cd ../..
 	
 Refl:
-	cd Reflection && make && cd ../..
+	cd ReflectAndTrace && make && cd ../..
 	
 UGde:
 	cd UserGuide && make && cd ../..
@@ -68,7 +68,7 @@ cleanHazA:
 	cd HazardAnalysis && make clean && cd ..
 	
 cleanRefl:
-	cd Reflection && make clean && cd ..
+	cd ReflectAndTrace && make clean && cd ..
 	
 cleanUGde:
 	cd UserGuide && make clean && cd ..
