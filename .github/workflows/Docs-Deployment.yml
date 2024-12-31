@@ -1,9 +1,10 @@
-name: Continuous Deployment
+name: Documentation Deployment test
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - 'docs/**'
 
 jobs:
   deploy:
