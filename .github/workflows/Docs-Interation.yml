@@ -1,0 +1,35 @@
+name: Documentation Integration test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/**'
+
+jobs:
+  build-documentation:
+    runs-on: ubuntu-latest
+
+    container:
+      image: danteev/texlive:latest
+      # No need to build your own Dockerfile or push an image
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # No apt-get install needed because the container already has TeX Live
+      - name: Build PDFs
+        working-directory: docs
+        run: |
+          make all
+
+      - name: Upload PDFs as Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-pdfs
+          path: docs/*.pdf
