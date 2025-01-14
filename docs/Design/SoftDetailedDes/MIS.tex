@@ -76,12 +76,19 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+The following document details the Module Interface Specifications for TeleHealth Insights. It is an at-home bilingual speech 
+assessment system with video and audio analysis features. The system is designed 
+to provide clear guidance to parents when administering the assessment to their 
+children, in an environment where speech-language pathologists (SLPs) are 
+unavailable. By streamlining the assessment process, the project aims to provide a 
+convenient and comprehensive solution for SLPs to assess and support their patients'
+speech and language development remotely.
+% \wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at \url{https://github.com/parishanizam/TeleHealth} 
+% \wss{provide the url for your repo}
 
 \section{Notation}
 
@@ -134,18 +141,25 @@ The following table is taken directly from the Module Guide document for this pr
 {Hardware-Hiding} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+& Parent GUI\\
+& Authentication Module\\
+& Result Storage Module\\
+& Real-Time Feedback Module\\ 
+& Report Generation Module\\
+& Media Processing Module\\
+& Video Processing Module\\
+& Audio Processing Module\\
+& Logging Module\\
+& Question Bank Module\\
+& Madrian Question Bank\\
+& English Question Bank\\
+& Repetition Question Bank Module\\
+& Matching Question Bacnk Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
+& API Gateway\\
 \bottomrule
 
 \end{tabular}
@@ -156,32 +170,116 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\section{MIS of Authentication Module} \label{AuthenticationModule}
 
 \subsection{Module}
 
-\wss{Short name for the module}
+AuthenticationModule
 
 \subsection{Uses}
 
+N/A
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
+N/A
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+signup & \raggedright\arraybackslash username: str, email: str, password: str, role: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash UserAlreadyExistsException \\
+\hline
+login & \raggedright\arraybackslash username: str, password: str & \raggedright\arraybackslash sessionToken: str & \raggedright\arraybackslash InvalidCredentialsException \\
+\hline
+logout & \raggedright\arraybackslash sessionToken: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash InvalidSessionException \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+\item userList: Set(User) - maintains a set of all registered users.
+\item activeSessions: Map(sessionToken, User) - tracks active user sessions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Usernames and emails are unique.
+\item Sessions are managed using session tokens.
+\item Role can be one of ['parent', 'clinician', 'admin'].
+\item Clinicians have given user their login token
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent signup():
+\begin{itemize}
+\item transition: Adds a new user to `userList` if the username and email are unique.
+\item output: Returns `true` if the user is successfully created, otherwise throws `UserAlreadyExistsException`.
+\item exception: Throws `UserAlreadyExistsException` if the username or email already exists.
+\end{itemize}
+
+\noindent login():
+\begin{itemize}
+\item transition: Adds a new session to `activeSessions` if the credentials are valid.
+\item output: Returns a `sessionToken` for the logged-in user.
+\item exception: Throws `InvalidCredentialsException` if the username or password is incorrect.
+\end{itemize}
+
+\noindent logout():
+\begin{itemize}
+\item transition: Removes the `sessionToken` from `activeSessions`.
+\item output: Returns `true` if the session is successfully ended.
+\item exception: Throws `InvalidSessionException` if the session token does not exist.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+\section{MIS of Result Storage Module} \label{ResultStorageModule}
+
+\subsection{Module}
+
+ResultStorageModule
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+storeResult & \raggedright\arraybackslash data: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+\hline
+retrieveResult & \raggedright\arraybackslash resultID: str & \raggedright\arraybackslash data: JSON object & \raggedright\arraybackslash NotFoundException \\
+\hline
+deleteResult & \raggedright\arraybackslash resultID: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash NotFoundException \\
 \hline
 \end{tabular}
 \end{center}
@@ -190,42 +288,198 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\begin{itemize}
+\item resultStorage: Map(resultID, JSON object) - stores all processed results with unique IDs.
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+\item Each result is assigned a unique resultID.
+\item Results are stored as JSON objects for flexibility.
+\item Data is stored in MongoDB or an equivalent NoSQL database.
+\end{itemize}
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent storeResult():
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item transition: Adds the `data` to `resultStorage` with a unique `resultID`.
+\item output: Returns `true` if the result is successfully stored.
+\item exception: Throws `StorageException` if there is an issue storing the data.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
+\noindent retrieveResult():
+\begin{itemize}
+\item transition: None
+\item output: Returns the result associated with the `resultID`.
+\item exception: Throws `NotFoundException` if the `resultID` does not exist.
+\end{itemize}
 
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent deleteResult():
+\begin{itemize}
+\item transition: Removes the result associated with the `resultID` from `resultStorage`.
+\item output: Returns `true` if the result is successfully deleted.
+\item exception: Throws `NotFoundException` if the `resultID` does not exist.
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+N/A
+
+\section{MIS of Report Generation Module} \label{ReportGenerationModule}
+
+\subsection{Module}
+
+ReportGenerationModule
+
+\subsection{Uses}
+
+\begin{itemize}
+\item Result Storage Module
+\item Media Processing Module
+\item Question Bank Module
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+generateReport & \raggedright\arraybackslash sessionID: str, metadata: JSON object & \raggedright\arraybackslash report: JSON or PDF file & \raggedright\arraybackslash ReportGenerationException \\
+\hline
+getReport & \raggedright\arraybackslash reportID: str & \raggedright\arraybackslash report: JSON or PDF file & \raggedright\arraybackslash NotFoundException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+\item reportStorage: Map(reportID, Report) - stores all generated reports with unique IDs.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Each report is assigned a unique reportID.
+\item Reports are generated using data fetched from the Result Storage Module and other sources like the Question Bank Module.
+\item Reports can be retrieved in JSON format then converted to PDF format
+\item The clinician requesting the report has access to the session data.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent generateReport():
+\begin{itemize}
+\item transition: Creates a new report using the `sessionID` and `metadata`, and stores it in `reportStorage`.
+\item output: Returns the generated report in the specified format (JSON or PDF).
+\item exception: Throws `ReportGenerationException` if there is an error during report generation.
+\end{itemize}
+
+\noindent getReport():
+\begin{itemize}
+\item transition: None
+\item output: Returns the report associated with the `reportID`.
+\item exception: Throws `NotFoundException` if the `reportID` does not exist in `reportStorage`.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+\section{MIS of Real-Time Feedback Module} \label{RealTimeFeedbackModule}
+
+\subsection{Module}
+
+RealTimeFeedbackModule
+
+\subsection{Uses}
+
+\begin{itemize}
+\item Media Processing Module
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+provideFeedback & \raggedright\arraybackslash sessionID: str, liveFeed: media stream & \raggedright\arraybackslash feedback: JSON object & \raggedright\arraybackslash FeedbackException \\
+
+logFeedback & \raggedright\arraybackslash sessionID: str, feedback: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LoggingException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+\item feedbackLogs: Map(sessionID, List(feedback)) - stores real-time feedback for sessions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item The module receives a continuous media stream (audio or video) during a session.
+\item Feedback is generated by analyzing live media streams using the Media Processing Module.
+\item Feedback is stored for each session to provide session summaries if needed.
+\item The module operates within acceptable latency constraints to ensure real-time performance.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent provideFeedback():
+\begin{itemize}
+\item transition: Generates feedback from the `liveFeed` media stream and optionally logs it in `feedbackLogs`.
+\item output: Returns actionable feedback in a structured JSON format (e.g., "Adjust microphone", "Increase lighting").
+\item exception: Throws `FeedbackException` if there is an issue processing the live feed.
+\end{itemize}
+
+\noindent logFeedback():
+\begin{itemize}
+\item transition: Adds the provided `feedback` to `feedbackLogs` for the corresponding `sessionID`.
+\item output: Returns `true` if the feedback is successfully logged.
+\item exception: Throws `LoggingException` if there is an error while logging the feedback.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+
 
 \newpage
 
