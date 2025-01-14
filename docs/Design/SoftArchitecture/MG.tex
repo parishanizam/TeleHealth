@@ -46,7 +46,7 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
+01/11/25 & 1.0 & Initial Draft\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -190,12 +190,6 @@ in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
-\begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
-\end{description}
-
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
@@ -206,10 +200,11 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & {Question Bank Module}\\
+& English Question Bank Module\\
+& Mandarin Question Bank Module\\
+& Matching Question Bank Module\\
+& Repitition Question Bank Module\\
 & ?\\
 & ?\\
 & ?\\ 
@@ -278,19 +273,57 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Question Bank Module (\mref{mQuestionBank})}
+
+\begin{description}
+\item[Secrets:]Integrates and manages question bank submodules, provides logic for
+ selecting and instructing the appropriate submodule.
+\item[Services:]Acts as a facade to provide unified access to all question banks.
+This module handles requests for retrieving, adding, updating, or delegating questions 
+to appropriate submodules.
+\item[Implemented By:] QuestionBankService
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{English Question Bank Module (\mref{mEnglishBank})}
+
+\begin{description}
+\item[Secrets:]The format for storing, tagging and/or indexing English questions
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] EnglishQuestionManager
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Mandarin Question Bank Module (\mref{mMandarinBank})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Implemented By:] MandarinQuestionManager
+\item[Type of Module:] Abstract Data Type
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Matching Question Bank Module (\mref{mMatchingBank1})}
 
+\begin{description}
+\item[Secrets:]The format and structure of the input data.
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] MatchingQuestionService
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Repetition Question Bank Module (\mref{mRepetitionBank1})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the input data.
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] MatchingQuestionService
+\item[Type of Module:] Library
+\end{description}
 
 \subsection{Software Decision Module}
 
