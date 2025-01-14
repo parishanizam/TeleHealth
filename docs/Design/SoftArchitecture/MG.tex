@@ -3,6 +3,7 @@
 \usepackage{fullpage}
 \usepackage[round]{natbib}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{graphicx}
@@ -190,41 +191,65 @@ in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
-\begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
-\end{description}
+\begin{multicols}{2}
+  \begin{description}
+    \item [\refstepcounter{mnum} \mthemnum \label{mClinicianGUI}:] Clinician GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mParentGUI}:] Parent GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAppController}:] App Controller Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAPIGateway}:] API Gateway Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mResultStorage}:] Result Storage Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMediaProcessing}:] Media Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mLogging}:] Logging Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mQuestionBank}:] Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mRealTimeFeedback}:] Real-Time Feedback Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mReportGeneration}:] Report Generation Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mVideoProcessing}:] Video Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAudioProcessing}:] Audio Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mEnglishBank}:] English Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMandarinBank}:] Mandarin Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMatchingBank1}:] Matching Question Bank Module 
+    \item [\refstepcounter{mnum} \mthemnum \label{mRepetitionBank1}:] Repetition Question Bank Module
+  \end{description}
+  \end{multicols}
+  
 
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding Module} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2}\\
+  \midrule
+  
+  {Hardware-Hiding} & N/A \\
+  \midrule
+  
+  \multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+  & Parent GUI\\
+  & Authentication Module\\
+  & Result Storage Module\\
+  & Real-Time Feedback Module\\ 
+  & Report Generation Module\\
+  & Media Processing Module\\
+  & Video Processing Module\\
+  & Audio Processing Module\\
+  & Logging Module\\
+  & Question Bank Module\\
+  & Madrian Question Bank\\
+  & English Question Bank\\
+  & Repetition Question Bank Module\\
+  & Matching Question Bacnk Module\\
+  \midrule
+  
+  \multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
+  & API Gateway\\
+  \bottomrule
+  
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
