@@ -236,7 +236,7 @@ actually be implemented.
   & Audio Processing Module\\
   & Logging Module\\
   & Question Bank Module\\
-  & Madrian Question Bank\\
+  & Mandarian Question Bank\\
   & English Question Bank\\
   & Repetition Question Bank Module\\
   & Matching Question Bacnk Module\\
@@ -303,18 +303,41 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Authentication Module (\mref{mAuth})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Secrets:] The data structures and algorithms used to securely store, validate, and manage user credentials.
+\item[Services:] Provides user registration, login, and session management services. Ensures authentication for all system users (parents, clinicians, and admins) to maintain system security.
+\item[Implemented By:] AuthenticationService
+\item[Type of Module:] Library, Abstract Data Type
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Result Storage Module (\mref{mResultStorage})}
+
+\begin{description}
+\item[Secrets:] The schema and mechanisms used to store, index, and retrieve assessment results and metadata efficiently.
+\item[Services:] Manages the storage and retrieval of processed media flags, assessment results, and associated metadata. Ensures data security and organization to support reporting and feedback functionalities.
+\item[Implemented By:] ResultStorageService
+\item[Type of Module:] Record, Abstract Object
+\end{description}
+
+\subsubsection{Real-Time Feedback Module (\mref{mRealTimeFeedback})}
+
+\begin{description}
+\item[Secrets:] The data pipeline and algorithms used to process live media streams and generate immediate feedback.
+\item[Services:] Provides real-time analysis of audio and video streams during an assessment session. Flags issues or disturbances and delivers immediate feedback to guide session adjustments.
+\item[Implemented By:] RealTimeFeedbackService
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Report Generation Module (\mref{mReportGeneration})}
+
+\begin{description}
+\item[Secrets:] The methods and templates used to compile data into user-friendly reports summarizing session results and flagged disturbances.
+\item[Services:] Generates comprehensive session reports for review by parents and clinicians. Summarizes processed media results, flagged disturbances, and overall session feedback.
+\item[Implemented By:] ReportGenerationService
+\item[Type of Module:] Library
+\end{description}
 
 
 \subsection{Software Decision Module}
