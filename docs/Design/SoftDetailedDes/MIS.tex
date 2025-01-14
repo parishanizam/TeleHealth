@@ -156,32 +156,32 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\section{MIS of Question Bank Module} \label{QuestionBankModule}
 
 \subsection{Module}
 
-\wss{Short name for the module}
+QuestionBankModule
 
 \subsection{Uses}
 
+EnglishQuestionBankModule, MandarinQuestionBankModule
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
 
+N/A
+
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{4cm} p{3cm} p{4cm} p{5cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+selectQuestionBank & \raggedright\arraybackslash language: str & \raggedright\arraybackslash questionBank: ADT & \raggedright\arraybackslash InvalidLanguageException \\
+\hline
+retrieveQuestion & \raggedright\arraybackslash language: str, questionID: str & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash NotFoundException \\
 \hline
 \end{tabular}
 \end{center}
@@ -190,42 +190,316 @@ The following table is taken directly from the Module Guide document for this pr
 
 \subsubsection{State Variables}
 
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
+\begin{itemize}
+  \item activeQuestionBanks: Map(language, ADT) - maps language to its respective question bank module.
+\end{itemize}
 
 \subsubsection{Environment Variables}
 
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
+N/A
 
 \subsubsection{Assumptions}
 
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+\begin{itemize}
+  \item Supported languages include English and Mandarin.
+  \item Each question bank module is preloaded with language-specific questions.
+\end{itemize}
 
 \subsubsection{Access Routine Semantics}
 
-\noindent \wss{accessProg}():
+\noindent selectQuestionBank():
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item transition: Selects the question bank module corresponding to the input language.
+\item output: Returns the selected question bank module.
+\item exception: Throws \texttt{InvalidLanguageException} if the input language is not supported.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
-
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\noindent retrieveQuestion():
+\begin{itemize}
+\item transition: None
+\item output: Retrieves the question from the appropriate question bank module.
+\item exception: Throws \texttt{NotFoundException} if the questionID does not exist in the selected module.
+\end{itemize}
 
 \subsubsection{Local Functions}
 
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+N/A
+
+\section{MIS of English Question Bank Module} \label{EnglishQuestionBankModule}
+
+\subsection{Module}
+
+EnglishQuestionBankModule
+
+\subsection{Uses}
+
+MatchingQuestionBankModule, RepetitionQuestionBankModule
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+getQuestion & \raggedright\arraybackslash questionID: str & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash NotFoundException \\
+\hline
+addQuestion & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item englishQuestions: Map(questionID, JSON object) - stores English questions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Questions are either matching or repetition type.
+  \item Matching and Repetition modules are used to handle the respective types.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getQuestion():
+\begin{itemize}
+\item transition: None
+\item output: Returns the question corresponding to the questionID.
+\item exception: Throws \texttt{NotFoundException} if the questionID does not exist.
+\end{itemize}
+
+\noindent addQuestion():
+\begin{itemize}
+\item transition: Adds the input question to \texttt{englishQuestions}.
+\item output: Returns \texttt{true} if the question is successfully added.
+\item exception: Throws \texttt{StorageException} if there is an issue storing the question.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+\section{MIS of Mandarin Question Bank Module} \label{MandarinQuestionBankModule}
+
+\subsection{Module}
+
+MandarinQuestionBankModule
+
+\subsection{Uses}
+
+MatchingQuestionBankModule, RepetitionQuestionBankModule
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+getQuestion & \raggedright\arraybackslash questionID: str & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash NotFoundException \\
+\hline
+addQuestion & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item mandarinQuestions: Map(questionID, JSON object) - stores Mandarin questions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Questions are either matching or repetition type.
+  \item Matching and Repetition modules are used to handle the respective types.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent getQuestion():
+\begin{itemize}
+\item transition: None
+\item output: Returns the question corresponding to the questionID.
+\item exception: Throws \texttt{NotFoundException} if the questionID does not exist.
+\end{itemize}
+
+\noindent addQuestion():
+\begin{itemize}
+\item transition: Adds the input question to \texttt{englishQuestions}.
+\item output: Returns \texttt{true} if the question is successfully added.
+\item exception: Throws \texttt{StorageException} if there is an issue storing the question.
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+\section{MIS of Matching Question Bank Module} \label{MatchingQuestionBankModule}
+
+\subsection{Module}
+
+MatchingQuestionBankModule
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{5cm} p{3cm} p{3cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+storeMatchingQuestion & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+\hline
+retrieveMatchingQuestion & \raggedright\arraybackslash questionID: str & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash NotFoundException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item matchingQuestions: Map(questionID, JSON object) - stores matching questions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Questions have a unique ID.
+  \item Data is stored in a JSON format for flexibility.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent storeMatchingQuestion():
+\begin{itemize}
+  \item transition: Adds the question to \texttt{matchingQuestions}.
+  \item output: Returns \texttt{true} if successfully stored.
+  \item exception: Throws \texttt{StorageException} if there is a storage error.
+\end{itemize}
+
+\noindent retrieveMatchingQuestion():
+\begin{itemize}
+  \item transition: None
+  \item output: Returns the matching question corresponding to the questionID.
+  \item exception: Throws \texttt{NotFoundException}
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
+
+\section{MIS of Repetition Question Bank Module} \label{RepetitionQuestionBankModule}
+
+\subsection{Module}
+
+RepetitionQuestionBankModule
+
+\subsection{Uses}
+
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{5cm} p{3cm} p{3cm} p{5cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+storeRepetitionQuestion & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+\hline
+retrieveRepetitionQuestion & \raggedright\arraybackslash questionID: str & \raggedright\arraybackslash question: JSON object & \raggedright\arraybackslash NotFoundException \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+
+\begin{itemize}
+  \item repetitionQuestions: Map(questionID, JSON object) - stores matching questions.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+
+N/A
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+  \item Questions have a unique ID.
+  \item Data is stored in a JSON format.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent storeRepetitionQuestion():
+\begin{itemize}
+  \item transition: Adds the question to \texttt{repetitionQuestions}.
+  \item output: Returns \texttt{true} if successfully stored.
+  \item exception: Throws \texttt{StorageException} if there is a storage error.
+\end{itemize}
+
+\noindent retrieveRepetitionQuestion():
+\begin{itemize}
+  \item transition: None
+  \item output: Returns the matching question corresponding to the questionID.
+  \item exception: Throws \texttt{NotFoundException}
+\end{itemize}
+
+\subsubsection{Local Functions}
+
+N/A
 
 \newpage
 
