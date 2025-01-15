@@ -229,6 +229,118 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 
+~\newpage
+
+\section{MIS of Clinician GUI \label{mClinicianGUI} }
+
+\subsection{Module}
+
+clinicianGUI
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item Login
+  \item AddClient
+  \item GenerateClientNumber
+  \item ReviewAssessment
+  \item ReviewAudio
+  \item ReviewVideo
+  \item RemoveBias
+  \item FlagBias
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+displayLoginPage & - & - & - \\
+displayClinicianDashboardPage & - & - & - \\
+displayAddClientPage & - & - & - \\
+displayPatientOverviewPage & - & - & - \\
+displayPatientAssessmentResultsAnalysisPage & - & - & - \\
+displayBiasReviewPage & - & - & - \\
+displayFlagBiasPage & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent displayLoginPage():
+\begin{itemize}
+\item transition: Navigates to and displays the clinician login page for the system.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayClinicianDashboardPage():
+\begin{itemize}
+\item transition: Navigates to and displays the clinician dashboard page for accessing a clinician's list of clients.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAddClientPage():
+\begin{itemize}
+\item transition: Navigates to and displays the add client page for adding a new client to a clinician's list.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayPatientOverviewPage():
+\begin{itemize}
+\item transition: Navigates to and displays the patient overview page for accessing all of the patient's previous assessments.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayPatientAssessmentResultsAnalysisPage():
+\begin{itemize}
+\item transition: Navigates to and displays the patient assessment results analysis page for accessing all of the results of a particular assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayBiasReviewPage():
+\begin{itemize}
+\item transition: Navigates to and displays the bias review page for reviewing and removing bias from a particular question in an assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayFlagBiasPage():
+\begin{itemize}
+\item transition: Navigates to and displays the flag bias page for reviewing and flagging bias on a particular question in an assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
 \bibliographystyle {plainnat}
 \bibliography {../../../refs/References}
 
