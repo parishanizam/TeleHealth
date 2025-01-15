@@ -153,20 +153,19 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change.
 
-\begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\begin{description} 
+  \begin{item}[\refstepcounter{acnum} 
+    \actheacnum 
+    \label{acLanguages}:] The supported languages for the assessments (e.g., adding 
+     languages like Spanish, French, etc.). 
+  \end{item} 
+  \begin{item}[\refstepcounter{acnum} \actheacnum 
+    \label{acAssessmentTypes}:] The types of assessments supported (e.g., addition 
+    of new assessment types like sentence completion, story-telling, etc.). 
+  \end{item} 
 \end{description}
-
-\wss{Anticipated changes relate to changes that would be made in requirements,
-design or implementation choices.  They are not related to changes that are made
-at run-time, like the values of parameters.}
 
 \subsection{Unlikely Changes} \label{SecUchange}
 
@@ -178,9 +177,16 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
+  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-\item ...
+  \end{item}
+  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucCoreAssessmentStructure}:] The 
+    core structure and design of the question bank system.
+  \end{item} 
+  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucAssessmentPurpose}:] The 
+    primary purpose of the system, which is to assist parents in administering speech 
+    assessments for bilingual children. 
+  \end{item} 
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
