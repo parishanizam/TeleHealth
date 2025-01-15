@@ -238,14 +238,7 @@ clinicianGUI
 \subsection{Uses}
 
 \begin{itemize}
-  \item Login
-  \item AddClient
-  \item GenerateClientNumber
-  \item ReviewAssessment
-  \item ReviewAudio
-  \item ReviewVideo
-  \item RemoveBias
-  \item FlagBias
+  \item AppController
 \end{itemize}
 
 \subsection{Syntax}
@@ -348,10 +341,7 @@ parentGUI
 \subsection{Uses}
 
 \begin{itemize}
-  \item Login
-  \item createAccount
-  \item selectAssessment
-  \item selectAnswer
+  \item AppController
 \end{itemize}
 
 \subsection{Syntax}
@@ -455,6 +445,61 @@ N/A
 \noindent displayCompletionPage():
 \begin{itemize}
 \item transition: Navigates to and displays the completion page to confirm to the user that the assessment is complete and their results have been saved.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+~\newpage
+
+\section{MIS of App Controller \label{mAppController} }
+
+\subsection{Module}
+
+AppController
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item APIGateway
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{8cm} p{4cm} p{2cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+accessAPIGateway & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent accessAPIGateway():
+\begin{itemize}
+\item transition: Controller accesses the API Gateway.
 \item output: N/A
 \item exception: N/A
 \end{itemize}
