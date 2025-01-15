@@ -227,8 +227,6 @@ The following table is taken directly from the Module Guide document for this pr
   explicitly.  Even if they are implemented, they are not exported; they only
   have local scope.}
 
-\newpage
-
 ~\newpage
 
 \section{MIS of Clinician GUI \label{mClinicianGUI} }
@@ -259,7 +257,7 @@ N/A
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{8cm} p{2cm} p{2cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
@@ -338,6 +336,133 @@ N/A
 
 \subsubsection{Local Functions}
 N/A
+
+~\newpage
+
+\section{MIS of Parent GUI \label{mParentGUI} }
+
+\subsection{Module}
+
+parentGUI
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item Login
+  \item createAccount
+  \item selectAssessment
+  \item selectAnswer
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{8cm} p{4cm} p{2cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+displayLoginPage & - & - & - \\
+displayCreateAccountPage & - & - & - \\
+displayHomePage & - & - & - \\
+displayAssessmentSelectionPage & - & - & - \\
+displayParentChecklistPage & - & - & - \\
+displayInputCheckPage & microphoneInput, cameraInput & - & - \\
+displayAssessmentInstructionsPage & - & - & - \\
+displayAssessmentQuestionsPage & - & - & - \\
+displayCompletionPage & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+\begin{itemize}
+  \item microphoneInput
+  \item cameraInput
+\end{itemize}
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent displayLoginPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent login page for the system.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayCreateAccountPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent account creation page for creating a new account for the system.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayHomePage():
+\begin{itemize}
+\item transition: Navigates to and displays the homepage for a parent account, with the ability to start a new assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentSelectionPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment selection page for selecting the type of assessment for the user.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayParentChecklistPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent checklist page for informing parents about the requirements of the assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayInputCheckPage():
+\begin{itemize}
+\item transition: Navigates to and displays the input check page for testing input devices.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentInstructionsPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment instructions page for the child to read and engage with to learn how to interact with the assessment interface.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentQuestionsPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment questions page for displaying a question and its corresponding answers for the user to select.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayCompletionPage():
+\begin{itemize}
+\item transition: Navigates to and displays the completion page to confirm to the user that the assessment is complete and their results have been saved.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
 
 \newpage
 
