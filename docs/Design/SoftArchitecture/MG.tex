@@ -3,6 +3,7 @@
 \usepackage{fullpage}
 \usepackage[round]{natbib}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{graphicx}
@@ -194,6 +195,28 @@ in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
+\begin{multicols}{2}
+  \begin{description}
+    \item [\refstepcounter{mnum} \mthemnum \label{mClinicianGUI}:] Clinician GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mParentGUI}:] Parent GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAppController}:] App Controller Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAPIGateway}:] API Gateway Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mResultStorage}:] Result Storage Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMediaProcessing}:] Media Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mLogging}:] Logging Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mQuestionBank}:] Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mRealTimeFeedback}:] Real-Time Feedback Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mReportGeneration}:] Report Generation Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mVideoProcessing}:] Video Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAudioProcessing}:] Audio Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mEnglishBank}:] English Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMandarinBank}:] Mandarin Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMatchingBank1}:] Matching Question Bank Module 
+    \item [\refstepcounter{mnum} \mthemnum \label{mRepetitionBank1}:] Repetition Question Bank Module
+  \end{description}
+  \end{multicols}
+
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
 \item ...
@@ -282,15 +305,26 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Clinician GUI (\mref{mClinicianGUI})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
+\item[Secrets:]The interactive and visual components that allow Clinicians to interact with the system, through the App Controller (\mref{mAppController}),
+               to access patient data and information, and make informed decisions.
+\item[Services:]To show application functionality to clinicians, accepting user inputs (choosing assessments to review,
+                flagging bias questions) and displaying outputs (assessment summaries).
 \item[Implemented By:] [Your Program Name Here]
-\item[Type of Module:] [Record, Library, Abstract Object, or Abstract Data Type]
-  [Information to include for leaf modules in the decomposition by secrets tree.]
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Parent GUI (\mref{mParentGUI})}
+
+\begin{description}
+\item[Secrets:]The interactive and visual components that allow Parents to interact with the system, through the App Controller (\mref{mAppController}),
+               to setup and engage in the assessment with their child.
+\item[Services:] To show application functionality to parents, accepting user inputs (selecting answers to questions,
+                 completing setup) and displaying outputs (question visuals, button selections).
+\item[Implemented By:] [Your Program Name Here]
+\item[Type of Module:] Library
 \end{description}
 
 \subsubsection{Etc.}
@@ -309,7 +343,34 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{AppController Module (\mref{mAppController})}
+
+\begin{description}
+  \item[Secrets:]The interactions between the GUIs (\mref{mClinicianGUI}, \mref{mParentGUI}) and the API Gateway (\mref{mAPIGateway}), acting as a means to interface with the software modules.
+  \item[Services:]Enables the user to pass information from the GUIs to the backend services.
+  \item[Implemented By:] [Your Program Name Here]
+  \item[Type of Module:] Library
+  \end{description}
+
+  \subsubsection{API Gateway Module (\mref{mAPIGateway})}
+
+  \begin{description}
+    \item[Secrets:]The interactions between the App Controller (\mref{mAppController}) and the inter-dependencies of all other software modules, including inherited modules (
+    \mref{mResultStorage},
+    \mref{mMediaProcessing},
+    \mref{mLogging},
+    \mref{mQuestionBank},
+    \mref{mRealTimeFeedback},
+    \mref{mReportGeneration},
+    \mref{mAudioProcessing},
+    \mref{mEnglishBank},
+    \mref{mMandarinBank},
+    \mref{mMatchingBank1},
+    \mref{mRepetitionBank1}).
+    \item[Services:]Enables the user to access the system and interact with its components, consisting of the Patient, Client, and Admin views.
+    \item[Implemented By:] [Your Program Name Here]
+    \item[Type of Module:] Library
+    \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
