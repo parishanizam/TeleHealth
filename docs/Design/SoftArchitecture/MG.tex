@@ -281,26 +281,30 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 to be implemented.
 
 \subsection{Hardware Hiding Modules (\mref{mHH})}
-
-\begin{description}
-\item[Secrets:]The data structure and algorithm used to implement the virtual
-  hardware.
-\item[Services:]Serves as a virtual hardware used by the rest of the
-  system. This module provides the interface between the hardware and the
-  software. So, the system can use it to display outputs or to accept inputs.
-\item[Implemented By:] OS
-\end{description}
+N/A
 
 \subsection{Behaviour-Hiding Module}
 
+\subsubsection{Clinician GUI (\mref{mClinicianGUI})}
+
 \begin{description}
-\item[Secrets:]The contents of the required behaviours.
-\item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
-  documents. This module serves as a communication layer between the
-  hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
-\item[Implemented By:] --
+\item[Secrets:]The interactive and visual components that allow Clinicians to interact with the system, through the App Controller (\mref{mAppController}),
+               to access patient data and information, and make informed decisions.
+\item[Services:]To show application functionality to clinicians, accepting user inputs (choosing assessments to review,
+                flagging bias questions) and displaying outputs (assessment summaries).
+\item[Implemented By:] [Your Program Name Here]
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Parent GUI (\mref{mParentGUI})}
+
+\begin{description}
+\item[Secrets:]The interactive and visual components that allow Parents to interact with the system, through the App Controller (\mref{mAppController}),
+               to setup and engage in the assessment with their child.
+\item[Services:] To show application functionality to parents, accepting user inputs (selecting answers to questions,
+                 completing setup) and displaying outputs (question visuals, button selections).
+\item[Implemented By:] [Your Program Name Here]
+\item[Type of Module:] Library
 \end{description}
 
 \subsubsection{Authentication Module (\mref{mAuth})}
@@ -321,6 +325,35 @@ to be implemented.
 \item[Type of Module:] Record, Abstract Object
 \end{description}
 
+\subsubsection{Media Processing Module (\mref{mMediaProcessing})}
+\begin{description}
+\item[Secrets:] The design and implementation of how media (video and audio) is processed in the system.
+\item[Services:] Provides high-level functionality for media processing by delegating tasks to its submodules: Video Processing Module and Audio Processing Module. Acts as an abstraction layer for handling media data.
+\item[Implemented By:] Media-processing-service
+\item[Type of Module:]  Abstract Object
+\end{description}
+
+\subsubsection{Logging Module (\mref{mLogging})}
+\begin{description}
+\item[Secrets:] The design and implementation of log storage and retrieval mechanisms, as well as the structure of the logs (e.g., event logs, error logs, debug logs).
+\item[Services:] Tracks system activity and errors through event logging. Supports audit logging for user actions and system changes.
+Provides interfaces to query and clear logs for maintenance.
+\item[Implemented By:] logging-monitoring-service
+\item[Type of Module:] List of Records
+\end{description}
+
+\subsubsection{Question Bank Module (\mref{mQuestionBank})}
+
+\begin{description}
+\item[Secrets:]Integrates and manages question bank submodules, provides logic for
+ selecting and instructing the appropriate submodule.
+\item[Services:]Acts as a facade to provide unified access to all question banks.
+This module handles requests for retrieving, adding, updating, or delegating questions 
+to appropriate submodules.
+\item[Implemented By:] QuestionBankService
+\item[Type of Module:] Abstract Object
+\end{description}
+
 \subsubsection{Real-Time Feedback Module (\mref{mRealTimeFeedback})}
 
 \begin{description}
@@ -339,18 +372,92 @@ to be implemented.
 \item[Type of Module:] Library
 \end{description}
 
+\subsubsection{Video Processing Module (\mref{mVideoProcessing})}
+\begin{description}
+\item[Secrets:] The methods and algorithms used to process video data, including frame extraction, format handling, and metadata processing.
+\item[Services:] Handles all video-related data processing tasks, such as analyzing video frames, ensuring quality, and extracting relevant details. This module communicates with the Media Processing Module.
+\item[Implemented By:] Media-processing-service
+\item[Type of Module:]  Abstract Object
+\end{description}
 
-\subsection{Software Decision Module}
+\subsubsection{Audio Processing Module (\mref{mAudioProcessing})}
+\begin{description}
+\item[Secrets:] The methods and algorithms used to process audio data, such as format conversions, noise filtering, and speech analysis.
+\item[Services:] Handles all audio-related data processing tasks, including speech detection, sound quality analysis, and extracting key audio features. This module communicates with the Media Processing Module.
+\item[Implemented By:] Media-processing-service
+\item[Type of Module:] Abstract Object
+\end{description}
+
+\subsubsection{English Question Bank Module (\mref{mEnglishBank})}
 
 \begin{description}
-\item[Secrets:] The design and implementation of log storage and retrieval mechanisms, as well as the structure of the logs (e.g., event logs, error logs, debug logs).
-\item[Services:] Tracks system activity and errors through event logging. Supports audit logging for user actions and system changes.
-Provides interfaces to query and clear logs for maintenance.
-\item[Implemented By:] logging-monitoring-service
-\item[Type of Module:] List of Records
+\item[Secrets:]The format for storing, tagging and/or indexing English questions
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] EnglishQuestionManager
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Mandarin Question Bank Module (\mref{mMandarinBank})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the input data.
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] MandarinQuestionManager
+\item[Type of Module:] Abstract Data Type
+\end{description}
+
+\subsubsection{Matching Question Bank Module (\mref{mMatchingBank1})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the input data.
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] MatchingQuestionService
+\item[Type of Module:] Library
+\end{description}
+
+\subsubsection{Repetition Question Bank Module (\mref{mRepetitionBank1})}
+
+\begin{description}
+\item[Secrets:]The format and structure of the input data.
+\item[Services:]Converts the input data into the data structure used by the
+  input parameters module.
+\item[Implemented By:] MatchingQuestionService
+\item[Type of Module:] Library
 \end{description}
 
 \subsection{Software Decision Module}
+
+  \subsubsection{AppController Module (\mref{mAppController})}
+  
+  \begin{description}
+    \item[Secrets:]The interactions between the GUIs (\mref{mClinicianGUI}, \mref{mParentGUI}) and the API Gateway (\mref{mAPIGateway}), acting as a means to interface with the software modules.
+    \item[Services:]Enables the user to pass information from the GUIs to the backend services.
+    \item[Implemented By:] [Your Program Name Here]
+    \item[Type of Module:] Library
+    \end{description}
+  
+    \subsubsection{API Gateway Module (\mref{mAPIGateway})}
+  
+    \begin{description}
+      \item[Secrets:]The interactions between the App Controller (\mref{mAppController}) and the inter-dependencies of all other software modules, including inherited modules (
+      \mref{mResultStorage},
+      \mref{mMediaProcessing},
+      \mref{mLogging},
+      \mref{mQuestionBank},
+      \mref{mRealTimeFeedback},
+      \mref{mReportGeneration},
+      \mref{mAudioProcessing},
+      \mref{mEnglishBank},
+      \mref{mMandarinBank},
+      \mref{mMatchingBank1},
+      \mref{mRepetitionBank1}).
+      \item[Services:]Enables the user to access the system and interact with its components, consisting of the Patient, Client, and Admin views.
+      \item[Implemented By:] [Your Program Name Here]
+      \item[Type of Module:] Library
+      \end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
