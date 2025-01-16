@@ -50,21 +50,21 @@ urlcolor=cyan          % color of external links
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}p{3cm}X}
+  \toprule {\bf Date} & {\bf Version} & {\bf Member(s)} & {\bf Notes}\\
+  \midrule
+  1/13/2025 & 1.0 & Promish & Added MIS Decomposition for RealTimeFeedback, Auth, ReportGeneration, Result Storage\\
+  1/14/2025 & 1.1 & Jasmine & Added MIS Decomposition for Question Bank, English, Mandarin, Matching, Repetition\\
+  1/15/2025 & 1.2 & Mitchell & Added MIS Decomposition for Parent GUI, Clinician GUI, API Gateway and App Controller\\
+  1/15/2025 & 1.3 & Parisha & Added MIS Decomposition for Logging, Media, Video and Audio Processing\\
+  \bottomrule
+  \end{tabularx}
 
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
-
-\wss{Also add any additional symbols, abbreviations or acronyms}
+See SRS Documentation at \url{https://github.com/parishanizam/TeleHealth/blob/main/docs/SRS-Volere/SRS.pdf}
 
 \newpage
 
@@ -83,17 +83,12 @@ children, in an environment where speech-language pathologists (SLPs) are
 unavailable. By streamlining the assessment process, the project aims to provide a 
 convenient and comprehensive solution for SLPs to assess and support their patients'
 speech and language development remotely.
-% \wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
 found at \url{https://github.com/parishanizam/TeleHealth} 
-% \wss{provide the url for your repo}
 
 \section{Notation}
-
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -126,6 +121,8 @@ are sequences of characters. Tuples contain a list of values, potentially of
 different types. In addition, \progname \ uses functions, which
 are defined by the data types of their inputs and outputs. Local functions are
 described by giving their type signature followed by their specification.
+
+\newpage
 
 \section{Module Decomposition}
 
@@ -167,7 +164,6 @@ The following table is taken directly from the Module Guide document for this pr
 \label{TblMH}
 \end{table}
 
-\newpage
 ~\newpage
 \section{MIS of Clinician GUI \label{mClinicianGUI} }
 
@@ -1463,15 +1459,9 @@ N/A
 
 \newpage
 
-\section{Appendix} \label{Appendix}
-
-\wss{Extra information if required}
-
 \newpage{}
 
 \section*{Appendix --- Reflection}
-
-\wss{Not required for CAS 741 projects}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.
@@ -1479,39 +1469,101 @@ graduate attribute of Problem Analysis and Design.
 \input{../../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? \\
-  \\Promish: I think as a group we were very coordinated and had the important parts, like the module
-  hierarchy diagram, completed before our TA meeting. This allowed us to ask Chris if our design looked good and if 
-  there was any feedback he could provide.
+  \item What went well while writing this deliverable?
+  \begin{itemize}
+    \item Promish: I think as a group we were very coordinated and had the important parts, like the module
+    hierarchy diagram, completed before our TA meeting. This allowed us to ask Chris if our design looked good and if 
+    there was any feedback he could provide.
+    \item Jasmine: The team worked well to break down the deliverable into smaller section and distribute tasks so that the
+    team could efficiently complete the deliverable. Designing the interface went fairly smoothly since there was a
+    old incomplete version of the website to gather inspiration from, and meeting with our capstone supervisor to
+    discuss and review our design was very useful since her research specializes in human computer interfaces.
+    \item Parisha: We defined who was doing what section of each MIS and MG document well, and all of our work aligned.
+    We also met/discussed a lot to ensure we are on the same page and coordinated. We also asked questions to Chris
+    which helped us with any confusion and continue working on track. The hierarchy diagram was made early so we could base
+    everything off it and improve it as we went along.
+    \item Mitchell: The team worked well to split up the sections fairly, well ahead of the deadline to ensure that all schedules
+    were accommodated, as we all had a very busy first week of the semester. Planning in advance allowed us to meet our deadline and
+    complete our work to a high quality. I also think the separation of responsibilities for designing the user interfaces allowed us to
+    learn more about the system and how the pages would flow between one another.
+  \end{itemize}
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them? \\
-    \\Promish: The hardest part of this deliverable is knowing that right after it, we have to build everything within three weeks.
-    I found myself second-guessing between what would make a good design and what would make a feasible design. We overcame
-    this by talking to our supervisor and setting up a good timeline.
+    did you resolve them?
+    \begin{itemize}
+      \item Promish: The hardest part of this deliverable is knowing that right after it, we have to build everything within three weeks.
+      I found myself second-guessing between what would make a good design and what would make a feasible design. We overcame
+      this by talking to our supervisor and setting up a good timeline.
+      \item Jasmine: Since the team chose a divide and conquer method for a significant portion of the deliverable, the team anticipated
+      a pain point for ensuring consistency between members' work. To resolve this, the team made sure to communicate throughout the
+      deliverable, discussing sections and sending examples to follow. Also, the team made sure to have a meeting with everyone's
+      attendance to merge parts together and clean up/ make adjustments for a cohesive and consistent document.
+      \item Parisha: The main point was the amount of time it took to get to completing this deliverable. Although the time it took to
+      fill in the deliverable did not take that look, we had to discuss multiples to ensure we working making the right hierarchy and
+      module discussions. Talking to our supervisor and our clinician helped.
+      \item Mitchell: A pain point I experienced was learning how to properly write the MIS, as I have not seen an MIS in any of my previous
+      courses. So the concepts of modules, and how to express them and ensure all integral information was present was a main paint point for me.
+      I resolved this by looking at past groups MIS' to learn more about the requirements for those documents and how to properly write them.
+    \end{itemize}
   \item Which of your design decisions stemmed from speaking to your client(s)
   or a proxy (e.g., your peers, stakeholders, potential users)? For those that
-  were not, why, and where did they come from? \\
-  \\Promish: Most of the design came from prior knowledge of working in co-op as a backend and frontend developer.
-  We also had our supervisor help with the frontend UI design, as there was a mock-up of what she wanted overall or what she didn't like.
+  were not, why, and where did they come from?
+  \begin{itemize}
+    \item Promish: Most of the design came from prior knowledge of working in co-op as a backend and frontend developer.
+    We also had our supervisor help with the frontend UI design, as there was a mock-up of what she wanted overall or what she didn't like.
+    \item Jasmine: Design decisions that stemmed from speaking to our client were interface usability decisions such as keeping the interface
+    design simple and child-friendly, making sure navigation is as simple as possible so that it is intuitive for parents, and the
+    assessment questions are displayed with large buttons and friendly images to be child friendly.
+    \item Parisha: We met with our supervisor/clinician to discuss their old design and what improvements and new features they would like to have
+     Much of the design decisions stemmed from these discussions and what our client wants to see. We will base off our UI design on the
+     mock up and improve it to improve usability and design. Other design decisions like backend set up came from group members experiences
+     from previous co-ops.
+     \item Mitchell: The design of the assessment pages came from speaking with Dr. Du, our supervisor's collaborator. Her team already had an early
+     concept for the assessment interface, which allowed us to prototype a variety of interfaces to make improvements to the initial concept. The clinician dashboard
+     did not stem from speaking with peers, as this was a brand new addition to the system, so I created a new interface and concept for how it would be interacted with
+     to meet all requirements specified.
+  \end{itemize}
   \item While creating the design doc, what parts of your other documents (e.g.,
-  requirements, hazard analysis, etc.), if any, needed to be changed, and why? \\
-  \\Promish: Nothing needed to change as we had already discussed in-depth what we were building and had regular meetups with our supervisor.
-  We referenced the SRS to ensure that our design met our goals and extended goals, but we didn't have to change any previous document because of our design.
+  requirements, hazard analysis, etc.), if any, needed to be changed, and why?
+  \begin{itemize}
+    \item Promish: Nothing needed to change as we had already discussed in-depth what we were building and had regular meetups with our supervisor.
+    We referenced the SRS to ensure that our design met our goals and extended goals, but we didn't have to change any previous document because of our design.  
+    \item Parisha: We referred to SRS and requirement docs to make the design documents. Not much has changed as we discussed in detail how the requirements should
+    be set out early so minimal changes need to be made later unless absolutely necessary. 
+    \item Mitchell: Since we frequently referenced our SRS document, not many details would need to be changed. As well, since our roles have remained consistent,
+    our development plan should not need to change either.
+  \end{itemize}
   \item What are the limitations of your solution? Put another way, given
-  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions) \\
-  \\Promish: I would say a big limitation is the time aspect of making the capstone. I feel like given more time, we would be able to build it like an agile team,
-  so that features are constantly tested with users. We are also limited in terms of getting video metadata, so the accuracy of our video analysis might suffer because of that.
-  Finally, we are also limited by our skills; there are some aspects of the design that we couldn't do because we didn't know how to and didn't have the time to figure it out.
+  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
+  \begin{itemize}
+    \item Promish: I would say a big limitation is the time aspect of making the capstone. I feel like given more time, we would be able to build it like an agile team,
+    so that features are constantly tested with users. We are also limited in terms of getting video metadata, so the accuracy of our video analysis might suffer because of that.
+    Finally, we are also limited by our skills; there are some aspects of the design that we couldn't do because we didn't know how to and didn't have the time to figure it out.
+    \item Jasmine: The main limitation of our solution is development time. Other limitations include only having indirect access to user groups (bilingual children with speech difficulties),
+    access to fluent mandarin speakers, etc.
+    \item Parisha: If given more time, we would be able to make a whole real time feedback system that flagged bias in realtime and would be able to train and make a model
+    completely on our own that would be more specific and flag biases a lot more accurately. Given more time we could have planned and started work in a more agile way and
+    be able to get a lot more done. We found with the current timeline, most is focused on documentation and design, making it difficult to plan to do more difficult features. 
+    \item Mitchell: One of the limitations of our solution is the development time, as since there was so much emphasis on the design, which took up a lot of the preparation time,
+    the implementation time had been reduced. Given unlimited resources, I would look deeper into the machine learning models to get a more accurate bias detection, so that there would be less
+    intervention required from the Clinicians to manually check on the bias detected.
+  \end{itemize}
   \item Give a brief overview of other design solutions you considered. What
   are the benefits and trade-offs of those other designs compared with the chosen
   design? From all the potential options, why did you select the documented design?
-  (LO\_Explores) \\
-  \\Promish: For our backend, we thought about a monolithic architecture style because it would be easier to implement, but the trade-off is that it's not as maintainable.
-  Our supervisor stressed that maintainability is a big priority for her, so we ended up going with a microservice architecture style. We also considered the various interactions between how
-  the clinician and the parent UI. We previously thought about the parent making an account and the clinician would just search for the parent to add them to their client list. However,
-  we thought it was best if the clinician added the parent to their client list and then gave them a code. This way, we would reduce troll accounts and other security gaps.
-\end{enumerate}
+  (LO\_Explores)
+  \begin{itemize}
+    \item Promish: For our backend, we thought about a monolithic architecture style because it would be easier to implement, but the trade-off is that it's not as maintainable.
+    Our supervisor stressed that maintainability is a big priority for her, so we ended up going with a microservice architecture style. We also considered the various interactions between how
+    the clinician and the parent UI. We previously thought about the parent making an account and the clinician would just search for the parent to add them to their client list. However,
+    we thought it was best if the clinician added the parent to their client list and then gave them a code. This way, we would reduce troll accounts and other security gaps.
+    \item Jasmine: Another design that was considered was having a singular question bank repository for all questions, this would lead to simpler architecture, but less organization and be inefficient to scale in the future.
+    We went with modular question banks with dedicated submodules based on language + assessment type to balance flexibility and maintainability while also considering future expandability.  
+    \item Parisha: Talking to our supervisors we came to the conclusion that maintainability and security were the main two focuses to improve on based of off the old/mock off site. We based our design decisions on prioritizing these requirements.
+    \item Mitchell: Another design solution I considered was ordering the question banks first by question type, and then by language later. The benefit of this would be consistency in question types available,
+    however, this would require that whenever a question type is selected, all languages would need to be available for that type. This would make scaling of the design somewhat difficult, as every time a new language is added, it would need questions of all types
+    available. The design we went with allows us to add and swap languages using a strategy design pattern, so that when a user selects the language first, it will list the possible assessment types for that language, instead of selecting a question type, and
+    realizing the language you wanted was unavailable.
 
-
-
+  \end{itemize}
+  \end{enumerate}
 \end{document}

@@ -9,6 +9,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{pdflscape}
 \hypersetup{
     colorlinks,
     citecolor=blue,
@@ -44,12 +46,22 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}p{3cm}X}
+  \toprule {\bf Date} & {\bf Version} & {\bf Member} & {\bf Notes}\\
+  \midrule
+  1/13/2025 & 1.0 & Mitchell Weingust & Added 10 - Clinician Dashboard Interfaces\\
+  1/13/2025 & 1.1 & Promish Kandel & Added 5 - Module Hierarchy\\
+  1/13/2025 & 1.2 & Parisha Nizam & Added 10 - Home Page \\
+  1/14/2025 & 1.3 & Parisha Nizam & Added Module Decomposition\\
+  1/14/2025 & 1.4 & Jasmine Sun-Hu & Added 7 - Module Decomposition, Anticipated and Unlikely Changes, and User Interfaces\\
+  1/14/2025 & 1.5 & Mitchell Weingust & Added 12 - Timeline\\
+  1/14/2025 & 1.6 & Mitchell Weingust & Added 10 - Clinician Dashboard FSM\\
+  1/14/2025 & 1.7 & Parisha Nizam & Added 8 - Traceability Matrix\\
+  1/14/2025 & 1.8 & Mitchell Weingust & Added 7 - Module Decomposition\\
+  1/14/2025 & 1.9 & Promish Kandel & Added 9 - Use Hierarchy Between Modules\\
+  1/14/2025 & 1.10 & Promish Kandel & Added 7 - Module Decomposition\\
+  1/15/2025 & 1.11 & Everyone & FSM Machine and Review \\
+  \bottomrule
 \end{tabularx}
 
 \newpage
@@ -75,7 +87,7 @@ This section records information for easy reference.
   SRS & Software Requirements Specification\\
   \progname & Explanation of program name\\
   UC & Unlikely Change \\
-  \wss{etc.} & \wss{...}\\
+  FSM & Finite State Machine \\
   \bottomrule
 \end{tabular}\\
 
@@ -190,6 +202,8 @@ decisions will be changed.
   \end{item} 
 \end{description}
 
+\newpage
+
 \section{Module Hierarchy} \label{SecMH}
 
 This section provides an overview of the module design. Modules are summarized
@@ -263,13 +277,6 @@ The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table~\ref{TblRT}.
 
-\wss{The intention of this section is to document decisions that are made
-  ``between'' the requirements and the design.  To satisfy some requirements,
-  design decisions need to be made.  Rather than make these decisions implicit,
-  they are explicitly recorded here.  For instance, if a program has security
-  requirements, a specific design decision may be made to satisfy those
-  requirements with a password.}
-
 \section{Module Decomposition} \label{SecMD}
 
 Modules are decomposed according to the principle of ``information hiding''
@@ -298,7 +305,7 @@ N/A
                to access patient data and information, and make informed decisions.
 \item[Services:]To show application functionality to clinicians, accepting user inputs (choosing assessments to review,
                 flagging bias questions) and displaying outputs (assessment summaries).
-\item[Implemented By:] [Your Program Name Here]
+\item[Implemented By:] ClinicianFrontEnd
 \item[Type of Module:] Library
 \end{description}
 
@@ -309,7 +316,7 @@ N/A
                to setup and engage in the assessment with their child.
 \item[Services:] To show application functionality to parents, accepting user inputs (selecting answers to questions,
                  completing setup) and displaying outputs (question visuals, button selections).
-\item[Implemented By:] [Your Program Name Here]
+\item[Implemented By:] ParentFrontEnd
 \item[Type of Module:] Library
 \end{description}
 
@@ -441,7 +448,7 @@ to appropriate submodules.
   \begin{description}
     \item[Secrets:]The interactions between the GUIs (\mref{mClinicianGUI}, \mref{mParentGUI}) and the API Gateway (\mref{mAPIGateway}), acting as a means to interface with the software modules.
     \item[Services:]Enables the user to pass information from the GUIs to the backend services.
-    \item[Implemented By:] [Your Program Name Here]
+    \item[Implemented By:] AppController
     \item[Type of Module:] Library
     \end{description}
   
@@ -461,7 +468,7 @@ to appropriate submodules.
       \mref{mMatchingBank1},
       \mref{mRepetitionBank1}).
       \item[Services:]Enables the user to access the system and interact with its components, consisting of the Patient, Client, and Admin views.
-      \item[Implemented By:] [Your Program Name Here]
+      \item[Implemented By:] APIGateway
       \item[Type of Module:] Library
       \end{description}
 
@@ -528,6 +535,8 @@ AC2 & M9, M16, M17 \\
 \label{TblACT}
 \end{table}
 
+\newpage
+
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
@@ -541,15 +550,6 @@ the modules. It can be seen that the graph is a directed acyclic graph
 system, and modules in the higher level of the hierarchy are essentially simpler
 because they use modules from the lower levels.
 
-\wss{The uses relation is not a data flow diagram.  In the code there will often
-be an import statement in module A when it directly uses module B.  Module B
-provides the services that module A needs.  The code for module A needs to be
-able to see these services (hence the import statement).  Since the uses
-relation is transitive, there is a use relation without an import, but the
-arrows in the diagram typically correspond to the presence of import statement.}
-
-\wss{If module A uses module B, the arrow is directed from A to B.}
-
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{images/Module Hierachy.drawio.png}
@@ -559,10 +559,58 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 %\section*{References}
 
+\newpage
+
 \section{User Interfaces}
 
-\wss{Design of user interface for software and hardware.  Attach an appendix if
-needed. Drawings, Sketches, Figma}
+\hspace{1.5em}The interface below depicts the initial interface a clinician would see upon logging into their account in the system.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Clinician-Dashboard.png}
+  \caption{Clinician Dashboard}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the interface a clinician would see upon selecting the Add Client button on the previous Clinician Dashboard screen.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Add-Client.png}
+  \caption{Add Client}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the patient overview, which can be reached from the Clinician Dashboard by selecting a name from the client list.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Patient-Overview.png}
+  \caption{Patient Overview}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the patient assessment results analysis, which can be reached from the Patient Overview by selecting an assessment date from the list of assessments.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Patient-Assessment-Results-Analysis-1.png}
+  \caption{Patient Assessment Results Analysis (1)}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts a continuation of the patient assessment results analysis, which can be reached from the previous figure, by scrolling the scrollbar on the right edge of the screen.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Patient-Assessment-Results-Analysis-2.png}
+  \caption{Patient Assessment Results Analysis (2)}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the bias review, which can be reached from the Patient Assessment Results Analysis by selecting Review on any of the questions on an assessment.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Review-Bias.png}
+  \caption{Bias Review}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts a question review page, where no bias has been detected. The ability to Flag Bias is present in the bottom right corner, to give the Clinician the ability to manually reflect bias in a question.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/Flag-Bias.png}
+  \caption{Flag Bias}
+\end{figure}
 
 \hspace{1.5em}The interfaces below depicts the interface allowing a user who enters the application to either login to the platform if they have an existing account, or create a new account for new users.
 \begin{figure}[H]
@@ -574,7 +622,7 @@ needed. Drawings, Sketches, Figma}
 \hspace{1.5em}The interfaces below depicts the flow of selecting which account type to create. If a parent account is chosen, they are able to create a username and password and enter client number to complete the account creation. A clinician account information with be created and provided to the clinician by the admin.
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.9]{images/create account.png}
+  \includegraphics[scale=0.8]{images/create account.png}
   \caption{Create an Account}
 \end{figure}
 
@@ -590,13 +638,6 @@ needed. Drawings, Sketches, Figma}
   \centering
   \includegraphics[scale=0.9]{images/homepage.png}
   \caption{Parent HomePage}
-\end{figure}
-
-\hspace{1.5em}The below finite state machine depicts how the parent can interface with the homepage, as well as which interactions lead to changes in states in the system for logging in/out with authentication.
-\begin{figure}[H]
-  \centering
-  \includegraphics[scale=0.6]{images/FSM Homepage.png}
-  \caption{FSM - Parent Homepage}
 \end{figure}
 
 \begin{figure}[H]
@@ -641,17 +682,94 @@ needed. Drawings, Sketches, Figma}
   \label{figAC}
 \end{figure}
 
+\newpage
 
+\hspace{1.5em}The below finite state machine depicts how the overall system can be interacted with, as well as which actions lead to changes in states in the system. Included in this Finite State Machine
+              are Clinician Dashboard and Assessment, which are further expanded in Figure 20 and Figure 21.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{images/state_diagram.drawio.png}
+  \caption{FSM - TeleHealth Insights System}
+\end{figure}
+
+\newpage
+
+\hspace{1.5em}The below finite state machine depicts how the clinician can interface with the dashboard, as well as which interactions lead to changes in states in the system.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{images/FSM_Clinician_Dashboard.png}
+  \caption{FSM - Clinician Dashboard}
+\end{figure}
+
+\newpage
+
+\hspace{1.5em}The below finite state machine depicts how the parent and child can interface with the assessment, as well as which interactions lead to changes in states in the system.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{images/FSM_Assessment.png}
+  \caption{FSM - Assessment Dashboard}
+\end{figure}
+
+\newpage
 
 \section{Design of Communication Protocols}
 
-\wss{If appropriate}
+N/A
 
+\newpage
+\begin{landscape}
 \section{Timeline}
-
-\wss{Schedule of tasks and who is responsible}
-
-\wss{You can point to GitHub if this information is included there}
+\scriptsize
+\begin{longtable}{|c|c|c|c|c|c|c|c|}
+  \hline
+      \textbf{Milestone} & \textbf{Module/Pages} & \textbf{Objective} & \textbf{Mitchell} & \textbf{Parisha} & \textbf{Promish} & \textbf{Jasmine} & \textbf{Date} \\ \hline
+      Controllers & API Gateway & ~ & ~ & ~ & X & ~ & 1/19/25 \\ \hline
+      Assessment & Question Bank Module & ~ & X & X & ~ & ~ & 1/19/25 \\ \hline
+      Assessment & English Question Bank  Module & ~ & X & X & ~ & ~ & 1/19/25 \\ \hline
+      Assessment & Matching Question Bank  Module & ~ & X & X & ~ & ~ & 1/19/25 \\ \hline
+      Assessment & Repetition Question Bank  Module & ~ & X & X & ~ & ~ & 1/19/25 \\ \hline
+      Assessment & ~ & Verification and Validation Testing & X & X & X & X & 1/19/25 \\ \hline
+      Assessment GUI & Assessment Selection Page & ~ & ~ & ~ & ~ & X & 1/19/25 \\ \hline
+      Assessment GUI & Parent Checklist Page & ~ & ~ & X & ~ & ~ & 1/22/25 \\ \hline
+      Assessment GUI & Input Check Page & ~ & ~ & ~ & ~ & X & 1/22/25 \\ \hline
+      Assessment GUI & Assessment Questions Page & ~ & X & ~ & ~ & ~ & 1/22/25 \\ \hline
+      Clinician Dashboard & Result Storage Module & ~ & ~ & ~ & X & ~ & 1/22/25 \\ \hline
+      Assessment GUI & Assessment Instructions Page & ~ & ~ & X & ~ & ~ & 1/25/25 \\ \hline
+      Assessment GUI & Tutorial Page & ~ & X & ~ & ~ & ~ & 1/25/25 \\ \hline
+      Assessment GUI & Assessment Completion Page & ~ & ~ & ~ & ~ & X & 1/25/25 \\ \hline
+      Assessment GUI & ~ & Verification and Validation Testing & X & X & X & X & 1/25/25 \\ \hline
+      Clinician Dashboard & Report Generation Module & ~ & ~ & ~ & X & ~ & 1/25/25 \\ \hline
+      Clinician Dashboard & ~ & Verification and Validation Testing & X & X & X & X & 1/25/25 \\ \hline
+      Clinician Dashboard GUI & Clinician Dashboard Overview Page & ~ & X & ~ & ~ & ~ & 1/28/25 \\ \hline
+      Clinician Dashboard GUI & Patient Overview Page & ~ & ~ & X & ~ & ~ & 1/28/25 \\ \hline
+      Clinician Dashboard GUI & Patient Assessment Results Analysis Page & ~ & ~ & ~ & ~ & X & 1/28/25 \\ \hline
+      Media Processing & Media Processing Module & ~ & ~ & ~ & X & ~ & 1/28/25 \\ \hline
+      Clinician Dashboard GUI & Bias Review Page & ~ & ~ & ~ & ~ & X & 1/31/25 \\ \hline
+      Clinician Dashboard GUI & Add New Client Page & ~ & X & ~ & ~ & ~ & 1/31/25 \\ \hline
+      Clinician Dashboard GUI & ~ & Verification and Validation Testing & X & X & X & X & 1/31/25 \\ \hline
+      Homepage & Authentication Module & ~ & ~ & ~ & X & ~ & 1/31/25 \\ \hline
+      Homepage GUI & Select Account Type Page & ~ & ~ & X & ~ & ~ & 1/31/25 \\ \hline
+      Homepage GUI & Login Page (Parent) Page & ~ & ~ & X & ~ & ~ & 2/3/25 \\ \hline
+      Homepage GUI & Login Page (Clinician) Page & ~ & ~ & X & ~ & ~ & 2/3/25 \\ \hline
+      Homepage GUI & Create Account Page & ~ & X & ~ & ~ & ~ & 2/3/25 \\ \hline
+      Homepage GUI & Homepage (Parent) Page & ~ & ~ & ~ & ~ & X & 2/3/25 \\ \hline
+      Homepage GUI & ~ & Verification and Validation Testing & X & X & X & X & 2/3/25 \\ \hline
+      Media Processing & Video Processing Module & ~ & ~ & ~ & X & ~ & 2/3/25 \\ \hline
+      Media Processing & Audio Processing Module & ~ & X & ~ & ~ & ~ & 2/6/25 \\ \hline
+      Media Processing & ~ & Verification and Validation Testing & X & X & X & X & 2/6/25 \\ \hline
+      Miscellaneous & Logging Module & ~ & ~ & X & ~ & ~ & 2/6/25 \\ \hline
+      Miscellaneous & Real-Time Feedback Module & ~ & ~ & ~ & X & ~ & 2/6/25 \\ \hline
+      Miscellaneous & ~ & Verification and Validation Testing & X & X & X & X & 2/6/25 \\ \hline
+      Admin & Add Clinician Page & ~ & ~ & ~ & ~ & X & 2/6/25 \\ \hline
+      Admin & ~ & Verification and Validation Testing & X & X & X & X & 2/6/25 \\ \hline
+      Controllers & App Controller & ~ & ~ & ~ & X & ~ & 1/19/25 \\ \hline
+      Controllers & ~ & Verification and Validation Testing & X & X & X & X & 1/19/25 \\ \hline
+      Rev0 & ~ & Full System Testing & X & X & X & X & 2/8/25 \\ \hline
+      Rev0 & ~ & Rev0 Practice & X & X & X & X & 2/9/25 \\ \hline
+      Rev0 & ~ & Rev0 Presentation & X & X & X & X & 2/10/25 \\ \hline
+\end{longtable}
+\normalsize
+\end{landscape}
 
 \bibliographystyle {plainnat}
 \bibliography{../../../refs/References}
