@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0" version="26.0.6">
   <diagram name="Page-1" id="3JOVvoUQu5rBPuJIk_t6">
-    <mxGraphModel dx="1565" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1878" dy="749" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -24,6 +24,9 @@
           <mxGeometry x="0.1257" relative="1" as="geometry">
             <mxPoint x="-19" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="9ylS8ouejnss5qGhvEPF-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="melAfxIxYtHawFNCc2qz-1" target="9ylS8ouejnss5qGhvEPF-1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="melAfxIxYtHawFNCc2qz-1" value="Clinician Dashboard Page" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="130" y="180" width="120" height="60" as="geometry" />
@@ -284,6 +287,9 @@
           <mxGeometry x="-0.0505" y="3" relative="1" as="geometry">
             <mxPoint x="8" y="8" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="9ylS8ouejnss5qGhvEPF-1" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-circle-filled-128.png" vertex="1" parent="1">
+          <mxGeometry x="170" y="60" width="40" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
