@@ -343,17 +343,14 @@ to be implemented.
 \subsection{Software Decision Module}
 
 \begin{description}
-\item[Secrets:] The design decision based on mathematical theorems, physical
-  facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
-\item[Services:] Includes data structure and algorithms used in the system that
-  do not provide direct interaction with the user. 
-  % Changes in these modules are more likely to be motivated by a desire to
-  % improve performance than by externally imposed changes.
-\item[Implemented By:] --
+\item[Secrets:] The design and implementation of log storage and retrieval mechanisms, as well as the structure of the logs (e.g., event logs, error logs, debug logs).
+\item[Services:] Tracks system activity and errors through event logging. Supports audit logging for user actions and system changes.
+Provides interfaces to query and clear logs for maintenance.
+\item[Implemented By:] logging-monitoring-service
+\item[Type of Module:] List of Records
 \end{description}
 
-\subsubsection{Etc.}
+\subsection{Software Decision Module}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -368,17 +365,37 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+FR-A1 & M1, M2, M3, M5, M8 \\
+FR-A2 &  M2, M3,  M5, M8 \\
+FR-A3 &  M1,M3, M5, M8 \\
+FR-A4 & M5, M8\\
+FR-A5 & M5, M8 \\
+FR-SS1 & M2, M3 \\
+FR-SS2 & M2, M3\\
+FR-SS3 & M2, M3\\
+FR-SS4 & M2, M3 \\
+FR-SS5 & M2, M3, M9\\
+FR-AI1 & M2, M3, M7, M9, M12, M13, M14, M15, M16 \\
+FR-AI2 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
+FR-AI3 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
+FR-AI4 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
+FR-AI5 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
+FR-AI6 & M2, M3, M4, M6, M7, M9 M12, M13, M14, M15, M16 \\
+FR-AI7 & M2, M3, M4, M7, M9 M12, M13, M14, M15, M16, M17 \\
+FR-DSC1 & M4, M6, M8, \\
+FR-DSC2 & M4, M6, M7, M10, M12, M13 \\
+FR-DSC3 & M4, M5\\
+FR-DSC4 & M4, M5 \\
+FR-DSC5 & M4, M8, M10, M11 \\
+FR-VADA1 & M4, M7, M12, M13 \\
+FR-VADA2 & M4, M7,M8 M12, M13 \\
+FR-VADA3 & M4, M7, M8, M12, M13 \\
+FR-DPD1 & M4, M6, M8, M10, M11 \\
+FR-DPD2 & M4, M6, M8, M10, M11\\
+FR-DPD3 & M1, M4, M6, M8, M10, M11\\
+FR-DPD4 & M1, M4, M6, M8, M10, M11\\
+
+
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -391,19 +408,8 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
-\bottomrule
+AC1 & M9, M17 \\
+AC2 & M9, M16, M17 \\
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
@@ -444,6 +450,47 @@ arrows in the diagram typically correspond to the presence of import statement.}
 
 \wss{Design of user interface for software and hardware.  Attach an appendix if
 needed. Drawings, Sketches, Figma}
+
+\hspace{1.5em}The interfaces below depicts the interface allowing a user who enters the application to either login to the platform if they have an existing account, or create a new account for new users.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/createORlogin.png}
+  \caption{Login or Create an Account}
+\end{figure}
+
+\hspace{1.5em}The interfaces below depicts the flow of selecting which account type to create. If a parent account is chosen, they are able to create a username and password and enter client number to complete the account creation. A clinician account information with be created and provided to the clinician by the admin.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/create account.png}
+  \caption{Create an Account}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the login page overview, where a user can login to the application if they already have an existing account.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/loginaccount.png}
+  \caption{Login in to account}
+\end{figure}
+
+\hspace{1.5em}The interface below depicts the home page for the parent to enter the assesement platform. The home page provides options to learn how to use the assessment platform or start the assessment. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.9]{images/homepage.png}
+  \caption{Parent HomePage}
+\end{figure}
+
+\hspace{1.5em}The below finite state machine depicts how the parent can interface with the homepage, as well as which interactions lead to changes in states in the system for logging in/out with authentication.
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.6]{images/FSM Homepage.png}
+  \caption{FSM - Parent Homepage}
+\end{figure}
+
+
+
+\section{Design of Communication Protocols}
+
+\wss{If appropriate}
 
 \section{Timeline}
 
