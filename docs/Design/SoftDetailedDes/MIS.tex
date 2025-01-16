@@ -156,32 +156,194 @@ The following table is taken directly from the Module Guide document for this pr
 \newpage
 ~\newpage
 
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for
-  cross-referencing}
-
-\wss{You can reference SRS labels, such as R\ref{R_Inputs}.}
-
-\wss{It is also possible to use \LaTeX for hypperlinks to external documents.}
+\section{MIS of Media Processing Module} \label{MediaProcessingModule}
 
 \subsection{Module}
-
-\wss{Short name for the module}
+MediaProcessingModule
 
 \subsection{Uses}
-
+VideoProcessingModule, AudioProcessingModule
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+\begin{center}
+  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+  \hline
+  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+  \hline
+  processMedia & \raggedright\arraybackslash mediaFile: str, mediaType: str, assessmentID: str & \raggedright\arraybackslash report: MediaAnalysisReport & \raggedright\arraybackslash MediaProcessingException \\
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+\item processedMedia: Map(assessmentID, MediaAnalysisReport) - stores combined results from video and audio analysis.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+\begin{itemize}
+\item mediaType specifies whether the file is video or audio (e.g., "video", "audio").
+\item Delegates processing to VideoProcessingModule or AudioProcessingModule based on mediaType.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent processMedia():
+\begin{itemize}
+\item transition:
+\begin{itemize}
+\item If mediaType is "video", calls processVideo from VideoProcessingModule.
+\item If mediaType is "audio", calls processAudio from AudioProcessingModule.
+\item Combines results into a single MediaAnalysisReport per assessment completed.
+\end{itemize}
+\item output: Returns a MediaAnalysisReport with details from video and audio analyses.
+\item exception: Throws MediaProcessingException if the file cannot be processed or delegated.
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\newpage
+
+\section{MIS of Video Processing Module} \label{VideoProcessingModule}
+
+\subsection{Module}
+VideoProcessingModule
+
+\subsection{Uses}
+N/A
+MediaProcessingModule
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+\begin{center}
+  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+  \hline
+  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+  \hline
+  processVideo & \raggedright\arraybackslash videoFile: str, assessmentID: str & \raggedright\arraybackslash report: VideoAnalysisReport & \raggedright\arraybackslash VideoProcessingException \\
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+\item processedVideos: Map(assessmentID, VideoAnalysisReport) - stores results of processed videos.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+\begin{itemize}
+\item Video files are in a supported format (e.g., MP4, AVI).
+\item Video processing is done within a time threshold for real-time feedback.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent processVideo():
+\begin{itemize}
+\item transition: Analyzes the video to identify any disturbances, bias, or cheating patterns.
+\item output: Returns a detailed VideoAnalysisReport containing flagged events and metrics.
+\item exception: Throws VideoProcessingException if the file cannot be processed or analyzed.
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\section{MIS of Audio Processing Module} \label{AudioProcessingModule}
+
+\subsection{Module}
+AudioProcessingModule
+
+\subsection{Uses}
+N/A
+MediaProcessingModule
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+  \hline
+  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+  \hline
+  processAudio & \raggedright\arraybackslash audioFile: str, assessmentID: str & \raggedright\arraybackslash report: AudioAnalysisReport & \raggedright\arraybackslash AudioProcessingException \\
+  \end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+\begin{itemize}
+\item processedAudio: Map(assessmentID, AudioAnalysisReport) - stores results of processed audio.
+\end{itemize}
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+\begin{itemize}
+\item Audio files are in a supported format (e.g., WAV, MP3).
+\item Background noise levels are detectable and quantifiable.
+\end{itemize}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent processAudio():
+\begin{itemize}
+\item transition: Analyzes the audio for disturbances such as background noise or interruptions.
+\item output: Returns a detailed AudioAnalysisReport with flagged issues.
+\item exception: Throws AudioProcessingException if the file cannot be processed or analyzed.
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+\section{MIS of Logging Module} \label{LoggingModule}
+
+\subsection{Module}
+LoggingModule
+
+\subsection{Uses}
+N/A
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+logEvent & \raggedright\arraybackslash eventType: str, message: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LoggingException \\
+\hline
+fetchLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash logData: List(LogEntry) & \raggedright\arraybackslash LogFetchException \\
+\hline
+clearLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LogClearException \\
 \hline
 \end{tabular}
 \end{center}
@@ -189,43 +351,70 @@ The following table is taken directly from the Module Guide document for this pr
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-
-\wss{Not all modules will have state variables.  State variables give the module
-  a memory.}
-
-\subsubsection{Environment Variables}
-
-\wss{This section is not necessary for all modules.  Its purpose is to capture
-  when the module has external interaction with the environment, such as for a
-  device driver, screen interface, keyboard, file, etc.}
-
-\subsubsection{Assumptions}
-
-\wss{Try to minimize assumptions and anticipate programmer errors via
-  exceptions, but for practical purposes assumptions are sometimes appropriate.}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent \wss{accessProg}():
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item logs: Map(logType, List(LogEntry)) - stores all logs categorized by type.
 \end{itemize}
 
-\wss{A module without environment variables or state variables is unlikely to
-  have a state transition.  In this case a state transition can only occur if
-  the module is changing the state of another module.}
+\subsubsection{Environment Variables}
+N/A
 
-\wss{Modules rarely have both a transition and an output.  In most cases you
-  will have one or the other.}
+\subsubsection{Assumptions}
+\begin{itemize}
+\item Logs are categorized by their type and timestamp for easy retrieval.
+\item Each log entry includes metadata such as the timestamp, severity, and module of origin.
+\end{itemize}
+
+\subsubsection{Types of Logs}
+
+Event Logs
+
+Tracks application activities, such as user logins, file uploads, and media processing events.
+Example: "User 'parent1' logged in successfully at 14:32:00."
+Error Logs
+
+Captures unexpected behaviors, exceptions, or failures in the application.
+Example: "VideoProcessingException: Unable to analyze video file 'session123.mp4' due to corrupted data."
+Audit Logs
+
+Records critical changes and actions for accountability, such as user role changes or log clearances.
+Example: "Admin user 'clinician1' updated parent access rights at 16:45:00."
+Performance Logs
+
+Monitors application performance metrics like response times, memory usage, and processing durations.
+Example: "Media processing for 'session456' completed in 3.2 seconds with 200MB memory usage."
+Debug Logs
+
+Includes detailed information for troubleshooting during development or maintenance.
+Example: "Entering function 'processVideo' with input file 'session789.mp4'."
+Security Logs
+
+Tracks security-related events such as failed logins, access violations, or token expirations.
+Example: "Security alert: Failed login attempt for user 'parent2' at 18:12:30."
+\subsubsection{Access Routine Semantics}
+
+\noindent logEvent():
+\begin{itemize}
+\item transition: Adds a new log entry to the logs map under the appropriate eventType.
+\item output: Returns true if the log is successfully recorded.
+\item exception: Throws LoggingException if the log entry cannot be added.
+\end{itemize}
+
+\noindent fetchLogs():
+\begin{itemize}
+\item transition: Retrieves all logs of the specified logType within the provided timeRange.
+\item output: Returns a list of LogEntry objects matching the criteria.
+\item exception: Throws LogFetchException if no logs are found or retrieval fails.
+\end{itemize}
+
+\noindent clearLogs():
+\begin{itemize}
+\item transition: Removes all logs of the specified logType within the provided timeRange.
+\item output: Returns true if logs are successfully cleared.
+\item exception: Throws LogClearException if logs cannot be cleared.
+\end{itemize}
 
 \subsubsection{Local Functions}
-
-\wss{As appropriate} \wss{These functions are for the purpose of specification.
-  They are not necessarily something that is going to be implemented
-  explicitly.  Even if they are implemented, they are not exported; they only
-  have local scope.}
+N/A
 
 \newpage
 
