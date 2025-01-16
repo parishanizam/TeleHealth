@@ -76,12 +76,19 @@ See SRS Documentation at \wss{give url}
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+The following document details the Module Interface Specifications for TeleHealth Insights. It is an at-home bilingual speech 
+assessment system with video and audio analysis features. The system is designed 
+to provide clear guidance to parents when administering the assessment to their 
+children, in an environment where speech-language pathologists (SLPs) are 
+unavailable. By streamlining the assessment process, the project aims to provide a 
+convenient and comprehensive solution for SLPs to assess and support their patients'
+speech and language development remotely.
+% \wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at \url{https://github.com/parishanizam/TeleHealth} 
+% \wss{provide the url for your repo}
 
 \section{Notation}
 
@@ -131,21 +138,28 @@ The following table is taken directly from the Module Guide document for this pr
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+{Hardware-Hiding} & N/A \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+& Parent GUI\\
+& Authentication Module\\
+& Result Storage Module\\
+& Real-Time Feedback Module\\ 
+& Report Generation Module\\
+& Media Processing Module\\
+& Video Processing Module\\
+& Audio Processing Module\\
+& Logging Module\\
+& Question Bank Module\\
+& Mandarian Question Bank\\
+& English Question Bank\\
+& Repetition Question Bank Module\\
+& Matching Question Bacnk Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
+& API Gateway\\
 \bottomrule
 
 \end{tabular}
@@ -155,195 +169,38 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 ~\newpage
-
-\section{MIS of Media Processing Module} \label{MediaProcessingModule}
+\section{MIS of Clinician GUI \label{mClinicianGUI} }
 
 \subsection{Module}
-MediaProcessingModule
+
+clinicianGUI
 
 \subsection{Uses}
-VideoProcessingModule, AudioProcessingModule
+
+\begin{itemize}
+  \item AppController
+\end{itemize}
 
 \subsection{Syntax}
 
 \subsubsection{Exported Constants}
-N/A
 
-\subsubsection{Exported Access Programs}
-\begin{center}
-  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-  \hline
-  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-  \hline
-  processMedia & \raggedright\arraybackslash mediaFile: str, mediaType: str, assessmentID: str & \raggedright\arraybackslash report: MediaAnalysisReport & \raggedright\arraybackslash MediaProcessingException \\
-  \end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-\begin{itemize}
-\item processedMedia: Map(assessmentID, MediaAnalysisReport) - stores combined results from video and audio analysis.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-N/A
-
-\subsubsection{Assumptions}
-\begin{itemize}
-\item mediaType specifies whether the file is video or audio (e.g., "video", "audio").
-\item Delegates processing to VideoProcessingModule or AudioProcessingModule based on mediaType.
-\end{itemize}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent processMedia():
-\begin{itemize}
-\item transition:
-\begin{itemize}
-\item If mediaType is "video", calls processVideo from VideoProcessingModule.
-\item If mediaType is "audio", calls processAudio from AudioProcessingModule.
-\item Combines results into a single MediaAnalysisReport per assessment completed.
-\end{itemize}
-\item output: Returns a MediaAnalysisReport with details from video and audio analyses.
-\item exception: Throws MediaProcessingException if the file cannot be processed or delegated.
-\end{itemize}
-
-\subsubsection{Local Functions}
-N/A
-
-\newpage
-
-\section{MIS of Video Processing Module} \label{VideoProcessingModule}
-
-\subsection{Module}
-VideoProcessingModule
-
-\subsection{Uses}
-N/A
-MediaProcessingModule
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-N/A
-
-\subsubsection{Exported Access Programs}
-\begin{center}
-  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-  \hline
-  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-  \hline
-  processVideo & \raggedright\arraybackslash videoFile: str, assessmentID: str & \raggedright\arraybackslash report: VideoAnalysisReport & \raggedright\arraybackslash VideoProcessingException \\
-  \end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-\begin{itemize}
-\item processedVideos: Map(assessmentID, VideoAnalysisReport) - stores results of processed videos.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-N/A
-
-\subsubsection{Assumptions}
-\begin{itemize}
-\item Video files are in a supported format (e.g., MP4, AVI).
-\item Video processing is done within a time threshold for real-time feedback.
-\end{itemize}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent processVideo():
-\begin{itemize}
-\item transition: Analyzes the video to identify any disturbances, bias, or cheating patterns.
-\item output: Returns a detailed VideoAnalysisReport containing flagged events and metrics.
-\item exception: Throws VideoProcessingException if the file cannot be processed or analyzed.
-\end{itemize}
-
-\subsubsection{Local Functions}
-N/A
-
-\section{MIS of Audio Processing Module} \label{AudioProcessingModule}
-
-\subsection{Module}
-AudioProcessingModule
-
-\subsection{Uses}
-N/A
-MediaProcessingModule
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
 N/A
 
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-  \begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-  \hline
-  \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-  \hline
-  processAudio & \raggedright\arraybackslash audioFile: str, assessmentID: str & \raggedright\arraybackslash report: AudioAnalysisReport & \raggedright\arraybackslash AudioProcessingException \\
-  \end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-\begin{itemize}
-\item processedAudio: Map(assessmentID, AudioAnalysisReport) - stores results of processed audio.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-N/A
-
-\subsubsection{Assumptions}
-\begin{itemize}
-\item Audio files are in a supported format (e.g., WAV, MP3).
-\item Background noise levels are detectable and quantifiable.
-\end{itemize}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent processAudio():
-\begin{itemize}
-\item transition: Analyzes the audio for disturbances such as background noise or interruptions.
-\item output: Returns a detailed AudioAnalysisReport with flagged issues.
-\item exception: Throws AudioProcessingException if the file cannot be processed or analyzed.
-\end{itemize}
-
-\subsubsection{Local Functions}
-N/A
-
-\section{MIS of Logging Module} \label{LoggingModule}
-
-\subsection{Module}
-LoggingModule
-
-\subsection{Uses}
-N/A
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-N/A
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
+\begin{tabular}{p{8cm} p{2cm} p{2cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-logEvent & \raggedright\arraybackslash eventType: str, message: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LoggingException \\
-\hline
-fetchLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash logData: List(LogEntry) & \raggedright\arraybackslash LogFetchException \\
-\hline
-clearLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LogClearException \\
+displayLoginPage & - & - & - \\
+displayClinicianDashboardPage & - & - & - \\
+displayAddClientPage & - & - & - \\
+displayPatientOverviewPage & - & - & - \\
+displayPatientAssessmentResultsAnalysisPage & - & - & - \\
+displayBiasReviewPage & - & - & - \\
+displayFlagBiasPage & - & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -351,70 +208,313 @@ clearLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \ra
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-\begin{itemize}
-\item logs: Map(logType, List(LogEntry)) - stores all logs categorized by type.
-\end{itemize}
+N/A
 
 \subsubsection{Environment Variables}
 N/A
 
 \subsubsection{Assumptions}
-\begin{itemize}
-\item Logs are categorized by their type and timestamp for easy retrieval.
-\item Each log entry includes metadata such as the timestamp, severity, and module of origin.
-\end{itemize}
+N/A
 
-\subsubsection{Types of Logs}
-
-Event Logs
-
-Tracks application activities, such as user logins, file uploads, and media processing events.
-Example: "User 'parent1' logged in successfully at 14:32:00."
-Error Logs
-
-Captures unexpected behaviors, exceptions, or failures in the application.
-Example: "VideoProcessingException: Unable to analyze video file 'session123.mp4' due to corrupted data."
-Audit Logs
-
-Records critical changes and actions for accountability, such as user role changes or log clearances.
-Example: "Admin user 'clinician1' updated parent access rights at 16:45:00."
-Performance Logs
-
-Monitors application performance metrics like response times, memory usage, and processing durations.
-Example: "Media processing for 'session456' completed in 3.2 seconds with 200MB memory usage."
-Debug Logs
-
-Includes detailed information for troubleshooting during development or maintenance.
-Example: "Entering function 'processVideo' with input file 'session789.mp4'."
-Security Logs
-
-Tracks security-related events such as failed logins, access violations, or token expirations.
-Example: "Security alert: Failed login attempt for user 'parent2' at 18:12:30."
 \subsubsection{Access Routine Semantics}
 
-\noindent logEvent():
+\noindent displayLoginPage():
 \begin{itemize}
-\item transition: Adds a new log entry to the logs map under the appropriate eventType.
-\item output: Returns true if the log is successfully recorded.
-\item exception: Throws LoggingException if the log entry cannot be added.
+\item transition: Navigates to and displays the clinician login page for the system.
+\item output: N/A
+\item exception: N/A
 \end{itemize}
 
-\noindent fetchLogs():
+\noindent displayClinicianDashboardPage():
 \begin{itemize}
-\item transition: Retrieves all logs of the specified logType within the provided timeRange.
-\item output: Returns a list of LogEntry objects matching the criteria.
-\item exception: Throws LogFetchException if no logs are found or retrieval fails.
+\item transition: Navigates to and displays the clinician dashboard page for accessing a clinician's list of clients.
+\item output: N/A
+\item exception: N/A
 \end{itemize}
 
-\noindent clearLogs():
+\noindent displayAddClientPage():
 \begin{itemize}
-\item transition: Removes all logs of the specified logType within the provided timeRange.
-\item output: Returns true if logs are successfully cleared.
-\item exception: Throws LogClearException if logs cannot be cleared.
+\item transition: Navigates to and displays the add client page for adding a new client to a clinician's list.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayPatientOverviewPage():
+\begin{itemize}
+\item transition: Navigates to and displays the patient overview page for accessing all of the patient's previous assessments.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayPatientAssessmentResultsAnalysisPage():
+\begin{itemize}
+\item transition: Navigates to and displays the patient assessment results analysis page for accessing all of the results of a particular assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayBiasReviewPage():
+\begin{itemize}
+\item transition: Navigates to and displays the bias review page for reviewing and removing bias from a particular question in an assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayFlagBiasPage():
+\begin{itemize}
+\item transition: Navigates to and displays the flag bias page for reviewing and flagging bias on a particular question in an assessment.
+\item output: N/A
+\item exception: N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
 N/A
+
+~\newpage
+\section{MIS of Parent GUI \label{mParentGUI} }
+
+\subsection{Module}
+
+parentGUI
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item AppController
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{8cm} p{4cm} p{2cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+\wss{accessProg} & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+\begin{itemize}
+  \item microphoneInput
+  \item cameraInput
+\end{itemize}
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent displayLoginPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent login page for the system.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayCreateAccountPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent account creation page for creating a new account for the system.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayHomePage():
+\begin{itemize}
+\item transition: Navigates to and displays the homepage for a parent account, with the ability to start a new assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentSelectionPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment selection page for selecting the type of assessment for the user.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayParentChecklistPage():
+\begin{itemize}
+\item transition: Navigates to and displays the parent checklist page for informing parents about the requirements of the assessment.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayInputCheckPage():
+\begin{itemize}
+\item transition: Navigates to and displays the input check page for testing input devices.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentInstructionsPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment instructions page for the child to read and engage with to learn how to interact with the assessment interface.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayAssessmentQuestionsPage():
+\begin{itemize}
+\item transition: Navigates to and displays the assessment questions page for displaying a question and its corresponding answers for the user to select.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\noindent displayCompletionPage():
+\begin{itemize}
+\item transition: Navigates to and displays the completion page to confirm to the user that the assessment is complete and their results have been saved.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+~\newpage
+\section{MIS of App Controller \label{mAppController} }
+
+\subsection{Module}
+
+AppController
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item APIGateway
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{8cm} p{4cm} p{2cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+accessAPIGateway & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+N/A
+
+\subsubsection{Access Routine Semantics}
+
+\noindent accessAPIGateway():
+\begin{itemize}
+\item transition: Controller accesses the API Gateway.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+
+\subsubsection{Local Functions}
+N/A
+
+~\newpage
+\section{MIS of API Gateway \label{mAppController} }
+
+\subsection{Module}
+
+APIGateway
+
+\subsection{Uses}
+
+\begin{itemize}
+  \item Authentication
+  \item ResultStorage
+  \item MediaProcessing
+  \item Logging
+  \item QuestionBank
+  \item RealTimeFeedback
+  \item ReportGeneration
+\end{itemize}
+
+\subsection{Syntax}
+
+\subsubsection{Exported Constants}
+
+N/A
+
+\subsubsection{Exported Access Programs}
+
+\begin{center}
+\begin{tabular}{p{8cm} p{4cm} p{2cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+accessAuthentication & - & - & - \\
+accessResultStorage & - & - & - \\
+accessMediaProcessing & - & - & - \\
+accessLogging & - & - & - \\
+accessQuestionBank & - & - & - \\
+accessRealTimeFeedback & - & - & - \\
+accessReportGeneration & - & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+N/A
+
+\subsubsection{Environment Variables}
+N/A
+
+\subsubsection{Assumptions}
+
+\wss{Try to minimize assumptions and anticipate programmer errors via
+  exceptions, but for practical purposes assumptions are sometimes appropriate.}
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{accessProg}():
+\begin{itemize}
+\item transition: \wss{if appropriate} 
+\item output: \wss{if appropriate} 
+\item exception: \wss{if appropriate} 
+\end{itemize}
+
+\wss{A module without environment variables or state variables is unlikely to
+  have a state transition.  In this case a state transition can only occur if
+  the module is changing the state of another module.}
+
+\wss{Modules rarely have both a transition and an output.  In most cases you
+  will have one or the other.}
+
+\subsubsection{Local Functions}
+
+\wss{As appropriate} \wss{These functions are for the purpose of specification.
+  They are not necessarily something that is going to be implemented
+  explicitly.  Even if they are implemented, they are not exported; they only
+  have local scope.}
 
 \newpage
 
@@ -439,21 +539,39 @@ graduate attribute of Problem Analysis and Design.
 \input{../../Reflection.tex}
 
 \begin{enumerate}
-  \item What went well while writing this deliverable? 
+  \item What went well while writing this deliverable? \\
+  \\Promish: I think as a group we were very coordinated and had the important parts, like the module
+  hierarchy diagram, completed before our TA meeting. This allowed us to ask Chris if our design looked good and if 
+  there was any feedback he could provide.
   \item What pain points did you experience during this deliverable, and how
-    did you resolve them?
+    did you resolve them? \\
+    \\Promish: The hardest part of this deliverable is knowing that right after it, we have to build everything within three weeks.
+    I found myself second-guessing between what would make a good design and what would make a feasible design. We overcame
+    this by talking to our supervisor and setting up a good timeline.
   \item Which of your design decisions stemmed from speaking to your client(s)
-  or a proxy (e.g. your peers, stakeholders, potential users)? For those that
-  were not, why, and where did they come from?
-  \item While creating the design doc, what parts of your other documents (e.g.
-  requirements, hazard analysis, etc), it any, needed to be changed, and why?
-  \item What are the limitations of your solution?  Put another way, given
-  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions)
-  \item Give a brief overview of other design solutions you considered.  What
-  are the benefits and tradeoffs of those other designs compared with the chosen
-  design?  From all the potential options, why did you select the documented design?
-  (LO\_Explores)
+  or a proxy (e.g., your peers, stakeholders, potential users)? For those that
+  were not, why, and where did they come from? \\
+  \\Promish: Most of the design came from prior knowledge of working in co-op as a backend and frontend developer.
+  We also had our supervisor help with the frontend UI design, as there was a mock-up of what she wanted overall or what she didn't like.
+  \item While creating the design doc, what parts of your other documents (e.g.,
+  requirements, hazard analysis, etc.), if any, needed to be changed, and why? \\
+  \\Promish: Nothing needed to change as we had already discussed in-depth what we were building and had regular meetups with our supervisor.
+  We referenced the SRS to ensure that our design met our goals and extended goals, but we didn't have to change any previous document because of our design.
+  \item What are the limitations of your solution? Put another way, given
+  unlimited resources, what could you do to make the project better? (LO\_ProbSolutions) \\
+  \\Promish: I would say a big limitation is the time aspect of making the capstone. I feel like given more time, we would be able to build it like an agile team,
+  so that features are constantly tested with users. We are also limited in terms of getting video metadata, so the accuracy of our video analysis might suffer because of that.
+  Finally, we are also limited by our skills; there are some aspects of the design that we couldn't do because we didn't know how to and didn't have the time to figure it out.
+  \item Give a brief overview of other design solutions you considered. What
+  are the benefits and trade-offs of those other designs compared with the chosen
+  design? From all the potential options, why did you select the documented design?
+  (LO\_Explores) \\
+  \\Promish: For our backend, we thought about a monolithic architecture style because it would be easier to implement, but the trade-off is that it's not as maintainable.
+  Our supervisor stressed that maintainability is a big priority for her, so we ended up going with a microservice architecture style. We also considered the various interactions between how
+  the clinician and the parent UI. We previously thought about the parent making an account and the clinician would just search for the parent to add them to their client list. However,
+  we thought it was best if the clinician added the parent to their client list and then gave them a code. This way, we would reduce troll accounts and other security gaps.
 \end{enumerate}
+
 
 
 \end{document}

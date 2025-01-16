@@ -3,6 +3,7 @@
 \usepackage{fullpage}
 \usepackage[round]{natbib}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{graphicx}
@@ -190,41 +191,65 @@ in a hierarchy decomposed by secrets in Table \ref{TblMH}. The modules listed
 below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
-\begin{description}
-\item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
-\end{description}
+\begin{multicols}{2}
+  \begin{description}
+    \item [\refstepcounter{mnum} \mthemnum \label{mClinicianGUI}:] Clinician GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mParentGUI}:] Parent GUI Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAppController}:] App Controller Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAPIGateway}:] API Gateway Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mResultStorage}:] Result Storage Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMediaProcessing}:] Media Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mLogging}:] Logging Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mQuestionBank}:] Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mRealTimeFeedback}:] Real-Time Feedback Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mReportGeneration}:] Report Generation Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mVideoProcessing}:] Video Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mAudioProcessing}:] Audio Processing Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mEnglishBank}:] English Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMandarinBank}:] Mandarin Question Bank Module
+    \item [\refstepcounter{mnum} \mthemnum \label{mMatchingBank1}:] Matching Question Bank Module 
+    \item [\refstepcounter{mnum} \mthemnum \label{mRepetitionBank1}:] Repetition Question Bank Module
+  \end{description}
+  \end{multicols}
+  
 
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding Module} & ~ \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2}\\
+  \midrule
+  
+  {Hardware-Hiding} & N/A \\
+  \midrule
+  
+  \multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+  & Parent GUI\\
+  & Authentication Module\\
+  & Result Storage Module\\
+  & Real-Time Feedback Module\\ 
+  & Report Generation Module\\
+  & Media Processing Module\\
+  & Video Processing Module\\
+  & Audio Processing Module\\
+  & Logging Module\\
+  & Question Bank Module\\
+  & Mandarian Question Bank\\
+  & English Question Bank\\
+  & Repetition Question Bank Module\\
+  & Matching Question Bacnk Module\\
+  \midrule
+  
+  \multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
+  & API Gateway\\
+  \bottomrule
+  
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
@@ -278,31 +303,45 @@ to be implemented.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Media Processing Module (\mref{MediaProcessing})}
+\subsubsection{Authentication Module (\mref{mAuth})}
+
 \begin{description}
-\item[Secrets:] The design and implementation of how media (video and audio) is processed in the system.
-\item[Services:] Provides high-level functionality for media processing by delegating tasks to its submodules: Video Processing Module and Audio Processing Module. Acts as an abstraction layer for handling media data.
-\item[Implemented By:] Media-processing-service
-\item[Type of Module:]  Abstract Object
+\item[Secrets:] The data structures and algorithms used to securely store, validate, and manage user credentials.
+\item[Services:] Provides user registration, login, and session management services. Ensures authentication for all system users (parents, clinicians, and admins) to maintain system security.
+\item[Implemented By:] AuthenticationService
+\item[Type of Module:] Library, Abstract Data Type
 \end{description}
 
-\subsubsection{Video Processing Module (\mref{VideoProcessing})}
+\subsubsection{Result Storage Module (\mref{mResultStorage})}
+
 \begin{description}
-\item[Secrets:] The methods and algorithms used to process video data, including frame extraction, format handling, and metadata processing.
-\item[Services:] Handles all video-related data processing tasks, such as analyzing video frames, ensuring quality, and extracting relevant details. This module communicates with the Media Processing Module.
-\item[Implemented By:] Media-processing-service
-\item[Type of Module:]  Abstract Object
+\item[Secrets:] The schema and mechanisms used to store, index, and retrieve assessment results and metadata efficiently.
+\item[Services:] Manages the storage and retrieval of processed media flags, assessment results, and associated metadata. Ensures data security and organization to support reporting and feedback functionalities.
+\item[Implemented By:] ResultStorageService
+\item[Type of Module:] Record, Abstract Object
 \end{description}
 
-\subsubsection{Audio Processing Module (\mref{AudioProcessing})}
+\subsubsection{Real-Time Feedback Module (\mref{mRealTimeFeedback})}
+
 \begin{description}
-\item[Secrets:] The methods and algorithms used to process audio data, such as format conversions, noise filtering, and speech analysis.
-\item[Services:] Handles all audio-related data processing tasks, including speech detection, sound quality analysis, and extracting key audio features. This module communicates with the Media Processing Module.
-\item[Implemented By:] Media-processing-service
-\item[Type of Module:] Abstract Object
+\item[Secrets:] The data pipeline and algorithms used to process live media streams and generate immediate feedback.
+\item[Services:] Provides real-time analysis of audio and video streams during an assessment session. Flags issues or disturbances and delivers immediate feedback to guide session adjustments.
+\item[Implemented By:] RealTimeFeedbackService
+\item[Type of Module:] Library
 \end{description}
 
-\subsubsection{Logging Module (\mref{mLogging})}
+\subsubsection{Report Generation Module (\mref{mReportGeneration})}
+
+\begin{description}
+\item[Secrets:] The methods and templates used to compile data into user-friendly reports summarizing session results and flagged disturbances.
+\item[Services:] Generates comprehensive session reports for review by parents and clinicians. Summarizes processed media results, flagged disturbances, and overall session feedback.
+\item[Implemented By:] ReportGenerationService
+\item[Type of Module:] Library
+\end{description}
+
+
+\subsection{Software Decision Module}
+
 \begin{description}
 \item[Secrets:] The design and implementation of log storage and retrieval mechanisms, as well as the structure of the logs (e.g., event logs, error logs, debug logs).
 \item[Services:] Tracks system activity and errors through event logging. Supports audit logging for user actions and system changes.
@@ -399,10 +438,10 @@ arrows in the diagram typically correspond to the presence of import statement.}
 \wss{If module A uses module B, the arrow is directed from A to B.}
 
 \begin{figure}[H]
-\centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
-\caption{Use hierarchy among modules}
-\label{FigUH}
+  \centering
+  \includegraphics[scale=0.5]{images/Module Hierachy.drawio.png}
+  \caption{Use hierarchy among modules}
+  \label{FigUH}
 \end{figure}
 
 %\section*{References}
