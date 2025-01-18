@@ -71,7 +71,7 @@ function ParentLogin() {
         <span>
           Don&apos;t have an account?{" "}
           <a
-            href="#"
+            href="/parents/signup"
             className="text-blue-600 hover:underline"
             aria-label="Sign up link"
           >
@@ -82,7 +82,7 @@ function ParentLogin() {
 
       <button
         type="submit"
-        className="px-4 py-2.5 text-xl leading-none text-white bg-slate-900 rounded-lg shadow-sm w-[433px]"
+        className="px-4 py-2.5 text-xl leading-none text-white bg-slate-900 rounded-lg shadow-sm w-[433px] hover:opacity-80 active:opacity-100"
       >
         Login
       </button>
