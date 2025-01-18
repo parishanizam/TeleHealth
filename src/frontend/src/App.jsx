@@ -1,9 +1,10 @@
-// src/App.jsx
 import React from 'react'
-import AppRouter from './routes/index.jsx'
+// import AppRouter from './routes/index.jsx'
+import LandingPage from './landing/LandingPage'
 
 function App() {
-  return <AppRouter />
+  return <LandingPage />
+  // return <AppRouter />
 }
 
 export default App
