@@ -1,6 +1,10 @@
 const bcrypt = require('bcrypt');
 const { s3Client, PARENTS_BUCKET, getJson, uploadJson } = require('../config/awsS3');
 const { ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const {
+  updateParentIndex,
+  getParentDataFromIndex
+} = require('../models/parentsModel');
 
 exports.parentSignup = async (req, res) => {
   try {
@@ -13,7 +17,6 @@ exports.parentSignup = async (req, res) => {
       return res.status(400).json({ error: 'Passwords do not match.' });
     }
 
-    //List objects in the Parents bucket to find the file that ends with `_<SECURITYCODE>.json`
     const listCommand = new ListObjectsV2Command({ Bucket: PARENTS_BUCKET });
     const listResponse = await s3Client.send(listCommand);
 
@@ -43,9 +46,11 @@ exports.parentSignup = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10);
     parentData.username = username;
     parentData.passwordHash = passwordHash;
-    parentData.email = email; 
+    parentData.email = email;
 
     await uploadJson(PARENTS_BUCKET, matchingKey, parentData);
+
+    await updateParentIndex(username, matchingKey);
 
     return res.json({
       message: 'Parent account created successfully.',
@@ -58,5 +63,38 @@ exports.parentSignup = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Server error' });
+  }
+};
+
+exports.parentLogin = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ error: 'Username and password are required.' });
+    }
+
+    const result = await getParentDataFromIndex(username);
+    if (!result) {
+      return res.status(404).json({ error: 'Parent not found via index.' });
+    }
+
+    const { parentData } = result; 
+
+    const match = await bcrypt.compare(password, parentData.passwordHash);
+    if (!match) {
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    return res.json({
+      message: 'Login successful!',
+      user: {
+        username: parentData.username,
+        email: parentData.email,
+        role: 'PARENT'
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error.' });
   }
 };
