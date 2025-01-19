@@ -28,7 +28,8 @@ async function addClient(req, res) {
 
     // Generate a random code
     const securityCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const clientId = `client_${Date.now()}`; // or some other unique approach
+    //Needs to be updated
+    const clientId = `client_${Date.now()}`; 
 
     const newClient = {
       clientId,
