@@ -1,23 +1,17 @@
-require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const connectDB = require('./config/db');
-const authRoutes = require('./routes/auth.routes');
+const router = express.Router();
 
-const app = express();
+const clinicianRoutes = require('./routes/clinician.routes');
+const parentRoutes = require('./routes/parent.routes');
+const clientRoutes = require('./routes/client.routes');
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// e.g. /auth/clinicians
+router.use('/clinicians', clinicianRoutes);
 
-// Connect to the database
-connectDB();
+// add-client route for clinicians
+router.use('/clinicians', clientRoutes);
 
-// Use auth routes
-app.use('/auth', authRoutes);
+// e.g. /auth/parents
+router.use('/parents', parentRoutes);
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Auth service running on port ${PORT}`);
-});
+module.exports = router;
