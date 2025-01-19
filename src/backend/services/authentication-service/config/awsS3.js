@@ -1,21 +1,18 @@
-// config/awsS3.js
-const AWS = require('aws-sdk');
+const {
+  S3Client,
+  GetObjectCommand,
+  PutObjectCommand,
+} = require('@aws-sdk/client-s3');
 
-// Make sure these environment variables are set in your .env
-// AWS_ACCESS_KEY_ID=xxxxx
-// AWS_SECRET_ACCESS_KEY=xxxxx
-// AWS_REGION=us-east-1 (or your region)
+const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
-const s3 = new AWS.S3({
-  region: process.env.AWS_REGION,
-  // credentials come from environment variables by default if set
-});
-
-// We'll read these bucket names from environment variables
+// Bucket names from environment variables
 const CLINICIANS_BUCKET = process.env.CLINICIANS_BUCKET;
 const PARENTS_BUCKET = process.env.PARENTS_BUCKET;
 
-// Helper to upload JSON data to S3
+/**
+ * Upload JSON data to S3
+ */
 async function uploadJson(bucketName, key, data) {
   const params = {
     Bucket: bucketName,
@@ -23,18 +20,38 @@ async function uploadJson(bucketName, key, data) {
     Body: JSON.stringify(data),
     ContentType: 'application/json',
   };
-  await s3.putObject(params).promise();
+  await s3Client.send(new PutObjectCommand(params));
 }
 
-// Helper to fetch JSON data from S3
+/**
+ * Get JSON data from S3 and parse it
+ */
 async function getJson(bucketName, key) {
-  const params = { Bucket: bucketName, Key: key };
-  const obj = await s3.getObject(params).promise();
-  return JSON.parse(obj.Body.toString('utf-8'));
+  const getObjParams = {
+    Bucket: bucketName,
+    Key: key,
+  };
+  const response = await s3Client.send(new GetObjectCommand(getObjParams));
+  const bodyString = await streamToString(response.Body);
+  return JSON.parse(bodyString);
+}
+
+/**
+ * Helper to convert a Node ReadableStream into a string
+ */
+function streamToString(stream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    stream.on('data', (chunk) => chunks.push(chunk));
+    stream.on('error', reject);
+    stream.on('end', () => {
+      resolve(Buffer.concat(chunks).toString('utf-8'));
+    });
+  });
 }
 
 module.exports = {
-  s3,
+  s3Client,
   CLINICIANS_BUCKET,
   PARENTS_BUCKET,
   uploadJson,

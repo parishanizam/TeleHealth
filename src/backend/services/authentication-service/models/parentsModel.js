@@ -1,18 +1,16 @@
-const { 
-    PARENTS_BUCKET, 
-    uploadJson, 
-    getJson 
+const {
+    PARENTS_BUCKET,
+    uploadJson,
+    getJson
   } = require('../config/awsS3');
-  const bcrypt = require('bcrypt');
   
-  async function createParent(username, email, passwordHash, extraData = {}) {
+  async function createParent(username, email, passwordHash = {}) {
     const key = `${username}.json`;
     const data = {
       username,
       email,
       passwordHash,
-      role: 'PARENT',
-      ...extraData
+      role: 'PARENT'
     };
   
     await uploadJson(PARENTS_BUCKET, key, data);
