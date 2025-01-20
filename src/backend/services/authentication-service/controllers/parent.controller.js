@@ -98,3 +98,60 @@ exports.parentLogin = async (req, res) => {
     return res.status(500).json({ error: 'Server error.' });
   }
 };
+
+exports.getParentAccountDetails = async (req, res) => {
+  try {
+    const { username } = req.params;
+    if (!username) {
+      return res.status(400).json({ error: 'Username is required.' });
+    }
+
+    const result = await getParentDataFromIndex(username);
+    if (!result) {
+      return res.status(404).json({ error: 'Parent not found' });
+    }
+
+    const { parentData } = result;
+    return res.json({ data: parentData });
+  } catch (err) {
+    console.error('Error fetching parent details:', err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+exports.confirmParentAccount = async (req, res) => {
+  try {
+    const { username, newFirstName, newLastName } = req.body;
+    if (!username) {
+      return res.status(400).json({ error: 'Username is required.' });
+    }
+
+    // Retrieve current parent data from S3 by index
+    const result = await getParentDataFromIndex(username);
+    if (!result) {
+      return res.status(404).json({ error: 'Parent not found' });
+    }
+
+    const { parentData, fileName } = result;
+
+    // Only update if user provided something in the fields
+    if (newFirstName && newFirstName.trim() !== '') {
+      parentData.firstName = newFirstName.trim();
+    }
+    if (newLastName && newLastName.trim() !== '') {
+      parentData.lastName = newLastName.trim();
+    }
+
+    // Save updates
+    await uploadJson(PARENTS_BUCKET, fileName, parentData);
+
+    return res.json({
+      message: 'Account confirmation successful',
+      data: parentData
+    });
+  } catch (error) {
+    console.error('Error in confirmParentAccount:', error);
+    return res.status(500).json({ error: 'Server error' });
+  }
+};

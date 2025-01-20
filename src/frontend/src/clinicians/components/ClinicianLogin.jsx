@@ -1,14 +1,38 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ClinicianLogin() {
   const [formData, setFormData] = React.useState({
     username: "",
-    password: ""
+    password: "",
   });
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", formData);
+    setError(""); // Clear previous errors
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth/clinicians/login",
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
+
+      // If successful, response.data will contain user info
+      console.log("Clinician Login Success:", response.data);
+
+      // Redirect to your Clinician dashboard (placeholder)
+      navigate("/clinicians/dashboard");
+    } catch (err) {
+      console.error("Clinician Login Error:", err);
+      // Show an error above the username input
+      setError(err.response?.data?.error || "Login failed.");
+    }
   };
 
   const handleChange = (e) => {
@@ -21,6 +45,13 @@ function ClinicianLogin() {
       <h1 className="text-4xl font-normal leading-snug text-center mb-5">
         Clinician Login
       </h1>
+
+      {/* Show error if exists */}
+      {error && (
+        <div className="text-red-500 text-center mb-3">
+          {error}
+        </div>
+      )}
 
       {/* Username Input */}
       <div className="w-[438px] mb-5">

@@ -1,15 +1,36 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ParentLogin() {
   const [formData, setFormData] = React.useState({
     username: "",
     password: ""
   });
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Perform login logic here
-    console.log("Submitted:", formData);
+    setError("");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth/parents/login",
+        {
+          username: formData.username,
+          password: formData.password,
+        }
+      );
+
+      console.log("Parent Login Success:", response.data);
+
+      //TODO: replace parent dashboard route if changed
+      navigate("/parents/dashboard");
+    } catch (err) {
+      console.error("Parent Login Error:", err);
+      setError(err.response?.data?.error || "Login failed.");
+    }
   };
 
   const handleChange = (e) => {
@@ -22,6 +43,13 @@ function ParentLogin() {
       <h1 className="text-4xl font-normal leading-snug text-center mb-5">
         Parent Login
       </h1>
+
+      {/* Error message */}
+      {error && (
+        <div className="text-red-500 text-center mb-3">
+          {error}
+        </div>
+      )}
 
       {/* Username Input */}
       <div className="w-[438px] mb-5">

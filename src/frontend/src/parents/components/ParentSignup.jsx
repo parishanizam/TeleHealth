@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ParentSignUp() {
   const [formData, setFormData] = React.useState({
@@ -9,18 +10,49 @@ function ParentSignUp() {
     confirmPassword: "",
     securityCode: "",
   });
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      // Call the parent signup endpoint
+      const response = await axios.post("http://localhost:3000/auth/parents/signup", {
+        email: formData.email,
+        username: formData.username,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        securityCode: formData.securityCode,
+      });
+
+      console.log("Parent Signup Success:", response.data);
+
+      localStorage.setItem('parentUsername', response.data.user.username);
+      navigate("/parents/parentaccountconfirmation");
+    } catch (err) {
+      console.error("Parent Signup Error:", err);
+      setError(err.response?.data?.error || "Signup failed.");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
-      <form className="flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <h1 className="text-4xl font-normal leading-snug text-center mb-5">
           Welcome
         </h1>
+        {error && (
+          <div className="text-red-500 text-center mb-3">
+            {error}
+          </div>
+        )}
 
         {/* Email Input */}
         <div className="w-[438px] mb-5">
@@ -102,14 +134,13 @@ function ParentSignUp() {
           />
         </div>
 
-        {/* Link to Next Page */}
-        <Link
-          to="/parents/parentaccountconfirmation"
+        <button
+          type="submit"
           className="px-4 py-2.5 text-xl leading-none text-white bg-slate-900 rounded-lg shadow-sm w-[433px] hover:opacity-80 active:opacity-100 text-center"
-          aria-label="Next button link"
+          aria-label="Next button"
         >
           Next
-        </Link>
+        </button>
       </form>
     </div>
   );
