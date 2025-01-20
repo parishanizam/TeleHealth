@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ParentSignUp() {
   const [formData, setFormData] = React.useState({
@@ -9,12 +10,6 @@ function ParentSignUp() {
     securityCode: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Add sign-up logic here
-    console.log("Submitted data:", formData);
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -22,9 +17,9 @@ function ParentSignUp() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
-      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+      <form className="flex flex-col items-center">
         <h1 className="text-4xl font-normal leading-snug text-center mb-5">
-          Parent Sign Up
+          Welcome
         </h1>
 
         {/* Email Input */}
@@ -107,12 +102,14 @@ function ParentSignUp() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="px-4 py-2.5 text-xl leading-none text-white bg-slate-900 rounded-lg shadow-sm w-[433px] hover:opacity-80 active:opacity-100"
+        {/* Link to Next Page */}
+        <Link
+          to="/parents/parentaccountconfirmation"
+          className="px-4 py-2.5 text-xl leading-none text-white bg-slate-900 rounded-lg shadow-sm w-[433px] hover:opacity-80 active:opacity-100 text-center"
+          aria-label="Next button link"
         >
-          Create Account
-        </button>
+          Next
+        </Link>
       </form>
     </div>
   );

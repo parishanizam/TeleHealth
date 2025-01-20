@@ -7,6 +7,7 @@ import LandingPage from '../landing/LandingPage';
 // Parents
 import ParentLoginPage from '../parents/pages/ParentLoginPage';
 import ParentSignUpPage from '../parents/pages/ParentSignUpPage';
+import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/parents/signup',
     element: <ParentSignUpPage />,
+  },
+  {
+    path: '/parents/parentaccountconfirmation',
+    element: <ParentAccountConfirmationPage />,
   },
   {
     path: '/clinicians/login',
