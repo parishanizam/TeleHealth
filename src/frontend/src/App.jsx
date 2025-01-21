@@ -4,8 +4,9 @@ import ParentAccountConfirmationPage from './parents/pages/ParentAccountConfirma
 import TestSelection from './parents/pages/TestSelectionPage.jsx'
 import ParentChecklist from './parents/pages/ParentChecklistPage.jsx'
 import MediaTesting from './parents/pages/MediaTesting.jsx'
+import EnglishMatchingInstructions from './parents/pages/EnglishMatchingInstructions.jsx'
 
 function App() {
-  return <MediaTesting />
+  return <EnglishMatchingInstructions />
 }
 export default App
