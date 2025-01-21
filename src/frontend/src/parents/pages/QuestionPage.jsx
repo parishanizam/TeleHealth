@@ -1,6 +1,5 @@
 import * as React from "react";
 import MatchingCard from "../components/ImagePlaceholder";
-import NavigationButton from "../components/NavigationButton";
 
 import NextButton from "../components/NextButton";
 import Globe from "../../assets/globe.svg";
