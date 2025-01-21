@@ -8,6 +8,8 @@ import LandingPage from '../landing/LandingPage';
 import ParentLoginPage from '../parents/pages/ParentLoginPage';
 import ParentSignUpPage from '../parents/pages/ParentSignUpPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
+import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
+import TestSelectionPage from '../parents/pages/TestSelectionPage';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: '/clinicians/login',
     element: <ClinicianLoginPage />,
+  },
+  {
+    path: '/parents/checklist',
+    element: <ParentChecklistPage />,
+  },
+  {
+    path: '/parents/testselection',
+    element: <TestSelectionPage />,
   },
 ]);
 
