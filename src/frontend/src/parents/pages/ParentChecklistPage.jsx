@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ChecklistItem } from "../components/ChecklistItem";
 import NextButton from "../components/NextButton";
-import NextArrow from "../../assets/nextarrow.svg";
 import Globe from "../../assets/globe.svg";
 import BackArrow from "../../assets/backarrow.svg";
 import Logout from "../../assets/logout.svg";

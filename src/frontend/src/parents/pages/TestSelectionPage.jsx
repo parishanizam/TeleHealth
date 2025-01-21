@@ -2,7 +2,7 @@ import * as React from "react";
 import { LanguageOption } from "../components/LanguageOption";
 import { TestTypeOption } from "../components/TestTypeOption";
 import { SelectionBox } from "../components/SelectionBox";
-import NextArrow from "../../assets/nextarrow.svg";
+import NextButton from "../components/NextButton";
 import Globe from "../../assets/globe.svg";
 import BackArrow from "../../assets/backarrow.svg";
 import Logout from "../../assets/logout.svg";
