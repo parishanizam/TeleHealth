@@ -4,6 +4,7 @@ import Globe from "../../assets/globe.svg";
 import BackArrow from "../../assets/backarrow.svg";
 import Logout from "../../assets/logout.svg";
 import SmileyFace from "../../assets/smileyface.svg";
+import NextArrow from "../../assets/nextarrow.svg";
 
 const navigationButtons = [
   { text: "Next Test", href: "/next-test" },
@@ -105,7 +106,7 @@ function TestComplete() {
               <div className="flex gap-2.5 items-center self-stretch p-1.5 my-auto w-[23px]">
                 <img
                   loading="lazy"
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/d041621968e1b9cc40b6c9e78db5d6b047d75ec0fd62879e0297eb85e5a219d4?placeholderIfAbsent=true&apiKey=ca3d1652331448359ab6df8ba03c489a"
+                  src={NextArrow}
                   alt=""
                   className="object-contain self-stretch my-auto aspect-square fill-blue-600 w-[13px]"
                 />
