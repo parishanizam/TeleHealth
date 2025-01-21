@@ -5,8 +5,9 @@ import TestSelection from './parents/pages/TestSelectionPage.jsx'
 import ParentChecklist from './parents/pages/ParentChecklistPage.jsx'
 import MediaTesting from './parents/pages/MediaTesting.jsx'
 import EnglishMatchingInstructions from './parents/pages/EnglishMatchingInstructions.jsx'
+import QuestionPage from './parents/pages/QuestionPage.jsx'
 
 function App() {
-  return <EnglishMatchingInstructions />
+  return <QuestionPage />
 }
 export default App
