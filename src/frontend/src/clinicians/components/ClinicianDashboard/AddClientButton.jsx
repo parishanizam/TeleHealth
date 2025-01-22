@@ -13,15 +13,15 @@ const imgClassNames =
 // eslint-disable-next-line react/prop-types
 function AddClientButton({ onClick }) {
   return (
-    <div className="flex items-center justify-center">
-    <div
-      style={buttonStyles}
-      className={buttonClassNames}
-      aria-label="Add new client"
-    >
-      <div className="grow shrink self-stretch my-auto w-[141px]">Add Client</div>
-      <img src={AddIcon} className={imgClassNames} onClick={onClick} />
-    </div>
+    <div className="flex items-center justify-center mt-10">
+      <div
+        style={buttonStyles}
+        className={buttonClassNames}
+        aria-label="Add new client"
+      >
+        <div className="grow shrink self-stretch my-auto w-[141px]">Add Client</div>
+        <img src={AddIcon} className={imgClassNames} onClick={onClick} />
+      </div>
     </div>
   );
 }

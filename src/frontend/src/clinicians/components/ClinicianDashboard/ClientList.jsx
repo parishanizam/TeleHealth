@@ -9,10 +9,12 @@ const clients = [
 
 function ClientList() {
   return (
-    <div className="flex flex-col justify-center items-center py-40 w-full max-w-[1402px] max-md:py-24 max-md:max-w-full">
-      {clients.map((client) => (
-        <ClientCard key={client.id} name={client.name} />
-      ))}
+    <div className="flex flex-col justify-center items-center py-10 w-full">
+      <div className="flex flex-col justify-center items-center w-full max-w-[1402px]">
+        {clients.map((client) => (
+          <ClientCard key={client.id} name={client.name} />
+        ))}
+      </div>
     </div>
   );
 }
