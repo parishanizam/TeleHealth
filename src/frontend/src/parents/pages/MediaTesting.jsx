@@ -1,7 +1,8 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { DeviceSelector } from "../components/DeviceSelector";
 import { AudioTest } from "../components/AudioTest";
-import NextButton from "../components/NextButton"
+import ConsentForm from "../components/ConsentForm"; 
+import NextButton from "../components/NextButton";
 
 import Globe from "../../assets/globe.svg";
 import BackArrow from "../../assets/backarrow.svg";
@@ -33,10 +34,31 @@ const devices = [
 ];
 
 export default function MediaTesting() {
+  const [isPopupVisible, setIsPopupVisible] = useState(true);
+
+  const handleShowPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupVisible(false);
+  };
+
   return (
-    <div className="flex overflow-hidden flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
+    <div className="relative flex overflow-hidden flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
+      {/* Popup Overlay */}
+      {isPopupVisible && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <ConsentForm />
+        </div>
+      )}
+
+
       <header className="flex flex-wrap gap-10 justify-between items-start w-full text-slate-900 max-md:max-w-full">
-        <button className="flex gap-1.5 items-center py-5 text-2xl leading-none whitespace-nowrap w-[67px]" aria-label="Go back">
+        <button
+          className="flex gap-1.5 items-center py-5 text-2xl leading-none whitespace-nowrap w-[67px]"
+          aria-label="Go back"
+        >
           <img
             loading="lazy"
             src={BackArrow}
@@ -89,7 +111,7 @@ export default function MediaTesting() {
       </main>
 
       <div className="flex gap-2.5 justify-center items-center px-60 mt-20 w-full min-h-[60px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-        <NextButton />
+        <NextButton onClick={handleShowPopup} />
       </div>
     </div>
   );

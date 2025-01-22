@@ -9,6 +9,6 @@ import QuestionPage from './parents/pages/QuestionPage.jsx'
 import TestComplete from './parents/pages/TestCompletePage.jsx'
 
 function App() {
-  return <TestComplete />
+  return <MediaTesting />
 }
 export default App
