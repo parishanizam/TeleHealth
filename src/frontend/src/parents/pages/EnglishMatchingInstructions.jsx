@@ -60,7 +60,7 @@ function EnglishMatchingInstructions() {
       <div className="flex flex-col items-center mt-12 w-full text-center text-black max-md:mt-10">
         <div>Press &quot;Start&quot; when ready</div>
         <div className="mt-6">
-        <NextButton to="/parents/EnglishMatchingInstructions" name = "Start" />
+        <NextButton to="/parents/QuizManagement" name = "Start" />
         </div>
       </div>
     </div>

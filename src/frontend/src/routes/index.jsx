@@ -14,7 +14,12 @@ import EnglishMatchingInstructions from '../parents/pages/EnglishMatchingInstruc
 import MediaTesting from '../parents/pages/MediaTesting';
 import TestComplete from '../parents/pages/TestCompletePage';
 import QuizManagement from '../parents/pages/QuizManagement';
-
+import AssessmentTutorialPage from '../parents/pages/AssessmentTutorialPage';
+import MediaTestingTutorialPage from '../parents/pages/MediaTestingTutorialPage';
+import ParentChecklistPageTutorial from '../parents/pages/ParentCheckListTutorialPage';
+import TestSelectionTutorialPage from '../parents/pages/TestSelectionTutorialPage';
+import TutorialComplete from '../parents/pages/TutorialComplete';
+import ParentHomePage from '../parents/pages/ParentHomePage';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -35,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: '/parents/parentaccountconfirmation',
     element: <ParentAccountConfirmationPage />,
+  },
+  {
+    path: '/parents/ParentHomePage',
+    element: <ParentHomePage />,
   },
   {
     path: '/parents/EnglishMatchingInstructions',
@@ -59,6 +68,26 @@ const router = createBrowserRouter([
   {
     path: '/parents/QuizManagement',
     element: <QuizManagement />,
+  },
+  {
+    path: '/parents/AssessmentTutorialPage',
+    element: <AssessmentTutorialPage />,
+  },
+  {
+    path: '/parents/MediaTestingTutorialPage',
+    element: <MediaTestingTutorialPage />,
+  },
+  {
+    path: '/parents/ParentChecklistPageTutorial',
+    element: <ParentChecklistPageTutorial />,
+  },
+  {
+    path: '/parents/TestSelectionTutorialPage',
+    element: <TestSelectionTutorialPage />,
+  },
+  {
+    path: '/parents/TutorialComplete',
+    element: <TutorialComplete />,
   },
   {
     path: '/clinicians/login',

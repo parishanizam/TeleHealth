@@ -54,8 +54,8 @@ function TestComplete() {
 
       {/* Buttons NEED TO ADD CORRECT ROUTES*/}
       <div className="flex flex-col gap-3 items-center mt-6">
-        <NextButton to="/next-test" name="Start Next Test" />
-        <NextButton to="/" name="Return to Homepage" />
+        <NextButton to="/parents/QuizManagement" name="Start Next Test" />
+        <NextButton to="/parents/ParentHomePage" name="Return to Homepage" />
       </div>
     </div>
   );

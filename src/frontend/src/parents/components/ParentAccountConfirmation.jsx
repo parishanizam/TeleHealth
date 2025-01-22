@@ -69,8 +69,7 @@ function ParentAccountConfirmation() {
       });
 
       console.log("Confirm account response:", response.data);
-      //Will need to change the route if parents dashboard changes
-      navigate("/parents/dashboard");
+      navigate("/parents/login");
     } catch (err) {
       console.error("Error confirming account:", err);
       setError(err.response?.data?.error || "Error confirming account.");

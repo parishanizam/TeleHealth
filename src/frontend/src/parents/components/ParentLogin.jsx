@@ -25,8 +25,7 @@ function ParentLogin() {
 
       console.log("Parent Login Success:", response.data);
 
-      //TODO: replace parent dashboard route if changed
-      navigate("/parents/dashboard");
+      navigate("/parents/ParentHomePage");
     } catch (err) {
       console.error("Parent Login Error:", err);
       setError(err.response?.data?.error || "Login failed.");
