@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { VideoTest } from "../components/VideoTest";
 import { AudioTest } from "../components/AudioTest";
 import { MicrophoneTest } from "../components/MicrophoneTest";
 import NextButton from "../components/NextButton";
+import ConsentForm from "../components/ConsentForm";
 
 import VideoIcon from "../../assets/video.svg";
 import SpeakerIcon from "../../assets/speaker.svg";
@@ -33,6 +35,32 @@ const devices = [
 ];
 
 export default function MediaTesting() {
+  const [showConsent, setShowConsent] = useState(true);
+  const navigate = useNavigate();
+
+  const handleConsent = () => {
+    setShowConsent(false);
+  };
+
+  const handleDecline = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (showConsent) {
+      // Prevent scrolling
+      document.body.style.overflow = "hidden";
+    } else {
+      // Re-enable scrolling
+      document.body.style.overflow = "auto";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showConsent]);
+
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24 overflow-hidden">
       <Header title="Video, Audio and Microphone" />
@@ -47,7 +75,6 @@ export default function MediaTesting() {
         {/* AUDIO & MICROPHONE SECTION */}
         <div className="flex flex-col w-[478px] min-w-[240px] max-md:max-w-full">
           {/* Speaker Test */}
-
           <AudioTest visualizer={VolumeTestPlaceholder} />
 
           {/* Microphone Test */}
@@ -59,6 +86,11 @@ export default function MediaTesting() {
       <div className="flex gap-2.5 justify-center items-center px-60 mt-20 w-full min-h-[60px] max-md:px-5 max-md:mt-10">
         <NextButton to="/parents/login" />
       </div>
+
+      {/* Consent Form Modal */}
+      {showConsent && (
+        <ConsentForm onConsent={handleConsent} onDecline={handleDecline} />
+      )}
     </div>
   );
 }
