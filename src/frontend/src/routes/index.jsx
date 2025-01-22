@@ -6,7 +6,7 @@ import LandingPage from '../landing/LandingPage';
 
 // Parents
 import ParentLoginPage from '../parents/pages/ParentLoginPage';
-import ParentSignUpPage from '../parents/pages/ParentSignUpPage';
+import ParentSignupPage from '../parents/pages/ParentSignupPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
 import TestSelectionPage from '../parents/pages/TestSelectionPage';
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/parents/signup',
-    element: <ParentSignUpPage />,
+    element: <ParentSignupPage />,
   },
   {
     path: '/parents/parentaccountconfirmation',
