@@ -16,21 +16,47 @@ export const VideoTest = () => {
   const [isTesting, setIsTesting] = useState(false);
 
   /**
-   * On mount, enumerate devices to find cameras.
+   * Request access to the camera to ensure device labels are available.
+   */
+  const requestCameraPermissions = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // Immediately stop the stream as we only needed permissions
+      stream.getTracks().forEach((track) => track.stop());
+      return true;
+    } catch (err) {
+      console.error("Camera permission denied or error:", err);
+      alert("Camera access is required to use this feature. Please allow camera permissions.");
+      return false;
+    }
+  };
+
+  /**
+   * On mount, request permissions and enumerate devices.
    */
   useEffect(() => {
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((devices) => {
-        const videoDevices = devices.filter((d) => d.kind === "videoinput");
-        setCameras(videoDevices);
-        if (videoDevices.length > 0) {
-          setSelectedCameraId(videoDevices[0].deviceId);
-        }
-      })
-      .catch((err) => {
-        console.error("Error enumerating video devices:", err);
-      });
+    const init = async () => {
+      const hasPermission = await requestCameraPermissions();
+      if (hasPermission) {
+        navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => {
+            const videoDevices = devices.filter((d) => d.kind === "videoinput");
+            setCameras(videoDevices);
+            if (videoDevices.length > 0) {
+              setSelectedCameraId(videoDevices[0].deviceId);
+            } else {
+              alert("No video devices found. Please connect a camera and try again.");
+            }
+          })
+          .catch((err) => {
+            console.error("Error enumerating video devices:", err);
+            alert("Could not enumerate video devices.");
+          });
+      }
+    };
+
+    init();
   }, []);
 
   /**
@@ -39,34 +65,39 @@ export const VideoTest = () => {
    * or turn the video off (if isTesting = false).
    */
   useEffect(() => {
-    if (!selectedCameraId) return;
+    let currentStream = videoStream;
 
-    // If user just toggled "on":
-    if (isTesting) {
-      // Get media from the chosen camera
-      navigator.mediaDevices
-        .getUserMedia({ video: { deviceId: selectedCameraId }, audio: false })
-        .then((stream) => {
-          setVideoStream(stream);
-        })
-        .catch((err) => {
-          console.error("Error accessing video device:", err);
-          alert("Could not access selected camera.");
-          setIsTesting(false); // revert if it fails
-        });
-    } else {
-      // If user toggled "off," stop any existing stream
-      if (videoStream) {
-        videoStream.getTracks().forEach((track) => track.stop());
+    const startVideo = async () => {
+      try {
+        const constraints = selectedCameraId
+          ? { video: { deviceId: { exact: selectedCameraId } }, audio: false }
+          : { video: true, audio: false };
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        setVideoStream(stream);
+      } catch (err) {
+        console.error("Error accessing video device:", err);
+        alert("Could not access the selected camera.");
+        setIsTesting(false); // Revert if it fails
       }
-      setVideoStream(null);
+    };
+
+    const stopVideo = () => {
+      if (currentStream) {
+        currentStream.getTracks().forEach((track) => track.stop());
+        setVideoStream(null);
+      }
+    };
+
+    if (isTesting) {
+      startVideo();
+    } else {
+      stopVideo();
     }
 
-    // Cleanup function (runs if isTesting or selectedCameraId changes again)
+    // Cleanup function to stop video when component unmounts or dependencies change
     return () => {
-      if (videoStream) {
-        videoStream.getTracks().forEach((track) => track.stop());
-      }
+      stopVideo();
     };
   }, [isTesting, selectedCameraId]);
 
@@ -76,6 +107,18 @@ export const VideoTest = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.srcObject = videoStream || null;
+
+      if (videoStream) {
+        // Attempt to play the video to handle autoplay policies
+        videoRef.current
+          .play()
+          .then(() => {
+            console.log("Video playback started.");
+          })
+          .catch((err) => {
+            console.error("Video playback error:", err);
+          });
+      }
     }
   }, [videoStream]);
 
@@ -110,6 +153,14 @@ export const VideoTest = () => {
           playsInline
           muted
           className="absolute inset-0 w-full h-full object-cover"
+          // Adding onLoadedMetadata to handle autoplay
+          onLoadedMetadata={() => {
+            if (videoRef.current) {
+              videoRef.current.play().catch((err) => {
+                console.error("Autoplay prevented:", err);
+              });
+            }
+          }}
         />
       </div>
 
