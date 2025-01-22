@@ -1,4 +1,4 @@
-import ChevronIcon from "../components/images/chevron.svg";
+import ChevronIcon from "../../../assets/chevron.svg";
 
 // eslint-disable-next-line react/prop-types
 export function ClientCard({ name }) {

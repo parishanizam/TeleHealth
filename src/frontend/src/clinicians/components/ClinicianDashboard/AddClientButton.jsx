@@ -1,4 +1,4 @@
-import AddIcon from "../components/images/add_icon.svg";
+import AddIcon from "../../../assets/add_icon.svg";
 
 const buttonStyles = {
   backgroundColor: "#63A15E",
