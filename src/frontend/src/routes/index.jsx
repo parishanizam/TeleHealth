@@ -10,6 +10,11 @@ import ParentSignUpPage from '../parents/pages/ParentSignUpPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
 import TestSelectionPage from '../parents/pages/TestSelectionPage';
+import EnglishMatchingInstructions from '../parents/pages/EnglishMatchingInstructions';
+import MediaTesting from '../parents/pages/MediaTesting';
+import TestComplete from '../parents/pages/TestCompletePage';
+import QuizManagement from '../parents/pages/QuizManagement';
+
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -32,8 +37,12 @@ const router = createBrowserRouter([
     element: <ParentAccountConfirmationPage />,
   },
   {
-    path: '/clinicians/login',
-    element: <ClinicianLoginPage />,
+    path: '/parents/EnglishMatchingInstructions',
+    element: <EnglishMatchingInstructions />,
+  },
+  {
+    path: '/parents/MediaTesting',
+    element: <MediaTesting />,
   },
   {
     path: '/parents/checklist',
@@ -42,6 +51,18 @@ const router = createBrowserRouter([
   {
     path: '/parents/testselection',
     element: <TestSelectionPage />,
+  },
+  {
+    path: '/parents/testcomplete',
+    element: <TestComplete />,
+  },
+  {
+    path: '/parents/QuizManagement',
+    element: <QuizManagement />,
+  },
+  {
+    path: '/clinicians/login',
+    element: <ClinicianLoginPage />,
   },
 ]);
 
