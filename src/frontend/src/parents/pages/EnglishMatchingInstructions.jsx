@@ -2,6 +2,7 @@ import React from "react";
 import { Header } from "../components/Header";
 import VolumeButton from "../../assets/volumebutton.svg";
 import InstructionStep from "../components/InstructionStep";
+import NextButton from "../components/NextButton";
 
 function EnglishMatchingInstructions() {
   return (
@@ -59,9 +60,7 @@ function EnglishMatchingInstructions() {
       <div className="flex flex-col items-center mt-12 w-full text-center text-black max-md:mt-10">
         <div>Press &quot;Start&quot; when ready</div>
         <div className="mt-6">
-          <button className="px-4 py-2.5 bg-white rounded-lg border-blue-600 border text-blue-600">
-            Start
-          </button>
+        <NextButton to="/parents/EnglishMatchingInstructions" name = "Start" />
         </div>
       </div>
     </div>

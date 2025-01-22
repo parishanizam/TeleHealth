@@ -45,7 +45,7 @@ function ParentChecklistPage() {
 
       {/* Next Button Section */}
       <div className="flex gap-2.5 justify-center items-center px-60 mt-44 w-full min-h-[60px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
-        <NextButton to="/parents/login" />
+        <NextButton to="/parents/MediaTesting" />
       </div>
     </div>
   );
