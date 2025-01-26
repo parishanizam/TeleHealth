@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const { GetObjectCommand } = require('@aws-sdk/client-s3');
-
 const { detectMultipleFaces } = require('../helpers/videoProcessing');
 const { extractAudioToWav, detectKeywords } = require('../helpers/audioProcessing');
 const {
@@ -20,36 +19,35 @@ exports.processMedia = async (req, res) => {
       return res.status(400).json({ error: 'No video file uploaded' });
     }
 
-    // 1. Basic info
     const originalFilename = req.file.originalname;
     const tempVideoPath = req.file.path;
 
-    // 2. Face detection
+    //Face detection
     const faceData = await detectMultipleFaces(tempVideoPath);
 
-    // 3. Audio extraction + keyword detection
+    //Audio extraction + keyword detection
     const outputDir = path.join(__dirname, '../../tmp');
     if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
     const wavPath = await extractAudioToWav(tempVideoPath, outputDir);
     const audioEvents = await detectKeywords(wavPath);
 
-    // 4. Combine results into bias
+    //Combine results into bias
     const biasTimestamps = combineDetections(faceData, audioEvents);
 
-    // 5. Upload .mp4
+    //Upload .mp4
     const s3VideoKey = originalFilename;
     await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, s3VideoKey);
 
-    // 6. Create & upload JSON
+    //Create & upload JSON
     const jsonReport = { videoFile: s3VideoKey, bias: biasTimestamps };
     const jsonKey = originalFilename.replace('.mp4', '.json');
     await uploadToS3(MEDIA_BUCKET, jsonKey, JSON.stringify(jsonReport), 'application/json');
 
-    // 7. Cleanup local files
+    //Cleanup local files
     fs.unlinkSync(tempVideoPath);
     fs.unlinkSync(wavPath);
 
-    // 8. Respond
+    //Respond
     res.status(200).json({
       success: true,
       message: 'Video processed successfully',
@@ -71,14 +69,13 @@ exports.getProcessedMedia = async (req, res) => {
       return res.status(400).json({ error: 'No baseName provided' });
     }
 
-    // e.g., MyFile.mp4 & MyFile.json
     const mp4Key = `${baseName}.mp4`;
     const jsonKey = `${baseName}.json`;
 
-    // 1. Get a presigned URL
+    //Get a presigned URL -> This will be used to view the video in the frontend
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, mp4Key);
 
-    // 2. Load JSON from S3
+    //Load JSON from S3
     const biasData = await loadJsonFromS3(MEDIA_BUCKET, jsonKey);
 
     res.status(200).json({
@@ -93,12 +90,12 @@ exports.getProcessedMedia = async (req, res) => {
   }
 };
 
-// Combine face detection + audio events
+//Combine face detection + audio events
 function combineDetections(faceData, audioData) {
   const biasEvents = [];
   let lastBiasTime = -Infinity;
-  const TIME_WINDOW = 1000; // 1s
-  const GAP = 5000; // 5s gap
+  const TIME_WINDOW = 1000;
+  const GAP = 5000;
 
   faceData.sort((a, b) => a.timestamp - b.timestamp);
   audioData.sort((a, b) => a.timestamp - b.timestamp);

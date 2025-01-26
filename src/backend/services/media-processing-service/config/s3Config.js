@@ -1,5 +1,3 @@
-// config/s3Config.js
-
 const {
     S3Client,
     PutObjectCommand,
