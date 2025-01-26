@@ -1,0 +1,18 @@
+{
+    "name": "media-processing-service",
+    "version": "1.0.0",
+    "description": "Media processing service for Telehealth",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "multer": "^1.4.5-lts.1",
+      "@aws-sdk/client-s3": "^3.309.0",
+      "@tensorflow/tfjs-node": "^4.7.0",
+      "face-api.js": "^0.22.2",
+      "fluent-ffmpeg": "^2.1.2"
+    }
+  }
+  
