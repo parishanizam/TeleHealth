@@ -4,19 +4,22 @@
     "description": "Media processing service for Telehealth",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "postinstall": "pip install -r helpers/requirements.txt"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.735.0",
         "@aws-sdk/s3-request-presigner": "^3.735.0",
-        "@tensorflow/tfjs-node": "^4.7.0",
+        "@deepgram/sdk": "^3.9.0",
+        "argparse": "^1.0.10",
         "bcrypt": "^5.1.0",
+        "canvas": "^3.1.0",
+        "coquisttjs": "^0.1.1",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "face-api.js": "^0.22.2",
         "ffmpeg-static": "^5.2.0",
-        "fluent-ffmpeg": "^2.1.2",
-        "multer": "^1.4.5-lts.1"
+        "fluent-ffmpeg": "^2.1.2"
     }
 }

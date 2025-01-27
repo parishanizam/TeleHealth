@@ -92,30 +92,30 @@ exports.getProcessedMedia = async (req, res) => {
 
 //Combine face detection + audio events
 function combineDetections(faceData, audioData) {
-  const biasEvents = [];
-  let lastBiasTime = -Infinity;
-  const TIME_WINDOW = 1000;
-  const GAP = 5000;
-
-  faceData.sort((a, b) => a.timestamp - b.timestamp);
-  audioData.sort((a, b) => a.timestamp - b.timestamp);
-
-  faceData.forEach(faceFrame => {
-    if (faceFrame.faceCount <= 2) return;
-
-    const faceTime = faceFrame.timestamp;
-    const relevantAudio = audioData.find(aEvt =>
-      aEvt.timestamp >= faceTime && aEvt.timestamp <= faceTime + TIME_WINDOW
-    );
-
-    if (relevantAudio && (faceTime - lastBiasTime) > GAP) {
-      biasEvents.push(faceTime);
-      lastBiasTime = faceTime;
+    const biasEvents = [];
+    let lastBiasTime = -Infinity;
+    const TIME_WINDOW = 1000; // 1 second
+    const GAP = 5000; // 5 seconds between biases
+  
+    let audioIndex = 0;
+  
+    for (const face of faceData) {
+      if (face.faceCount <= 2) continue;
+  
+      while (audioIndex < audioData.length && audioData[audioIndex].timestamp < face.timestamp - TIME_WINDOW) {
+        audioIndex++;
+      }
+  
+      if (audioIndex < audioData.length && Math.abs(audioData[audioIndex].timestamp - face.timestamp) <= TIME_WINDOW) {
+        if (face.timestamp - lastBiasTime > GAP) {
+          biasEvents.push(face.timestamp);
+          lastBiasTime = face.timestamp;
+        }
+      }
     }
-  });
-
-  return biasEvents;
-}
+  
+    return biasEvents;
+  }
 
 async function loadJsonFromS3(bucketName, key) {
   try {

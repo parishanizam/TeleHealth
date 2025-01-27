@@ -1,26 +1,41 @@
-// helpers/videoProcessing.js
+const { spawn } = require('child_process');
+const path = require('path');
 
-// Normally you'd import faceapi and tfjs-node here:
-// const faceapi = require('face-api.js');
-// const tf = require('@tensorflow/tfjs-node');
+/**
+ * Detect faces using Python MediaPipe script.
+ * @param {string} videoPath - Path to the video file.
+ * @returns {Promise<Array>} - Array of objects with timestamp and face count.
+ */
+function detectFacesWithPython(videoPath, frameSkip = 5) {
+  return new Promise((resolve, reject) => {
+    const pythonScriptPath = path.join(__dirname, 'face_detection.py');
+    const pythonProcess = spawn('python', [pythonScriptPath, videoPath, frameSkip.toString()]);
 
-async function detectMultipleFaces(videoPath) {
-    // TODO: Load the models, process frames at intervals, etc.
-    // e.g. faceapi.nets.ssdMobilenetv1.loadFromDisk('/path/to/model')
-    // For each processed frame, detect faces -> store timestamp + face count
-  
-    // A placeholder returning a mock array of { timestamp, faceCount }
-    // In reality, you'd do real detection and fill these values accurately.
-    return [
-      { timestamp: 3000, faceCount: 1 },
-      { timestamp: 8000, faceCount: 3 }, // e.g. multiple faces
-      { timestamp: 15000, faceCount: 1 },
-      { timestamp: 20000, faceCount: 4 } // multiple
-      // ...
-    ];
-  }
-  
-  module.exports = {
-    detectMultipleFaces
-  };
-  
+    let output = '';
+    let error = '';
+
+    pythonProcess.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+
+    pythonProcess.on('close', (code) => {
+      if (code !== 0) {
+        return reject(new Error(`Python script exited with code ${code}: ${error}`));
+      }
+      try {
+        const results = JSON.parse(output);
+        resolve(results);
+      } catch (err) {
+        reject(new Error('Failed to parse Python script output: ' + err.message));
+      }
+    });
+  });
+}
+
+module.exports = {
+  detectFacesWithPython,
+};
