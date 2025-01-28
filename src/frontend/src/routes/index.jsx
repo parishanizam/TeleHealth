@@ -23,6 +23,11 @@ import ParentHomePage from '../parents/pages/ParentHomePage';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
+import BiasReviewPage from '../clinicians/pages/BiasReviewPage';
+import ClientOverview from '../clinicians/pages/ClientOverview';
+import ClinicianDashboard from '../clinicians/pages/ClinicianDashboard';
+import ResultsAnalysisPage from '../clinicians/pages/ResultsAnalysisPage';
+import AddClientPage from '../clinicians/pages/AddClientPage';
 
 const router = createBrowserRouter([
   {
@@ -92,6 +97,26 @@ const router = createBrowserRouter([
   {
     path: '/clinicians/login',
     element: <ClinicianLoginPage />,
+  },
+  {
+    path: '/clinicians/BiasReviewPage',
+    element: <BiasReviewPage />,
+  },
+  {
+    path: '/clinicians/ClientOverview',
+    element: <ClientOverview />,
+  },
+  {
+    path: '/clinicians/ClinicianDashboard',
+    element: <ClinicianDashboard />,
+  },
+  {
+    path: '/clinicians/ResultsAnalysisPage',
+    element: <ResultsAnalysisPage />,
+  },
+  {
+    path: '/clinicians/AddClientPage',
+    element: <AddClientPage />,
   },
 ]);
 
