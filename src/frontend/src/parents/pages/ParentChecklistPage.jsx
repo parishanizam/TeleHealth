@@ -14,37 +14,45 @@ const checklistItems = [
 
 function ParentChecklistPage() {
   return (
-    <div className="flex overflow-hidden flex-col px-5 pt-2.5 pb-64 bg-white max-md:pb-24">
-      <Header title="Parent Checklist" />
+    <div className="flex flex-col items-center justify-center min-h-screen px-5 bg-white">
+      <Header title="Things to keep in mind" />
 
-    
-      {/* Title Section */}
-      <div className="flex flex-col items-center mt-12 w-full text-3xl tracking-normal leading-10 text-center text-black max-md:mt-10 max-md:max-w-full">
-        <div className="py-8 pr-52 pl-52 max-w-full bg-sky-400 rounded-xl min-h-[101px] w-[940px] max-md:px-5 max-md:max-w-full">
-          Parents, please answer the following:
-        </div>
-      </div>
-
-      {/* Checklist Items */}
-      <div className="flex flex-col items-center mt-12 w-full text-xl text-black max-md:mt-10 max-md:max-w-full">
-        <div className="flex flex-col items-start max-md:max-w-full">
+      {/* Checklist Section */}
+      <div className="max-w-5xl w-full bg-white rounded-md shadow-md p-10 flex flex-col justify-center space-y-6 text-center">
+        <h2 className="text-4xl font-semibold mb-4">✅ Parent Checklist</h2>
+        <ul className="list-disc list-inside space-y-3 text-gray-700">
           {checklistItems.map((item, index) => (
-            <div className="flex flex-wrap gap-2 items-center mt-5 max-md:max-w-full" key={index}>
-              <input
-                type="checkbox"
-                id={`checklist-item-${index}`}
-                className="w-5 h-5 border border-black cursor-pointer"
-              />
-              <label htmlFor={`checklist-item-${index}`} className="self-stretch my-auto max-md:max-w-full">
-                {item.text}
-              </label>
-            </div>
+            <li key={index}>{item.text}</li>
           ))}
-        </div>
+        </ul>
       </div>
 
-      {/* Next Button Section */}
-      <div className="flex gap-2.5 justify-center items-center px-60 mt-44 w-full min-h-[60px] max-md:px-5 max-md:mt-10 max-md:max-w-full">
+      {/* Settings Section */}
+      <div className="max-w-5xl w-full bg-white rounded-md shadow-md p-10 flex flex-col justify-center space-y-6 text-center">
+        <h2 className="text-4xl font-semibold mb-4">⚙️ Settings</h2>
+        <ul className="list-disc list-inside space-y-3 text-gray-700">
+          <li>Ensure the room is quiet and free of distractions.</li>
+          <li>Position the child in front of the camera and microphone.</li>
+          <li>Use a stable internet connection for smooth video recording.</li>
+          <li>Adjust the lighting to clearly capture the child’s face.</li>
+        </ul>
+      </div>
+
+      {/* Rules Section */}
+      <div className="max-w-5xl w-full bg-white rounded-md shadow-md p-10 flex flex-col justify-center space-y-6 text-center">
+        <h2 className="text-4xl font-semibold mb-4">📜 Rules</h2>
+        <ol className="list-decimal list-inside space-y-3 text-gray-700">
+          <li>If the child gives a wrong answer, you cannot correct them.</li>
+          <li>Do not provide hints or clues during the assessment.</li>
+          <li>Encourage the child to speak loudly and clearly.</li>
+          <li>Avoid interrupting the child while they are answering.</li>
+          <li>If your child is unsure about the answer, do not repeat the question for them.</li>
+          <li>Ensure that your child is selecting the answer independently.</li>
+        </ol>
+      </div>
+
+      {/* Next Button */}
+      <div className="flex gap-2.5 justify-center items-center mt-10">
         <NextButton to="/parents/MediaTesting" />
       </div>
     </div>
