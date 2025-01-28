@@ -1,59 +1,76 @@
 const path = require('path');
 const fs = require('fs');
 const { GetObjectCommand } = require('@aws-sdk/client-s3');
-const { detectMultipleFaces } = require('../helpers/videoProcessing');
-const { extractAudioToWav, detectKeywords } = require('../helpers/audioProcessing');
-const {
-  uploadFileToS3,
-  uploadToS3,
-  getVideoPresignedUrl,
-  s3Client
-} = require('../config/s3Config');
+const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('../config/s3Config');
 
+// IMPORT HELPERS
+const { processMp4WithDeepgram } = require('../helpers/audioprocess'); 
+const { detectFacesWithPython } = require('../helpers/videoprocess');
+
+function combineDetections(faceData, audioData) {
+  const BIAS_THRESHOLD_MS = 100;  
+  const results = [];
+
+  faceData.forEach((faceEvent) => {
+    if (faceEvent.faces < 2) return;
+    audioData.forEach((audioEvent) => {
+      if (Math.abs(audioEvent.timestamp - faceEvent.timestamp) <= BIAS_THRESHOLD_MS) {
+        results.push({
+          timestamp: faceEvent.timestamp,
+          faceCount: faceEvent.faces,
+          keyword: audioEvent.keyword,
+        });
+      }
+    });
+  });
+
+  return results;
+}
+
+// Environment or fallback for your S3 bucket
 const MEDIA_BUCKET = process.env.MEDIA_BUCKET || 'telehealth-media-processing';
 
-// POST controller
 exports.processMedia = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No video file uploaded' });
     }
 
+    // Path to the uploaded temp file
     const originalFilename = req.file.originalname;
     const tempVideoPath = req.file.path;
 
-    //Face detection
-    const faceData = await detectMultipleFaces(tempVideoPath);
+    //Detect faces via Python/Mediapipe
+    const faceData = await detectFacesWithPython(tempVideoPath);
 
-    //Audio extraction + keyword detection
-    const outputDir = path.join(__dirname, '../../tmp');
-    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
-    const wavPath = await extractAudioToWav(tempVideoPath, outputDir);
-    const audioEvents = await detectKeywords(wavPath);
+    //Transcribe audio & detect keywords directly from MP4 via Deepgram
+    const audioKeywords = await processMp4WithDeepgram(tempVideoPath);
 
-    //Combine results into bias
-    const biasTimestamps = combineDetections(faceData, audioEvents);
+    //Combine the results (example bias-detection logic)
+    const biasEvents = combineDetections(faceData, audioKeywords);
 
-    //Upload .mp4
+    //Upload the .mp4 to S3
     const s3VideoKey = originalFilename;
     await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, s3VideoKey);
 
-    //Create & upload JSON
-    const jsonReport = { videoFile: s3VideoKey, bias: biasTimestamps };
+    //Create & upload JSON summary
     const jsonKey = originalFilename.replace('.mp4', '.json');
+    const jsonReport = {
+      videoFile: s3VideoKey,
+      bias: biasEvents
+    };
     await uploadToS3(MEDIA_BUCKET, jsonKey, JSON.stringify(jsonReport), 'application/json');
 
-    //Cleanup local files
+    //Clean up local files
     fs.unlinkSync(tempVideoPath);
-    fs.unlinkSync(wavPath);
 
-    //Respond
+    //Return response
     res.status(200).json({
       success: true,
       message: 'Video processed successfully',
       videoKey: s3VideoKey,
       jsonKey,
-      biasTimestamps
+      biasEvents,
     });
   } catch (error) {
     console.error('Error processing media:', error);
@@ -61,21 +78,20 @@ exports.processMedia = async (req, res) => {
   }
 };
 
-// GET controller -> Return presigned URL & bias from S3
+//GET endpoint for retrieving presigned URL & bias data
 exports.getProcessedMedia = async (req, res) => {
   try {
     const baseName = req.params.baseName;
     if (!baseName) {
       return res.status(400).json({ error: 'No baseName provided' });
     }
-
     const mp4Key = `${baseName}.mp4`;
     const jsonKey = `${baseName}.json`;
 
-    //Get a presigned URL -> This will be used to view the video in the frontend
+    // Retrieve a presigned URL for the .mp4
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, mp4Key);
 
-    //Load JSON from S3
+    // Load JSON from S3 (face+audio "bias" data)
     const biasData = await loadJsonFromS3(MEDIA_BUCKET, jsonKey);
 
     res.status(200).json({
@@ -90,33 +106,7 @@ exports.getProcessedMedia = async (req, res) => {
   }
 };
 
-//Combine face detection + audio events
-function combineDetections(faceData, audioData) {
-    const biasEvents = [];
-    let lastBiasTime = -Infinity;
-    const TIME_WINDOW = 1000; // 1 second
-    const GAP = 5000; // 5 seconds between biases
-  
-    let audioIndex = 0;
-  
-    for (const face of faceData) {
-      if (face.faceCount <= 2) continue;
-  
-      while (audioIndex < audioData.length && audioData[audioIndex].timestamp < face.timestamp - TIME_WINDOW) {
-        audioIndex++;
-      }
-  
-      if (audioIndex < audioData.length && Math.abs(audioData[audioIndex].timestamp - face.timestamp) <= TIME_WINDOW) {
-        if (face.timestamp - lastBiasTime > GAP) {
-          biasEvents.push(face.timestamp);
-          lastBiasTime = face.timestamp;
-        }
-      }
-    }
-  
-    return biasEvents;
-  }
-
+// Utility for reading JSON from S3
 async function loadJsonFromS3(bucketName, key) {
   try {
     const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
