@@ -6,8 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ClientOverview() {
-  const [selectedFilters, setSelectedFilters] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState([]); // Track selected filters
+  const [selectedDate, setSelectedDate] = useState(null); // Track selected date for "Date" filter
 
   const filterOptions = ["English", "Mandarin", "Matching", "Repetition", "Date"];
 
@@ -15,11 +15,14 @@ function ClientOverview() {
     const { value } = e.target;
 
     if (value === "Date" && !selectedFilters.includes("Date")) {
+      // Add "Date" filter and keep tracking selected date
       setSelectedFilters([...selectedFilters, value]);
     } else if (selectedFilters.includes(value)) {
+      // Remove the filter if it's already selected
       setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
-      if (value === "Date") setSelectedDate(null);
+      if (value === "Date") setSelectedDate(null); // Reset the date if "Date" filter is removed
     } else if (selectedFilters.length < 5) {
+      // Add new filter if less than 5 filters are selected
       setSelectedFilters([...selectedFilters, value]);
     } else {
       alert("You can select up to 5 filters.");
@@ -28,6 +31,7 @@ function ClientOverview() {
 
   return (
     <div className="flex flex-col h-screen p-4 space-y-6 bg-gray-50">
+      {/* Header */}
       <Header title="Mitchell Weingust - Overview" />
 
       {/* Filter Section */}
@@ -50,7 +54,21 @@ function ClientOverview() {
             ))}
           </select>
 
-          {/*"Date" Filter */}
+          {/* Show selected filters */}
+          {selectedFilters.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-2">
+              {selectedFilters.map((filter, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm"
+                >
+                  {filter}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* "Date" Filter */}
           {selectedFilters.includes("Date") && (
             <div>
               <label className="font-medium">Select a Date:</label>
@@ -65,6 +83,7 @@ function ClientOverview() {
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Graph Section */}
         <div className="flex-grow bg-white rounded-md shadow-md p-4 text-center">
