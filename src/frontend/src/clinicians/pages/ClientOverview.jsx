@@ -15,58 +15,67 @@ function ClientOverview() {
     const { value } = e.target;
 
     if (value === "Date" && !selectedFilters.includes("Date")) {
-      // Add "Date" filter and keep tracking selected date
       setSelectedFilters([...selectedFilters, value]);
     } else if (selectedFilters.includes(value)) {
-      // Remove the filter if it's already selected
       setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
-      if (value === "Date") setSelectedDate(null); // Reset the date if "Date" filter is removed
+      if (value === "Date") setSelectedDate(null); // Reset date if "Date" filter is removed
     } else if (selectedFilters.length < 5) {
-      // Add new filter if less than 5 filters are selected
       setSelectedFilters([...selectedFilters, value]);
     } else {
       alert("You can select up to 5 filters.");
     }
   };
 
+  const clearFilters = () => {
+    setSelectedFilters([]);
+    setSelectedDate(null);
+  };
+
   return (
-    <div className="flex flex-col h-screen p-4 space-y-6 bg-gray-50">
+    <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
       {/* Header */}
       <Header title="Mitchell Weingust - Overview" />
 
       {/* Filter Section */}
-      <div className="bg-white rounded-md shadow-md p-4 space-y-4">
+      <div className="p-4 space-y-4">
         <h2 className="text-lg font-semibold">Filters</h2>
         <div className="flex flex-col space-y-2">
           <label className="font-medium">Select a Filter:</label>
-          <select
-            className="border p-2 rounded-md"
-            onChange={handleFilterChange}
-            value=""
-          >
-            <option value="" disabled>
-              Select a filter
-            </option>
-            {filterOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
+          <div className="flex gap-4 items-center">
+            <select className="border p-2 rounded-md" onChange={handleFilterChange} value="">
+              <option value="" disabled>
+                Select a filter
               </option>
-            ))}
-          </select>
-
-          {/* Show selected filters */}
-          {selectedFilters.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-2">
-              {selectedFilters.map((filter, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm"
-                >
-                  {filter}
-                </span>
+              {filterOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </div>
-          )}
+            </select>
+
+            {/* Clear Filters Button */}
+            {selectedFilters.length > 0 && (
+              <button
+                onClick={clearFilters}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+              >
+                Clear Filters
+              </button>
+            )}
+          </div>
+
+          {/* Show Selected Filters (Fixed Layout Shift by Setting a Min Height) */}
+          <div className="min-h-[40px]">
+            {selectedFilters.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {selectedFilters.map((filter, index) => (
+                  <span key={index} className="px-3 py-1 bg-blue-500 text-white rounded-full text-sm">
+                    {filter}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* "Date" Filter */}
           {selectedFilters.includes("Date") && (
@@ -86,13 +95,13 @@ function ClientOverview() {
       {/* Main Content */}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         {/* Graph Section */}
-        <div className="flex-grow bg-white rounded-md shadow-md p-4 text-center">
+        <div className="flex-grow p-4 text-center">
           <h2 className="text-lg font-semibold mb-4">Graph</h2>
           <Graph filters={selectedFilters} selectedDate={selectedDate} />
         </div>
 
         {/* Results Section */}
-        <div className="flex-grow bg-white rounded-md shadow-md p-4">
+        <div className="flex-grow p-4 text-start">
           <h2 className="text-lg font-semibold mb-4">Results</h2>
           <Results filters={selectedFilters} selectedDate={selectedDate} />
         </div>

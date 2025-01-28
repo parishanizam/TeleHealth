@@ -6,11 +6,10 @@ import DashIcon from "../../../assets/dash.svg";
 function IconButtonGroup() {
   const handleAction = (actionType) => {
     console.log(`${actionType} button clicked`);
-    // Handle specific action logic here
   };
 
   return (
-    <div className="flex gap-4 items-center justify-center absolute bottom-20 left-1/2 transform -translate-x-1/2"> {/* Absolute positioning */}
+    <div className="flex gap-4 items-center justify-center mt-4">
       <IconButton
         iconSrc={CheckmarkIcon}
         bgColor="bg-green-500"

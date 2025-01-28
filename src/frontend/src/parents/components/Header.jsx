@@ -15,7 +15,7 @@ export function Header({ title }) {
         />
         <div className="self-stretch my-auto w-[51px]">Back</div>
       </button>
-      <div className="gap-2.5 self-stretch py-5 text-6xl tracking-tight text-center text-black leading-[64px] min-w-[240px] w-[400px] max-md:text-4xl">
+      <div className="gap-2.5 self-stretch py-5 text-6xl tracking-tight text-center text-black leading-[64px] whitespace-nowrap max-md:text-4xl">
         {title}
       </div>
       <div className="flex gap-2.5 items-center py-2.5 text-base font-bold leading-none text-center whitespace-nowrap w-[113px]">
