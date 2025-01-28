@@ -4,8 +4,8 @@ const { GetObjectCommand } = require('@aws-sdk/client-s3');
 const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('../config/s3Config');
 
 // IMPORT HELPERS
-const { processMp4WithDeepgram } = require('../helpers/audioprocess'); 
-const { detectFacesWithPython } = require('../helpers/videoprocess');
+const { processMp4WithDeepgram } = require('../helpers/audioprocessing'); 
+const { detectFacesWithPython } = require('../helpers/videoprocessing');
 
 function combineDetections(faceData, audioData) {
   const BIAS_THRESHOLD_MS = 100;  
