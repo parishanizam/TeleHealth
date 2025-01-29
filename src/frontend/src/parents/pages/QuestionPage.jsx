@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import MatchingCard from "../components/MatchingCard"; 
-import NextButton from "../components/NextButton";
 import { Header } from "../components/Header";
 import VolumeButton from "../../assets/volumebutton.svg";
 
@@ -13,11 +12,11 @@ export default function MatchingQuestion({
 
   const handleAnswerClick = (optionId) => {
     setSelectedAnswer(optionId);
-    // If you wanted to auto-advance upon selection, you could call onAnswerSelected here.
   };
 
-  // We'll call this from the parent DIV wrapping <NextButton>
-  const handleNextClick = () => {
+  const handleNextOrSubmit = () => {
+    // We'll just notify the parent that the user selected an answer.
+    // The parent (QuizManagement) decides what to do next (go to next question or finish).
     onAnswerSelected(question.id, selectedAnswer);
   };
 
@@ -55,18 +54,17 @@ export default function MatchingQuestion({
         </div>
       </div>
 
-      {/* Wrap NextButton in a parent div to intercept click */}
-      <div
-        className="flex justify-center px-60 mt-5 w-full min-h-[60px] max-md:px-5"
-        onClick={(e) => {
-          e.preventDefault(); // prevent link jump or page refresh
-          handleNextClick();  // trigger your "go to next question" logic
-        }}
-      >
-        <NextButton
-          to="#"
-          name={isLastQuestion ? "Submit Test" : "Next"}
-        />
+      {/* Single button that either does Next or Submit */}
+      <div className="flex justify-center px-60 mt-5 w-full min-h-[60px] max-md:px-5">
+        <button
+          className="px-4 py-2.5 bg-slate-900 text-white rounded-lg"
+          onClick={(e) => {
+            e.preventDefault();
+            handleNextOrSubmit();
+          }}
+        >
+          {isLastQuestion ? "Submit" : "Next"}
+        </button>
       </div>
     </div>
   );
