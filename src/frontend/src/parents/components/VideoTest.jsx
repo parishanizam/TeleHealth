@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCameraId } from "../../redux/deviceSlice";
 
 export const VideoTest = () => {
+  const dispatch = useDispatch();
   const videoRef = useRef(null);
-
-  // List of available cameras
   const [cameras, setCameras] = useState([]);
-
-  // Which camera deviceId is selected in the dropdown
   const [selectedCameraId, setSelectedCameraId] = useState("");
-
-  // The actual MediaStream (when video is ON)
   const [videoStream, setVideoStream] = useState(null);
-
-  // Toggle for whether the user is currently “testing” (i.e., video on/off)
   const [isTesting, setIsTesting] = useState(false);
 
   /**
@@ -129,14 +124,21 @@ export const VideoTest = () => {
     setIsTesting((prev) => !prev);
   };
 
+  const handleCameraChange = (e) => {
+    const deviceId = e.target.value;
+    setSelectedCameraId(deviceId);
+    dispatch(setCameraId(deviceId));
+  };
+
   return (
     <div className="flex flex-col w-full mt-10">
-      {/* Dropdown to choose camera */}
-      <label className="text-black text-sm font-medium mb-2">Choose Camera:</label>
+      <label className="text-black text-sm font-medium mb-2">
+        Choose Camera:
+      </label>
       <select
         className="border border-gray-300 rounded px-2 py-1"
         value={selectedCameraId}
-        onChange={(e) => setSelectedCameraId(e.target.value)}
+        onChange={handleCameraChange}
       >
         {cameras.map((camera) => (
           <option key={camera.deviceId} value={camera.deviceId}>

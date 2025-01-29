@@ -1,14 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import VolumeTestPlaceholder from "../../assets/volumetestplaceholder.svg";
+import { useDispatch } from "react-redux";
+import { setMicId } from "../../redux/deviceSlice";
 
-/**
- * MicrophoneTest:
- *  - enumerates "audioinput" devices
- *  - user picks mic
- *  - "Test" button starts mic loopback, "Stop" ends it
- *  - wave placeholder + custom volume bar
- */
 export const MicrophoneTest = () => {
+  const dispatch = useDispatch();
   const [mics, setMics] = useState([]);
   const [selectedMicId, setSelectedMicId] = useState("");
   const [isTesting, setIsTesting] = useState(false);
@@ -114,14 +109,19 @@ export const MicrophoneTest = () => {
     setMicVolume(newVolume);
   };
 
+  const handleMicChange = (e) => {
+    const deviceId = e.target.value;
+    setSelectedMicId(deviceId);
+    dispatch(setMicId(deviceId));
+  };
+
   return (
     <div className="flex flex-col items-start mt-12 max-md:mt-10 text-black">
-      {/* Dropdown for mic selection */}
       <label className="text-sm font-medium mb-2">Choose Microphone:</label>
       <select
         className="border border-gray-300 rounded px-2 py-1 mb-4"
         value={selectedMicId}
-        onChange={(e) => setSelectedMicId(e.target.value)}
+        onChange={handleMicChange}
       >
         {mics.map((mic) => (
           <option key={mic.deviceId} value={mic.deviceId}>
