@@ -52,7 +52,7 @@ export default function MediaTesting() {
       document.body.style.overflow = "hidden";
     } else {
       // Re-enable scrolling
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "hidden";
     }
 
     // Cleanup on unmount

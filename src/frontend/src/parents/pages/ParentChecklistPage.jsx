@@ -2,30 +2,10 @@ import React from "react";
 import { Header } from "../components/Header";
 import NextButton from "../components/NextButton";
 
-const checklistItems = [
-  { text: "Does your computer have a stable connection to the internet?" },
-  { text: "Is the room quiet and without distractions?" },
-  { text: "Is your audio set to a good volume?" },
-  { text: "If your child is unsure about the answer, can you repeat the question for them?" },
-  { text: "If your child hesitates, can you encourage them to guess?" },
-  { text: "If your child is wrong, can you correct them?" },
-  { text: "Is your child doing the selection/clicking independently?" },
-];
-
 function ParentChecklistPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-5 bg-white">
-      <Header title="Things to keep in mind" />
-
-      {/* Checklist Section */}
-      <div className="max-w-5xl w-full bg-white rounded-md shadow-md p-10 flex flex-col justify-center space-y-6 text-center">
-        <h2 className="text-4xl font-semibold mb-4">✅ Parent Checklist</h2>
-        <ul className="list-disc list-inside space-y-3 text-gray-700">
-          {checklistItems.map((item, index) => (
-            <li key={index}>{item.text}</li>
-          ))}
-        </ul>
-      </div>
+      <Header title="Parent Checklist" />
 
       {/* Settings Section */}
       <div className="max-w-5xl w-full bg-white rounded-md shadow-md p-10 flex flex-col justify-center space-y-6 text-center">
@@ -52,7 +32,7 @@ function ParentChecklistPage() {
       </div>
 
       {/* Next Button */}
-      <div className="flex gap-2.5 justify-center items-center mt-10">
+      <div className="flex gap-2.5 justify-center items-center mt-10 pb-4">
         <NextButton to="/parents/MediaTesting" />
       </div>
     </div>

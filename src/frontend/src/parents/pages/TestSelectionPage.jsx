@@ -27,7 +27,7 @@ function TestSelectionPage() {
       {languageOptions.map((option) => (
         <div key={option.value} className="flex items-center">
           <input
-            type="checkbox"
+            type="radio"
             id={`language-${option.value}`}
             name="language"
             value={option.value}
@@ -48,7 +48,7 @@ function TestSelectionPage() {
       {testTypeOptions.map((option) => (
         <div key={option.value} className="flex items-center">
           <input
-            type="checkbox"
+            type="radio"
             id={`testtype-${option.value}`}
             name="testtype"
             value={option.value}
