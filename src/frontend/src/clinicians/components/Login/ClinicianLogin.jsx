@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setClinicianInfo } from "../../../redux/clinicianSlice";
 
 function ClinicianLogin() {
   const [formData, setFormData] = React.useState({
@@ -9,10 +11,11 @@ function ClinicianLogin() {
   });
   const [error, setError] = React.useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
       const response = await axios.post(
@@ -23,14 +26,18 @@ function ClinicianLogin() {
         }
       );
 
-      // If successful, response.data will contain user info
       console.log("Clinician Login Success:", response.data);
 
-      // Redirect to your Clinician dashboard (placeholder)
-      navigate("/clinicians/dashboard");
+      // Extract clinician data
+      const clinicianData = response.data.user;
+
+      // Dispatch to Redux
+      dispatch(setClinicianInfo(clinicianData));
+
+      // Navigate to clinician dashboard
+      navigate("/clinicians/ClinicianDashboard");
     } catch (err) {
       console.error("Clinician Login Error:", err);
-      // Show an error above the username input
       setError(err.response?.data?.error || "Login failed.");
     }
   };

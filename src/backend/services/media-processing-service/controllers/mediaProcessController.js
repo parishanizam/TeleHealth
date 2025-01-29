@@ -5,7 +5,7 @@ const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('
 
 // IMPORT HELPERS
 const { processMp4WithDeepgram } = require('../helpers/audioprocessing'); 
-const { detectFacesWithPython } = require('../helpers/videoprocessing');
+const { detectFacesWithPython } = require('../helpers/videoProcessing');
 
 function combineDetections(faceData, audioData) {
   const BIAS_THRESHOLD_MS = 100;  

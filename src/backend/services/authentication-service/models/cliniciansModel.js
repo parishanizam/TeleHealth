@@ -7,9 +7,11 @@ const {
   /**
    * Create a new clinician record in S3 named <username>.json
    */
-  async function createClinician(username, email, passwordHash) {
+  async function createClinician(firstname, lastname, username, email, passwordHash) {
     const key = `${username}.json`;
     const data = {
+      firstname,
+      lastname,
       username,
       email,
       passwordHash,

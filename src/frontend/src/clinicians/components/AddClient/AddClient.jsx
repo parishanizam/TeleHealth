@@ -1,34 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import GenerateButton from "./GenerateButton";
 import InputField from "./InputField";
+import { useSelector, useDispatch } from "react-redux";
+import { addClient } from "../../../redux/clinicianSlice";
 
 function AddClient() {
-  const [formData, setFormData] = React.useState({
-    firstName: "",
-    lastName: ""
-  });
+  const [formData, setFormData] = useState({ firstName: "", lastName: "" });
+  const [clientNumber, setClientNumber] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [clientNumber, setClientNumber] = React.useState(""); // New state for client number
+  // Get clinician info from Redux
+  const clinicianInfo = useSelector((state) => state.clinician.clinicianInfo);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted:", formData);
+  // Generate a 6-character alphanumeric client number
+  const generateClientNumber = () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setClientNumber(result);
   };
 
-  const generateClientNumber = () => {
-    setClientNumber("QD4X2P"); // Set the generated client number
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.firstName || !formData.lastName || !clientNumber) {
+      setError("Please fill all fields and generate a client number.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:3000/auth/clinicians/add-client", {
+        clinicianUsername: clinicianInfo.username,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        clientNumber: clientNumber,
+      });
+
+      console.log("Client Added Successfully:", response.data);
+
+      // Dispatch new client to Redux
+      dispatch(addClient({ name: `${formData.firstName} ${formData.lastName}` }));
+
+      // Navigate back to dashboard
+      navigate("/clinicians/ClinicianDashboard");
+    } catch (err) {
+      console.error("Error adding client:", err);
+      setError("Failed to add client. Please try again.");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}
-          className="flex flex-col items-center "
-          style={{ minHeight: "300px" }}  // Reserve space for the client number text
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-5">
+      <h2 className="text-2xl font-semibold">Add New Client</h2>
+
+      {error && <p className="text-red-500">{error}</p>}
 
       <InputField
         id="firstName"
@@ -48,11 +84,21 @@ function AddClient() {
         onChange={handleChange}
       />
 
-    <GenerateButton onClick={generateClientNumber} />
+      <GenerateButton onClick={generateClientNumber} />
 
-    {/* Display the generated client number */}
-    {clientNumber && <p className="mt-4 text-lg text-gray-700 font-bold">Client Number: {clientNumber}</p>}
+      {/* Display generated client number */}
+      {clientNumber && (
+        <p className="mt-4 text-lg text-gray-700 font-bold">
+          Client Number: {clientNumber}
+        </p>
+      )}
 
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
+      >
+        Submit
+      </button>
     </form>
   );
 }

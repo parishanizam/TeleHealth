@@ -6,7 +6,7 @@ const {
 
 exports.clinicianSignup = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
 
     // Check if username already exists
     const existing = await getClinicianByUsername(username);
@@ -17,7 +17,7 @@ exports.clinicianSignup = async (req, res) => {
     // Hash password
     const passwordHash = await bcrypt.hash(password, 10);
     // Create the clinician
-    const newClinician = await createClinician(username, email, passwordHash);
+    const newClinician = await createClinician(firstname, lastname, username, email, passwordHash);
 
     return res.json({ message: 'Clinician created', user: newClinician });
   } catch (err) {
@@ -42,9 +42,12 @@ exports.clinicianLogin = async (req, res) => {
     return res.json({
       message: 'Login successful',
       user: {
+        firstname: clinician.firstname,
+        lastname: clinician.lastname,
         username: clinician.username,
         email: clinician.email,
-        role: 'CLINICIAN'
+        role: 'CLINICIAN',
+        client: clinician.clients
       }
     });
   } catch (err) {

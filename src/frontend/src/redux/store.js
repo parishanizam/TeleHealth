@@ -1,32 +1,30 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { persistStore, persistReducer,
-  FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import parentReducer from './parentSlice';
-import deviceReducer from './deviceSlice';
+import parentReducer from "./parentSlice";
+import deviceReducer from "./deviceSlice";
+import clinicianReducer from "./clinicianSlice";
 
 const rootReducer = combineReducers({
   parent: parentReducer,
   device: deviceReducer,
+  clinician: clinicianReducer,
 });
 
 // Persist config
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['parent','device'], 
+  whitelist: ["parent", "device", "clinician"],
 };
 
-// Wrap rootReducer with persistReducer
+// Persist reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Create the store
+// Create store
 export const store = configureStore({
   reducer: persistedReducer,
-
-  // IMPORTANT: Ignore certain redux-persist actions in serializableCheck
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -35,5 +33,5 @@ export const store = configureStore({
     }),
 });
 
-// Create the persistor
+// Create persistor
 export const persistor = persistStore(store);
