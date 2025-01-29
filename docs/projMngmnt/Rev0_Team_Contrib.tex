@@ -149,6 +149,24 @@ Promish Kandel & 2 & 33 \\
 
 \section{CICD}
 
+\begin{itemize}
+	\item GitHub Actions will be used to create and manage continuous integration workflow scripts.
+	\begin{itemize}
+    \item Running a code linting tool and automatically enforcing style guides
+    \item Restricting the ability to merge pull requests that do not meet our coding standards
+    \item Perform PR check: PR template is filled correctly such as correct labels and issues are linked properly to PR. 
+    \item Ensure that the code builds successfully on each push
+  \end{itemize}
+	\item If all tests pass, and at least one team members review the pull request, the branch can be approved and merged 
+    into the main branch.
+	\item The lead developer will ensure all necessary code is covered by automated tests.
+	\item A rollback strategy will be included in the CD pipeline in case the project needs 
+  to be reverted to a previously stable state.
+\end{itemize}
+
+The CI/CD will be used further to run more unit tests for PRs's once developed from MIS in the VnvPlan 
+as well as automatically adding applicable labels to PRs based on the code change. 
+
 \wss{Say how CICD is used in your project}
 
 \section{Productivity}
