@@ -28,6 +28,7 @@ function ParentChecklistPage() {
           <li>Avoid interrupting the child while they are answering.</li>
           <li>If your child is unsure about the answer, do not repeat the question for them.</li>
           <li>Ensure that your child is selecting the answer independently.</li>
+          <li>Do not refresh the page when test is started. It will stop the test and you will have to restart</li>
         </ol>
       </div>
 
