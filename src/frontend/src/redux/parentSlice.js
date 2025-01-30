@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  parentInfo: null, // Will hold the parent’s data once logged in
+  parentInfo: null, 
 };
 
 const parentSlice = createSlice({

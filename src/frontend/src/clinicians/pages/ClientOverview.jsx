@@ -7,9 +7,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ClientOverview() {
-  const { clientId } = useParams(); // ✅ Get clientId from URL
+  const { clientId } = useParams(); 
   const location = useLocation();
-  const client = location.state?.client; // ✅ Get client object from navigation
+  const client = location.state?.client; 
 
   // Fallback message if client data is missing
   if (!client) {
