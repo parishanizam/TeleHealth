@@ -10,7 +10,10 @@ const ClientList = () => {
       <div className="w-full max-w-[1402px]">
         {clients.length > 0 ? (
           clients.map((client, index) => (
-            <ClientCard key={index} name={client.name} />
+            <ClientCard 
+              key={index} 
+              name={`${client.firstName} ${client.lastName}`} 
+            />
           ))
         ) : (
           <p className="text-gray-500 text-lg">No clients added yet.</p>
@@ -21,3 +24,4 @@ const ClientList = () => {
 };
 
 export default ClientList;
+

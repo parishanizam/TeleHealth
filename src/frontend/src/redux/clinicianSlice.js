@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  clinicianInfo: null, // Holds clinician data
+  clinicianInfo: null, 
 };
 
 const clinicianSlice = createSlice({
@@ -16,7 +16,7 @@ const clinicianSlice = createSlice({
     },
     addClient(state, action) {
       if (state.clinicianInfo) {
-        state.clinicianInfo.client.push(action.payload);
+        state.clinicianInfo.client.push(action.payload); 
       }
     },
   },

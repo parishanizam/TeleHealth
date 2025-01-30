@@ -38,20 +38,27 @@ function AddClient() {
       setError("Please fill all fields and generate a client number.");
       return;
     }
-
+  
     try {
       const response = await axios.post("http://localhost:3000/auth/clinicians/add-client", {
         clinicianUsername: clinicianInfo.username,
         firstName: formData.firstName,
         lastName: formData.lastName,
-        clientNumber: clientNumber,
+        securityCode: clientNumber, 
       });
-
+  
       console.log("Client Added Successfully:", response.data);
-
-      // Dispatch new client to Redux
-      dispatch(addClient({ name: `${formData.firstName} ${formData.lastName}` }));
-
+  
+      // Dispatch full client object to Redux
+      dispatch(
+        addClient({
+          clientId: response.data.clientId,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          securityCode: response.data.securityCode,
+        })
+      );
+  
       // Navigate back to dashboard
       navigate("/clinicians/ClinicianDashboard");
     } catch (err) {
