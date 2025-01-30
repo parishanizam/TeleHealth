@@ -48,6 +48,7 @@ async function addClient(req, res) {
       firstName,
       lastName,
       securityCode,
+      clinicianUsername,
       role: 'PARENT',
       username: null,     
       passwordHash: null,  
@@ -59,6 +60,7 @@ async function addClient(req, res) {
     return res.json({
       message: 'Client added successfully',
       clientId,
+      clinicianUsername,
       securityCode,
       firstName,
       lastName,
