@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import QuestionTitle from "../components/BiasReview/QuestionTitle";
 import { Header } from "../components/Header";
 import IconButtonGroup from "../components/BiasReview/IconButtonGroup";
@@ -9,6 +10,12 @@ import RemoveBiasButton from "../components/BiasReview/RemoveBiasButton";
 
 function BiasReviewPage() {
   const [biasState, setBiasState] = useState(true);
+  const { state } = useLocation(); 
+
+  // Extract the passed data from navigation state
+  const { questionBankId, date, firstName, lastName } = state || {};
+
+  console.log("Bias Review Page Data:", { questionBankId, date, firstName, lastName }); // Debugging log
 
   const handleToggleBias = () => {
     setBiasState(!biasState);
@@ -18,7 +25,8 @@ function BiasReviewPage() {
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       
       {/* Header Section */}
-      <Header title="Mitchell Weingust - January 3, 2025" />
+      <Header title={`${firstName || "Unknown"} ${lastName || ""} - ${questionBankId || "Unknown"} - ${date || "No Date"}`} />
+
       <QuestionTitle />
 
       {/* Title and Bias Detected Info */}

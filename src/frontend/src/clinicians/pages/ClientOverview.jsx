@@ -104,7 +104,12 @@ function ClientOverview() {
         </div>
         <div className="flex-grow p-4 text-start">
           <h2 className="text-lg font-semibold mb-4">Results</h2>
-          <Results data={assessmentHistory} filters={selectedFilters} selectedDate={selectedDate} />
+          <Results 
+            data={assessmentHistory} 
+            client={client} 
+            filters={selectedFilters} 
+            selectedDate={selectedDate} 
+          />
         </div>
       </div>
     </div>
