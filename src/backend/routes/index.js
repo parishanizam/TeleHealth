@@ -5,6 +5,7 @@ const router = express.Router();
 // - Each microservice directory exports its own Express router
 // - For example, ./services/authentication-service/index.js might export an Express router
 const authService = require('../services/authentication-service');
+const resultService = require('../services/result-storage-service');
 // const mediaService = require('../services/media-processing-service');
 // const storageService = require('../services/data-storage-service');
 // const reportService = require('../services/report-generation-service');
@@ -20,7 +21,8 @@ router.get('/ping', (req, res) => {
 // Mount microservice routers
 // e.g. all auth routes will live under /auth
 router.use('/auth', authService);
-// router.use('/media', mediaService);
+router.use('/results', resultService);
+router.use('/media', mediaService);
 // router.use('/storage', storageService);
 // router.use('/reports', reportService);
 // router.use('/feedback', feedbackService);

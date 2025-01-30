@@ -7,7 +7,7 @@ const {
 const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
 // Bucket names from environment variables
-const RESULTS_BUCKET = process.env.CLINICIANS_BUCKET;
+const RESULTS_BUCKET = process.env.RESULTS_BUCKET;
 
 /**
  * Upload JSON data to S3
