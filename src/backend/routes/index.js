@@ -6,11 +6,8 @@ const router = express.Router();
 // - For example, ./services/authentication-service/index.js might export an Express router
 const authService = require('../services/authentication-service');
 const mediaService = require('../services/media-processing-service');
-// const storageService = require('../services/data-storage-service');
+const resultstorageService = require('../services/result-storage-service');
 // const reportService = require('../services/report-generation-service');
-// const feedbackService = require('../services/real-time-feedback-service');
-// const adminService = require('../services/admin-service');
-// const logsService = require('../services/logging-monitoring-service');
 
 // Health Check
 router.get('/ping', (req, res) => {
@@ -21,7 +18,7 @@ router.get('/ping', (req, res) => {
 // e.g. all auth routes will live under /auth
 router.use('/auth', authService);
 router.use('/media', mediaService);
-// router.use('/storage', storageService);
+router.use('/resultstorage', resultstorageService);
 // router.use('/reports', reportService);
 // router.use('/feedback', feedbackService);
 // router.use('/admin', adminService);
