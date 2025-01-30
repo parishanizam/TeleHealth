@@ -9,11 +9,8 @@ const ClientList = () => {
     <div className="flex flex-col items-center py-10 w-full">
       <div className="w-full max-w-[1402px]">
         {clients.length > 0 ? (
-          clients.map((client, index) => (
-            <ClientCard 
-              key={index} 
-              name={`${client.firstName} ${client.lastName}`} 
-            />
+          clients.map((client) => (
+            <ClientCard key={client.clientId} client={client} />
           ))
         ) : (
           <p className="text-gray-500 text-lg">No clients added yet.</p>
@@ -24,4 +21,3 @@ const ClientList = () => {
 };
 
 export default ClientList;
-

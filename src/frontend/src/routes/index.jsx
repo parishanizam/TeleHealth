@@ -103,7 +103,7 @@ const router = createBrowserRouter([
     element: <BiasReviewPage />,
   },
   {
-    path: '/clinicians/ClientOverview',
+    path: '/clinicians/ClientOverview/:clientId',
     element: <ClientOverview />,
   },
   {

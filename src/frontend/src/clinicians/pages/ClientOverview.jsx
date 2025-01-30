@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import Graph from "../components/ClientOverview/Graph";
 import { Results } from "../components/ClientOverview/Results";
 import { Header } from "../components/Header";
@@ -6,8 +7,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ClientOverview() {
-  const [selectedFilters, setSelectedFilters] = useState([]); // Track selected filters
-  const [selectedDate, setSelectedDate] = useState(null); // Track selected date for "Date" filter
+  const { clientId } = useParams(); // ✅ Get clientId from URL
+  const location = useLocation();
+  const client = location.state?.client; // ✅ Get client object from navigation
+
+  // Fallback message if client data is missing
+  if (!client) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <h1 className="text-red-500 text-2xl font-bold">Error: No client data found.</h1>
+        <p className="text-gray-600">Try navigating from the Clinician Dashboard.</p>
+      </div>
+    );
+  }
+
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const filterOptions = ["English", "Mandarin", "Matching", "Repetition", "Date"];
 
@@ -18,7 +33,7 @@ function ClientOverview() {
       setSelectedFilters([...selectedFilters, value]);
     } else if (selectedFilters.includes(value)) {
       setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
-      if (value === "Date") setSelectedDate(null); // Reset date if "Date" filter is removed
+      if (value === "Date") setSelectedDate(null);
     } else if (selectedFilters.length < 5) {
       setSelectedFilters([...selectedFilters, value]);
     } else {
@@ -34,7 +49,13 @@ function ClientOverview() {
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
       {/* Header */}
-      <Header title="Mitchell Weingust - Overview" />
+      <Header title={`${client.firstName} ${client.lastName} - Overview`} />
+
+      {/* Client Details */}
+      <div className="p-4 space-y-4">
+        <h2 className="text-lg font-semibold">Client Details</h2>
+        <p className="text-lg">Security Code: {client.securityCode}</p>
+      </div>
 
       {/* Filter Section */}
       <div className="p-4 space-y-4">
@@ -53,7 +74,6 @@ function ClientOverview() {
               ))}
             </select>
 
-            {/* Clear Filters Button */}
             {selectedFilters.length > 0 && (
               <button
                 onClick={clearFilters}
@@ -64,7 +84,6 @@ function ClientOverview() {
             )}
           </div>
 
-          {/* Show Selected Filters (Fixed Layout Shift by Setting a Min Height) */}
           <div className="min-h-[40px]">
             {selectedFilters.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
@@ -77,7 +96,6 @@ function ClientOverview() {
             )}
           </div>
 
-          {/* "Date" Filter */}
           {selectedFilters.includes("Date") && (
             <div>
               <label className="font-medium">Select a Date:</label>
@@ -94,13 +112,11 @@ function ClientOverview() {
 
       {/* Main Content */}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-        {/* Graph Section */}
         <div className="flex-grow p-4 text-center">
           <h2 className="text-lg font-semibold mb-4">Graph</h2>
           <Graph filters={selectedFilters} selectedDate={selectedDate} />
         </div>
 
-        {/* Results Section */}
         <div className="flex-grow p-4 text-start">
           <h2 className="text-lg font-semibold mb-4">Results</h2>
           <Results filters={selectedFilters} selectedDate={selectedDate} />
