@@ -1,20 +1,52 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setTestSelection } from "../store/testSelectionSlice"; // 🔹 Redux action
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import SmileyFace from "../../assets/smileyface.svg";
-import NextButton from "../components/NextButton"; // Adjust the import path if necessary
+import NextButton from "../components/NextButton";
 
-// Options for the radio buttons
-const testOptions = [
-  { label: "English Matching", value: "english" },
-  { label: "Mandarin Matching", value: "mandarin" }
+// Language options
+const languageOptions = [
+  { label: "English", value: "english" },
+  { label: "Mandarin", value: "mandarin" }
+];
+
+// Test Type options
+const testTypeOptions = [
+  { label: "Matching", value: "matching" },
+  { label: "Repetition", value: "repetition" }
 ];
 
 function TestComplete() {
-  const [selectedOption, setSelectedOption] = useState("");
+  const dispatch = useDispatch(); // 🔹 Redux dispatcher
+  const navigate = useNavigate();
 
-  // Handle radio button change
-  const handleOptionChange = (value) => {
-    setSelectedOption(value);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [selectedTestType, setSelectedTestType] = useState("");
+
+  // Handle language change
+  const handleLanguageChange = (value) => {
+    setSelectedLanguage(value);
+  };
+
+  // Handle test type change
+  const handleTestTypeChange = (value) => {
+    setSelectedTestType(value);
+  };
+
+  // Handle start next test
+  const handleStartNextTest = () => {
+    if (!selectedLanguage || !selectedTestType) {
+      alert("Please select a language and test type.");
+      return;
+    }
+
+    // 🔹 Update Redux with new selection
+    dispatch(setTestSelection({ language: selectedLanguage, testType: selectedTestType }));
+
+    // Navigate to instructions (next test setup)
+    navigate("/parents/EnglishMatchingInstructions");
   };
 
   return (
@@ -32,19 +64,17 @@ function TestComplete() {
         />
       </div>
 
-      {/* Radio Button Options */}
-      <div className="flex flex-col items-center mt-6 w-full text-xl text-black">
-        {testOptions.map((option, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2.5 mt-5 first:mt-0"
-          >
+      {/* Language Selection */}
+      <h2 className="mt-6 text-xl text-center font-semibold">Select Language</h2>
+      <div className="flex flex-col items-center mt-4 w-full text-lg text-black">
+        {languageOptions.map((option) => (
+          <div key={option.value} className="flex items-center gap-2.5 mt-3">
             <input
               type="radio"
-              name="testOption"
+              name="language"
               value={option.value}
-              checked={selectedOption === option.value}
-              onChange={() => handleOptionChange(option.value)}
+              checked={selectedLanguage === option.value}
+              onChange={() => handleLanguageChange(option.value)}
               className="w-5 h-5 cursor-pointer"
             />
             <label htmlFor={option.value}>{option.label}</label>
@@ -52,9 +82,35 @@ function TestComplete() {
         ))}
       </div>
 
-      {/* Buttons NEED TO ADD CORRECT ROUTES*/}
+      {/* Test Type Selection */}
+      <h2 className="mt-6 text-xl text-center font-semibold">Select Test Type</h2>
+      <div className="flex flex-col items-center mt-4 w-full text-lg text-black">
+        {testTypeOptions.map((option) => (
+          <div key={option.value} className="flex items-center gap-2.5 mt-3">
+            <input
+              type="radio"
+              name="testType"
+              value={option.value}
+              checked={selectedTestType === option.value}
+              onChange={() => handleTestTypeChange(option.value)}
+              className="w-5 h-5 cursor-pointer"
+            />
+            <label htmlFor={option.value}>{option.label}</label>
+          </div>
+        ))}
+      </div>
+
+      {/* Buttons */}
       <div className="flex flex-col gap-3 items-center mt-6">
-        <NextButton to="/parents/QuizManagement" name="Start Next Test" />
+        {/* 🔹 Updates Redux & Navigates to Instructions */}
+        <button
+          onClick={handleStartNextTest}
+          className="px-4 py-2.5 bg-blue-600 text-white rounded-lg"
+        >
+          Start Next Test
+        </button>
+        
+        {/* Return to Homepage */}
         <NextButton to="/parents/ParentHomePage" name="Return to Homepage" />
       </div>
     </div>

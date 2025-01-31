@@ -1,53 +1,51 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import MatchingQuestion from "./QuestionPage";
-import sampleSound from "../../assets/desk-bell-dry_D.wav";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
 export default function QuizManagement() {
-  //Placeholders
-  const placeholderQuestions = [
-    {
-      id: 1,
-      title: "Question 1: Select the matching image",
-      sound: sampleSound,
-      options: [
-        { id: "a", image: "../../assets/volumebutton.svg" },
-        { id: "b", image: "../../assets/volumebutton.svg" },
-        { id: "c", image: "../../assets/volumebutton.svg" },
-        { id: "d", image: "../../assets/volumebutton.svg" },
-      ],
-    },
-    {
-      id: 2,
-      title: "Question 2: Select the matching image",
-      sound: sampleSound,
-      options: [
-        { id: "a", image: "../../assets/volumebutton.svg" },
-        { id: "b", image: "../../assets/volumebutton.svg" },
-        { id: "c", image: "../../assets/volumebutton.svg" },
-        { id: "d", image: "../../assets/volumebutton.svg" },
-      ],
-    },
-    {
-      id: 3,
-      title: "Question 3: Select the matching image",
-      sound: sampleSound,
-      options: [
-        { id: "a", image: "../../assets/volumebutton.svg" },
-        { id: "b", image: "../../assets/volumebutton.svg" },
-        { id: "c", image: "../../assets/volumebutton.svg" },
-        { id: "d", image: "../../assets/volumebutton.svg" },
-      ],
-    },
-  ];
+  const navigate = useNavigate();
+  const { stopRecording } = useContext(RecordingManagerContext);
+
+  // 🔹 Get selected language & test type from Redux
+  const { language, testType } = useSelector((state) => state.testSelection);
 
   // Local state
-  const [questions] = useState(placeholderQuestions);
+  const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
-  const navigate = useNavigate();
-  const { stopRecording, recordedBlob } = useContext(RecordingManagerContext);
+  const [loading, setLoading] = useState(true); // 🔹 Loading state
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        let questionIds = new Set();
+        while (questionIds.size < 5) {
+          const randomId = Math.floor(Math.random() * 6); // Generate unique IDs (0-5)
+          questionIds.add(randomId);
+        }
+
+        const fetchedQuestions = await Promise.all(
+          [...questionIds].map(async (id) => {
+            const res = await axios.get(
+              `http://localhost:3000/questions/${language}/${testType}/${id}` // 🔹 Now dynamic
+            );
+            return res.data;
+          })
+        );
+
+        setQuestions(fetchedQuestions);
+        setLoading(false); // 🔹 Stop loading when questions are ready
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [language, testType]); // 🔹 Fetch based on Redux state
 
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
@@ -65,16 +63,19 @@ export default function QuizManagement() {
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
-
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
-    setResponses((prev) => [...prev, { questionId, selectedOption }]);
+    const newResponse = { questionId, selectedOption };
 
-    // If NOT the last question, move on
+    setResponses((prev) => [...prev, newResponse]);
+
+    // 🔹 Save responses to session storage
+    sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
+
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
@@ -90,12 +91,10 @@ export default function QuizManagement() {
         console.log("Recording blob size:", finalBlob.size);
         uploadRecording(finalBlob);
       } else {
-        console.warn(
-          "No recordedBlob found! onstop may not have completed yet."
-        );
+        console.warn("No recordedBlob found! onstop may not have completed yet.");
       }
-
-      // Navigate to "Test Complete" after recording is finalized
+      
+      // 🔹 Navigate to the existing test complete page
       navigate("/parents/testcomplete");
     });
   };
@@ -103,8 +102,6 @@ export default function QuizManagement() {
   const uploadRecording = async (blob) => {
     if (!blob) return;
     console.log("Recording blob size:", blob.size);
-
-    // Create a download link - TODO: REPLACE THE DOWNLOAD WITH MEDIA BACKEND 
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.style.display = "none";
@@ -113,22 +110,26 @@ export default function QuizManagement() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-
     console.log("Recording saved as a local file.");
   };
 
-  // Retrieve current question
+  // 🔹 Show loading screen while fetching questions
+  if (loading) {
+    return <div>Loading questions...</div>;
+  }
+
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
     return <div>Loading...</div>;
   }
 
-  // Render the question
   return (
     <MatchingQuestion
       question={currentQuestion}
       onAnswerSelected={handleAnswerSelected}
       isLastQuestion={currentQuestionIndex === questions.length - 1}
+      questionNumber={currentQuestionIndex + 1} // 🔹 Sequential question number
+      totalQuestions={questions.length} // 🔹 Total questions for progress bar
     />
   );
 }

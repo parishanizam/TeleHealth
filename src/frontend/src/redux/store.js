@@ -6,19 +6,21 @@ import parentReducer from "./parentSlice";
 import deviceReducer from "./deviceSlice";
 import clinicianReducer from "./clinicianSlice";
 import assessmentReducer from "./assessmentSlice";
+import testSelectionReducer from "./testSelectionSlice";
 
 const rootReducer = combineReducers({
   parent: parentReducer,
   device: deviceReducer,
   clinician: clinicianReducer,
   assessmentHistory: assessmentReducer,
+  testSelection: testSelectionReducer,
 });
 
 // Persist config
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["parent", "device", "clinician","assessmentHistory"],
+  whitelist: ["parent", "device", "clinician","assessmentHistory","testSelection"],
 };
 
 // Persist reducer
