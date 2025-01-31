@@ -7,7 +7,8 @@ const router = express.Router();
 const authService = require('../services/authentication-service');
 const mediaService = require('../services/media-processing-service');
 const resultstorageService = require('../services/result-storage-service');
-// const reportService = require('../services/report-generation-service');
+const questionService = require('../services/question-bank-service');
+
 
 // Health Check
 router.get('/ping', (req, res) => {
@@ -15,13 +16,10 @@ router.get('/ping', (req, res) => {
 });
 
 // Mount microservice routers
-// e.g. all auth routes will live under /auth
 router.use('/auth', authService);
 router.use('/media', mediaService);
 router.use('/resultstorage', resultstorageService);
-// router.use('/reports', reportService);
-// router.use('/feedback', feedbackService);
-// router.use('/admin', adminService);
-// router.use('/logs', logsService);
+router.use('/questions', questionService);
+
 
 module.exports = router;

@@ -71,8 +71,8 @@ function ClientOverview() {
         <p className="text-lg">Security Code: {client?.securityCode}</p>
       </div>
 
-      {/* Filters */}
-      <div className="p-4 space-y-4">
+      {/* Filters: NEED TO BE FIXED BEFORE UNCOMMENTING */} 
+      {/* <div className="p-4 space-y-4">
         <h2 className="text-lg font-semibold">Filters</h2>
         <div className="flex flex-col space-y-2">
           <label className="font-medium">Select a Filter:</label>
@@ -94,7 +94,7 @@ function ClientOverview() {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Graph & Results */}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
