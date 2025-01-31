@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setTestSelection } from "../store/testSelectionSlice"; // 🔹 Redux action
+import { setTestSelection } from "../../redux/testSelectionSlice";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import SmileyFace from "../../assets/smileyface.svg";
@@ -19,7 +19,7 @@ const testTypeOptions = [
 ];
 
 function TestComplete() {
-  const dispatch = useDispatch(); // 🔹 Redux dispatcher
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
   const [selectedLanguage, setSelectedLanguage] = useState("");

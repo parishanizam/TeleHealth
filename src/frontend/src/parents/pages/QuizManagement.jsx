@@ -11,12 +11,14 @@ export default function QuizManagement() {
 
   // 🔹 Get selected language & test type from Redux
   const { language, testType } = useSelector((state) => state.testSelection);
+  const parentInfo = useSelector((state) => state.parent.parentInfo); // 🔹 Get parent info from Redux
 
   // Local state
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
-  const [loading, setLoading] = useState(true); // 🔹 Loading state
+  const [loading, setLoading] = useState(true);
+  const [assessmentId, setAssessmentId] = useState(1); // 🔹 Start at 1 if no assessments exist
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -30,22 +32,44 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${id}` // 🔹 Now dynamic
+              `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
             return res.data;
           })
         );
 
         setQuestions(fetchedQuestions);
-        setLoading(false); // 🔹 Stop loading when questions are ready
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
         setLoading(false);
       }
     };
 
+    const fetchAssessmentId = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`
+        );
+
+        const assessments = res.data.assessments;
+
+        if (assessments.length > 0) {
+          // 🔹 Set the next assessment ID (latest + 1)
+          const latestAssessment = assessments[assessments.length - 1];
+          setAssessmentId(latestAssessment.assessment_id + 1);
+        } else {
+          // 🔹 If no assessments exist, set ID to 1
+          setAssessmentId(1);
+        }
+      } catch (error) {
+        console.error("Error fetching assessment history:", error);
+      }
+    };
+
     fetchQuestions();
-  }, [language, testType]); // 🔹 Fetch based on Redux state
+    fetchAssessmentId();
+  }, [language, testType, parentInfo.username]);
 
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
@@ -69,7 +93,7 @@ export default function QuizManagement() {
   }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
-    const newResponse = { questionId, selectedOption };
+    const newResponse = { question_id: questionId, user_answer: selectedOption };
 
     setResponses((prev) => [...prev, newResponse]);
 
@@ -79,7 +103,7 @@ export default function QuizManagement() {
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz();
+      finishQuiz(); // 🔹 Calls finishQuiz() when done
     }
   };
 
@@ -89,34 +113,58 @@ export default function QuizManagement() {
       if (finalBlob) {
         console.log("Final recordedBlob:", finalBlob);
         console.log("Recording blob size:", finalBlob.size);
-        uploadRecording(finalBlob);
+        uploadRecording(finalBlob); // 🔹 Downloads the recorded video
       } else {
         console.warn("No recordedBlob found! onstop may not have completed yet.");
       }
-      
-      // 🔹 Navigate to the existing test complete page
-      navigate("/parents/testcomplete");
+
+      submitResults(); // 🔹 Submit results after stopping recording
     });
   };
 
   const uploadRecording = async (blob) => {
     if (!blob) return;
     console.log("Recording blob size:", blob.size);
+
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.style.display = "none";
     a.href = url;
-    a.download = "recording.mp4";
+    a.download = "recording.mp4"; // 🔹 Downloads the recorded video
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+
     console.log("Recording saved as a local file.");
   };
 
-  // 🔹 Show loading screen while fetching questions
-  if (loading) {
-    return <div>Loading questions...</div>;
-  }
+  const submitResults = async () => {
+    if (!assessmentId) {
+      console.error("No assessment ID found! Cannot submit results.");
+      return;
+    }
+
+    const payload = {
+      username: parentInfo.username,
+      name: `${parentInfo.firstName} ${parentInfo.lastName}`,
+      assessment_id: assessmentId, // 🔹 Now correctly assigned
+      questionBankId: `${language}-${testType}`,
+      results: responses
+    };
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/resultstorage/submit-assessment",
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      console.log("Test results submitted successfully:", res.data);
+      navigate("/parents/testcomplete"); // 🔹 Redirect after submission
+    } catch (error) {
+      console.error("Error submitting test results:", error);
+    }
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
@@ -128,8 +176,8 @@ export default function QuizManagement() {
       question={currentQuestion}
       onAnswerSelected={handleAnswerSelected}
       isLastQuestion={currentQuestionIndex === questions.length - 1}
-      questionNumber={currentQuestionIndex + 1} // 🔹 Sequential question number
-      totalQuestions={questions.length} // 🔹 Total questions for progress bar
+      questionNumber={currentQuestionIndex + 1}
+      totalQuestions={questions.length}
     />
   );
 }
