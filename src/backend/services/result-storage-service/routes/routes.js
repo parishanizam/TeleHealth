@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { submitAssessment, getAssessmentHistory } = require("../controllers/results.controller");
+const { submitAssessment, getAssessmentHistory, getAssessmentResults } = require("../controllers/results.controller");
 
-// Single POST route that submits the full assessment & updates history
+// Submit a full assessment & update history
 router.post("/submit-assessment", submitAssessment);
 
 // Get a parent's full assessment history
 router.get("/assessment-history/:username", getAssessmentHistory);
+
+// Get results of a specific assessment
+router.get("/results/:parentUsername/:assessmentId", getAssessmentResults);
 
 module.exports = router;

@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const path = require('path');
 
 const {
-  processMedia,
+  uploadAndProcessMedia,
   getProcessedMedia,
-  uploadAndProcessMedia
+  getMediaByFilename,  
 } = require('../controllers/mediaProcessController');
 
-// Set up Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -19,7 +19,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/upload', upload.single('videoFile'), uploadAndProcessMedia);
-router.get('/:baseName', getProcessedMedia);
+router.post('/', upload.single('videoFile'), uploadAndProcessMedia);
+
+// 🔹 New route to fetch video by `parentUsername_assessmentId.mp4`
+router.get('/:parentUsername/:assessmentId', getMediaByFilename);
 
 module.exports = router;

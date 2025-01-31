@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ResultCard } from "./ResultCard";
 
-export function Results({ data, client }) { // Ensure client is received
+export function Results({ data, client }) {
   const navigate = useNavigate();
 
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -16,12 +16,14 @@ export function Results({ data, client }) { // Ensure client is received
       return;
     }
 
-    navigate(`/clinicians/BiasReviewPage`, {
+    navigate(`/clinicians/ResultsAnalysisPage`, {
       state: {
-        questionBankId: result.questionBankId,
         date: result.date,
-        firstName: client.firstName, // Now correctly accessed
-        lastName: client.lastName,  // Now correctly accessed
+        firstName: client.firstName,
+        lastName: client.lastName,
+        assessmentId: result.assessment_id, 
+        questionBankId: result.questionBankId, 
+        parentUsername: client.parentUsername, 
       },
     });
   };

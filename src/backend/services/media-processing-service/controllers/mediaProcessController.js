@@ -140,6 +140,37 @@ exports.getProcessedMedia = async (req, res) => {
   }
 };
 
+exports.getMediaByFilename = async (req, res) => {
+  try {
+    const { parentUsername, assessmentId } = req.params;
+    if (!parentUsername || !assessmentId) {
+      return res.status(400).json({ error: "Parent username and assessment ID are required." });
+    }
+
+    // 🔹 Construct the correct filename
+    let videoFileName = `${parentUsername}_${assessmentId}.mp4`;
+
+    // 🔹 Ensure it doesn't have duplicate `.mp4`
+    if (videoFileName.endsWith(".mp4.mp4")) {
+      videoFileName = videoFileName.replace(".mp4.mp4", ".mp4");
+    }
+
+    const videoS3Key = `${parentUsername}/${videoFileName}`;
+
+    // 🔹 Generate pre-signed URL for the video
+    const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key);
+
+    res.status(200).json({
+      success: true,
+      videoFile: videoFileName,
+      presignedUrl
+    });
+  } catch (error) {
+    console.error("Error retrieving media:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 // Utility for reading JSON from S3
 async function loadJsonFromS3(bucketName, key) {
   try {
