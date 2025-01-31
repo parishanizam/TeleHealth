@@ -11,21 +11,23 @@ export default function QuizManagement() {
 
   // 🔹 Get selected language & test type from Redux
   const { language, testType } = useSelector((state) => state.testSelection);
-  const parentInfo = useSelector((state) => state.parent.parentInfo); // 🔹 Get parent info from Redux
+  const parentInfo = useSelector((state) => state.parent.parentInfo);
 
   // Local state
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [assessmentId, setAssessmentId] = useState(1); // 🔹 Start at 1 if no assessments exist
+  const [assessmentId, setAssessmentId] = useState(1);
+  const [progress, setProgress] = useState(0);
+  const [submitting, setSubmitting] = useState(false); // 🔹 New loading state
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 6); // Generate unique IDs (0-5)
+          const randomId = Math.floor(Math.random() * 6);
           questionIds.add(randomId);
         }
 
@@ -55,11 +57,9 @@ export default function QuizManagement() {
         const assessments = res.data.assessments;
 
         if (assessments.length > 0) {
-          // 🔹 Set the next assessment ID (latest + 1)
           const latestAssessment = assessments[assessments.length - 1];
           setAssessmentId(latestAssessment.assessment_id + 1);
         } else {
-          // 🔹 If no assessments exist, set ID to 1
           setAssessmentId(1);
         }
       } catch (error) {
@@ -94,48 +94,59 @@ export default function QuizManagement() {
 
   const handleAnswerSelected = (questionId, selectedOption) => {
     const newResponse = { question_id: questionId, user_answer: selectedOption };
-
     setResponses((prev) => [...prev, newResponse]);
 
-    // 🔹 Save responses to session storage
     sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
+
+    setProgress(((currentQuestionIndex + 1) / questions.length) * 100);
 
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz(); // 🔹 Calls finishQuiz() when done
+      finishQuiz();
     }
   };
 
   const finishQuiz = () => {
     console.log("Stopping recording...");
+    setSubmitting(true); // 🔹 Show "Submitting Answers..." message
     stopRecording((finalBlob) => {
       if (finalBlob) {
         console.log("Final recordedBlob:", finalBlob);
         console.log("Recording blob size:", finalBlob.size);
-        uploadRecording(finalBlob); // 🔹 Downloads the recorded video
+        uploadRecording(finalBlob)
+          .then(() => submitResults()) // 🔹 Ensures submission happens only after upload
+          .catch((error) => console.error("Error during processing:", error));
       } else {
         console.warn("No recordedBlob found! onstop may not have completed yet.");
+        submitResults();
       }
-
-      submitResults(); // 🔹 Submit results after stopping recording
     });
   };
 
   const uploadRecording = async (blob) => {
     if (!blob) return;
-    console.log("Recording blob size:", blob.size);
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.style.display = "none";
-    a.href = url;
-    a.download = "recording.mp4"; // 🔹 Downloads the recorded video
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    console.log("Recording saved as a local file.");
+  
+    console.log("Uploading recording to backend...");
+  
+    const formData = new FormData();
+    formData.append("videoFile", blob, "recording.mp4");
+    formData.append("parentUsername", parentInfo.username);
+    formData.append("firstName", parentInfo.firstName);
+    formData.append("lastName", parentInfo.lastName);
+    formData.append("childUsername", parentInfo.username);
+    formData.append("assessmentId", assessmentId);
+  
+    try {
+      const response = await axios.post("http://localhost:3000/media/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+  
+      console.log("Recording uploaded successfully:", response.data);
+    } catch (error) {
+      console.error("Error uploading recording:", error);
+      throw error; 
+    }
   };
 
   const submitResults = async () => {
@@ -147,7 +158,7 @@ export default function QuizManagement() {
     const payload = {
       username: parentInfo.username,
       name: `${parentInfo.firstName} ${parentInfo.lastName}`,
-      assessment_id: assessmentId, // 🔹 Now correctly assigned
+      assessment_id: assessmentId,
       questionBankId: `${language}-${testType}`,
       results: responses
     };
@@ -160,9 +171,11 @@ export default function QuizManagement() {
       );
 
       console.log("Test results submitted successfully:", res.data);
-      navigate("/parents/testcomplete"); // 🔹 Redirect after submission
+      navigate("/parents/testcomplete");
     } catch (error) {
       console.error("Error submitting test results:", error);
+    } finally {
+      setSubmitting(false); // 🔹 Hide "Submitting Answers..." message
     }
   };
 
@@ -172,12 +185,29 @@ export default function QuizManagement() {
   }
 
   return (
-    <MatchingQuestion
-      question={currentQuestion}
-      onAnswerSelected={handleAnswerSelected}
-      isLastQuestion={currentQuestionIndex === questions.length - 1}
-      questionNumber={currentQuestionIndex + 1}
-      totalQuestions={questions.length}
-    />
+    <div>
+      {/* 🔹 Progress Bar */}
+      <div className="w-full bg-gray-300 h-2 rounded">
+        <div
+          className="bg-blue-600 h-2 rounded"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+
+      <MatchingQuestion
+        question={currentQuestion}
+        onAnswerSelected={handleAnswerSelected}
+        isLastQuestion={currentQuestionIndex === questions.length - 1}
+        questionNumber={currentQuestionIndex + 1}
+        totalQuestions={questions.length}
+      />
+
+      {/* 🔹 Submitting Answers Message */}
+      {submitting && (
+        <div className="text-center text-lg font-semibold mt-4">
+          Submitting Answers...
+        </div>
+      )}
+    </div>
   );
 }

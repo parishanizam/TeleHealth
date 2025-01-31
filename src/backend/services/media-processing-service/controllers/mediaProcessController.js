@@ -30,47 +30,81 @@ function combineDetections(faceData, audioData) {
 // Environment or fallback for your S3 bucket
 const MEDIA_BUCKET = process.env.MEDIA_BUCKET || 'telehealth-media-processing';
 
-exports.processMedia = async (req, res) => {
+/**
+ * New structured upload feature
+ * - Saves videos in `{parentUsername}/{username}_{assessmentId}.mp4`
+ * - Updates `{parentUsername}/{username}_history.json`
+ */
+exports.uploadAndProcessMedia = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No video file uploaded' });
     }
 
-    // Path to the uploaded temp file
-    const originalFilename = req.file.originalname;
+    const { parentUsername, firstName, lastName, childUsername, assessmentId } = req.body;
+
+    if (!parentUsername || !childUsername || !assessmentId) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Generate structured filenames
+    const videoFileName = `${childUsername}_${assessmentId}.mp4`;
+    const historyFileName = `${childUsername}_history.json`;
+
+    // Define S3 paths
+    const parentFolder = `${parentUsername}/`;
+    const videoS3Key = `${parentFolder}${videoFileName}`;
+    const historyS3Key = `${parentFolder}${historyFileName}`;
+
+    // Path to uploaded file
     const tempVideoPath = req.file.path;
 
-    //Detect faces via Python/Mediapipe
+    // Detect faces via Python
     const faceData = await detectFacesWithPython(tempVideoPath);
 
-    //Transcribe audio & detect keywords directly from MP4 via Deepgram
+    // Transcribe audio via Deepgram
     const audioKeywords = await processMp4WithDeepgram(tempVideoPath);
 
-    //Combine the results (example bias-detection logic)
+    // Combine detections
     const biasEvents = combineDetections(faceData, audioKeywords);
 
-    //Upload the .mp4 to S3
-    const s3VideoKey = originalFilename;
-    await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, s3VideoKey);
+    // Upload video to S3
+    await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, videoS3Key);
 
-    //Create & upload JSON summary
-    const jsonKey = originalFilename.replace('.mp4', '.json');
-    const jsonReport = {
-      videoFile: s3VideoKey,
+    // Check if history JSON exists
+    let existingHistory = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
+    if (!existingHistory) {
+      existingHistory = {
+        firstname: firstName,
+        lastname: lastName,
+        username: childUsername,
+        assessmentVideos: []
+      };
+    }
+
+    // Append new video entry
+    existingHistory.assessmentVideos.push({
+      assessmentId: assessmentId,
+      videoFile: videoFileName,
       bias: biasEvents
-    };
-    await uploadToS3(MEDIA_BUCKET, jsonKey, JSON.stringify(jsonReport), 'application/json');
+    });
 
-    //Clean up local files
+    // Upload updated history JSON
+    await uploadToS3(MEDIA_BUCKET, historyS3Key, JSON.stringify(existingHistory), 'application/json');
+
+    // Get a presigned URL for streaming
+    const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key);
+
+    // Clean up local file
     fs.unlinkSync(tempVideoPath);
 
-    //Return response
+    // Return response
     res.status(200).json({
       success: true,
       message: 'Video processed successfully',
-      videoKey: s3VideoKey,
-      jsonKey,
-      biasEvents,
+      presignedUrl,  // 🔹 Allows frontend to stream the video
+      historyFile: historyS3Key,
+      biasEvents
     });
   } catch (error) {
     console.error('Error processing media:', error);
@@ -78,7 +112,7 @@ exports.processMedia = async (req, res) => {
   }
 };
 
-//GET endpoint for retrieving presigned URL & bias data
+// Existing GET endpoint for retrieving presigned URL & bias data
 exports.getProcessedMedia = async (req, res) => {
   try {
     const baseName = req.params.baseName;
