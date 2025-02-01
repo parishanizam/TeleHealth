@@ -17,6 +17,7 @@ function BiasReviewPage() {
   const [biasTimestamps, setBiasTimestamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (questionId === undefined || questionId === null || questionBankId === undefined || parentUsername === undefined || assessmentId === undefined) {
@@ -45,8 +46,11 @@ function BiasReviewPage() {
 
         // 🔹 Fetch Video from Media Service
         const mediaRes = await axios.get(`http://localhost:3000/media/${parentUsername}/${assessmentId}`);
+
+        console.log("📌 Media API Response:", mediaRes.data); // 🔹 Debugging log
+
         setVideoUrl(mediaRes.data.presignedUrl);
-        setBiasTimestamps(mediaRes.data.bias || []);
+        setBiasTimestamps(mediaRes.data.bias || []); // Ensure we always set an array
 
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -58,6 +62,12 @@ function BiasReviewPage() {
 
     fetchQuestionAndMedia();
   }, [questionId, questionBankId, parentUsername, assessmentId]);
+
+  // Convert bias timestamps to seconds
+  const formattedBias = biasTimestamps.map((bias) => ({
+    ...bias,
+    timestamp: (bias.timestamp / 1000).toFixed(2), // Convert to seconds
+  }));
 
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
@@ -84,13 +94,36 @@ function BiasReviewPage() {
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
         {/* Video Section */}
         <div className="w-1/2 flex flex-col justify-center">
-          {loading ? <p>Loading video...</p> : error ? <p className="text-red-500">{error}</p> : <TempMediaPlayer videoUrl={videoUrl} />}
+          {loading ? <p>Loading video...</p> : error ? <p className="text-red-500">{error}</p> : <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />}
           
-          {/* 🔹 Bias Info Below Video */}
+          {/* 🔹 Bias Dropdown */}
           <div className="mt-4 text-center text-lg">
             {biasTimestamps.length > 0 ? (
               <div className="text-red-500">
-                <strong>Bias Detected at:</strong> {biasTimestamps.map(bias => `${bias.timestamp}ms`).join(", ")}
+                <button
+                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
+                >
+                  {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}
+                </button>
+
+                {isBiasDropdownOpen && (
+                  <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
+                    <p className="font-bold mb-2">Bias Detected:</p>
+
+                    {/* Scrollable List (Max 4 items at a time) */}
+                    <div className="overflow-auto max-h-40">
+                      <ul className="list-disc list-inside">
+                        {formattedBias.map((bias, index) => (
+                          <li key={index} className="py-1">
+                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}  
+                            <span className="text-gray-500"> (Faces Detected: {bias.faceCount})</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <p className="text-green-600">No Bias Detected</p>

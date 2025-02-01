@@ -4,22 +4,39 @@ const { GetObjectCommand } = require('@aws-sdk/client-s3');
 const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('../config/s3Config');
 
 // IMPORT HELPERS
-const { processMp4WithDeepgram } = require('../helpers/audioprocessing'); 
+const { processMp4WithDeepgram } = require('../helpers/audioProcessing'); 
 const { detectFacesWithPython } = require('../helpers/videoProcessing');
 
 function combineDetections(faceData, audioData) {
-  const BIAS_THRESHOLD_MS = 100;  
+  const BIAS_THRESHOLD_MS = 2000; // Allowed time difference between face and keyword
+  const MIN_BIAS_INTERVAL_MS = 1500; // Ensures at least 1.5s gap between detections
+  let lastBiasTimestamp = -Infinity;
+  let lastBiasKeyword = null;
+
   const results = [];
 
   faceData.forEach((faceEvent) => {
-    if (faceEvent.faces < 2) return;
+    if (faceEvent.faces < 2) return; // Ignore if less than 2 faces
+
     audioData.forEach((audioEvent) => {
-      if (Math.abs(audioEvent.timestamp - faceEvent.timestamp) <= BIAS_THRESHOLD_MS) {
-        results.push({
-          timestamp: faceEvent.timestamp,
-          faceCount: faceEvent.faces,
-          keyword: audioEvent.keyword,
-        });
+      const timeDiff = Math.abs(audioEvent.timestamp - faceEvent.timestamp);
+
+      if (timeDiff <= BIAS_THRESHOLD_MS) {
+        // Ensure at least `MIN_BIAS_INTERVAL_MS` between bias detections
+        if (faceEvent.timestamp - lastBiasTimestamp >= MIN_BIAS_INTERVAL_MS) {
+          
+          // Avoid repeated keywords in a short period
+          if (audioEvent.keyword !== lastBiasKeyword) {
+            results.push({
+              timestamp: faceEvent.timestamp,
+              faceCount: faceEvent.faces,
+              keyword: audioEvent.keyword,
+            });
+
+            lastBiasTimestamp = faceEvent.timestamp; // Update last bias timestamp
+            lastBiasKeyword = audioEvent.keyword; // Track last detected keyword
+          }
+        }
       }
     });
   });
@@ -37,6 +54,7 @@ const MEDIA_BUCKET = process.env.MEDIA_BUCKET || 'telehealth-media-processing';
  */
 exports.uploadAndProcessMedia = async (req, res) => {
   try {
+    console.log("🔹 Received Upload Request");
     if (!req.file) {
       return res.status(400).json({ error: 'No video file uploaded' });
     }
@@ -147,7 +165,7 @@ exports.getMediaByFilename = async (req, res) => {
       return res.status(400).json({ error: "Parent username and assessment ID are required." });
     }
 
-    // 🔹 Construct the correct filename
+    // 🔹 Construct the correct video filename
     let videoFileName = `${parentUsername}_${assessmentId}.mp4`;
 
     // 🔹 Ensure it doesn't have duplicate `.mp4`
@@ -156,14 +174,30 @@ exports.getMediaByFilename = async (req, res) => {
     }
 
     const videoS3Key = `${parentUsername}/${videoFileName}`;
+    const historyS3Key = `${parentUsername}/${parentUsername}_history.json`;
 
-    // 🔹 Generate pre-signed URL for the video
+    // 🔹 Fetch the presigned video URL
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key);
+
+    // 🔹 Fetch history JSON to extract bias data
+    let historyData = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
+    let biasEvents = [];
+
+    if (historyData && historyData.assessmentVideos) {
+      const assessmentEntry = historyData.assessmentVideos.find(
+        (video) => video.assessmentId.toString() === assessmentId.toString()
+      );
+
+      if (assessmentEntry) {
+        biasEvents = assessmentEntry.bias || [];
+      }
+    }
 
     res.status(200).json({
       success: true,
       videoFile: videoFileName,
-      presignedUrl
+      presignedUrl,
+      bias: biasEvents, // 🔹 Now includes bias data
     });
   } catch (error) {
     console.error("Error retrieving media:", error);

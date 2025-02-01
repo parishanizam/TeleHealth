@@ -138,7 +138,8 @@ export default function QuizManagement() {
     formData.append("assessmentId", assessmentId);
   
     try {
-      const response = await axios.post("http://localhost:3000/media/upload", formData, {
+      console.log("🚀 Sending Upload Request...");
+      const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
   
@@ -186,14 +187,6 @@ export default function QuizManagement() {
 
   return (
     <div>
-      {/* 🔹 Progress Bar */}
-      <div className="w-full bg-gray-300 h-2 rounded">
-        <div
-          className="bg-blue-600 h-2 rounded"
-          style={{ width: `${progress}%` }}
-        ></div>
-      </div>
-
       <MatchingQuestion
         question={currentQuestion}
         onAnswerSelected={handleAnswerSelected}

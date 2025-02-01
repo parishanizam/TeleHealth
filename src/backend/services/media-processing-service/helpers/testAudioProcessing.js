@@ -4,7 +4,7 @@ const { processMp4WithDeepgram } = require('./audioProcessing');
 (async () => {
   try {
     // Path to your MP4 file
-    const mp4FilePath = path.join(__dirname, '../../../uploads', '1737925203291-Promish_Kandel.mp4');
+    const mp4FilePath = path.join(__dirname, '../../../uploads', 'Nizamp_1.mp4');
 
     console.log(`Processing file: ${mp4FilePath}`);
 

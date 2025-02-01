@@ -5,7 +5,7 @@ const { createClient } = require('@deepgram/sdk');
 const deepgram = createClient('5341d37e80680e7fbfa55dc6f560d2333abbf63b'); // Replace with your actual API key
 
 // Keywords to detect
-const KEYWORDS = ['the answer is', 'pick answer', 'keyword', 'test', 'tests'];
+const KEYWORDS = ['the answer is', 'pick answer', 'keyword', 'test', 'tests', 'choose', 'this', 'one'];
 
 /**
  * Transcribes an MP4 file using Deepgram's API and detects keywords.
