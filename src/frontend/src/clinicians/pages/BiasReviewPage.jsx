@@ -6,6 +6,7 @@ import BiasDetected from "../components/BiasReview/BiasDetected";
 import QuestionAnswers from "../components/BiasReview/QuestionAnswers";
 import TempMediaPlayer from "../components/BiasReview/TempMediaPlayer";
 import RemoveBiasButton from "../components/BiasReview/RemoveBiasButton";
+import VolumeButton from "../../assets/volumebutton.svg"; // 🔹 Speaker Icon
 
 function BiasReviewPage() {
   const { state } = useLocation();
@@ -18,7 +19,6 @@ function BiasReviewPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // 🔹 FIXED: Explicitly check if `questionId` is `undefined` or `null` instead of relying on falsy check
     if (questionId === undefined || questionId === null || questionBankId === undefined || parentUsername === undefined || assessmentId === undefined) {
       setError("Missing necessary data for review.");
       return;
@@ -62,6 +62,19 @@ function BiasReviewPage() {
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       <Header title={`${firstName || "Unknown"} ${lastName || ""} - ${questionBankId || "Unknown"} - ${date || "No Date"}`} />
+
+      {/* 🔹 Question Number + Speaker Icon */}
+      <div className="flex items-center space-x-3 text-2xl font-bold mt-2">
+        <span>Question {questionId + 1}</span>
+        {question?.sound && (
+          <img
+            src={VolumeButton}
+            alt="Play Sound"
+            onClick={() => new Audio(question.sound).play()}
+            className="object-contain w-8 h-8 cursor-pointer hover:shadow-md"
+          />
+        )}
+      </div>
 
       <div className="text-center mt-4">
         <BiasDetected biasState={biasTimestamps.length > 0} />

@@ -20,7 +20,7 @@ function QuestionAnswers({ question, userAnswer }) {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h2 className="text-lg font-semibold">Answer Choices</h2>
+      <h2 className="text-lg font-semibold">User Answer</h2>
       
       {/* Answer Choices Grid */}
       <div className={gridClass}>
