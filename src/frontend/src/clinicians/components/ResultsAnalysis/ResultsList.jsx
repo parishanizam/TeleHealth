@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 
-// 🔹 Passes `questionBankId` & `parentUsername` correctly
 function ResultsList({ results, questionBankId, parentUsername, assessmentId, firstName, lastName, date }) {
   const navigate = useNavigate();
 
@@ -10,6 +9,7 @@ function ResultsList({ results, questionBankId, parentUsername, assessmentId, fi
       state: {
         questionId: question.question_id,  
         userAnswer: question.user_answer,  
+        correctAnswer: question.correctAnswer, // 🔹 Pass correct answer
         questionBankId, 
         parentUsername,
         assessmentId,
@@ -34,7 +34,7 @@ function ResultsList({ results, questionBankId, parentUsername, assessmentId, fi
           <QuestionCard
             key={index}
             questionNumber={index + 1}
-            status={result.status}
+            status={result.status}  // 🔹 Status is now correctly set
             biasDetected={result.biasDetected}
             onClick={() => handleCardClick(result)}
           />

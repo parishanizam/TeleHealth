@@ -1,7 +1,7 @@
-import ChevronIcon from "../../../assets/chevron.svg"; // Assuming ChevronIcon is needed
+import ChevronIcon from "../../../assets/chevron.svg"; 
 import CheckmarkIcon from "../../../assets/checkmark.svg";
-import DashIcon from "../../../assets/dash.svg"; // For intermediary status
-import XIcon from "../../../assets/x.svg"; // For incorrect status
+import DashIcon from "../../../assets/dash.svg"; 
+import XIcon from "../../../assets/x.svg"; 
 
 function QuestionCard({ questionNumber, status, biasDetected, onClick }) {
   let icon;
@@ -9,14 +9,14 @@ function QuestionCard({ questionNumber, status, biasDetected, onClick }) {
     icon = CheckmarkIcon;
   } else if (status === "incorrect") {
     icon = XIcon;
-  } else if (status === "intermediary") {
+  } else {
     icon = DashIcon;
   }
 
   return (
     <div
       className="flex items-center justify-between px-3 mt-2.5 w-full text-center bg-sky-400 rounded-xl min-h-[101px] max-md:max-w-full cursor-pointer hover:bg-sky-500 transition"
-      onClick={onClick} // 🔹 Ensure this is properly wired
+      onClick={onClick} 
     >
       {/* Status Icon */}
       <div className="flex items-center justify-center w-16 h-16 bg-blue-400 text-white rounded-full">
@@ -40,4 +40,3 @@ function QuestionCard({ questionNumber, status, biasDetected, onClick }) {
 }
 
 export default QuestionCard;
-

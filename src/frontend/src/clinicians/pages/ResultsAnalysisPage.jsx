@@ -10,10 +10,10 @@ function ResultsAnalysisPage() {
   const { date, firstName, lastName, assessmentId, parentUsername } = location.state || {}; 
   const [videoUrl, setVideoUrl] = useState("");
   const [results, setResults] = useState([]);
-  const [questionBankId, setQuestionBankId] = useState(""); // 🔹 Ensure questionBankId is stored
+  const [questionBankId, setQuestionBankId] = useState(""); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // 🔹 Needed for navigation to BiasReviewPage
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!firstName || !lastName || !assessmentId || !parentUsername) return;
@@ -22,17 +22,38 @@ function ResultsAnalysisPage() {
       try {
         setLoading(true);
   
-        // 🔹 Fetch assessment results from the results service
+        // 🔹 Fetch assessment results from Results Service
         const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}`;
         const resultsResponse = await axios.get(resultsApiUrl);
+        
         if (!resultsResponse.data || !resultsResponse.data.results) {
           setError("No results found for this assessment.");
           return;
         }
-        setResults(resultsResponse.data.results);
-        setQuestionBankId(resultsResponse.data.questionBankId); // 🔹 Save questionBankId from API response
+
+        const rawResults = resultsResponse.data.results;
+        const fetchedQuestionBankId = resultsResponse.data.questionBankId;
+        setQuestionBankId(fetchedQuestionBankId);
+
+        // 🔹 Extract language & test type from `questionBankId`
+        const [language, testType] = fetchedQuestionBankId.split("-");
+
+        // 🔹 Fetch correct answers for each question
+        const questionPromises = rawResults.map(async (result) => {
+          const questionRes = await axios.get(
+            `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`
+          );
+          return { 
+            ...result, 
+            correctAnswer: questionRes.data.correctAnswer,  // Add correct answer to object
+            status: result.user_answer === questionRes.data.correctAnswer ? "correct" : "incorrect" 
+          };
+        });
+
+        const updatedResults = await Promise.all(questionPromises);
+        setResults(updatedResults);
   
-        // 🔹 Fetch video URL from media service
+        // 🔹 Fetch video URL from Media Service
         const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${assessmentId}`;
         const videoResponse = await axios.get(videoApiUrl);
   
@@ -58,7 +79,7 @@ function ResultsAnalysisPage() {
       <Header title={`${firstName} ${lastName} - ${date}-assignment-${assessmentId}`} />
 
       <div className="flex flex-row w-full items-center justify-between gap-4 mt-36 ">
-        
+
         {/* 🔹 Video Player Section */}
         <div className="w-2/3 flex justify-center mt-44">
           {loading ? (
@@ -71,7 +92,7 @@ function ResultsAnalysisPage() {
         </div>
 
         <div className="w-2/3 flex justify-center">
-          {/* 🔹 Ensure questionBankId is passed to ResultsList */}
+          {/* 🔹 Pass updated results with correct statuses */}
           <ResultsList 
             results={results} 
             questionBankId={questionBankId} 
