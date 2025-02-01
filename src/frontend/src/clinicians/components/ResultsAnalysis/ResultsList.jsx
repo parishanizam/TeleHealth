@@ -1,7 +1,25 @@
+import { useNavigate } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 
-// 🔹 Now receives `results` & `questionBankId` dynamically
-function ResultsList({ results, questionBankId }) {
+// 🔹 Passes `questionBankId` & `parentUsername` correctly
+function ResultsList({ results, questionBankId, parentUsername, assessmentId, firstName, lastName, date }) {
+  const navigate = useNavigate();
+
+  const handleCardClick = (question) => {
+    navigate("/clinicians/BiasReviewPage", {
+      state: {
+        questionId: question.question_id,  
+        userAnswer: question.user_answer,  
+        questionBankId, 
+        parentUsername,
+        assessmentId,
+        firstName,
+        lastName,
+        date
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col w-full max-w-lg text-3xl tracking-normal leading-10">
       <div className="text-center text-4xl font-semibold mb-4">
@@ -11,20 +29,6 @@ function ResultsList({ results, questionBankId }) {
         {questionBankId ? questionBankId.replace("-", " ") : "Unknown Test"}
       </div>
 
-      {/* 🔹 Score Calculation (Dynamic) */}
-      <div className="flex items-center justify-center w-16 h-16 bg-blue-400 text-white rounded-full self-center mb-4">
-        <span className="text-xl font-semibold">
-          {results.length > 0
-            ? `${Math.round(
-                (results.filter((r) => r.status === "correct").length /
-                  results.length) *
-                  100
-              )}%`
-            : "N/A"}
-        </span>
-      </div>
-
-      {/* 🔹 Display Each Question Result */}
       {results.length > 0 ? (
         results.map((result, index) => (
           <QuestionCard
@@ -32,6 +36,7 @@ function ResultsList({ results, questionBankId }) {
             questionNumber={index + 1}
             status={result.status}
             biasDetected={result.biasDetected}
+            onClick={() => handleCardClick(result)}
           />
         ))
       ) : (

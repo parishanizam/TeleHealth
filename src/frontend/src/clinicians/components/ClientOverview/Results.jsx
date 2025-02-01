@@ -9,7 +9,7 @@ export function Results({ data, client }) {
   }
 
   const handleCardClick = (result) => {
-    console.log("Navigating to Bias Review with:", { result, client });
+    console.log("Navigating to result analysis:", { result, client });
 
     if (!client) {
       console.warn("Client data is missing!");
