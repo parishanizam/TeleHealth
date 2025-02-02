@@ -7,7 +7,7 @@ async function addClient(req, res) {
     // We expect the request body to contain:
     // { clinicianUsername, firstName, lastName }
 
-    const { clinicianUsername, firstName, lastName } = req.body;
+    const { clinicianUsername, firstName, lastName, securityCode } = req.body;
     if (!clinicianUsername || !firstName || !lastName) {
       return res
         .status(400)
@@ -19,7 +19,7 @@ async function addClient(req, res) {
       return res.status(404).json({ error: 'Clinician not found' });
     }
 
-    const securityCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+    // const securityCode = Math.random().toString(36).substring(2, 8).toUpperCase();
     const clientId = `client_${uuidv4()}`;
 
     if (!Array.isArray(clinicianData.clients)) {
