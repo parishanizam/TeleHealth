@@ -20,6 +20,7 @@ import ParentChecklistPageTutorial from '../parents/pages/ParentCheckListTutoria
 import TestSelectionTutorialPage from '../parents/pages/TestSelectionTutorialPage';
 import TutorialComplete from '../parents/pages/TutorialComplete';
 import ParentHomePage from '../parents/pages/ParentHomePage';
+import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
     path: '/clinicians/AddClientPage',
     element: <AddClientPage />,
   },
+  {
+    path: '/parents/RepetitionQuestionPage',
+    element: <RepetitionQuestion />,
+  }
 ]);
 
 export default function AppRouter() {

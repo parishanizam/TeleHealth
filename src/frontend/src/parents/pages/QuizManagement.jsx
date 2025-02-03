@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import MatchingQuestion from "./QuestionPage";
+import RepetitionQuestion from "./RepetitionQuestionPage";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
 export default function QuizManagement() {
@@ -187,6 +188,7 @@ export default function QuizManagement() {
 
   return (
     <div>
+      {testType === "matching" && (
       <MatchingQuestion
         question={currentQuestion}
         onAnswerSelected={handleAnswerSelected}
@@ -194,6 +196,17 @@ export default function QuizManagement() {
         questionNumber={currentQuestionIndex + 1}
         totalQuestions={questions.length}
       />
+    )}
+
+      {testType === "repetition" && (
+      <RepetitionQuestion
+        question={currentQuestion}
+        onAnswerSelected={handleAnswerSelected}
+        isLastQuestion={currentQuestionIndex === questions.length - 1}
+        questionNumber={currentQuestionIndex + 1}
+        totalQuestions={questions.length}
+      />
+    )}
 
       {/* 🔹 Submitting Answers Message */}
       {submitting && (
