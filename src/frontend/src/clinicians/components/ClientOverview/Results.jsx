@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ResultCard } from "./ResultCard";
+import { formatDate } from "../../../utils/dateUtils";
+import { formatTestTitle } from "../../../utils/testTitleUtils";
 
 export function Results({ data, client }) {
   const navigate = useNavigate();
@@ -34,7 +36,8 @@ export function Results({ data, client }) {
         <ResultCard
           key={result.assessment_id}
           score="100%"
-          date={`${result.questionBankId} - ${result.date}`}
+          test={formatTestTitle(result.questionBankId)}
+          date={formatDate(result.date)}
           onClick={() => handleCardClick(result)} // Pass click event
         />
       ))}

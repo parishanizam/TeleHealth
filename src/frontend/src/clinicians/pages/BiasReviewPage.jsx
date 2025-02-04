@@ -7,6 +7,8 @@ import QuestionAnswers from "../components/BiasReview/QuestionAnswers";
 import TempMediaPlayer from "../components/BiasReview/TempMediaPlayer";
 import RemoveBiasButton from "../components/BiasReview/RemoveBiasButton";
 import VolumeButton from "../../assets/volumebutton.svg"; // 🔹 Speaker Icon
+import { formatDate } from "../../utils/dateUtils";
+import { formatTestTitle } from "../../utils/testTitleUtils";
 
 function BiasReviewPage() {
   const { state } = useLocation();
@@ -71,11 +73,11 @@ function BiasReviewPage() {
 
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
-      <Header title={`${firstName || "Unknown"} ${lastName || ""} - ${questionBankId || "Unknown"} - ${date || "No Date"}`} />
+      <Header title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"}`} />
 
       {/* 🔹 Question Number + Speaker Icon */}
       <div className="flex items-center space-x-3 text-2xl font-bold mt-2">
-        <span>Question {questionId + 1}</span>
+        <span>{formatTestTitle(questionBankId) || "Unknown"} - Question {questionId + 1}</span>
         {question?.sound && (
           <img
             src={VolumeButton}
