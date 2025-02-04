@@ -11,15 +11,15 @@ export function ClientCard({ client }) {
 
   return (
     <div
-      className="flex justify-between items-center px-3 py-7 mt-2.5 max-w-full bg-sky-400 rounded-xl gap-4 min-h-[101px] w-full cursor-pointer"
+      className="flex justify-between items-center px-5 py-7 mt-2.5 bg-sky-400 rounded-xl gap-4 min-h-[101px] w-full max-w-[940px] cursor-pointer max-md:px-5"
       tabIndex={0}
       role="button"
       onClick={handleClick}
       aria-label={`View client ${client.firstName} ${client.lastName}`}
     >
-      <div className="self-stretch text-black my-auto">
+      <span className="grow shrink self-stretch text-xl font-semibold my-auto w-auto">
         {client.firstName} {client.lastName}
-      </div>
+      </span>
       <img
         loading="lazy"
         src={ChevronIcon}
