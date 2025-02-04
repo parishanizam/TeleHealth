@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Header } from "../components/Header";
 import { VideoTest } from "../components/VideoTest";
 import { AudioTest } from "../components/AudioTest";
@@ -38,6 +39,9 @@ export default function MediaTesting() {
   const [showConsent, setShowConsent] = useState(true);
   const navigate = useNavigate();
 
+  // Fetch test selection from Redux
+  const { language, testType } = useSelector((state) => state.testSelection);
+
   const handleConsent = () => {
     setShowConsent(false);
   };
@@ -45,6 +49,28 @@ export default function MediaTesting() {
   const handleDecline = () => {
     navigate("/");
   };
+
+// Determine the next route based on language and test type
+const getNextRoute = () => {
+  if (language === "english" && testType === "matching") {
+    return "/parents/EnglishMatchingInstructions";
+  }
+
+  if (language === "english" && testType === "repetition") {
+    return "/parents/EnglishRepetitionInstructions";
+  }
+
+  if (language === "mandarin" && testType === "matching") {
+    return "/parents/MandarinMatchingInstructions";
+  }
+
+  if (language === "mandarin" && testType === "repetition") {
+    return "/parents/MandarinRepetitionInstructions";
+  }
+
+  // // Default route
+  // return "/";
+};
 
   useEffect(() => {
     if (showConsent) {
@@ -84,7 +110,7 @@ export default function MediaTesting() {
 
       {/* Navigation or Next Step */}
       <div className="flex gap-2.5 justify-center items-center px-60 mt-20 w-full min-h-[60px] max-md:px-5 max-md:mt-10">
-        <NextButton to="/parents/EnglishMatchingInstructions" />
+        <NextButton to={getNextRoute()}/>
       </div>
 
       {/* Consent Form Modal */}

@@ -37,6 +37,7 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
+            console.log("Fetched question:", res.data); // Debug log
             return res.data;
           })
         );
@@ -75,7 +76,8 @@ export default function QuizManagement() {
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
       sessionStorage.removeItem("redirectAfterRefresh");
-      navigate("/parents/EnglishMatchingInstructions");
+      navigate(`/parents/${language.charAt(0).toUpperCase() + language.slice(1)}${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
+      // navigate("/parents/EnglishMatchingInstructions");
     }
   }, [navigate]);
 

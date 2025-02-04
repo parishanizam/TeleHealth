@@ -7,16 +7,22 @@ async function getQuestions(language, testType) {
   const key = `${language}/${testType}/questions.json`;
   const questionBank = await getJsonFromS3(key);
 
-  // Replace image and audio URLs with pre-signed URLs
+  // Replace media URLs with pre-signed URLs
   for (const question of questionBank.questions) {
-    // Replace audio URL
-    const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
-    question.sound = await getPresignedUrl(audioKey);
+    // Replace audio URL if it exists
+    if (question.sound) {
+      const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
+      question.sound = await getPresignedUrl(audioKey);
+    }
 
-    // Replace image URLs in options
-    for (const option of question.options) {
-      const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
-      option.image = await getPresignedUrl(imageKey);
+    // Only process image URLs if options exist (for Matching questions)
+    if (testType === "matching" && question.options) {
+      for (const option of question.options) {
+        if (option.image) {
+          const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
+          option.image = await getPresignedUrl(imageKey);
+        }
+      }
     }
   }
 
@@ -37,14 +43,20 @@ async function getQuestionById(language, testType, id) {
     throw new Error('Question not found');
   }
 
-  // Replace audio URL
-  const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
-  question.sound = await getPresignedUrl(audioKey);
+  // Replace audio URL if it exists
+  if (question.sound) {
+    const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
+    question.sound = await getPresignedUrl(audioKey);
+  }
 
-  // Replace image URLs in options
-  for (const option of question.options) {
-    const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
-    option.image = await getPresignedUrl(imageKey);
+  // Only process image URLs if options exist (for Matching questions)
+  if (testType === "matching" && question.options) {
+    for (const option of question.options) {
+      if (option.image) {
+        const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
+        option.image = await getPresignedUrl(imageKey);
+      }
+    }
   }
 
   return question;

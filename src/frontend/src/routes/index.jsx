@@ -29,6 +29,7 @@ import ClientOverview from '../clinicians/pages/ClientOverview';
 import ClinicianDashboard from '../clinicians/pages/ClinicianDashboard';
 import ResultsAnalysisPage from '../clinicians/pages/ResultsAnalysisPage';
 import AddClientPage from '../clinicians/pages/AddClientPage';
+import EnglishRepetitionInstructions from '../parents/pages/EnglishRepetitionInstructions';
 
 const router = createBrowserRouter([
   {
@@ -122,6 +123,18 @@ const router = createBrowserRouter([
   {
     path: '/parents/RepetitionQuestionPage',
     element: <RepetitionQuestion />,
+  },
+  {
+    path: '/parents/EnglishRepetitionInstructions',
+    element: <EnglishRepetitionInstructions />,
+  },
+  {
+    path: '/parents/MandarinRepetitionInstructions',
+    element: <EnglishRepetitionInstructions />,
+  },
+  {
+    path: '/parents/MandarinMatchingInstructions',
+    element: <EnglishMatchingInstructions />,
   }
 ]);
 

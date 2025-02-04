@@ -35,20 +35,25 @@ async function getQuestions(req, res) {
     // Fetch the JSON file from S3
     const questionBank = await getJsonFromS3(key);
 
-    // Replace image and audio URLs with pre-signed URLs
+    // Replace media URLs with pre-signed URLs
     for (const question of questionBank.questions) {
-      // Replace audio URL
-      const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]); // Extract and decode the S3 key
-      question.sound = await getPresignedUrl(audioKey);
+      // Replace audio URL if it exists
+      if (question.sound) {
+        const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]);
+        question.sound = await getPresignedUrl(audioKey);
+      }
 
-      // Replace image URLs in options
-      for (const option of question.options) {
-        const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]); // Extract and decode the S3 key
-        option.image = await getPresignedUrl(imageKey);
+      // Only process image URLs for matching test types
+      if (testType === 'matching' && question.options) {
+        for (const option of question.options) {
+          if (option.image) {
+            const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);
+            option.image = await getPresignedUrl(imageKey);
+          }
+        }
       }
     }
 
-    // Return the questions as a JSON response
     res.status(200).json(questionBank);
   } catch (error) {
     console.error('Error retrieving questions:', error);
@@ -76,17 +81,22 @@ async function getQuestionById(req, res) {
       return res.status(404).json({ error: 'Question not found' });
     }
 
-    // Replace audio URL
-    const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]); // Extract and decode the S3 key
-    question.sound = await getPresignedUrl(audioKey);
-
-    // Replace image URLs in options
-    for (const option of question.options) {
-      const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]); // Extract and decode the S3 key
-      option.image = await getPresignedUrl(imageKey);
+    // Replace audio URL if it exists
+    if (question.sound) {
+      const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]);
+      question.sound = await getPresignedUrl(audioKey);
     }
 
-    // Return the question as a JSON response
+    // Only process image URLs for matching test types
+    if (testType === 'matching' && question.options) {
+      for (const option of question.options) {
+        if (option.image) {
+          const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);
+          option.image = await getPresignedUrl(imageKey);
+        }
+      }
+    }
+
     res.status(200).json(question);
   } catch (error) {
     console.error('Error retrieving question:', error);
