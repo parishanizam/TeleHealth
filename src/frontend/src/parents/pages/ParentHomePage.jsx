@@ -23,23 +23,26 @@ function ParentHomePage() {
         </h1>
         <p className="mt-8 text-2xl leading-8 text-center max-md:max-w-full">
           Welcome to our TeleHealth platform, designed to help parents actively
-          support their children's speech therapy journey. Our easy-to-use tools
-          provide engaging assignments allowing you to work alongside
-          speech-language professionals from the comfort of your home.
+          support their child&apos;s speech therapy journey. Our easy-to-use tools
+          provide engaging assessments allowing you to work alongside
+          speech-language professionals from the comfort of your own home.
         </p>
         <div className="flex flex-wrap gap-7 justify-center items-center mt-8 w-full">
         {/* Start Assessment Button */}
         <Link
-          to="/parents/testselection"
-          aria-label="Start Assessment"
-          className="overflow-hidden gap-2.5 px-14 mt-8 py-6 bg-slate-900 min-w-[240px]
-             rounded-[40px] text-2xl font-medium leading-none text-white"
-          >
-            Start Assessment
-        </Link>
+  to="/parents/testselection"
+  aria-label="Start"
+  className="inline-flex overflow-hidden gap-2.5 px-10 mt-8 py-6 bg-slate-900 rounded-[40px] text-2xl font-medium leading-none text-white 
+             border-2 border-slate-900 hover:bg-white hover:text-slate-900 hover:border-slate-900 transition-colors duration-200"
+>
+  Start
+</Link>
+
+
+
         </div>
         <p className="mt-8 text-2xl leading-8 text-center max-md:max-w-full">
-          Not sure how to use the platform? We've got you covered! to guide you
+          Not sure how to use the platform? We&apos;ve got you covered! To guide you
           through all the features and help you make the most of your
           experience.
         </p>
