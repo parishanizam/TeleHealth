@@ -19,7 +19,7 @@ function QuestionCard({ questionNumber, status, biasDetected, onClick }) {
       onClick={onClick} 
     >
       {/* Status Icon */}
-      <div className="flex items-center justify-center w-16 h-16 bg-blue-400 text-white rounded-full">
+      <div className="flex items-center justify-center w-16 h-16 bg-blue-300 text-white rounded-full">
         <img src={icon} alt="Status Icon" className="object-contain w-8 h-8" />
       </div>
 
