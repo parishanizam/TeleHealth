@@ -12,8 +12,8 @@ function ParentHomePage() {
       <Header title="" />
       {/* Main Content */}
       <div className="flex flex-col gap-5 items-center max-w-[766px] mt-8 px-4">
-                {/* You can display parent's first or last name if available */}
-                {parentInfo && (
+        {/* You can display parent's first or last name if available */}
+        {parentInfo && (
           <h2 className="text-2xl font-medium">
             Welcome, {parentInfo.firstName} {parentInfo.lastName}!
           </h2>
@@ -23,34 +23,31 @@ function ParentHomePage() {
         </h1>
         <p className="mt-8 text-2xl leading-8 text-center max-md:max-w-full">
           Welcome to our TeleHealth platform, designed to help parents actively
-          support their child&apos;s speech therapy journey. Our easy-to-use tools
-          provide engaging assessments allowing you to work alongside
+          support their child&apos;s speech therapy journey. Our easy-to-use
+          tools provide engaging assessments allowing you to work alongside
           speech-language professionals from the comfort of your own home.
         </p>
         <div className="flex flex-wrap gap-7 justify-center items-center mt-8 w-full">
-        {/* Start Assessment Button */}
-        <Link
-  to="/parents/testselection"
-  aria-label="Start"
-  className="inline-flex overflow-hidden gap-2.5 px-10 mt-8 py-6 bg-slate-900 rounded-[40px] text-2xl font-medium leading-none text-white 
+          {/* Start Assessment Button */}
+          <Link
+            to="/parents/testselection"
+            aria-label="Start"
+            className="inline-flex overflow-hidden gap-2.5 px-10 mt-8 py-6 bg-slate-900 rounded-[40px] text-2xl font-medium leading-none text-white 
              border-2 border-slate-900 hover:bg-white hover:text-slate-900 hover:border-slate-900 transition-colors duration-200"
->
-  Start
-</Link>
-
-
-
+          >
+            Start
+          </Link>
         </div>
         <p className="mt-8 text-2xl leading-8 text-center max-md:max-w-full">
-          Not sure how to use the platform? We&apos;ve got you covered! To guide you
-          through all the features and help you make the most of your
+          Not sure how to use the platform? We&apos;ve got you covered! To guide
+          you through all the features and help you make the most of your
           experience.
         </p>
-        
+
         {/* Next Button */}
-      <div className="flex justify-center items-center mt-12 px-8 pb-8">
-        <NextButton to="/parents/TestSelectionTutorialPage" name="Tutorial" />
-      </div>
+        <div className="flex justify-center items-center mt-12 px-8 pb-8">
+          <NextButton to="/parents/TestSelectionTutorialPage" name="Tutorial" />
+        </div>
       </div>
     </div>
   );
