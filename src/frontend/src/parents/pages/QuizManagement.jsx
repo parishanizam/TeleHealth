@@ -20,8 +20,7 @@ export default function QuizManagement() {
   const [loading, setLoading] = useState(true);
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
-  const [timestamps, setTimestamps] = useState([]);
-  const [submitting, setSubmitting] = useState(false); // New loading state
+  const [submitting, setSubmitting] = useState(false); // 🔹 New loading state
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -94,31 +93,13 @@ export default function QuizManagement() {
   }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
-    if (!window.videoPlayer || !window.videoPlayer.currentTime) {
-      console.warn("No video player reference found!");
-      return;
-    }
-  
-    const currentTime = window.videoPlayer.currentTime.toFixed(2); // 🔹 Capture timestamp
-    console.log(`Timestamp for Question ${currentQuestionIndex + 1}: ${currentTime}`);
-  
-    const newResponse = { 
-      question_id: questionId, 
-      user_answer: selectedOption 
-    };
-  
+    const newResponse = { question_id: questionId, user_answer: selectedOption };
     setResponses((prev) => [...prev, newResponse]);
-  
-    setTimestamps((prev) => [
-      ...prev,
-      { question_id: questionId, timestamp: currentTime },
-    ]);
-  
+
     sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
-    sessionStorage.setItem("timestamps", JSON.stringify([...timestamps, { question_id: questionId, timestamp: currentTime }]));
-  
+
     setProgress(((currentQuestionIndex + 1) / questions.length) * 100);
-  
+
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
@@ -174,33 +155,30 @@ export default function QuizManagement() {
       console.error("No assessment ID found! Cannot submit results.");
       return;
     }
-  
+
     const payload = {
       username: parentInfo.username,
       name: `${parentInfo.firstName} ${parentInfo.lastName}`,
       assessment_id: assessmentId,
       questionBankId: `${language}-${testType}`,
-      results: responses.map((response) => ({
-        ...response,
-        timestamp: timestamps.find((t) => t.question_id === response.question_id)?.timestamp || null
-      }))
+      results: responses
     };
-  
+
     try {
       const res = await axios.post(
         "http://localhost:3000/resultstorage/submit-assessment",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
-  
+
       console.log("Test results submitted successfully:", res.data);
       navigate("/parents/testcomplete");
     } catch (error) {
       console.error("Error submitting test results:", error);
     } finally {
-      setSubmitting(false);
+      setSubmitting(false); // 🔹 Hide "Submitting Answers..." message
     }
-  };  
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
   if (!currentQuestion) {
