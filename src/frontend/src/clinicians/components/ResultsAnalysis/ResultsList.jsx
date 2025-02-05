@@ -37,6 +37,7 @@ function ResultsList({
         {formatTestTitle(questionBankId)}
       </div>
 
+      <div className="h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
       {results.length > 0 ? (
         results.map((result, index) => (
           <QuestionCard
@@ -50,6 +51,7 @@ function ResultsList({
       ) : (
         <p className="text-center text-gray-500">No results available.</p>
       )}
+    </div>
     </div>
   );
 }

@@ -82,7 +82,7 @@ function ResultsAnalysisPage() {
     <div className="flex flex-col justify-center items-center px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
       <Header title={`${firstName} ${lastName} - ${formattedDate}`} />
 
-      <div className="flex flex-row w-full items-center justify-between gap-4 mt-36 ">
+      <div className="flex flex-row w-full items-center justify-between gap-4 mt-16 ">
 
         {/* 🔹 Video Player Section */}
         <div className="w-2/3 flex justify-center mt-44">
