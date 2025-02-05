@@ -1,5 +1,3 @@
-import React from "react";
-
 function QuestionAnswers({ question, userAnswer }) {
   if (!question || !question.options) {
     return <p className="text-gray-500">No answer options available.</p>;
@@ -9,14 +7,8 @@ function QuestionAnswers({ question, userAnswer }) {
   const correctAnswer = question.correctAnswer; 
 
   // Grid Layout Based on Number of Options
-  let gridClass = "grid grid-cols-1 gap-4"; 
-  if (question.options.length === 4) {
-    gridClass = "grid grid-cols-2 gap-4"; // 2x2 Grid
-  } else if (question.options.length === 3) {
-    gridClass = "grid grid-cols-3 gap-4"; // 1x3 Grid
-  } else if (question.options.length === 2) {
-    gridClass = "grid grid-cols-2 gap-4"; // 1x2 Grid
-  }
+  const columns = question.options.length % 2 === 0 ? 2 : 3; // 2 for even, 3 for odd
+  const gridClass = `grid grid-cols-${columns} gap-6 px-4`; // Add extra gap and padding
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -40,7 +32,7 @@ function QuestionAnswers({ question, userAnswer }) {
                 alt={`Option ${option.id}`} 
                 className="w-32 h-32 object-contain mx-auto" // 🔹 Bigger images
               />
-              <p className="text-center">{option.id}</p>
+              <p className="text-center">{option.id.toUpperCase()}</p>
             </div>
           );
         })}
