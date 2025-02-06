@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import GenerateButton from "./GenerateButton";
 import InputField from "./InputField";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,10 +9,10 @@ function AddClient() {
   const [formData, setFormData] = useState({ firstName: "", lastName: "" });
   const [clientNumber, setClientNumber] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isGenerateDisabled, setIsGenerateDisabled] = useState(false);
   const dispatch = useDispatch();
 
-  // Get clinician info from Redux
   const clinicianInfo = useSelector((state) => state.clinician.clinicianInfo);
 
   const handleChange = (e) => {
@@ -21,35 +20,32 @@ function AddClient() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Generate a 6-character alphanumeric client number
-  const generateClientNumber = () => {
+  const generateAndSubmitClientNumber = async () => {
+    if (!formData.firstName || !formData.lastName) {
+      setError("Please fill out both first and last names before generating a client number.");
+      return;
+    }
+
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
     for (let i = 0; i < 6; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setClientNumber(result);
-  };
+    setError(""); 
+    setIsGenerateDisabled(true);
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.firstName || !formData.lastName || !clientNumber) {
-      setError("Please fill all fields and generate a client number.");
-      return;
-    }
-  
     try {
-      const response = await axios.post("http://localhost:3000/auth/clinicians/add-client", {
-        clinicianUsername: clinicianInfo.username,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        securityCode: clientNumber, 
-      });
-  
-      console.log("Client Added Successfully:", response.data);
-  
-      // Dispatch full client object to Redux
+      const response = await axios.post(
+        "http://localhost:3000/auth/clinicians/add-client",
+        {
+          clinicianUsername: clinicianInfo.username,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          securityCode: result,
+        }
+      );
+
       dispatch(
         addClient({
           clientId: response.data.clientId,
@@ -58,20 +54,21 @@ function AddClient() {
           securityCode: response.data.securityCode,
         })
       );
-  
-      // Navigate back to dashboard
-      navigate("/clinicians/ClinicianDashboard");
+
+      setSuccessMessage("Client added successfully!");
     } catch (err) {
       console.error("Error adding client:", err);
       setError("Failed to add client. Please try again.");
+      setIsGenerateDisabled(false); 
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center space-y-5">
+    <form className="flex flex-col items-center space-y-5">
       <h2 className="text-2xl font-semibold">Add New Client</h2>
 
       {error && <p className="text-red-500">{error}</p>}
+      {successMessage && <p className="text-green-500">{successMessage}</p>}
 
       <InputField
         id="firstName"
@@ -91,21 +88,17 @@ function AddClient() {
         onChange={handleChange}
       />
 
-      <GenerateButton onClick={generateClientNumber} />
+      <GenerateButton
+        onClick={generateAndSubmitClientNumber}
+        disabled={isGenerateDisabled}
+        buttonText={isGenerateDisabled ? "Client Number Generated" : "Generate & Submit"}
+      />
 
-      {/* Display generated client number */}
       {clientNumber && (
         <p className="mt-4 text-lg text-gray-700 font-bold">
           Client Number: {clientNumber}
         </p>
       )}
-
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-      >
-        Submit
-      </button>
     </form>
   );
 }
