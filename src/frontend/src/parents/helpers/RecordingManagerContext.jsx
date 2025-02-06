@@ -7,6 +7,8 @@ export function RecordingManagerProvider({ children }) {
   const recordedChunksRef = useRef([]);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState(null);
+  const [recordingStartTime, setRecordingStartTime] = useState(null); // 🔹 Track recording start time
+  const onRecordingCompleteRef = useRef(null); // 🔹 Define this reference
 
   const startRecording = useCallback(async ({ audioDeviceId, videoDeviceId }) => {
     try {
@@ -35,7 +37,8 @@ export function RecordingManagerProvider({ children }) {
         const blob = new Blob(recordedChunksRef.current, { type: recorder.mimeType });
         setRecordedBlob(blob);
         console.log("Recording complete. Blob available:", blob);
-        // Call the callback if we have one
+
+        // Call the callback if it's set
         if (onRecordingCompleteRef.current) {
           onRecordingCompleteRef.current(blob);
         }
@@ -43,6 +46,7 @@ export function RecordingManagerProvider({ children }) {
 
       recorder.start();
       mediaRecorderRef.current = recorder;
+      setRecordingStartTime(new Date().getTime()); // 🔹 Store the recording start time
       setIsRecording(true);
     } catch (err) {
       console.error("Error starting recording:", err);
@@ -50,16 +54,14 @@ export function RecordingManagerProvider({ children }) {
     }
   }, []);
 
-  const onRecordingCompleteRef = useRef(null);
-
   const stopRecording = useCallback((onComplete) => {
     if (!mediaRecorderRef.current) {
       console.warn("No active recorder to stop.");
       return;
     }
-    
+
     if (onComplete) {
-      onRecordingCompleteRef.current = onComplete;
+      onRecordingCompleteRef.current = onComplete; // Set the callback
     }
 
     mediaRecorderRef.current.stop();
@@ -67,10 +69,16 @@ export function RecordingManagerProvider({ children }) {
       ?.getTracks()
       .forEach((track) => track.stop());
     setIsRecording(false);
+    setRecordingStartTime(null); // Reset the recording start time
   }, []);
 
+  const getElapsedRecordingTime = useCallback(() => {
+    if (!recordingStartTime) return 0;
+    return new Date().getTime() - recordingStartTime; // Calculate elapsed time
+  }, [recordingStartTime]);
+
   return (
-    <RecordingManagerContext.Provider value={{ isRecording, recordedBlob, startRecording, stopRecording }}>
+    <RecordingManagerContext.Provider value={{ isRecording, recordedBlob, startRecording, stopRecording, getElapsedRecordingTime }}>
       {children}
     </RecordingManagerContext.Provider>
   );

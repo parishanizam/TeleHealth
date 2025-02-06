@@ -17,7 +17,8 @@ export default function MatchingQuestion({
   };
 
   const handleNextOrSubmit = () => {
-    onAnswerSelected(question.id, selectedAnswer);
+    const currentTime = new Date().getTime();
+    onAnswerSelected(question.id, selectedAnswer, currentTime);
   };
 
   // Dynamically determine grid layout based on number of options

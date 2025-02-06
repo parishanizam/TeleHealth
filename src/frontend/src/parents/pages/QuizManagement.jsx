@@ -17,10 +17,16 @@ export default function QuizManagement() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
+  const { getElapsedRecordingTime } = useContext(RecordingManagerContext);
   const [loading, setLoading] = useState(true);
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
+  const [timestamps, setTimestamps] = useState([]);
   const [submitting, setSubmitting] = useState(false); // 🔹 New loading state
+
+  const startRecording = () => {
+    setRecordingStartTime(new Date().getTime()); 
+  };
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -93,12 +99,18 @@ export default function QuizManagement() {
   }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
+    const elapsedTime = getElapsedRecordingTime(); // 🔹 Get elapsed time from the context
+
+    console.log(`Elapsed time since recording started: ${elapsedTime} ms`);
+
     const newResponse = { question_id: questionId, user_answer: selectedOption };
+    const newTimestamp = { question_id: questionId, timestamp: elapsedTime };
+
     setResponses((prev) => [...prev, newResponse]);
+    setTimestamps((prev) => [...prev, newTimestamp]);
 
-    sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
-
-    setProgress(((currentQuestionIndex + 1) / questions.length) * 100);
+    sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
+    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: elapsedTime }]));
 
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -136,6 +148,7 @@ export default function QuizManagement() {
     formData.append("lastName", parentInfo.lastName);
     formData.append("childUsername", parentInfo.username);
     formData.append("assessmentId", assessmentId);
+    formData.append("timestamps", JSON.stringify(timestamps));
   
     try {
       console.log("🚀 Sending Upload Request...");

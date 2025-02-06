@@ -64,6 +64,15 @@ exports.uploadAndProcessMedia = async (req, res) => {
     if (!parentUsername || !childUsername || !assessmentId) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+    
+    let timestamps = req.body.timestamps;
+
+    if (!timestamps) {
+      return res.status(400).json({ error: 'Timestamps are required.' });
+    }
+
+    // Parse timestamps 
+    const parsedTimestamps = JSON.parse(timestamps);
 
     // Generate structured filenames
     const videoFileName = `${childUsername}_${assessmentId}.mp4`;
@@ -104,7 +113,8 @@ exports.uploadAndProcessMedia = async (req, res) => {
     existingHistory.assessmentVideos.push({
       assessmentId: assessmentId,
       videoFile: videoFileName,
-      bias: biasEvents
+      bias: biasEvents,
+      timestamps: parsedTimestamps
     });
 
     // Upload updated history JSON
@@ -120,9 +130,10 @@ exports.uploadAndProcessMedia = async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Video processed successfully',
-      presignedUrl,  // 🔹 Allows frontend to stream the video
+      presignedUrl,  // Allows frontend to stream the video
       historyFile: historyS3Key,
-      biasEvents
+      biasEvents,
+      timestampsFile: historyS3Key
     });
   } catch (error) {
     console.error('Error processing media:', error);
