@@ -98,19 +98,33 @@ export default function QuizManagement() {
     };
   }, []);
 
-  const handleAnswerSelected = (questionId, selectedOption) => {
-    const elapsedTime = getElapsedRecordingTime(); // 🔹 Get elapsed time from the context
+  function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+  
+    // Format to `HH:MM:SS` or `MM:SS`
+    if (hours > 0) {
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    } else {
+      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+  }
 
-    console.log(`Elapsed time since recording started: ${elapsedTime} ms`);
+  const handleAnswerSelected = (questionId, selectedOption) => {
+    const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from the context
+    const formattedTimestamp = formatTime(elapsedTime);
+
+    console.log(`Time since recording started: ${formattedTimestamp}`);
 
     const newResponse = { question_id: questionId, user_answer: selectedOption };
-    const newTimestamp = { question_id: questionId, timestamp: elapsedTime };
+    const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
 
     setResponses((prev) => [...prev, newResponse]);
     setTimestamps((prev) => [...prev, newTimestamp]);
 
     sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
-    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: elapsedTime }]));
+    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
 
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
