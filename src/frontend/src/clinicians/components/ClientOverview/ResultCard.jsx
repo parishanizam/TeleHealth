@@ -1,7 +1,7 @@
 import ChevronIcon from "../../../assets/chevron.svg";
 
 // eslint-disable-next-line react/prop-types
-export function ResultCard({ score, date, onClick }) {
+export function ResultCard({ score, test, date, onClick }) {
   return (
     <button
       onClick={onClick} // Click triggers navigation
@@ -12,8 +12,11 @@ export function ResultCard({ score, date, onClick }) {
         <span className="text-lg font-bold text-neutral-900">{score}</span>
       </div>
 
-      {/* Date & QuestionBankId */}
-      <div className="self-stretch my-auto">{date}</div>
+      {/* Test & Date on separate lines */}
+      <div className="self-stretch my-auto">
+        <div>{test}</div>
+        <div>{date}</div>
+      </div>
 
       {/* Chevron Icon */}
       <img

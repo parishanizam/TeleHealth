@@ -4,6 +4,7 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import TempMediaPlayer from "../components/BiasReview/TempMediaPlayer";
 import ResultsList from "../components/ResultsAnalysis/ResultsList";
+import { formatDate } from "../../utils/dateUtils";
 
 function ResultsAnalysisPage() {
   const location = useLocation();
@@ -13,11 +14,14 @@ function ResultsAnalysisPage() {
   const [questionBankId, setQuestionBankId] = useState(""); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formattedDate, setFormattedDate] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!firstName || !lastName || !assessmentId || !parentUsername) return;
   
+    setFormattedDate(formatDate(date));
+
     const fetchResultsAndVideo = async () => {
       try {
         setLoading(true);
@@ -76,9 +80,9 @@ function ResultsAnalysisPage() {
 
   return (
     <div className="flex flex-col justify-center items-center px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${firstName} ${lastName} - ${date}-assignment-${assessmentId}`} />
+      <Header title={`${firstName} ${lastName} - ${formattedDate}`} />
 
-      <div className="flex flex-row w-full items-center justify-between gap-4 mt-36 ">
+      <div className="flex flex-row w-full items-center justify-between gap-4 mt-16 ">
 
         {/* 🔹 Video Player Section */}
         <div className="w-2/3 flex justify-center mt-44">
