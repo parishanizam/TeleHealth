@@ -20,6 +20,7 @@ import TutorialComplete from '../parents/pages/TutorialComplete';
 import ParentHomePage from '../parents/pages/ParentHomePage';
 import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
 import TestInstructions from '../parents/pages/TestInstructions';
+import QuantifierQuestion from '../parents/pages/QuantifierQuestion';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -121,7 +122,11 @@ const router = createBrowserRouter([
   {
     path: '/parents/:testTypeInstructions',
     element: <TestInstructions />,
-  }
+  },
+  {
+    path: '/parents/QuantifierQuestionPage',
+    element: <QuantifierQuestion />,
+  },
 ]);
 
 export default function AppRouter() {

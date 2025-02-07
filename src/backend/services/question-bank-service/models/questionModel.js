@@ -15,8 +15,8 @@ async function getQuestions(language, testType) {
       question.sound = await getPresignedUrl(audioKey);
     }
 
-    // Only process image URLs if options exist (for Matching questions)
-    if (testType === "matching" && question.options) {
+    // Only process image URLs if options exist
+    if (question.options) {
       for (const option of question.options) {
         if (option.image) {
           const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
@@ -49,8 +49,8 @@ async function getQuestionById(language, testType, id) {
     question.sound = await getPresignedUrl(audioKey);
   }
 
-  // Only process image URLs if options exist (for Matching questions)
-  if (testType === "matching" && question.options) {
+  // Only process image URLs if options exist
+  if (question.options) {
     for (const option of question.options) {
       if (option.image) {
         const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL

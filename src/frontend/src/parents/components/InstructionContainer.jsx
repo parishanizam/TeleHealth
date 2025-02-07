@@ -2,6 +2,7 @@ import InstructionStep from "../components/InstructionStep";
 
 import matchingInstructions from "./Instructions/MatchingInstructions";
 import repetitionInstructions from "./Instructions/RepetitionInstructions";
+import quantifierInstructions from "./Instructions/QuantifierInstructions";
 
 // eslint-disable-next-line react/prop-types
 export default function InstructionContainer({ type }) {
@@ -13,6 +14,10 @@ export default function InstructionContainer({ type }) {
 
   if (type === "repetition") {
     instructions = repetitionInstructions;
+  }
+
+  if (type === "quantifier") {
+    instructions = quantifierInstructions;
   }
 
   return (

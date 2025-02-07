@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import MatchingQuestion from "./QuestionPage";
 import RepetitionQuestion from "./RepetitionQuestionPage";
+import QuantifierQuestion from "./QuantifierQuestion";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
 export default function QuizManagement() {
@@ -76,7 +77,11 @@ export default function QuizManagement() {
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
       sessionStorage.removeItem("redirectAfterRefresh");
-      navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
+      navigate(
+        `/parents/${
+          testType.charAt(0).toUpperCase() + testType.slice(1)
+        }Instructions`
+      );
       // navigate("/parents/EnglishMatchingInstructions");
     }
   }, [navigate]);
@@ -96,10 +101,16 @@ export default function QuizManagement() {
   }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
-    const newResponse = { question_id: questionId, user_answer: selectedOption };
+    const newResponse = {
+      question_id: questionId,
+      user_answer: selectedOption,
+    };
     setResponses((prev) => [...prev, newResponse]);
 
-    sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
+    sessionStorage.setItem(
+      "quizResponses",
+      JSON.stringify([...responses, newResponse])
+    );
 
     setProgress(((currentQuestionIndex + 1) / questions.length) * 100);
 
@@ -121,7 +132,9 @@ export default function QuizManagement() {
           .then(() => submitResults()) // 🔹 Ensures submission happens only after upload
           .catch((error) => console.error("Error during processing:", error));
       } else {
-        console.warn("No recordedBlob found! onstop may not have completed yet.");
+        console.warn(
+          "No recordedBlob found! onstop may not have completed yet."
+        );
         submitResults();
       }
     });
@@ -129,9 +142,9 @@ export default function QuizManagement() {
 
   const uploadRecording = async (blob) => {
     if (!blob) return;
-  
+
     console.log("Uploading recording to backend...");
-  
+
     const formData = new FormData();
     formData.append("videoFile", blob, "recording.mp4");
     formData.append("parentUsername", parentInfo.username);
@@ -139,17 +152,21 @@ export default function QuizManagement() {
     formData.append("lastName", parentInfo.lastName);
     formData.append("childUsername", parentInfo.username);
     formData.append("assessmentId", assessmentId);
-  
+
     try {
       console.log("🚀 Sending Upload Request...");
-      const response = await axios.post("http://localhost:3000/media/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-  
+      const response = await axios.post(
+        "http://localhost:3000/media/",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+
       console.log("Recording uploaded successfully:", response.data);
     } catch (error) {
       console.error("Error uploading recording:", error);
-      throw error; 
+      throw error;
     }
   };
 
@@ -164,7 +181,7 @@ export default function QuizManagement() {
       name: `${parentInfo.firstName} ${parentInfo.lastName}`,
       assessment_id: assessmentId,
       questionBankId: `${language}-${testType}`,
-      results: responses
+      results: responses,
     };
 
     try {
@@ -191,24 +208,34 @@ export default function QuizManagement() {
   return (
     <div>
       {testType === "matching" && (
-      <MatchingQuestion
-        question={currentQuestion}
-        onAnswerSelected={handleAnswerSelected}
-        isLastQuestion={currentQuestionIndex === questions.length - 1}
-        questionNumber={currentQuestionIndex + 1}
-        totalQuestions={questions.length}
-      />
-    )}
+        <MatchingQuestion
+          question={currentQuestion}
+          onAnswerSelected={handleAnswerSelected}
+          isLastQuestion={currentQuestionIndex === questions.length - 1}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
+        />
+      )}
 
       {testType === "repetition" && (
-      <RepetitionQuestion
-        question={currentQuestion}
-        onAnswerSelected={handleAnswerSelected}
-        isLastQuestion={currentQuestionIndex === questions.length - 1}
-        questionNumber={currentQuestionIndex + 1}
-        totalQuestions={questions.length}
-      />
-    )}
+        <RepetitionQuestion
+          question={currentQuestion}
+          onAnswerSelected={handleAnswerSelected}
+          isLastQuestion={currentQuestionIndex === questions.length - 1}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
+        />
+      )}
+
+      {testType === "quantifier" && (
+        <QuantifierQuestion
+          question={currentQuestion}
+          onAnswerSelected={handleAnswerSelected}
+          isLastQuestion={currentQuestionIndex === questions.length - 1}
+          questionNumber={currentQuestionIndex + 1}
+          totalQuestions={questions.length}
+        />
+      )}
 
       {/* 🔹 Submitting Answers Message */}
       {submitting && (
