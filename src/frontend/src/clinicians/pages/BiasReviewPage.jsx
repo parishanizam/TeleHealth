@@ -12,7 +12,7 @@ import { formatTestTitle } from "../../utils/testTitleUtils";
 
 function BiasReviewPage() {
   const { state } = useLocation();
-  const { questionId, userAnswer, questionBankId, date, firstName, lastName, parentUsername, assessmentId } = state || {};
+  const { questionId,questionNumber, userAnswer, questionBankId, date, firstName, lastName, parentUsername, assessmentId } = state || {};
 
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -77,7 +77,7 @@ function BiasReviewPage() {
 
       {/* 🔹 Question Number + Speaker Icon */}
       <div className="flex items-center space-x-3 text-2xl font-bold mt-2">
-        <span>{formatTestTitle(questionBankId) || "Unknown"} - Question {questionId + 1}</span>
+        <span>{formatTestTitle(questionBankId) || "Unknown"} - Question {questionNumber}</span>
         {question?.sound && (
           <img
             src={VolumeButton}
