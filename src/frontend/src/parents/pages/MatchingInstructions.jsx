@@ -27,7 +27,7 @@ export default function MatchingInstructions() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title="Matching Instructions" />
+      <Header title="Matching Assessment" />
 
       {/* Basic instructions */}
       <div className="flex flex-col items-center mt-12 w-full text-3xl text-center text-black max-md:mt-10">
@@ -38,7 +38,7 @@ export default function MatchingInstructions() {
 
       <div className="flex flex-col items-center mt-12 gap-6 w-full max-md:mt-10">
         <div className="flex flex-col gap-6 w-full max-w-5xl px-4 text-center">
-          <InstructionStep number="1">
+        <InstructionStep number="1">
             Press the{" "}
             <img
               loading="lazy"
@@ -46,18 +46,31 @@ export default function MatchingInstructions() {
               alt="Play button"
               className="inline-block w-6 h-6 mx-1"
             />{" "}
-            button to play the question audio.
+            button to <span className="font-bold">Play</span> the Question Audio
           </InstructionStep>
-          <InstructionStep number="2">Select the correct image.</InstructionStep>
-          <InstructionStep number="3">
-            Press “Next” to continue or “Finish” to complete the test.
+          <InstructionStep number="2">
+            The{" "}
+            <img
+              loading="lazy"
+              src={VolumeButton}
+              alt="Play button"
+              className="inline-block w-6 h-6 mx-1"
+            />{" "}
+            button can only be pressed <span className="font-bold">2 times</span>
+          </InstructionStep>
+          <InstructionStep number="3">Choose the <span className="font-bold">picture</span> that matches the audio</InstructionStep>
+          <InstructionStep number="4">
+            Press <span className="font-bold">Next</span> to save your answer and go to the <span className="font-bold">next question</span>
+          </InstructionStep>
+          <InstructionStep number="5">
+            Press <span className="font-bold">Finish</span> to complete the test
           </InstructionStep>
         </div>
       </div>
 
       {/* Start button */}
       <div className="flex flex-col items-center mt-12 w-full text-center text-black max-md:mt-10">
-        <div>Press &quot;Start&quot; when ready</div>
+      <div>Press <span className="font-bold">Start</span> when you&apos;re ready to begin!</div>
         <div className="mt-6" onClick={(e) => e.preventDefault()}>
         <button className="flex justify-center items-center px-4 py-2.5 bg-white rounded-lg border-blue-600 border-solid border-[1.5px] text-xl text-blue-600 cursor-pointer" onClick={handleStart}>Start</button>
         </div>
