@@ -12,7 +12,17 @@ import { formatTestTitle } from "../../utils/testTitleUtils";
 
 function BiasReviewPage() {
   const { state } = useLocation();
-  const { questionId,questionNumber, userAnswer, questionBankId, date, firstName, lastName, parentUsername, assessmentId } = state || {};
+  const {
+    questionId,
+    questionNumber,
+    userAnswer,
+    questionBankId,
+    date,
+    firstName,
+    lastName,
+    parentUsername,
+    assessmentId,
+  } = state || {};
 
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -22,7 +32,13 @@ function BiasReviewPage() {
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
-    if (questionId === undefined || questionId === null || questionBankId === undefined || parentUsername === undefined || assessmentId === undefined) {
+    if (
+      questionId === undefined ||
+      questionId === null ||
+      questionBankId === undefined ||
+      parentUsername === undefined ||
+      assessmentId === undefined
+    ) {
       setError("Missing necessary data for review.");
       return;
     }
@@ -47,13 +63,14 @@ function BiasReviewPage() {
         setQuestion(questionRes.data);
 
         // 🔹 Fetch Video from Media Service
-        const mediaRes = await axios.get(`http://localhost:3000/media/${parentUsername}/${assessmentId}`);
+        const mediaRes = await axios.get(
+          `http://localhost:3000/media/${parentUsername}/${assessmentId}`
+        );
 
         console.log("📌 Media API Response:", mediaRes.data); // 🔹 Debugging log
 
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []); // Ensure we always set an array
-
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load bias review data.");
@@ -73,31 +90,44 @@ function BiasReviewPage() {
 
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
-      <Header title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"}`} />
+      <Header
+        title={`${firstName || "Unknown"} ${lastName || ""} - ${
+          formatDate(date) || "No Date"
+        }`}
+      />
 
-      {/* 🔹 Question Number + Speaker Icon */}
-      <div className="flex items-center space-x-3 text-2xl font-bold mt-2">
-        <span>{formatTestTitle(questionBankId) || "Unknown"} - Question {questionNumber}</span>
-        {question?.sound && (
-          <img
-            src={VolumeButton}
-            alt="Play Sound"
-            onClick={() => new Audio(question.sound).play()}
-            className="object-contain w-8 h-8 cursor-pointer hover:shadow-md"
-          />
-        )}
+      <div className="flex items-center justify-center space-x-4 mt-4">
+        {/* Question Number */}
+        <span className="text-4xl tracking-tight text-center text-black leading-[64px] max-md:max-w-full max-md:text-4xl">
+          Question {questionNumber}
+        </span>
       </div>
 
-      <div className="text-center mt-4">
-        <BiasDetected biasState={biasTimestamps.length > 0} />
+      {/* Language - Test Type */}
+      <div className="flex items-center space-x-3 text-2xl mt-2">
+        <span>{formatTestTitle(questionBankId) || "Unknown"}</span>
       </div>
 
       {/* Video + Answer Section */}
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
         {/* Video Section */}
         <div className="w-1/2 flex flex-col justify-center">
-          {loading ? <p>Loading video...</p> : error ? <p className="text-red-500">{error}</p> : <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />}
-          
+          {/* iasDetected above TempMediaPlayer */}
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <BiasDetected biasState={biasTimestamps.length > 0} />
+          </div>
+
+          {loading ? (
+            <p>Loading video...</p>
+          ) : error ? (
+            <p className="text-red-500">{error}</p>
+          ) : (
+            <TempMediaPlayer
+              videoUrl={videoUrl}
+              biasTimestamps={biasTimestamps}
+            />
+          )}
+
           {/* 🔹 Bias Dropdown */}
           <div className="mt-4 text-center text-lg">
             {biasTimestamps.length > 0 ? (
@@ -118,8 +148,12 @@ function BiasReviewPage() {
                       <ul className="list-disc list-inside">
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}  
-                            <span className="text-gray-500"> (Faces Detected: {bias.faceCount})</span>
+                            <strong>⏳ {bias.timestamp}s</strong> -{" "}
+                            {bias.keyword}
+                            <span className="text-gray-500">
+                              {" "}
+                              (Faces Detected: {bias.faceCount})
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -135,7 +169,29 @@ function BiasReviewPage() {
 
         {/* Answer Section */}
         <div className="w-1/2 flex flex-col items-center space-y-4">
-          {loading ? <p>Loading answers...</p> : error ? <p className="text-red-500">{error}</p> : <QuestionAnswers question={question} userAnswer={userAnswer} />}
+          {/* Question ID + Audio Icon Box */}
+          <div className="flex items-center space-x-3 p-3 bg-white border border-black rounded-xl">
+            <div className="text-xl font-semibold text-gray-700">
+              <p>Question ID: {questionId}</p>
+            </div>
+
+            {question?.sound && (
+              <img
+                src={VolumeButton}
+                alt="Play Sound"
+                onClick={() => new Audio(question.sound).play()}
+                className="object-contain w-8 h-8 cursor-pointer hover:shadow-md"
+              />
+            )}
+          </div>
+
+          {loading ? (
+            <p>Loading answers...</p>
+          ) : error ? (
+            <p className="text-red-500">{error}</p>
+          ) : (
+            <QuestionAnswers question={question} userAnswer={userAnswer} />
+          )}
         </div>
       </div>
 
