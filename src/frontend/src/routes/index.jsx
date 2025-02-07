@@ -10,7 +10,8 @@ import ParentSignupPage from '../parents/pages/ParentSignupPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
 import TestSelectionPage from '../parents/pages/TestSelectionPage';
-import EnglishMatchingInstructions from '../parents/pages/EnglishMatchingInstructions';
+import MatchingInstructions from '../parents/pages/MatchingInstructions';
+import RepetitionInstructions from '../parents/pages/RepetitionInstructions';
 import MediaTesting from '../parents/pages/MediaTesting';
 import TestComplete from '../parents/pages/TestCompletePage';
 import QuizManagement from '../parents/pages/QuizManagement';
@@ -29,7 +30,6 @@ import ClientOverview from '../clinicians/pages/ClientOverview';
 import ClinicianDashboard from '../clinicians/pages/ClinicianDashboard';
 import ResultsAnalysisPage from '../clinicians/pages/ResultsAnalysisPage';
 import AddClientPage from '../clinicians/pages/AddClientPage';
-import EnglishRepetitionInstructions from '../parents/pages/EnglishRepetitionInstructions';
 
 const router = createBrowserRouter([
   {
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
     element: <ParentHomePage />,
   },
   {
-    path: '/parents/EnglishMatchingInstructions',
-    element: <EnglishMatchingInstructions />,
+    path: '/parents/MatchingInstructions',
+    element: <MatchingInstructions />,
   },
   {
     path: '/parents/MediaTesting',
@@ -125,16 +125,8 @@ const router = createBrowserRouter([
     element: <RepetitionQuestion />,
   },
   {
-    path: '/parents/EnglishRepetitionInstructions',
-    element: <EnglishRepetitionInstructions />,
-  },
-  {
-    path: '/parents/MandarinRepetitionInstructions',
-    element: <EnglishRepetitionInstructions />,
-  },
-  {
-    path: '/parents/MandarinMatchingInstructions',
-    element: <EnglishMatchingInstructions />,
+    path: '/parents/RepetitionInstructions',
+    element: <RepetitionInstructions />,
   }
 ]);
 

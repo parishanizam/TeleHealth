@@ -1,4 +1,3 @@
-// src/parents/pages/EnglishRepetitionInstructions.jsx
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { RecordingManagerContext } from '../helpers/RecordingManagerContext';
@@ -8,7 +7,7 @@ import { Header } from "../components/Header";
 import InstructionStep from "../components/InstructionStep";
 import VolumeButton from "../../assets/volumebutton.svg";
 
-export default function EnglishRepetitionInstructions() {
+export default function RepetitionInstructions() {
   const navigate = useNavigate();
   const { startRecording } = useContext(RecordingManagerContext);
 
@@ -28,7 +27,7 @@ export default function EnglishRepetitionInstructions() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title="English Repetition Instructions" />
+      <Header title="Repetition Instructions" />
 
       {/* Basic instructions */}
       <div className="flex flex-col items-center mt-12 w-full text-3xl text-center text-black max-md:mt-10">
