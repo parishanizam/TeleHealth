@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Landing
@@ -10,8 +9,6 @@ import ParentSignupPage from '../parents/pages/ParentSignupPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
 import TestSelectionPage from '../parents/pages/TestSelectionPage';
-import MatchingInstructions from '../parents/pages/MatchingInstructions';
-import RepetitionInstructions from '../parents/pages/RepetitionInstructions';
 import MediaTesting from '../parents/pages/MediaTesting';
 import TestComplete from '../parents/pages/TestCompletePage';
 import QuizManagement from '../parents/pages/QuizManagement';
@@ -22,6 +19,7 @@ import TestSelectionTutorialPage from '../parents/pages/TestSelectionTutorialPag
 import TutorialComplete from '../parents/pages/TutorialComplete';
 import ParentHomePage from '../parents/pages/ParentHomePage';
 import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
+import TestInstructions from '../parents/pages/TestInstructions';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -51,10 +49,6 @@ const router = createBrowserRouter([
   {
     path: '/parents/ParentHomePage',
     element: <ParentHomePage />,
-  },
-  {
-    path: '/parents/MatchingInstructions',
-    element: <MatchingInstructions />,
   },
   {
     path: '/parents/MediaTesting',
@@ -125,8 +119,8 @@ const router = createBrowserRouter([
     element: <RepetitionQuestion />,
   },
   {
-    path: '/parents/RepetitionInstructions',
-    element: <RepetitionInstructions />,
+    path: '/parents/:testTypeInstructions',
+    element: <TestInstructions />,
   }
 ]);
 

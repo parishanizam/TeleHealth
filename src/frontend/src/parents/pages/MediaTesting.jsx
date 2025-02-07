@@ -50,33 +50,9 @@ export default function MediaTesting() {
     navigate("/");
   };
 
-  // Determine the next route based on language and test type
+  // Determine the next route based on test type
   const getNextRoute = () => {
-    if (testType === "matching") {
-      return "/parents/MatchingInstructions";
-    }
-    if (testType === "repetition") {
-      return "/parents/RepetitionInstructions";
-    }
-    // const getNextRoute = () => {
-    //   if (language === "english" && testType === "matching") {
-    //     return "/parents/EnglishMatchingInstructions";
-    //   }
-
-    //   if (language === "english" && testType === "repetition") {
-    //     return "/parents/EnglishRepetitionInstructions";
-    //   }
-
-    //   if (language === "mandarin" && testType === "matching") {
-    //     return "/parents/MandarinMatchingInstructions";
-    //   }
-
-    //   if (language === "mandarin" && testType === "repetition") {
-    //     return "/parents/MandarinRepetitionInstructions";
-    //   }
-
-    // // Default route
-    // return "/";
+    return `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
   };
 
   useEffect(() => {
