@@ -1,14 +1,14 @@
 import { Header } from "../components/Header";
 import { ProgressBar } from "../components/ProgressBar";
-import { VolumeButton } from '../components/VolumeButton';
-import { NextOrSubmitButton } from '../components/NextOrSubmitButton';
+import { VolumeButton } from "../components/VolumeButton";
+import { NextOrSubmitButton } from "../components/NextOrSubmitButton";
 
 export default function RepetitionQuestion({
   question,
   onAnswerSelected,
   isLastQuestion,
   questionNumber,
-  totalQuestions
+  totalQuestions,
 }) {
   // Handle the Next button click
   const handleNextOrSubmit = () => {
@@ -19,10 +19,13 @@ export default function RepetitionQuestion({
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
       {/* Header and Progress Bar */}
       <Header title={`Question ${questionNumber} of ${totalQuestions}`} />
-      <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
-      
+      <ProgressBar
+        questionNumber={questionNumber}
+        totalQuestions={totalQuestions}
+      />
+
       {/* Volume Button */}
-      <VolumeButton sound={question.sound} />
+      <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
 
       {/* Instruction or Message (this could be a prompt or placeholder for now) */}
       {/* <div className="flex justify-center items-center mt-6">
@@ -37,10 +40,13 @@ export default function RepetitionQuestion({
       </div> */}
 
       {/* Next or Submit button */}
-      <NextOrSubmitButton isLastQuestion={isLastQuestion} onClick={(e) => {
-              e.preventDefault();
-              handleNextOrSubmit();
-            }} />
+      <NextOrSubmitButton
+        isLastQuestion={isLastQuestion}
+        onClick={(e) => {
+          e.preventDefault();
+          handleNextOrSubmit();
+        }}
+      />
     </div>
   );
 }
