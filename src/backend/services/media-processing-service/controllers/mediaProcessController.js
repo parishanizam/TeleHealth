@@ -54,86 +54,99 @@ const MEDIA_BUCKET = process.env.MEDIA_BUCKET || 'telehealth-media-processing';
  */
 exports.uploadAndProcessMedia = async (req, res) => {
   try {
-    console.log("🔹 Received Upload Request");
-    if (!req.file) {
-      return res.status(400).json({ error: 'No video file uploaded' });
+    console.log("🚀 Upload request received");
+    console.log("Files received:", JSON.stringify(req.files, null, 2));
+    console.log("Form data received:", JSON.stringify(req.body, null, 2));
+
+    if (!req.files || !req.files.videoFile || !req.files.audioFiles) {
+      console.error("Missing video or audio files");
+      return res.status(400).json({ error: "Missing video or audio files" });
     }
 
+    // Extract form data
     const { parentUsername, firstName, lastName, childUsername, assessmentId } = req.body;
 
     if (!parentUsername || !childUsername || !assessmentId) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-    
-    let timestamps = req.body.timestamps;
 
+    let timestamps = req.body.timestamps;
     if (!timestamps) {
       return res.status(400).json({ error: 'Timestamps are required.' });
     }
-
-    // Parse timestamps 
     const parsedTimestamps = JSON.parse(timestamps);
 
-    // Generate structured filenames
-    const videoFileName = `${childUsername}_${assessmentId}.mp4`;
-    const historyFileName = `${childUsername}_history.json`;
+     // Generate folder name with date, language, test type, and assessment ID
+     const currentDate = new Date();
+     const dateStr = currentDate.toISOString().slice(2, 10).replace(/-/g, '');
+     const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;  
+     // Example: 250207_english_repetition_10
 
-    // Define S3 paths
+    // Define paths and filenames
     const parentFolder = `${parentUsername}/`;
+    const assessmentFolder = `${parentFolder}${folderName}/`;
+    const videoFileName = `${childUsername}_${assessmentId}.mp4`;
     const videoS3Key = `${parentFolder}${videoFileName}`;
+    const historyFileName = `${childUsername}_history.json`;
     const historyS3Key = `${parentFolder}${historyFileName}`;
 
-    // Path to uploaded file
-    const tempVideoPath = req.file.path;
-
-    // Detect faces via Python
-    const faceData = await detectFacesWithPython(tempVideoPath);
-
-    // Transcribe audio via Deepgram
-    const audioKeywords = await processMp4WithDeepgram(tempVideoPath);
-
-    // Combine detections
-    const biasEvents = combineDetections(faceData, audioKeywords);
-
-    // Upload video to S3
+    // Handle video upload
+    const tempVideoPath = req.files.videoFile[0].path;
+    console.log("Uploading video file to S3...");
     await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, videoS3Key);
+    fs.unlinkSync(tempVideoPath);  // Clean up after successful upload
 
-    // Check if history JSON exists
+    // Handle audio files upload to `{parentUsername}/{assessmentId}/`
+    let uploadedAudioFiles = [];
+    if (req.files.audioFiles && req.files.audioFiles.length > 0) {
+      console.log("Uploading audio files to S3...");
+      
+      for (let i = 0; i < req.files.audioFiles.length; i++) {
+        const audioFile = req.files.audioFiles[i];
+        const audioFileName = `question_${i + 1}.mp4`;
+        const audioS3Key = `${assessmentFolder}${audioFileName}`;
+
+        console.log(`Uploading ${audioFileName} to ${audioS3Key}...`);
+        await uploadFileToS3(MEDIA_BUCKET, audioFile.path, audioS3Key);
+        uploadedAudioFiles.push(audioS3Key);
+
+        // Clean up after successful upload
+        fs.unlinkSync(audioFile.path);
+      }
+    }
+
+    // Update or create history JSON
     let existingHistory = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
     if (!existingHistory) {
       existingHistory = {
         firstname: firstName,
         lastname: lastName,
         username: childUsername,
-        assessmentVideos: []
+        assessmentVideos: [],
       };
     }
 
-    // Append new video entry
+    // Append new assessment data to history
     existingHistory.assessmentVideos.push({
       assessmentId: assessmentId,
       videoFile: videoFileName,
-      bias: biasEvents,
-      timestamps: parsedTimestamps
+      audioFiles: uploadedAudioFiles.length > 0 ? uploadedAudioFiles : undefined,
+      bias: [],  // We'll skip processing face/audio bias for now
+      timestamps: parsedTimestamps,
     });
 
-    // Upload updated history JSON
+    // Upload updated history JSON to S3
+    console.log("Uploading updated history JSON to S3...");
     await uploadToS3(MEDIA_BUCKET, historyS3Key, JSON.stringify(existingHistory), 'application/json');
 
-    // Get a presigned URL for streaming
+    // Return a success response with presigned URL for video
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key);
-
-    // Clean up local file
-    fs.unlinkSync(tempVideoPath);
-
-    // Return response
     res.status(200).json({
       success: true,
-      message: 'Video processed successfully',
-      presignedUrl,  // Allows frontend to stream the video
+      message: 'Media processed successfully',
+      presignedUrl,
       historyFile: historyS3Key,
-      biasEvents,
-      timestampsFile: historyS3Key
+      uploadedAudioFiles,
     });
   } catch (error) {
     console.error('Error processing media:', error);
@@ -208,7 +221,7 @@ exports.getMediaByFilename = async (req, res) => {
       success: true,
       videoFile: videoFileName,
       presignedUrl,
-      bias: biasEvents, // 🔹 Now includes bias data
+      bias: biasEvents, // Now includes bias data
     });
   } catch (error) {
     console.error("Error retrieving media:", error);

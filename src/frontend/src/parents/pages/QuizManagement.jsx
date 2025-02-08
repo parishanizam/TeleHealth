@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import MatchingQuestion from "./QuestionPage";
+import MatchingQuestion from "./MatchingQuestionPage";
 import RepetitionQuestion from "./RepetitionQuestionPage";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
@@ -23,7 +23,8 @@ export default function QuizManagement() {
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
-  const [submitting, setSubmitting] = useState(false); // 🔹 New loading state
+  const [audioFiles, setAudioFiles] = useState([]); 
+  const [submitting, setSubmitting] = useState(false); // New loading state
 
   const startRecording = () => {
     setRecordingStartTime(new Date().getTime()); 
@@ -43,7 +44,6 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
-            console.log("Fetched question:", res.data); // Debug log
             return res.data;
           })
         );
@@ -114,7 +114,9 @@ export default function QuizManagement() {
     }
   }
 
-  const handleAnswerSelected = (questionId, selectedOption) => {
+  const handleAnswerSelected = (questionId, selectedOption, audioFile) => {
+    console.log("Audio file received in handleAnswerSelected:", audioFile); // test
+
     const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from the context
     const formattedTimestamp = formatTime(elapsedTime);
 
@@ -129,6 +131,11 @@ export default function QuizManagement() {
     sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
     sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
 
+    if (audioFile) {
+      console.log("Audio file received in handleAnswerSelected:", audioFile);
+      setAudioFiles((prev) => [...prev, audioFile]);
+    }
+
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
@@ -138,13 +145,13 @@ export default function QuizManagement() {
 
   const finishQuiz = () => {
     console.log("Stopping recording...");
-    setSubmitting(true); // 🔹 Show "Submitting Answers..." message
+    setSubmitting(true); // Show "Submitting Answers..." message
     stopRecording((finalBlob) => {
       if (finalBlob) {
         console.log("Final recordedBlob:", finalBlob);
         console.log("Recording blob size:", finalBlob.size);
         uploadRecording(finalBlob)
-          .then(() => submitResults()) // 🔹 Ensures submission happens only after upload
+          .then(() => submitResults()) // Ensures submission happens only after upload
           .catch((error) => console.error("Error during processing:", error));
       } else {
         console.warn("No recordedBlob found! onstop may not have completed yet.");
@@ -167,16 +174,28 @@ export default function QuizManagement() {
     formData.append("assessmentId", assessmentId);
     formData.append("timestamps", JSON.stringify(timestamps));
   
+    console.log("Adding audio files to form data...");
+    audioFiles.forEach((file, index) => {
+      formData.append("audioFiles", file, `question_${index + 1}.mp4`);  // Must match "audioFiles"
+      console.log(`Audio file ${index + 1}:`, file);
+    });
+  
+    console.log("🚀 Sending Upload Request with form data...");
+  
     try {
-      console.log("🚀 Sending Upload Request...");
       const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
   
-      console.log("Recording uploaded successfully:", response.data);
+      console.log("Upload successful:", response.data);
     } catch (error) {
-      console.error("Error uploading recording:", error);
-      throw error; 
+      console.error("Error occurred while uploading form data:", error);
+      if (error.response) {
+        console.error("Server response data:", error.response.data);
+        console.error("Server response status:", error.response.status);
+        console.error("Server response headers:", error.response.headers);
+      }
+      throw error;
     }
   };
 
@@ -206,7 +225,7 @@ export default function QuizManagement() {
     } catch (error) {
       console.error("Error submitting test results:", error);
     } finally {
-      setSubmitting(false); // 🔹 Hide "Submitting Answers..." message
+      setSubmitting(false); // Hide "Submitting Answers..." message
     }
   };
 
@@ -237,7 +256,7 @@ export default function QuizManagement() {
       />
     )}
 
-      {/* 🔹 Submitting Answers Message */}
+      {/* Submitting Answers Message */}
       {submitting && (
         <div className="text-center text-lg font-semibold mt-4">
           Submitting Answers...

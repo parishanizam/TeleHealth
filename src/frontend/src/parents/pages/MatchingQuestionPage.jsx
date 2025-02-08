@@ -9,8 +9,8 @@ export default function MatchingQuestion({
   question,
   onAnswerSelected,
   isLastQuestion,
-  questionNumber, // 🔹 Added prop for sequential question numbers
-  totalQuestions // 🔹 Added prop to track total questions for progress bar
+  questionNumber, // Added prop for sequential question numbers
+  totalQuestions // Added prop to track total questions for progress bar
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
