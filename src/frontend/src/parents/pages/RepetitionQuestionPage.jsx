@@ -9,6 +9,7 @@ export default function RepetitionQuestion({
   isLastQuestion,
   questionNumber,
   totalQuestions,
+  isPractice
 }) {
   // Handle the Next button click
   const handleNextOrSubmit = () => {
@@ -23,6 +24,12 @@ export default function RepetitionQuestion({
         questionNumber={questionNumber}
         totalQuestions={totalQuestions}
       />
+       {isPractice && (
+        <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
+          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
+          <p>Listen closely to the audio and repeat the sentence</p>
+        </div>
+      )}
 
       {/* Volume Button */}
       <VolumeButton sound={question.sound} resetTrigger={questionNumber} />

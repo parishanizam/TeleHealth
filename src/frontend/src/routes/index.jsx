@@ -21,7 +21,10 @@ import ParentHomePage from '../parents/pages/ParentHomePage';
 import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
 import TestInstructions from '../parents/pages/TestInstructions';
 import QuantifierQuestion from '../parents/pages/QuantifierQuestion';
-
+import MatchingTutorialPage from '../parents/pages/MatchingTutorialPage';
+import OverallTutorialPage from '../parents/pages/OverallTutorialPage';
+import QuantifierTutorialPage from '../parents/pages/QuantifierTutorialPage';
+import RepetitionTutorialPage from '../parents/pages/RepetitionTutorialPage';
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
 import BiasReviewPage from '../clinicians/pages/BiasReviewPage';
@@ -126,6 +129,22 @@ const router = createBrowserRouter([
   {
     path: '/parents/QuantifierQuestionPage',
     element: <QuantifierQuestion />,
+  },
+  {
+    path: '/parents/OverallTutorialPage',
+    element: <OverallTutorialPage />,
+  },
+  {
+    path: '/parents/MatchingTutorialPage',
+    element: <MatchingTutorialPage/>,
+  },
+  {
+    path: '/parents/QuantifierTutorialPage',
+    element: <QuantifierTutorialPage/>,
+  },
+  {
+    path: '/parents/RepetitionTutorialPage',
+    element: <RepetitionTutorialPage/>,
   },
 ]);
 
