@@ -29,6 +29,7 @@ function BiasReviewPage() {
   const [biasTimestamps, setBiasTimestamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [biasState, setBiasState] = useState(false);
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -70,7 +71,8 @@ function BiasReviewPage() {
         console.log("📌 Media API Response:", mediaRes.data); // 🔹 Debugging log
 
         setVideoUrl(mediaRes.data.presignedUrl);
-        setBiasTimestamps(mediaRes.data.bias || []); // Ensure we always set an array
+        setBiasTimestamps(mediaRes.data.bias || []);
+        setBiasState(mediaRes.data.bias.length > 0);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load bias review data.");
@@ -81,6 +83,10 @@ function BiasReviewPage() {
 
     fetchQuestionAndMedia();
   }, [questionId, questionBankId, parentUsername, assessmentId]);
+
+  const toggleBiasState = () => {
+    setBiasState((prev) => !prev);
+  };
 
   // Convert bias timestamps to seconds
   const formattedBias = biasTimestamps.map((bias) => ({
@@ -112,9 +118,8 @@ function BiasReviewPage() {
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
         {/* Video Section */}
         <div className="w-1/2 flex flex-col justify-center">
-          {/* iasDetected above TempMediaPlayer */}
           <div className="flex items-center justify-center space-x-4 mb-4">
-            <BiasDetected biasState={biasTimestamps.length > 0} />
+            <BiasDetected biasState={biasState} />
           </div>
 
           {loading ? (
@@ -130,7 +135,7 @@ function BiasReviewPage() {
 
           {/* 🔹 Bias Dropdown */}
           <div className="mt-4 text-center text-lg">
-            {biasTimestamps.length > 0 ? (
+            {biasState ? (
               <div className="text-red-500">
                 <button
                   className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded"
@@ -169,7 +174,6 @@ function BiasReviewPage() {
 
         {/* Answer Section */}
         <div className="w-1/2 flex flex-col items-center space-y-4">
-          {/* Question ID + Audio Icon Box */}
           <div className="flex items-center space-x-3 p-3 bg-white border border-black rounded-xl">
             <div className="text-xl font-semibold text-gray-700">
               <p>Question ID: {questionId}</p>
@@ -198,9 +202,8 @@ function BiasReviewPage() {
       {/* Remove Bias Button */}
       <div className="w-full flex justify-end pr-10 pb-10">
         <RemoveBiasButton
-          onClick={() => console.log("Bias removed")}
-          buttonText="Remove Bias"
-          isBiasDetected={biasTimestamps.length > 0}
+          onClick={toggleBiasState}
+          isBiasDetected={biasState}
         />
       </div>
     </div>
