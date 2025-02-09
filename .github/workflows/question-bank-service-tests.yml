@@ -18,10 +18,10 @@ jobs:
         working-directory: src/backend/services/question-bank-service
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -43,7 +43,7 @@ jobs:
 
       - name: Upload Test Results
         if: steps.check_test_folder.outcome == 'success'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: question-bank-service-test-results
           path: src/backend/test-results/question-bank-service-results.xml
