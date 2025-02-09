@@ -31,7 +31,7 @@ export default function QuizManagement() {
 
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 6) + 1;
+          const randomId = Math.floor(Math.random() * 5) + 1;
           questionIds.add(randomId);
         }
 
@@ -103,6 +103,7 @@ export default function QuizManagement() {
       question_id: questionId,
       user_answer: selectedOption,
       bias_state: false,
+      mark_state: "Undetermined",
     };
 
     // 🔹 Create updatedResponses immediately so the final answer is included
