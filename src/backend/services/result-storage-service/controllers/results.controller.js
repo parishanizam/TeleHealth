@@ -23,6 +23,7 @@ async function submitAssessment(req, res) {
       assessment_id,
       date: today,
       questionBankId,
+      results,
     };
     
 

@@ -141,7 +141,6 @@ function BiasReviewPage() {
   };
   
   
-
   const saveChanges = async () => {
     const payload = {
       question_id: questionId,
@@ -153,23 +152,22 @@ function BiasReviewPage() {
     console.log("📤 Saving final changes:", payload);
   
     try {
-      // Save bias state
-      await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
-        { bias_state: biasState }
+      // Save both bias and mark state in a single API call if the backend supports it
+      const response = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+        payload
       );
   
-      // Save mark state
-      await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
-        { mark_state: markState }
-      );
-  
-      console.log("✅ Bias state and mark state updated successfully!");
+      if (response.status === 200) {
+        console.log("✅ Successfully saved changes:", response.data);
+      } else {
+        console.warn("⚠️ Unexpected status while saving:", response.status);
+      }
     } catch (error) {
       console.error("❌ Error saving changes:", error);
     }
   };
+  
   
 
   const formattedBias = biasTimestamps.map((bias) => ({
