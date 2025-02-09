@@ -22,6 +22,7 @@ function BiasReviewPage() {
     lastName,
     parentUsername,
     assessmentId,
+    bias_state,
   } = state || {};
 
   const [question, setQuestion] = useState(null);
@@ -29,7 +30,7 @@ function BiasReviewPage() {
   const [biasTimestamps, setBiasTimestamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [biasState, setBiasState] = useState(false);
+  const [biasState, setBiasState] = useState(bias_state);
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ function BiasReviewPage() {
       setError("Missing necessary data for review.");
       return;
     }
-  
+
     const fetchQuestionAndMedia = async () => {
       try {
         setLoading(true);
@@ -45,19 +46,19 @@ function BiasReviewPage() {
         const questionRes = await axios.get(
           `http://localhost:3000/questions/${language}/${testType}/${questionId}`
         );
-  
+
         if (!questionRes.data) {
           setError("Question not found.");
           return;
         }
-  
+
         setQuestion(questionRes.data);
-  
+
         const mediaRes = await axios.get(
           `http://localhost:3000/media/${parentUsername}/${assessmentId}`
         );
         setVideoUrl(mediaRes.data.presignedUrl);
-  
+
         // Set bias timestamps, but only update biasState if it's the first time loading
         setBiasTimestamps(mediaRes.data.bias || []);
         setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
@@ -68,39 +69,57 @@ function BiasReviewPage() {
         setLoading(false);
       }
     };
-  
+
     fetchQuestionAndMedia();
-  }, [questionId, questionBankId, parentUsername, assessmentId]);
-  
+  }, [questionId, questionBankId, parentUsername, assessmentId]); // No need to add biasState here
 
-  const toggleBiasState = () => {
-    setBiasState((prevState) => {
-      const newState = !prevState;
-      console.log("🔄 New Bias State:", newState); // Debug state update
-      return newState;
-    });
-  };
-  
+  const toggleBiasState = async () => {
+    const newState = !biasState;
+    setBiasState(newState);
 
-  const saveChanges = async () => {
+    // Save to backend when the bias state is toggled
     const payload = {
       question_id: questionId,
       user_answer: userAnswer,
-      bias_state: biasState, // Ensure this reflects the current state
+      bias_state: newState,
     };
-  
+
     try {
-      console.log("📤 Saving payload:", payload);
-      await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+      const saveResponse = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}?t=${Date.now()}`,
         payload
       );
-      console.log("✅ Bias state updated successfully!");
+      console.log(
+        "✅ Bias state updated successfully! Save Response:",
+        saveResponse.data
+      );
     } catch (error) {
       console.error("❌ Error saving bias modification:", error);
     }
   };
 
+  const saveChanges = async () => {
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState,
+    };
+
+    try {
+      console.log("📤 Saving payload:", payload);
+
+      const saveResponse = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}?t=${Date.now()}`,
+        payload
+      );
+      console.log(
+        "✅ Bias state updated successfully! Save Response:",
+        saveResponse.data
+      );
+    } catch (error) {
+      console.error("❌ Error saving bias modification:", error);
+    }
+  };
 
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
@@ -135,7 +154,10 @@ function BiasReviewPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
+            <TempMediaPlayer
+              videoUrl={videoUrl}
+              biasTimestamps={biasTimestamps}
+            />
           )}
 
           <div className="mt-4 text-center text-lg">
@@ -155,8 +177,12 @@ function BiasReviewPage() {
                       <ul className="list-disc list-inside">
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
-                            <span className="text-gray-500"> (Faces Detected: {bias.faceCount})</span>
+                            <strong>⏳ {bias.timestamp}s</strong> -{" "}
+                            {bias.keyword}
+                            <span className="text-gray-500">
+                              {" "}
+                              (Faces Detected: {bias.faceCount})
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -197,11 +223,17 @@ function BiasReviewPage() {
       </div>
 
       <div className="w-full flex justify-end pr-10 pb-10">
-        <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState} />
+        <RemoveBiasButton
+          onClick={toggleBiasState}
+          isBiasDetected={biasState}
+        />
       </div>
 
       <div className="w-full flex justify-center mt-4">
-        <button onClick={saveChanges} className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded">
+        <button
+          onClick={saveChanges}
+          className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded"
+        >
           Save Changes
         </button>
       </div>
