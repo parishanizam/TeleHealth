@@ -38,7 +38,7 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
-            console.log("Fetched question:", res.data); // Debug log
+            console.log("Fetched question:", res.data); 
             return res.data;
           })
         );
@@ -106,11 +106,14 @@ export default function QuizManagement() {
       user_answer: selectedOption,
       bias_state: false,
     };
-    setResponses((prev) => [...prev, newResponse]);
+
+    // 🔹 Create updatedResponses immediately so the final answer is included
+    const updatedResponses = [...responses, newResponse];
+    setResponses(updatedResponses);
 
     sessionStorage.setItem(
       "quizResponses",
-      JSON.stringify([...responses, newResponse])
+      JSON.stringify(updatedResponses)
     );
 
     setProgress(((currentQuestionIndex + 1) / questions.length) * 100);
@@ -118,25 +121,26 @@ export default function QuizManagement() {
     if (currentQuestionIndex + 1 < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz();
+      finishQuiz(updatedResponses); 
     }
   };
 
-  const finishQuiz = () => {
+  // 🔹 Modified finishQuiz to accept updatedResponses as a parameter
+  const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
-    setSubmitting(true); // 🔹 Show "Submitting Answers..." message
+    setSubmitting(true); 
     stopRecording((finalBlob) => {
       if (finalBlob) {
         console.log("Final recordedBlob:", finalBlob);
         console.log("Recording blob size:", finalBlob.size);
         uploadRecording(finalBlob)
-          .then(() => submitResults()) // 🔹 Ensures submission happens only after upload
+          .then(() => submitResults(updatedResponses))
           .catch((error) => console.error("Error during processing:", error));
       } else {
         console.warn(
           "No recordedBlob found! onstop may not have completed yet."
         );
-        submitResults();
+        submitResults(updatedResponses);
       }
     });
   };
@@ -171,7 +175,8 @@ export default function QuizManagement() {
     }
   };
 
-  const submitResults = async () => {
+  // 🔹 Modified submitResults to accept responsesToSubmit as a parameter
+  const submitResults = async (responsesToSubmit) => {
     if (!assessmentId) {
       console.error("No assessment ID found! Cannot submit results.");
       return;
@@ -182,7 +187,7 @@ export default function QuizManagement() {
       name: `${parentInfo.firstName} ${parentInfo.lastName}`,
       assessment_id: assessmentId,
       questionBankId: `${language}-${testType}`,
-      results: responses,
+      results: responsesToSubmit,
     };
 
     try {
@@ -197,7 +202,7 @@ export default function QuizManagement() {
     } catch (error) {
       console.error("Error submitting test results:", error);
     } finally {
-      setSubmitting(false); // 🔹 Hide "Submitting Answers..." message
+      setSubmitting(false); 
     }
   };
 
@@ -238,7 +243,7 @@ export default function QuizManagement() {
         />
       )}
 
-      {/* 🔹 Submitting Answers Message */}
+      {/* Submitting Answers Message */}
       {submitting && (
         <div className="text-center text-lg font-semibold mt-4">
           Submitting Answers...
