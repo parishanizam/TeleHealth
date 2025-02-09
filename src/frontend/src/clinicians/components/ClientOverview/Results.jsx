@@ -81,7 +81,7 @@ export function Results({ data, client }) {
       {data.map((result) => (
         <ResultCard
           key={result.assessment_id}
-          score={`${scores[result.assessment_id] || "Calculating..."}%`} 
+          score={`${scores[result.assessment_id] ?? "Calculating..."}%`} 
           test={formatTestTitle(result.questionBankId)}
           date={formatDate(result.date)}
           onClick={() => handleCardClick(result)}
