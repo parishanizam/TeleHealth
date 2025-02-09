@@ -6,7 +6,7 @@ import BiasDetected from "../components/BiasReview/BiasDetected";
 import QuestionAnswers from "../components/BiasReview/QuestionAnswers";
 import TempMediaPlayer from "../components/BiasReview/TempMediaPlayer";
 import RemoveBiasButton from "../components/BiasReview/RemoveBiasButton";
-import VolumeButton from "../../assets/volumebutton.svg"; // 🔹 Speaker Icon
+import VolumeButton from "../../assets/volumebutton.svg";
 import { formatDate } from "../../utils/dateUtils";
 import { formatTestTitle } from "../../utils/testTitleUtils";
 
@@ -33,46 +33,34 @@ function BiasReviewPage() {
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
-    if (
-      questionId === undefined ||
-      questionId === null ||
-      questionBankId === undefined ||
-      parentUsername === undefined ||
-      assessmentId === undefined
-    ) {
+    if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
       setError("Missing necessary data for review.");
       return;
     }
-
+  
     const fetchQuestionAndMedia = async () => {
       try {
         setLoading(true);
-
-        // 🔹 Extract language & test type from `questionBankId`
         const [language, testType] = questionBankId.split("-");
-
-        // 🔹 Fetch Question from Question Service
         const questionRes = await axios.get(
           `http://localhost:3000/questions/${language}/${testType}/${questionId}`
         );
-
+  
         if (!questionRes.data) {
           setError("Question not found.");
           return;
         }
-
+  
         setQuestion(questionRes.data);
-
-        // 🔹 Fetch Video from Media Service
+  
         const mediaRes = await axios.get(
           `http://localhost:3000/media/${parentUsername}/${assessmentId}`
         );
-
-        console.log("📌 Media API Response:", mediaRes.data); // 🔹 Debugging log
-
         setVideoUrl(mediaRes.data.presignedUrl);
+  
+        // Set bias timestamps, but only update biasState if it's the first time loading
         setBiasTimestamps(mediaRes.data.bias || []);
-        setBiasState(mediaRes.data.bias.length > 0);
+        setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load bias review data.");
@@ -80,18 +68,43 @@ function BiasReviewPage() {
         setLoading(false);
       }
     };
-
+  
     fetchQuestionAndMedia();
   }, [questionId, questionBankId, parentUsername, assessmentId]);
+  
 
   const toggleBiasState = () => {
-    setBiasState((prev) => !prev);
+    setBiasState((prevState) => {
+      const newState = !prevState;
+      console.log("🔄 New Bias State:", newState); // Debug state update
+      return newState;
+    });
+  };
+  
+
+  const saveChanges = async () => {
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState, // Ensure this reflects the current state
+    };
+  
+    try {
+      console.log("📤 Saving payload:", payload);
+      await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+        payload
+      );
+      console.log("✅ Bias state updated successfully!");
+    } catch (error) {
+      console.error("❌ Error saving bias modification:", error);
+    }
   };
 
-  // Convert bias timestamps to seconds
+
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
-    timestamp: (bias.timestamp / 1000).toFixed(2), // Convert to seconds
+    timestamp: (bias.timestamp / 1000).toFixed(2),
   }));
 
   return (
@@ -101,22 +114,17 @@ function BiasReviewPage() {
           formatDate(date) || "No Date"
         }`}
       />
-
       <div className="flex items-center justify-center space-x-4 mt-4">
-        {/* Question Number */}
-        <span className="text-4xl tracking-tight text-center text-black leading-[64px] max-md:max-w-full max-md:text-4xl">
+        <span className="text-4xl tracking-tight text-center text-black leading-[64px]">
           Question {questionNumber}
         </span>
       </div>
 
-      {/* Language - Test Type */}
       <div className="flex items-center space-x-3 text-2xl mt-2">
         <span>{formatTestTitle(questionBankId) || "Unknown"}</span>
       </div>
 
-      {/* Video + Answer Section */}
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
-        {/* Video Section */}
         <div className="w-1/2 flex flex-col justify-center">
           <div className="flex items-center justify-center space-x-4 mb-4">
             <BiasDetected biasState={biasState} />
@@ -127,13 +135,9 @@ function BiasReviewPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <TempMediaPlayer
-              videoUrl={videoUrl}
-              biasTimestamps={biasTimestamps}
-            />
+            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
           )}
 
-          {/* 🔹 Bias Dropdown */}
           <div className="mt-4 text-center text-lg">
             {biasState ? (
               <div className="text-red-500">
@@ -147,18 +151,12 @@ function BiasReviewPage() {
                 {isBiasDropdownOpen && (
                   <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
                     <p className="font-bold mb-2">Bias Detected:</p>
-
-                    {/* Scrollable List (Max 4 items at a time) */}
                     <div className="overflow-auto max-h-40">
                       <ul className="list-disc list-inside">
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> -{" "}
-                            {bias.keyword}
-                            <span className="text-gray-500">
-                              {" "}
-                              (Faces Detected: {bias.faceCount})
-                            </span>
+                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
+                            <span className="text-gray-500"> (Faces Detected: {bias.faceCount})</span>
                           </li>
                         ))}
                       </ul>
@@ -172,7 +170,6 @@ function BiasReviewPage() {
           </div>
         </div>
 
-        {/* Answer Section */}
         <div className="w-1/2 flex flex-col items-center space-y-4">
           <div className="flex items-center space-x-3 p-3 bg-white border border-black rounded-xl">
             <div className="text-xl font-semibold text-gray-700">
@@ -199,12 +196,14 @@ function BiasReviewPage() {
         </div>
       </div>
 
-      {/* Remove Bias Button */}
       <div className="w-full flex justify-end pr-10 pb-10">
-        <RemoveBiasButton
-          onClick={toggleBiasState}
-          isBiasDetected={biasState}
-        />
+        <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState} />
+      </div>
+
+      <div className="w-full flex justify-center mt-4">
+        <button onClick={saveChanges} className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded">
+          Save Changes
+        </button>
       </div>
     </div>
   );

@@ -104,6 +104,7 @@ export default function QuizManagement() {
     const newResponse = {
       question_id: questionId,
       user_answer: selectedOption,
+      bias_state: false,
     };
     setResponses((prev) => [...prev, newResponse]);
 
