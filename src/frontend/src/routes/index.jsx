@@ -118,19 +118,12 @@ const router = createBrowserRouter([
     path: '/clinicians/AddClientPage',
     element: <AddClientPage />,
   },
-  {
-    path: '/parents/RepetitionQuestionPage',
-    element: <RepetitionQuestion />,
-  },
+
   {
     path: '/parents/:testTypeInstructions',
     element: <TestInstructions />,
   },
   {
-    path: '/parents/QuantifierQuestionPage',
-    element: <QuantifierQuestion />,
-  },
-    {
     path: '/parents/OverallTutorialPage',
     element: <OverallTutorialPage />,
   },

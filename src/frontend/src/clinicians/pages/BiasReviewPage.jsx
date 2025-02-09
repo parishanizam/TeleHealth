@@ -73,12 +73,14 @@ function BiasReviewPage() {
         // Set the initial mark state based on the result data
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
         setMarkState(initialMarkState);
+
+        const dateObj = date ? new Date(date) : new Date();
+        const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
+        const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
   
         const mediaRes = await axios.get(
-          `http://localhost:3000/media/${parentUsername}/${assessmentId}`
+          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`
         );
-        console.log("Media response:", mediaRes.data);
-  
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
         setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
