@@ -3,11 +3,11 @@ const router = express.Router();
 const {
   clinicianSignup,
   clinicianLogin,
-  clinicianLogoutcianLogout
+  clinicianLogout
 } = require('../controllers/clinician.controller');
 
 router.post('/signup', clinicianSignup);
 router.post('/login', clinicianLogin);
-router.posy('/logout', clinicianLogout)
+router.post('/logout', clinicianLogout)
 
 module.exports = router;

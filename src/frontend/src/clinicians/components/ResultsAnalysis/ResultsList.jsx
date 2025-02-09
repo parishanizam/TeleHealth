@@ -10,13 +10,9 @@ function ResultsList({
   firstName,
   lastName,
   date,
+  score,
 }) {
   const navigate = useNavigate();
-
-  // Calculate overall score
-  const totalQuestions = results.length;
-  const correctAnswers = results.filter(result => result.status === "correct").length;
-  const scorePercentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
 
   const handleCardClick = (question, questionNumber) => {
     navigate("/clinicians/BiasReviewPage", {
@@ -45,7 +41,7 @@ function ResultsList({
 
       {/* Displaying overall score */}
       <div className="text-left text-3xl font-medium mb-6">
-        Score: {scorePercentage}%
+        Score: {score}%
       </div>
 
       <div className="h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
