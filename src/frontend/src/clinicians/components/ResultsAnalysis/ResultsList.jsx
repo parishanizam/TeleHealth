@@ -11,11 +11,15 @@ function ResultsList({
   lastName,
   date,
   score,
+  bias_length,
 }) {
   const navigate = useNavigate();
 
   const [language, testType] = questionBankId.split("-");
   const handleCardClick = (question, questionNumber) => {
+    if (bias_length > 0){
+      question.bias_state = true
+    }
     navigate("/clinicians/BiasReviewPage", {
       state: {
         questionId: question.question_id,

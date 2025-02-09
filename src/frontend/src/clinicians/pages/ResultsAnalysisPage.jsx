@@ -17,6 +17,7 @@ function ResultsAnalysisPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
+  const [biaslength, setBiaslenght] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -89,6 +90,7 @@ function ResultsAnalysisPage() {
         // 🔹 Fetch video URL from Media Service.
         const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`;
         const videoResponse = await axios.get(videoApiUrl);
+        setBiaslenght(videoResponse.data.length)
   
         let videoFile = videoResponse.data.videoFile;
         if (videoFile.endsWith(".mp4.mp4")) {
@@ -132,6 +134,7 @@ function ResultsAnalysisPage() {
             lastName={lastName} 
             date={date} 
             score={score}
+            bias_length={biaslength}
           />
         </div>
 

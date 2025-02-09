@@ -279,7 +279,7 @@ function BiasReviewPage() {
       <div className="w-full flex justify-center mt-4">
         <button
           onClick={saveChanges}
-          className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-400 active:bg-blue-700"
         >
           Save Changes
         </button>
