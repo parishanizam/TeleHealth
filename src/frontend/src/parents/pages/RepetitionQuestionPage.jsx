@@ -69,8 +69,13 @@ const handleNextOrSubmit = () => {
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
       <Header title={`Question ${questionNumber} of ${totalQuestions}`} />
-      <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions} />
-      <VolumeButton sound={question.sound} />
+      <ProgressBar
+        questionNumber={questionNumber}
+        totalQuestions={totalQuestions}
+      />
+
+      {/* Volume Button */}
+      <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
 
       <div className="flex justify-center mt-6">
         {!isQuestionRecording && !audioBlobRef.current ? (

@@ -18,7 +18,7 @@ function ResultsList({
   const correctAnswers = results.filter(result => result.status === "correct").length;
   const scorePercentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
 
-  const handleCardClick = (question) => {
+  const handleCardClick = (question, questionNumber) => {
     navigate("/clinicians/BiasReviewPage", {
       state: {
         questionId: question.question_id,
@@ -30,6 +30,8 @@ function ResultsList({
         firstName,
         lastName,
         date,
+        questionNumber,
+        bias_state: question.bias_state,
       },
     });
   };
@@ -55,7 +57,7 @@ function ResultsList({
             questionNumber={index + 1}
             status={result.status} // 🔹 Status is now correctly set
             biasDetected={result.biasDetected}
-            onClick={() => handleCardClick(result)}
+            onClick={() => handleCardClick(result, index+1)}
           />
         ))
       ) : (

@@ -43,8 +43,8 @@ async function getQuestions(req, res) {
         question.sound = await getPresignedUrl(audioKey);
       }
 
-      // Only process image URLs for matching test types
-      if (testType === 'matching' && question.options) {
+      // Process image URLs
+      if (question.options) {
         for (const option of question.options) {
           if (option.image) {
             const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);
@@ -87,8 +87,8 @@ async function getQuestionById(req, res) {
       question.sound = await getPresignedUrl(audioKey);
     }
 
-    // Only process image URLs for matching test types
-    if (testType === 'matching' && question.options) {
+    // Process image URLs
+    if (question.options) {
       for (const option of question.options) {
         if (option.image) {
           const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);

@@ -11,8 +11,8 @@ const testTypeOptionsByLanguage = {
   ],
   mandarin: [
     { label: "Matching", value: "matching" },
-    { label: "Repetition", value: "repetition" }//,
-    // { label: "Quantifier", value: "quantifier" } // Future implementation for quantifier type of questions
+    { label: "Repetition", value: "repetition" },
+    { label: "Quantifier", value: "quantifier" } // Future implementation for quantifier type of questions
   ]
 };
 

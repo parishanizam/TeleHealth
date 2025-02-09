@@ -90,6 +90,46 @@ async function getAssessmentHistory(req, res) {
 }
 
 /**
+ * Get specific result for a question in an assessment
+ * Expects `parentUsername`, `assessmentId`, and `question_id` to be passed in the request params.
+ */
+async function getAssessmentResultForQuestion(req, res) {
+  try {
+    const { parentUsername, assessmentId, question_id } = req.params;
+    console.log(parentUsername, assessmentId, question_id)
+
+    if (!parentUsername || !assessmentId || !question_id) {
+      return res.status(400).json({ error: "parentUsername, assessmentId, and question_id are required." });
+    }
+
+    const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
+
+    // Check if the results file exists
+    if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
+      return res.status(404).json({ error: "No results found for this assessment." });
+    }
+
+    // Retrieve the results data from S3
+    const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
+
+    // Find the specific question result
+    const questionResult = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+
+    if (!questionResult) {
+      return res.status(404).json({ error: `Question with ID ${question_id} not found in assessment.` });
+    }
+
+    // Return the found question result
+    return res.json(questionResult);
+  } catch (err) {
+    console.error("Error retrieving assessment result for question:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+}
+
+
+
+/**
  * Get assessment results for a specific assessment ID
  * Expects `parentUsername` and `assessmentId` to be passed in the request params.
  */
@@ -117,8 +157,52 @@ async function getAssessmentResults(req, res) {
   }
 }
 
+async function saveBiasModification(req, res) {
+  try {
+    const { parentUsername, assessmentId, question_id } = req.params;
+    let { biasState } = req.body;
+
+    if (!parentUsername || !assessmentId || !question_id) {
+      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and valid biasState are required." });
+    }
+
+    const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
+
+    // Check if the results file exists
+    if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
+      return res.status(404).json({ error: "Results file not found." });
+    }
+
+    // Retrieve the current results data for the user
+    const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
+
+    // Find the specific question in the results array and update its bias_state
+    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+
+    if (!question) {
+      return res.status(404).json({ error: "Question not found in the results." });
+    }
+
+    // Update the bias_state for the found question
+    question.bias_state = biasState;
+
+    // Save the updated results data back to S3
+    await uploadJson(RESULTS_BUCKET, resultsFile, resultsData);
+
+    return res.json({
+      message: "Bias modification saved successfully",
+      updatedQuestion: question,
+    });
+  } catch (err) {
+    console.error("Error saving bias modification:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+}
+
 module.exports = {
   submitAssessment,
   getAssessmentHistory,
   getAssessmentResults,
+  saveBiasModification,
+  getAssessmentResultForQuestion,
 };

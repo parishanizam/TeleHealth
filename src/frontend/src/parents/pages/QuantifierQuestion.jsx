@@ -5,7 +5,7 @@ import { ProgressBar } from "../components/ProgressBar";
 import { OptionGrid } from "../components/OptionGrid";
 import { NextOrSubmitButton } from "../components/NextOrSubmitButton";
 
-export default function MatchingQuestion({
+export default function QuantifierQuestion({
   question,
   onAnswerSelected,
   isLastQuestion,
@@ -19,8 +19,7 @@ export default function MatchingQuestion({
   };
 
   const handleNextOrSubmit = () => {
-    const currentTime = new Date().getTime();
-    onAnswerSelected(question.id, selectedAnswer, currentTime);
+    onAnswerSelected(question.id, selectedAnswer);
   };
 
   // Reset the state when the question number changes (i.e., moving to the next question)

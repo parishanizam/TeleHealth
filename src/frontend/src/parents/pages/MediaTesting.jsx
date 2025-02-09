@@ -50,27 +50,10 @@ export default function MediaTesting() {
     navigate("/");
   };
 
-// Determine the next route based on language and test type
-const getNextRoute = () => {
-  if (language === "english" && testType === "matching") {
-    return "/parents/EnglishMatchingInstructions";
-  }
-
-  if (language === "english" && testType === "repetition") {
-    return "/parents/EnglishRepetitionInstructions";
-  }
-
-  if (language === "mandarin" && testType === "matching") {
-    return "/parents/MandarinMatchingInstructions";
-  }
-
-  if (language === "mandarin" && testType === "repetition") {
-    return "/parents/MandarinRepetitionInstructions";
-  }
-
-  // // Default route
-  // return "/";
-};
+  // Determine the next route based on test type
+  const getNextRoute = () => {
+    return `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
+  };
 
   useEffect(() => {
     if (showConsent) {
@@ -90,9 +73,8 @@ const getNextRoute = () => {
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24 overflow-hidden">
       <Header title="Video, Audio and Microphone" />
-      
+
       <main className="flex flex-wrap items-start justify-center gap-10 mt-20 w-full max-md:mt-10 max-md:max-w-full">
-        
         {/* VIDEO SECTION */}
         <div className="flex flex-col w-[478px] min-w-[240px] max-md:max-w-full">
           <VideoTest />
@@ -110,7 +92,7 @@ const getNextRoute = () => {
 
       {/* Navigation or Next Step */}
       <div className="flex gap-2.5 justify-center items-center px-60 mt-20 w-full min-h-[60px] max-md:px-5 max-md:mt-10">
-        <NextButton to={getNextRoute()}/>
+        <NextButton to={getNextRoute()} />
       </div>
 
       {/* Consent Form Modal */}
