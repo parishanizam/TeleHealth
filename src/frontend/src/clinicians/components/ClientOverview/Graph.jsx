@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { formatTestTitle } from "../../../utils/testTitleUtils";
 const Graph = ({ client }) => {
 const [scoresByTestType, setScoresByTestType] = useState({}); // To store scores grouped by test type
 useEffect(() => {
@@ -25,7 +26,7 @@ useEffect(() => {
         const fetchedQuestionBankId = resultsData.questionBankId;
         const [language, testType] = fetchedQuestionBankId.split("-");
         // a line for each language and testtype (5 possible combinations)
-        const combination = `${language}-${testType}`;
+        const combination = formatTestTitle(`${language}-${testType}`);
         if (!groupedScores[combination]) {
           groupedScores[combination] = [];
         }
