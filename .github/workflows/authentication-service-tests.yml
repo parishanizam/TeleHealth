@@ -1,0 +1,49 @@
+name: Authentication Service Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/backend/services/authentication-service/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/backend/services/authentication-service/**'
+
+jobs:
+  test-authentication-service:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/backend/services/authentication-service
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Check for Test Folder
+        id: check_test_folder
+        run: |
+          if [ ! -d "test" ]; then
+            echo "No test folder found. Skipping tests."
+            exit 0
+          fi
+
+      - name: Run Tests
+        if: steps.check_test_folder.outcome == 'success'
+        run: npm test -- --outputFile=../../test-results/authentication-service-results.xml
+        continue-on-error: true
+
+      - name: Upload Test Results
+        if: steps.check_test_folder.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: authentication-service-test-results
+          path: src/backend/test-results/authentication-service-results.xml

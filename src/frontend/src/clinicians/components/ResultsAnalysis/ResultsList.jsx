@@ -27,6 +27,7 @@ function ResultsList({
         lastName,
         date,
         questionNumber,
+        bias_state: question.bias_state,
       },
     });
   };
