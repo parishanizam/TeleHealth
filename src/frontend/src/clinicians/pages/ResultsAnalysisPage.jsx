@@ -43,28 +43,45 @@ function ResultsAnalysisPage() {
 
         const [language, testType] = fetchedQuestionBankId.split("-");
 
-        //  Fetch correct answers for each question
-        const questionPromises = rawResults.map(async (result) => {
-          const questionRes = await axios.get(
-            `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`
-          );
-          return { 
-            ...result, 
-            correctAnswer: questionRes.data.correctAnswer,  
-            status: result.user_answer === questionRes.data.correctAnswer ? "correct" : "incorrect" 
-          };
-        });
+        let correctAnswers = 0;
+        let totalQuestions = rawResults.length;
+        let updatedResults = [];
 
-        const updatedResults = await Promise.all(questionPromises);
-        setResults(updatedResults);
+        if (testType === "repetition") {
+          // For "repetition" tests, check mark_state
+          const isStillBeingMarked = rawResults.some(q => q.mark_state === "Undetermined");
 
-        // Calculating score 
-        if (initialScore === null) {
-          const totalQuestions = updatedResults.length;
-          const correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
-          const computedScore = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+          if (isStillBeingMarked) {
+            setScore("Calculating...");
+          } else {
+            correctAnswers = rawResults.filter((q) => q.mark_state === "Correct").length;
+            setScore(totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0);
+          }
+
+          updatedResults = rawResults; // Keep results for UI display
+        } else {
+          // Fetch correct answers for other test types
+          const questionPromises = rawResults.map(async (result) => {
+            const questionRes = await axios.get(
+              `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`
+            );
+            return { 
+              ...result, 
+              correctAnswer: questionRes.data.correctAnswer,  
+              status: result.user_answer === questionRes.data.correctAnswer ? "correct" : "incorrect" 
+            };
+          });
+
+          updatedResults = await Promise.all(questionPromises);
+          correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
+
+          if (initialScore === null) {
+            setScore(totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0);
+          }
         }
-  
+
+        setResults(updatedResults); // ✅ Ensures UI gets updated with results
+
         //  Fetch video URL from Media Service
         const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${assessmentId}`;
         const videoResponse = await axios.get(videoApiUrl);

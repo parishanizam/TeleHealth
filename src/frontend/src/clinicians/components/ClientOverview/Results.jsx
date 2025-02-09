@@ -26,25 +26,31 @@ export function Results({ data, client }) {
           const fetchedQuestionBankId = fetchedData.questionBankId;
           const [language, testType] = fetchedQuestionBankId.split("-");
 
-          // Fetch correct answers for each question
-          const questionPromises = fetchedData.results.map(async (res) => {
-            const questionRes = await fetch(
-              `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`
-            );
-            const questionData = await questionRes.json();
-            return {
-              ...res,
-              correctAnswer: questionData.correctAnswer,
-              status: res.user_answer === questionData.correctAnswer ? "correct" : "incorrect",
-            };
-          });
+          let correctAnswers = 0;
+          let totalQuestions = fetchedData.results.length;
 
-          const updatedResults = await Promise.all(questionPromises);
+          if (testType === "repetition") {
+            // For "repetition" tests, check mark_state
+            correctAnswers = fetchedData.results.filter((q) => q.mark_state === "Correct").length;
+          } else {
+            // Fetch correct answers for other test types
+            const questionPromises = fetchedData.results.map(async (res) => {
+              const questionRes = await fetch(
+                `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`
+              );
+              const questionData = await questionRes.json();
+              return {
+                ...res,
+                correctAnswer: questionData.correctAnswer,
+                status: res.user_answer === questionData.correctAnswer ? "correct" : "incorrect",
+              };
+            });
 
-          const totalQuestions = updatedResults.length;
-          const correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
+            const updatedResults = await Promise.all(questionPromises);
+            correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
+          }
+
           const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-
           newScores[result.assessment_id] = score;
         } catch (error) {
           console.error(`Error fetching score for assessment ${result.assessment_id}:`, error);

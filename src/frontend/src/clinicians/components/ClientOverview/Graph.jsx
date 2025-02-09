@@ -8,54 +8,75 @@ useEffect(() => {
     console.warn("No client information provided for Graph.");
     return;
   }
-  const fetchScores = async () => {
-    try {
-      const assessmentHistoryApiUrl = `http://localhost:3000/resultstorage/assessment-history/${client.parentUsername}`;
-      const response = await fetch(assessmentHistoryApiUrl);
-      const assessmentHistory = await response.json();
-      if (!assessmentHistory.assessments || assessmentHistory.assessments.length === 0) {
-        console.warn("No assessment history found.");
-        return;
+const fetchScores = async () => {
+  try {
+    const assessmentHistoryApiUrl = `http://localhost:3000/resultstorage/assessment-history/${client.parentUsername}`;
+    const response = await fetch(assessmentHistoryApiUrl);
+    const assessmentHistory = await response.json();
+
+    if (!assessmentHistory.assessments || assessmentHistory.assessments.length === 0) {
+      console.warn("No assessment history found.");
+      return;
+    }
+
+    const groupedScores = {};
+
+    for (const result of assessmentHistory.assessments) {
+      const resultsApiUrl = `http://localhost:3000/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
+      const resultsResponse = await fetch(resultsApiUrl);
+      const resultsData = await resultsResponse.json();
+
+      if (!resultsData.results) continue;
+
+      const fetchedQuestionBankId = resultsData.questionBankId;
+      const [language, testType] = fetchedQuestionBankId.split("-");
+
+      // Create key for graph grouping
+      const combination = formatTestTitle(`${language}-${testType}`);
+
+      if (!groupedScores[combination]) {
+        groupedScores[combination] = [];
       }
-      const groupedScores = {};
-      for (const result of assessmentHistory.assessments) {
-        const resultsApiUrl = `http://localhost:3000/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
-        const resultsResponse = await fetch(resultsApiUrl);
-        const resultsData = await resultsResponse.json();
-        if (!resultsData.results) continue;
-        const fetchedQuestionBankId = resultsData.questionBankId;
-        const [language, testType] = fetchedQuestionBankId.split("-");
-        // a line for each language and testtype (5 possible combinations)
-        const combination = formatTestTitle(`${language}-${testType}`);
-        if (!groupedScores[combination]) {
-          groupedScores[combination] = [];
-        }
+
+      let correctAnswers = 0;
+      let totalQuestions = resultsData.results.length;
+
+      if (testType === "repetition") {
+        // For "repetition" tests, check mark_state
+        correctAnswers = resultsData.results.filter((q) => q.mark_state === "Correct").length;
+      } else {
+        // Fetch correct answers for other test types
         const questionPromises = resultsData.results.map(async (res) => {
           const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
           const questionResponse = await fetch(questionApiUrl);
           const questionData = await questionResponse.json();
+
           return {
             ...res,
             correctAnswer: questionData.correctAnswer,
             status: res.user_answer === questionData.correctAnswer ? "correct" : "incorrect",
           };
         });
+
         const updatedResults = await Promise.all(questionPromises);
-        // Calculating scores from api to graph
-        const totalQuestions = updatedResults.length;
-        const correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
-        const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-        const testNumber = groupedScores[combination].length + 1;
-        groupedScores[combination].push({
-          name: `Test ${testNumber}`,
-          score,
-        });
+        correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
       }
-      setScoresByTestType(groupedScores);
-    } catch (error) {
-      console.error("Error fetching scores for graph:", error);
+
+      const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+      const testNumber = groupedScores[combination].length + 1;
+
+      groupedScores[combination].push({
+        name: `Test ${testNumber}`,
+        score,
+      });
     }
-  };
+
+    setScoresByTestType(groupedScores);
+  } catch (error) {
+    console.error("Error fetching scores for graph:", error);
+  }
+};
+
   fetchScores();
 }, [client]);
 const maxTests = Math.max(
