@@ -17,7 +17,9 @@ export default function RepetitionTutorialPage() {
   useEffect(() => {
     const fetchTutorialQuestion = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        const res = await axios.get(
+          `http://localhost:3000/questions/${language}/${testType}/0`
+        );
         setQuestion(res.data);
       } catch (error) {
         console.error("Error fetching tutorial question:", error);
@@ -48,32 +50,56 @@ export default function RepetitionTutorialPage() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Tutorial - ${testType}`} />
+      <Header
+        title={`Tutorial - ${
+          testType.charAt(0).toUpperCase() + testType.slice(1)
+        }`}
+      />
       <ProgressBar questionNumber={currentStep} totalQuestions={3} />
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
-          <p className="text-xl">Click the audio button to hear the sentence. You are allowed one replay!</p>
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 1: Listen to the Audio
+          </h2>
+          <p className="text-xl">
+            Click the audio button to hear the sentence. You are allowed one
+            replay!
+          </p>
         </div>
       )}
       {currentStep === 2 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">Step 2: Repeat the Sentence</h2>
-          <p className="text-xl">Try your best to say the sentence exactly as you heard it. Our system is recording</p>
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 2: Repeat the Sentence
+          </h2>
+          <p className="text-xl">
+            Try your best to say the sentence exactly as you heard it. Our
+            system is recording
+          </p>
         </div>
       )}
       {currentStep === 3 && (
         <div className="border-2 border-green-500 p-5 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-xl">You have completed the tutorial. Click Finish to continue.</p>
+          <p className="text-xl">
+            You have completed the tutorial. Click Finish to continue.
+          </p>
         </div>
       )}
-      <VolumeButton sound={question.sound} resetTrigger={null} handlePlayAudio={handlePlayAudio} playCount={playCount} />
+      <VolumeButton
+        sound={question.sound}
+        resetTrigger={null}
+        handlePlayAudio={handlePlayAudio}
+        playCount={playCount}
+      />
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
           <>
             <NextButton to="/parents/TutorialComplete" name="Finish" />
-            <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
+            <NextButton
+              to="/parents/OverallTutorialPage"
+              name="Try Another Tutorial"
+            />
           </>
         ) : (
           <button

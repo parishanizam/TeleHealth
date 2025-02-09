@@ -18,7 +18,9 @@ export default function QuantifierTutorialPage() {
   useEffect(() => {
     const fetchTutorialQuestion = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        const res = await axios.get(
+          `http://localhost:3000/questions/${language}/${testType}/0`
+        );
         setQuestion(res.data);
       } catch (error) {
         console.error("Error fetching tutorial question:", error);
@@ -36,7 +38,10 @@ export default function QuantifierTutorialPage() {
   const handleNextStep = () => {
     if (currentStep === 1) {
       setCurrentStep(2);
-    } else if (currentStep === 2 && selectedAnswer === question?.correctAnswer) {
+    } else if (
+      currentStep === 2 &&
+      selectedAnswer === question?.correctAnswer
+    ) {
       setCurrentStep(3);
     }
   };
@@ -55,27 +60,45 @@ export default function QuantifierTutorialPage() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Tutorial - ${testType}`} />
+      <Header
+        title={`Tutorial - ${
+          testType.charAt(0).toUpperCase() + testType.slice(1)
+        }`}
+      />
 
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
-          <p className="text-xl">Click the audio button to hear the question. You are allowed one replay!</p>
-          <p className="text-xl">Play the sound twice and then click next for following instructions!</p>
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 1: Listen to the Audio
+          </h2>
+          <p className="text-xl">
+            Click the audio button to hear the question. You are allowed one
+            replay!
+          </p>
+          <p className="text-xl">
+            Play the sound twice and then click next for following instructions!
+          </p>
         </div>
       )}
 
       {currentStep === 2 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">Step 2: Select the Correct Option</h2>
-          <p className="text-xl">Click on the option that best matches the quantity played. Once you select the correct answer, click next!</p>
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 2: Select the Correct Option
+          </h2>
+          <p className="text-xl">
+            Click on the option that best matches the quantity played. Once you
+            select the correct answer, click next!
+          </p>
         </div>
       )}
 
       {currentStep === 3 && (
         <div className="border-2 border-green-500 p-5 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-xl">You have completed the tutorial. Click Finish to continue.</p>
+          <p className="text-xl">
+            You have completed the tutorial. Click Finish to continue.
+          </p>
         </div>
       )}
 
@@ -99,7 +122,10 @@ export default function QuantifierTutorialPage() {
         {currentStep === 3 ? (
           <>
             <NextButton to="/parents/TutorialComplete" name="Finish" />
-            <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
+            <NextButton
+              to="/parents/OverallTutorialPage"
+              name="Try Another Tutorial"
+            />
           </>
         ) : (
           <button
@@ -109,7 +135,9 @@ export default function QuantifierTutorialPage() {
                 : "bg-blue-500 hover:bg-blue-600"
             }`}
             onClick={handleNextStep}
-            disabled={currentStep === 2 && selectedAnswer !== question.correctAnswer}
+            disabled={
+              currentStep === 2 && selectedAnswer !== question.correctAnswer
+            }
           >
             Next
           </button>
