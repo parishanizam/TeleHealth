@@ -18,58 +18,63 @@ export default function RepetitionQuestion({
     return <div>Loading...</div>;
   }
 
-const {
-  startQuestionRecording,
-  stopQuestionRecording,
-  isQuestionRecording,
-} = useContext(RecordingManagerContext);
+  const {
+    startQuestionRecording,
+    stopQuestionRecording,
+    isQuestionRecording,
+  } = useContext(RecordingManagerContext);
 
-// Store the audio blob in a ref (avoids async state issues)
-const audioBlobRef = useRef(null);
+  // Store the audio blob in a ref (avoids async state issues)
+  const audioBlobRef = useRef(null);
 
-const [recordedAudioFile, setRecordedAudioFile] = useState(null);
+  const [recordedAudioFile, setRecordedAudioFile] = useState(null);
+  const [recordingClickCount, setRecordingClickCount] = useState(0);
+  const MAX_RECORDING_CLICKS = 1;
 
-useEffect(() => {
-  setRecordedAudioFile(null);  // Reset state for each new question
-}, [question.id]);
+  useEffect(() => {
+    setRecordedAudioFile(null);  // Reset state for each new question
+    setRecordingClickCount(0);   // Reset recording click count for each new question
+  }, [question.id]);
 
-useEffect(() => {
-  // Reset the audio blob ref when a new question is displayed
-  audioBlobRef.current = null;
-}, [question.id]);
+  useEffect(() => {
+    // Reset the audio blob ref when a new question is displayed
+    audioBlobRef.current = null;
+  }, [question.id]);
 
-const handleStartRecording = () => {
-  console.log("Starting recording...");
-  startQuestionRecording();
-};
+  const handleStartRecording = () => {
+    if (recordingClickCount < MAX_RECORDING_CLICKS) {
+      console.log("Starting recording...");
+      setRecordingClickCount(recordingClickCount + 1);
+      startQuestionRecording();
+    }
+  };
 
-const handleStopRecording = () => {
-  console.log("Stopping recording...");
-  stopQuestionRecording((audioBlob) => {
-    if (!audioBlob) {
-      console.warn("No audio blob received from recording!");
+  const handleStopRecording = () => {
+    console.log("Stopping recording...");
+    stopQuestionRecording((audioBlob) => {
+      if (!audioBlob) {
+        console.warn("No audio blob received from recording!");
+        return;
+      }
+
+      // Store the audio file without advancing to the next question
+      const audioFile = new File([audioBlob], `question_${question.id}.mp4`, {
+        type: "audio/mp4",
+      });
+
+      setRecordedAudioFile(audioFile);  // Update a local state for the audio file
+    });
+  };
+
+  const handleNextOrSubmit = () => {
+    if (!recordedAudioFile) {
+      console.warn("No completed recording available for this question!");
       return;
     }
 
-    // Store the audio file without advancing to the next question
-    const audioFile = new File([audioBlob], `question_${question.id}.mp4`, {
-      type: "audio/mp4",
-    });
-
-    setRecordedAudioFile(audioFile);  // Update a local state for the audio file
-  });
-};
-
-const handleNextOrSubmit = () => {
-  if (!recordedAudioFile) {
-    console.warn("No completed recording available for this question!");
-    return;
-  }
-
-  console.log("Submitting audio recording...");
-  onAnswerSelected(question.id, null, recordedAudioFile);  // Pass the recorded audio file
-};
-
+    console.log("Submitting audio recording...");
+    onAnswerSelected(question.id, null, recordedAudioFile);  // Pass the recorded audio file
+  };
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
@@ -91,10 +96,14 @@ const handleNextOrSubmit = () => {
       <div className="flex justify-center mt-6">
         {!isQuestionRecording && !audioBlobRef.current ? (
           <button
-            className="px-4 py-2.5 bg-blue-600 text-white rounded-lg"
+            className={`px-4 py-2.5 rounded-lg ${
+              recordingClickCount >= MAX_RECORDING_CLICKS
+                ? "bg-gray-400 pointer-events-none"
+                : "bg-blue-600 text-white"
+            }`}
             onClick={handleStartRecording}
           >
-            Start Audio Recording
+            {recordingClickCount >= MAX_RECORDING_CLICKS ? "No Recordings Left" : "Start Audio Recording"}
           </button>
         ) : isQuestionRecording ? (
           <button
