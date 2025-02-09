@@ -7,40 +7,46 @@ const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('
 const { processMp4WithDeepgram } = require('../helpers/audioProcessing'); 
 const { detectFacesWithPython } = require('../helpers/videoProcessing');
 
-function combineDetections(faceData, audioData) {
-  const BIAS_THRESHOLD_MS = 2000; // Allowed time difference between face and keyword
+/**
+ * ADDED CODE: combineDetections function for bias
+ */
+function combineDetections(faceData, audioData, biasThreshold = 1500) {
   const MIN_BIAS_INTERVAL_MS = 1500; // Ensures at least 1.5s gap between detections
   let lastBiasTimestamp = -Infinity;
   let lastBiasKeyword = null;
-
+  
   const results = [];
-
+  
   faceData.forEach((faceEvent) => {
-    if (faceEvent.faces < 2) return; // Ignore if less than 2 faces
-
+    // Only consider frames with at least 2 faces
+    if (faceEvent.faces < 2) return;
+    
+    // Convert face detection timestamp from seconds to milliseconds
+    const faceTimeMs = faceEvent.timestamp * 1000;
+  
     audioData.forEach((audioEvent) => {
-      const timeDiff = Math.abs(audioEvent.timestamp - faceEvent.timestamp);
-
-      if (timeDiff <= BIAS_THRESHOLD_MS) {
-        // Ensure at least `MIN_BIAS_INTERVAL_MS` between bias detections
-        if (faceEvent.timestamp - lastBiasTimestamp >= MIN_BIAS_INTERVAL_MS) {
-          
+      // Calculate the absolute time difference between the audio event and the face event
+      const timeDiff = Math.abs(audioEvent.timestamp - faceTimeMs);
+  
+      if (timeDiff <= biasThreshold) {
+        // Ensure at least MIN_BIAS_INTERVAL_MS between bias detections
+        if (faceTimeMs - lastBiasTimestamp >= MIN_BIAS_INTERVAL_MS) {
           // Avoid repeated keywords in a short period
           if (audioEvent.keyword !== lastBiasKeyword) {
             results.push({
-              timestamp: faceEvent.timestamp,
+              timestamp: faceTimeMs,
               faceCount: faceEvent.faces,
               keyword: audioEvent.keyword,
             });
-
-            lastBiasTimestamp = faceEvent.timestamp; // Update last bias timestamp
+  
+            lastBiasTimestamp = faceTimeMs; // Update last bias timestamp
             lastBiasKeyword = audioEvent.keyword; // Track last detected keyword
           }
         }
       }
     });
   });
-
+  
   return results;
 }
 
@@ -89,9 +95,29 @@ exports.uploadAndProcessMedia = async (req, res) => {
     let uploadedAudioFiles = [];
     let videoUploaded = false;
 
+    /**
+     * ADDED CODE: Will store bias results from the local video
+     */
+    let biasResults = [];
+
     // Handle video upload if available
     if (req.files.videoFile && req.files.videoFile[0]) {
       const tempVideoPath = req.files.videoFile[0].path;
+
+      /**
+       * ADDED CODE (1): Run face detection & audio detection BEFORE deleting the local file
+       */
+      console.log("Running face detection and audio analysis for bias on local video...");
+      const faceData = await detectFacesWithPython(tempVideoPath, 4); // Adjust frame skip if needed
+      console.log('✅ Face Detection Complete:', faceData.length, 'frames analyzed.');
+
+      const audioData = await processMp4WithDeepgram(tempVideoPath);
+      console.log('✅ Audio Processing Complete:', audioData.length, 'keywords detected.');
+
+      // Combine results
+      biasResults = combineDetections(faceData, audioData, 1500);
+      console.log("🔹 Combined bias events found:", biasResults.length);
+
       console.log("Uploading video file to S3...");
       await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, videoS3Key);
       fs.unlinkSync(tempVideoPath);  // Clean up after successful upload
@@ -139,9 +165,15 @@ exports.uploadAndProcessMedia = async (req, res) => {
       assessmentId: assessmentId,
       videoFile: videoUploaded ? videoFileName : undefined,
       audioFiles: uploadedAudioFiles.length > 0 ? uploadedAudioFiles : undefined,
-      bias: [],  // We'll skip processing face/audio bias for now
+      bias: [],  // (EXISTING LINE)
       timestamps: parsedTimestamps,
     });
+
+    /**
+     * ADDED CODE (2): Insert the new bias detection results into the last assessment entry
+     */
+    const lastIndex = existingHistory.assessmentVideos.length - 1;
+    existingHistory.assessmentVideos[lastIndex].bias = biasResults;
 
     // Upload updated history JSON to S3
     console.log("Uploading updated history JSON to S3...");

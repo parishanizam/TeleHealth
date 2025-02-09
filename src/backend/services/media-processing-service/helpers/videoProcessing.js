@@ -9,7 +9,7 @@ const path = require('path');
 function detectFacesWithPython(videoPath, frameSkip = 5) {
   return new Promise((resolve, reject) => {
     const pythonScriptPath = path.join(__dirname, 'face_detection.py');
-    const pythonProcess = spawn('python', [pythonScriptPath, videoPath, frameSkip.toString()]);
+    const pythonProcess = spawn('python3', [pythonScriptPath, videoPath, frameSkip.toString()]);
 
     let output = '';
     let error = '';
