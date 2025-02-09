@@ -8,10 +8,12 @@ import { formatDate } from "../../utils/dateUtils";
 
 function ResultsAnalysisPage() {
   const location = useLocation();
-  const { date, firstName, lastName, assessmentId, parentUsername } = location.state || {}; 
+  const { date, firstName, lastName, assessmentId, parentUsername, score: initialScore = null } = location.state || {}; 
+
   const [videoUrl, setVideoUrl] = useState("");
   const [results, setResults] = useState([]);
   const [questionBankId, setQuestionBankId] = useState(""); 
+  const [score, setScore] = useState(initialScore); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formattedDate, setFormattedDate] = useState("");
@@ -39,23 +41,29 @@ function ResultsAnalysisPage() {
         const fetchedQuestionBankId = resultsResponse.data.questionBankId;
         setQuestionBankId(fetchedQuestionBankId);
 
-        // 🔹 Extract language & test type from `questionBankId`
         const [language, testType] = fetchedQuestionBankId.split("-");
 
-        // 🔹 Fetch correct answers for each question
+        //  Fetch correct answers for each question
         const questionPromises = rawResults.map(async (result) => {
           const questionRes = await axios.get(
             `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`
           );
           return { 
             ...result, 
-            correctAnswer: questionRes.data.correctAnswer,  // Add correct answer to object
+            correctAnswer: questionRes.data.correctAnswer,  
             status: result.user_answer === questionRes.data.correctAnswer ? "correct" : "incorrect" 
           };
         });
 
         const updatedResults = await Promise.all(questionPromises);
         setResults(updatedResults);
+
+        // Calculating score 
+        if (initialScore === null) {
+          const totalQuestions = updatedResults.length;
+          const correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
+          const computedScore = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+        }
   
         const dateObj = date ? new Date(date) : new Date();
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
@@ -80,15 +88,13 @@ function ResultsAnalysisPage() {
     };
   
     fetchResultsAndVideo();
-  }, [firstName, lastName, assessmentId, parentUsername]);
+  }, [firstName, lastName, assessmentId, parentUsername, initialScore]);
 
   return (
     <div className="flex flex-col justify-center items-center px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
       <Header title={`${firstName} ${lastName} - ${formattedDate}`} />
 
       <div className="flex flex-row w-full items-center justify-between gap-4 mt-16 ">
-
-        {/* 🔹 Video Player Section */}
         <div className="w-2/3 flex justify-center mt-44">
           {loading ? (
             <p>Loading video...</p>
@@ -100,7 +106,6 @@ function ResultsAnalysisPage() {
         </div>
 
         <div className="w-2/3 flex justify-center">
-          {/* 🔹 Pass updated results with correct statuses */}
           <ResultsList 
             results={results} 
             questionBankId={questionBankId} 
@@ -109,6 +114,7 @@ function ResultsAnalysisPage() {
             firstName={firstName} 
             lastName={lastName} 
             date={date} 
+            score={score}
           />
         </div>
 

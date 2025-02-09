@@ -11,7 +11,12 @@ export default function RepetitionQuestion({
   isLastQuestion,
   questionNumber,
   totalQuestions,
+  isPractice
 }) {
+
+  if (!question) {
+    return <div>Loading...</div>;
+  }
 
 const {
   startQuestionRecording,
@@ -68,11 +73,17 @@ const handleNextOrSubmit = () => {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Question ${questionNumber} of ${totalQuestions}`} />
+      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} />
       <ProgressBar
         questionNumber={questionNumber}
         totalQuestions={totalQuestions}
       />
+      {isPractice && (
+        <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
+          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
+          <p>Listen closely to the audio and repeat the sentence</p>
+        </div>
+      )}
 
       {/* Volume Button */}
       <VolumeButton sound={question.sound} resetTrigger={questionNumber} />

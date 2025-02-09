@@ -4,24 +4,24 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import MatchingQuestion from "./MatchingQuestionPage";
 import RepetitionQuestion from "./RepetitionQuestionPage";
-import QuantifierQuestion from "./QuantifierQuestionPage";
+import QuantifierQuestion from "./QuantifierQuestion";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
 export default function QuizManagement() {
   const navigate = useNavigate();
   const { stopRecording } = useContext(RecordingManagerContext);
 
-  // 🔹 Get selected language & test type from Redux
   const { language, testType } = useSelector((state) => state.testSelection);
   const parentInfo = useSelector((state) => state.parent.parentInfo);
 
-  // Local state
   const [questions, setQuestions] = useState([]);
+  const [practiceQuestion, setPracticeQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
   const { getElapsedRecordingTime } = useContext(RecordingManagerContext);
   const [loading, setLoading] = useState(true);
   const [assessmentId, setAssessmentId] = useState(1);
+  const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
   const [audioFiles, setAudioFiles] = useState([]); 
   const [submitting, setSubmitting] = useState(false); // New loading state
@@ -29,9 +29,12 @@ export default function QuizManagement() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        setPracticeQuestion(practiceRes.data);
+
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 6);
+          const randomId = Math.floor(Math.random() * 5) + 1;
           questionIds.add(randomId);
         }
 
@@ -40,6 +43,7 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
+            console.log("Fetched question:", res.data); 
             return res.data;
           })
         );
@@ -54,10 +58,7 @@ export default function QuizManagement() {
 
     const fetchAssessmentId = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`
-        );
-
+        const res = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`);
         const assessments = res.data.assessments;
 
         if (assessments.length > 0) {
@@ -78,19 +79,14 @@ export default function QuizManagement() {
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
       sessionStorage.removeItem("redirectAfterRefresh");
-      navigate(
-        `/parents/${
-          testType.charAt(0).toUpperCase() + testType.slice(1)
-        }Instructions`
-      );
+      navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
     }
   }, [navigate]);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue =
-        "You are currently being recorded. Are you sure you want to leave?";
+      event.returnValue = "You are currently being recorded. Are you sure you want to leave?";
       sessionStorage.setItem("redirectAfterRefresh", "true");
     };
 
@@ -118,48 +114,62 @@ export default function QuizManagement() {
 
     console.log(`Time since recording started: ${formattedTimestamp}`);
 
+    if (currentQuestionIndex === 0) {
+      setCurrentQuestionIndex(1);
+      return;
+    }
+
     const newResponse = {
+     
       question_id: questionId,
+     
       user_answer: selectedOption,
       bias_state: false,
+      mark_state: "Undetermined",
     };
     const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
 
-    setResponses((prev) => [...prev, newResponse]);
+
+    // 🔹 Create updatedResponses immediately so the final answer is included
+    const updatedResponses = [...responses, newResponse];
+    setResponses(updatedResponses);
     setTimestamps((prev) => [...prev, newTimestamp]);
 
     sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
     sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
+
+    setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (testType === "repetition" && audioFile) {
       console.log("Audio file received in handleAnswerSelected:", audioFile);
       setAudioFiles((prev) => [...prev, audioFile]);
     }
 
-    if (currentQuestionIndex + 1 < questions.length) {
+    if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz();
+      finishQuiz(updatedResponses); 
     }
   };
 
-  const finishQuiz = () => {
+  // 🔹 Modified finishQuiz to accept updatedResponses as a parameter
+  const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
     setSubmitting(true); 
     stopRecording((finalBlob) => {
       if (finalBlob) {
-        console.log("Final recordedBlob:", finalBlob);
         uploadRecording(finalBlob)
-          .then(() => submitResults())
+          .then(() => submitResults(updatedResponses))
           .catch((error) => console.error("Error during processing:", error));
       } else {
-        console.warn("No recordedBlob found! onstop may not have completed yet.");
         submitResults();
       }
     });
   };
 
   const uploadRecording = async (blob) => {
+    if (!blob) return;
+
     const formData = new FormData();
   
     let hasFiles = false;
@@ -196,18 +206,14 @@ export default function QuizManagement() {
       const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-  
-      console.log("Upload successful:", response.data);
     } catch (error) {
-      console.error("Error occurred while uploading form data:", error);
-      if (error.response) {
-        console.error("Server response data:", error.response.data);
-      }
+      console.error("Error uploading recording:", error);
       throw error;
     }
   };
 
-  const submitResults = async () => {
+  // 🔹 Modified submitResults to accept responsesToSubmit as a parameter
+  const submitResults = async (responsesToSubmit) => {
     if (!assessmentId) {
       console.error("No assessment ID found! Cannot submit results.");
       return;
@@ -218,17 +224,15 @@ export default function QuizManagement() {
       name: `${parentInfo.firstName} ${parentInfo.lastName}`,
       assessment_id: assessmentId,
       questionBankId: `${language}-${testType}`,
-      results: responses,
+      results: responsesToSubmit,
     };
 
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:3000/resultstorage/submit-assessment",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
-
-      console.log("Test results submitted successfully:", res.data);
       navigate("/parents/testcomplete");
     } catch (error) {
       console.error("Error submitting test results:", error);
@@ -237,48 +241,78 @@ export default function QuizManagement() {
     }
   };
 
-  const currentQuestion = questions[currentQuestionIndex];
-  if (!currentQuestion) {
+  if (loading || !practiceQuestion || !questions.length) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {testType === "matching" && (
-        <MatchingQuestion
-          question={currentQuestion}
-          onAnswerSelected={handleAnswerSelected}
-          isLastQuestion={currentQuestionIndex === questions.length - 1}
-          questionNumber={currentQuestionIndex + 1}
-          totalQuestions={questions.length}
-        />
-      )}
-
-      {testType === "repetition" && (
-      <RepetitionQuestion
-        question={currentQuestion}
-        onAnswerSelected={handleAnswerSelected}
-        isLastQuestion={currentQuestionIndex === questions.length - 1}
-        questionNumber={currentQuestionIndex + 1}
-        totalQuestions={questions.length}
-      />
-    )}
-
-      {testType === "quantifier" && (
-        <QuantifierQuestion
-          question={currentQuestion}
-          onAnswerSelected={handleAnswerSelected}
-          isLastQuestion={currentQuestionIndex === questions.length - 1}
-          questionNumber={currentQuestionIndex + 1}
-          totalQuestions={questions.length}
-        />
-      )}
-
-      {submitting && (
-        <div className="text-center text-lg font-semibold mt-4">
-          Submitting Answers...
+      {currentQuestionIndex === 0 ? (
+        <div className="text-center">
+          {testType === "matching" && (
+            <MatchingQuestion
+              question={practiceQuestion}
+              onAnswerSelected={() => setCurrentQuestionIndex(1)}
+              isLastQuestion={false}
+              questionNumber={0}
+              totalQuestions={questions.length}
+              isPractice={true}
+            />
+          )}
+          {testType === "repetition" && (
+            <RepetitionQuestion
+              question={practiceQuestion}
+              onAnswerSelected={() => setCurrentQuestionIndex(1)}
+              isLastQuestion={false}
+              questionNumber={0}
+              totalQuestions={questions.length}
+              isPractice={true}
+            />
+          )}
+          {testType === "quantifier" && (
+            <QuantifierQuestion
+              question={practiceQuestion}
+              onAnswerSelected={() => setCurrentQuestionIndex(1)}
+              isLastQuestion={false}
+              questionNumber={0}
+              totalQuestions={questions.length}
+              isPractice={true}
+            />
+          )}
         </div>
+      ) : (
+        <>
+          {testType === "matching" && (
+            <MatchingQuestion
+              question={questions[currentQuestionIndex - 1]}
+              onAnswerSelected={handleAnswerSelected}
+              isLastQuestion={currentQuestionIndex === questions.length}
+              questionNumber={currentQuestionIndex}
+              totalQuestions={questions.length}
+            />
+          )}
+          {testType === "repetition" && (
+            <RepetitionQuestion
+              question={questions[currentQuestionIndex - 1]}
+              onAnswerSelected={handleAnswerSelected}
+              isLastQuestion={currentQuestionIndex === questions.length}
+              questionNumber={currentQuestionIndex}
+              totalQuestions={questions.length}
+            />
+          )}
+          {testType === "quantifier" && (
+            <QuantifierQuestion
+              question={questions[currentQuestionIndex - 1]}
+              onAnswerSelected={handleAnswerSelected}
+              isLastQuestion={currentQuestionIndex === questions.length}
+              questionNumber={currentQuestionIndex}
+              totalQuestions={questions.length}
+            />
+          )}
+        </>
       )}
+      {submitting && <div className="text-center text-lg font-semibold mt-4">
+        Submitting Answers...</div>}
     </div>
   );
 }

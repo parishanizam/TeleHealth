@@ -100,7 +100,7 @@ function ClientOverview() {
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
         <div className="flex-grow p-4 text-center">
           <h2 className="text-lg font-semibold mb-4">Graph</h2>
-          <Graph filters={selectedFilters} selectedDate={selectedDate} />
+          <Graph client={client} />
         </div>
         <div className="flex-grow p-4 text-start">
           <h2 className="text-lg font-semibold mb-4">Results</h2>

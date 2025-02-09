@@ -1,16 +1,19 @@
 import IconButtonGroup from "./IconButtonGroup";
 
-function QuestionAnswers({ question, userAnswer }) {
+function QuestionAnswers({ question, userAnswer, markState, changeMarkState }) {
   if (!question.options) {
-    return <IconButtonGroup />;
+    return <IconButtonGroup markState={markState} changeMarkState={changeMarkState} />;
   }
 
-  // Determine correct answer
-  const correctAnswer = question.correctAnswer;
+  // Handle the user interaction to change mark state
+  const handleAnswerClick = (answerId) => {
+    // Assuming the answer id corresponds to the mark state change logic
+    changeMarkState(answerId);
+  };
 
-  // Grid Layout Based on Number of Options
-  const columns = question.options.length % 2 === 0 ? 2 : 3; // 2 for even, 3 for odd
-  const gridClass = `grid grid-cols-${columns} gap-6 px-4`; // Add extra gap and padding
+  const correctAnswer = question.correctAnswer;
+  const columns = question.options.length % 2 === 0 ? 2 : 3;
+  const gridClass = `grid grid-cols-${columns} gap-6 px-4`;
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -25,18 +28,13 @@ function QuestionAnswers({ question, userAnswer }) {
           return (
             <div
               key={option.id}
-              className={`p-4 border rounded-md transition ${
-                isUserSelected
-                  ? isCorrect
-                    ? "bg-green-200 border-green-600"
-                    : "bg-red-200 border-red-600"
-                  : "bg-white"
-              }`}
+              onClick={() => handleAnswerClick(option.id)} // Trigger the mark state change
+              className={`p-4 border rounded-md transition ${isUserSelected ? (isCorrect ? "bg-green-200" : "bg-red-200") : "bg-white"}`}
             >
               <img
                 src={option.image}
                 alt={`Option ${option.id}`}
-                className="w-32 h-32 object-contain mx-auto" // 🔹 Bigger images
+                className="w-32 h-32 object-contain mx-auto"
               />
               <p className="text-center">{option.id.toUpperCase()}</p>
             </div>

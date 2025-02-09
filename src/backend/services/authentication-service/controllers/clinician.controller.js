@@ -26,6 +26,16 @@ exports.clinicianSignup = async (req, res) => {
   }
 };
 
+exports.clinicianLogout = async (req, res) => {
+  try {
+    // Clear any session-related logic (if applicable)
+    return res.json({ message: 'Logout successful' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+};
+
 exports.clinicianLogin = async (req, res) => {
   try {
     const { username, password } = req.body;

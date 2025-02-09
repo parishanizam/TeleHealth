@@ -5,26 +5,29 @@ import { ProgressBar } from "../components/ProgressBar";
 import { OptionGrid } from "../components/OptionGrid";
 import { NextOrSubmitButton } from "../components/NextOrSubmitButton";
 
-export default function MatchingQuestion({
+export default function QuantifierQuestion({
   question,
   onAnswerSelected,
   isLastQuestion,
   questionNumber,
-  totalQuestions, 
+  totalQuestions,
   isPractice
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  // Prevent errors by ensuring the question exists
+  if (!question) {
+    return <div>Loading...</div>;
+  }
 
   const handleAnswerClick = (optionId) => {
     setSelectedAnswer(optionId);
   };
 
   const handleNextOrSubmit = () => {
-    const currentTime = new Date().getTime();
-    onAnswerSelected(question.id, selectedAnswer, currentTime);
+    onAnswerSelected(question.id, selectedAnswer);
   };
 
-  // Reset the state when the question number changes (i.e., moving to the next question)
   useEffect(() => {
     setSelectedAnswer(null); // Reset the answer when the question changes
   }, [questionNumber]); // Only run this when the question number changes
@@ -36,7 +39,7 @@ export default function MatchingQuestion({
       {isPractice && (
         <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
           <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
-          <p>Choose the option where the picture best matches the scenario described.</p>
+          <p>Choose the option where the picture best matches the quantity described.</p>
         </div>
       )}
       <VolumeButton sound={question.sound} resetTrigger={questionNumber}/>

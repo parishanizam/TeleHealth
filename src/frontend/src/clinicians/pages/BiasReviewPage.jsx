@@ -22,17 +22,24 @@ function BiasReviewPage() {
     lastName,
     parentUsername,
     assessmentId,
+    bias_state,
+    mark_state,
   } = state || {};
+
+  console.log("Page state:", state); // Log the initial state
 
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [biasTimestamps, setBiasTimestamps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [biasState, setBiasState] = useState(false);
+  const [biasState, setBiasState] = useState(bias_state);
+  const [markState, setMarkState] = useState(mark_state);
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
+    console.log("useEffect triggered");
+  
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
       setError("Missing necessary data for review.");
       return;
@@ -41,10 +48,14 @@ function BiasReviewPage() {
     const fetchQuestionAndMedia = async () => {
       try {
         setLoading(true);
+        console.log("Fetching question and media...");
+  
+        // Fetch the question data (for question details)
         const [language, testType] = questionBankId.split("-");
         const questionRes = await axios.get(
           `http://localhost:3000/questions/${language}/${testType}/${questionId}`
         );
+        console.log("Question response:", questionRes.data);
   
         if (!questionRes.data) {
           setError("Question not found.");
@@ -52,6 +63,16 @@ function BiasReviewPage() {
         }
   
         setQuestion(questionRes.data);
+  
+        // Now fetch the result data to get the mark_state
+        const resultRes = await axios.get(
+          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
+        );
+        console.log("Result response:", resultRes.data);
+  
+        // Set the initial mark state based on the result data
+        const initialMarkState = resultRes.data?.mark_state || "Undetermined";
+        setMarkState(initialMarkState);
 
         const dateObj = date ? new Date(date) : new Date();
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
@@ -61,8 +82,6 @@ function BiasReviewPage() {
           `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`
         );
         setVideoUrl(mediaRes.data.presignedUrl);
-  
-        // Set bias timestamps, but only update biasState if it's the first time loading
         setBiasTimestamps(mediaRes.data.bias || []);
         setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
       } catch (error) {
@@ -76,35 +95,82 @@ function BiasReviewPage() {
     fetchQuestionAndMedia();
   }, [questionId, questionBankId, parentUsername, assessmentId]);
   
-
-  const toggleBiasState = () => {
-    setBiasState((prevState) => {
-      const newState = !prevState;
-      console.log("🔄 New Bias State:", newState); // Debug state update
-      return newState;
-    });
-  };
   
 
-  const saveChanges = async () => {
+  const toggleBiasState = async () => {
+    const newState = !biasState;
+    console.log("Toggling bias state:", newState);
+    setBiasState(newState);
+
     const payload = {
       question_id: questionId,
       user_answer: userAnswer,
-      bias_state: biasState, // Ensure this reflects the current state
+      bias_state: newState,
+      mark_state: markState,
     };
-  
+
     try {
-      console.log("📤 Saving payload:", payload);
-      await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+      const saveResponse = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
         payload
       );
-      console.log("✅ Bias state updated successfully!");
+      console.log("✅ Bias state updated successfully! Save Response:", saveResponse.data);
     } catch (error) {
       console.error("❌ Error saving bias modification:", error);
     }
   };
 
+  const changeMarkState = async (newMarkState) => {
+    console.log("Changing mark state:", newMarkState);
+    setMarkState(newMarkState); // This should update the markState
+    
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState,
+      mark_state: newMarkState,
+    };
+  
+    try {
+      const saveResponse = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
+        payload
+      );
+      console.log("✅ Mark state updated successfully! Save Response:", saveResponse.data);
+    } catch (error) {
+      console.error("❌ Error saving mark state:", error);
+    }
+  };
+  
+  
+  const saveChanges = async () => {
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState,
+      mark_state: markState,
+    };
+  
+    console.log("📤 Saving final changes:", payload);
+  
+    try {
+      // Save both bias and mark state in a single API call if the backend supports it
+      const response = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+        payload
+      );
+  
+      if (response.status === 200) {
+        console.log("✅ Successfully saved changes:", response.data);
+      } else {
+        console.warn("⚠️ Unexpected status while saving:", response.status);
+      }
+    } catch (error) {
+      console.error("❌ Error saving changes:", error);
+    }
+  };
+  
+  
 
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
@@ -114,9 +180,7 @@ function BiasReviewPage() {
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       <Header
-        title={`${firstName || "Unknown"} ${lastName || ""} - ${
-          formatDate(date) || "No Date"
-        }`}
+        title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"}`}
       />
       <div className="flex items-center justify-center space-x-4 mt-4">
         <span className="text-4xl tracking-tight text-center text-black leading-[64px]">
@@ -139,7 +203,10 @@ function BiasReviewPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
+            <TempMediaPlayer
+              videoUrl={videoUrl}
+              biasTimestamps={biasTimestamps}
+            />
           )}
 
           <div className="mt-4 text-center text-lg">
@@ -160,7 +227,9 @@ function BiasReviewPage() {
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
                             <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
-                            <span className="text-gray-500"> (Faces Detected: {bias.faceCount})</span>
+                            <span className="text-gray-500">
+                              {" "} (Faces Detected: {bias.faceCount})
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -195,17 +264,23 @@ function BiasReviewPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <QuestionAnswers question={question} userAnswer={userAnswer} />
+            <QuestionAnswers question={question} userAnswer={userAnswer} markState={markState} changeMarkState={changeMarkState}/>
           )}
         </div>
       </div>
 
       <div className="w-full flex justify-end pr-10 pb-10">
-        <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState} />
+        <RemoveBiasButton
+          onClick={toggleBiasState}
+          isBiasDetected={biasState}
+        />
       </div>
 
       <div className="w-full flex justify-center mt-4">
-        <button onClick={saveChanges} className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded">
+        <button
+          onClick={saveChanges}
+          className="w-1/3 bg-blue-500 text-white font-bold py-2 px-4 rounded"
+        >
           Save Changes
         </button>
       </div>
