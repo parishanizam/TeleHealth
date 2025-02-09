@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "../components/Header";
 import NextButton from "../components/NextButton";
-import ParentChecklistImage from "../../assets/ParentChecklist.png";
+import ParentChecklistImage from "../../assets/Parentchecklist.png";
 
 function ParentChecklistPage() {
   return (
@@ -12,7 +12,7 @@ function ParentChecklistPage() {
       {/* Instructions */}
       <section className="text-center mt-8 px-4">
         <p className="mt-2 text-lg text-gray-700 max-w-2xl mx-auto">
-          The assessment will first prompt you to fill in a checklist to ensure your child is prepared to take the assessment with minimal assistance.
+          Please thoroughly review set up instructions and rules carefully before proceeding with each assessment. 
         </p>
       </section>
 

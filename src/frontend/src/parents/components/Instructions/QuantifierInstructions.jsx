@@ -57,6 +57,14 @@ const instructions = [
       </>
     ),
   },
+  {
+    number: 6,
+    text: (
+      <>
+      The first question of each test is a <span className="font-bold">Practice</span> Question. This will not impact your results
+      </>
+    ),
+  },
 ];
 
 export default instructions;

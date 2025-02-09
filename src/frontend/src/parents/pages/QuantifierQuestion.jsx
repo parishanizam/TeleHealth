@@ -10,9 +10,15 @@ export default function QuantifierQuestion({
   onAnswerSelected,
   isLastQuestion,
   questionNumber,
-  totalQuestions
+  totalQuestions,
+  isPractice
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  // Prevent errors by ensuring the question exists
+  if (!question) {
+    return <div>Loading...</div>;
+  }
 
   const handleAnswerClick = (optionId) => {
     setSelectedAnswer(optionId);
@@ -22,15 +28,20 @@ export default function QuantifierQuestion({
     onAnswerSelected(question.id, selectedAnswer);
   };
 
-  // Reset the state when the question number changes (i.e., moving to the next question)
   useEffect(() => {
     setSelectedAnswer(null); // Reset the answer when the question changes
   }, [questionNumber]); // Only run this when the question number changes
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Question ${questionNumber} of ${totalQuestions}`} />
+      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} />
       <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
+      {isPractice && (
+        <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
+          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
+          <p>Choose the option where the picture best matches the quantity described.</p>
+        </div>
+      )}
       <VolumeButton sound={question.sound} resetTrigger={questionNumber}/>
       <OptionGrid options={question.options} selectedAnswer={selectedAnswer} handleAnswerClick={handleAnswerClick} />
       
