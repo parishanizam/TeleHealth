@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import MatchingQuestion from "./QuestionPage";
+import MatchingQuestion from "./MatchingQuestionPage";
 import RepetitionQuestion from "./RepetitionQuestionPage";
 import QuantifierQuestion from "./QuantifierQuestion";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
@@ -18,10 +18,13 @@ export default function QuizManagement() {
   const [practiceQuestion, setPracticeQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
+  const { getElapsedRecordingTime } = useContext(RecordingManagerContext);
   const [loading, setLoading] = useState(true);
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
+  const [timestamps, setTimestamps] = useState([]);
+  const [audioFiles, setAudioFiles] = useState([]); 
+  const [submitting, setSubmitting] = useState(false); // New loading state
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -93,26 +96,54 @@ export default function QuizManagement() {
     };
   }, []);
 
-  const handleAnswerSelected = (questionId, selectedOption) => {
+  function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+  
+    if (hours > 0) {
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    } else {
+      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+  }
+
+  const handleAnswerSelected = (questionId, selectedOption, audioFile) => {
+    const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from the context
+    const formattedTimestamp = formatTime(elapsedTime);
+
+    console.log(`Time since recording started: ${formattedTimestamp}`);
+
     if (currentQuestionIndex === 0) {
       setCurrentQuestionIndex(1);
       return;
     }
 
     const newResponse = {
+     
       question_id: questionId,
+     
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
     };
+    const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
+
 
     // 🔹 Create updatedResponses immediately so the final answer is included
     const updatedResponses = [...responses, newResponse];
     setResponses(updatedResponses);
+    setTimestamps((prev) => [...prev, newTimestamp]);
 
-    sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
+    sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
+    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
 
     setProgress((currentQuestionIndex / questions.length) * 100);
+
+    if (testType === "repetition" && audioFile) {
+      console.log("Audio file received in handleAnswerSelected:", audioFile);
+      setAudioFiles((prev) => [...prev, audioFile]);
+    }
 
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -140,15 +171,39 @@ export default function QuizManagement() {
     if (!blob) return;
 
     const formData = new FormData();
-    formData.append("videoFile", blob, "recording.mp4");
+  
+    let hasFiles = false;
+  
+    if (blob) {
+      formData.append("videoFile", blob, "recording.mp4");
+      hasFiles = true;
+    }
+  
     formData.append("parentUsername", parentInfo.username);
     formData.append("firstName", parentInfo.firstName);
     formData.append("lastName", parentInfo.lastName);
     formData.append("childUsername", parentInfo.username);
     formData.append("assessmentId", assessmentId);
-
+    formData.append("timestamps", JSON.stringify(timestamps));
+    formData.append("language", language);
+    formData.append("testType", testType);
+  
+    if (testType === "repetition" && audioFiles.length > 0) {
+      audioFiles.forEach((file, index) => {
+        formData.append("audioFiles", file, `question_${index + 1}.mp4`);
+        hasFiles = true;
+      });
+    }
+  
+    if (!hasFiles) {
+      console.error("No video or audio files to upload.");
+      return;  // Exit early if no files to upload
+    }
+  
+    console.log("🚀 Sending Upload Request with form data...");
+  
     try {
-      await axios.post("http://localhost:3000/media/", formData, {
+      const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {

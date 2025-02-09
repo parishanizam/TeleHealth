@@ -2,45 +2,60 @@ const path = require('path');
 const { processMp4WithDeepgram } = require('./audioProcessing');
 const { detectFacesWithPython } = require('./videoProcessing');
 
-function combineDetections(faceData, audioData) {
-    const BIAS_THRESHOLD_MS = 2000; // Allowed time difference between face and keyword
-    const MIN_BIAS_INTERVAL_MS = 1500; // Ensures at least 1.5s gap between detections
-    let lastBiasTimestamp = -Infinity;
-    let lastBiasKeyword = null;
+/**
+ * Combines face detection and audio keyword events based on a bias threshold.
+ * Converts face detection timestamps (in seconds) to milliseconds to match the audio event timestamps.
+ *
+ * @param {Array} faceData - Array of face detection events.
+ *   Each event should be in the form: { timestamp: Number (seconds), faces: Number }.
+ * @param {Array} audioData - Array of audio keyword events.
+ *   Each event should be in the form: { timestamp: Number (milliseconds), keyword: String }.
+ * @param {number} biasThreshold - Allowed time difference (in ms) between face and keyword events.
+ * @returns {Array} - Combined detection events.
+ */
+function combineDetections(faceData, audioData, biasThreshold = 2000) {
+  const MIN_BIAS_INTERVAL_MS = 1500; // Ensures at least 1.5s gap between detections
+  let lastBiasTimestamp = -Infinity;
+  let lastBiasKeyword = null;
   
-    const results = [];
+  const results = [];
   
-    faceData.forEach((faceEvent) => {
-      if (faceEvent.faces < 2) return; // Ignore if less than 2 faces
+  faceData.forEach((faceEvent) => {
+    // Only consider frames with at least 2 faces
+    if (faceEvent.faces < 2) return;
+    
+    // Convert face detection timestamp from seconds to milliseconds
+    const faceTimeMs = faceEvent.timestamp
   
-      audioData.forEach((audioEvent) => {
-        const timeDiff = Math.abs(audioEvent.timestamp - faceEvent.timestamp);
+    audioData.forEach((audioEvent) => {
+      // Calculate the absolute time difference between the audio event and the face event
+      const timeDiff = Math.abs(audioEvent.timestamp - faceTimeMs);
   
-        if (timeDiff <= BIAS_THRESHOLD_MS) {
-          // Ensure at least `MIN_BIAS_INTERVAL_MS` between bias detections
-          if (faceEvent.timestamp - lastBiasTimestamp >= MIN_BIAS_INTERVAL_MS) {
-            
-            // Avoid repeated keywords in a short period
-            if (audioEvent.keyword !== lastBiasKeyword) {
-              results.push({
-                timestamp: faceEvent.timestamp,
-                faceCount: faceEvent.faces,
-                keyword: audioEvent.keyword,
-              });
+      if (timeDiff <= biasThreshold) {
+        // Ensure at least MIN_BIAS_INTERVAL_MS between bias detections
+        if (faceTimeMs - lastBiasTimestamp >= MIN_BIAS_INTERVAL_MS) {
+          // Avoid repeated keywords in a short period
+          if (audioEvent.keyword !== lastBiasKeyword) {
+            results.push({
+              timestamp: faceTimeMs,
+              faceCount: faceEvent.faces,
+              keyword: audioEvent.keyword,
+            });
   
-              lastBiasTimestamp = faceEvent.timestamp; // Update last bias timestamp
-              lastBiasKeyword = audioEvent.keyword; // Track last detected keyword
-            }
+            lastBiasTimestamp = faceTimeMs; // Update last bias timestamp
+            lastBiasKeyword = audioEvent.keyword; // Track last detected keyword
           }
         }
-      });
+      }
     });
+  });
   
-    return results;
-  }
+  return results;
+}
+
 (async () => {
   try {
-    const videoFile = 'Nizamp_1.mp4';
+    const videoFile = 'jasminesunhu_18.mp4';
     const videoPath = path.join(__dirname, '../../../uploads', videoFile);
     
     console.log(`Processing video: ${videoPath}`);
@@ -48,20 +63,25 @@ function combineDetections(faceData, audioData) {
     // Run Face Detection
     console.log('Running face detection...');
     const faceData = await detectFacesWithPython(videoPath, 4); // Adjust frameSkip if needed
+    console.log(faceData)
     console.log('✅ Face Detection Complete:', faceData.length, 'frames analyzed.');
 
     // Run Audio Processing
     console.log('Running audio keyword detection...');
     const audioData = await processMp4WithDeepgram(videoPath);
+    console.log(audioData)
     console.log('✅ Audio Processing Complete:', audioData.length, 'keywords detected.');
 
-    // Try different bias thresholds
-    const thresholds = [500, 750, 1000, 1500, 2000]; // Adjust these values to test
-    for (const threshold of thresholds) {
+    // Test with different bias thresholds (in milliseconds)
+    const thresholds = [10, 50, 100, 200, 300, 500, 750, 1000, 1500, 2000]; // Adjust or add more values as needed.
+    thresholds.forEach((threshold) => {
       console.log(`\n🔹 Testing Bias Threshold: ${threshold}ms`);
       const combinedResults = combineDetections(faceData, audioData, threshold);
-      console.log('Detected Bias Events:', combinedResults);
-    }
+      console.log(`Detected Bias Events: ${combinedResults.length}`);
+      combinedResults.forEach(result => {
+         console.log(`- Timestamp: ${result.timestamp}ms, Face Count: ${result.faceCount}, Keyword: ${result.keyword}`);
+      });
+    });
 
   } catch (error) {
     console.error('❌ Error:', error.message);

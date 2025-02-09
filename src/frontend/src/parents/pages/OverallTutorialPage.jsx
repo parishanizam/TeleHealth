@@ -38,7 +38,7 @@ function OverallTutorialPage() {
             className="w-full px-4 py-10 rounded-lg bg-blue-800 text-white font-semibold hover:bg-blue-900 text-xl"
             onClick={() => navigate("/parents/QuantifierTutorialPage")}
           >
-            Mandarin Quantifier Tutorial
+            Quantifier Tutorial
           </button>
         </div>
       </div>

@@ -82,8 +82,12 @@ function ResultsAnalysisPage() {
 
         setResults(updatedResults); // ✅ Ensures UI gets updated with results
 
-        //  Fetch video URL from Media Service
-        const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${assessmentId}`;
+        const dateObj = date ? new Date(date) : new Date();
+        const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
+        const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
+
+        // 🔹 Fetch video URL from Media Service.
+        const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`;
         const videoResponse = await axios.get(videoApiUrl);
   
         let videoFile = videoResponse.data.videoFile;
