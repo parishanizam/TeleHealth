@@ -83,7 +83,7 @@ function BiasReviewPage() {
         );
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
-        setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
+        setBiasState((prevState) => prevState && mediaRes.data.bias.length > 0);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load bias review data.");

@@ -25,7 +25,7 @@ function combineDetections(faceData, audioData, biasThreshold = 2000) {
     if (faceEvent.faces < 2) return;
     
     // Convert face detection timestamp from seconds to milliseconds
-    const faceTimeMs = faceEvent.timestamp * 1000;
+    const faceTimeMs = faceEvent.timestamp
   
     audioData.forEach((audioEvent) => {
       // Calculate the absolute time difference between the audio event and the face event
@@ -55,7 +55,7 @@ function combineDetections(faceData, audioData, biasThreshold = 2000) {
 
 (async () => {
   try {
-    const videoFile = 'mitchelllogin_14.mp4';
+    const videoFile = 'jasminesunhu_18.mp4';
     const videoPath = path.join(__dirname, '../../../uploads', videoFile);
     
     console.log(`Processing video: ${videoPath}`);
@@ -63,15 +63,17 @@ function combineDetections(faceData, audioData, biasThreshold = 2000) {
     // Run Face Detection
     console.log('Running face detection...');
     const faceData = await detectFacesWithPython(videoPath, 4); // Adjust frameSkip if needed
+    console.log(faceData)
     console.log('✅ Face Detection Complete:', faceData.length, 'frames analyzed.');
 
     // Run Audio Processing
     console.log('Running audio keyword detection...');
     const audioData = await processMp4WithDeepgram(videoPath);
+    console.log(audioData)
     console.log('✅ Audio Processing Complete:', audioData.length, 'keywords detected.');
 
     // Test with different bias thresholds (in milliseconds)
-    const thresholds = [500, 750, 1000, 1500, 2000]; // Adjust or add more values as needed.
+    const thresholds = [10, 50, 100, 200, 300, 500, 750, 1000, 1500, 2000]; // Adjust or add more values as needed.
     thresholds.forEach((threshold) => {
       console.log(`\n🔹 Testing Bias Threshold: ${threshold}ms`);
       const combinedResults = combineDetections(faceData, audioData, threshold);

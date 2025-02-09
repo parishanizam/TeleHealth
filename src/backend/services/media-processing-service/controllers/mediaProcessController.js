@@ -21,8 +21,7 @@ function combineDetections(faceData, audioData, biasThreshold = 1500) {
     // Only consider frames with at least 2 faces
     if (faceEvent.faces < 2) return;
     
-    // Convert face detection timestamp from seconds to milliseconds
-    const faceTimeMs = faceEvent.timestamp * 1000;
+    const faceTimeMs = faceEvent.timestamp;
   
     audioData.forEach((audioEvent) => {
       // Calculate the absolute time difference between the audio event and the face event
