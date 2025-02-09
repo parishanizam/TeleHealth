@@ -14,6 +14,7 @@ function ResultsList({
 }) {
   const navigate = useNavigate();
 
+  const [language, testType] = questionBankId.split("-");
   const handleCardClick = (question, questionNumber) => {
     navigate("/clinicians/BiasReviewPage", {
       state: {
@@ -28,6 +29,7 @@ function ResultsList({
         date,
         questionNumber,
         bias_state: question.bias_state,
+        mark_state: question.mark_state,
       },
     });
   };
@@ -53,6 +55,8 @@ function ResultsList({
             questionNumber={index + 1}
             status={result.status} // 🔹 Status is now correctly set
             biasDetected={result.biasDetected}
+            mark_state={result.mark_state}
+            testType={testType}
             onClick={() => handleCardClick(result, index+1)}
           />
         ))

@@ -30,7 +30,14 @@ export function Results({ data, client }) {
           let totalQuestions = fetchedData.results.length;
 
           if (testType === "repetition") {
-            // For "repetition" tests, check mark_state
+            // ✅ Check if ANY question has mark_state "Undetermined"
+            const hasUndetermined = fetchedData.results.some((q) => q.mark_state === "Undetermined");
+
+            if (hasUndetermined) {
+              newScores[result.assessment_id] = "N/A"; // Set score to "N/A" if any are undetermined
+              continue; // Skip further calculation
+            }
+
             correctAnswers = fetchedData.results.filter((q) => q.mark_state === "Correct").length;
           } else {
             // Fetch correct answers for other test types
@@ -87,7 +94,7 @@ export function Results({ data, client }) {
       {data.map((result) => (
         <ResultCard
           key={result.assessment_id}
-          score={`${scores[result.assessment_id] ?? "Calculating..."}%`} 
+          score={`${scores[result.assessment_id] ?? "N/A"}%`} 
           test={formatTestTitle(result.questionBankId)}
           date={formatDate(result.date)}
           onClick={() => handleCardClick(result)}

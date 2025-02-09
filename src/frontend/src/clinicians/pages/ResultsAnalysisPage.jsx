@@ -52,7 +52,7 @@ function ResultsAnalysisPage() {
           const isStillBeingMarked = rawResults.some(q => q.mark_state === "Undetermined");
 
           if (isStillBeingMarked) {
-            setScore("Calculating...");
+            setScore("Test is being evaluated...");
           } else {
             correctAnswers = rawResults.filter((q) => q.mark_state === "Correct").length;
             setScore(totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0);

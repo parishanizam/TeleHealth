@@ -3,14 +3,28 @@ import CheckmarkIcon from "../../../assets/checkmark.svg";
 import DashIcon from "../../../assets/dash.svg"; 
 import XIcon from "../../../assets/x.svg"; 
 
-function QuestionCard({ questionNumber, status, biasDetected, onClick }) {
+function QuestionCard({ questionNumber, status, biasDetected, mark_state, onClick, testType }) {
   let icon;
-  if (status === "correct") {
-    icon = CheckmarkIcon;
-  } else if (status === "incorrect") {
-    icon = XIcon;
+  console.log(testType)
+  if (testType === "repetition") {
+    // Override icon logic for repetition tests based on mark_state
+    if (mark_state === "Correct") {
+      console.log("THIS IS A TEST", mark_state)
+      icon = CheckmarkIcon;
+    } else if (mark_state === "Incorrect") {
+      icon = XIcon;
+    } else {
+      icon = DashIcon; // "Undetermined" state
+    }
   } else {
-    icon = DashIcon;
+    // Default logic for non-repetition tests
+    if (status === "correct") {
+      icon = CheckmarkIcon;
+    } else if (status === "incorrect") {
+      icon = XIcon;
+    } else {
+      icon = DashIcon;
+    }
   }
 
   return (
