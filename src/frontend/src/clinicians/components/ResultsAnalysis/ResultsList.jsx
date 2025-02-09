@@ -14,6 +14,11 @@ function ResultsList({
 }) {
   const navigate = useNavigate();
 
+  // Calculate overall score
+  const totalQuestions = results.length;
+  const correctAnswers = results.filter(result => result.status === "correct").length;
+  const scorePercentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+
   const handleCardClick = (question, questionNumber) => {
     navigate("/clinicians/BiasReviewPage", {
       state: {

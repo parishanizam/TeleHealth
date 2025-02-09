@@ -4,8 +4,16 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    "grid-cols-2",
+    "grid-cols-3",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"Noto Sans"', 'sans-serif'],  // Default font
+      },
+    },
   },
   plugins: [],
 }

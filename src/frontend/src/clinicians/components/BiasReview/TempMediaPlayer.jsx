@@ -1,4 +1,14 @@
 function TempMediaPlayer({ videoUrl }) {
+  const handleVideoError = (e) => {
+    console.error("Video error event:", e);
+    console.error("Native event:", e.nativeEvent);
+    console.error("Event target:", e.target);
+    // Some browsers attach the error details to e.target.error
+    if (e.target && e.target.error) {
+      console.error("Video error details:", e.target.error);
+    }
+  };
+
   if (!videoUrl) {
     return <p className="text-center text-gray-500">No video available.</p>;
   }
@@ -8,7 +18,7 @@ function TempMediaPlayer({ videoUrl }) {
       <video
         controls
         className="w-full"
-        onError={(e) => console.error("Video error:", e)}
+        onError={handleVideoError}
       >
         <source src={videoUrl} type="video/mp4" />
         Your browser does not support the video tag.
