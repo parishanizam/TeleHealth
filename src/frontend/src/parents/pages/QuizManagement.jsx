@@ -28,7 +28,7 @@ export default function QuizManagement() {
       try {
         const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
         setPracticeQuestion(practiceRes.data);
-        
+
         let questionIds = new Set();
         while (questionIds.size < 5) {
           const randomId = Math.floor(Math.random() * 6) + 1;
@@ -50,8 +50,45 @@ export default function QuizManagement() {
       }
     };
 
+    const fetchAssessmentId = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`);
+        const assessments = res.data.assessments;
+
+        if (assessments.length > 0) {
+          const latestAssessment = assessments[assessments.length - 1];
+          setAssessmentId(latestAssessment.assessment_id + 1);
+        } else {
+          setAssessmentId(1);
+        }
+      } catch (error) {
+        console.error("Error fetching assessment history:", error);
+      }
+    };
+
     fetchQuestions();
-  }, [language, testType]);
+    fetchAssessmentId();
+  }, [language, testType, parentInfo.username]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
+      sessionStorage.removeItem("redirectAfterRefresh");
+      navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = "You are currently being recorded. Are you sure you want to leave?";
+      sessionStorage.setItem("redirectAfterRefresh", "true");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   const handleAnswerSelected = (questionId, selectedOption) => {
     if (currentQuestionIndex === 0) {
@@ -67,7 +104,7 @@ export default function QuizManagement() {
 
     sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
 
-    setProgress(((currentQuestionIndex) / questions.length) * 100);
+    setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
