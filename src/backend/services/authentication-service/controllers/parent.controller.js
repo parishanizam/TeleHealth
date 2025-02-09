@@ -116,6 +116,16 @@ exports.parentLogin = async (req, res) => {
   }
 };
 
+exports.parentLogout = async (req, res) => {
+  try {
+    // Clear any session-related logic (if applicable)
+    return res.json({ message: 'Logout successful' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error' });
+  }
+};
+
 exports.getParentAccountDetails = async (req, res) => {
   try {
     const { username } = req.params;

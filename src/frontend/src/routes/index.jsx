@@ -130,7 +130,7 @@ const router = createBrowserRouter([
     path: '/parents/QuantifierQuestionPage',
     element: <QuantifierQuestion />,
   },
-  {
+    {
     path: '/parents/OverallTutorialPage',
     element: <OverallTutorialPage />,
   },
