@@ -29,6 +29,6 @@ router.post(
 );
 
 // 🔹 New route to fetch video by `parentUsername_assessmentId.mp4`
-router.get('/:parentUsername/:assessmentId', getMediaByFilename);
+router.get('/:parentUsername/:folderName/:assessmentId', getMediaByFilename);
 
 module.exports = router;

@@ -52,9 +52,13 @@ function BiasReviewPage() {
         }
   
         setQuestion(questionRes.data);
+
+        const dateObj = date ? new Date(date) : new Date();
+        const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
+        const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
   
         const mediaRes = await axios.get(
-          `http://localhost:3000/media/${parentUsername}/${assessmentId}`
+          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`
         );
         setVideoUrl(mediaRes.data.presignedUrl);
   

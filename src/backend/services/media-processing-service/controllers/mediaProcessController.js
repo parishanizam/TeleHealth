@@ -192,7 +192,7 @@ exports.getProcessedMedia = async (req, res) => {
 
 exports.getMediaByFilename = async (req, res) => {
   try {
-    const { parentUsername, assessmentId } = req.params;
+    const { parentUsername, folderName, assessmentId } = req.params;
     if (!parentUsername || !assessmentId) {
       return res.status(400).json({ error: "Parent username and assessment ID are required." });
     }
@@ -205,7 +205,7 @@ exports.getMediaByFilename = async (req, res) => {
       videoFileName = videoFileName.replace(".mp4.mp4", ".mp4");
     }
 
-    const videoS3Key = `${parentUsername}/${videoFileName}`;
+    const videoS3Key = `${parentUsername}/${folderName}/${videoFileName}`;
     const historyS3Key = `${parentUsername}/${parentUsername}_history.json`;
 
     // 🔹 Fetch the presigned video URL
