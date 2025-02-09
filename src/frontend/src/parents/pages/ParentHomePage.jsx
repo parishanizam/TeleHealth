@@ -11,7 +11,7 @@ function ParentHomePage() {
       {/* Header */}
       <Header title="" />
       {/* Main Content */}
-      <div className="flex flex-col gap-5 items-center max-w-[766px] mt-8 px-4">
+      <div className="flex flex-col gap-5 items-center max-w-[800px] mt-8 px-4">
         {/* You can display parent's first or last name if available */}
         {parentInfo && (
           <h2 className="text-2xl font-medium">

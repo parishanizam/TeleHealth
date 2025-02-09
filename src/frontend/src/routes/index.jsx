@@ -18,9 +18,7 @@ import ParentChecklistPageTutorial from '../parents/pages/ParentCheckListTutoria
 import TestSelectionTutorialPage from '../parents/pages/TestSelectionTutorialPage';
 import TutorialComplete from '../parents/pages/TutorialComplete';
 import ParentHomePage from '../parents/pages/ParentHomePage';
-import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
 import TestInstructions from '../parents/pages/TestInstructions';
-import QuantifierQuestion from '../parents/pages/QuantifierQuestion';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -116,16 +114,8 @@ const router = createBrowserRouter([
     element: <AddClientPage />,
   },
   {
-    path: '/parents/RepetitionQuestionPage',
-    element: <RepetitionQuestion />,
-  },
-  {
     path: '/parents/:testTypeInstructions',
     element: <TestInstructions />,
-  },
-  {
-    path: '/parents/QuantifierQuestionPage',
-    element: <QuantifierQuestion />,
   },
 ]);
 

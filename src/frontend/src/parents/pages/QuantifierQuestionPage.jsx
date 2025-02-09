@@ -19,7 +19,8 @@ export default function QuantifierQuestion({
   };
 
   const handleNextOrSubmit = () => {
-    onAnswerSelected(question.id, selectedAnswer);
+    const currentTime = new Date().getTime();
+    onAnswerSelected(question.id, selectedAnswer, currentTime);
   };
 
   // Reset the state when the question number changes (i.e., moving to the next question)
