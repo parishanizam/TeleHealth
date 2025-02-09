@@ -26,13 +26,12 @@ export default function QuizManagement() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        // Fetch the practice question (always ID 0)
         const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
         setPracticeQuestion(practiceRes.data);
         
         let questionIds = new Set();
-        while (questionIds.size < 5) { // Fetch five random test questions
-          const randomId = Math.floor(Math.random() * 6) + 1; // Avoid 0
+        while (questionIds.size < 5) {
+          const randomId = Math.floor(Math.random() * 6) + 1;
           questionIds.add(randomId);
         }
 
@@ -43,7 +42,7 @@ export default function QuizManagement() {
           })
         );
 
-        setQuestions(fetchedQuestions); // Use fetched random questions for the test
+        setQuestions(fetchedQuestions);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -77,11 +76,71 @@ export default function QuizManagement() {
     }
   };
 
+  const finishQuiz = () => {
+    setSubmitting(true);
+    stopRecording((finalBlob) => {
+      if (finalBlob) {
+        uploadRecording(finalBlob)
+          .then(() => submitResults())
+          .catch((error) => console.error("Error during processing:", error));
+      } else {
+        submitResults();
+      }
+    });
+  };
+
+  const uploadRecording = async (blob) => {
+    if (!blob) return;
+
+    const formData = new FormData();
+    formData.append("videoFile", blob, "recording.mp4");
+    formData.append("parentUsername", parentInfo.username);
+    formData.append("firstName", parentInfo.firstName);
+    formData.append("lastName", parentInfo.lastName);
+    formData.append("childUsername", parentInfo.username);
+    formData.append("assessmentId", assessmentId);
+
+    try {
+      await axios.post("http://localhost:3000/media/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch (error) {
+      console.error("Error uploading recording:", error);
+      throw error;
+    }
+  };
+
+  const submitResults = async () => {
+    if (!assessmentId) {
+      console.error("No assessment ID found! Cannot submit results.");
+      return;
+    }
+
+    const payload = {
+      username: parentInfo.username,
+      name: `${parentInfo.firstName} ${parentInfo.lastName}`,
+      assessment_id: assessmentId,
+      questionBankId: `${language}-${testType}`,
+      results: responses,
+    };
+
+    try {
+      await axios.post(
+        "http://localhost:3000/resultstorage/submit-assessment",
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      navigate("/parents/testcomplete");
+    } catch (error) {
+      console.error("Error submitting test results:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   if (loading || !practiceQuestion || !questions.length) {
     return <div>Loading...</div>;
   }
-
-  const totalQuestions = questions.length;
 
   return (
     <div>
@@ -93,7 +152,7 @@ export default function QuizManagement() {
               onAnswerSelected={() => setCurrentQuestionIndex(1)}
               isLastQuestion={false}
               questionNumber={0}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
               isPractice={true}
             />
           )}
@@ -103,7 +162,7 @@ export default function QuizManagement() {
               onAnswerSelected={() => setCurrentQuestionIndex(1)}
               isLastQuestion={false}
               questionNumber={0}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
               isPractice={true}
             />
           )}
@@ -113,7 +172,7 @@ export default function QuizManagement() {
               onAnswerSelected={() => setCurrentQuestionIndex(1)}
               isLastQuestion={false}
               questionNumber={0}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
               isPractice={true}
             />
           )}
@@ -124,31 +183,32 @@ export default function QuizManagement() {
             <MatchingQuestion
               question={questions[currentQuestionIndex - 1]}
               onAnswerSelected={handleAnswerSelected}
-              isLastQuestion={currentQuestionIndex === totalQuestions}
+              isLastQuestion={currentQuestionIndex === questions.length}
               questionNumber={currentQuestionIndex}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
             />
           )}
           {testType === "repetition" && (
             <RepetitionQuestion
               question={questions[currentQuestionIndex - 1]}
               onAnswerSelected={handleAnswerSelected}
-              isLastQuestion={currentQuestionIndex === totalQuestions}
+              isLastQuestion={currentQuestionIndex === questions.length}
               questionNumber={currentQuestionIndex}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
             />
           )}
           {testType === "quantifier" && (
             <QuantifierQuestion
               question={questions[currentQuestionIndex - 1]}
               onAnswerSelected={handleAnswerSelected}
-              isLastQuestion={currentQuestionIndex === totalQuestions}
+              isLastQuestion={currentQuestionIndex === questions.length}
               questionNumber={currentQuestionIndex}
-              totalQuestions={totalQuestions}
+              totalQuestions={questions.length}
             />
           )}
         </>
       )}
+      {submitting && <div className="text-center text-lg font-semibold mt-4">Submitting Answers...</div>}
     </div>
   );
 }
