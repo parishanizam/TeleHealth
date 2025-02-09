@@ -1,39 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import IconButton from "./IconButton";
 import CheckmarkIcon from "../../../assets/checkmark.svg";
 import XIcon from "../../../assets/x.svg";
 import DashIcon from "../../../assets/dash.svg";
 
-function IconButtonGroup() {
-  const [activeButton, setActiveButton] = useState(null);
+function IconButtonGroup({ markState, changeMarkState }) {
+  const [activeButton, setActiveButton] = useState(markState);
 
-  const handleAction = (actionType) => {
-    setActiveButton(actionType);
-    console.log(`${actionType} button clicked`);
+  // Sync only when `markState` changes externally (initial load or forced update)
+  useEffect(() => {
+    setActiveButton(markState);
+  }, [markState]);
+
+  const handleAction = (newMarkState) => {
+    if (activeButton !== newMarkState) {
+      setActiveButton(newMarkState); // Keep the UI consistent
+      changeMarkState(newMarkState); // Inform the parent
+    }
   };
 
   return (
     <div className="flex flex-col items-center mt-4">
-      <p className="mb-4 text-lg font-semibold">
-        Select a button to grade the question
-      </p>
+      <p className="mb-4 text-lg font-semibold">Select a button to grade the question</p>
       <div className="flex gap-4 items-center justify-center mt-4">
         <IconButton
           iconSrc={CheckmarkIcon}
-          bgColor={
-            activeButton === "Checkmark" ? "bg-green-500" : "bg-green-100"
-          }
-          onClick={() => handleAction("Checkmark")}
+          bgColor={activeButton === "Correct" ? "bg-green-500" : "bg-green-100"}
+          onClick={() => handleAction("Correct")}
         />
         <IconButton
           iconSrc={DashIcon}
-          bgColor={activeButton === "Dash" ? "bg-yellow-500" : "bg-yellow-100"}
-          onClick={() => handleAction("Dash")}
+          bgColor={activeButton === "Undetermined" ? "bg-yellow-500" : "bg-yellow-100"}
+          onClick={() => handleAction("Undetermined")}
         />
         <IconButton
           iconSrc={XIcon}
-          bgColor={activeButton === "Cross" ? "bg-red-500" : "bg-red-100"}
-          onClick={() => handleAction("Cross")}
+          bgColor={activeButton === "Incorrect" ? "bg-red-500" : "bg-red-100"}
+          onClick={() => handleAction("Incorrect")}
         />
       </div>
     </div>

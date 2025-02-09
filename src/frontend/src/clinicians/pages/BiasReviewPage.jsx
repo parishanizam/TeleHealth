@@ -23,7 +23,10 @@ function BiasReviewPage() {
     parentUsername,
     assessmentId,
     bias_state,
+    mark_state,
   } = state || {};
+
+  console.log("Page state:", state); // Log the initial state
 
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
@@ -31,35 +34,52 @@ function BiasReviewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [biasState, setBiasState] = useState(bias_state);
+  const [markState, setMarkState] = useState(mark_state);
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
   useEffect(() => {
+    console.log("useEffect triggered");
+  
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
       setError("Missing necessary data for review.");
       return;
     }
-
+  
     const fetchQuestionAndMedia = async () => {
       try {
         setLoading(true);
+        console.log("Fetching question and media...");
+  
+        // Fetch the question data (for question details)
         const [language, testType] = questionBankId.split("-");
         const questionRes = await axios.get(
           `http://localhost:3000/questions/${language}/${testType}/${questionId}`
         );
-
+        console.log("Question response:", questionRes.data);
+  
         if (!questionRes.data) {
           setError("Question not found.");
           return;
         }
-
+  
         setQuestion(questionRes.data);
-
+  
+        // Now fetch the result data to get the mark_state
+        const resultRes = await axios.get(
+          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
+        );
+        console.log("Result response:", resultRes.data);
+  
+        // Set the initial mark state based on the result data
+        const initialMarkState = resultRes.data?.mark_state || "Undetermined";
+        setMarkState(initialMarkState);
+  
         const mediaRes = await axios.get(
           `http://localhost:3000/media/${parentUsername}/${assessmentId}`
         );
+        console.log("Media response:", mediaRes.data);
+  
         setVideoUrl(mediaRes.data.presignedUrl);
-
-        // Set bias timestamps, but only update biasState if it's the first time loading
         setBiasTimestamps(mediaRes.data.bias || []);
         setBiasState((prevState) => prevState || mediaRes.data.bias.length > 0);
       } catch (error) {
@@ -69,57 +89,88 @@ function BiasReviewPage() {
         setLoading(false);
       }
     };
-
+  
     fetchQuestionAndMedia();
-  }, [questionId, questionBankId, parentUsername, assessmentId]); // No need to add biasState here
+  }, [questionId, questionBankId, parentUsername, assessmentId]);
+  
+  
 
   const toggleBiasState = async () => {
     const newState = !biasState;
+    console.log("Toggling bias state:", newState);
     setBiasState(newState);
 
-    // Save to backend when the bias state is toggled
     const payload = {
       question_id: questionId,
       user_answer: userAnswer,
       bias_state: newState,
+      mark_state: markState,
     };
 
     try {
       const saveResponse = await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}?t=${Date.now()}`,
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
         payload
       );
-      console.log(
-        "✅ Bias state updated successfully! Save Response:",
-        saveResponse.data
-      );
+      console.log("✅ Bias state updated successfully! Save Response:", saveResponse.data);
     } catch (error) {
       console.error("❌ Error saving bias modification:", error);
     }
   };
+
+  const changeMarkState = async (newMarkState) => {
+    console.log("Changing mark state:", newMarkState);
+    setMarkState(newMarkState); // This should update the markState
+    
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState,
+      mark_state: newMarkState,
+    };
+  
+    try {
+      const saveResponse = await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
+        payload
+      );
+      console.log("✅ Mark state updated successfully! Save Response:", saveResponse.data);
+    } catch (error) {
+      console.error("❌ Error saving mark state:", error);
+    }
+  };
+  
+  
 
   const saveChanges = async () => {
     const payload = {
       question_id: questionId,
       user_answer: userAnswer,
       bias_state: biasState,
+      mark_state: markState,
     };
-
+  
+    console.log("📤 Saving final changes:", payload);
+  
     try {
-      console.log("📤 Saving payload:", payload);
-
-      const saveResponse = await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}?t=${Date.now()}`,
-        payload
+      // Save bias state
+      await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
+        { bias_state: biasState }
       );
-      console.log(
-        "✅ Bias state updated successfully! Save Response:",
-        saveResponse.data
+  
+      // Save mark state
+      await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
+        { mark_state: markState }
       );
+  
+      console.log("✅ Bias state and mark state updated successfully!");
     } catch (error) {
-      console.error("❌ Error saving bias modification:", error);
+      console.error("❌ Error saving changes:", error);
     }
   };
+  
 
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
@@ -129,9 +180,7 @@ function BiasReviewPage() {
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       <Header
-        title={`${firstName || "Unknown"} ${lastName || ""} - ${
-          formatDate(date) || "No Date"
-        }`}
+        title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"}`}
       />
       <div className="flex items-center justify-center space-x-4 mt-4">
         <span className="text-4xl tracking-tight text-center text-black leading-[64px]">
@@ -177,11 +226,9 @@ function BiasReviewPage() {
                       <ul className="list-disc list-inside">
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> -{" "}
-                            {bias.keyword}
+                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
                             <span className="text-gray-500">
-                              {" "}
-                              (Faces Detected: {bias.faceCount})
+                              {" "} (Faces Detected: {bias.faceCount})
                             </span>
                           </li>
                         ))}
@@ -217,7 +264,7 @@ function BiasReviewPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <QuestionAnswers question={question} userAnswer={userAnswer} />
+            <QuestionAnswers question={question} userAnswer={userAnswer} markState={markState} changeMarkState={changeMarkState}/>
           )}
         </div>
       </div>

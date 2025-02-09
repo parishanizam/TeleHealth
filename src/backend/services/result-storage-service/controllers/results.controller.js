@@ -160,6 +160,7 @@ async function saveBiasModification(req, res) {
   try {
     const { parentUsername, assessmentId, question_id } = req.params;
     let { bias_state } = req.body;
+    console.log(bias_state)
 
     if (!parentUsername || !assessmentId || !question_id) {
       return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and valid biasState are required." });
@@ -197,6 +198,49 @@ async function saveBiasModification(req, res) {
   }
 }
 
+async function saveMarkModification(req, res) {
+  try {
+    const { parentUsername, assessmentId, question_id } = req.params;
+    let { mark_state } = req.body;  // Assuming the mark value is passed in the request body
+    console.log(mark_state)
+
+    if (!parentUsername || !assessmentId || !question_id) {
+      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and mark are required." });
+    }
+
+    const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
+
+    // Check if the results file exists
+    if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
+      return res.status(404).json({ error: "Results file not found." });
+    }
+
+    const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
+
+    // Find the question to update
+    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+
+    if (!question) {
+      return res.status(404).json({ error: "Question not found in the results." });
+    }
+
+    // Update the mark for the found question
+    question.mark_state = mark_state;
+
+    // Save the updated results back to S3
+    await uploadJson(RESULTS_BUCKET, resultsFile, resultsData);
+
+    // Return updated question directly without requiring another S3 read
+    return res.json({
+      message: "Mark modification saved successfully",
+      updatedQuestion: { ...question },
+    });
+  } catch (err) {
+    console.error("Error saving mark modification:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+}
+
 
 module.exports = {
   submitAssessment,
@@ -204,4 +248,5 @@ module.exports = {
   getAssessmentResults,
   saveBiasModification,
   getAssessmentResultForQuestion,
+  saveMarkModification,
 };
