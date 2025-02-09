@@ -20,22 +20,22 @@ function OverallTutorialPage() {
         </p>
 
         <button
-            className="w-full px-6 py-10 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 text-xl"
+            className="w-full px-4 py-10 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 text-xl"
             onClick={() => navigate("/parents/MatchingTutorialPage")}
           >
             Matching Tutorial
           </button> 
 
-        <div className="space-y-8">
+        <div className="space-y-11">
           <button
-            className="w-full px-4 py-10 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 text-xl"
+            className="w-full px-4 py-10 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-600 text-xl"
             onClick={() => navigate("/parents/RepetitionTutorialPage")}
           >
             Repetition Tutorial
           </button>
 
           <button
-            className="w-full px-6 py-10 rounded-lg bg-blue-800 text-white font-semibold hover:bg-blue-900 text-xl"
+            className="w-full px-4 py-10 rounded-lg bg-blue-800 text-white font-semibold hover:bg-blue-900 text-xl"
             onClick={() => navigate("/parents/QuantifierTutorialPage")}
           >
             Mandarin Quantifier Tutorial

@@ -1,32 +1,31 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import for navigation
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Header } from "../components/Header";
 import { VolumeButton } from "../components/VolumeButton";
 import { OptionGrid } from "../components/OptionGrid";
-import NextButton from "../components/NextButton"; // Import NextButton component
+import NextButton from "../components/NextButton";
 
-import option1Image from "../../assets/tutorialassets/Turtle1New.jpg";
-import option2Image from "../../assets/tutorialassets/Turtle2New.jpg";
-import option3Image from "../../assets/tutorialassets/Turtle3New.jpg";
-import tutorialSound from "../../assets/tutorialassets/Turtle.m4a";
-
-export default function AssessmentTutorialPage({ testType }) {
+export default function MatchingTutorialPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [playCount, setPlayCount] = useState(0); // Track play count
-  const navigate = useNavigate(); // Hook for routing
+  const [playCount, setPlayCount] = useState(0);
+  const [question, setQuestion] = useState(null);
+  const navigate = useNavigate();
+  const testType = "matching";
+  const language = "english";
 
-  const question = {
-    id: 0,
-    title: "Tutorial Question",
-    sound: tutorialSound,
-    options: [
-      { id: "a", image: option1Image },
-      { id: "b", image: option2Image },
-      { id: "c", image: option3Image },
-    ],
-    correctAnswer: "a",
-  };
+  useEffect(() => {
+    const fetchTutorialQuestion = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        setQuestion(res.data);
+      } catch (error) {
+        console.error("Error fetching tutorial question:", error);
+      }
+    };
+    fetchTutorialQuestion();
+  }, [testType, language]);
 
   const handleAnswerClick = (optionId) => {
     if (currentStep === 2) {
@@ -37,7 +36,7 @@ export default function AssessmentTutorialPage({ testType }) {
   const handleNextStep = () => {
     if (currentStep === 1) {
       setCurrentStep(2);
-    } else if (currentStep === 2 && selectedAnswer === question.correctAnswer) {
+    } else if (currentStep === 2 && selectedAnswer === question?.correctAnswer) {
       setCurrentStep(3);
     }
   };
@@ -45,21 +44,23 @@ export default function AssessmentTutorialPage({ testType }) {
   const handlePlayAudio = () => {
     if (playCount < 2) {
       setPlayCount((prev) => prev + 1);
-      return true; // Allow playback
+      return true;
     }
-    return false; // Prevent playback
+    return false;
   };
+
+  if (!question) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Tutorial - Matching`} />
+      <Header title={`Tutorial - ${testType}`} />
 
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
-          <p className="text-xl">
-            Click the audio button to hear the question. You are allowed one replay!
-          </p>
+          <p className="text-xl">Click the audio button to hear the question. You are allowed one replay!</p>
           <p className="text-xl">Click next for following instructions.</p>
         </div>
       )}
@@ -80,9 +81,9 @@ export default function AssessmentTutorialPage({ testType }) {
 
       <VolumeButton
         sound={question.sound}
-        resetTrigger={null} // Do not reset on step change
+        resetTrigger={null}
         highlight={currentStep === 1}
-        handlePlayAudio={handlePlayAudio} // Pass function to limit plays
+        handlePlayAudio={handlePlayAudio}
         playCount={playCount}
       />
 
@@ -94,10 +95,12 @@ export default function AssessmentTutorialPage({ testType }) {
         correctAnswer={currentStep === 3 ? question.correctAnswer : null}
       />
 
-      {/* Show different buttons based on step */}
-      <div className="flex justify-center items-center mt-6">
+      <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
-          <NextButton to="/parents/TutorialComplete" name="Finish" />
+          <>
+            <NextButton to="/parents/TutorialComplete" name="Finish" />
+            <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
+          </>
         ) : (
           <button
             className={`px-6 py-3 rounded-lg text-white font-semibold ${

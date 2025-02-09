@@ -26,24 +26,24 @@ export default function QuizManagement() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        // Fetch the practice question (always ID 0)
+        const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        setPracticeQuestion(practiceRes.data);
+        
         let questionIds = new Set();
-        while (questionIds.size < 6) {
-          // Fetch one extra for practice
-          const randomId = Math.floor(Math.random() * 6);
+        while (questionIds.size < 5) { // Fetch five random test questions
+          const randomId = Math.floor(Math.random() * 6) + 1; // Avoid 0
           questionIds.add(randomId);
         }
 
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
-            const res = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${id}`
-            );
+            const res = await axios.get(`http://localhost:3000/questions/${language}/${testType}/${id}`);
             return res.data;
           })
         );
 
-        setPracticeQuestion(fetchedQuestions[0]); // First fetched question is practice
-        setQuestions(fetchedQuestions.slice(1)); // Use the rest for real questions
+        setQuestions(fetchedQuestions); // Use fetched random questions for the test
         setLoading(false);
       } catch (error) {
         console.error("Error fetching questions:", error);
@@ -56,7 +56,6 @@ export default function QuizManagement() {
 
   const handleAnswerSelected = (questionId, selectedOption) => {
     if (currentQuestionIndex === 0) {
-      // If answering the practice question, just move to the first real question
       setCurrentQuestionIndex(1);
       return;
     }
@@ -67,10 +66,7 @@ export default function QuizManagement() {
     };
     setResponses((prev) => [...prev, newResponse]);
 
-    sessionStorage.setItem(
-      "quizResponses",
-      JSON.stringify([...responses, newResponse])
-    );
+    sessionStorage.setItem("quizResponses", JSON.stringify([...responses, newResponse]));
 
     setProgress(((currentQuestionIndex) / questions.length) * 100);
 
@@ -81,72 +77,7 @@ export default function QuizManagement() {
     }
   };
 
-  const finishQuiz = () => {
-    console.log("Stopping recording...");
-    setSubmitting(true);
-
-    stopRecording((finalBlob) => {
-      if (finalBlob) {
-        console.log("Final recordedBlob:", finalBlob);
-        uploadRecording(finalBlob)
-          .then(() => submitResults())
-          .catch((error) => console.error("Error during processing:", error));
-      } else {
-        submitResults();
-      }
-    });
-  };
-
-  const uploadRecording = async (blob) => {
-    if (!blob) return;
-
-    const formData = new FormData();
-    formData.append("videoFile", blob, "recording.mp4");
-    formData.append("parentUsername", parentInfo.username);
-    formData.append("firstName", parentInfo.firstName);
-    formData.append("lastName", parentInfo.lastName);
-    formData.append("childUsername", parentInfo.username);
-    formData.append("assessmentId", assessmentId);
-
-    try {
-      await axios.post("http://localhost:3000/media/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    } catch (error) {
-      console.error("Error uploading recording:", error);
-      throw error;
-    }
-  };
-
-  const submitResults = async () => {
-    if (!assessmentId) {
-      console.error("No assessment ID found! Cannot submit results.");
-      return;
-    }
-
-    const payload = {
-      username: parentInfo.username,
-      name: `${parentInfo.firstName} ${parentInfo.lastName}`,
-      assessment_id: assessmentId,
-      questionBankId: `${language}-${testType}`,
-      results: responses,
-    };
-
-    try {
-      await axios.post(
-        "http://localhost:3000/resultstorage/submit-assessment",
-        payload,
-        { headers: { "Content-Type": "application/json" } }
-      );
-      navigate("/parents/testcomplete");
-    } catch (error) {
-      console.error("Error submitting test results:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  if (loading || !practiceQuestion) {
+  if (loading || !practiceQuestion || !questions.length) {
     return <div>Loading...</div>;
   }
 
@@ -163,7 +94,7 @@ export default function QuizManagement() {
               isLastQuestion={false}
               questionNumber={0}
               totalQuestions={totalQuestions}
-              isPractice={true} // Pass isPractice to display instructions
+              isPractice={true}
             />
           )}
           {testType === "repetition" && (
@@ -173,7 +104,7 @@ export default function QuizManagement() {
               isLastQuestion={false}
               questionNumber={0}
               totalQuestions={totalQuestions}
-              isPractice={true} // Pass isPractice to display instructions
+              isPractice={true}
             />
           )}
           {testType === "quantifier" && (
@@ -183,7 +114,7 @@ export default function QuizManagement() {
               isLastQuestion={false}
               questionNumber={0}
               totalQuestions={totalQuestions}
-              isPractice={true} // Pass isPractice to display instructions
+              isPractice={true}
             />
           )}
         </div>
@@ -217,12 +148,6 @@ export default function QuizManagement() {
             />
           )}
         </>
-      )}
-
-      {submitting && (
-        <div className="text-center text-lg font-semibold mt-4">
-          Submitting Answers...
-        </div>
       )}
     </div>
   );

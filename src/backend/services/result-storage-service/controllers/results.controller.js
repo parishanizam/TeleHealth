@@ -1,4 +1,5 @@
-const { RESULTS_BUCKET, uploadJson, getJson, fileExists } = require("../config/awsS3");
+const { RESULTS_BUCKET, QUESTION_STORAGE_BUCKET, uploadJson, getJson, fileExists } = require("../config/awsS3");
+const fetch = require("node-fetch");
 
 /**
  * Submit full assessment (Stores results & updates history)
@@ -34,7 +35,6 @@ async function submitAssessment(req, res) {
     if (await fileExists(RESULTS_BUCKET, historyFile)) {
       historyData = await getJson(RESULTS_BUCKET, historyFile);
     } else {
-      // Create a new history file if it doesn't exist
       historyData = {
         name,
         username,
@@ -42,14 +42,12 @@ async function submitAssessment(req, res) {
       };
     }
 
-    // Add assessment entry to history
     historyData.assessments.push({
       assessment_id,
       questionBankId,
       date: today,
     });
 
-    // Save updated history file
     await uploadJson(RESULTS_BUCKET, historyFile, historyData);
 
     return res.json({
@@ -65,9 +63,6 @@ async function submitAssessment(req, res) {
   }
 }
 
-/**
- * Get assessment history for a parent
- */
 async function getAssessmentHistory(req, res) {
   try {
     const { username } = req.params;
@@ -89,10 +84,6 @@ async function getAssessmentHistory(req, res) {
   }
 }
 
-/**
- * Get assessment results for a specific assessment ID
- * Expects `parentUsername` and `assessmentId` to be passed in the request params.
- */
 async function getAssessmentResults(req, res) {
   try {
     const { parentUsername, assessmentId } = req.params;
@@ -103,12 +94,10 @@ async function getAssessmentResults(req, res) {
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
 
-    // Check if the results file exists
     if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
       return res.status(404).json({ error: "No results found for this assessment." });
     }
 
-    // Retrieve and return results
     const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
     return res.json(resultsData);
   } catch (err) {
@@ -116,9 +105,92 @@ async function getAssessmentResults(req, res) {
     return res.status(500).json({ error: "Server error" });
   }
 }
+async function calculateScores(req, res) {
+  console.log("🚀 calculateScores API was called!");  // Add this line
+  try {
+    const { parentUsername } = req.params;
 
+    if (!parentUsername) {
+      return res.status(400).json({ error: "parentUsername is required." });
+    }
+
+    const historyFile = `${parentUsername}/${parentUsername}_history.json`;
+    console.log(`Checking history file: ${historyFile}`);
+
+    if (!(await fileExists(RESULTS_BUCKET, historyFile))) {
+      console.error(`History file missing: ${historyFile}`);
+      return res.status(404).json({ error: "No assessment history found for this parent." });
+    }
+
+    const historyData = await getJson(RESULTS_BUCKET, historyFile);
+    const scoresByTestType = {};
+
+    for (const assessment of historyData.assessments) {
+      const resultsFile = `${parentUsername}/${parentUsername}_${assessment.assessment_id}.json`;
+      const scoresFile = `${parentUsername}/${parentUsername}_${assessment.assessment_id}_scores.json`;
+
+      // ✅ Check if scores are already stored, return them to avoid recalculation
+      if (await fileExists(RESULTS_BUCKET, scoresFile)) {
+        console.log(`Scores already exist for ${scoresFile}, retrieving...`);
+        const storedScores = await getJson(RESULTS_BUCKET, scoresFile);
+        scoresByTestType[assessment.questionBankId] = storedScores;
+        continue;
+      }
+
+      console.log(`Calculating scores for ${resultsFile}...`);
+
+      if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
+        console.error(`Missing results file: ${resultsFile}`);
+        continue;
+      }
+
+      const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
+      const { questionBankId, results } = resultsData;
+      const [language, testType] = questionBankId.split("-");
+
+      // Fetch correct answers from QUESTION_STORAGE_BUCKET
+      const questionBankFile = `${language}/${testType}.json`;
+
+      if (!(await fileExists(QUESTION_STORAGE_BUCKET, questionBankFile))) {
+        console.error(`Missing question bank: ${questionBankFile}`);
+        continue;
+      }
+
+      const questionBankData = await getJson(QUESTION_STORAGE_BUCKET, questionBankFile);
+      const questions = questionBankData.questions.reduce((acc, question) => {
+        acc[question.id] = question.correctAnswer;
+        return acc;
+      }, {});
+
+      // ✅ Compute score
+      let correctAnswers = 0;
+      results.forEach((res) => {
+        if (res.user_answer && res.user_answer === questions[res.question_id]) {
+          correctAnswers++;
+        }
+      });
+
+      const totalQuestions = results.length;
+      const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+
+      if (!scoresByTestType[testType]) scoresByTestType[testType] = [];
+      scoresByTestType[testType].push({ name: `Test ${scoresByTestType[testType].length + 1}`, score });
+
+      // ✅ Store calculated scores in S3
+      await uploadJson(RESULTS_BUCKET, scoresFile, { score });
+      console.log(`Scores stored at: ${scoresFile}`);
+    }
+
+    console.log("Final computed scores:", scoresByTestType);
+    return res.json({ groupedScores: scoresByTestType });
+  } catch (err) {
+    console.error("Error calculating scores:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+}
 module.exports = {
   submitAssessment,
   getAssessmentHistory,
   getAssessmentResults,
+  calculateScores,
 };
