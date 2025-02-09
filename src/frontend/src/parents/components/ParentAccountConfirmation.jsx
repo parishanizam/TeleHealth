@@ -11,7 +11,7 @@ function ParentAccountConfirmation() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const parentUsername = localStorage.getItem("parentUsername"); 
+  const parentUsername = localStorage.getItem("parentUsername");
 
   useEffect(() => {
     // On component mount, fetch parent's existing data
@@ -62,11 +62,14 @@ function ParentAccountConfirmation() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/parents/confirm-account", {
-        username: parentUsername,
-        newFirstName: overrideFirstName, 
-        newLastName: overrideLastName,   
-      });
+      const response = await axios.post(
+        "http://localhost:3000/auth/parents/confirm-account",
+        {
+          username: parentUsername,
+          newFirstName: overrideFirstName,
+          newLastName: overrideLastName,
+        }
+      );
 
       console.log("Confirm account response:", response.data);
       navigate("/parents/login");
@@ -89,45 +92,28 @@ function ParentAccountConfirmation() {
         Account Confirmation
       </h1>
 
-      {error && (
-        <div className="text-red-500 mt-3 text-center">
-          {error}
-        </div>
-      )}
+      {error && <div className="text-red-500 mt-3 text-center">{error}</div>}
 
       <p className="mt-5 leading-8 text-center text-zinc-950 w-[632px] max-md:max-w-full">
-        Before we get started, confirm that your first and last name are entered correctly.
-      </p>
-
-      {/* Display existing names */}
-      <div className="mt-5 leading-none text-center text-zinc-950 max-md:max-w-full">
-        FirstName: {firstName}
-      </div>
-      <div className="mt-2 leading-none text-center text-zinc-950 max-md:max-w-full">
-        LastName: {lastName}
-      </div>
-
-      <p className="mt-5 leading-8 text-center text-zinc-950 w-[632px] max-md:max-w-full">
-        If the information above is incorrect, please enter the correct names below:
+        Enter your child&apos;s preferred name
       </p>
 
       <div className="flex flex-col mt-5 max-w-full w-[438px]">
         <input
           type="text"
-          placeholder="FirstName"
-          value={overrideFirstName}
+          value={overrideFirstName || firstName}
           onChange={(e) => setOverrideFirstName(e.target.value)}
-          className="px-11 pt-3 pb-6 text-base tracking-tight text-center whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:px-5 max-md:max-w-full"
+          className="px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:max-w-full"
           aria-label="First Name"
         />
       </div>
+
       <div className="flex flex-col mt-5 max-w-full w-[438px]">
         <input
           type="text"
-          placeholder="LastName"
-          value={overrideLastName}
+          value={overrideLastName || lastName}
           onChange={(e) => setOverrideLastName(e.target.value)}
-          className="px-11 pt-3 pb-6 text-base tracking-tight text-center whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:px-5 max-md:max-w-full"
+          className="px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:max-w-full"
           aria-label="Last Name"
         />
       </div>
@@ -152,10 +138,10 @@ function ParentAccountConfirmation() {
         type="submit"
         className={`px-4 py-2.5 text-xl leading-none text-white rounded-lg shadow-sm w-[442px] ${
           isChecked ? "bg-slate-900 hover:opacity-80" : "bg-gray-400"
-        }`}
+        } mt-8`}
         disabled={!isChecked}
       >
-        CREATE ACCOUNT
+        Create Account
       </button>
     </form>
   );

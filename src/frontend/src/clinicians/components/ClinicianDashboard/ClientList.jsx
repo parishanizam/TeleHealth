@@ -7,13 +7,13 @@ const ClientList = () => {
 
   return (
     <div className="flex flex-col items-center py-10 w-full">
-      <div className="w-full max-w-[1402px]">
+      <div className="w-full max-w-4xl">
         {clients.length > 0 ? (
           clients.map((client) => (
             <ClientCard key={client.clientId} client={client} />
           ))
         ) : (
-          <p className="text-gray-500 text-lg">No clients added yet.</p>
+          <p className="text-gray-500 text-lg text-center">No clients added yet.</p>
         )}
       </div>
     </div>

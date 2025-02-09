@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Landing
@@ -10,7 +9,6 @@ import ParentSignupPage from '../parents/pages/ParentSignupPage';
 import ParentAccountConfirmationPage from '../parents/pages/ParentAccountConfirmationPage';
 import ParentChecklistPage from '../parents/pages/ParentChecklistPage';
 import TestSelectionPage from '../parents/pages/TestSelectionPage';
-import EnglishMatchingInstructions from '../parents/pages/EnglishMatchingInstructions';
 import MediaTesting from '../parents/pages/MediaTesting';
 import TestComplete from '../parents/pages/TestCompletePage';
 import QuizManagement from '../parents/pages/QuizManagement';
@@ -20,6 +18,9 @@ import ParentChecklistPageTutorial from '../parents/pages/ParentCheckListTutoria
 import TestSelectionTutorialPage from '../parents/pages/TestSelectionTutorialPage';
 import TutorialComplete from '../parents/pages/TutorialComplete';
 import ParentHomePage from '../parents/pages/ParentHomePage';
+import RepetitionQuestion from '../parents/pages/RepetitionQuestionPage';
+import TestInstructions from '../parents/pages/TestInstructions';
+import QuantifierQuestion from '../parents/pages/QuantifierQuestion';
 
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
@@ -49,10 +50,6 @@ const router = createBrowserRouter([
   {
     path: '/parents/ParentHomePage',
     element: <ParentHomePage />,
-  },
-  {
-    path: '/parents/EnglishMatchingInstructions',
-    element: <EnglishMatchingInstructions />,
   },
   {
     path: '/parents/MediaTesting',
@@ -117,6 +114,18 @@ const router = createBrowserRouter([
   {
     path: '/clinicians/AddClientPage',
     element: <AddClientPage />,
+  },
+  {
+    path: '/parents/RepetitionQuestionPage',
+    element: <RepetitionQuestion />,
+  },
+  {
+    path: '/parents/:testTypeInstructions',
+    element: <TestInstructions />,
+  },
+  {
+    path: '/parents/QuantifierQuestionPage',
+    element: <QuantifierQuestion />,
   },
 ]);
 

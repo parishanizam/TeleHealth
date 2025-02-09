@@ -5,7 +5,7 @@ import { ProgressBar } from "../components/ProgressBar";
 import { OptionGrid } from "../components/OptionGrid";
 import { NextOrSubmitButton } from "../components/NextOrSubmitButton";
 
-export default function MatchingQuestion({
+export default function QuantifierQuestion({
   question,
   onAnswerSelected,
   isLastQuestion,

@@ -1,27 +1,24 @@
-import React from "react";
+import IconButtonGroup from "./IconButtonGroup";
 
-function QuestionAnswers({ question, userAnswer }) {
-  if (!question || !question.options) {
-    return <p className="text-gray-500">No answer options available.</p>;
+function QuestionAnswers({ question, userAnswer, markState, changeMarkState }) {
+  if (!question.options) {
+    return <IconButtonGroup markState={markState} changeMarkState={changeMarkState} />;
   }
 
-  // Determine correct answer
-  const correctAnswer = question.correctAnswer; 
+  // Handle the user interaction to change mark state
+  const handleAnswerClick = (answerId) => {
+    // Assuming the answer id corresponds to the mark state change logic
+    changeMarkState(answerId);
+  };
 
-  // Grid Layout Based on Number of Options
-  let gridClass = "grid grid-cols-1 gap-4"; 
-  if (question.options.length === 4) {
-    gridClass = "grid grid-cols-2 gap-4"; // 2x2 Grid
-  } else if (question.options.length === 3) {
-    gridClass = "grid grid-cols-3 gap-4"; // 1x3 Grid
-  } else if (question.options.length === 2) {
-    gridClass = "grid grid-cols-2 gap-4"; // 1x2 Grid
-  }
+  const correctAnswer = question.correctAnswer;
+  const columns = question.options.length % 2 === 0 ? 2 : 3;
+  const gridClass = `grid grid-cols-${columns} gap-6 px-4`;
 
   return (
     <div className="flex flex-col items-center w-full">
       <h2 className="text-lg font-semibold">User Answer</h2>
-      
+
       {/* Answer Choices Grid */}
       <div className={gridClass}>
         {question.options.map((option) => {
@@ -29,23 +26,22 @@ function QuestionAnswers({ question, userAnswer }) {
           const isUserSelected = option.id === userAnswer;
 
           return (
-            <div 
-              key={option.id} 
-              className={`p-4 border rounded-md transition ${
-                isUserSelected ? (isCorrect ? "bg-green-200 border-green-600" : "bg-red-200 border-red-600") : "bg-white"
-              }`}
+            <div
+              key={option.id}
+              onClick={() => handleAnswerClick(option.id)} // Trigger the mark state change
+              className={`p-4 border rounded-md transition ${isUserSelected ? (isCorrect ? "bg-green-200" : "bg-red-200") : "bg-white"}`}
             >
-              <img 
-                src={option.image} 
-                alt={`Option ${option.id}`} 
-                className="w-32 h-32 object-contain mx-auto" // 🔹 Bigger images
+              <img
+                src={option.image}
+                alt={`Option ${option.id}`}
+                className="w-32 h-32 object-contain mx-auto"
               />
-              <p className="text-center">{option.id}</p>
+              <p className="text-center">{option.id.toUpperCase()}</p>
             </div>
           );
         })}
       </div>
-      
+
       {/* Show Correct Answer */}
       <div className="mt-4">
         <p className="text-md text-gray-700">
