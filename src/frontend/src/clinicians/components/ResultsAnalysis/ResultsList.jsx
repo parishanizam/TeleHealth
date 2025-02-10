@@ -17,9 +17,6 @@ function ResultsList({
 
   const [language, testType] = questionBankId.split("-");
   const handleCardClick = (question, questionNumber) => {
-    if (bias_length > 0){
-      question.bias_state = true
-    }
     navigate("/clinicians/BiasReviewPage", {
       state: {
         questionId: question.question_id,
