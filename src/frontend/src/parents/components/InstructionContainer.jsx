@@ -21,7 +21,7 @@ export default function InstructionContainer({ type }) {
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full max-w-5xl px-4 text-center">
+    <div className="flex flex-col gap-6 w-full max-w-5xl px-4 text-start">
       {instructions.map((step) => (
         <InstructionStep key={step.number} number={step.number}>
           {step.text}
