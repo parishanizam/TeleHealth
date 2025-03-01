@@ -114,8 +114,9 @@ export default function RepetitionQuestion({
             }`}
             onClick={handleStartRecording}
           >
-            {recordingClickCount >= MAX_RECORDING_CLICKS ? "No Recordings Left" : ""}
-            {isAudioClicked ? "Start Audio Recording" : "Play Audio First"}
+            {recordingClickCount >= MAX_RECORDING_CLICKS
+              ? "No Recordings Left"
+              : (isAudioClicked ? "Start Audio Recording" : "Play Audio First")}
           </button>
         ) : isQuestionRecording ? (
           <button
