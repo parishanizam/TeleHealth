@@ -23,7 +23,7 @@ export default function RepetitionTutorialPage() {
     const fetchTutorialQuestion = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/questions/${language}/${testType}/0`
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`
         );
         setQuestion(res.data);
       } catch (error) {

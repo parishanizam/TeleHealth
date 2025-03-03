@@ -19,7 +19,7 @@ function ParentLogin() {
 
     try {
       //Hit login endpoint:
-      const response = await axios.post("http://localhost:3000/auth/parents/login", {
+      const response = await axios.post("https://telehealth-insights.onrender.com/auth/parents/login", {
         username: formData.username,
         password: formData.password,
       });
@@ -27,7 +27,7 @@ function ParentLogin() {
       const loggedUser = response.data?.user; 
       //Now fetch full parent data:
       const detailsResponse = await axios.get(
-        `http://localhost:3000/auth/parents/account-details/${loggedUser.username}`
+        `https://telehealth-insights.onrender.com/auth/parents/account-details/${loggedUser.username}`
       );
 
       const fullParentData = detailsResponse.data?.data; 

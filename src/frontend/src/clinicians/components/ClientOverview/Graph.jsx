@@ -10,7 +10,7 @@ useEffect(() => {
   }
 const fetchScores = async () => {
   try {
-    const assessmentHistoryApiUrl = `http://localhost:3000/resultstorage/assessment-history/${client.parentUsername}`;
+    const assessmentHistoryApiUrl = `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${client.parentUsername}`;
     const response = await fetch(assessmentHistoryApiUrl);
     const assessmentHistory = await response.json();
 
@@ -22,7 +22,7 @@ const fetchScores = async () => {
     const groupedScores = {};
 
     for (const result of assessmentHistory.assessments) {
-      const resultsApiUrl = `http://localhost:3000/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
+      const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
       const resultsResponse = await fetch(resultsApiUrl);
       const resultsData = await resultsResponse.json();
 
@@ -47,7 +47,7 @@ const fetchScores = async () => {
       } else {
         // Fetch correct answers for other test types
         const questionPromises = resultsData.results.map(async (res) => {
-          const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
+          const questionApiUrl = `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`;
           const questionResponse = await fetch(questionApiUrl);
           const questionData = await questionResponse.json();
 

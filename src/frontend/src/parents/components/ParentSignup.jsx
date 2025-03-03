@@ -24,7 +24,7 @@ function ParentSignUp() {
 
     try {
       // Call the parent signup endpoint
-      const response = await axios.post("http://localhost:3000/auth/parents/signup", {
+      const response = await axios.post("https://telehealth-insights.onrender.com/auth/parents/signup", {
         email: formData.email,
         username: formData.username,
         password: formData.password,
