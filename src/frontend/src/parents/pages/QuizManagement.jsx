@@ -43,7 +43,7 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
-            console.log("Fetched question:", res.data); 
+            /* console.log("Fetched question:", res.data); */
             return res.data;
           })
         );

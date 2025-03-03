@@ -29,11 +29,13 @@ export default function RepetitionQuestion({
 
   const [recordedAudioFile, setRecordedAudioFile] = useState(null);
   const [recordingClickCount, setRecordingClickCount] = useState(0);
+  const [isAudioClicked, setIsAudioClicked] = useState(false);
   const MAX_RECORDING_CLICKS = 1;
 
   useEffect(() => {
     setRecordedAudioFile(null);  // Reset state for each new question
     setRecordingClickCount(0);   // Reset recording click count for each new question
+    setIsAudioClicked(false);
   }, [question.id]);
 
   useEffect(() => {
@@ -91,19 +93,30 @@ export default function RepetitionQuestion({
       )}
 
       {/* Volume Button */}
-      <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
+      <div onClick={() => {
+          setTimeout(() => {
+            setIsAudioClicked(true);
+          }, 3000);
+        }}>
+        <VolumeButton
+          sound={question.sound}
+          resetTrigger={questionNumber}
+        />
+      </div>
 
       <div className="flex justify-center mt-6">
         {!isQuestionRecording && !audioBlobRef.current ? (
           <button
             className={`px-4 py-2.5 rounded-lg ${
-              recordingClickCount >= MAX_RECORDING_CLICKS
+              recordingClickCount >= MAX_RECORDING_CLICKS || !isAudioClicked
                 ? "bg-gray-400 pointer-events-none"
                 : "bg-blue-600 text-white"
             }`}
             onClick={handleStartRecording}
           >
-            {recordingClickCount >= MAX_RECORDING_CLICKS ? "No Recordings Left" : "Start Audio Recording"}
+            {recordingClickCount >= MAX_RECORDING_CLICKS
+              ? "No Recordings Left"
+              : (isAudioClicked ? "Start Audio Recording" : "Play Audio First")}
           </button>
         ) : isQuestionRecording ? (
           <button
