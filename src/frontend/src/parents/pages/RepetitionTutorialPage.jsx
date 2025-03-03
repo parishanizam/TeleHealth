@@ -12,6 +12,7 @@ export default function RepetitionTutorialPage() {
   const [question, setQuestion] = useState(null);
   const [recordingClickCount, setRecordingClickCount] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
+  const [isAudioClicked, setIsAudioClicked] = useState(false);
   const MAX_RECORDING_CLICKS = 1;
   const navigate = useNavigate();
   const testType = "repetition";
@@ -36,6 +37,7 @@ export default function RepetitionTutorialPage() {
     audioBlobRef.current = null;
     setRecordingClickCount(0);
     setIsRecording(false);
+    setIsAudioClicked(false);
   }, [question?.id]);
 
   const handleNextStep = () => {
@@ -47,13 +49,16 @@ export default function RepetitionTutorialPage() {
   const handlePlayAudio = () => {
     if (playCount < 2) {
       setPlayCount((prev) => prev + 1);
+      setTimeout(() => {
+        setIsAudioClicked(true);
+      }, 3000);
       return true;
     }
     return false;
   };
 
   const handleStartRecording = () => {
-    if (recordingClickCount < MAX_RECORDING_CLICKS) {
+    if (recordingClickCount < MAX_RECORDING_CLICKS && isAudioClicked && currentStep === 2) {
       setRecordingClickCount(recordingClickCount + 1);
       setIsRecording(true);
     }
@@ -74,13 +79,16 @@ export default function RepetitionTutorialPage() {
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
-          <p className="text-xl">Click the audio button to hear the sentence. You are allowed one replay!</p>
+          <p className="text-xl">Click the audio button to hear the sentence. You are allowed one replay!  
+            Click Next when you are ready to repeat!</p>
         </div>
       )}
       {currentStep === 2 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 2: Repeat the Sentence</h2>
-          <p className="text-xl">Try your best to say the sentence exactly as you heard it.</p>
+          <p className="text-xl">
+          Click Start recording when you are ready to repeat. Try your best to say the sentence exactly as you heard it.
+           Once done, hit stop recording!</p>
         </div>
       )}
       {currentStep === 3 && (
@@ -89,14 +97,16 @@ export default function RepetitionTutorialPage() {
           <p className="text-xl">You have completed the tutorial. Click Finish to continue.</p>
         </div>
       )}
-      <VolumeButton sound={question.sound} resetTrigger={null} handlePlayAudio={handlePlayAudio} playCount={playCount} />
+      <div onClick={handlePlayAudio}>
+        <VolumeButton sound={question.sound} resetTrigger={null} handlePlayAudio={handlePlayAudio} playCount={playCount} />
+      </div>
       <div className="flex justify-center mt-6">
         {!isRecording ? (
           <button
-            className={`px-4 py-2.5 rounded-lg ${recordingClickCount >= MAX_RECORDING_CLICKS ? "bg-gray-400 pointer-events-none" : "bg-blue-600 text-white"}`}
+            className={`px-4 py-2.5 rounded-lg ${recordingClickCount >= MAX_RECORDING_CLICKS || !isAudioClicked || currentStep !== 2 ? "bg-gray-400 pointer-events-none" : "bg-blue-600 text-white"}`}
             onClick={handleStartRecording}
           >
-            {recordingClickCount >= MAX_RECORDING_CLICKS ? "No Recordings Left" : "Start Audio Recording"}
+            {recordingClickCount >= MAX_RECORDING_CLICKS ? "No Recordings Left" : (!isAudioClicked || currentStep !== 2 ? "Play Audio First" : "Start Audio Recording")}
           </button>
         ) : (
           <button className="px-4 py-2.5 bg-red-600 text-white rounded-lg" onClick={handleStopRecording}>
