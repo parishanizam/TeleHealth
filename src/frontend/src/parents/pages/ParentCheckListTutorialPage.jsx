@@ -1,7 +1,7 @@
 import React from "react";
 import { Header } from "../components/Header";
 import NextButton from "../components/NextButton";
-import ParentChecklistImage from "../../assets/Parentchecklist.png";
+import ParentChecklistImage from "../../assets/ParentChecklist.png";
 
 function ParentChecklistPage() {
   return (
