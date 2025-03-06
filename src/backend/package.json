@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && node server.js",
+    "start": "pip install mediapipe && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
