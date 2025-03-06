@@ -24,7 +24,7 @@ function ClientOverview() {
 
   const fetchAssessmentHistory = async (username) => {
     try {
-      const response = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${username}`);
+      const response = await axios.get(`https://telehealth-insights.onrender.com/resultstorage/assessment-history/${username}`);
   
       console.log("Fetched Data:", response.data); // Debugging output
       console.log("Assessments:", response.data.assessments); // Check if assessments exist

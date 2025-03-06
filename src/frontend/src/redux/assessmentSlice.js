@@ -6,7 +6,7 @@ export const fetchAssessmentHistory = createAsyncThunk(
   "assessment/fetchHistory",
   async (username, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${username}`);
+      const response = await axios.get(`https://telehealth-insights.onrender.com/resultstorage/assessment-history/${username}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error fetching assessment history");

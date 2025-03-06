@@ -29,7 +29,7 @@ export default function QuizManagement() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        const practiceRes = await axios.get(`https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`);
         setPracticeQuestion(practiceRes.data);
 
         let questionIds = new Set();
@@ -41,7 +41,7 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${id}`
+              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${id}`
             );
             /* console.log("Fetched question:", res.data); */
             return res.data;
@@ -58,7 +58,7 @@ export default function QuizManagement() {
 
     const fetchAssessmentId = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`);
+        const res = await axios.get(`https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parentInfo.username}`);
         const assessments = res.data.assessments;
 
         if (assessments.length > 0) {
@@ -203,7 +203,7 @@ export default function QuizManagement() {
     console.log("🚀 Sending Upload Request with form data...");
   
     try {
-      const response = await axios.post("http://localhost:3000/media/", formData, {
+      const response = await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -229,7 +229,7 @@ export default function QuizManagement() {
 
     try {
       await axios.post(
-        "http://localhost:3000/resultstorage/submit-assessment",
+        "https://telehealth-insights.onrender.com/resultstorage/submit-assessment",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );

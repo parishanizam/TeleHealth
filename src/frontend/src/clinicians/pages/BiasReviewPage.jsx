@@ -53,7 +53,7 @@ function BiasReviewPage() {
         // Fetch the question data (for question details)
         const [language, testType] = questionBankId.split("-");
         const questionRes = await axios.get(
-          `http://localhost:3000/questions/${language}/${testType}/${questionId}`
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${questionId}`
         );
         console.log("Question response:", questionRes.data);
   
@@ -66,7 +66,7 @@ function BiasReviewPage() {
   
         // Now fetch the result data to get the mark_state
         const resultRes = await axios.get(
-          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
+          `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
         );
         console.log("Result response:", resultRes.data);
   
@@ -79,7 +79,7 @@ function BiasReviewPage() {
         const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
   
         const mediaRes = await axios.get(
-          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`
+          `https://telehealth-insights.onrender.com/media/${parentUsername}/${folderName}/${assessmentId}`
         );
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
@@ -111,7 +111,7 @@ function BiasReviewPage() {
 
     try {
       const saveResponse = await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
         payload
       );
       console.log("✅ Bias state updated successfully! Save Response:", saveResponse.data);
@@ -133,7 +133,7 @@ function BiasReviewPage() {
   
     try {
       const saveResponse = await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
         payload
       );
       console.log("✅ Mark state updated successfully! Save Response:", saveResponse.data);
@@ -156,7 +156,7 @@ function BiasReviewPage() {
     try {
       // Save both bias and mark state in a single API call if the backend supports it
       const response = await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
         payload
       );
   
