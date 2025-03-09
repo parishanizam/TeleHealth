@@ -25,6 +25,8 @@ build/
 
 # Ignore coverage reports
 coverage/
+.nyc_output/
+
 
 # Ignore temporary files
 .DS_Store
