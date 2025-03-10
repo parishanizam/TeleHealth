@@ -483,10 +483,31 @@ As this project does not have existing implementations, this section is not appr
 
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+\hspace{2em} Throughout testing, important changes to the system were identified that will be implemented into Revision 1.
+Feedback is based on pilot usability testing with fellow software engineering students, graduates from McMaster, and the team's
+supervisor, following the Revision 0 demo. The changes identiifed are aimed at enhancing the functionality and usability of the system.
+
+\begin{itemize}
+  \item \textbf{Parent Results Accessibility} Inititally, the system was not capable of displaying the results to the parents. Upon conversations
+    with the team's supervisor, it became clear that a missing feature that would benefit users of the system is for parents to have access to
+    their own past assessment information. Clarity in communication surrounding their child's results is integral for conversation amongst
+    parents and clinicians to see how the child's progress overtime.
+  \item \textbf{Uploading Results Require Clearer Communication} Initially, to upload results, the user would press a 'submit' button on the last question
+    of their assessment. Upon clicking this button, text would appear to inform the user that their results were being uploaded. However, feedback from
+    the team's usability testing revealed that users would appreciate a loading screen, or a loading indicator on the screen, rather than static text
+    to effectively communicate that results are still being uploaded. Users were previously confused on whether or not the system was operating properly,
+    or if it froze, due to the lack of a loading indicator.
+  \item \textbf{Simplify Tutorials} The tutorial screens consisted of a variety of screenshots and descriptions, informing users of what they could expect
+    to see from the system upon completion of the tutorial. However, upon conducting usability testing, numerous users were confused by the tutorial,
+    and thought that the screenshots themselves were interactable buttons, as they were screenshots of the system. Tutorials will be modified to convey
+    integral information to the user about the assessment itself, and minimize repetition of information by reducing screenshots of the system. The section
+    of the tutorial users appreciated was the step-by-step walkthrough of a sample question. The tutorial will be reformulated to put a larger emphasis on
+    walking users through the system, instead of displaying static information.
+  \item \textbf{Uploading Assessment Videos} The team's supervisor expressed through feedback that the system was not effective at uploading assessment videos.
+    Upon inspection, the team updated the deployed system to allow for faster upload speeds, resulting in a better user experience when completing assessments.
+    This is of particular importance to the team, as the full assessment will be 30 questions, while the usability test featured only 5 questions. In addition,
+    the system will be used by children, which may lengthen the assessment duration as well.
+\end{itemize}
 
 \section{Automated Testing}
 
