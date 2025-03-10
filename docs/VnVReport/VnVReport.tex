@@ -15,6 +15,7 @@
 \usepackage{enumitem}
 \usepackage{parskip}
 \usepackage{graphicx}
+\usepackage{svg}
 
 \input{../Comments}
 \input{../Common}
@@ -284,27 +285,41 @@ requirements for users to have an enjoyable and accessible experience.
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} UH-ST-EOU1 \par
   \textbf{Input:} Users complete one full assessment using the system \par
-  \textbf{Expected Output:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
+  \textbf{Expected Output:} User answers questions in the Usability Survey, and results are culminated and averaged.\\
   Averages should be at least 'Agree' on the answer scale \par
-  \textbf{Actual Output:} User answers were on average at least 'Agree' on the answer scale across all rating questions in the usability survey (Figure 1).\par
+  \textbf{Actual Output:} User answers were on average at least 'Agree' on the answer scale across all rating questions in the usability survey (Figure 1, Figure 2).\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR
 \end{mdframed}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{UsabilityTestResults.png}
-  \caption{Results of Usability Survey}
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt1.png}
+  \caption{Results of Usability Survey - 1}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt2.png}
+  \caption{Results of Usability Survey - 2}
+\end{figure}
+
+\newpage
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} UH-ST-PI1 \par
   \textbf{Input:} List of available languages to perform assessments in is available to be selected and listed \par
   \textbf{Expected Output:} The expected result is the available languages for the assessment are English and Mandarin  \par
-  \textbf{Actual Output:} The assessment can be completed in either English and Mandarin\par
+  \textbf{Actual Output:} The assessment can be completed in either English and Mandarin (Figure 3)\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} UH-PI1
 \end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/LanguageSelection.png}
+  \caption{Language Selection}
+\end{figure}
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} UH-ST-LI1 \par
@@ -398,14 +413,14 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Test Case Identifier:} OE-ST-EPE1 \par
   \textbf{Input:} Testing the system, including the assessment, on a variety of screen sizes \par
   \textbf{Expected Output:} The expected result is the system's displayed elements will scale appropriately to different screen sizes \par
-  \textbf{Actual Output:} The actual result is the system's displayed elements scaled, to the satisfaction of 60\% of users (Figure 2)\par
+  \textbf{Actual Output:} The actual result is the system's displayed elements scaled, to the satisfaction of 60\% of users (Figure 4)\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1
 \end{mdframed}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{UsabilityTestResults2.png}
+  \includegraphics[width=0.8\textwidth]{images/UsabilityTestResults2.png}
   \caption{Results of Usability Survey - Scalability}
 \end{figure}
 
