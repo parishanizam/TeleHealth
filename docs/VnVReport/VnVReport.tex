@@ -27,8 +27,6 @@
 
 \begin{document}
 
-\cite{dummyreference} % placeholder to prevent error before citations are made, remove later
-
 \title{Verification and Validation Report: \progname} 
 \author{\authname}
 \date{\today}
@@ -172,12 +170,39 @@ in its respective user folder with no errors.
 \hspace{2em}The test cases below 
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-DPD1 \par
+  \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
+  \textbf{Expected Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within MAX\_PROCESSING\_TIME \par
+  \textbf{Actual Output:} The expected result is the successful retrieval of all relevant assessment data, displayed with a minor error regarding the video recording progress bar within \\MAX\_PROCESSING\_TIME.  \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD2 \par
+  \textbf{Input:} Trigger for report generation based on a retrieved assessment dataset. \par
+  \textbf{Expected Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The actual result is an online report dashboard containing all required data within MAX\_PROCESSING\_TIME.  \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Functional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} FR-DPD2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD3 \par
+  \textbf{Input:} Clinician dashboard query to display the generated report. \par
+  \textbf{Expected Output:} The expected result is a report displayed in the clinician’s dashboard with accurate formatting, charts, and tables, fully loaded within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The actual result is a report displayed in the clinician’s dashboard with accurate formatting and graphs, loaded within \\MAX\_PROCESSING\_TIME. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD4 \par
+  \textbf{Input:} Clinician request to access a specific previously generated report. \par
+  \textbf{Expected Output:} The expected result is successful retrieval and display of the requested report without errors, within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The expected result is successful retrieval and display of the requested report displayed with a minor error regarding the video recording progress bar, within MAX\_PROCESSING\_TIME.
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD4
 \end{mdframed}
 
 \subsection{System Set Up}
@@ -688,5 +713,7 @@ graduate attribute of Reflection.
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)
 \end{enumerate}
+
+\cite{dummyreference} % placeholder to prevent error before citations are made, remove later
 
 \end{document}
