@@ -82,9 +82,74 @@ access their accounts without worrying about others accessing their information.
   \textbf{Test Case Identifier:} FR-ST-A1 \par
   \textbf{Input:} Selection of Parent account role for login \par
   \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Actual Output:} The actual result is the Parent account role is selected and User is brought to the Parent login screen \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A2 \par
+  \textbf{Input:} Selection of Clinician account role for login \par
+  \textbf{Expected Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Actual Output:} The actual result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A3 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account is created \par
+  \textbf{Actual Output:} The actual result is a new Parent account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A4 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Parent account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A5 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that does
+  not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account is created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A6 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that exists
+  in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A7 \par
+  \textbf{Input:} Unique username and corresponding password that exists in the database \par
+  \textbf{Expected Output:} The expected result is a successful login to a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful login to a user’s account \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A8 \par
+  \textbf{Input:}Selection of 'logout' \par
+  \textbf{Expected Output:} The expected result is a successful logout from a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful logout from a user’s account\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A5
 \end{mdframed}
 
 \subsection{Data Collection and Storage}
