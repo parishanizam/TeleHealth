@@ -88,27 +88,75 @@ access their accounts without worrying about others accessing their information.
 \end{mdframed}
 
 \subsection{Data Collection and Storage}
-\hspace{2em}The test cases below 
+\hspace{2em}The test cases below foucs on ensuring data is collected and stored correctly. We test to make sure
+no identifable information is stored in the database and we also check that all multimedia data is linked correctly to user assignment.
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-DSC1 \par
+  \textbf{Input:} Insertion of multimedia files into the database \par
+  \textbf{Expected Output:} A success message in the console for both storing and retrieving the data; the retrieved files are uncorrupted and match the original files \par
+  \textbf{Actual Output:} A success message in the console and a link to multimedia file \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Functional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} FR-DSC1
 \end{mdframed}
 
-\subsection{Video and Audio Data Analysis}
-\hspace{2em}The test cases below 
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC2 \par
+  \textbf{Input:} Insertion of a test assessment session with video, audio files, flagged occurrences, and timestamps for each assessment question \par
+  \textbf{Expected Output:} Creation of a JSON file containing the flagged occurrences and timestamps stored alongside the session data \par
+  \textbf{Actual Output:} A JSON file was created in AWS with the correct expected output \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC2
+\end{mdframed}
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-DSC3 \par
+  \textbf{Input:} Attempted insertion of a record containing personally identifiable information (e.g. address) \par
+  \textbf{Expected Output:} The consol throws an error as no such field exists for persoanl information \par
+  \textbf{Actual Output:} The database throws an invalid payload error\par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Functional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} FR-DSC3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC4 \par
+  \textbf{Input:} Insertion of multiple sessions, each tagged with a unique user identifier \par
+  \textbf{Expected Output:} All session data is stored and correctly grouped under their respective unique user identifiers \par
+  \textbf{Actual Output:} The database creates folders based on the unique identifers \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC5 \par
+  \textbf{Input:} Insertion of an assessment report linked to a patient's unique identifier \par
+  \textbf{Expected Output:} The report is successfully stored, linked to the corresponding patient identifier\par
+  \textbf{Actual Output:} The assement is put into the correct folder and is added to the JSON that links multimedia to assignment \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC5
+\end{mdframed}
+
+
+\subsection{Video and Audio Data Analysis}
+\hspace{2em}The test cases below ensure that both video and audio data is correctly accessed, processed and stored 
+in its respective user folder with no errors.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-VDA1 \par
+  \textbf{Input:} Request by the analysis model to access video and audio data from a completed session \par
+  \textbf{Expected Output:} All requested videos and audio files are processed successfully with a corresponding success message logged \par
+  \textbf{Actual Output:} A sucess message in the console after video and audio are finished processing \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-VDA1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-VDA2, FR-ST-VDA3 \par
+  \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis \par
+  \textbf{Expected Output:} A JSON file is generated that records the number of disturbances \par
+  \textbf{Actual Output:} A JSON file is created in the correct user folder with a link to the video and contains bias timestamps\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-VDA2, FR-ST-VDA3
 \end{mdframed}
 
 \subsection{Data Processing and Display}
@@ -176,15 +224,77 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \subsection{Performance}
-\hspace{2em}The test cases below 
-
-\begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+\hspace{2em}The test cases outlined below ensures proper performance and stability of our system and database.
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL1 \par
+  \textbf{Input/Condition:} User navigates through various web pages. \par
+  \textbf{Expected Output/Results:} All web pages load completely with all functionalities within MAX\_LOAD\_TIME. \par
+  \textbf{Actual Output/Results:} All web pages load with correct data within MAX\_LOAD\_TIME. \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL2 \par
+  \textbf{Input/Condition:} A session is recorded during which two faces appear and a keyword is said. \par
+  \textbf{Expected Output/Results:} The latency between video and recorded playback remains below SHORT\_PROCESSING\_TIME. \par
+  \textbf{Actual Output/Results:} The latency is within the \\SHORT\_PROCESSING\_TIME when reviewing on clinician side \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL3 \par
+  \textbf{Input/Condition:} A video recorded during an assessment session is stored and later retrieved. \par
+  \textbf{Expected Output/Results:} The retrieved video meets or exceeds AVERAGE\_RESOLUTION. \par
+  \textbf{Actual Output/Results:} Video is AVERAGE\_RESOLUTION\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA1, PR-ST-PA3 \par
+  \textbf{Input/Condition:} Analysis model loaded with sample audio and video data containing known speech disturbances and multiple faces. \par
+  \textbf{Expected Output/Results:} The model detects speech and multiple faces with an accuracy of VERY\_HIGH\_SUCCESS\_RATE. \par
+  \textbf{Actual Output/Results:} The model detects multiple faces with \\VERY\_HIGH\_SUCCESS\_RATE but not speeches \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA1, PR-ST-PA3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-RFT1 \par
+  \textbf{Input/Condition:} Simulate a common user errors (e.g., invalid inputs). \par
+  \textbf{Expected Output/Results:} The system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the errors encountered. \par
+  \textbf{Actual Output/Results:} System gives correct feedback to user with a VERY\_HIGH\_SUCCESS\_RATE \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-RFT1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-CR2 \par
+  \textbf{Input/Condition:} Data stored in the database approaches the annual MIN\_STORAGE threshold. \par
+  \textbf{Expected Output/Results:} The system accommodates the data volume without performance degradation. \par
+  \textbf{Actual Output/Results:} The system accommodates the \\MIN\_STORAGE threshold with room to increase data storage\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-CR2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-LR1 \par
+  \textbf{Input/Condition:} Monitor system stability over successive updates on the release build. \par
+  \textbf{Expected Output/Results:} The system’s failure rate remains below LOW\_FAILURE\_RATE during updates. \par
+  \textbf{Actual Output/Results:} system failur rate remains below \\LOW\_FAILURE\_RATE during deployment of versions \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-LR1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-LR2 \par
+  \textbf{Input/Condition:} The system is run on multiple operating systems (Windows, macOS). \par
+  \textbf{Expected Output/Results:} The system functions correctly on all tested platforms without issues. \par
+  \textbf{Actual Output/Results:} The system functions correctly on multiple operating systems\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-LR2
 \end{mdframed}
 
 \subsection{Operational and Environmental}
@@ -261,6 +371,27 @@ the feedback from the Rev 0 demo to the supervisor (or to potential users)
 should be highlighted.}
 
 \section{Automated Testing}
+
+\subsection{Linters}
+To maintain a good coding standard, we integrated linters into
+our development workflow. For JavaScript files, we rely on Prettier to
+automatically format code, ensuring consistent indentation and spacing.
+By running Prettier as part of our pre-commit checks, any formatting concerns
+are addressed before merging into our main repository, which helps minimize merge
+conflicts and maintain a clean codebase.
+
+\subsection{Unit Testing}
+We use Jest as our primary JavaScript testing framework to automatically verify critical parts 
+of our code before changes are merged into the main branch. This approach helps us catch issues 
+early, maintain code quality, and keep the overall system stable.
+
+\subsection{Continuous Integration}
+We used continuous integration (CI) pipeline to automate test execution
+and provide immediate feedback whenever new code is committed. We configure GitHub
+Actions trigger to run our Jest unit tests, linters and document tests on each pull request 
+or direct push to main, ensuring that only code meeting quality standards is always met.
+
+
 		
 \section{Trace to Requirements}
 		
