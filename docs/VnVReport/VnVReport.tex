@@ -167,7 +167,8 @@ in its respective user folder with no errors.
 \end{mdframed}
 
 \subsection{Data Processing and Display}
-\hspace{2em}The test cases below 
+\hspace{2em}This set of test cases will help confirm the system's data retrieval, report generation, 
+and display functionalities to ensure the clinician experience aligns with the project’s goals.
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} FR-ST-DPD1 \par
@@ -234,7 +235,7 @@ in its respective user folder with no errors.
 VnV Plan document. The coverage can be traced in Table X.
 
 \subsection{Look and Feel Requirements}
-\hspace{2em}The test cases below 
+\hspace{2em}These test cases ensure that all appearance and style requirements are addressed effectively, covering navigation, user-friendliness, brand consistency, visual appeal, and responsiveness.
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} LF-ST-LFR1 \par
@@ -365,15 +366,24 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \subsection{Cultural}
-\hspace{2em}The test cases below 
+\hspace{2em}These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusiveness and accessibility for diverse user groups.
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} CU-ST-CUR1 \par
+  \textbf{Input:} User acceptance testing gathers feedback from a diverse set of users. \par
+  \textbf{Expected Output:} The expected result is MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. \par
+  \textbf{Actual Output:} The actual result is MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} CU-CR1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} CU-ST-CUR2 \par
+  \textbf{Input:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par
+  \textbf{Expected Output:} The expected result is MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. \par
+  \textbf{Actual Output:} The actual result is MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in English, but only the assessment itself is also available in Mandarin. \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} CU-CR2
 \end{mdframed}
 
 \subsection{Security}
