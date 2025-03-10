@@ -172,28 +172,145 @@ in its respective user folder with no errors.
 \end{mdframed}
 
 \subsection{System Set Up}
-\hspace{2em}The test cases below 
+\hspace{2em}The test cases below conduct navigation through the system to prepare a parent user to take an assessment. 
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-SS1 \par
+  \textbf{Input:} User navigates to the page where assessment information is displayed
+before starting hardware checks. \par
+  \textbf{Expected Output:} User is able to view relevant information about the assessment before
+  beginning any hardware checks. \par
+  \textbf{Actual Output:} A parent user is able to enter the main assessment page upon entering and view relevant information including instructions and selecting assessment type. 
+  Information is accessible and readable. \par
+  \textbf{Expected and Actual Output Match:} T \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS2 \par
+  \textbf{Input:} User initiates the audio hardware check through the system \par
+  \textbf{Expected Output:} : User receives confirmation that the audio input and output devices are
+  functioning correctly. \par
+  \textbf{Actual Output:} A parent user is able to test their audio output including microphone and speakers. The system automatically detects their audio inputs/outputs. 
+  User was notified if the check failed with an appropriate error. 
+  Information is accessible and readable. \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Functional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS3 \par
+  \textbf{Input:} User initiates the video hardware check through the system.ar
+  \textbf{Expected Output:} : User receives confirmation that the video capturing device is functioning
+  correctly. \par
+  \textbf{Actual Output:} A parent user is able to test their video input. The system automatically detects their video input. 
+  User was notified if the check failed with an appropriate error. 
+  Information is accessible and readable. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS3 
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS4 \par
+  \textbf{Input:} User proceeds to the tutorial section after completing hardware checks.
+  \par
+  \textbf{Expected Output:} User is directed to a tutorial that explains the assessment process in a
+  step-by-step manner. \par
+  \textbf{Actual Output:} Upon completing the audio and video checks, the user is navigated to instructions and practice question. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS5 \par
+  \textbf{Input:} User initiates the start of the assessment through the system.
+  \par
+  \textbf{Expected Output:} User is taken to the first assessment question, and the assessment begins.   \par
+  \textbf{Actual Output:} Upon completing tutorial, the system directs the user to start assessment, and is directed to the first question. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS5 
 \end{mdframed}
 
 \subsection{Assessment Interface}
-\hspace{2em}The test cases below 
+\hspace{2em}The test cases below navigates through the assessment pages to ensure test is conducted and results 
+are stored properly. 
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-AI1 \par
+  \textbf{Input:} User initiates the assessment.\par
+  \textbf{Expected Output:}  System begins recording both audio and video, with an indicator showing
+  recording is active. \par
+  \textbf{Actual Output:} Upon starting the assessment, device light turns on as a visible indictor that recording is ongoing. \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Functional Requirement(s):} FR-A1
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI1
 \end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI2 \par
+  \textbf{Input:} System progresses to a new question in the assessment.
+  \par
+  \textbf{Expected Output:} The system plays the corresponding audio prompt for the new question. 
+  \par
+  \textbf{Actual Output:} The system successfully progresses to a new question in the system upon completing a previous one.
+  The system plays the correct audio.\par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI2 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI3 \par
+  \textbf{Input:} System loads a new question.
+  \par
+  \textbf{Expected Output:} System displays all possible answer options for the user to select from.
+  \par
+  \textbf{Actual Output:} The system successful displays the image answer options that correspond with the appropriate audio. \par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI4 \par
+  \textbf{Input:} User selects one of the displayed answer options.
+  \par
+  \textbf{Expected Output:} System highlights or otherwise indicates the user’s selected option \par
+  \textbf{Actual Output:} Once an answer option is selected, the system highlights this image. \par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI5 \par
+  \textbf{Input:} User confirms their selection
+  \par
+  \textbf{Expected Output:}  System moves the user to the next question or stage. \par
+  \textbf{Actual Output:} Once User has selected an answer and hits submit to confirm their answer, 
+  the system progresses to the next question or stage. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI5
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI6 \par
+  \textbf{Input:} User enters and exits each question.
+  \par
+  \textbf{Expected Output:} System records timestamps for entry and exit for each question. \par
+  \textbf{Actual Output:} Timestamps of each question are not properly logged. \par
+  \textbf{Expected and Actual Output Match:} Fail  \par
+  \textbf{Relevant Functional Requirement(s):}  FR-ST-AI6 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI7 \par
+  \textbf{Input:} User completes the final question and confirms the selection. 
+  \par
+  \textbf{Expected Output:} System displays a message informing the user that the assessment is
+  complete. \par
+  \textbf{Actual Output:} Once assessment is complete, the system displays a completion message. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI7
+\end{mdframed}
+
 
 \section{Nonfunctional Requirements Evaluation}
 \hspace{2em}The following section covers all the nonfunctional requirements specified in the project’s
@@ -334,27 +451,112 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \subsection{Security}
-\hspace{2em}The test cases below 
+\hspace{2em}The test cases below cover security requirements associated to the system. 
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} SR-ST-AC1 \par
+  \textbf{Input:} User with Admin role attempts to create and assign accounts
+  to clinicians  
+  \textbf{Expected Output:} Only Admin users can access and execute functions related to
+  clinician account creation. \par
+  \textbf{Actual Output:} Only admin can access the ability to create clincian accounts. Non-admin's do not have access to these functions
+  and are denied \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-AC2 \par
+  \textbf{Input:} User with Parent role logs in and attempts to complete
+  assessments.
+  \textbf{Expected Output:} Parent users can create their account, complete assessments,
+  and log out successfully. \par
+  \textbf{Actual Output:} Parent can start and complete an assessment, as well as successfully logout upon completion. They do not have access to any administrative functions. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-AC3 \par
+  \textbf{Input:} User with Parent role logs in and attempts to complete
+  assessments.
+  \textbf{Expected Output:} Parent users can create their account, complete assessments,
+  and log out successfully. \par
+  \textbf{Actual Output:} Parent can start and complete an assessment, as well as successfully logout upon completion. They do not have access to any administrative functions. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC3 
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:}  SR-ST-AC4 \par
+  \textbf{Input:} : Users attempt to log in with correct and incorrect credentials. \par 
+  \textbf{Expected Output:} Users can only log in with correct credentials; unauthorized
+  access attempts are denied. \par
+  \textbf{Actual Output:} Confirmed successful login for admin, parent and clinician accounts with appropriate logins. 
+  Login is denied with incorrect credentials and shown an error message. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P1 \par
+  \textbf{Input:} Review documentation to ensure adherence to data protection
+  and privacy laws in the region. \par 
+  \textbf{Expected Output:} Confirm all applicable data protection requirements are met.
+   \par
+  \textbf{Actual Output:} Data is stored appropriately and reviewed. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P1
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P2 \par
+  \textbf{Input:} Examine data in transit and at rest. \par 
+  \textbf{Expected Output:} Data remains encrypted according to standard encryption
+  protocols during transit and at rest.  
+  \textbf{Actual Output:} Data is not encypted \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P2 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P3 \par
+  \textbf{Input:} Examine data storage for PII. \par 
+  \textbf{Expected Output:} System does not store any personal identifiable information: (e.g., address, date
+  of birth, names) beyond username and assessment recordings. \par  
+  \textbf{Actual Output:} Data stored does not contain PII. It does include names \par
+  \textbf{Expected and Actual Output Match:} False: We have changed requirements to include names as part of the information stored to ensure proper account creation, 
+  Authentication, and result connection. \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-IM1 \par
+  \textbf{Input:} User attempts to create an account with both weak and
+  strong passwords. \par 
+  \textbf{Expected Output:}Account creation is completed only when a strong password,
+  meeting specified security criteria, is entered. Weak passwords are rejected with
+  an error message detailing the password requirements. \par  
+  \textbf{Actual Output:} The system allows any password. \par
+  \textbf{Expected and Actual Output Match:} False: Strong passwords need to be enforced. \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-IM1
 \end{mdframed}
 
 \subsection{Compliance}
-\hspace{2em}The test cases below 
+\hspace{2em}The test cases below cover compliance requirements related to data storage within the system. 
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} FR-ST-STD1 \par
+  \textbf{Input:} User assessment data, including video and audio recordings, is
+  stored in the system. \par
+  \textbf{Expected Output:} Examine the storage configuration and security measures
+  applied to user assessment data. \par
+  \textbf{Actual Output:} Database schema checked, data is linked to username and does not contain PII information. 
+  Unauthorized access is denied. \par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} FR-ST-STD1
 \end{mdframed}
 	
 \section{Comparison to Existing Implementation}	
