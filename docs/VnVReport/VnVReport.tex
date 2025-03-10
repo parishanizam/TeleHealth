@@ -731,7 +731,7 @@ Actions trigger to run our Jest unit tests, linters and document tests on each p
 or direct push to main, ensuring that only code meeting quality standards is always met.
 
 
-		
+\newpage
 \section{Trace to Requirements}
 
 \begin{table}[!ht]
@@ -812,7 +812,8 @@ or direct push to main, ensuring that only code meeting quality standards is alw
   }
 \end{table}
 
-\begin{table}[!ht]
+
+\begin{table}[H]
   \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements (Part 1)}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
@@ -877,7 +878,7 @@ or direct push to main, ensuring that only code meeting quality standards is alw
   }
 \end{table}
 
-\begin{table}[!ht]
+\begin{table}[H]
   \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements (Part 2)}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
@@ -1044,20 +1045,20 @@ graduate attribute of Reflection.
   
   \textbf{Jasmine:} I think the team's ability to efficiently split up tasks and communicate and collaborate with each other when uncertainties arise is very high from working together over several months of documentation. Our workflow has become more optimized and smooth over time.\\
   \textbf{Mitchell:} One of the things that went well while writing this deliverable was how prepared we were to evaluate our tests. Since we created the VnV plan prior to implementing the system, the design of the software was made with the tests in mind. This made it so that we had less obstacles and design decisions to make later, and prevented many issues and bugs from arising.\\
-
+  \textbf{Promish:} I think everyone was very organized during this deliverable. Writing unit tests wasn’t too bad, and using Jest to get a coverage report was fairly easy too—it didn’t throw any errors, which was always good. Lastly, merging our work together this time was easy since we figured out that writing sections into main for each of the parts and then making branches off the main with sections led to having zero merge conflicts.\\
 
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?
   
   \textbf{Jasmine:} There were points where the wording of written test cases were ambiguous or unclear, which made it difficult to determine whether the test case could be considered a pass or not. The resolution was to discuss with the team to define any unclear terms with each other for consistency, such as visual consistency meaning using the same set of fonts, colours, button styles, image styles, etc.\\
   \textbf{Mitchell:}| One of the pain points I experienced during this deliverable was figuring out priorities for next steps to improve the system. Although there were many areas that could benefit from modifications, figuring out what to prioritize first to greatly improve user satisfaction was difficult. To resolve this, I looked at the usability results and looked at what difficulties users had in common. This brought my attention to the tutorial screens, and how they need to be made to convey information to the user without simply posting screenshots of the system. Many users found the screenshots unhelpful, and conveyed that was a main point of confusion, which led to the prioritization of improving the tutorial screens.\\
-
+  \textbf{Promish:} This document was due during a very busy time when each of us had midterms, so writing and coding the unit tests was stressful. We resolved this issue by figuring out when everyone was free and dividing the work evenly based on what we did in previous documents so that everyone could work on their own time.\\
   \item Which parts of this document stemmed from speaking to your client(s) or
   a proxy (e.g. your peers)? Which ones were not, and why?
 
   \textbf{Jasmine:} Changes from the VnV plan expected output for a few tests to the VnV report were made after going over peer reviews, such as for test case CU-ST-CUR1 one of the expected outputs was for an individual with credibility on the relevant cultures to approve of the site and assessment content. The practicality of this was questioned during peer review, and it was later decided that the participants in usability testing would be used to confirm no content was culturally insensitive alone would be sufficient instead. The expected output of a few test cases were adjusted for this reason.\\
   \textbf{Mitchell:} The ‘Usability and Humanity’ nonfunctional requirements evaluation section and ‘Changes Due to Testing’ section stemmed from speaking with a proxy, which was the peers we conducted the pilot usability tests with. This was especially helpful as it led to the validation of our system’s use and provided us with helpful feedback that we can use to further improve the system.\\
-
+  \textbf{Promish:} The usability testing was a result of speaking to our peers. We did a pilot to gain insights into which parts of our frontend and user flow needed to be changed. Talking to our supervisor Irene, we talked about potential additions to our system which parents would want to see like their history. Other than that, the tests for our functional and nonfunctional requirements were taken from the ones we wrote in the VnV plan.\\
   \item In what ways was the Verification and Validation (VnV) Plan different
   from the activities that were actually conducted for VnV?  If there were
   differences, what changes required the modification in the plan?  Why did
@@ -1069,7 +1070,7 @@ graduate attribute of Reflection.
 
   \textbf{ Jasmine:} For the most part the testing was the same, there were very few activities from the VnV plan were not executed or substituted during the actual VnV, due to feasibility or limitations out of the group's control. If a test case had multiple methods to verify it, the other one was chosen. If there was no alternative verification methods from the plan, the test was modified to accommodate our circumstances and available resources, such as using peers as users for an initial pilot test when the real user groups were unavailable for the testing session times. With experience, I think I could better predict and anticipate the amount of effort, time and resources a group is able to put into testing.\\
   \textbf{Mitchell:} One of the ways the VnV Plan was different from the activities that were conducted for VnV is how we planned on fully implementing the ability to report bugs and access user documentation from inside the system. This required a modification to the plan was we were not able to assess the ability to report bugs or access user documentation. These changes occurred because the team was focused on prioritizing the system’s main functionality, and both of these planned features were less impactful on the system’s success. We would be able to anticipate these changes in future projects by prioritizing the testing of core essential features. \\
-
+  \textbf{Promish:} The main change I found was in the extent to which our test cases could be written. When we were making the VnV plan, we didn’t have a clear picture of how we were going to deploy our system, so certain tests—such as testing yearly server increase or max users—were very out of scope for where we were in our project. After doing the deployment, we realized that most of these tests are solved by upgrading the external server, which I find to be out of the scope of our project. For example, if there are stability concerns, we can pay for a faster backend server since the way we deployed it allows for that. This was a good experience since, for next time, I can anticipate this change and get a better understanding of what needs to be tested in scope and what is out of scope. After our deployment, we also got access to graphs for performance, and we made graphs for usability, which is how we got our evidence for our non-functional unit tests.\\
 \end{enumerate}
 
 \end{document}
