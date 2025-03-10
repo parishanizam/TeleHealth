@@ -14,9 +14,10 @@
 \usepackage{mdframed}
 \usepackage{enumitem}
 \usepackage{parskip}
-\usepackage{graphicx}
-\usepackage{array}     
+\usepackage{array}        
 \usepackage{booktabs}  
+\usepackage{graphicx}
+\usepackage{svg}
 \usepackage{longtable}  
 \usepackage{float}      
 \usepackage{geometry}   
@@ -37,13 +38,20 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+\begin{table}[hp]
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+  \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+  \midrule
+  3/10/25 & 1.0 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 4.2 Usability and Humanity
+    \item 4.4 Operational and Environmental
+    \item 7 - Changes Due to Testing
+    \item 11 - Code Coverage Metrics
+  \end{itemize}\\
+  \bottomrule
+  \end{tabularx}
+  \end{table}
 
 ~\newpage
 
@@ -82,16 +90,81 @@ and code coverage metrics.
 VnV Plan document. The coverage can be traced in Table X.
 
 \subsection{Authentication}
-\hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and
+\hspace{2em}The test results below focus on ensuring users can safely and securely login, create and
 access their accounts without worrying about others accessing their information.
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} FR-ST-A1 \par
   \textbf{Input:} Selection of Parent account role for login \par
   \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Actual Output:} The actual result is the Parent account role is selected and User is brought to the Parent login screen \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A2 \par
+  \textbf{Input:} Selection of Clinician account role for login \par
+  \textbf{Expected Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Actual Output:} The actual result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A3 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account is created \par
+  \textbf{Actual Output:} The actual result is a new Parent account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A4 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Parent account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A5 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that does
+  not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account is created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A6 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that exists
+  in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A7 \par
+  \textbf{Input:} Unique username and corresponding password that exists in the database \par
+  \textbf{Expected Output:} The expected result is a successful login to a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful login to a user’s account \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A8 \par
+  \textbf{Input:}Selection of 'logout' \par
+  \textbf{Expected Output:} The expected result is a successful logout from a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful logout from a user’s account\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A5
 \end{mdframed}
 
 \subsection{Data Collection and Storage}
@@ -255,15 +328,55 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 		
 \subsection{Usability and Humanity}
-\hspace{2em}The test cases below 
+\hspace{2em}The test results below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} UH-ST-EOU1 \par
+  \textbf{Input:} Users complete one full assessment using the system \par
+  \textbf{Expected Output:} User answers questions in the Usability Survey, and results are culminated and averaged.\\
+  Averages should be at least 'Agree' on the answer scale \par
+  \textbf{Actual Output:} User answers were on average at least 'Agree' on the answer scale across all rating questions in the usability survey (Figure 1, Figure 2).\par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt1.png}
+  \caption{Results of Usability Survey - 1}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt2.png}
+  \caption{Results of Usability Survey - 2}
+\end{figure}
+
+\newpage
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-PI1 \par
+  \textbf{Input:} List of available languages to perform assessments in is available to be selected and listed \par
+  \textbf{Expected Output:} The expected result is the available languages for the assessment are English and Mandarin  \par
+  \textbf{Actual Output:} The assessment can be completed in either English and Mandarin (Figure 3)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-PI1
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/LanguageSelection.png}
+  \caption{Language Selection}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-LI1 \par
+  \textbf{Input:} Link to documentation is available on the system's frontend interface, and can be accessed \par
+  \textbf{Expected Output:} The expected result is a user can verify the link takes them to access documentation  \par
+  \textbf{Actual Output:} No user documentation is linked to the current version of the system\par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-LI2
 \end{mdframed}
 
 \subsection{Performance}
@@ -387,16 +500,66 @@ VnV Plan document. The coverage can be traced in Table X.
 
 
 \subsection{Operational and Environmental}
-\hspace{2em}The test cases below 
+\hspace{2em}The test results below ensures that the system can be used in a variety of environments,
+along with the requirements for which users are expected to use the system within, and the
+capabilities and qualities the system has to interact with adjacent systems in the environment.
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} OE-ST-EPE1 \par
+  \textbf{Input:} Testing the system, including the assessment, on a variety of screen sizes \par
+  \textbf{Expected Output:} The expected result is the system's displayed elements will scale appropriately to different screen sizes \par
+  \textbf{Actual Output:} The actual result is the system's displayed elements scaled, to the satisfaction of 60\% of users (Figure 4)\par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1
 \end{mdframed}
+
+\newpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/UsabilityTestResults2.png}
+  \caption{Results of Usability Survey - Scalability}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} OE-ST-WE1 \par
+  \textbf{Input:} User attempts to start system setup \par
+  \textbf{Expected Output:} The expected result is device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+  \textbf{Actual Output:} The actual result is the system verifies the user can proceed to the assessment following system setup, and allowing the user to test out their peripherals prior to starting the assessment (Figure 5)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-WE1, OE-WE2
+\end{mdframed}
+
+\newpage
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/DeviceSetup.png}
+  \caption{Device Setup}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} OE-ST-IA1 \par
+  \textbf{Input:} Assessment is complete, and results need to be stored \par
+  \textbf{Expected Output:} Verify results are stored in the external server \par
+  \textbf{Actual Output:} Results can be accessed through the server to ensure data has been uploaded and stored successful (Figure 6 and Figure 7)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-IA1
+\end{mdframed}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/ResultsStorage.png}
+  \caption{Results Storage - AWS}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/ResultsStorage2.png}
+  \caption{Results Storage - JSON}
+\end{figure}
+
+\clearpage
 
 \subsection{Maintainability and Support}
 \hspace{2em}These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
@@ -507,10 +670,31 @@ As this project does not have existing implementations, this section is not appr
 
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+\hspace{2em} Throughout testing, important changes to the system were identified that will be implemented into Revision 1.
+Feedback is based on pilot usability testing with fellow software engineering students, graduates from McMaster, and the team's
+supervisor, following the Revision 0 demo. The changes identiifed are aimed at enhancing the functionality and usability of the system.
+
+\begin{itemize}
+  \item \textbf{Parent Results Accessibility} Inititally, the system was not capable of displaying the results to the parents. Upon conversations
+    with the team's supervisor, it became clear that a missing feature that would benefit users of the system is for parents to have access to
+    their own past assessment information. Clarity in communication surrounding their child's results is integral for conversation amongst
+    parents and clinicians to see how the child's progress overtime.
+  \item \textbf{Uploading Results Require Clearer Communication} Initially, to upload results, the user would press a 'submit' button on the last question
+    of their assessment. Upon clicking this button, text would appear to inform the user that their results were being uploaded. However, feedback from
+    the team's usability testing revealed that users would appreciate a loading screen, or a loading indicator on the screen, rather than static text
+    to effectively communicate that results are still being uploaded. Users were previously confused on whether or not the system was operating properly,
+    or if it froze, due to the lack of a loading indicator.
+  \item \textbf{Simplify Tutorials} The tutorial screens consisted of a variety of screenshots and descriptions, informing users of what they could expect
+    to see from the system upon completion of the tutorial. However, upon conducting usability testing, numerous users were confused by the tutorial,
+    and thought that the screenshots themselves were interactable buttons, as they were screenshots of the system. Tutorials will be modified to convey
+    integral information to the user about the assessment itself, and minimize repetition of information by reducing screenshots of the system. The section
+    of the tutorial users appreciated was the step-by-step walkthrough of a sample question. The tutorial will be reformulated to put a larger emphasis on
+    walking users through the system, instead of displaying static information.
+  \item \textbf{Uploading Assessment Videos} The team's supervisor expressed through feedback that the system was not effective at uploading assessment videos.
+    Upon inspection, the team updated the deployed system to allow for faster upload speeds, resulting in a better user experience when completing assessments.
+    This is of particular importance to the team, as the full assessment will be 30 questions, while the usability test featured only 5 questions. In addition,
+    the system will be used by children, which may lengthen the assessment duration as well.
+\end{itemize}
 
 \section{Automated Testing}
 
