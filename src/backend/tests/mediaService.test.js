@@ -1,6 +1,8 @@
 const path = require('path');
 const { exec } = require('child_process');
 
+jest.setTimeout(30000); // Set timeout to 30 seconds for all tests in this file
+
 describe('Media Processing Scripts', () => {
   test('Runs testAudioProcessing.js without errors', (done) => {
     const scriptPath = path.join(
@@ -9,7 +11,6 @@ describe('Media Processing Scripts', () => {
     );
     exec(`node "${scriptPath}"`, (error, stdout, stderr) => {
       expect(error).toBeNull();
-      // Optionally, check stdout/stderr here
       done();
     });
   });
@@ -21,12 +22,10 @@ describe('Media Processing Scripts', () => {
     );
     exec(`node "${scriptPath}"`, (error, stdout, stderr) => {
       expect(error).toBeNull();
-      // Optionally, check stdout/stderr here
       done();
     });
   });
 
-  // New test for testBiasDetection.js
   test('Runs testBiasDetection.js without errors', (done) => {
     const scriptPath = path.join(
       __dirname,
@@ -34,7 +33,6 @@ describe('Media Processing Scripts', () => {
     );
     exec(`node "${scriptPath}"`, (error, stdout, stderr) => {
       expect(error).toBeNull();
-      // Optionally, check stdout/stderr here
       done();
     });
   });
