@@ -14,6 +14,7 @@
 \usepackage{mdframed}
 \usepackage{enumitem}
 \usepackage{parskip}
+\usepackage{graphicx}
 
 \input{../Comments}
 \input{../Common}
@@ -75,7 +76,7 @@ and code coverage metrics.
 VnV Plan document. The coverage can be traced in Table X.
 
 \subsection{Authentication}
-\hspace{2em}The test cases below focus on ensuring users can safely and securely login, create and
+\hspace{2em}The test results below focus on ensuring users can safely and securely login, create and
 access their accounts without worrying about others accessing their information.
 
 \begin{mdframed}[linewidth=0.5mm] \par
@@ -277,15 +278,41 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 		
 \subsection{Usability and Humanity}
-\hspace{2em}The test cases below 
+\hspace{2em}The test results below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
 
 \begin{mdframed}[linewidth=0.5mm] \par
-  \textbf{Test Case Identifier:} FR-ST-A1 \par
-  \textbf{Input:} Selection of Parent account role for login \par
-  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-  \textbf{Actual Output:} \par
+  \textbf{Test Case Identifier:} UH-ST-EOU1 \par
+  \textbf{Input:} Users complete one full assessment using the system \par
+  \textbf{Expected Output:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
+  Averages should be at least 'Agree' on the answer scale \par
+  \textbf{Actual Output:} User answers were on average at least 'Agree' on the answer scale across all rating questions in the usability survey (Figure 1).\par
   \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} FR-A1
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{UsabilityTestResults.png}
+  \caption{Results of Usability Survey}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-PI1 \par
+  \textbf{Input:} List of available languages to perform assessments in is available to be selected and listed \par
+  \textbf{Expected Output:} The expected result is the available languages for the assessment are English and Mandarin  \par
+  \textbf{Actual Output:} The assessment can be completed in either English and Mandarin\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-PI1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-LI1 \par
+  \textbf{Input:} Link to documentation is available on the system's frontend interface, and can be accessed \par
+  \textbf{Expected Output:} The expected result is a user can verify the link takes them to access documentation  \par
+  \textbf{Actual Output:} No user documentation is linked to the current version of the system\par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-LI2
 \end{mdframed}
 
 \subsection{Performance}
