@@ -88,8 +88,8 @@ access their accounts without worrying about others accessing their information.
 \end{mdframed}
 
 \subsection{Data Collection and Storage}
-\hspace{2em}The test cases below foucs on ensuring data is collected and stored correctly. We test to make sure
-no identifable information is stored in the database and we also check that all multimedia data is linked correctly to user assignment.
+\hspace{2em}The test cases below focus on ensuring data is collected and stored correctly. We test to make sure
+no identifiable information is stored in the database and we also check that all multimedia data is linked correctly to user assignment.
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} FR-ST-DSC1 \par
@@ -112,7 +112,7 @@ no identifable information is stored in the database and we also check that all 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} FR-ST-DSC3 \par
   \textbf{Input:} Attempted insertion of a record containing personally identifiable information (e.g. address) \par
-  \textbf{Expected Output:} The consol throws an error as no such field exists for persoanl information \par
+  \textbf{Expected Output:} The console throws an error as no such field exists for personal information \par
   \textbf{Actual Output:} The database throws an invalid payload error\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-DSC3
@@ -122,7 +122,7 @@ no identifable information is stored in the database and we also check that all 
   \textbf{Test Case Identifier:} FR-ST-DSC4 \par
   \textbf{Input:} Insertion of multiple sessions, each tagged with a unique user identifier \par
   \textbf{Expected Output:} All session data is stored and correctly grouped under their respective unique user identifiers \par
-  \textbf{Actual Output:} The database creates folders based on the unique identifers \par
+  \textbf{Actual Output:} The database creates folders based on the unique identifiers \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-DSC4
 \end{mdframed}
@@ -131,11 +131,10 @@ no identifable information is stored in the database and we also check that all 
   \textbf{Test Case Identifier:} FR-ST-DSC5 \par
   \textbf{Input:} Insertion of an assessment report linked to a patient's unique identifier \par
   \textbf{Expected Output:} The report is successfully stored, linked to the corresponding patient identifier\par
-  \textbf{Actual Output:} The assement is put into the correct folder and is added to the JSON that links multimedia to assignment \par
+  \textbf{Actual Output:} The assessment is put into the correct folder and is added to the JSON that links multimedia to assignment \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-DSC5
 \end{mdframed}
-
 
 \subsection{Video and Audio Data Analysis}
 \hspace{2em}The test cases below ensure that both video and audio data is correctly accessed, processed and stored 
@@ -145,7 +144,7 @@ in its respective user folder with no errors.
   \textbf{Test Case Identifier:} FR-ST-VDA1 \par
   \textbf{Input:} Request by the analysis model to access video and audio data from a completed session \par
   \textbf{Expected Output:} All requested videos and audio files are processed successfully with a corresponding success message logged \par
-  \textbf{Actual Output:} A sucess message in the console after video and audio are finished processing \par
+  \textbf{Actual Output:} A success message in the console after video and audio are finished processing \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-ST-VDA1
 \end{mdframed}
@@ -224,7 +223,7 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \subsection{Performance}
-\hspace{2em}The test cases outlined below ensures proper performance and stability of our system and database.
+\hspace{2em}The test cases outlined below ensure proper performance and stability of our system and database.
 \begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-SL1 \par
   \textbf{Input/Condition:} User navigates through various web pages. \par
@@ -253,21 +252,57 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \begin{mdframed}[linewidth=0.5mm]
-  \textbf{Test Case Identifier:} PR-ST-PA1, PR-ST-PA3 \par
+  \textbf{Test Case Identifier:} PR-ST-PA1\par
   \textbf{Input/Condition:} Analysis model loaded with sample audio and video data containing known speech disturbances and multiple faces. \par
   \textbf{Expected Output/Results:} The model detects speech and multiple faces with an accuracy of VERY\_HIGH\_SUCCESS\_RATE. \par
   \textbf{Actual Output/Results:} The model detects multiple faces with \\VERY\_HIGH\_SUCCESS\_RATE but not speeches \par
   \textbf{Expected and Actual Output Match:} False \par
-  \textbf{Relevant Functional Requirement(s):} PR-ST-PA1, PR-ST-PA3
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA3 \par
+  \textbf{Input/Condition:} User performs actions in the recorded session \par
+  \textbf{Expected Output/Results:} The timestamps delay within \\SHORT\_PROCESSING\_TIME of the real-time action. \par
+  \textbf{Actual Output/Results:} The timestamps delay \\SHORT\_PROCESSING\_TIME  \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA4 \par
+  \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
+  \textbf{Expected Output/Results:} The expected output is that the answer key is \\MAX\_SUCCESS\_RATE. \par
+  \textbf{Actual Output/Results:} The answer key is MAX\_SUCCESS\_RATE.  \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA4
 \end{mdframed}
 
 \begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-RFT1 \par
-  \textbf{Input/Condition:} Simulate a common user errors (e.g., invalid inputs). \par
+  \textbf{Input/Condition:} Simulate common user errors (e.g., invalid inputs). \par
   \textbf{Expected Output/Results:} The system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the errors encountered. \par
   \textbf{Actual Output/Results:} System gives correct feedback to user with a VERY\_HIGH\_SUCCESS\_RATE \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-RFT1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-RFT2 \par
+  \textbf{Input/Condition:} Monthly data backup event. \par
+  \textbf{Expected Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
+  \textbf{Actual Output/Results:} This test case is currently out of scope as we don't have enough data to verify it.\par
+  \textbf{Expected and Actual Output Match:} N/A \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-RFT2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-CR1 \par
+  \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
+  \textbf{Expected Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
+  \textbf{Actual Output/Results:} System runs smoothly with MIN\_USERS accounts\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-CR1
 \end{mdframed}
 
 \begin{mdframed}[linewidth=0.5mm]
@@ -280,10 +315,19 @@ VnV Plan document. The coverage can be traced in Table X.
 \end{mdframed}
 
 \begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SE1 \par
+  \textbf{Input/Condition:} Increase user base by \\YEARLY\_INCREASE\_PERCENTAGE. \par
+  \textbf{Expected Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
+  \textbf{Actual Output/Results:} This test case is currently out of scope due to time constraints\par
+  \textbf{Expected and Actual Output Match:} N/A \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SE1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-LR1 \par
   \textbf{Input/Condition:} Monitor system stability over successive updates on the release build. \par
   \textbf{Expected Output/Results:} The system’s failure rate remains below LOW\_FAILURE\_RATE during updates. \par
-  \textbf{Actual Output/Results:} system failur rate remains below \\LOW\_FAILURE\_RATE during deployment of versions \par
+  \textbf{Actual Output/Results:} system failure rate remains below \\LOW\_FAILURE\_RATE during deployment of versions \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-LR1
 \end{mdframed}
@@ -296,6 +340,7 @@ VnV Plan document. The coverage can be traced in Table X.
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-LR2
 \end{mdframed}
+
 
 \subsection{Operational and Environmental}
 \hspace{2em}The test cases below 
