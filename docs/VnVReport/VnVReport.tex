@@ -428,19 +428,39 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Test Case Identifier:} OE-ST-WE1 \par
   \textbf{Input:} User attempts to start system setup \par
   \textbf{Expected Output:} The expected result is device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
-  \textbf{Actual Output:} The actual result is the system verifies the user can proceed to the assessment following system setup, and allowing the user to test out their peripherals prior to starting the assessment \par
+  \textbf{Actual Output:} The actual result is the system verifies the user can proceed to the assessment following system setup, and allowing the user to test out their peripherals prior to starting the assessment (Figure 5)\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} OE-WE1, OE-WE2
 \end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/DeviceSetup.png}
+  \caption{Device Setup}
+\end{figure}
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} OE-ST-IA1 \par
   \textbf{Input:} Assessment is complete, and results need to be stored \par
   \textbf{Expected Output:} Verify results are stored in the external server \par
-  \textbf{Actual Output:} Results can be accessed through the server to ensure data has been uploaded and stored successful\par
+  \textbf{Actual Output:} Results can be accessed through the server to ensure data has been uploaded and stored successful (Figure 6 and Figure 7)\par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} OE-IA1
 \end{mdframed}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/ResultsStorage.png}
+  \caption{Results Storage - AWS}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/ResultsStorage2.png}
+  \caption{Results Storage - JSON}
+\end{figure}
+
+\clearpage
 
 \subsection{Maintainability and Support}
 \hspace{2em}The test cases below 
