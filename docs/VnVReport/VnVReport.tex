@@ -45,8 +45,8 @@
   \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
   \midrule
   3/09/25 & 1.0 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
-    \item 9 Trace to Requirements
-    \item 10 Trace to Modules
+    \item 9 - Trace to Requirements
+    \item 10 - Trace to Modules
     \end{itemize}\\
   3/09/25 & 1.1 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
     \item 4.2 Usability and Humanity
@@ -70,6 +70,10 @@
     \item 4.8 Compliance 
     \item Appendix - Usability Survey Guide
     \item Appendix - Reflection
+  \end{itemize}\\
+  3/10/25 & 1.5 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item Reviewed document for consistency, grammar, spelling
+    \item Fixed formatting, text, and images
   \end{itemize}\\
   \bottomrule
   \end{tabularx}
@@ -238,6 +242,8 @@ no identifiable information is stored in the database and we also check that all
   \textbf{Relevant Functional Requirement(s):} FR-DSC5
 \end{mdframed}
 
+\newpage{}
+
 \subsection{Video and Audio Data Analysis}
 \hspace{2em}The test cases below ensure that both video and audio data is correctly accessed, processed and stored 
 in its respective user folder with no errors.
@@ -259,6 +265,8 @@ in its respective user folder with no errors.
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} FR-ST-VDA2, FR-ST-VDA3
 \end{mdframed}
+
+\newpage{}
 
 \subsection{Data Processing and Display}
 \hspace{2em}This set of test cases will help confirm the system's data retrieval, report generation, 
@@ -299,6 +307,8 @@ and display functionalities to ensure the clinician experience aligns with the p
   \textbf{Expected and Actual Output Match:} False \par
   \textbf{Relevant Functional Requirement(s):} FR-DPD4
 \end{mdframed}
+
+\newpage{}
 
 \subsection{System Set Up}
 \hspace{2em}The test cases below conduct navigation through the system to prepare a parent user to take an assessment. 
@@ -361,8 +371,10 @@ before starting hardware checks. \par
   \textbf{Relevant Functional Requirement(s):} FR-ST-SS5 
 \end{mdframed}
 
+\newpage{}
+
 \subsection{Assessment Interface}
-\hspace{2em}The test cases below navigates through the assessment pages to ensure test is conducted and results 
+\hspace{2em}The test cases below navigate through the assessment pages to ensure tests conducted and results 
 are stored properly. 
 
 \begin{mdframed}[linewidth=0.5mm] \par
@@ -440,6 +452,7 @@ are stored properly.
   \textbf{Relevant Functional Requirement(s):} FR-ST-AI7
 \end{mdframed}
 
+\newpage{}
 
 \section{Nonfunctional Requirements Evaluation}
 \hspace{2em}The following section covers all the nonfunctional requirements specified in the project’s
@@ -466,6 +479,8 @@ VnV Plan document. The coverage can be traced in Table X.
   \textbf{Relevant Nonfunctional Requirement(s):} LF-AR3, LF-AR5, LF-SR1, LF-SR2
 \end{mdframed}
 		
+\newpage{}
+
 \subsection{Usability and Humanity}
 \hspace{2em}The test results below ensures that the system meets usability and humanity
 requirements for users to have an enjoyable and accessible experience.
@@ -518,13 +533,15 @@ requirements for users to have an enjoyable and accessible experience.
   \textbf{Relevant Nonfunctional Requirement(s):} UH-LI2
 \end{mdframed}
 
+\newpage{}
+
 \subsection{Performance}
 \hspace{2em}The test cases outlined below ensure proper performance and stability of our system and database.
 \begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-SL1 \par
   \textbf{Input/Condition:} User navigates through various web pages. \par
   \textbf{Expected Output/Results:} All web pages load completely with all functionalities within MAX\_LOAD\_TIME. \par
-  \textbf{Actual Output/Results:} All web pages load with correct data within MAX\_LOAD\_TIME. \par
+  \textbf{Actual Output/Results:} All web pages load with correct data within\\ MAX\_LOAD\_TIME. \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-SL1
 \end{mdframed}
@@ -578,7 +595,7 @@ requirements for users to have an enjoyable and accessible experience.
   \textbf{Test Case Identifier:} PR-ST-RFT1 \par
   \textbf{Input/Condition:} Simulate common user errors (e.g., invalid inputs). \par
   \textbf{Expected Output/Results:} The system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the errors encountered. \par
-  \textbf{Actual Output/Results:} System gives correct feedback to user with a VERY\_HIGH\_SUCCESS\_RATE \par
+  \textbf{Actual Output/Results:} System gives correct feedback to user with a \\VERY\_HIGH\_SUCCESS\_RATE \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-RFT1
 \end{mdframed}
@@ -603,7 +620,7 @@ requirements for users to have an enjoyable and accessible experience.
 
 \begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-CR2 \par
-  \textbf{Input/Condition:} Data stored in the database approaches the annual MIN\_STORAGE threshold. \par
+  \textbf{Input/Condition:} Data stored in the database approaches the annual \\MIN\_STORAGE threshold. \par
   \textbf{Expected Output/Results:} The system accommodates the data volume without performance degradation. \par
   \textbf{Actual Output/Results:} The system accommodates the \\MIN\_STORAGE threshold with room to increase data storage\par
   \textbf{Expected and Actual Output Match:} True \par
@@ -622,7 +639,7 @@ requirements for users to have an enjoyable and accessible experience.
 \begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} PR-ST-LR1 \par
   \textbf{Input/Condition:} Monitor system stability over successive updates on the release build. \par
-  \textbf{Expected Output/Results:} The system’s failure rate remains below LOW\_FAILURE\_RATE during updates. \par
+  \textbf{Expected Output/Results:} The system’s failure rate remains below \\LOW\_FAILURE\_RATE during updates. \par
   \textbf{Actual Output/Results:} system failure rate remains below \\LOW\_FAILURE\_RATE during deployment of versions \par
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Functional Requirement(s):} PR-ST-LR1
@@ -637,6 +654,7 @@ requirements for users to have an enjoyable and accessible experience.
   \textbf{Relevant Functional Requirement(s):} PR-ST-LR2
 \end{mdframed}
 
+\newpage{}
 
 \subsection{Operational and Environmental}
 \hspace{2em}The test results below ensures that the system can be used in a variety of environments,
@@ -651,8 +669,6 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Expected and Actual Output Match:} True \par
   \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1
 \end{mdframed}
-
-\newpage
 
 \begin{figure}[h]
   \centering
@@ -669,13 +685,13 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Relevant Nonfunctional Requirement(s):} OE-WE1, OE-WE2
 \end{mdframed}
 
-\newpage
-
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{images/DeviceSetup.png}
   \caption{Device Setup}
 \end{figure}
+
+\newpage{}
 
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} OE-ST-IA1 \par
@@ -686,13 +702,13 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Relevant Nonfunctional Requirement(s):} OE-IA1
 \end{mdframed}
 
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{images/ResultsStorage.png}
   \caption{Results Storage - AWS \cite{telehealthStorage}}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.5\textwidth]{images/ResultsStorage2.png}
   \caption{Results Storage - JSON}
@@ -776,6 +792,8 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Expected and Actual Output Match:} False \par
   \textbf{Relevant Nonfunctional Requirement(s):} CU-CR2
 \end{mdframed}
+
+\newpage{}
 
 \subsection{Security}
 \hspace{2em}The test cases below cover security requirements associated to the system. 
@@ -871,6 +889,8 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-IM1
 \end{mdframed}
 
+\newpage{}
+
 \subsection{Compliance}
 \hspace{2em}The test cases below cover compliance requirements related to data storage within the system. 
 
@@ -886,17 +906,21 @@ capabilities and qualities the system has to interact with adjacent systems in t
   \textbf{Relevant Nonfunctional Requirement(s):} FR-ST-STD1
 \end{mdframed}
 	
+\newpage{}
+
 \section{Comparison to Existing Implementation}	
 
-As this project does not have existing implementations, this section is not appropriate for the TeleHealth Insights project.
+\hspace{2em}As this project does not have existing implementations, this section is not appropriate for the TeleHealth Insights project.
 
 \section{Unit Testing}
 
-Unit Testing was conducted on the main functions of each module/service that we have defined in the MIS. 
-The goal of these tests are to validate the correctness of each independent function based on separation of concern. 
-The unit tests are organized by the modules as well as non functional and functional. 
+\hspace{2em}Unit Testing was conducted on the main functions of each module/service that we have defined in the MIS. 
+The goal of these tests are to validate the correctness of each independent function based on separation of concerns. 
+The unit tests are organized by the modules as well as nonfunctional and functional requirements. 
 
 \subsection{Tests for Functional Requirements}
+\hspace{2em} The following sections for testing functional requirements consists of Authentication Service Tests, Media Processing Service Tests,
+Question Service Tests, and Result Service Tests.
 
 \subsection*{Authentication Service Tests}
 
@@ -979,6 +1003,7 @@ and \texttt{correctAnswer} (String, e.g., "b") \par
 \end{mdframed}
 
 \subsection{Tests for Nonfunctional Requirements}
+\hspace{2em} The following sections for testing nonfunctional requirements consists of Performance and Security Tests.
 
 \subsubsection{Performance and Security Tests}
 
@@ -1012,6 +1037,13 @@ and \texttt{correctAnswer} (String, e.g., "b") \par
   \textbf{Relevant Test Case(s):} FR-ST-DPD2
   \end{mdframed}
 
+\newpage{}
+
+  \subsection{Overall Results}
+
+  \hspace{2em}Overall, unit testing serves as a basis to ensure main functionalities are working as expected. This ensures that the system is reliable and robust in terms of its 
+  functions. By ensuring all test cases pass, we can deliver a high quality software that meets all the functional and non-functional requirements that were set in place. 
+
   \begin{table}[H]
     \centering
     \label{tab:unitTestingResults}
@@ -1034,9 +1066,7 @@ and \texttt{correctAnswer} (String, e.g., "b") \par
     \caption{Unit Testing Results}
 \end{table}
 
-Overall, unit testing serves as a basis to ensure main functionalities are working as expected. This ensures that the system is reliable and robust in terms of its 
-functions. By ensuring all test cases pass, we can deliver a high quality software that meets all the functional and non-functional that were set in place. 
-
+\newpage{}
 
 \section{Changes Due to Testing}
 
@@ -1066,10 +1096,14 @@ supervisor, following the Revision 0 demo. The changes identiifed are aimed at e
     the system will be used by children, which may lengthen the assessment duration as well.
 \end{itemize}
 
+\newpage{}
+
 \section{Automated Testing}
 
+\hspace{2em}To perform automated testing, a combination of linters, unit testing, and continuous integration was used.
+
 \subsection{Linters}
-To maintain a good coding standard, we integrated linters into
+\hspace{2em}To maintain a good coding standard, we integrated linters into
 our development workflow. For JavaScript files, we rely on Prettier to
 automatically format code, ensuring consistent indentation and spacing.
 By running Prettier as part of our pre-commit checks, any formatting concerns
@@ -1077,12 +1111,12 @@ are addressed before merging into our main repository, which helps minimize merg
 conflicts and maintain a clean codebase.
 
 \subsection{Unit Testing}
-We use Jest as our primary JavaScript testing framework to automatically verify critical parts 
+\hspace{2em}We use Jest as our primary JavaScript testing framework to automatically verify critical parts 
 of our code before changes are merged into the main branch. This approach helps us catch issues 
 early, maintain code quality, and keep the overall system stable.
 
 \subsection{Continuous Integration}
-We used continuous integration (CI) pipeline to automate test execution
+\hspace{2em}We used continuous integration (CI) pipeline to automate test execution
 and provide immediate feedback whenever new code is committed. We configure GitHub
 Actions trigger to run our Jest unit tests, linters and document tests on each pull request 
 or direct push to main, ensuring that only code meeting quality standards is always met.
@@ -1090,6 +1124,8 @@ or direct push to main, ensuring that only code meeting quality standards is alw
 
 \newpage
 \section{Trace to Requirements}
+
+\hspace{2em}Trace between system test cases and functional and nonfunctional requirements are displayed below.
 
 \begin{table}[!ht]
   \caption{Traceability Table Between System Test Cases and Functional Requirements (Part 1)}
@@ -1304,6 +1340,8 @@ or direct push to main, ensuring that only code meeting quality standards is alw
 
 \section{Trace to Modules}		
 
+\hspace{2em}Trace between system test cases and modules are displayed below.
+
 \begin{table}[!ht]
   \caption{Traceability Table Between System Test Cases and Modules}
   \resizebox{\textwidth}{!}{
@@ -1386,13 +1424,71 @@ unit tests for them.
   \label{tab:coverage}
   \end{table}
 
+  \newpage{}
+
 \bibliographystyle{plainnat}
 \bibliography{../../refs/References}
 
-\section{Appendix - Usability Testing Instructions}
+\newpage{}
+
+\section{Appendix --- Usability Testing Instructions}
+\hspace{2em} The following instructions were used by the team consistency when conducting the pilot usability test.
 
 \includepdf[pages=-]{images/TeleHealthUsabilityTestingInstructions.pdf}
 
+\newpage{}
+
+\section{Appendix --- Symbolic Parameters}
+
+Many of the results of the tests cases called for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Variable Name} & \textbf{Value} \\
+      \hline
+      MAX\_PROCESSING\_TIME & 10 seconds \\
+      \hline
+      SHORT\_PROCESSING\_TIME & 0.5 seconds \\
+      \hline
+      MAX\_SUCCESS\_RATE & 100\% \\
+      \hline
+      VERY\_HIGH\_SUCCESS\_RATE & 95\% \\
+      \hline
+      HIGH\_SUCCESS\_RATE & 90\% \\
+      \hline
+      NUM\_CODE\_LINES & 10 \\
+      \hline
+      MIN\_SCREEN\_SIZE & 4 inches \\
+      \hline
+      MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+      MAX\_STORAGE\_TIME & 7 years \\
+      \hline
+      MAX\_LOAD\_TIME & 3 seconds \\
+      \hline
+      AVERAGE\_RESOLUTION & 720p \\
+      \hline
+      MONTHLY\_BACKUP & 4 hour \\
+      \hline
+      MIN\_USERS & 2000 users \\
+      \hline
+      MIN\_STORAGE & 10TB \\
+      \hline
+      YEARLY\_INCREASE\_PERCENTAGE & 10\% \\
+      \hline
+      LOW\_FAILURE\_RATE & 1\% \\
+      \hline
+      MAX\_CLICKS & 5 \\
+      \hline
+  \end{tabular}
+  \caption{Variable Names and Values}
+  \label{tab:variables}
+\end{table}
+
+\newpage{}
 
 \section*{Appendix --- Reflection}
 
@@ -1424,7 +1520,7 @@ graduate attribute of Reflection.
   \textbf{Jasmine:} Changes from the VnV plan expected output for a few tests to the VnV report were made after going over peer reviews, such as for test case CU-ST-CUR1 one of the expected outputs was for an individual with credibility on the relevant cultures to approve of the site and assessment content. The practicality of this was questioned during peer review, and it was later decided that the participants in usability testing would be used to confirm no content was culturally insensitive alone would be sufficient instead. The expected output of a few test cases were adjusted for this reason.\\
   \textbf{Mitchell:} The ‘Usability and Humanity’ nonfunctional requirements evaluation section and ‘Changes Due to Testing’ section stemmed from speaking with a proxy, which was the peers we conducted the pilot usability tests with. This was especially helpful as it led to the validation of our system’s use and provided us with helpful feedback that we can use to further improve the system.\\
   \textbf{Promish:} The usability testing was a result of speaking to our peers. We did a pilot to gain insights into which parts of our frontend and user flow needed to be changed. Talking to our supervisor Irene, we talked about potential additions to our system which parents would want to see like their history. Other than that, the tests for our functional and nonfunctional requirements were taken from the ones we wrote in the VnV plan.\\
-  \textbf{Parisha:} The usability testing results stemmped from speaking to our peers as we conducted a pilot testing of our deployed application with several to gain insights on the flow of the application, find any improvements, and notice any bugs that were missed. The pilot testing was very useful to see what we should priortize for Rev 1 and categorize changes into priorty or for things to add/change if we have time. We also gained feedback from our supervisor \\
+  \textbf{Parisha:} The usability testing results stemmped from speaking to our peers as we conducted a pilot testing of our deployed application with several to gain insights on the flow of the application, find any improvements, and notice any bugs that were missed. The pilot testing was very useful to see what we should priortize for Rev 1 and categorize changes into priorty or for things to add/change if we have time. We also gained feedback from our supervisor. \\
 
   \item In what ways was the Verification and Validation (VnV) Plan different
   from the activities that were actually conducted for VnV?  If there were
@@ -1438,7 +1534,7 @@ graduate attribute of Reflection.
   \textbf{ Jasmine:} For the most part the testing was the same, there were very few activities from the VnV plan were not executed or substituted during the actual VnV, due to feasibility or limitations out of the group's control. If a test case had multiple methods to verify it, the other one was chosen. If there was no alternative verification methods from the plan, the test was modified to accommodate our circumstances and available resources, such as using peers as users for an initial pilot test when the real user groups were unavailable for the testing session times. With experience, I think I could better predict and anticipate the amount of effort, time and resources a group is able to put into testing.\\
   \textbf{Mitchell:} One of the ways the VnV Plan was different from the activities that were conducted for VnV is how we planned on fully implementing the ability to report bugs and access user documentation from inside the system. This required a modification to the plan was we were not able to assess the ability to report bugs or access user documentation. These changes occurred because the team was focused on prioritizing the system’s main functionality, and both of these planned features were less impactful on the system’s success. We would be able to anticipate these changes in future projects by prioritizing the testing of core essential features. \\
   \textbf{Promish:} The main change I found was in the extent to which our test cases could be written. When we were making the VnV plan, we didn’t have a clear picture of how we were going to deploy our system, so certain tests—such as testing yearly server increase or max users—were very out of scope for where we were in our project. After doing the deployment, we realized that most of these tests are solved by upgrading the external server, which I find to be out of the scope of our project. For example, if there are stability concerns, we can pay for a faster backend server since the way we deployed it allows for that. This was a good experience since, for next time, I can anticipate this change and get a better understanding of what needs to be tested in scope and what is out of scope. After our deployment, we also got access to graphs for performance, and we made graphs for usability, which is how we got our evidence for our non-functional unit tests.\\
-  \textbf{Parisha:} I found that the VnV plan had slightly different flows of navigations or orders of pages which made the tests differ. It also can be seen that the tests were more general as the VnV plan was created before the Design documents where we had confirmed the final specifications and architecture of the software. Some tests also had overall ambitious or hard to measure metrics to compare given our limoted resources (budget, etc) \\
+  \textbf{Parisha:} I found that the VnV plan had slightly different flows of navigations or orders of pages which made the tests differ. It also can be seen that the tests were more general as the VnV plan was created before the Design documents where we had confirmed the final specifications and architecture of the software. Some tests also had overall ambitious or hard to measure metrics to compare given our limoted resources (budget, etc). \\
 \end{enumerate}
 
 \end{document}
