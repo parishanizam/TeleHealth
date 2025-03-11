@@ -152,18 +152,25 @@ export default function QuizManagement() {
     }
   };
 
-  // 🔹 Modified finishQuiz to accept updatedResponses as a parameter
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
-    setSubmitting(true); 
-    stopRecording((finalBlob) => {
+    setSubmitting(true);
+  
+    stopRecording(async (finalBlob) => {
       if (finalBlob) {
-        uploadRecording(finalBlob)
-          .then(() => submitResults(updatedResponses))
-          .catch((error) => console.error("Error during processing:", error));
-      } else {
-        submitResults();
+        uploadRecording(finalBlob).catch((error) => {
+          console.error("Background upload failed:", error);
+        });
       }
+      try {
+        await submitResults(updatedResponses);
+      } catch (err) {
+        console.error("Error submitting quiz answers:", err);
+      } finally {
+        setSubmitting(false);
+      }
+
+      navigate("/parents/testcomplete");
     });
   };
 
