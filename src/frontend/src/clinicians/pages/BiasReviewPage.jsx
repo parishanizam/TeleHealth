@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// (ADD) Import useNavigate as well, without removing useLocation
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Header } from "../components/Header";
 import BiasDetected from "../components/BiasReview/BiasDetected";
@@ -12,6 +13,9 @@ import { formatTestTitle } from "../../utils/testTitleUtils";
 
 function BiasReviewPage() {
   const { state } = useLocation();
+  // (ADD) For next/back and "Go Back" button
+  const navigate = useNavigate();
+
   const {
     questionId,
     questionNumber,
@@ -24,6 +28,12 @@ function BiasReviewPage() {
     assessmentId,
     bias_state,
     mark_state,
+
+    // (ADD) Possibly used for next/back if you implemented those:
+    results = [],
+    questionIds = [],
+    currentIndex = 0,
+    totalQuestions = 1
   } = state || {};
 
   console.log("Page state:", state);
@@ -34,7 +44,6 @@ function BiasReviewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // We'll store and display the current states from DB
   const [biasState, setBiasState] = useState(bias_state || false);
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
@@ -96,12 +105,12 @@ function BiasReviewPage() {
   }, [questionId, questionBankId, parentUsername, assessmentId, date]);
 
   // ─────────────────────────────────────────────────────────
-  //   IMMEDIATELY SAVE CHANGES WHEN USER TOGGLES BIAS
+  //   BIAS TOGGLE
   // ─────────────────────────────────────────────────────────
   const toggleBiasState = async () => {
     const newState = !biasState;
     console.log("Toggling bias state:", newState);
-    setBiasState(newState); // Instant UI feedback
+    setBiasState(newState);
 
     const payload = {
       question_id: questionId,
@@ -122,11 +131,11 @@ function BiasReviewPage() {
   };
 
   // ─────────────────────────────────────────────────────────
-  //   IMMEDIATELY SAVE CHANGES WHEN USER UPDATES MARK
+  //   MARK STATE CHANGES
   // ─────────────────────────────────────────────────────────
   const changeMarkState = async (newMarkState) => {
     console.log("Changing mark state to:", newMarkState);
-    setMarkState(newMarkState); // Instant UI feedback
+    setMarkState(newMarkState);
 
     const payload = {
       question_id: questionId,
@@ -146,11 +155,71 @@ function BiasReviewPage() {
     }
   };
 
-  // (Optional) Format the bias timestamps for user display
+  // (Optional) Timestamps for display
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
     timestamp: (bias.timestamp / 1000).toFixed(2),
   }));
+
+  // (ADD) If you also have next/back question logic:
+  const isFirstQuestion = currentIndex === 0;
+  const isLastQuestion = currentIndex === totalQuestions - 1;
+
+  const goToPreviousQuestion = () => {
+    if (!isFirstQuestion) {
+      const prevIndex = currentIndex - 1;
+      const prevQuestion = results[prevIndex];
+
+      navigate("/clinicians/BiasReviewPage", {
+        state: {
+          ...state,
+          questionId: questionIds[prevIndex],
+          questionNumber: prevIndex + 1,
+          currentIndex: prevIndex,
+          userAnswer: prevQuestion.user_answer,
+          bias_state: prevQuestion.bias_state,
+          mark_state: prevQuestion.mark_state
+        },
+      });
+    }
+  };
+
+  const goToNextQuestion = () => {
+    if (!isLastQuestion) {
+      const nextIndex = currentIndex + 1;
+      const nextQuestion = results[nextIndex];
+
+      navigate("/clinicians/BiasReviewPage", {
+        state: {
+          ...state,
+          questionId: questionIds[nextIndex],
+          questionNumber: nextIndex + 1,
+          currentIndex: nextIndex,
+          userAnswer: nextQuestion.user_answer,
+          bias_state: nextQuestion.bias_state,
+          mark_state: nextQuestion.mark_state
+        },
+      });
+    }
+  };
+
+  // ─────────────────────────────────────────────────────────
+  // (ADD) A "Go Back to Results" Button
+  // ─────────────────────────────────────────────────────────
+  const goBackToResults = () => {
+    navigate("/clinicians/ResultsAnalysisPage", {
+      state: {
+        // Pass whatever is needed to reconstruct the Results page 
+        // (some or all of these fields might be needed):
+        parentUsername,
+        assessmentId,
+        date,
+        firstName,
+        lastName
+        // If your ResultsAnalysisPage requires a "score" or other data, pass that too
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
@@ -166,6 +235,36 @@ function BiasReviewPage() {
       <div className="flex items-center space-x-3 text-2xl mt-2">
         <span>{formatTestTitle(questionBankId) || "Unknown"}</span>
       </div>
+
+      {/* (ADD) A row of buttons: Go Back to Results, Back, Next */}
+      <div className="mt-4 flex space-x-4">
+        <button
+          onClick={goBackToResults}
+          className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+        >
+          Return to Results
+        </button>
+
+        <button
+          onClick={goToPreviousQuestion}
+          disabled={isFirstQuestion}
+          className={`px-4 py-2 rounded ${
+            isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+          } text-white font-semibold`}
+        >
+          Back
+        </button>
+        <button
+          onClick={goToNextQuestion}
+          disabled={isLastQuestion}
+          className={`px-4 py-2 rounded ${
+            isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+          } text-white font-semibold`}
+        >
+          Next
+        </button>
+      </div>
+      {/* END (ADD) Buttons */}
 
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
         <div className="w-1/2 flex flex-col justify-center">
@@ -249,7 +348,6 @@ function BiasReviewPage() {
         </div>
       </div>
 
-      {/* Remove the "Save Changes" button entirely */}
       <div className="w-full flex justify-end pr-10 pb-10">
         <RemoveBiasButton
           onClick={toggleBiasState}
