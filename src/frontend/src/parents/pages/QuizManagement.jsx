@@ -23,7 +23,7 @@ export default function QuizManagement() {
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
-  const [audioFiles, setAudioFiles] = useState([]); 
+  const [audioFiles, setAudioFiles] = useState([]);
   const [submitting, setSubmitting] = useState(false); // New loading state
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function QuizManagement() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-  
+
     if (hours > 0) {
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     } else {
@@ -120,9 +120,9 @@ export default function QuizManagement() {
     }
 
     const newResponse = {
-     
+
       question_id: questionId,
-     
+
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
@@ -148,14 +148,14 @@ export default function QuizManagement() {
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz(updatedResponses); 
+      finishQuiz(updatedResponses);
     }
   };
 
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
     setSubmitting(true);
-  
+
     stopRecording(async (finalBlob) => {
       if (finalBlob) {
         uploadRecording(finalBlob).catch((error) => {
@@ -178,14 +178,14 @@ export default function QuizManagement() {
     if (!blob) return;
 
     const formData = new FormData();
-  
+
     let hasFiles = false;
-  
+
     if (blob) {
       formData.append("videoFile", blob, "recording.mp4");
       hasFiles = true;
     }
-  
+
     formData.append("parentUsername", parentInfo.username);
     formData.append("firstName", parentInfo.firstName);
     formData.append("lastName", parentInfo.lastName);
@@ -194,21 +194,21 @@ export default function QuizManagement() {
     formData.append("timestamps", JSON.stringify(timestamps));
     formData.append("language", language);
     formData.append("testType", testType);
-  
+
     if (testType === "repetition" && audioFiles.length > 0) {
       audioFiles.forEach((file, index) => {
         formData.append("audioFiles", file, `question_${index + 1}.mp4`);
         hasFiles = true;
       });
     }
-  
+
     if (!hasFiles) {
       console.error("No video or audio files to upload.");
       return;  // Exit early if no files to upload
     }
-  
+
     console.log("🚀 Sending Upload Request with form data...");
-  
+
     try {
       const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -318,8 +318,13 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="text-center text-lg font-semibold mt-4">
-        Submitting Answers...</div>}
+      {submitting && <div className="flex justify-center items-center mt-4">
+        <div
+          className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
+          style={{ animation: 'spin 1s linear infinite' }}
+        ></div>
+        <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
+      </div>}
     </div>
   );
 }
