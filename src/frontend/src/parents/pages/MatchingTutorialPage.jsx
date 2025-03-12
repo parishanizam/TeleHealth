@@ -75,7 +75,7 @@ export default function MatchingTutorialPage() {
             Click the audio button to hear the question. You are allowed one
             replay!
           </p>
-          <p className="text-xl">Click next for following instructions.</p>
+          <p className="text-xl">Click next for Step 2! </p>
         </div>
       )}
 
@@ -107,13 +107,15 @@ export default function MatchingTutorialPage() {
         playCount={playCount}
       />
 
-      <OptionGrid
-        options={question.options}
-        selectedAnswer={selectedAnswer}
-        handleAnswerClick={handleAnswerClick}
-        highlight={currentStep === 2}
-        correctAnswer={currentStep === 3 ? question.correctAnswer : null}
-      />
+      {currentStep >= 2 && (
+        <OptionGrid
+          options={question.options}
+          selectedAnswer={selectedAnswer}
+          handleAnswerClick={handleAnswerClick}
+          highlight={currentStep === 2}
+          correctAnswer={currentStep === 3 ? question.correctAnswer : null}
+        />
+      )}
 
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (

@@ -76,7 +76,7 @@ export default function QuantifierTutorialPage() {
             replay!
           </p>
           <p className="text-xl">
-            Play the sound twice and then click next for following instructions!
+            Click next for Step 2!
           </p>
         </div>
       )}
@@ -87,8 +87,7 @@ export default function QuantifierTutorialPage() {
             Step 2: Select the Correct Option
           </h2>
           <p className="text-xl">
-            Click on the option that best matches the quantity played. Once you
-            select the correct answer, click next!
+            Hit next once you have selected the image that best matches the audio!
           </p>
         </div>
       )}
@@ -110,13 +109,15 @@ export default function QuantifierTutorialPage() {
         playCount={playCount}
       />
 
-      <OptionGrid
-        options={question.options}
-        selectedAnswer={selectedAnswer}
-        handleAnswerClick={handleAnswerClick}
-        highlight={currentStep === 2}
-        correctAnswer={currentStep === 3 ? question.correctAnswer : null}
-      />
+      {currentStep >= 2 && (
+        <OptionGrid
+          options={question.options}
+          selectedAnswer={selectedAnswer}
+          handleAnswerClick={handleAnswerClick}
+          highlight={currentStep === 2}
+          correctAnswer={currentStep === 3 ? question.correctAnswer : null}
+        />
+      )}
 
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
