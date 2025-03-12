@@ -34,7 +34,7 @@ export default function QuizManagement() {
 
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 5) + 1;
+          const randomId = Math.floor(Math.random() * 15) + 1;
           questionIds.add(randomId);
         }
 
@@ -253,7 +253,7 @@ export default function QuizManagement() {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-l px-4 scale-100">
       {currentQuestionIndex === 0 ? (
         <div className="text-center">
           {testType === "matching" && (
