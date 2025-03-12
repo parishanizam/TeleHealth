@@ -141,9 +141,12 @@ export default function QuizManagement() {
     setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (testType === "repetition" && audioFile) {
-      console.log("Audio file received in handleAnswerSelected:", audioFile);
-      setAudioFiles((prev) => [...prev, audioFile]);
-    }
+      const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
+        type: audioFile.type,
+      });
+      console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
+      setAudioFiles((prev) => [...prev, renamedFile]);
+    }    
 
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -197,7 +200,7 @@ export default function QuizManagement() {
   
     if (testType === "repetition" && audioFiles.length > 0) {
       audioFiles.forEach((file, index) => {
-        formData.append("audioFiles", file, `question_${index + 1}.mp4`);
+        formData.append("audioFiles", file, `${parentInfo.username}_question_${index + 1}.mp4`);
         hasFiles = true;
       });
     }
