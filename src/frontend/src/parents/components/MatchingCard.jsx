@@ -4,7 +4,7 @@ export default function MatchingCard({ image, onClick, isSelected }) {
   return (
     <div
       onClick={onClick}
-      className={`p-3 border rounded-md 
+      className={`p-3 border-4 rounded-md 
         cursor-pointer hover:shadow-md transition-shadow items-center justify-center 
         ${isSelected ? "border-blue-500" : "border-gray-300"}
       `}
