@@ -46,7 +46,7 @@ function ParentHomePage() {
 
         {/* Next Button */}
         <div className="flex justify-center items-center mt-12 px-8 pb-8">
-          <NextButton to="/parents/TestSelectionTutorialPage" name="Tutorial" />
+          <NextButton to="/parents/OverallTutorialPage" name="Tutorial" />
         </div>
       </div>
     </div>
