@@ -71,7 +71,7 @@ function OverallTutorialPage() {
 
       <Container className="text-center mt-5">
         <h1 className="fw-bold" style={{ fontSize: "42px", color: "#1e3a8a" }}>
-          Would you like to take a tutorial before starting the test?
+          Would you like to take a tutorial before starting a test?
         </h1>
         <p className="text-muted fs-4 mb-4">Select a test type below.</p>
 
