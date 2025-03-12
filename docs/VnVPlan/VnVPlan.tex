@@ -1751,129 +1751,145 @@ compliance requirements including security of the system, following the rules of
 \newpage
 \section{Unit Test Description}
 \hspace{2em}\textbf{Section 5, Unit Test Description, will be filled in prior to the revision 0 deliverable. The team decided to leave in the template instructions as a guide to indicate our desired return to the document.}\\
-\wss{This section should not be filled in until after the MIS (detailed design
-  document) has been completed.}
 
-\wss{Reference your MIS (detailed design document) and explain your overall
-philosophy for test case selection.}  
-
-\wss{To save space and time, it may be an option to provide less detail in this section.  
-For the unit tests you can potentially layout your testing strategy here.  That is, you 
-can explain how tests will be selected for each module.  For instance, your test building 
-approach could be test cases for each access program, including one test for normal behaviour 
-and as many tests as needed for edge cases.  Rather than create the details of the input 
-and output here, you could point to the unit testing code.  For this to work, you code 
-needs to be well-documented, with meaningful names for all of the tests.}
+All the modules described in the MIS will be within the scope of unit testing for the following 4 services our application comprises of; Authentication Service, Question Bank Service, Result Storage Service, and Media Processing Service. 
 
 \subsection{Unit Testing Scope}
 
-\wss{What modules are outside of the scope.  If there are modules that are
-  developed by someone else, then you would say here if you aren't planning on
-  verifying them.  There may also be modules that are part of your software, but
-  have a lower priority for verification than others.  If this is the case,
-  explain your rationale for the ranking of module importance.}
+All modules described in the MIS fall under the scope of unit tests and will be tested in some way, either with individual tests or tests that touch multiple components.
 
 \subsection{Tests for Functional Requirements}
 
-\wss{Most of the verification will be through automated unit testing.  If
-  appropriate specific modules can be verified by a non-testing based
-  technique.  That can also be documented in this section.}
+\subsection*{Authentication Service Tests}
 
-\subsubsection{Module 1}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Register a New Clinician \par
+\textbf{Function(s) Tested:} \texttt{clinicianSignup} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Valid clinician registration data (firstname, lastname, username, email, password) \par
+\textbf{Expected Output:} JSON response {"message": "Clinician created", "user": {"username": "drjohndoe"}} \par
+\textbf{Relevant Test Case(s):} FR-ST-A6
+\end{mdframed}
 
-\wss{Include a blurb here to explain why the subsections below cover the module.
-  References to the MIS would be good.  You will want tests from a black box
-  perspective and from a white box perspective.  Explain to the reader how the
-  tests were selected.}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Error for Existing Username \par
+\textbf{Function(s) Tested:} \texttt{clinicianSignup} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Clinician registration data with an existing username \par
+\textbf{Expected Output:} HTTP error response with status 400 \par
+\textbf{Relevant Test Case(s):} FR-ST-A4
+\end{mdframed}
 
-\begin{enumerate}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Login a Clinician with Valid Credentials \par
+\textbf{Function(s) Tested:} \texttt{clinicianLogin} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Valid login credentials (username and password) \par
+\textbf{Expected Output:} JSON response indicating successful login (i.e., \texttt{res.json} is called) \par
+\textbf{Relevant Test Case(s):} FR-ST-A7
+\end{mdframed}
 
-\item{test-id1\\}
+\subsection*{Media Processing Service Tests}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Upload and Process Media \par
+\textbf{Function(s) Tested:} POST \texttt{/media/upload} endpoint (in media processing controller) \par
+\textbf{Input:} Valid video file upload (if file exists) \par
+\textbf{Expected Output:} HTTP 200 response with JSON {"message": "Processing started"} \par
+\textbf{Relevant Test Case(s):} FR-ST-DSC1
+\end{mdframed}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Get Processed Media Successfully \par
+\textbf{Function(s) Tested:} GET \texttt{/media/processed} endpoint (in media processing controller) \par
+\textbf{Input:} No input (simple GET request) \par
+\textbf{Expected Output:} HTTP 200 response with JSON containing a valid media URL \par
+\textbf{Relevant Test Case(s):} FR-ST-VDA1
+\end{mdframed}
 
-How test will be performed: 
-					
-\item{test-id2\\}
+\subsection*{Question Service Tests}
 
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input: 
-					
-Output: \wss{The expected result for the given inputs}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Correct JSON When Retrieving a Test Question Information \par
+\textbf{Function(s) Tested:} GET \texttt{/questions/english/matching/1} endpoint (in question controller/route) \par
+\textbf{Input:} HTTP GET request to \texttt{/questions/english/matching/1} \par
+\textbf{Expected Output:} HTTP 200 response with JSON containing keys: \texttt{id} (Number), \texttt{title} (String), \texttt{sound} (String), \texttt{options} (Array of objects with \texttt{id} and \texttt{image}), and \texttt{correctAnswer} (String, e.g., "b") \par
+\textbf{Relevant Test Case(s):} FR-ST-DPD1
+\end{mdframed}
 
-Test Case Derivation: \wss{Justify the expected value given in the Output field}
+\subsection*{Result Service Tests}
 
-How test will be performed: 
-
-\item{...\\}
-    
-\end{enumerate}
-
-\subsubsection{Module 2}
-
-...
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Calculated Result of a Specific Test Result. \par
+\textbf{Function(s) Tested:} \texttt{calculateResult} (in \texttt{results.controller.js}) \par
+\textbf{Input:} JSON body with {"score": 10, "multiplier": 2} \par
+\textbf{Expected Output:} JSON response {"result": 20} \par
+\textbf{Relevant Test Case(s):} FR-ST-DPD2
+\end{mdframed}
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\wss{If there is a module that needs to be independently assessed for
-  performance, those test cases can go here.  In some projects, planning for
-  nonfunctional tests of units will not be that relevant.}
+\subsubsection{Performance and Security Tests}
 
-\wss{These tests may involve collecting performance data from previously
-  mentioned functional tests.}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Encrypt Data Before Storing \par
+\textbf{Function(s) Tested:} Database insertion function (e.g., \texttt{storeEncryptedData}) \par
+\textbf{Input:} Plain text user data \par
+\textbf{Expected Output:} Data stored in an encrypted format, verified by retrieval and decryption \par
+\textbf{Relevant Test Case(s):} SR-ST-P2
+\end{mdframed}
 
-\subsubsection{Module ?}
-		
-\begin{enumerate}
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Prevent Unauthorized Access to User Data \par
+\textbf{Function(s) Tested:} Authentication middleware (e.g., \texttt{verifyToken}) \par
+\textbf{Input:} Unauthorized request to access protected resources \par
+\textbf{Expected Output:} HTTP 401 response with an error message \par
+\textbf{Relevant Test Case(s):} SR-ST-AC3
+\end{mdframed}
 
-\item{test-id1\\}
-
-Type: \wss{Functional, Dynamic, Manual, Automatic, Static etc. Most will
-  be automatic}
-					
-Initial State: 
-					
-Input/Condition: 
-					
-Output/Result: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-
-\end{enumerate}
-
-\subsubsection{Module ?}
-
-...
+\newpage
 
 \subsection{Traceability Between Test Cases and Modules}
 
-\wss{Provide evidence that all of the modules have been considered.}
-				
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Modules}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8 & M9 & M10 & M11 & M12 & M13 & M14 & M15 & M16 & M17 \\ \hline
+      FR-ST-A1 & X & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A2 & X & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A3 & ~ & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A4 & ~ & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A5 & X & ~ & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A6 & X & ~ & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A7 & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A8 & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC1 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC2 & ~ & ~ & ~ & X & ~ & X & X & ~ & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC3 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC4 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC5 & ~ & ~ & ~ & X & ~ & ~ & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA1 & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA2 & ~ & ~ & ~ & X & ~ & ~ & X & X & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA3 & ~ & ~ & ~ & X & ~ & ~ & X & X & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD1 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD2 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD3 & X & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD4 & X & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS1 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS2 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS3 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS4 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS5 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-AI1 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI2 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI3 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI4 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI5 & ~ & X & X & X & ~ & X & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI6 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI7 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & X \\ \hline
+  \end{tabular}
+  }
+\end{table}
+
 % \bibliographystyle{plainnat}
 
 \newpage

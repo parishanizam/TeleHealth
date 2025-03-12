@@ -90,7 +90,7 @@ export function Results({ data, client }) {
   };
 
   return (
-    <div className="flex flex-col justify-start items-start p-6 w-full space-y-4">
+    <div className="flex flex-col justify-start items-start p-6 w-full space-y-4  h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
       {data.map((result) => (
         <ResultCard
           key={result.assessment_id}

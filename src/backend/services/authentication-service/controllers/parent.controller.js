@@ -15,6 +15,12 @@ exports.parentSignup = async (req, res) => {
       return res.status(400).json({ error: "Passwords do not match." });
     }
 
+    // Check if username is already taken
+    const existingParent = await getParentDataFromIndex(username);
+    if (existingParent) {
+      return res.status(400).json({ error: "Username already taken." });
+    }
+
     // List parent records in S3
     const listCommand = new ListObjectsV2Command({ Bucket: PARENTS_BUCKET });
     const listResponse = await s3Client.send(listCommand);
