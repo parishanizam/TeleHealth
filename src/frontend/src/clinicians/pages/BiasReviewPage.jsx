@@ -45,6 +45,24 @@ function BiasReviewPage() {
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
+  // Compute the timestamp string based on question number from sessionStorage.
+  const timestampStr = (() => {
+    let ts = "00:00";
+    const stored = sessionStorage.getItem("timestamps");
+    if (stored) {
+      try {
+        const arr = JSON.parse(stored);
+        // Assuming the array is in order and questionNumber is 1-indexed.
+        if (arr && arr.length >= questionNumber) {
+          ts = arr[questionNumber - 1].timestamp;
+        }
+      } catch (e) {
+        console.error("Error parsing timestamps from sessionStorage:", e);
+      }
+    }
+    return ts;
+  })();
+
   // check for missing data
   useEffect(() => {
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
@@ -96,7 +114,7 @@ function BiasReviewPage() {
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionId}.mp4`
+              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
@@ -185,8 +203,7 @@ function BiasReviewPage() {
           currentIndex: prevIndex,
           userAnswer: prevQuestion.user_answer,
           bias_state: prevQuestion.bias_state,
-          mark_state: prevQuestion.mark_state,
-          audioURL: prevQuestion.audioURL
+          mark_state: prevQuestion.mark_state
         },
       });
     }
@@ -205,8 +222,7 @@ function BiasReviewPage() {
           currentIndex: nextIndex,
           userAnswer: nextQuestion.user_answer,
           bias_state: nextQuestion.bias_state,
-          mark_state: nextQuestion.mark_state,
-          audioURL: nextQuestion.audioURL
+          mark_state: nextQuestion.mark_state
         },
       });
     }
@@ -272,6 +288,13 @@ function BiasReviewPage() {
           <div className="flex items-center justify-center space-x-4 mb-4">
             <BiasDetected biasState={biasState} />
           </div>
+
+          {/* Display question timestamp within the video container */}
+          {!loading && (
+            <div className="text-center mb-4">
+              <p className="text-lg font-bold">Question timestamp: {timestampStr}</p>
+            </div>
+          )}
 
           {/* Video Recording Display */}
           {loading ? (
@@ -342,17 +365,21 @@ function BiasReviewPage() {
             <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl">
               <p className="mb-2 text-lg font-medium">Submitted answer</p>
               <div className="p-2 flex justify-center">
-              <audio
-                key={audioUrl}
-                controls
-                preload="auto"
-                crossOrigin="anonymous"
-                onLoadedMetadata={(e) => console.log("Loaded metadata, duration:", e.target.duration)}
-                onError={(e) => console.error("Audio playback error:", e.target.error)}
-              >
-                <source src={audioUrl} type="audio/mp4" />
-                Your browser does not support the audio element.
-              </audio>
+                <audio
+                  key={audioUrl}
+                  controls
+                  preload="auto"
+                  crossOrigin="anonymous"
+                  onLoadedMetadata={(e) =>
+                    console.log("Loaded metadata, duration:", e.target.duration)
+                  }
+                  onError={(e) =>
+                    console.error("Audio playback error:", e.target.error)
+                  }
+                >
+                  <source src={audioUrl} type="audio/mp4" />
+                  Your browser does not support the audio element.
+                </audio>
               </div>
             </div>
           )}
