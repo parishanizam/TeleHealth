@@ -38,6 +38,7 @@ function BiasReviewPage() {
   const [videoUrl, setVideoUrl] = useState("");
   const [audioUrl, setAudioUrl] = useState(""); // for repetition question audio answers
   const [biasTimestamps, setBiasTimestamps] = useState([]);
+  const [historyTimestamps, setHistoryTimestamps] = useState([]); // new state for history timestamps
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -45,23 +46,33 @@ function BiasReviewPage() {
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
-  // Compute the timestamp string based on question number from sessionStorage.
-  const timestampStr = (() => {
-    let ts = "00:00";
-    const stored = sessionStorage.getItem("timestamps");
-    if (stored) {
+  // Fetch assessment history file
+  useEffect(() => {
+    const fetchHistory = async () => {
       try {
-        const arr = JSON.parse(stored);
-        // Assuming the array is in order and questionNumber is 1-indexed.
-        if (arr && arr.length >= questionNumber) {
-          ts = arr[questionNumber - 1].timestamp;
+        const res = await axios.get(`http://localhost:3000/media/history/${parentUsername}`);
+        const historyData = res.data;
+        if (historyData && historyData.assessmentVideos) {
+          const currentAssessment = historyData.assessmentVideos.find(
+            (a) => a.assessmentId.toString() === assessmentId.toString()
+          );
+          if (currentAssessment && currentAssessment.timestamps) {
+            setHistoryTimestamps(currentAssessment.timestamps);
+          }
         }
-      } catch (e) {
-        console.error("Error parsing timestamps from sessionStorage:", e);
+      } catch (error) {
+        console.error("Error fetching history:", error);
       }
-    }
-    return ts;
-  })();
+    };
+    fetchHistory();
+  }, [parentUsername, assessmentId]);
+
+  const displayTimestamp =
+  questionNumber === 1
+    ? "00:00"
+    : historyTimestamps && historyTimestamps.length >= questionNumber - 1
+    ? historyTimestamps[questionNumber - 2].timestamp
+    : "00:00";
 
   // check for missing data
   useEffect(() => {
@@ -266,18 +277,14 @@ function BiasReviewPage() {
         <button
           onClick={goToPreviousQuestion}
           disabled={isFirstQuestion}
-          className={`px-4 py-2 rounded ${
-            isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-          } text-white font-semibold`}
+          className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
         >
           Back
         </button>
         <button
           onClick={goToNextQuestion}
           disabled={isLastQuestion}
-          className={`px-4 py-2 rounded ${
-            isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-          } text-white font-semibold`}
+          className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
         >
           Next
         </button>
@@ -292,7 +299,7 @@ function BiasReviewPage() {
           {/* Display question timestamp within the video container */}
           {!loading && (
             <div className="text-center mb-4">
-              <p className="text-lg font-bold">Question timestamp: {timestampStr}</p>
+              <p className="text-lg font-bold">Question timestamp: {displayTimestamp}</p>
             </div>
           )}
 
