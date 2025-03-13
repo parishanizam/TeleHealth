@@ -330,24 +330,29 @@ function BiasReviewPage() {
                 src={VolumeButton}
                 alt="Play Sound"
                 onClick={() => new Audio(question.sound).play()}
-                className="object-contain w-8 h-8 cursor-pointer hover:shadow-md"
+                className="object-contain w-8 h-8 cursor-pointer"
               />
             )}
           </div>
 
           {/* Answer Audio */}
           {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
-            <div className="mt-4 w-full">
-              <audio
-                controls
-                preload="auto"
-                crossOrigin="anonymous"
-                onLoadedMetadata={(e) => console.log("Loaded metadata, duration:", e.target.duration)}
-                onError={(e) => console.error("Audio playback error:", e.target.error)}
-              >
-                <source src={audioUrl} type="audio/mp4" />
-                Your browser does not support the audio element.
-              </audio>
+            <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl">
+              <p className="mb-2 text-lg font-medium">Submitted answer</p>
+              <div className="p-2 flex justify-center">
+                <audio
+                  controls
+                  preload="auto"
+                  crossOrigin="anonymous"
+                  onLoadedMetadata={(e) =>
+                    console.log("Loaded metadata, duration:", e.target.duration)
+                  }
+                  onError={(e) => console.error("Audio playback error:", e.target.error)}
+                >
+                  <source src={audioUrl} type="audio/mp4" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
             </div>
           )}
 
