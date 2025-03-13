@@ -96,7 +96,7 @@ function BiasReviewPage() {
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_1.mp4`
+              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
