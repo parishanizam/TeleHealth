@@ -207,6 +207,7 @@ function BiasReviewPage() {
       const prevQuestion = results[prevIndex];
 
       navigate("/clinicians/BiasReviewPage", {
+        replace: true,
         state: {
           ...state,
           questionId: questionIds[prevIndex],
@@ -226,6 +227,7 @@ function BiasReviewPage() {
       const nextQuestion = results[nextIndex];
 
       navigate("/clinicians/BiasReviewPage", {
+        replace: true,
         state: {
           ...state,
           questionId: questionIds[nextIndex],

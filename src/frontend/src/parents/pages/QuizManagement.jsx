@@ -34,7 +34,7 @@ export default function QuizManagement() {
 
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 5) + 1;
+          const randomId = Math.floor(Math.random() * 15) + 1;
           questionIds.add(randomId);
         }
 
@@ -100,7 +100,7 @@ export default function QuizManagement() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-  
+
     if (hours > 0) {
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     } else {
@@ -120,9 +120,9 @@ export default function QuizManagement() {
     }
 
     const newResponse = {
-     
+
       question_id: questionId,
-     
+
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
@@ -152,14 +152,14 @@ export default function QuizManagement() {
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz(updatedResponses); 
+      finishQuiz(updatedResponses);
     }
   };
 
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
     setSubmitting(true);
-  
+
     stopRecording(async (finalBlob) => {
       if (finalBlob) {
         uploadRecording(finalBlob).catch((error) => {
@@ -182,14 +182,14 @@ export default function QuizManagement() {
     if (!blob) return;
 
     const formData = new FormData();
-  
+
     let hasFiles = false;
-  
+
     if (blob) {
       formData.append("videoFile", blob, "recording.mp4");
       hasFiles = true;
     }
-  
+
     formData.append("parentUsername", parentInfo.username);
     formData.append("firstName", parentInfo.firstName);
     formData.append("lastName", parentInfo.lastName);
@@ -210,9 +210,9 @@ export default function QuizManagement() {
       console.error("No video or audio files to upload.");
       return;  // Exit early if no files to upload
     }
-  
+
     console.log("🚀 Sending Upload Request with form data...");
-  
+
     try {
       const response = await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -257,7 +257,7 @@ export default function QuizManagement() {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-l px-4 scale-100">
       {currentQuestionIndex === 0 ? (
         <div className="text-center">
           {testType === "matching" && (
@@ -322,8 +322,13 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="text-center text-lg font-semibold mt-4">
-        Submitting Answers...</div>}
+      {submitting && <div className="flex justify-center items-center mt-4">
+        <div
+          className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
+          style={{ animation: 'spin 1s linear infinite' }}
+        ></div>
+        <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
+      </div>}
     </div>
   );
 }
