@@ -22,7 +22,7 @@ export function Header({ title, showLogout = true }) {
 
   return (
     <div className="relative flex justify-center items-center w-full text-slate-800 max-md:max-w-full">
-      <div className="flex justify-center items-center w-full gap-2.5 py-5 text-6xl tracking-tight text-black leading-[64px] whitespace-nowrap max-md:text-4xl">
+      <div className="flex justify-center items-center w-full gap-2.5 py-5 text-5xl tracking-tight text-black leading-[64px] whitespace-nowrap max-md:text-4xl">
         {title}
       </div>
 

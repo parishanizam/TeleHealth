@@ -109,21 +109,21 @@ export default function RepetitionQuestion({
           <button
             className={`px-4 py-2.5 rounded-lg ${
               recordingClickCount >= MAX_RECORDING_CLICKS || !isAudioClicked
-                ? "bg-gray-400 pointer-events-none"
+                ? "px-4 py-2.5 bg-slate-900 text-white rounded-lg opacity-50 cursor-not-allowed"
                 : "bg-blue-600 text-white"
             }`}
             onClick={handleStartRecording}
           >
             {recordingClickCount >= MAX_RECORDING_CLICKS
-              ? "No Recordings Left"
-              : (isAudioClicked ? "Start Audio Recording" : "Play Audio First")}
+              ? "Recording Complete"
+              : (isAudioClicked ? "Start Recording" : "Play Audio First")}
           </button>
         ) : isQuestionRecording ? (
           <button
             className="px-4 py-2.5 bg-red-600 text-white rounded-lg"
             onClick={handleStopRecording}
           >
-            Stop Audio Recording
+            Stop Recording
           </button>
         ) : (
           <div className="text-lg text-green-600">Audio Recording Complete!</div>
@@ -136,6 +136,7 @@ export default function RepetitionQuestion({
           e.preventDefault();
           handleNextOrSubmit();
         }}
+        disabled={!recordedAudioFile}
       />
     </div>
   );
