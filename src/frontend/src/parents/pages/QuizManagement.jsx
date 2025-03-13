@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -23,7 +23,7 @@ export default function QuizManagement() {
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
-  const [audioFiles, setAudioFiles] = useState([]); 
+  const audioFilesRef = useRef([]);
   const [submitting, setSubmitting] = useState(false); // New loading state
 
   useEffect(() => {
@@ -144,9 +144,10 @@ export default function QuizManagement() {
       const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
         type: audioFile.type,
       });
-      console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
-      setAudioFiles((prev) => [...prev, renamedFile]);
-    }    
+      // console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
+      
+      audioFilesRef.current.push(renamedFile);
+    }       
 
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -198,12 +199,12 @@ export default function QuizManagement() {
     formData.append("language", language);
     formData.append("testType", testType);
   
-    if (testType === "repetition" && audioFiles.length > 0) {
-      audioFiles.forEach((file, index) => {
+    if (testType === "repetition" && audioFilesRef.current.length > 0) {
+      audioFilesRef.current.forEach((file, index) => {
         formData.append("audioFiles", file, `${parentInfo.username}_question_${index + 1}.mp4`);
-        hasFiles = true;
       });
-    }
+      hasFiles = true;
+    }    
   
     if (!hasFiles) {
       console.error("No video or audio files to upload.");
