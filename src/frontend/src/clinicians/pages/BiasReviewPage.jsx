@@ -96,7 +96,7 @@ function BiasReviewPage() {
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
+              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionId}.mp4`
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
@@ -185,7 +185,8 @@ function BiasReviewPage() {
           currentIndex: prevIndex,
           userAnswer: prevQuestion.user_answer,
           bias_state: prevQuestion.bias_state,
-          mark_state: prevQuestion.mark_state
+          mark_state: prevQuestion.mark_state,
+          audioURL: prevQuestion.audioURL
         },
       });
     }
@@ -204,7 +205,8 @@ function BiasReviewPage() {
           currentIndex: nextIndex,
           userAnswer: nextQuestion.user_answer,
           bias_state: nextQuestion.bias_state,
-          mark_state: nextQuestion.mark_state
+          mark_state: nextQuestion.mark_state,
+          audioURL: nextQuestion.audioURL
         },
       });
     }
@@ -340,18 +342,17 @@ function BiasReviewPage() {
             <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl">
               <p className="mb-2 text-lg font-medium">Submitted answer</p>
               <div className="p-2 flex justify-center">
-                <audio
-                  controls
-                  preload="auto"
-                  crossOrigin="anonymous"
-                  onLoadedMetadata={(e) =>
-                    console.log("Loaded metadata, duration:", e.target.duration)
-                  }
-                  onError={(e) => console.error("Audio playback error:", e.target.error)}
-                >
-                  <source src={audioUrl} type="audio/mp4" />
-                  Your browser does not support the audio element.
-                </audio>
+              <audio
+                key={audioUrl}
+                controls
+                preload="auto"
+                crossOrigin="anonymous"
+                onLoadedMetadata={(e) => console.log("Loaded metadata, duration:", e.target.duration)}
+                onError={(e) => console.error("Audio playback error:", e.target.error)}
+              >
+                <source src={audioUrl} type="audio/mp4" />
+                Your browser does not support the audio element.
+              </audio>
               </div>
             </div>
           )}
