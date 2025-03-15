@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setTestSelection } from "../../redux/testSelectionSlice";
 import { Header } from "../components/Header";
+import { Container, Card, Form, Button } from "react-bootstrap";
 
 const testTypeOptionsByLanguage = {
   english: [
@@ -12,7 +13,7 @@ const testTypeOptionsByLanguage = {
   mandarin: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
-    { label: "Quantifier", value: "quantifier" } // Future implementation for quantifier type of questions
+    { label: "Quantifier", value: "quantifier" }
   ]
 };
 
@@ -24,7 +25,7 @@ function TestSelectionPage() {
 
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
-    setSelectedTestType(""); // Reset test type when language changes
+    setSelectedTestType("");
   };
 
   const handleNext = () => {
@@ -38,47 +39,53 @@ function TestSelectionPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen px-5 pt-2.5 pb-56 bg-white">
-      <Header title="Test Selection" />
+    <Container fluid className="d-flex flex-column align-items-center justify-content-center">
+      <div className="w-100 text-center mt-3 mb-40">
+        <Header title="Test Selection" />
+      </div>
 
-      {/* Language Selection */}
-      <h2 className="px-56 py-8 mb-10 bg-sky-400 rounded-xl w-[940px] text-center text-2xl">
-        Select Test Language
-      </h2>
-      <select
-        value={selectedLanguage}
-        onChange={(e) => handleLanguageChange(e.target.value)}
-        className="mb-16 px-4 py-2 text-xl border rounded-lg w-full max-w-[400px]"
-      >
-        <option value="" disabled>Select a language</option>
-        <option value="english">English</option>
-        <option value="mandarin">Mandarin</option>
-      </select>
+      {/* Centered Card */}
+      <Card className="shadow p-4 text-dark" style={{ backgroundColor: "#89cff0", width: "60%", minHeight: "400px" }}>
+        <Card.Body>
+          <Card.Title className="text-center text-primary mt-4 fs-2 mb-4">Select Test Language</Card.Title>
+          <Form.Select
+            value={selectedLanguage}
+            onChange={(e) => handleLanguageChange(e.target.value)}
+            className="mb-4"
+          >
+            <option value="" disabled>Select a language</option>
+            <option value="english">English</option>
+            <option value="mandarin">Mandarin</option>
+          </Form.Select>
 
-      {/* Test Type Selection */}
-      <h2 className="px-56 py-8 mb-10 bg-sky-400 rounded-xl w-[940px] text-center text-2xl">
-        Select Test Type
-      </h2>
-      <select
-        value={selectedTestType}
-        onChange={(e) => setSelectedTestType(e.target.value)}
-        className="mb-20 px-4 py-2 text-xl border rounded-lg w-full max-w-[400px]"
-        disabled={!selectedLanguage}
-      >
-        <option value="" disabled>Select a test type</option>
-        {selectedLanguage &&
-          testTypeOptionsByLanguage[selectedLanguage].map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-      </select>
+          <Card.Title className="text-center text-primary fs-4 mb-4">Select Test Type</Card.Title>
+          <Form.Select
+            value={selectedTestType}
+            onChange={(e) => setSelectedTestType(e.target.value)}
+            className="mb-4"
+            disabled={!selectedLanguage}
+          >
+            <option value="" disabled>Select a test type</option>
+            {selectedLanguage &&
+              testTypeOptionsByLanguage[selectedLanguage].map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+          </Form.Select>
 
-      {/* Next Button */}
-      <button onClick={handleNext} className="px-4 py-2.5 bg-slate-900 text-white rounded-lg">
-        Next
-      </button>
-    </div>
+          <div className="d-flex justify-content-center">
+            <Button
+              variant="primary"
+              onClick={handleNext}
+              disabled={!selectedLanguage || !selectedTestType}
+            >
+              Next
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 }
 

@@ -25,6 +25,7 @@ import MatchingTutorialPage from '../parents/pages/MatchingTutorialPage';
 import OverallTutorialPage from '../parents/pages/OverallTutorialPage';
 import QuantifierTutorialPage from '../parents/pages/QuantifierTutorialPage';
 import RepetitionTutorialPage from '../parents/pages/RepetitionTutorialPage';
+import ParentOverview from '../parents/pages/ParentDashboard';
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
 import BiasReviewPage from '../clinicians/pages/BiasReviewPage';
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: '/parents/ParentHomePage',
     element: <ParentHomePage />,
+  },
+  {
+    path: '/parents/ParentOverview',
+    element: <ParentOverview />,
   },
   {
     path: '/parents/MediaTesting',

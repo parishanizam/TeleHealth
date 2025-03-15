@@ -22,7 +22,7 @@ function ParentHomePage() {
             </h2>
           )}
           <h1 className="text-7xl font-bold tracking-wider max-md:max-w-full max-md:text-4xl">
-            TeleHealth <span className="text-indigo-800">Insights</span>
+            TeleHealth <span className="text-blue-500">Insights</span>
           </h1>
           <p className="mt-6 text-2xl leading-8 max-md:max-w-full">
             Welcome to our TeleHealth platform, designed to help parents actively
@@ -39,8 +39,8 @@ function ParentHomePage() {
               Start Assessment
             </Link>
             <Link
-              to="/parents/testselection"
-              className="inline-flex items-center justify-center px-8 py-4 bg-indigo-700 text-white text-xl font-medium rounded-lg shadow-md hover:bg-indigo-800 transition"
+              to="/parents/ParentOverview"
+              className="inline-flex items-center justify-center px-8 py-4 bg-blue-500 text-white text-xl font-medium rounded-lg shadow-md hover:bg-indigo-800 transition"
             >
               View Results
             </Link>

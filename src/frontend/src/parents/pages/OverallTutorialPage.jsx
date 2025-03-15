@@ -29,6 +29,7 @@ function TutorialCard({ title, description, icon: Icon, onStart }) {
           backgroundColor: "#dbeafe",
           borderRadius: "15px",
           width: "100%",
+          marginBottom: "20px", // Add space between cards
         }}
       >
         <Card.Body className="d-flex flex-column justify-content-between p-4">
@@ -44,7 +45,7 @@ function TutorialCard({ title, description, icon: Icon, onStart }) {
             {title}
           </h1>
           <p
-            className="text-dark flex-grow px-3"
+            className="text-dark flex-grow px-3 mt-3" // Added margin for spacing
             style={{ fontSize: "22px", lineHeight: "1.6" }}
           >
             {description}
@@ -69,11 +70,13 @@ function OverallTutorialPage() {
     <div className="bg-white min-vh-100">
       <Header title="TeleHealth Insights" />
 
-      <Container className="text-center mt-5">
-        <h1 className="fw-bold" style={{ fontSize: "42px", color: "#1e3a8a" }}>
-          Would you like to take a tutorial before starting a test?
+      <Container className="text-center mt-4"> {/* Adjusted margin-top for spacing */}
+        <h1 className="fw-bold mb-3" style={{ fontSize: "42px", color: "#0096FF" }}>
+          Select a test type below to complete a Tutorial!
         </h1>
-        <p className="text-muted fs-4 mb-4">Select a test type below.</p>
+        <p className="mb-4" style={{ fontSize: "18px" }}> {/* Added bottom margin for spacing */}
+          Available Tests on MERL: English/Mandarin Matching, English/Mandarin Repetition, Mandarin Quantifier.
+        </p>
 
         <motion.div variants={container} initial="hidden" animate="show" className="row g-4">
           <div className="col-md-4">
