@@ -51,7 +51,7 @@ function BiasReviewPage() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/media/history/${parentUsername}`);
+        const res = await axios.get(`https://telehealth-insights.onrender.com/media/history/${parentUsername}`);
         const historyData = res.data;
         if (historyData && historyData.assessmentVideos) {
           const currentAssessment = historyData.assessmentVideos.find(
@@ -126,7 +126,7 @@ function BiasReviewPage() {
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
+              `https://telehealth-insights.onrender.com/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
