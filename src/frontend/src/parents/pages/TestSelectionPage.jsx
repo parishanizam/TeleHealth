@@ -40,11 +40,9 @@ function TestSelectionPage() {
 
   return (
     <Container fluid className="d-flex flex-column align-items-center justify-content-center">
-      <div className="w-100 text-center mt-3 mb-40">
+      <div className="w-100 text-center mt-3 mb-28">
         <Header title="Test Selection" />
       </div>
-
-      {/* Centered Card */}
       <Card className="shadow p-4 text-dark" style={{ backgroundColor: "#89cff0", width: "60%", minHeight: "400px" }}>
         <Card.Body>
           <Card.Title className="text-center text-dark fw-bold mt-4 fs-2 mb-4">
