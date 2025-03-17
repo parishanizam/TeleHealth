@@ -170,9 +170,9 @@ exports.uploadAndProcessMedia = async (req, res) => {
       console.log("Uploading audio files to S3...");
       for (let i = 0; i < req.files.audioFiles.length; i++) {
         const audioFile = req.files.audioFiles[i];
-        const audioFileName = `question_${i + 1}.mp4`;
+        const audioFileName = `${parentUsername}_question_${i + 1}.mp4`;
         const audioS3Key = `${assessmentFolder}${audioFileName}`;
-
+        
         console.log(`Uploading ${audioFileName} to ${audioS3Key}...`);
         await uploadFileToS3(MEDIA_BUCKET, audioFile.path, audioS3Key);
         uploadedAudioFiles.push(audioS3Key);
