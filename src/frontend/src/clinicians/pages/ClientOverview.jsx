@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import Graph from "../components/ClientOverview/Graph";
 import { Results } from "../components/ClientOverview/Results";
-import { Header } from "../components/Header";
+import { Header } from "../../parents/components/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -64,7 +64,7 @@ function ClientOverview() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${client?.firstName} ${client?.lastName} - Overview`} />
+      <Header title={`${client?.firstName} ${client?.lastName} - Overview`} role="clinician"/>
 
       <div className="space-y-4">
         <h2 className="text-lg font-semibold">Client Details</h2>

@@ -31,7 +31,7 @@ export default function MatchingQuestion({
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false}/>
+      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
       <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
       {isPractice && (
         <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">

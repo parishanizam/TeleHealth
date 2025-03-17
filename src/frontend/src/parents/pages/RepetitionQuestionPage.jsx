@@ -80,7 +80,7 @@ export default function RepetitionQuestion({
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} />
+      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
       <ProgressBar
         questionNumber={questionNumber}
         totalQuestions={totalQuestions}
