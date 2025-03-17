@@ -1,70 +1,75 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Header } from "../components/Header";
-import NextButton from "../components/NextButton";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { ArrowRight } from "lucide-react";
 
 function ParentHomePage() {
   const parentInfo = useSelector((state) => state.parent.parentInfo);
+
   return (
-    <div className="flex min-h-screen flex-col items-start px-32 pt-2.5 bg-white text-zinc-950">
+    <div className="flex min-h-screen flex-col items-center w-full bg-white text-zinc-950 px-6 md:px-12 lg:px-24">
       {/* Header */}
       <Header title="" />
+
       {/* Main Content */}
-      <div className="flex flex-row gap-20 items-start max-w-[1600px] mt-24 px-16 w-full">
-        {/* Left Column (Pushed Further Away from Edge) */}
-        <div className="flex flex-col gap-5 w-3/5">
+      <div className="flex flex-col md:flex-row justify-between items-start max-w-6xl w-full space-y-10 md:space-y-0 mt-20">
+        
+        {/* Left Column - Now Left-Aligned */}
+        <div className="flex flex-col gap-6 w-full md:w-3/5 text-left">
           {parentInfo && (
-            <h2 className="text-2xl font-medium">
+            <h2 className="text-xl md:text-2xl font-medium">
               Welcome, {parentInfo.firstName} {parentInfo.lastName}!
             </h2>
           )}
-          <h1 className="text-7xl font-bold tracking-wider max-md:max-w-full max-md:text-4xl">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-wide">
             TeleHealth <span className="text-blue-500">Insights</span>
           </h1>
-          <p className="mt-6 text-2xl leading-8 max-md:max-w-full">
+          <p className="mt-4 text-lg md:text-xl leading-relaxed">
             Welcome to our TeleHealth platform, designed to help parents actively
             support their child&apos;s speech therapy journey. Our easy-to-use
-            tools provide engaging assessments allowing you to work alongside
+            tools provide engaging assessments, allowing you to work alongside
             speech-language professionals from the comfort of your own home.
           </p>
+
+          {/* Buttons - Aligned to the Left */}
           <div className="flex flex-wrap gap-6 justify-start mt-6">
-            {/* Start Assessment Buttons */}
             <Link
               to="/parents/testselection"
-              className="inline-flex items-center justify-center px-8 py-4 bg-slate-900 text-white text-xl font-medium rounded-lg shadow-md hover:bg-slate-800 transition"
+              className="px-6 py-3 bg-blue-700 text-white text-lg font-medium rounded-lg shadow-md hover:bg-slate-800 transition"
             >
               Start Assessment
             </Link>
             <Link
               to="/parents/ParentOverview"
-              className="inline-flex items-center justify-center px-8 py-4 bg-blue-500 text-white text-xl font-medium rounded-lg shadow-md hover:bg-indigo-800 transition"
+              className="px-6 py-3 bg-blue-400 text-white text-lg font-medium rounded-lg shadow-md hover:bg-indigo-800 transition"
             >
               View Results
             </Link>
           </div>
         </div>
-        {/* Right Column (Lowered, Much Wider Card) */}
-        <div className="w-2/5 flex justify-center items-center mt-32">
-          <Card className="p-10 shadow-lg bg-gray-100 rounded-xl border border-gray-300 w-full max-w-[95%]">
+
+        {/* Right Column - Help Card */}
+        <div className="w-full md:w-2/5 flex justify-center">
+          <Card className="p-6 shadow-lg bg-gray-100 rounded-xl border border-gray-300 w-full max-w-lg">
             <Card.Body>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+              <h2 className="text-lg md:text-2xl font-semibold text-gray-900 mb-4">
                 Not sure how to use the platform?
               </h2>
-              <p className="text-gray-700 text-lg mb-8">
+              <p className="text-gray-700 text-base md:text-lg mb-6">
                 We&apos;ve got you covered! To guide you through all the features and help you make the most of your experience.
               </p>
               <Link
                 to="/parents/OverallTutorialPage"
-                className="flex items-center justify-between px-8 py-2 bg-blue-100 text-blue-700 text-lg font-medium rounded-lg hover:bg-blue-200 transition w-full"
+                className="flex items-center justify-between px-6 py-2 bg-blue-100 text-blue-700 text-lg font-medium rounded-lg hover:bg-blue-200 transition w-full"
               >
                 Tutorials <ArrowRight size={24} />
               </Link>
             </Card.Body>
           </Card>
         </div>
+
       </div>
     </div>
   );

@@ -7,11 +7,10 @@ import InstructionContainer from "../components/InstructionContainer";
 
 export default function TestInstructions() {
   const { testTypeInstructions } = useParams();
-  const testType = testTypeInstructions.replace("Instructions", "").toLowerCase();
+  const testType = testTypeInstructions.replace("Instructions", "").toLowerCase(); 
   const navigate = useNavigate();
   const { startRecording } = useContext(RecordingManagerContext);
 
-  // Grab the chosen devices from Redux
   const { selectedCameraId, selectedMicId } = useSelector((state) => state.device);
 
   const handleStart = async () => {
@@ -24,29 +23,23 @@ export default function TestInstructions() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white overflow-hidden">
+    <div className="flex flex-col items-center min-h-screen w-full bg-white overflow-auto">
       
-      {/* Fixed Header at the Top */}
-      <div className="w-full fixed top-0">
+      {/* Fixed Header */}
+      <div className="w-full fixed top-0 z-10 bg-white shadow-md">
         <Header title={`${testType.charAt(0).toUpperCase() + testType.slice(1)} Assessment`} />
       </div>
 
-      {/* Main Content with padding to prevent overlap */}
-      <div className="flex flex-col items-center justify-center w-full pt-20 space-y-6">
+      {/* Main Content */}
+      <div className="flex flex-col items-center w-full max-w-2xl px-6 pt-[150px] space-y-4 mx-auto">
         
-        {/* Instructions Header */}
-        <div className="px-10 py-6 bg-sky-400 rounded-xl w-full max-w-4xl text-3xl text-center text-white font-semibold shadow-md">
-          Instructions
-        </div>
-
         {/* Instruction Steps */}
         <InstructionContainer type={testType} />
 
-        {/* Start button */}
-        <div className="text-center text-black">
-          <p className="text-lg">Press <span className="font-bold">Start</span> when you're ready to begin!</p>
+        {/* Start Button */}
+        <div className="text-center text-black mt-4">
           <button
-            className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg text-xl 
+            className="px-6 py-3 bg-blue-600 text-white rounded-md text-lg font-semibold
                        transition-all duration-200 ease-in-out 
                        hover:bg-blue-700 hover:scale-105 
                        active:bg-blue-800 active:scale-95 active:opacity-90 shadow-md"
