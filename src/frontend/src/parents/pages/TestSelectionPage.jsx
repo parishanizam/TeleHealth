@@ -47,7 +47,9 @@ function TestSelectionPage() {
       {/* Centered Card */}
       <Card className="shadow p-4 text-dark" style={{ backgroundColor: "#89cff0", width: "60%", minHeight: "400px" }}>
         <Card.Body>
-          <Card.Title className="text-center text-primary mt-4 fs-2 mb-4">Select Test Language</Card.Title>
+          <Card.Title className="text-center text-dark fw-bold mt-4 fs-2 mb-4">
+            Select a Language
+          </Card.Title>
           <Form.Select
             value={selectedLanguage}
             onChange={(e) => handleLanguageChange(e.target.value)}
@@ -58,7 +60,9 @@ function TestSelectionPage() {
             <option value="mandarin">Mandarin</option>
           </Form.Select>
 
-          <Card.Title className="text-center text-primary mt-4 fs-2 mb-4">Select Test Type</Card.Title>
+          <Card.Title className="text-center text-dark fw-bold mt-4 fs-2 mb-4">
+            Select a Test Type
+          </Card.Title>
           <Form.Select
             value={selectedTestType}
             onChange={(e) => setSelectedTestType(e.target.value)}
