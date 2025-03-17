@@ -12,7 +12,7 @@ export default function MatchingCard({ image, onClick, isSelected }) {
       <img
         src={image}
         alt="option"
-        className="w-full h-auto max-w-[100px] aspect-square object-contain"
+        className="w-full h-auto max-w-[150px] aspect-square object-contain"
       />
     </div>
   );

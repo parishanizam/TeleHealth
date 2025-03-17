@@ -61,11 +61,11 @@ export default function MatchingTutorialPage() {
   return (
     <div className="flex flex-col px-2 pt-2 pb-20 bg-white max-md:pb-24">
       <div className="text-sm">
-      <Header
-        title={`Tutorial - ${
-          testType.charAt(0).toUpperCase() + testType.slice(1)
-        }`}
-      />
+        <Header
+          title={`Tutorial - ${
+            testType.charAt(0).toUpperCase() + testType.slice(1)
+          }`}
+        />
       </div>
 
       {currentStep === 1 && (
@@ -96,20 +96,21 @@ export default function MatchingTutorialPage() {
 
       {currentStep === 3 && (
         <div className="border-2 border-green-500 p-2 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-2xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-l">
-            You have completed the tutorial. 
-          </p>
+          <h2 className="text-xl font-semibold text-green-700">Great Job!</h2>
+          <p className="text-l">You have completed the tutorial.</p>
         </div>
       )}
 
-      <VolumeButton
-        sound={question.sound}
-        resetTrigger={null}
-        highlight={currentStep === 1}
-        handlePlayAudio={handlePlayAudio}
-        playCount={playCount}
-      />
+      {/* Hide the volume button when currentStep is 3 */}
+      {currentStep !== 3 && (
+        <VolumeButton
+          sound={question.sound}
+          resetTrigger={null}
+          highlight={currentStep === 1}
+          handlePlayAudio={handlePlayAudio}
+          playCount={playCount}
+        />
+      )}
 
       {currentStep >= 2 && (
         <OptionGrid
@@ -125,14 +126,11 @@ export default function MatchingTutorialPage() {
         {currentStep === 3 ? (
           <>
             <NextButton to="/parents/testselection" name="Start an Assessment" />
-            <NextButton
-              to="/parents/OverallTutorialPage"
-              name="Try Another Tutorial"
-            />
+            <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
           </>
         ) : (
           <button
-            className={`px-6 py-3 rounded-lg text-white font-semibold ${
+            className={`px-6 py-2 rounded-lg text-white font-semibold ${
               currentStep === 2 && selectedAnswer !== question.correctAnswer
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-600"
