@@ -58,7 +58,7 @@ function TestSelectionPage() {
             <option value="mandarin">Mandarin</option>
           </Form.Select>
 
-          <Card.Title className="text-center text-primary fs-4 mb-4">Select Test Type</Card.Title>
+          <Card.Title className="text-center text-primary mt-4 fs-2 mb-4">Select Test Type</Card.Title>
           <Form.Select
             value={selectedTestType}
             onChange={(e) => setSelectedTestType(e.target.value)}
