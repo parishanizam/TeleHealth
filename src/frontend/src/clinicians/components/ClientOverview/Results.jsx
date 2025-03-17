@@ -85,9 +85,11 @@ export function Results({ data, client }) {
         questionBankId: result.questionBankId,
         parentUsername: client.parentUsername,
         score: scores[result.assessment_id] || 0,
+        clientId: client.clientId,
       },
     });
-  };
+  }
+  console.log("HEEELLLLOOOO", client);
 
   return (
     <div className="flex flex-col justify-start items-end w-full space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">

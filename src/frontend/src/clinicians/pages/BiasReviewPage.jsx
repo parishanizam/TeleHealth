@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Header } from "../components/Header";
+import { Header } from "../../parents/components/Header";
 import BiasDetected from "../components/BiasReview/BiasDetected";
 import QuestionAnswers from "../components/BiasReview/QuestionAnswers";
 import TempMediaPlayer from "../components/BiasReview/TempMediaPlayer";
@@ -9,6 +9,7 @@ import RemoveBiasButton from "../components/BiasReview/RemoveBiasButton";
 import VolumeButton from "../../assets/volumebutton.svg";
 import { formatDate } from "../../utils/dateUtils";
 import { formatTestTitle } from "../../utils/testTitleUtils";
+import PreviousPageButton from "../components/BiasReview/PreviousPageButton";
 
 function BiasReviewPage() {
   const { state } = useLocation();
@@ -68,11 +69,11 @@ function BiasReviewPage() {
   }, [parentUsername, assessmentId]);
 
   const displayTimestamp =
-  questionNumber === 1
-    ? "00:00"
-    : historyTimestamps && historyTimestamps.length >= questionNumber - 1
-    ? historyTimestamps[questionNumber - 2].timestamp
-    : "00:00";
+    questionNumber === 1
+      ? "00:00"
+      : historyTimestamps && historyTimestamps.length >= questionNumber - 1
+        ? historyTimestamps[questionNumber - 2].timestamp
+        : "00:00";
 
   // check for missing data
   useEffect(() => {
@@ -256,7 +257,7 @@ function BiasReviewPage() {
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       <Header
-        title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"}`}
+        title={`${firstName || "Unknown"} ${lastName || ""} - ${formatDate(date) || "No Date"} `} role="clinician"
       />
       <div className="flex items-center justify-center space-x-4 mt-4">
         <span className="text-4xl tracking-tight text-center text-black leading-[64px]">
@@ -269,12 +270,14 @@ function BiasReviewPage() {
       </div>
 
       <div className="mt-4 flex space-x-4">
-        <button
-          onClick={goBackToResults}
-          className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-white font-semibold"
-        >
-          Return to Results
-        </button>
+        <PreviousPageButton
+          parentUsername={parentUsername}
+          assessmentId={assessmentId}
+          date={date}
+          firstName={firstName}
+          lastName={lastName}
+        />
+
 
         <button
           onClick={goToPreviousQuestion}
