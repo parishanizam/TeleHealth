@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Header } from "../components/Header";
 import BiasDetected from "../components/BiasReview/BiasDetected";
@@ -12,6 +12,8 @@ import { formatTestTitle } from "../../utils/testTitleUtils";
 
 function BiasReviewPage() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+
   const {
     questionId,
     questionNumber,
@@ -24,21 +26,55 @@ function BiasReviewPage() {
     assessmentId,
     bias_state,
     mark_state,
+    results = [],
+    questionIds = [],
+    currentIndex = 0,
+    totalQuestions = 1
   } = state || {};
 
   console.log("Page state:", state);
 
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
+  const [audioUrl, setAudioUrl] = useState(""); // for repetition question audio answers
   const [biasTimestamps, setBiasTimestamps] = useState([]);
+  const [historyTimestamps, setHistoryTimestamps] = useState([]); // new state for history timestamps
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // We'll store and display the current states from DB
   const [biasState, setBiasState] = useState(bias_state || false);
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
 
+  // Fetch assessment history file
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/media/history/${parentUsername}`);
+        const historyData = res.data;
+        if (historyData && historyData.assessmentVideos) {
+          const currentAssessment = historyData.assessmentVideos.find(
+            (a) => a.assessmentId.toString() === assessmentId.toString()
+          );
+          if (currentAssessment && currentAssessment.timestamps) {
+            setHistoryTimestamps(currentAssessment.timestamps);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching history:", error);
+      }
+    };
+    fetchHistory();
+  }, [parentUsername, assessmentId]);
+
+  const displayTimestamp =
+  questionNumber === 1
+    ? "00:00"
+    : historyTimestamps && historyTimestamps.length >= questionNumber - 1
+    ? historyTimestamps[questionNumber - 2].timestamp
+    : "00:00";
+
+  // check for missing data
   useEffect(() => {
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
       setError("Missing necessary data for review.");
@@ -70,7 +106,7 @@ function BiasReviewPage() {
         console.log("Result response:", resultRes.data);
 
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
-        const initialBiasState = !!resultRes.data?.bias_state; // cast to boolean
+        const initialBiasState = !!resultRes.data?.bias_state;
         setMarkState(initialMarkState);
         setBiasState(initialBiasState);
 
@@ -84,6 +120,18 @@ function BiasReviewPage() {
         );
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
+
+        // Fetch repetition audio file URL if test type is repetition
+        if (testType.toLowerCase() === "repetition") {
+          try {
+            const audioRes = await axios.get(
+              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
+            );
+            setAudioUrl(audioRes.data.presignedUrl);
+          } catch (audioError) {
+            console.error("Error fetching audio file:", audioError);
+          }
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to load bias review data.");
@@ -93,15 +141,15 @@ function BiasReviewPage() {
     };
 
     fetchQuestionAndMedia();
-  }, [questionId, questionBankId, parentUsername, assessmentId, date]);
+  }, [questionId, questionBankId, parentUsername, assessmentId, date, questionNumber]);
 
   // ─────────────────────────────────────────────────────────
-  //   IMMEDIATELY SAVE CHANGES WHEN USER TOGGLES BIAS
+  //   BIAS TOGGLE
   // ─────────────────────────────────────────────────────────
   const toggleBiasState = async () => {
     const newState = !biasState;
     console.log("Toggling bias state:", newState);
-    setBiasState(newState); // Instant UI feedback
+    setBiasState(newState);
 
     const payload = {
       question_id: questionId,
@@ -121,12 +169,9 @@ function BiasReviewPage() {
     }
   };
 
-  // ─────────────────────────────────────────────────────────
-  //   IMMEDIATELY SAVE CHANGES WHEN USER UPDATES MARK
-  // ─────────────────────────────────────────────────────────
   const changeMarkState = async (newMarkState) => {
     console.log("Changing mark state to:", newMarkState);
-    setMarkState(newMarkState); // Instant UI feedback
+    setMarkState(newMarkState);
 
     const payload = {
       question_id: questionId,
@@ -146,11 +191,67 @@ function BiasReviewPage() {
     }
   };
 
-  // (Optional) Format the bias timestamps for user display
+  // adjust timestamp format
   const formattedBias = biasTimestamps.map((bias) => ({
     ...bias,
     timestamp: (bias.timestamp / 1000).toFixed(2),
   }));
+
+  const isFirstQuestion = currentIndex === 0;
+  const isLastQuestion = currentIndex === totalQuestions - 1;
+
+  // navigation between questions (previous, next, back to overall results)
+  const goToPreviousQuestion = () => {
+    if (!isFirstQuestion) {
+      const prevIndex = currentIndex - 1;
+      const prevQuestion = results[prevIndex];
+
+      navigate("/clinicians/BiasReviewPage", {
+        replace: true,
+        state: {
+          ...state,
+          questionId: questionIds[prevIndex],
+          questionNumber: prevIndex + 1,
+          currentIndex: prevIndex,
+          userAnswer: prevQuestion.user_answer,
+          bias_state: prevQuestion.bias_state,
+          mark_state: prevQuestion.mark_state
+        },
+      });
+    }
+  };
+
+  const goToNextQuestion = () => {
+    if (!isLastQuestion) {
+      const nextIndex = currentIndex + 1;
+      const nextQuestion = results[nextIndex];
+
+      navigate("/clinicians/BiasReviewPage", {
+        replace: true,
+        state: {
+          ...state,
+          questionId: questionIds[nextIndex],
+          questionNumber: nextIndex + 1,
+          currentIndex: nextIndex,
+          userAnswer: nextQuestion.user_answer,
+          bias_state: nextQuestion.bias_state,
+          mark_state: nextQuestion.mark_state
+        },
+      });
+    }
+  };
+
+  const goBackToResults = () => {
+    navigate("/clinicians/ResultsAnalysisPage", {
+      state: {
+        parentUsername,
+        assessmentId,
+        date,
+        firstName,
+        lastName
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
@@ -167,12 +268,44 @@ function BiasReviewPage() {
         <span>{formatTestTitle(questionBankId) || "Unknown"}</span>
       </div>
 
+      <div className="mt-4 flex space-x-4">
+        <button
+          onClick={goBackToResults}
+          className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+        >
+          Return to Results
+        </button>
+
+        <button
+          onClick={goToPreviousQuestion}
+          disabled={isFirstQuestion}
+          className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
+        >
+          Back
+        </button>
+        <button
+          onClick={goToNextQuestion}
+          disabled={isLastQuestion}
+          className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
+        >
+          Next
+        </button>
+      </div>
+
       <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
         <div className="w-1/2 flex flex-col justify-center">
           <div className="flex items-center justify-center space-x-4 mb-4">
             <BiasDetected biasState={biasState} />
           </div>
 
+          {/* Display question timestamp within the video container */}
+          {!loading && (
+            <div className="text-center mb-4">
+              <p className="text-lg font-bold">Question timestamp: {displayTimestamp}</p>
+            </div>
+          )}
+
+          {/* Video Recording Display */}
           {loading ? (
             <p>Loading video...</p>
           ) : error ? (
@@ -184,6 +317,7 @@ function BiasReviewPage() {
             />
           )}
 
+          {/* Bias Dropdown */}
           <div className="mt-4 text-center text-lg">
             {biasState ? (
               <div className="text-red-500">
@@ -218,6 +352,7 @@ function BiasReviewPage() {
           </div>
         </div>
 
+        {/* Question Id and Audio */}
         <div className="w-1/2 flex flex-col items-center space-y-4">
           <div className="flex items-center space-x-3 p-3 bg-white border border-black rounded-xl">
             <div className="text-xl font-semibold text-gray-700">
@@ -229,11 +364,36 @@ function BiasReviewPage() {
                 src={VolumeButton}
                 alt="Play Sound"
                 onClick={() => new Audio(question.sound).play()}
-                className="object-contain w-8 h-8 cursor-pointer hover:shadow-md"
+                className="object-contain w-8 h-8 cursor-pointer"
               />
             )}
           </div>
 
+          {/* Answer Audio */}
+          {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
+            <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl">
+              <p className="mb-2 text-lg font-medium">Submitted answer</p>
+              <div className="p-2 flex justify-center">
+                <audio
+                  key={audioUrl}
+                  controls
+                  preload="auto"
+                  crossOrigin="anonymous"
+                  onLoadedMetadata={(e) =>
+                    console.log("Loaded metadata, duration:", e.target.duration)
+                  }
+                  onError={(e) =>
+                    console.error("Audio playback error:", e.target.error)
+                  }
+                >
+                  <source src={audioUrl} type="audio/mp4" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          )}
+
+          {/* Question Marking Options */}
           {loading ? (
             <p>Loading answers...</p>
           ) : error ? (
@@ -249,7 +409,6 @@ function BiasReviewPage() {
         </div>
       </div>
 
-      {/* Remove the "Save Changes" button entirely */}
       <div className="w-full flex justify-end pr-10 pb-10">
         <RemoveBiasButton
           onClick={toggleBiasState}
