@@ -30,7 +30,7 @@ export default function QuantifierQuestion({
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Question ${questionNumber} of ${totalQuestions}`} />
+      <Header title={`Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
       <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
       <VolumeButton sound={question.sound} resetTrigger={questionNumber}/>
       <OptionGrid options={question.options} selectedAnswer={selectedAnswer} handleAnswerClick={handleAnswerClick} />

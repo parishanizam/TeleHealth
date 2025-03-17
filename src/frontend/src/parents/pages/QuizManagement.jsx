@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -23,7 +23,7 @@ export default function QuizManagement() {
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
-  const [audioFiles, setAudioFiles] = useState([]); 
+  const audioFilesRef = useRef([]);
   const [submitting, setSubmitting] = useState(false); // New loading state
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function QuizManagement() {
 
         let questionIds = new Set();
         while (questionIds.size < 5) {
-          const randomId = Math.floor(Math.random() * 5) + 1;
+          const randomId = Math.floor(Math.random() * 15) + 1;
           questionIds.add(randomId);
         }
 
@@ -100,7 +100,7 @@ export default function QuizManagement() {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-  
+
     if (hours > 0) {
       return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     } else {
@@ -120,9 +120,9 @@ export default function QuizManagement() {
     }
 
     const newResponse = {
-     
+
       question_id: questionId,
-     
+
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
@@ -141,29 +141,40 @@ export default function QuizManagement() {
     setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (testType === "repetition" && audioFile) {
-      console.log("Audio file received in handleAnswerSelected:", audioFile);
-      setAudioFiles((prev) => [...prev, audioFile]);
-    }
+      const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
+        type: audioFile.type,
+      });
+      // console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
+      
+      audioFilesRef.current.push(renamedFile);
+    }       
 
     if (currentQuestionIndex < questions.length) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     } else {
-      finishQuiz(updatedResponses); 
+      finishQuiz(updatedResponses);
     }
   };
 
-  // 🔹 Modified finishQuiz to accept updatedResponses as a parameter
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
-    setSubmitting(true); 
-    stopRecording((finalBlob) => {
+    setSubmitting(true);
+
+    stopRecording(async (finalBlob) => {
       if (finalBlob) {
-        uploadRecording(finalBlob)
-          .then(() => submitResults(updatedResponses))
-          .catch((error) => console.error("Error during processing:", error));
-      } else {
-        submitResults();
+        uploadRecording(finalBlob).catch((error) => {
+          console.error("Background upload failed:", error);
+        });
       }
+      try {
+        await submitResults(updatedResponses);
+      } catch (err) {
+        console.error("Error submitting quiz answers:", err);
+      } finally {
+        setSubmitting(false);
+      }
+
+      navigate("/parents/testcomplete");
     });
   };
 
@@ -171,14 +182,14 @@ export default function QuizManagement() {
     if (!blob) return;
 
     const formData = new FormData();
-  
+
     let hasFiles = false;
-  
+
     if (blob) {
       formData.append("videoFile", blob, "recording.mp4");
       hasFiles = true;
     }
-  
+
     formData.append("parentUsername", parentInfo.username);
     formData.append("firstName", parentInfo.firstName);
     formData.append("lastName", parentInfo.lastName);
@@ -188,20 +199,20 @@ export default function QuizManagement() {
     formData.append("language", language);
     formData.append("testType", testType);
   
-    if (testType === "repetition" && audioFiles.length > 0) {
-      audioFiles.forEach((file, index) => {
-        formData.append("audioFiles", file, `question_${index + 1}.mp4`);
-        hasFiles = true;
+    if (testType === "repetition" && audioFilesRef.current.length > 0) {
+      audioFilesRef.current.forEach((file, index) => {
+        formData.append("audioFiles", file, `${parentInfo.username}_question_${index + 1}.mp4`);
       });
-    }
+      hasFiles = true;
+    }    
   
     if (!hasFiles) {
       console.error("No video or audio files to upload.");
       return;  // Exit early if no files to upload
     }
-  
+
     console.log("🚀 Sending Upload Request with form data...");
-  
+
     try {
       const response = await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -246,7 +257,7 @@ export default function QuizManagement() {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-l px-4 scale-100">
       {currentQuestionIndex === 0 ? (
         <div className="text-center">
           {testType === "matching" && (
@@ -311,8 +322,13 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="text-center text-lg font-semibold mt-4">
-        Submitting Answers...</div>}
+      {submitting && <div className="flex justify-center items-center mt-4">
+        <div
+          className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
+          style={{ animation: 'spin 1s linear infinite' }}
+        ></div>
+        <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
+      </div>}
     </div>
   );
 }

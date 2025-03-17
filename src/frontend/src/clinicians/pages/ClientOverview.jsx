@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
 import Graph from "../components/ClientOverview/Graph";
 import { Results } from "../components/ClientOverview/Results";
-import { Header } from "../components/Header";
+import { Header } from "../../parents/components/Header";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -64,9 +64,9 @@ function ClientOverview() {
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${client?.firstName} ${client?.lastName} - Overview`} />
+      <Header title={`${client?.firstName} ${client?.lastName} - Overview`} role="clinician"/>
 
-      <div className="p-4 space-y-4">
+      <div className="space-y-4">
         <h2 className="text-lg font-semibold">Client Details</h2>
         <p className="text-lg">Security Code: {client?.securityCode}</p>
       </div>
@@ -97,13 +97,13 @@ function ClientOverview() {
       </div> */}
 
       {/* Graph & Results */}
-      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
-        <div className="flex-grow p-4 text-center">
-          <h2 className="text-lg font-semibold mb-4">Graph</h2>
+      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0">
+        <div className="flex-grow text-center">
+        {/* <h2 className="text-2xl font-semibold mb-4">Graph</h2> */}
           <Graph client={client} />
         </div>
-        <div className="flex-grow p-4 text-start">
-          <h2 className="text-lg font-semibold mb-4">Results</h2>
+        <div className="flex-none text-center">
+           {/* <h2 className="text-2xl font-semibold mb-4">Past Assessments</h2> */}
           <Results 
             data={assessmentHistory} 
             client={client} 

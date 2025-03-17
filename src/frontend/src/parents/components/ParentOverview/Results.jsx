@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ResultCard } from "./ResultCard";
 import { formatDate } from "../../../utils/dateUtils";
 import { formatTestTitle } from "../../../utils/testTitleUtils";
 
-export function Results({ data, client }) {
+export function Results({ data }) {
   const navigate = useNavigate();
+  const parent = useSelector((state) => state.parent.parentInfo);
 
   const [scores, setScores] = useState({}); 
 
   useEffect(() => {
     const fetchScores = async () => {
-      if (!data || !Array.isArray(data) || data.length === 0 || !client) return;
+      if (!data || !Array.isArray(data) || data.length === 0 || !parent) return;
 
       const newScores = {}; 
 
       for (const result of data) {
         try {
-          const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
+          const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
           const response = await fetch(resultsApiUrl);
           const fetchedData = await response.json();
 
@@ -30,20 +32,16 @@ export function Results({ data, client }) {
           let totalQuestions = fetchedData.results.length;
 
           if (testType === "repetition") {
-            // ✅ Check if ANY question has mark_state "Undetermined"
             const hasUndetermined = fetchedData.results.some((q) => q.mark_state === "Undetermined");
-
             if (hasUndetermined) {
-              newScores[result.assessment_id] = "N/A"; // Set score to "N/A" if any are undetermined
-              continue; // Skip further calculation
+              newScores[result.assessment_id] = "N/A";
+              continue;
             }
-
             correctAnswers = fetchedData.results.filter((q) => q.mark_state === "Correct").length;
           } else {
-            // Fetch correct answers for other test types
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
-                `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`
+                `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`
               );
               const questionData = await questionRes.json();
               return {
@@ -68,38 +66,35 @@ export function Results({ data, client }) {
     };
 
     fetchScores();
-  }, [data, client]);
+  }, [data, parent]);
 
   const handleCardClick = (result) => {
-    if (!client) {
-      console.warn("Client data is missing!");
+    if (!parent) {
+      console.warn("Parent data is missing!");
       return;
     }
 
-    navigate(`/clinicians/ResultsAnalysisPage`, {
+    navigate(`/parents/ResultsAnalysisPage`, {
       state: {
         date: result.date,
-        firstName: client.firstName,
-        lastName: client.lastName,
+        firstName: parent.firstName,
+        lastName: parent.lastName,
         assessmentId: result.assessment_id,
         questionBankId: result.questionBankId,
-        parentUsername: client.parentUsername,
+        parentUsername: parent.username,
         score: scores[result.assessment_id] || 0,
-        clientId: client.clientId,
       },
     });
-  }
-  console.log("HEEELLLLOOOO", client);
+  };
 
   return (
-    <div className="flex flex-col justify-start items-end w-full space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+    <div className="flex flex-col justify-start items-start p-6 w-full space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
       {data.map((result) => (
         <ResultCard
           key={result.assessment_id}
           score={`${scores[result.assessment_id] ?? "N/A"}%`} 
           test={formatTestTitle(result.questionBankId)}
           date={formatDate(result.date)}
-          onClick={() => handleCardClick(result)}
         />
       ))}
     </div>

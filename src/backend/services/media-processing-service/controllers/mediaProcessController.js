@@ -2,6 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const { GetObjectCommand } = require('@aws-sdk/client-s3');
 const { s3Client, uploadFileToS3, uploadToS3, getVideoPresignedUrl } = require('../config/s3Config');
+const { exec } = require('child_process');
+
+// ADDED CODE: Import ffmpeg-static
+const ffmpegPath = require('ffmpeg-static');
 
 // IMPORT HELPERS
 const { processMp4WithDeepgram } = require('../helpers/audioProcessing'); 
@@ -64,18 +68,27 @@ exports.uploadAndProcessMedia = async (req, res) => {
     console.log("Form data received:", JSON.stringify(req.body, null, 2));
 
     // Extract form data
-    const { parentUsername, firstName, lastName, childUsername, assessmentId, language, testType } = req.body;
+    const {
+      parentUsername,
+      firstName,
+      lastName,
+      childUsername,
+      assessmentId,
+      language,
+      testType,
+    } = req.body;
 
     if (!req.files || (!req.files.videoFile && !req.files.audioFiles)) {
       console.error("Missing both video and audio files");
-      return res.status(400).json({ error: "At least one of video or audio files is required." });
+      return res.status(400).json({
+        error: "At least one of video or audio files is required.",
+      });
     }
 
     let timestamps = req.body.timestamps;
     if (!timestamps) {
       return res.status(400).json({ error: 'Timestamps are required.' });
     }
-
     const parsedTimestamps = JSON.parse(timestamps);
 
     // Generate folder name with date, language, test type, and assessment IDno
@@ -95,19 +108,17 @@ exports.uploadAndProcessMedia = async (req, res) => {
     let videoUploaded = false;
 
     /**
-     * ADDED CODE: Will store bias results from the local video
+     * Will store bias results from the local video
      */
     let biasResults = [];
 
-    // Handle video upload if available
+    // ------------------ VIDEO UPLOAD SECTION ------------------
     if (req.files.videoFile && req.files.videoFile[0]) {
       const tempVideoPath = req.files.videoFile[0].path;
 
-      /**
-       * ADDED CODE (1): Run face detection & audio detection BEFORE deleting the local file
-       */
+      // FACE + AUDIO DETECTION BEFORE ANY DELETION
       console.log("Running face detection and audio analysis for bias on local video...");
-      const faceData = await detectFacesWithPython(tempVideoPath, 4); // Adjust frame skip if needed
+      const faceData = await detectFacesWithPython(tempVideoPath, 4); 
       console.log('✅ Face Detection Complete:', faceData.length, 'frames analyzed.');
 
       const audioData = await processMp4WithDeepgram(tempVideoPath);
@@ -117,22 +128,51 @@ exports.uploadAndProcessMedia = async (req, res) => {
       biasResults = combineDetections(faceData, audioData, 1500);
       console.log("🔹 Combined bias events found:", biasResults.length);
 
+      // ───────────────────────────────────────────────────────────────────
+      // ADDED CODE: ffmpeg faststart conversion on local MP4
+      // ───────────────────────────────────────────────────────────────────
+      console.log("⚙️ Converting local MP4 to faststart...");
+
+      const faststartPath = `${tempVideoPath}-faststart.mp4`; // Temporary path
+
+      // ADDED CODE for ffmpeg-static usage
+      const commandFfmpegStatic = `"${ffmpegPath}" -y -i "${tempVideoPath}" \
+  -c:v libx264 -c:a aac -movflags +faststart "${faststartPath}"`;
+      console.log("Running FFmpeg command:", commandFfmpegStatic);
+
+      await new Promise((resolve, reject) => {
+        exec(commandFfmpegStatic, (error, stdout, stderr) => {
+          if (error) {
+            console.error("FFmpeg error:", error, stderr);
+            return reject(error);
+          }
+          resolve();
+        });
+      });
+
+      // Rename the faststart file back to the original tempVideoPath
+      fs.unlinkSync(tempVideoPath);
+      fs.renameSync(faststartPath, tempVideoPath);
+
+      console.log("✅ MP4 is now faststart-optimized. Proceeding with existing upload...");
+
+      // ------------------ YOUR EXISTING UPLOAD LOGIC ------------------
       console.log("Uploading video file to S3...");
       await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, videoS3Key);
-      fs.unlinkSync(tempVideoPath);  // Clean up after successful upload
+      fs.unlinkSync(tempVideoPath); // Clean up after successful upload
       videoUploaded = true;
     } else {
       console.log("No video file to upload.");
     }
 
-    // Handle audio files upload if available
+    // ------------------ AUDIO UPLOAD SECTION ------------------
     if (req.files.audioFiles && req.files.audioFiles.length > 0) {
       console.log("Uploading audio files to S3...");
       for (let i = 0; i < req.files.audioFiles.length; i++) {
         const audioFile = req.files.audioFiles[i];
-        const audioFileName = `question_${i + 1}.mp4`;
+        const audioFileName = `${parentUsername}_question_${i + 1}.mp4`;
         const audioS3Key = `${assessmentFolder}${audioFileName}`;
-
+        
         console.log(`Uploading ${audioFileName} to ${audioS3Key}...`);
         await uploadFileToS3(MEDIA_BUCKET, audioFile.path, audioS3Key);
         uploadedAudioFiles.push(audioS3Key);
@@ -144,11 +184,12 @@ exports.uploadAndProcessMedia = async (req, res) => {
       console.log("No audio files to upload.");
     }
 
+    // If nothing was uploaded, return an error
     if (!videoUploaded && uploadedAudioFiles.length === 0) {
       return res.status(400).json({ error: "No video or audio files provided." });
     }
 
-    // Update or create history JSON
+    // ------------------ UPDATE HISTORY JSON ------------------
     let existingHistory = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
     if (!existingHistory) {
       existingHistory = {
@@ -164,21 +205,24 @@ exports.uploadAndProcessMedia = async (req, res) => {
       assessmentId: assessmentId,
       videoFile: videoUploaded ? videoFileName : undefined,
       audioFiles: uploadedAudioFiles.length > 0 ? uploadedAudioFiles : undefined,
-      bias: [],  // (EXISTING LINE)
+      bias: [], // (EXISTING LINE)
       timestamps: parsedTimestamps,
     });
 
-    /**
-     * ADDED CODE (2): Insert the new bias detection results into the last assessment entry
-     */
+    // Insert the new bias detection results into the last assessment entry
     const lastIndex = existingHistory.assessmentVideos.length - 1;
     existingHistory.assessmentVideos[lastIndex].bias = biasResults;
 
     // Upload updated history JSON to S3
     console.log("Uploading updated history JSON to S3...");
-    await uploadToS3(MEDIA_BUCKET, historyS3Key, JSON.stringify(existingHistory), 'application/json');
+    await uploadToS3(
+      MEDIA_BUCKET,
+      historyS3Key,
+      JSON.stringify(existingHistory),
+      'application/json'
+    );
 
-    // Return a success response
+    // ------------------ FINAL RESPONSE ------------------
     const presignedUrl = videoUploaded ? await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key) : null;
     res.status(200).json({
       success: true,
@@ -187,6 +231,7 @@ exports.uploadAndProcessMedia = async (req, res) => {
       historyFile: historyS3Key,
       uploadedAudioFiles,
     });
+
   } catch (error) {
     console.error('Error processing media:', error);
     res.status(500).json({ success: false, error: error.message });

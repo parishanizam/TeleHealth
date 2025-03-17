@@ -1,9 +1,9 @@
-// import React from "react";
+import React from "react";
+import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import Globe from "../../assets/globe.svg";
-import Logout from "../../assets/logout.svg";
+import { House, BoxArrowRight } from "react-bootstrap-icons";
 
-export function Header({ title, showLogout = true }) {
+export function Header({ title, showLogout = true, showHome = true, role = "parent" }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -12,33 +12,47 @@ export function Header({ title, showLogout = true }) {
       await fetch("/api/parents/logout", { method: "POST" });
 
       localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken"); // Clear authentication data
+      sessionStorage.removeItem("authToken");
 
-      navigate("/"); // Redirect to Landing Page
+      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
 
-  return (
-    <div className="relative flex justify-center items-center w-full text-slate-800 max-md:max-w-full">
-      <div className="flex justify-center items-center w-full gap-2.5 py-5 text-6xl tracking-tight text-black leading-[64px] whitespace-nowrap max-md:text-4xl">
-        {title}
-      </div>
+  const handleHomeClick = () => {
+    if (role === "clinician") {
+      navigate("../../clinicians/ClinicianDashboard");
+    } else {
+      navigate("/parents/ParentHomePage");
+    }
+  };
 
-      {showLogout && (
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-2 items-center text-base font-bold">
-          <button onClick={handleLogout} className="flex flex-col items-center">
-            <img
-              loading="lazy"
-              src={Logout}
-              className="object-contain aspect-square fill-slate-900 w-[25px]"
-              alt="Logout"
-            />
-            <div>Logout</div>
-          </button>
-        </div>
-      )}
-    </div>
+  return (
+    <Navbar bg="light" expand="lg" className="shadow-sm w-100">
+      <Container className="d-flex justify-content-between align-items-center w-100">
+        {showHome && (
+          <Button
+            variant="link"
+            className="text-dark fw-bold d-flex align-items-center"
+            onClick={handleHomeClick}
+          >
+            <House size={24} className="me-2" /> Home
+          </Button>
+        )}
+
+        <Navbar.Text className="fs-2 fw-bold mx-auto">{title}</Navbar.Text>
+
+        {showLogout && (
+          <Button
+            variant="primary"
+            className="d-flex align-items-center"
+            onClick={handleLogout}
+          >
+            <BoxArrowRight size={20} className="me-2" /> Logout
+          </Button>
+        )}
+      </Container>
+    </Navbar>
   );
 }

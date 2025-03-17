@@ -5,7 +5,7 @@ export function ResultCard({ score, test, date, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="flex justify-between items-center p-4 w-full bg-sky-400 rounded-xl max-w-[742px] h-[120px] max-md:max-w-full cursor-pointer hover:bg-sky-500 transition"
+      className="flex justify-between items-center p-4 w-full bg-sky-400 rounded-xl max-w-[550px] h-[120px] max-md:max-w-full cursor-pointer hover:bg-sky-500 transition"
     >
       {/* Score Circle */}
       <div className="flex items-center justify-center rounded-full w-[101px] h-[101px] bg-blue-400">

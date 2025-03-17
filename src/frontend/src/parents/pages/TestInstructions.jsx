@@ -7,16 +7,12 @@ import InstructionContainer from "../components/InstructionContainer";
 
 export default function TestInstructions() {
   const { testTypeInstructions } = useParams();
-  const testType = testTypeInstructions
-    .replace("Instructions", "")
-    .toLowerCase();
+  const testType = testTypeInstructions.replace("Instructions", "").toLowerCase();
   const navigate = useNavigate();
   const { startRecording } = useContext(RecordingManagerContext);
 
   // Grab the chosen devices from Redux
-  const { selectedCameraId, selectedMicId } = useSelector(
-    (state) => state.device
-  );
+  const { selectedCameraId, selectedMicId } = useSelector((state) => state.device);
 
   const handleStart = async () => {
     console.log("Recording");
@@ -28,35 +24,38 @@ export default function TestInstructions() {
   };
 
   return (
-    <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${testType.charAt(0).toUpperCase() + testType.slice(1)} Assessment`} />
+    <div className="flex flex-col items-center justify-center h-screen bg-white overflow-hidden">
+      
+      {/* Fixed Header at the Top */}
+      <div className="w-full fixed top-0">
+        <Header title={`${testType.charAt(0).toUpperCase() + testType.slice(1)} Assessment`} />
+      </div>
 
-      {/* Instructions Header */}
-      <div className="flex flex-col items-center mt-12 w-full text-3xl text-center text-black max-md:mt-10">
-        <div className="px-10 py-8 bg-sky-400 rounded-xl w-full max-w-4xl">
+      {/* Main Content with padding to prevent overlap */}
+      <div className="flex flex-col items-center justify-center w-full pt-20 space-y-6">
+        
+        {/* Instructions Header */}
+        <div className="px-10 py-6 bg-sky-400 rounded-xl w-full max-w-4xl text-3xl text-center text-white font-semibold shadow-md">
           Instructions
         </div>
-      </div>
 
-      {/* Instruction Steps */}
-      <div className="flex flex-col items-center mt-12 gap-6 w-full max-md:mt-10">
+        {/* Instruction Steps */}
         <InstructionContainer type={testType} />
-      </div>
 
-      {/* Start button */}
-      <div className="flex flex-col items-center mt-12 w-full text-center text-black max-md:mt-10">
-        <div>
-          Press <span className="font-bold">Start</span> when you&apos;re ready to
-          begin!
-        </div>
-        <div className="mt-6">
+        {/* Start button */}
+        <div className="text-center text-black">
+          <p className="text-lg">Press <span className="font-bold">Start</span> when you're ready to begin!</p>
           <button
-            className="flex justify-center items-center px-4 py-2.5 bg-white rounded-lg border-blue-600 border-solid border-[1.5px] text-xl text-blue-600 cursor-pointer"
+            className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg text-xl 
+                       transition-all duration-200 ease-in-out 
+                       hover:bg-blue-700 hover:scale-105 
+                       active:bg-blue-800 active:scale-95 active:opacity-90 shadow-md"
             onClick={handleStart}
           >
             Start
           </button>
         </div>
+
       </div>
     </div>
   );

@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { formatTestTitle } from "../../../utils/testTitleUtils";
 import { formatDate } from "../../../utils/dateUtils";
 
-const Graph = ({ client }) => {
-const [scoresByTestType, setScoresByTestType] = useState({}); // To store scores grouped by test type
-useEffect(() => {
-  if (!client || !client.parentUsername) {
-    console.warn("No client information provided for Graph.");
-    return;
-  }
-const fetchScores = async () => {
-  try {
-    const assessmentHistoryApiUrl = `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${client.parentUsername}`;
-    const response = await fetch(assessmentHistoryApiUrl);
-    const assessmentHistory = await response.json();
+const Graph = () => {
+  const parent = useSelector((state) => state.parent.parentInfo);
+  const [scoresByTestType, setScoresByTestType] = useState({});
+
+  useEffect(() => {
+    if (!parent || !parent.username) {
+      console.warn("No parent information provided for Graph.");
+      return;
+    }
+
+    const fetchScores = async () => {
+      try {
+        const assessmentHistoryApiUrl = `http://localhost:3000/resultstorage/assessment-history/${parent.username}`;
+        const response = await fetch(assessmentHistoryApiUrl);
+        const assessmentHistory = await response.json();
 
         if (!assessmentHistory.assessments || assessmentHistory.assessments.length === 0) {
           console.warn("No assessment history found.");
@@ -23,17 +27,16 @@ const fetchScores = async () => {
 
         const groupedScores = {};
 
-    for (const result of assessmentHistory.assessments) {
-      const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
-      const resultsResponse = await fetch(resultsApiUrl);
-      const resultsData = await resultsResponse.json();
+        for (const result of assessmentHistory.assessments) {
+          const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
+          const resultsResponse = await fetch(resultsApiUrl);
+          const resultsData = await resultsResponse.json();
 
           if (!resultsData.results) continue;
 
           const fetchedQuestionBankId = resultsData.questionBankId;
           const [language, testType] = fetchedQuestionBankId.split("-");
 
-          // Create key for graph grouping
           const combination = formatTestTitle(`${language}-${testType}`);
 
           if (!groupedScores[combination]) {
@@ -43,15 +46,13 @@ const fetchScores = async () => {
           let correctAnswers = 0;
           let totalQuestions = resultsData.results.length;
 
-      if (testType === "repetition") {
-        // For "repetition" tests, check mark_state
-        correctAnswers = resultsData.results.filter((q) => q.mark_state === "Correct").length;
-      } else {
-        // Fetch correct answers for other test types
-        const questionPromises = resultsData.results.map(async (res) => {
-          const questionApiUrl = `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`;
-          const questionResponse = await fetch(questionApiUrl);
-          const questionData = await questionResponse.json();
+          if (testType === "repetition") {
+            correctAnswers = resultsData.results.filter((q) => q.mark_state === "Correct").length;
+          } else {
+            const questionPromises = resultsData.results.map(async (res) => {
+              const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
+              const questionResponse = await fetch(questionApiUrl);
+              const questionData = await questionResponse.json();
 
               return {
                 ...res,
@@ -67,11 +68,10 @@ const fetchScores = async () => {
           const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
           const testNumber = groupedScores[combination].length + 1;
 
-          // Add the test date alongside score and test number
           groupedScores[combination].push({
             name: `${testNumber}`,
             score,
-            date: formatDate(result.date), // Format the date
+            date: formatDate(result.date),
           });
         }
 
@@ -82,17 +82,17 @@ const fetchScores = async () => {
     };
 
     fetchScores();
-  }, [client]);
+  }, [parent]);
 
   const maxTests = Math.max(
-    ...Object.values(scoresByTestType).map((scores) => scores.length)
+    ...Object.values(scoresByTestType).map((scores) => scores.length),
+    0
   );
   const xAxisLabels = Array.from({ length: maxTests }, (_, i) => `${i + 1}`);
 
-  // Custom Tooltip to display date and score
-  const CustomTooltip = ({ active, payload, label }) => {
+  const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      const entry = payload[0].payload; // Access the data from the first payload entry
+      const entry = payload[0].payload;
       return (
         <div className="p-2 bg-white border border-gray-300 rounded shadow-md">
           <p className="font-bold">Test {entry.name}</p>
@@ -108,7 +108,7 @@ const fetchScores = async () => {
   };
 
   return (
-    <div style={{ maxwidth: "1000px", height: "400px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1000px", height: "400px", margin: "0 auto" }}>
       {Object.keys(scoresByTestType).length === 0 ? (
         <p>No data available to plot.</p>
       ) : (

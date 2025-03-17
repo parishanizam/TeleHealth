@@ -11,6 +11,18 @@
     urlcolor=blue
 }
 \usepackage[round]{natbib}
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{array}        
+\usepackage{booktabs}  
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{longtable}  
+\usepackage{float}      
+\usepackage{geometry}   
+\usepackage{pdflscape} 
+\usepackage{pdfpages} 
 
 \input{../Comments}
 \input{../Common}
@@ -27,13 +39,45 @@
 
 \section{Revision History}
 
-\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
-\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
-\midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
-\bottomrule
-\end{tabularx}
+\begin{table}[hp]
+  \caption{Revision History} \label{TblRevisionHistory}
+  \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+  \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+  \midrule
+  3/09/25 & 1.0 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 9 - Trace to Requirements
+    \item 10 - Trace to Modules
+    \end{itemize}\\
+  3/09/25 & 1.1 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item 4.2 Usability and Humanity
+    \item 4.4 Operational and Environmental
+    \item 7 - Changes Due to Testing
+    \item 11 - Code Coverage Metrics
+  \end{itemize}\\
+  3/10/25 & 1.2 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
+    \item 3.4 Data Processing and Display
+    \item 4.1 Look and Feel Requirements
+    \item 4.5 Maintainability and Support
+    \item 4.7 Cultural
+  \end{itemize}\\
+  3/10/25 & 1.3 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item Appendix - Relflection
+  \end{itemize}\\
+  3/10/25 & 1.4 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
+    \item 3.2 System Set Up
+    \item 3.3 Assessment Interface
+    \item 4.6 Security
+    \item 4.8 Compliance 
+    \item Appendix - Usability Survey Guide
+    \item Appendix - Reflection
+  \end{itemize}\\
+  3/10/25 & 1.5 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
+    \item Reviewed document for consistency, grammar, spelling
+    \item Fixed formatting, text, and images
+  \end{itemize}\\
+  \bottomrule
+  \end{tabularx}
+  \end{table}
 
 ~\newpage
 
@@ -44,11 +88,11 @@ Date 2 & 1.1 & Notes\\
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
-  T & Test\\
+  SRS & Software Requirements Specification\\
+  VnV & Verification and Validation\\
+  PII & Personally Identifiable Information\\
   \bottomrule
 \end{tabular}\\
-
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
 \newpage
 
@@ -62,43 +106,1390 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+\hspace{2em}This document contains the team's verification and validation report for the TeleHealth
+Insights project. This document features functional requirements evaluation, nonfunctional requirements
+evaluation, unit testing, changes due to testing, automated testing, trace to requirements, trace to modules,
+and code coverage metrics.
 
 \section{Functional Requirements Evaluation}
+\hspace{2em}The following section covers all the functional requirements tests specified in the project's
+VnV Plan document. The coverage can be traced in Table 3 and Table 4.
+
+\subsection{Authentication}
+\hspace{2em}The test results below focus on ensuring users can safely and securely login, create and
+access their accounts without worrying about others accessing their information.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A1 \par
+  \textbf{Input:} Selection of Parent account role for login \par
+  \textbf{Expected Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
+  \textbf{Actual Output:} The actual result is the Parent account role is selected and User is brought to the Parent login screen \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A2 \par
+  \textbf{Input:} Selection of Clinician account role for login \par
+  \textbf{Expected Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Actual Output:} The actual result is the Clinician account role is selected and User is brought to the Clinician login screen \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A3 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account is created \par
+  \textbf{Actual Output:} The actual result is a new Parent account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A4 \par
+  \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Parent account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Parent account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A5 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that does
+  not exist in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account is created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account is created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A6 \par
+  \textbf{Input:} Admin user selects option to ’Create Account’, with a username that exists
+  in the database, upon attempting to access the system \par
+  \textbf{Expected Output:} The expected result is a new Clinician account fails to be created \par
+  \textbf{Actual Output:} The actual result is a new Clinician account fails to be created \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A7 \par
+  \textbf{Input:} Unique username and corresponding password that exists in the database \par
+  \textbf{Expected Output:} The expected result is a successful login to a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful login to a user’s account \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-A8 \par
+  \textbf{Input:}Selection of 'logout' \par
+  \textbf{Expected Output:} The expected result is a successful logout from a user’s account \par
+  \textbf{Actual Output:} The actual result is a successful logout from a user’s account\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-A5
+\end{mdframed}
+
+\subsection{Data Collection and Storage}
+\hspace{2em}The test cases below focus on ensuring data is collected and stored correctly. We test to make sure
+no identifiable information is stored in the database and we also check that all multimedia data is linked correctly to user assignment.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC1 \par
+  \textbf{Input:} Insertion of multimedia files into the database \par
+  \textbf{Expected Output:} A success message in the console for both storing and retrieving the data; the retrieved files are uncorrupted and match the original files \par
+  \textbf{Actual Output:} A success message in the console and a link to multimedia file \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC2 \par
+  \textbf{Input:} Insertion of a test assessment session with video, audio files, flagged occurrences, and timestamps for each assessment question \par
+  \textbf{Expected Output:} Creation of a JSON file containing the flagged occurrences and timestamps stored alongside the session data \par
+  \textbf{Actual Output:} A JSON file was created in AWS with the correct expected output \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC3 \par
+  \textbf{Input:} Attempted insertion of a record containing personally identifiable information (e.g. address) \par
+  \textbf{Expected Output:} The console throws an error as no such field exists for personal information \par
+  \textbf{Actual Output:} The database throws an invalid payload error\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC4 \par
+  \textbf{Input:} Insertion of multiple sessions, each tagged with a unique user identifier \par
+  \textbf{Expected Output:} All session data is stored and correctly grouped under their respective unique user identifiers \par
+  \textbf{Actual Output:} The database creates folders based on the unique identifiers \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DSC5 \par
+  \textbf{Input:} Insertion of an assessment report linked to a patient's unique identifier \par
+  \textbf{Expected Output:} The report is successfully stored, linked to the corresponding patient identifier\par
+  \textbf{Actual Output:} The assessment is put into the correct folder and is added to the JSON that links multimedia to assignment \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DSC5
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Video and Audio Data Analysis}
+\hspace{2em}The test cases below ensure that both video and audio data is correctly accessed, processed and stored 
+in its respective user folder with no errors.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-VDA1 \par
+  \textbf{Input:} Request by the analysis model to access video and audio data from a completed session \par
+  \textbf{Expected Output:} All requested videos and audio files are processed successfully with a corresponding success message logged \par
+  \textbf{Actual Output:} A success message in the console after video and audio are finished processing \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-VDA1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-VDA2, FR-ST-VDA3 \par
+  \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis \par
+  \textbf{Expected Output:} A JSON file is generated that records the number of disturbances \par
+  \textbf{Actual Output:} A JSON file is created in the correct user folder with a link to the video and contains bias timestamps\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-VDA2, FR-ST-VDA3
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Data Processing and Display}
+\hspace{2em}This set of test cases will help confirm the system's data retrieval, report generation, 
+and display functionalities to ensure the clinician experience aligns with the project’s goals.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD1 \par
+  \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
+  \textbf{Expected Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within MAX\_PROCESSING\_TIME \par
+  \textbf{Actual Output:} The expected result is the successful retrieval of all relevant assessment data, displayed with a minor error regarding the video recording progress bar within \\MAX\_PROCESSING\_TIME.  \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD2 \par
+  \textbf{Input:} Trigger for report generation based on a retrieved assessment dataset. \par
+  \textbf{Expected Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The actual result is an online report dashboard containing all required data within MAX\_PROCESSING\_TIME.  \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD3 \par
+  \textbf{Input:} Clinician dashboard query to display the generated report. \par
+  \textbf{Expected Output:} The expected result is a report displayed in the clinician’s dashboard with accurate formatting, charts, and tables, fully loaded within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The actual result is a report displayed in the clinician’s dashboard with accurate formatting and graphs, loaded within \\MAX\_PROCESSING\_TIME. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-DPD4 \par
+  \textbf{Input:} Clinician request to access a specific previously generated report. \par
+  \textbf{Expected Output:} The expected result is successful retrieval and display of the requested report without errors, within MAX\_PROCESSING\_TIME. \par
+  \textbf{Actual Output:} The expected result is successful retrieval and display of the requested report displayed with a minor error regarding the video recording progress bar, within MAX\_PROCESSING\_TIME.
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} FR-DPD4
+\end{mdframed}
+
+\newpage{}
+
+\subsection{System Set Up}
+\hspace{2em}The test cases below conduct navigation through the system to prepare a parent user to take an assessment. 
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS1 \par
+  \textbf{Input:} User navigates to the page where assessment information is displayed
+before starting hardware checks. \par
+  \textbf{Expected Output:} User is able to view relevant information about the assessment before
+  beginning any hardware checks. \par
+  \textbf{Actual Output:} A parent user is able to enter the main assessment page upon entering and view relevant information including instructions and selecting assessment type. 
+  Information is accessible and readable. \par
+  \textbf{Expected and Actual Output Match:} T \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS2 \par
+  \textbf{Input:} User initiates the audio hardware check through the system \par
+  \textbf{Expected Output:} : User receives confirmation that the audio input and output devices are
+  functioning correctly. \par
+  \textbf{Actual Output:} A parent user is able to test their audio output including microphone and speakers. The system automatically detects their audio inputs/outputs. 
+  User was notified if the check failed with an appropriate error. 
+  Information is accessible and readable. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS3 \par
+  \textbf{Input:} User initiates the video hardware check through the system.ar
+  \textbf{Expected Output:} : User receives confirmation that the video capturing device is functioning
+  correctly. \par
+  \textbf{Actual Output:} A parent user is able to test their video input. The system automatically detects their video input. 
+  User was notified if the check failed with an appropriate error. 
+  Information is accessible and readable. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS3 
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS4 \par
+  \textbf{Input:} User proceeds to the tutorial section after completing hardware checks.
+  \par
+  \textbf{Expected Output:} User is directed to a tutorial that explains the assessment process in a
+  step-by-step manner. \par
+  \textbf{Actual Output:} Upon completing the audio and video checks, the user is navigated to instructions and practice question. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-SS5 \par
+  \textbf{Input:} User initiates the start of the assessment through the system.
+  \par
+  \textbf{Expected Output:} User is taken to the first assessment question, and the assessment begins.   \par
+  \textbf{Actual Output:} Upon completing tutorial, the system directs the user to start assessment, and is directed to the first question. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-SS5 
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Assessment Interface}
+\hspace{2em}The test cases below navigate through the assessment pages to ensure tests conducted and results 
+are stored properly. 
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI1 \par
+  \textbf{Input:} User initiates the assessment.\par
+  \textbf{Expected Output:}  System begins recording both audio and video, with an indicator showing
+  recording is active. \par
+  \textbf{Actual Output:} Upon starting the assessment, device light turns on as a visible indictor that recording is ongoing. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI2 \par
+  \textbf{Input:} System progresses to a new question in the assessment.
+  \par
+  \textbf{Expected Output:} The system plays the corresponding audio prompt for the new question. 
+  \par
+  \textbf{Actual Output:} The system successfully progresses to a new question in the system upon completing a previous one.
+  The system plays the correct audio.\par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI2 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI3 \par
+  \textbf{Input:} System loads a new question.
+  \par
+  \textbf{Expected Output:} System displays all possible answer options for the user to select from.
+  \par
+  \textbf{Actual Output:} The system successful displays the image answer options that correspond with the appropriate audio. \par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI4 \par
+  \textbf{Input:} User selects one of the displayed answer options.
+  \par
+  \textbf{Expected Output:} System highlights or otherwise indicates the user’s selected option \par
+  \textbf{Actual Output:} Once an answer option is selected, the system highlights this image. \par 
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI5 \par
+  \textbf{Input:} User confirms their selection
+  \par
+  \textbf{Expected Output:}  System moves the user to the next question or stage. \par
+  \textbf{Actual Output:} Once User has selected an answer and hits submit to confirm their answer, 
+  the system progresses to the next question or stage. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI5
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI6 \par
+  \textbf{Input:} User enters and exits each question.
+  \par
+  \textbf{Expected Output:} System records timestamps for entry and exit for each question. \par
+  \textbf{Actual Output:} Timestamps of each question are not properly logged. \par
+  \textbf{Expected and Actual Output Match:} Fail  \par
+  \textbf{Relevant Functional Requirement(s):}  FR-ST-AI6 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-AI7 \par
+  \textbf{Input:} User completes the final question and confirms the selection. 
+  \par
+  \textbf{Expected Output:} System displays a message informing the user that the assessment is
+  complete. \par
+  \textbf{Actual Output:} Once assessment is complete, the system displays a completion message. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} FR-ST-AI7
+\end{mdframed}
+
+\newpage{}
 
 \section{Nonfunctional Requirements Evaluation}
+\hspace{2em}The following section covers all the nonfunctional requirements specified in the project’s
+VnV Plan document. The coverage can be traced in Table 5 and Table 6.
 
-\subsection{Usability}
+\subsection{Look and Feel Requirements}
+\hspace{2em}These test cases ensure that all appearance and style requirements are addressed effectively, covering navigation, user-friendliness, brand consistency, visual appeal, and responsiveness.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} LF-ST-LFR1 \par
+  \textbf{Input:} Conduct user tests with participants performing core tasks like starting an assessment, navigating menus, and viewing results. \par
+  \textbf{Expected Output:} The expected result is that at least \\VERY\_HIGH\_SUCCESS\_RATE of users can complete all core tasks independently \par
+  \textbf{Actual Output:} The actual result is that at least \\VERY\_HIGH\_SUCCESS\_RATE of users can complete all core tasks independently \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} LF-AR1, LF-AR2, LF-AR4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} LF-ST-LFR2 \par
+  \textbf{Input:} Perform visual inspection and feedback collection, along with response-time measurements for interactive elements. \par
+  \textbf{Expected Output:} The expected result is that there is \\VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages, \\HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME, and positive feedback from usability testing participants is received regarding appearance. \par
+  \textbf{Actual Output:} The actual result is that there is \\VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages, \\HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME, and positive feedback from usability testing participants is received regarding appearance. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} LF-AR3, LF-AR5, LF-SR1, LF-SR2
+\end{mdframed}
 		
-\subsection{Performance}
+\newpage{}
 
-\subsection{etc.}
+\subsection{Usability and Humanity}
+\hspace{2em}The test results below ensures that the system meets usability and humanity
+requirements for users to have an enjoyable and accessible experience.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-EOU1 \par
+  \textbf{Input:} Users complete one full assessment using the system \par
+  \textbf{Expected Output:} User answers questions in the Usability Survey, and results are culminated and averaged.\\
+  Averages should be at least 'Agree' on the answer scale \par
+  \textbf{Actual Output:} User answers were on average at least 'Agree' on the answer scale across all rating questions in the usability survey (Figure 1, Figure 2).\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt1.png}
+  \caption{Results of Usability Survey - 1}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/UsabilityTestResults_pt2.png}
+  \caption{Results of Usability Survey - 2}
+\end{figure}
+
+\newpage
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-PI1 \par
+  \textbf{Input:} List of available languages to perform assessments in is available to be selected and listed \par
+  \textbf{Expected Output:} The expected result is the available languages for the assessment are English and Mandarin  \par
+  \textbf{Actual Output:} The assessment can be completed in either English and Mandarin (Figure 3)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-PI1
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/LanguageSelection.png}
+  \caption{Language Selection}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} UH-ST-LI1 \par
+  \textbf{Input:} Link to documentation is available on the system's frontend interface, and can be accessed \par
+  \textbf{Expected Output:} The expected result is a user can verify the link takes them to access documentation  \par
+  \textbf{Actual Output:} No user documentation is linked to the current version of the system\par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} UH-LI2
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Performance}
+\hspace{2em}The test cases outlined below ensure proper performance and stability of our system and database.
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL1 \par
+  \textbf{Input/Condition:} User navigates through various web pages. \par
+  \textbf{Expected Output/Results:} All web pages load completely with all functionalities within MAX\_LOAD\_TIME. \par
+  \textbf{Actual Output/Results:} All web pages load with correct data within\\ MAX\_LOAD\_TIME. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL2 \par
+  \textbf{Input/Condition:} A session is recorded during which two faces appear and a keyword is said. \par
+  \textbf{Expected Output/Results:} The latency between video and recorded playback remains below SHORT\_PROCESSING\_TIME. \par
+  \textbf{Actual Output/Results:} The latency is within the \\SHORT\_PROCESSING\_TIME when reviewing on clinician side \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SL3 \par
+  \textbf{Input/Condition:} A video recorded during an assessment session is stored and later retrieved. \par
+  \textbf{Expected Output/Results:} The retrieved video meets or exceeds AVERAGE\_RESOLUTION. \par
+  \textbf{Actual Output/Results:} Video is AVERAGE\_RESOLUTION\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SL3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA1\par
+  \textbf{Input/Condition:} Analysis model loaded with sample audio and video data containing known speech disturbances and multiple faces. \par
+  \textbf{Expected Output/Results:} The model detects speech and multiple faces with an accuracy of VERY\_HIGH\_SUCCESS\_RATE. \par
+  \textbf{Actual Output/Results:} The model detects multiple faces with \\VERY\_HIGH\_SUCCESS\_RATE but not speeches \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA3 \par
+  \textbf{Input/Condition:} User performs actions in the recorded session \par
+  \textbf{Expected Output/Results:} The timestamps delay within \\SHORT\_PROCESSING\_TIME of the real-time action. \par
+  \textbf{Actual Output/Results:} The timestamps delay \\SHORT\_PROCESSING\_TIME  \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-PA4 \par
+  \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
+  \textbf{Expected Output/Results:} The expected output is that the answer key is \\MAX\_SUCCESS\_RATE. \par
+  \textbf{Actual Output/Results:} The answer key is MAX\_SUCCESS\_RATE.  \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-PA4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-RFT1 \par
+  \textbf{Input/Condition:} Simulate common user errors (e.g., invalid inputs). \par
+  \textbf{Expected Output/Results:} The system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the errors encountered. \par
+  \textbf{Actual Output/Results:} System gives correct feedback to user with a \\VERY\_HIGH\_SUCCESS\_RATE \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-RFT1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-RFT2 \par
+  \textbf{Input/Condition:} Monthly data backup event. \par
+  \textbf{Expected Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
+  \textbf{Actual Output/Results:} This test case is currently out of scope as we don't have enough data to verify it.\par
+  \textbf{Expected and Actual Output Match:} N/A \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-RFT2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-CR1 \par
+  \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
+  \textbf{Expected Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
+  \textbf{Actual Output/Results:} System runs smoothly with MIN\_USERS accounts\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-CR1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-CR2 \par
+  \textbf{Input/Condition:} Data stored in the database approaches the annual \\MIN\_STORAGE threshold. \par
+  \textbf{Expected Output/Results:} The system accommodates the data volume without performance degradation. \par
+  \textbf{Actual Output/Results:} The system accommodates the \\MIN\_STORAGE threshold with room to increase data storage\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-CR2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-SE1 \par
+  \textbf{Input/Condition:} Increase user base by \\YEARLY\_INCREASE\_PERCENTAGE. \par
+  \textbf{Expected Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
+  \textbf{Actual Output/Results:} This test case is currently out of scope due to time constraints\par
+  \textbf{Expected and Actual Output Match:} N/A \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-SE1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-LR1 \par
+  \textbf{Input/Condition:} Monitor system stability over successive updates on the release build. \par
+  \textbf{Expected Output/Results:} The system’s failure rate remains below \\LOW\_FAILURE\_RATE during updates. \par
+  \textbf{Actual Output/Results:} system failure rate remains below \\LOW\_FAILURE\_RATE during deployment of versions \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-LR1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Test Case Identifier:} PR-ST-LR2 \par
+  \textbf{Input/Condition:} The system is run on multiple operating systems (Windows, macOS). \par
+  \textbf{Expected Output/Results:} The system functions correctly on all tested platforms without issues. \par
+  \textbf{Actual Output/Results:} The system functions correctly on multiple operating systems\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Functional Requirement(s):} PR-ST-LR2
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Operational and Environmental}
+\hspace{2em}The test results below ensures that the system can be used in a variety of environments,
+along with the requirements for which users are expected to use the system within, and the
+capabilities and qualities the system has to interact with adjacent systems in the environment.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} OE-ST-EPE1 \par
+  \textbf{Input:} Testing the system, including the assessment, on a variety of screen sizes \par
+  \textbf{Expected Output:} The expected result is the system's displayed elements will scale appropriately to different screen sizes \par
+  \textbf{Actual Output:} The actual result is the system's displayed elements scaled, to the satisfaction of 60\% of users (Figure 4)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/UsabilityTestResults2.png}
+  \caption{Results of Usability Survey - Scalability}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} OE-ST-WE1 \par
+  \textbf{Input:} User attempts to start system setup \par
+  \textbf{Expected Output:} The expected result is device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+  \textbf{Actual Output:} The actual result is the system verifies the user can proceed to the assessment following system setup, and allowing the user to test out their peripherals prior to starting the assessment (Figure 5)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-WE1, OE-WE2
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/DeviceSetup.png}
+  \caption{Device Setup}
+\end{figure}
+
+\newpage{}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} OE-ST-IA1 \par
+  \textbf{Input:} Assessment is complete, and results need to be stored \par
+  \textbf{Expected Output:} Verify results are stored in the external server \par
+  \textbf{Actual Output:} Results can be accessed through the server to ensure data has been uploaded and stored successful (Figure 6 and Figure 7)\par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-IA1
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/ResultsStorage.png}
+  \caption{Results Storage - AWS \cite{telehealthStorage}}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/ResultsStorage2.png}
+  \caption{Results Storage - JSON}
+\end{figure}
+
+\clearpage
+
+\subsection{Maintainability and Support}
+\hspace{2em}These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} MS-ST-MSA1 \par
+  \textbf{Input:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par
+  \textbf{Expected Output:} The expected result is that each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module, and users can submit issues and feature requests directly to GitHub, categorized as issues, feature requests, or feedback. \par
+  \textbf{Actual Output:} The actual result is that each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module, and users can submit issues and feature requests directly to GitHub, categorized as issues, feature requests, or feedback. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} MS-MR1, MS-SR1
+\end{mdframed}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{images/MS-ST-MSA1.png}
+  \caption{GitHub Issue Creation \cite{GithubIssues}}
+\end{figure}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} MS-ST-MSA2 \par
+  \textbf{Input:} New user group follows the tutorial to complete primary tasks (e.g., starting an assessment). \par
+  \textbf{Expected Output:} The expected result is HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. \par
+  \textbf{Actual Output:} The actual result is HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} MS-SR2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} MS-ST-MSA3 \par
+  \textbf{Input:} Load and navigate the platform across multiple devices to evaluate responsive design and functionality. \par
+  \textbf{Expected Output:} The expected result is MAX\_SUCCESS\_RATE of essential features are fully functional and readable across all screen sizes tested. \par
+  \textbf{Actual Output:} The actual result is MAX\_SUCCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} MS-AR1
+\end{mdframed}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/TIscreensizeIpad.png}
+  \caption{Website on iPad Screen Size}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.5\textwidth]{images/TIscreensizeIphone.png}
+  \caption{Website on iPhone Screen Size}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=1\textwidth]{images/TIscreensizeSurface.png}
+  \caption{Website on Surface Laptop Screen Size}
+\end{figure}
+
+\clearpage
+
+\subsection{Cultural}
+\hspace{2em}These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusiveness and accessibility for diverse user groups.
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} CU-ST-CUR1 \par
+  \textbf{Input:} User acceptance testing gathers feedback from a diverse set of users. \par
+  \textbf{Expected Output:} The expected result is MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. \par
+  \textbf{Actual Output:} The actual result is MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} CU-CR1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} CU-ST-CUR2 \par
+  \textbf{Input:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par
+  \textbf{Expected Output:} The expected result is MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. \par
+  \textbf{Actual Output:} The actual result is MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in English, but only the assessment itself is also available in Mandarin. \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} CU-CR2
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Security}
+\hspace{2em}The test cases below cover security requirements associated to the system. 
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-AC1 \par
+  \textbf{Input:} User with Admin role attempts to create and assign accounts
+  to clinicians  
+  \textbf{Expected Output:} Only Admin users can access and execute functions related to
+  clinician account creation. \par
+  \textbf{Actual Output:} Only admin can access the ability to create clincian accounts. Non-admin's do not have access to these functions
+  and are denied \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-AC2 \par
+  \textbf{Input:} User with Parent role logs in and attempts to complete
+  assessments.
+  \textbf{Expected Output:} Parent users can create their account, complete assessments,
+  and log out successfully. \par
+  \textbf{Actual Output:} Parent can start and complete an assessment, as well as successfully logout upon completion. They do not have access to any administrative functions. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-AC3 \par
+  \textbf{Input:} User with Parent role logs in and attempts to complete
+  assessments.
+  \textbf{Expected Output:} Parent users can create their account, complete assessments,
+  and log out successfully. \par
+  \textbf{Actual Output:} Parent can start and complete an assessment, as well as successfully logout upon completion. They do not have access to any administrative functions. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC3 
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:}  SR-ST-AC4 \par
+  \textbf{Input:} : Users attempt to log in with correct and incorrect credentials. \par 
+  \textbf{Expected Output:} Users can only log in with correct credentials; unauthorized
+  access attempts are denied. \par
+  \textbf{Actual Output:} Confirmed successful login for admin, parent and clinician accounts with appropriate logins. 
+  Login is denied with incorrect credentials and shown an error message. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-AC4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P1 \par
+  \textbf{Input:} Review documentation to ensure adherence to data protection
+  and privacy laws in the region. \par 
+  \textbf{Expected Output:} Confirm all applicable data protection requirements are met.
+   \par
+  \textbf{Actual Output:} Data is stored appropriately and reviewed. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P1
+\end{mdframed}
+
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P2 \par
+  \textbf{Input:} Examine data in transit and at rest. \par 
+  \textbf{Expected Output:} Data remains encrypted according to standard encryption
+  protocols during transit and at rest.  
+  \textbf{Actual Output:} Data is not encypted \par
+  \textbf{Expected and Actual Output Match:} False \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P2 
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-P3 \par
+  \textbf{Input:} Examine data storage for PII. \par 
+  \textbf{Expected Output:} System does not store any personal identifiable information: (e.g., address, date
+  of birth, names) beyond username and assessment recordings. \par  
+  \textbf{Actual Output:} Data stored does not contain PII. It does include names \par
+  \textbf{Expected and Actual Output Match:} False: We have changed requirements to include names as part of the information stored to ensure proper account creation, 
+  Authentication, and result connection. \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} SR-ST-IM1 \par
+  \textbf{Input:} User attempts to create an account with both weak and
+  strong passwords. \par 
+  \textbf{Expected Output:}Account creation is completed only when a strong password,
+  meeting specified security criteria, is entered. Weak passwords are rejected with
+  an error message detailing the password requirements. \par  
+  \textbf{Actual Output:} The system allows any password. \par
+  \textbf{Expected and Actual Output Match:} False: Strong passwords need to be enforced. \par
+  \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-IM1
+\end{mdframed}
+
+\newpage{}
+
+\subsection{Compliance}
+\hspace{2em}The test cases below cover compliance requirements related to data storage within the system. 
+
+\begin{mdframed}[linewidth=0.5mm] \par
+  \textbf{Test Case Identifier:} FR-ST-STD1 \par
+  \textbf{Input:} User assessment data, including video and audio recordings, is
+  stored in the system. \par
+  \textbf{Expected Output:} Examine the storage configuration and security measures
+  applied to user assessment data. \par
+  \textbf{Actual Output:} Database schema checked, data is linked to username and does not contain PII information. 
+  Unauthorized access is denied. \par
+  \textbf{Expected and Actual Output Match:} True \par
+  \textbf{Relevant Nonfunctional Requirement(s):} FR-ST-STD1
+\end{mdframed}
 	
+\newpage{}
+
 \section{Comparison to Existing Implementation}	
 
-This section will not be appropriate for every project.
+\hspace{2em}As this project does not have existing implementations, this section is not appropriate for the TeleHealth Insights project.
 
 \section{Unit Testing}
 
+\hspace{2em}Unit Testing was conducted on the main functions of each module/service that we have defined in the MIS. 
+The goal of these tests are to validate the correctness of each independent function based on separation of concerns. 
+The unit tests are organized by the modules as well as nonfunctional and functional requirements. 
+
+\subsection{Tests for Functional Requirements}
+\hspace{2em} The following sections for testing functional requirements consists of Authentication Service Tests, Media Processing Service Tests,
+Question Service Tests, and Result Service Tests.
+
+\subsection*{Authentication Service Tests}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Register a New Clinician \par
+\textbf{Function(s) Tested:} \texttt{clinicianSignup} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Valid clinician registration data (firstname, lastname, username, email, password) \par
+\textbf{Expected Output:} JSON response {"message": "Clinician created", "user": {"username": "drjohndoe"}} \par
+\textbf{Actual Output:} JSON response {"message": "Clinician created", "user": {"username": "drjohndoe"}} \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-A6
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Error for Existing Username \par
+\textbf{Function(s) Tested:} \texttt{clinicianSignup} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Clinician registration data with an existing username \par
+\textbf{Expected Output:} HTTP error response with status 400 \par
+\textbf{Actual Output:} HTTP error response with status 400 \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-A4
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Login a Clinician with Valid Credentials \par
+\textbf{Function(s) Tested:} \texttt{clinicianLogin} (in \texttt{clinician.controller.js}) \par
+\textbf{Input:} Valid login credentials (username and password) \par
+\textbf{Expected Output:} JSON response indicating successful login (i.e., \texttt{res.json} is called) \par
+\textbf{Actual Output:} JSON response indicating successful login (i.e., \texttt{res.json} is called) \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-A7
+\end{mdframed}
+
+\subsection*{Media Processing Service Tests}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Upload and Process Media \par
+\textbf{Function(s) Tested:} POST \texttt{/media/upload} endpoint (in media processing controller) \par
+\textbf{Input:} Valid video file upload (if file exists) \par
+\textbf{Expected Output:} HTTP 200 response with JSON {"message": "Processing started"} \par
+\textbf{Actual Output:} HTTP 200 response with JSON {"message": "Processing started"} \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-DSC1
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Get Processed Media Successfully \par
+\textbf{Function(s) Tested:} GET \texttt{/media/processed} endpoint (in media processing controller) \par
+\textbf{Input:} No input (simple GET request) \par
+\textbf{Expected Output:} HTTP 200 response with JSON containing a valid media URL \par
+\textbf{Actual Output:} HTTP 200 response with JSON containing a valid media URL \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-VDA1
+\end{mdframed}
+
+\subsection*{Question Service Tests}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Correct JSON When Retrieving a Test Question Information \par
+\textbf{Function(s) Tested:} GET \texttt{/questions/english/matching/1} endpoint (in question controller/route) \par
+\textbf{Input:} HTTP GET request to \texttt{/questions/english/matching/1} \par
+\textbf{Expected Output:} HTTP 200 response with JSON containing keys: \texttt{id} (Number), \texttt{title} (String), \texttt{sound} (String), \texttt{options} (Array of objects with \texttt{id} and \texttt{image}), 
+and \texttt{correctAnswer} (String, e.g., "b") \par
+\textbf{Actual Output:}  HTTP 200 response with JSON containing keys: \texttt{id} (Number), \texttt{title} (String), \texttt{sound} (String), \texttt{options} (Array of objects with \texttt{id} and \texttt{image}), 
+and \texttt{correctAnswer} (String, e.g., "b") \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-DPD1
+\end{mdframed}
+
+\subsection*{Result Service Tests}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Return Calculated Result of a Specific Test Result. \par
+\textbf{Function(s) Tested:} \texttt{calculateResult} (in \texttt{results.controller.js}) \par
+\textbf{Input:} JSON body with {"score": 10, "multiplier": 2} \par
+\textbf{Expected Output:} JSON response {"result": 20} \par
+\textbf{Actual Output:} JSON response {"result": 20} \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} FR-ST-DPD2
+\end{mdframed}
+
+\subsection{Tests for Nonfunctional Requirements}
+\hspace{2em} The following sections for testing nonfunctional requirements consists of Performance and Security Tests.
+
+\subsubsection{Performance and Security Tests}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Encrypt Data Before Storing \par
+\textbf{Function(s) Tested:} Database insertion function (e.g., \texttt{storeEncryptedData}) \par
+\textbf{Input:} Plain text user data \par
+\textbf{Expected Output:} Data stored in an encrypted format, verified by retrieval and decryption \par
+\textbf{Actual Output:} Data stored in an encrypted format, verified by retrieval and decryption \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} SR-ST-P2
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+\textbf{Unit Test Name:} Should Prevent Unauthorized Access to User Data \par
+\textbf{Function(s) Tested:} Authentication middleware (e.g., \texttt{verifyToken}) \par
+\textbf{Input:} Unauthorized request to access protected resources \par
+\textbf{Expected Output:} HTTP 401 response with an error message \par
+\textbf{Actual Output:} HTTP 401 response with an error message \par
+\textbf{Result:} Passed \par
+\textbf{Relevant Test Case(s):} SR-ST-AC3
+\end{mdframed}
+
+\begin{mdframed}[linewidth=0.5mm]
+  \textbf{Unit Test Name:} Should Return Calculated Result of a Specific Test Result (RS01) \par
+  \textbf{Function(s) Tested:} \texttt{calculateResult} (in \texttt{results.controller.js}) \par
+  \textbf{Input:} JSON body with {"score": 10, "multiplier": 2} \par
+  \textbf{Expected Output:} JSON response {"result": 20} \par
+  \textbf{Actual Output:} JSON response {"result": 20} \par
+  \textbf{Result:} Passed \par
+  \textbf{Relevant Test Case(s):} FR-ST-DPD2
+  \end{mdframed}
+
+\newpage{}
+
+  \subsection{Overall Results}
+
+  \hspace{2em}Overall, unit testing serves as a basis to ensure main functionalities are working as expected. This ensures that the system is reliable and robust in terms of its 
+  functions. By ensuring all test cases pass, we can deliver a high quality software that meets all the functional and non-functional requirements that were set in place. 
+
+  \begin{table}[H]
+    \centering
+    \label{tab:unitTestingResults}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Module} & \textbf{Function Tested} & \textbf{Result} \\
+      \hline
+      ResultService & calculateResult & Passed \\
+      \hline
+      AuthService & clinicianSignup & Passed \\      
+                  & clinicianLogin & Passed \\ 
+      \hline
+      QuestionService & fetchQuestion & Passed \\
+      \hline
+      MediaService & testAudioProcessing & Passed \\
+                   & testVideoProcessing & Passed \\
+                   & testBiasDetection & Passed \\
+      \hline
+    \end{tabular}
+    \caption{Unit Testing Results}
+\end{table}
+
+\newpage{}
+
 \section{Changes Due to Testing}
 
-\wss{This section should highlight how feedback from the users and from 
-the supervisor (when one exists) shaped the final product.  In particular 
-the feedback from the Rev 0 demo to the supervisor (or to potential users) 
-should be highlighted.}
+\hspace{2em} Throughout testing, important changes to the system were identified that will be implemented into Revision 1.
+Feedback is based on pilot usability testing with fellow software engineering students, graduates from McMaster, and the team's
+supervisor, following the Revision 0 demo. The changes identiifed are aimed at enhancing the functionality and usability of the system.
+
+\begin{itemize}
+  \item \textbf{Parent Results Accessibility} Inititally, the system was not capable of displaying the results to the parents. Upon conversations
+    with the team's supervisor, it became clear that a missing feature that would benefit users of the system is for parents to have access to
+    their own past assessment information. Clarity in communication surrounding their child's results is integral for conversation amongst
+    parents and clinicians to see how the child's progress overtime.
+  \item \textbf{Uploading Results Require Clearer Communication} Initially, to upload results, the user would press a 'submit' button on the last question
+    of their assessment. Upon clicking this button, text would appear to inform the user that their results were being uploaded. However, feedback from
+    the team's usability testing revealed that users would appreciate a loading screen, or a loading indicator on the screen, rather than static text
+    to effectively communicate that results are still being uploaded. Users were previously confused on whether or not the system was operating properly,
+    or if it froze, due to the lack of a loading indicator.
+  \item \textbf{Simplify Tutorials} The tutorial screens consisted of a variety of screenshots and descriptions, informing users of what they could expect
+    to see from the system upon completion of the tutorial. However, upon conducting usability testing, numerous users were confused by the tutorial,
+    and thought that the screenshots themselves were interactable buttons, as they were screenshots of the system. Tutorials will be modified to convey
+    integral information to the user about the assessment itself, and minimize repetition of information by reducing screenshots of the system. The section
+    of the tutorial users appreciated was the step-by-step walkthrough of a sample question. The tutorial will be reformulated to put a larger emphasis on
+    walking users through the system, instead of displaying static information.
+  \item \textbf{Uploading Assessment Videos} The team's supervisor expressed through feedback that the system was not effective at uploading assessment videos.
+    Upon inspection, the team updated the deployed system to allow for faster upload speeds, resulting in a better user experience when completing assessments.
+    This is of particular importance to the team, as the full assessment will be 30 questions, while the usability test featured only 5 questions. In addition,
+    the system will be used by children, which may lengthen the assessment duration as well.
+\end{itemize}
+
+\newpage{}
 
 \section{Automated Testing}
-		
+
+\hspace{2em}To perform automated testing, a combination of linters, unit testing, and continuous integration was used.
+
+\subsection{Linters}
+\hspace{2em}To maintain a good coding standard, we integrated linters into
+our development workflow. For JavaScript files, we rely on Prettier to
+automatically format code, ensuring consistent indentation and spacing.
+By running Prettier as part of our pre-commit checks, any formatting concerns
+are addressed before merging into our main repository, which helps minimize merge
+conflicts and maintain a clean codebase.
+
+\subsection{Unit Testing}
+\hspace{2em}We use Jest as our primary JavaScript testing framework to automatically verify critical parts 
+of our code before changes are merged into the main branch. This approach helps us catch issues 
+early, maintain code quality, and keep the overall system stable.
+
+\subsection{Continuous Integration}
+\hspace{2em}We used continuous integration (CI) pipeline to automate test execution
+and provide immediate feedback whenever new code is committed. We configure GitHub
+Actions trigger to run our Jest unit tests, linters and document tests on each pull request 
+or direct push to main, ensuring that only code meeting quality standards is always met.
+
+
+\newpage
 \section{Trace to Requirements}
-		
+
+\hspace{2em}Trace between system test cases and functional and nonfunctional requirements are displayed below.
+
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Functional Requirements (Part 1)}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & FR-ST-A1 & FR-ST-A2 & FR-ST-A3 & FR-ST-A4 & FR-ST-A5 & FR-ST-A6 & FR-ST-A7 & FR-ST-A8 & FR-ST-DSC1 & FR-ST-DSC2 & FR-ST-DSC3 & FR-ST-DSC4 & FR-ST-DSC5 & FR-ST-VDA1 & FR-ST-VDA2 \\ \hline
+      FR-A1 & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A2 & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A3 & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A4 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI6 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI7 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      FR-DSC5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      FR-VADA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      FR-VADA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      FR-VADA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+  \end{tabular}
+  }
+\end{table}
+
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Functional Requirements (Part 2)}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & FR-ST-VDA3 & FR-ST-DPD1 & FR-ST-DPD2 & FR-ST-DPD3 & FR-ST-DPD4 & FR-ST-SS1 & FR-ST-SS2 & FR-ST-SS3 & FR-ST-SS4 & FR-ST-SS5 & FR-ST-AI1 & FR-ST-AI2 & FR-ST-AI3 & FR-ST-AI4 & FR-ST-AI5 & FR-ST-AI6 & FR-ST-AI7 \\ \hline
+      FR-A1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-A5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS1 & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS2 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-SS5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-AI4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      FR-AI5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      FR-AI6 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      FR-AI7 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      FR-DSC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DSC5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-VADA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-VADA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-VADA3 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD1 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD2 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD3 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-DPD4 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+  \end{tabular}
+  }
+\end{table}
+
+
+\begin{table}[H]
+  \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements (Part 1)}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & LF-ST-LFR1 & LF-ST-LFR2 & UH-ST-EOU1 & UH-ST-PI1 & UH-ST-LI2 & PR-ST-SL1 & PR-ST-SL2 & PR-ST-SL3 & PR-ST-PA1 & PR-ST-PA3 & PR-ST-PA4 & PR-ST-RFT1 & PR-ST-RFT2 & PR-ST-CR1 & PR-ST-CR2 & PR-ST-SE1 & PR-ST-LR1 \\ \hline
+      LF-AR1 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR2 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR3 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR4 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR5 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR1 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR2 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU2 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-PI1 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI2 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-UP1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-AR1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL1 & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL2 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SCL1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      PR-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      PR-CR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      PR-CR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+      PR-SE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      PR-SE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      PR-SE3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      PR-LR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      PR-LR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-EPE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-IA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-MR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-IM1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+  \end{tabular}
+  }
+\end{table}
+
+\begin{table}[H]
+  \caption{Traceability Table Between System Test Cases and Nonfunctional Requirements (Part 2)}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & PR-ST-LR2 & OE-ST-EPE1 & EO-ST-WE1 & OE-ST-IA1 & MS-ST-MSA1 & MS-ST-MSA2 & MS-ST-MSA3 & CU-ST-CUR1 & CU-ST-CUR1 & SR-ST-AC1 & SR-ST-AC2 & SR-ST-AC3 & SR-ST-AC4 & SR-ST-IM1 & CR-ST-D1 & SR-ST-P1 & SR-ST-P2 & SR-ST-P3 \\ \hline
+      LF-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-AR5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      LF-SR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-EOU2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-PI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-LI2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-UP1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      UH-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SL4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SCL1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-PA5 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-RFT3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-CR4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-SE3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      PR-LR2 & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-EPE1 & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE1 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-WE2 & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      OE-IA1 & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-MR1 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR1 & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-SR2 & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      MS-AR1 & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-AC4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ \\ \hline
+      SR-P1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ \\ \hline
+      SR-P2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
+      SR-P3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X \\ \hline
+      SR-IM1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CU-CR2 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ \\ \hline
+    \end{tabular}
+    }
+  \end{table}
+
+\newpage
+
 \section{Trace to Modules}		
 
+\hspace{2em}Trace between system test cases and modules are displayed below.
+
+\begin{table}[!ht]
+  \caption{Traceability Table Between System Test Cases and Modules}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+  \hline
+      ~ & M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8 & M9 & M10 & M11 & M12 & M13 & M14 & M15 & M16 & M17 \\ \hline
+      FR-ST-A1 & X & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A2 & X & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A3 & ~ & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A4 & ~ & X & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A5 & X & ~ & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A6 & X & ~ & X & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A7 & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-A8 & ~ & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC1 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC2 & ~ & ~ & ~ & X & ~ & X & X & ~ & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC3 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC4 & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DSC5 & ~ & ~ & ~ & X & ~ & ~ & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA1 & ~ & ~ & ~ & X & ~ & ~ & X & ~ & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA2 & ~ & ~ & ~ & X & ~ & ~ & X & X & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-VDA3 & ~ & ~ & ~ & X & ~ & ~ & X & X & ~ & ~ & ~ & X & X & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD1 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD2 & ~ & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD3 & X & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-DPD4 & X & ~ & ~ & X & ~ & X & ~ & X & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS1 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS2 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS3 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS4 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-SS5 & ~ & X & X & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+      FR-ST-AI1 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI2 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI3 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI4 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI5 & ~ & X & X & X & ~ & X & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI6 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & ~ \\ \hline
+      FR-ST-AI7 & ~ & X & X & X & ~ & ~ & X & ~ & X & ~ & ~ & X & X & X & X & X & X \\ \hline
+  \end{tabular}
+  }
+\end{table}
+
+\newpage
+
 \section{Code Coverage Metrics}
+\hspace{2em}This section covers the code coverage metrics summary for all files in our backend. The code coverage values are given as percentages of code covered
+utilizing Jest. Services such as authenticaition-service and media-processing-service have greater code coverage as they were a bigger part of our system thus we wrote more 
+unit tests for them.
+\begin{table}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}lcccccccc@{}}
+  \toprule
+  \textbf{File} & \textbf{Stmts (\%)} & \textbf{Stmts (cov/total)} & \textbf{Branches (\%)} & \textbf{Branches (cov/total)} & \textbf{Funcs (\%)} & \textbf{Funcs (cov/total)} & \textbf{Lines (\%)} & \textbf{Lines (cov/total)} \\ 
+  \midrule
+  backend & 78.57 & 11/14 & 25 & 1/4 & 0 & 0/1 & 78.57 & 11/14 \\
+  backend/routes & 92.3 & 12/13 & 100 & 0/0 & 0 & 0/1 & 92.3 & 12/13 \\
+  backend/services/authentication-service & 100 & 9/9 & 100 & 0/0 & 100 & 0/0 & 100 & 9/9 \\
+  backend/services/authentication-service/config & 27.77 & 5/18 & 100 & 0/0 & 0 & 0/6 & 29.41 & 5/17 \\
+  backend/services/authentication-service/controllers & 22.97 & 34/148 & 6.25 & 4/64 & 18.18 & 2/11 & 23.28 & 34/146 \\
+  backend/services/authentication-service/models & 12.19 & 5/41 & 0 & 0/3 & 0 & 0/8 & 12.5 & 5/40 \\
+  backend/services/authentication-service/routes & 100 & 21/21 & 100 & 0/0 & 100 & 0/0 & 100 & 21/21 \\
+  backend/services/media-processing-service & 100 & 5/5 & 100 & 0/0 & 100 & 0/0 & 100 & 5/5 \\
+  backend/services/media-processing-service/config & 31.57 & 6/19 & 0 & 0/4 & 0 & 0/4 & 31.57 & 6/19 \\
+  backend/services/media-processing-service/controllers & 7.35 & 10/136 & 1.78 & 1/56 & 0 & 0/12 & 7.51 & 10/133 \\
+  backend/services/media-processing-service/helpers & 19.51 & 8/41 & 0 & 0/10 & 0 & 0/8 & 20 & 8/40 \\
+  backend/services/media-processing-service/routes & 83.33 & 10/12 & 100 & 0/0 & 0 & 0/2 & 83.33 & 10/12 \\
+  backend/services/question-bank-service & 100 & 5/5 & 100 & 0/0 & 100 & 0/0 & 100 & 5/5 \\
+  backend/services/question-bank-service/config & 84 & 21/25 & 100 & 1/1 & 100 & 6/6 & 83.33 & 20/24 \\
+  backend/services/question-bank-service/controllers & 50 & 22/44 & 31.25 & 5/16 & 80 & 4/5 & 48.83 & 21/43 \\
+  backend/services/question-bank-service/routes & 100 & 6/6 & 100 & 0/0 & 100 & 0/0 & 100 & 6/6 \\
+  backend/services/result-storage-service & 100 & 5/5 & 100 & 0/0 & 100 & 0/0 & 100 & 5/5 \\
+  backend/services/result-storage-service/config & 18.18 & 4/22 & 100 & 0/0 & 0 & 0/7 & 19.04 & 4/21 \\
+  backend/services/result-storage-service/controllers & 2.08 & 2/96 & 0 & 0/46 & 0 & 0/9 & 2.15 & 2/93 \\
+  backend/services/result-storage-service/routes & 100 & 10/10 & 100 & 0/0 & 100 & 0/0 & 100 & 10/10 \\ 
+  \bottomrule
+  \end{tabular}
+  }
+  \caption{Code Coverage Report for Each Service}
+  \label{tab:coverage}
+  \end{table}
+
+  \newpage{}
 
 \bibliographystyle{plainnat}
 \bibliography{../../refs/References}
 
 \newpage{}
+
+\section{Appendix --- Usability Testing Instructions}
+\hspace{2em} The following instructions were used by the team consistency when conducting the pilot usability test.
+
+\includepdf[pages=-]{images/TeleHealthUsabilityTestingInstructions.pdf}
+
+\newpage{}
+
+\section{Appendix --- Symbolic Parameters}
+
+Many of the results of the tests cases called for SYMBOLIC\_CONSTANTS.
+Their values are defined in this section for easy maintenance.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Variable Name} & \textbf{Value} \\
+      \hline
+      MAX\_PROCESSING\_TIME & 10 seconds \\
+      \hline
+      SHORT\_PROCESSING\_TIME & 0.5 seconds \\
+      \hline
+      MAX\_SUCCESS\_RATE & 100\% \\
+      \hline
+      VERY\_HIGH\_SUCCESS\_RATE & 95\% \\
+      \hline
+      HIGH\_SUCCESS\_RATE & 90\% \\
+      \hline
+      NUM\_CODE\_LINES & 10 \\
+      \hline
+      MIN\_SCREEN\_SIZE & 4 inches \\
+      \hline
+      MAX\_SCREEN\_SIZE & 27 inches \\
+      \hline
+      MAX\_STORAGE\_TIME & 7 years \\
+      \hline
+      MAX\_LOAD\_TIME & 3 seconds \\
+      \hline
+      AVERAGE\_RESOLUTION & 720p \\
+      \hline
+      MONTHLY\_BACKUP & 4 hour \\
+      \hline
+      MIN\_USERS & 2000 users \\
+      \hline
+      MIN\_STORAGE & 10TB \\
+      \hline
+      YEARLY\_INCREASE\_PERCENTAGE & 10\% \\
+      \hline
+      LOW\_FAILURE\_RATE & 1\% \\
+      \hline
+      MAX\_CLICKS & 5 \\
+      \hline
+  \end{tabular}
+  \caption{Variable Names and Values}
+  \label{tab:variables}
+\end{table}
+
+\newpage{}
+
 \section*{Appendix --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
@@ -108,10 +1499,29 @@ graduate attribute of Reflection.
 
 \begin{enumerate}
   \item What went well while writing this deliverable? 
+  
+  \textbf{Jasmine:} I think the team's ability to efficiently split up tasks and communicate and collaborate with each other when uncertainties arise is very high from working together over several months of documentation. Our workflow has become more optimized and smooth over time.\\
+  \textbf{Mitchell:} One of the things that went well while writing this deliverable was how prepared we were to evaluate our tests. Since we created the VnV plan prior to implementing the system, the design of the software was made with the tests in mind. This made it so that we had less obstacles and design decisions to make later, and prevented many issues and bugs from arising.\\
+  \textbf{Promish:} I think everyone was very organized during this deliverable. Writing unit tests wasn’t too bad, and using Jest to get a coverage report was fairly easy too—it didn’t throw any errors, which was always good. Lastly, merging our work together this time was easy since we figured out that writing sections into main for each of the parts and then making branches off the main with sections led to having zero merge conflicts.\\
+  \textbf{Parisha:} For this deliverable, the team was able to split tasks efficiently. We looked at the VnV Plan and split the work accordingly as we had prior experience to those sections and would be able to do them best. This deliverable was done very smoothly and we also learnt from past mistakes to not do them again this time for example we set subsections for the entire document before branching off so that we would have minimal merge conflicts. \\
+
   \item What pain points did you experience during this deliverable, and how
     did you resolve them?
+  
+  \textbf{Jasmine:} There were points where the wording of written test cases were ambiguous or unclear, which made it difficult to determine whether the test case could be considered a pass or not. The resolution was to discuss with the team to define any unclear terms with each other for consistency, such as visual consistency meaning using the same set of fonts, colours, button styles, image styles, etc.\\
+  \textbf{Mitchell:}| One of the pain points I experienced during this deliverable was figuring out priorities for next steps to improve the system. Although there were many areas that could benefit from modifications, figuring out what to prioritize first to greatly improve user satisfaction was difficult. To resolve this, I looked at the usability results and looked at what difficulties users had in common. This brought my attention to the tutorial screens, and how they need to be made to convey information to the user without simply posting screenshots of the system. Many users found the screenshots unhelpful, and conveyed that was a main point of confusion, which led to the prioritization of improving the tutorial screens.\\
+  \textbf{Promish:} This document was due during a very busy time when each of us had midterms, so writing and coding the unit tests was stressful. We resolved this issue by figuring out when everyone was free and dividing the work evenly based on what we did in previous documents so that everyone could work on their own time.\\
+  \textbf{Parisha:} The pain point for this document was to know what was expected of us in terms of unit testing. We tried to be the most detailed but without guidelines or expectations, it was difficult to guage the work and we were not as confident. We made sure to comminciate with each other what we think would be the best to have and reassured the work that was done and that it fits the rubric. \\
+  
   \item Which parts of this document stemmed from speaking to your client(s) or
   a proxy (e.g. your peers)? Which ones were not, and why?
+  
+
+  \textbf{Jasmine:} Changes from the VnV plan expected output for a few tests to the VnV report were made after going over peer reviews, such as for test case CU-ST-CUR1 one of the expected outputs was for an individual with credibility on the relevant cultures to approve of the site and assessment content. The practicality of this was questioned during peer review, and it was later decided that the participants in usability testing would be used to confirm no content was culturally insensitive alone would be sufficient instead. The expected output of a few test cases were adjusted for this reason.\\
+  \textbf{Mitchell:} The ‘Usability and Humanity’ nonfunctional requirements evaluation section and ‘Changes Due to Testing’ section stemmed from speaking with a proxy, which was the peers we conducted the pilot usability tests with. This was especially helpful as it led to the validation of our system’s use and provided us with helpful feedback that we can use to further improve the system.\\
+  \textbf{Promish:} The usability testing was a result of speaking to our peers. We did a pilot to gain insights into which parts of our frontend and user flow needed to be changed. Talking to our supervisor Irene, we talked about potential additions to our system which parents would want to see like their history. Other than that, the tests for our functional and nonfunctional requirements were taken from the ones we wrote in the VnV plan.\\
+  \textbf{Parisha:} The usability testing results stemmped from speaking to our peers as we conducted a pilot testing of our deployed application with several to gain insights on the flow of the application, find any improvements, and notice any bugs that were missed. The pilot testing was very useful to see what we should priortize for Rev 1 and categorize changes into priorty or for things to add/change if we have time. We also gained feedback from our supervisor. \\
+
   \item In what ways was the Verification and Validation (VnV) Plan different
   from the activities that were actually conducted for VnV?  If there were
   differences, what changes required the modification in the plan?  Why did
@@ -120,6 +1530,11 @@ graduate attribute of Reflection.
   predict a feasible amount of effort and the right tasks needed to build the
   evidence that demonstrates the required quality?  (It is expected that most
   teams will have had to deviate from their original VnV Plan.)
+
+  \textbf{ Jasmine:} For the most part the testing was the same, there were very few activities from the VnV plan were not executed or substituted during the actual VnV, due to feasibility or limitations out of the group's control. If a test case had multiple methods to verify it, the other one was chosen. If there was no alternative verification methods from the plan, the test was modified to accommodate our circumstances and available resources, such as using peers as users for an initial pilot test when the real user groups were unavailable for the testing session times. With experience, I think I could better predict and anticipate the amount of effort, time and resources a group is able to put into testing.\\
+  \textbf{Mitchell:} One of the ways the VnV Plan was different from the activities that were conducted for VnV is how we planned on fully implementing the ability to report bugs and access user documentation from inside the system. This required a modification to the plan was we were not able to assess the ability to report bugs or access user documentation. These changes occurred because the team was focused on prioritizing the system’s main functionality, and both of these planned features were less impactful on the system’s success. We would be able to anticipate these changes in future projects by prioritizing the testing of core essential features. \\
+  \textbf{Promish:} The main change I found was in the extent to which our test cases could be written. When we were making the VnV plan, we didn’t have a clear picture of how we were going to deploy our system, so certain tests—such as testing yearly server increase or max users—were very out of scope for where we were in our project. After doing the deployment, we realized that most of these tests are solved by upgrading the external server, which I find to be out of the scope of our project. For example, if there are stability concerns, we can pay for a faster backend server since the way we deployed it allows for that. This was a good experience since, for next time, I can anticipate this change and get a better understanding of what needs to be tested in scope and what is out of scope. After our deployment, we also got access to graphs for performance, and we made graphs for usability, which is how we got our evidence for our non-functional unit tests.\\
+  \textbf{Parisha:} I found that the VnV plan had slightly different flows of navigations or orders of pages which made the tests differ. It also can be seen that the tests were more general as the VnV plan was created before the Design documents where we had confirmed the final specifications and architecture of the software. Some tests also had overall ambitious or hard to measure metrics to compare given our limoted resources (budget, etc). \\
 \end{enumerate}
 
 \end{document}

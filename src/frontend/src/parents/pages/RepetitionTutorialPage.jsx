@@ -75,7 +75,6 @@ export default function RepetitionTutorialPage() {
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
       <Header title={`Tutorial - ${testType.charAt(0).toUpperCase() + testType.slice(1)}`} />
-      <ProgressBar questionNumber={currentStep} totalQuestions={3} />
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
@@ -87,14 +86,16 @@ export default function RepetitionTutorialPage() {
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 2: Repeat the Sentence</h2>
           <p className="text-xl">
-          Click Start recording when you are ready to repeat. Try your best to say the sentence exactly as you heard it.
-           Once done, hit stop recording!</p>
+           1️⃣ When you're ready, click <strong>"Start Recording."</strong> 🎤<br />
+           2️⃣ Say the sentence just like you heard it. 🗣️<br />
+           3️⃣ When you're done, click <strong>"Stop Recording."</strong> ✋🎬
+          </p>
         </div>
       )}
       {currentStep === 3 && (
         <div className="border-2 border-green-500 p-5 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-xl">You have completed the tutorial. Click Finish to continue.</p>
+          <p className="text-xl">You have completed the tutorial.</p>
         </div>
       )}
       <div onClick={handlePlayAudio}>
@@ -117,7 +118,7 @@ export default function RepetitionTutorialPage() {
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
           <>
-            <NextButton to="/parents/TutorialComplete" name="Finish" />
+            <NextButton to="/parents/testselection" name="Start an Assessment" />
             <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
           </>
         ) : (
