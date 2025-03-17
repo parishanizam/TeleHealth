@@ -13,7 +13,7 @@ function ParentHomePage() {
       {/* Header */}
       <Header title="" />
       {/* Main Content */}
-      <div className="flex flex-row gap-20 items-start max-w-[1600px] mt-8 px-16 w-full">
+      <div className="flex flex-row gap-20 items-start max-w-[1600px] mt-24 px-16 w-full">
         {/* Left Column (Pushed Further Away from Edge) */}
         <div className="flex flex-col gap-5 w-3/5">
           {parentInfo && (

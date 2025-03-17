@@ -95,7 +95,6 @@ export function Results({ data }) {
           score={`${scores[result.assessment_id] ?? "N/A"}%`} 
           test={formatTestTitle(result.questionBankId)}
           date={formatDate(result.date)}
-          onClick={() => handleCardClick(result)}
         />
       ))}
     </div>
