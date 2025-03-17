@@ -36,7 +36,7 @@ export function VolumeButton({ sound, resetTrigger }) {
   const isDisabled = clickCount >= 2;
 
   return (
-    <div className="flex justify-center items-center w-full mt-4 relative">
+    <div className="flex justify-center items-center w-full mt-1 relative">
       <div className="p-2.5 relative w-[120px] flex justify-center">
         <div className="relative w-[100px] h-[100px] rounded-full flex items-center justify-center">
           {sound ? (

@@ -322,7 +322,7 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="flex justify-center items-center mt-4">
+      {submitting && <div className="flex justify-center items-center mt-3">
         <div
           className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
           style={{ animation: 'spin 1s linear infinite' }}

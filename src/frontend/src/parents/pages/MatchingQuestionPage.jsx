@@ -30,12 +30,13 @@ export default function MatchingQuestion({
   }, [questionNumber]); // Only run this when the question number changes
 
   return (
-    <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
+    <div className="flex flex-col h-full min-h-screen overflow-hidden px-5 pt-2.5 pb-4 bg-white">
+      <div className="text-sm">
+        <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
+      </div>
       <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
       {isPractice && (
-        <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
-          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
+        <div className="border-2 border-yellow-500 p-1 rounded-lg bg-yellow-50 shadow-lg my-1">
           <p>Choose the option where the picture best matches the scenario described.</p>
         </div>
       )}

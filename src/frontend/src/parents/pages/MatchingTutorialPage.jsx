@@ -59,41 +59,45 @@ export default function MatchingTutorialPage() {
   }
 
   return (
-    <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
+    <div className="flex flex-col px-2 pt-2 pb-20 bg-white max-md:pb-24">
+      <div className="text-sm">
       <Header
         title={`Tutorial - ${
           testType.charAt(0).toUpperCase() + testType.slice(1)
         }`}
       />
+      </div>
 
       {currentStep === 1 && (
-        <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">
+        <div className="border-2 border-yellow-500 p-2 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
+          <h2 className="text-2xl font-semibold text-yellow-700">
             Step 1: Listen to the Audio
           </h2>
           <p className="text-xl">
             Click the audio button to hear the question. You are allowed one
             replay!
           </p>
-          <p className="text-xl">Click next for Step 2! </p>
+          <p className="text-xl">
+            <strong>Click next for Step 2!</strong>
+          </p>
         </div>
       )}
 
       {currentStep === 2 && (
-        <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">
+        <div className="border-2 border-yellow-500 p-2 rounded-lg bg-yellow-50 shadow-lg my-2 max-w-lg mx-auto text-center">
+          <h2 className="text-xl font-semibold text-yellow-700">
             Step 2: Select the Correct Option
           </h2>
-          <p className="text-xl">
-            Click on the option that matches the audio and submit your answer.
+          <p className="text-l">
+            Click on the option that matches the audio and click next!
           </p>
         </div>
       )}
 
       {currentStep === 3 && (
-        <div className="border-2 border-green-500 p-5 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-xl">
+        <div className="border-2 border-green-500 p-2 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
+          <h2 className="text-2xl font-semibold text-green-700">Great Job!</h2>
+          <p className="text-l">
             You have completed the tutorial. 
           </p>
         </div>

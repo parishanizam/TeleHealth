@@ -67,26 +67,27 @@ export default function QuantifierTutorialPage() {
       />
 
       {currentStep === 1 && (
-        <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">
+        <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-3 max-w-lg mx-auto text-center">
+          <h2 className="text-2xl font-semibold text-yellow-700">
             Step 1: Listen to the Audio
           </h2>
-          <p className="text-xl">
+          <p className="text-l">
             Click the audio button to hear the question. You are allowed one
             replay!
           </p>
           <p className="text-xl">
-            Click next for Step 2!
+
+            <strong>Click next for Step 2!</strong>
           </p>
         </div>
       )}
 
       {currentStep === 2 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
-          <h2 className="text-3xl font-semibold text-yellow-700">
+          <h2 className="text-2xl font-semibold text-yellow-700">
             Step 2: Select the Correct Option
           </h2>
-          <p className="text-xl">
+          <p className="text-l">
             Hit next once you have selected the image that best matches the audio!
           </p>
         </div>

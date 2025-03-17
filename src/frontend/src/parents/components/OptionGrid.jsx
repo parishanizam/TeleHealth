@@ -8,7 +8,7 @@ const gridClass = `grid grid-cols-${columns} gap-5`;
 
 
   return (
-    <div className="mt-6 flex justify-center w-full">
+    <div className="mt-2 flex justify-center w-full">
       <div className={gridClass}>
         {options.map((option) => (
           <MatchingCard

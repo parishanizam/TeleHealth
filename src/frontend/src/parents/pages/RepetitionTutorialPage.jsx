@@ -79,7 +79,12 @@ export default function RepetitionTutorialPage() {
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-yellow-700">Step 1: Listen to the Audio</h2>
           <p className="text-xl">Click the audio button to hear the sentence. You are allowed one replay!  
-            Click Next when you are ready to repeat!</p>
+          </p>
+          <p>
+            <strong>
+            Click Next when you are ready to repeat!
+            </strong>
+          </p>
         </div>
       )}
       {currentStep === 2 && (
