@@ -7,98 +7,48 @@ import { AudioTest } from "../components/AudioTest";
 import { MicrophoneTest } from "../components/MicrophoneTest";
 import NextButton from "../components/NextButton";
 import ConsentForm from "../components/ConsentForm";
-
-import VideoIcon from "../../assets/video.svg";
-import SpeakerIcon from "../../assets/speaker.svg";
-import MicrophoneIcon from "../../assets/microphone.svg";
 import VolumeTestPlaceholder from "../../assets/volumetestplaceholder.svg";
-
-// Demo data to render the "device selectors"
-const devices = [
-  {
-    type: "video",
-    icon: VideoIcon,
-    label: "Video",
-    selectedDevice: "Chosen Device",
-  },
-  {
-    type: "speaker",
-    icon: SpeakerIcon,
-    label: "Speaker",
-    selectedDevice: "Chosen Device",
-  },
-  {
-    type: "microphone",
-    icon: MicrophoneIcon,
-    label: "Microphone",
-    selectedDevice: "Chosen Device",
-  },
-];
 
 export default function MediaTesting() {
   const [showConsent, setShowConsent] = useState(true);
   const navigate = useNavigate();
+  const { testType } = useSelector((state) => state.testSelection);
 
-  // Fetch test selection from Redux
-  const { language, testType } = useSelector((state) => state.testSelection);
+  const handleConsent = () => setShowConsent(false);
+  const handleDecline = () => navigate("/");
 
-  const handleConsent = () => {
-    setShowConsent(false);
-  };
-
-  const handleDecline = () => {
-    navigate("/");
-  };
-
-  // Determine the next route based on test type
-  const getNextRoute = () => {
-    return `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
-  };
+  const getNextRoute = () => `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
 
   useEffect(() => {
-    if (showConsent) {
-      // Prevent scrolling
-      document.body.style.overflow = "hidden";
-    } else {
-      // Re-enable scrolling
-      document.body.style.overflow = "hidden";
-    }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = "auto";
-    };
+    document.body.style.overflow = showConsent ? "hidden" : "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [showConsent]);
 
   return (
-    <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24 overflow-hidden">
-      <Header title="Video, Audio and Microphone" />
+    <div className="flex flex-col items-center w-full min-h-screen bg-white px-4 pt-4">
+      <Header title="Video, Audio & Microphone" />
 
-      <main className="flex flex-wrap items-start justify-center gap-10 mt-20 w-full max-md:mt-10 max-md:max-w-full">
-        {/* VIDEO SECTION */}
-        <div className="flex flex-col w-[478px] min-w-[240px] max-md:max-w-full">
+      {/* Main Content */}
+      <main className="flex flex-wrap items-start justify-center gap-6 mt-10 w-full">
+        {/* Video Section */}
+        <div className="w-full max-w-md">
           <VideoTest />
         </div>
 
-        {/* AUDIO & MICROPHONE SECTION */}
-        <div className="flex flex-col w-[478px] min-w-[240px] max-md:max-w-full">
-          {/* Speaker Test */}
+        {/* Audio & Microphone Section */}
+        <div className="w-full max-w-md space-y-4">
           <AudioTest visualizer={VolumeTestPlaceholder} />
-
-          {/* Microphone Test */}
           <MicrophoneTest visualizer={VolumeTestPlaceholder} />
         </div>
       </main>
 
-      {/* Navigation or Next Step */}
-      <div className="flex gap-2.5 justify-center items-center px-60 mt-20 w-full min-h-[60px] max-md:px-5 max-md:mt-10">
+      {/* Next Button */}
+      <div className="flex justify-center items-center w-full mt-10 min-h-[50px]">
         <NextButton to={getNextRoute()} />
       </div>
 
-      {/* Consent Form Modal */}
-      {showConsent && (
-        <ConsentForm onConsent={handleConsent} onDecline={handleDecline} />
-      )}
+      {/* Consent Form */}
+      {showConsent && <ConsentForm onConsent={handleConsent} onDecline={handleDecline} />}
     </div>
   );
 }
