@@ -64,42 +64,46 @@ function AddClient() {
   };
 
   return (
-    <form className="flex flex-col items-center space-y-5">
-      <h2 className="text-2xl font-semibold">Add New Client</h2>
+    <div className= "mt-40">
+      <form className="flex flex-col items-center space-y-1">
+        {error && <p className="text-red-500">{error}</p>}
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
 
-      {error && <p className="text-red-500">{error}</p>}
-      {successMessage && <p className="text-green-500">{successMessage}</p>}
+        <div>
+          <InputField
+          id="firstName"
+          name="firstName"
+          type="text"
+          placeholder="First Name"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
 
-      <InputField
-        id="firstName"
-        name="firstName"
-        type="text"
-        placeholder="First Name"
-        value={formData.firstName}
-        onChange={handleChange}
-      />
+          <InputField
+            id="lastName"
+            name="lastName"
+            type="text"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+        </div>
 
-      <InputField
-        id="lastName"
-        name="lastName"
-        type="text"
-        placeholder="Last Name"
-        value={formData.lastName}
-        onChange={handleChange}
-      />
-
-      <GenerateButton
+        <GenerateButton
         onClick={generateAndSubmitClientNumber}
         disabled={isGenerateDisabled}
         buttonText={isGenerateDisabled ? "Client Number Generated" : "Generate & Submit"}
-      />
+        />
 
-      {clientNumber && (
-        <p className="mt-4 text-lg text-gray-700 font-bold">
-          Client Number: {clientNumber}
-        </p>
-      )}
-    </form>
+        {clientNumber && (
+          <p className="mt-4 text-lg text-gray-700 font-bold">
+            Client Number: {clientNumber}
+          </p>
+        )}
+      </form>
+
+    </div>
+    
   );
 }
 

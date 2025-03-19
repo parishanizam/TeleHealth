@@ -57,7 +57,7 @@ function ParentLogin() {
           {error}
         </div>
       )}
-      <div className="w-[438px] mb-5">
+      <div className="w-[438px] mb-4">
         <label htmlFor="username" className="sr-only">
           Username
         </label>
@@ -85,7 +85,7 @@ function ParentLogin() {
           className="px-6 py-3 w-full rounded-2xl border border-solid border-zinc-300"
         />
       </div>
-      <div className="text-center mb-5">
+      {/* <div className="text-center mb-5">
         <a
           href="#"
           className="text-blue-600 hover:underline"
@@ -93,7 +93,7 @@ function ParentLogin() {
         >
           Forgot password?
         </a>
-      </div>
+      </div> */}
       <div className="text-center mb-5">
         <span>
           Don&apos;t have an account?{" "}
