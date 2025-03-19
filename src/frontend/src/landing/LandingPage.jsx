@@ -1,115 +1,83 @@
-import React from 'react';
-import MacbookImage from '../assets/Macbook.png'
-import { Link } from 'react-router-dom';
+import React from "react";
+import MacbookImage from "../assets/Macbook.png";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
-<div 
-  className="
-    w-screen
-    min-h-screen
-    bg-[#E5ECF4]
-    mx-auto
-    flex
-    items-center
-    justify-center
-    overflow-hidden
-  "
->
-  {/* Modal-Like Box */}
-  <div 
-    className="
-      bg-[#B2DFEA]
-      shadow-lg
-      rounded-lg
-      p-28
-      w-[90%]       /* Increase default width */
-      max-w-[1000px] /* Increase maximum width */
-      min-h-[700px]  /* Set a minimum height */
-      flex
-      flex-col
-      items-center
-      text-center
-      transform
-      transition-transform
-    "
-  >
-    {/* Heading */}
-    <h1 
-      className="
-        text-4xl
-        font-bold
-        mb-4
-      "
-    >
-      TeleHealth Insights
-    </h1>
-
-    {/* Subheading */}
-    <p 
-      className="
-        text-lg
-        text-black
-        mb-6
-        max-w-[600px]
-        leading-relaxed
-      "
-    >
-      Empower bilingual families to conduct at-home speech and language
-      assessments with confidence through our intuitive telehealth solution.
-    </p>
-
-    {/* Buttons */}
-    <div 
-      className="
-        flex
-        gap-6
-        mb-8
-      "
-    >
-      <Link
-      to="/clinicians/login"
+    <div className="bg-gradient-to-br from-[#E5ECF4] to-[#B2DFEA] min-h-screen flex items-center justify-center px-4 py-10">
+      {/* Main container / hero card */}
+      <div
         className="
-          px-8
-          py-3
-          bg-[#1E293B]
-          text-white
-          text-lg
-          rounded-full
-          hover:bg-[#0F172A]
-          transition-colors
+          max-w-6xl
+          w-full
+          bg-white
+          rounded-xl
+          shadow-lg
+          p-24
+          flex
+          flex-col
+          md:flex-row
+          items-center
+          justify-between
+          gap-8
         "
-        aria-label="Clinicians login"
       >
-        Clinicians login
-      </Link>
+        {/* Left: Text & Buttons */}
+        <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1">
+          <h1 className="text-5xl font-bold text-[#001B3A] mb-4">
+            TeleHealth Insights
+          </h1>
+          <p className="text-lg text-gray-700 mb-8 max-w-md">
+            Empower bilingual families to conduct at-home speech and language
+            assessments with confidence through our intuitive telehealth
+            solution.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <Link
+              to="/clinicians/login"
+              className="
+                px-6 py-3
+                bg-[#001B3A]
+                text-white
+                text-base
+                md:text-lg
+                font-medium
+                rounded-full
+                hover:bg-[#0F172A]
+                transition
+              "
+            >
+              Clinicians Login
+            </Link>
+            <Link
+              to="/parents/login"
+              className="
+                px-6 py-3
+                bg-[#001B3A]
+                text-white
+                text-base
+                md:text-lg
+                font-medium
+                rounded-full
+                hover:bg-[#0F172A]
+                transition
+              "
+            >
+              Parents Login
+            </Link>
+          </div>
+        </div>
 
-      <Link
-      to="/parents/login"
-        className="
-          px-8
-          py-3
-          bg-[#1E293B]
-          text-white
-          text-lg
-          rounded-full
-          hover:bg-[#0F172A]
-          transition-colors
-        "
-        aria-label="Parents login"
-      >
-        Parents login
-      </Link>
+        {/* Right: Centered laptop image */}
+        <div className="flex-1 flex justify-center">
+          <img
+            src={MacbookImage}
+            alt="TeleHealth platform interface"
+            className="max-w-sm md:max-w-md object-contain"
+          />
+        </div>
+      </div>
     </div>
-
-    {/* Fixed Laptop Image */}
-    <img
-      src={MacbookImage}
-      alt="TeleHealth platform interface"
-      className="w-[400px] object-contain"
-    />
-  </div>
-</div>
   );
 };
 
