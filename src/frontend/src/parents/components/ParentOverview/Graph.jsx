@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import { formatTestTitle } from "../../../utils/testTitleUtils";
 import { formatDate } from "../../../utils/dateUtils";
 
-const Graph = () => {
-  const parent = useSelector((state) => state.parent.parentInfo);
+// We'll define language & test type filters
+const LANGUAGE_FILTERS = ["English", "Mandarin"];
+const TYPE_FILTERS = ["Matching", "Repetition", "Quantifier"];
+
+// Helper to convert a Date object => "YYYY-MM-DD"
+function toYMD(dateObj) {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+const Graph = ({ parent, filters = [], selectedDate = null }) => {
   const [scoresByTestType, setScoresByTestType] = useState({});
 
   useEffect(() => {
-    if (!parent || !parent.username) {
+    if (!parent?.username) {
       console.warn("No parent information provided for Graph.");
       return;
     }
@@ -22,33 +42,61 @@ const Graph = () => {
 
         if (!assessmentHistory.assessments || assessmentHistory.assessments.length === 0) {
           console.warn("No assessment history found.");
+          setScoresByTestType({});
           return;
         }
+
+        // Identify which languages & test types are selected
+        const selectedLanguages = filters
+          .filter((f) => LANGUAGE_FILTERS.includes(f))
+          .map((f) => f.toLowerCase());
+        const selectedTestTypes = filters
+          .filter((f) => TYPE_FILTERS.includes(f))
+          .map((f) => f.toLowerCase());
+        const dateFilterActive = filters.includes("Date");
 
         const groupedScores = {};
 
         for (const result of assessmentHistory.assessments) {
+          // Parse "english-matching" => "english", "matching"
+          const [langRaw, testRaw] = result.questionBankId.split("-");
+          const language = langRaw.toLowerCase();
+          const testType = testRaw.toLowerCase();
+
+          // 1) Language filter
+          if (selectedLanguages.length > 0 && !selectedLanguages.includes(language)) {
+            continue;
+          }
+          // 2) Test-type filter
+          if (selectedTestTypes.length > 0 && !selectedTestTypes.includes(testType)) {
+            continue;
+          }
+          // 3) Date filter => compare day-only
+          if (dateFilterActive && selectedDate) {
+            const dbDateYMD = result.date.split("T")[0]; // "2025-03-18"
+            const chosenYMD = toYMD(selectedDate);
+            if (dbDateYMD !== chosenYMD) {
+              continue;
+            }
+          }
+
+          // If it passes filters, fetch results => compute score
           const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
           const resultsResponse = await fetch(resultsApiUrl);
           const resultsData = await resultsResponse.json();
 
           if (!resultsData.results) continue;
 
-          const fetchedQuestionBankId = resultsData.questionBankId;
-          const [language, testType] = fetchedQuestionBankId.split("-");
-
-          const combination = formatTestTitle(`${language}-${testType}`);
-
-          if (!groupedScores[combination]) {
-            groupedScores[combination] = [];
-          }
-
           let correctAnswers = 0;
-          let totalQuestions = resultsData.results.length;
+          const totalQuestions = resultsData.results.length;
 
-          if (testType === "repetition") {
-            correctAnswers = resultsData.results.filter((q) => q.mark_state === "Correct").length;
+          const testTypeLower = testType.toLowerCase();
+          if (testTypeLower === "repetition") {
+            correctAnswers = resultsData.results.filter(
+              (q) => q.mark_state === "Correct"
+            ).length;
           } else {
+            // matching, quantifier, etc.
             const questionPromises = resultsData.results.map(async (res) => {
               const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
               const questionResponse = await fetch(questionApiUrl);
@@ -57,7 +105,10 @@ const Graph = () => {
               return {
                 ...res,
                 correctAnswer: questionData.correctAnswer,
-                status: res.user_answer === questionData.correctAnswer ? "correct" : "incorrect",
+                status:
+                  res.user_answer === questionData.correctAnswer
+                    ? "correct"
+                    : "incorrect",
               };
             });
 
@@ -65,9 +116,17 @@ const Graph = () => {
             correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
           }
 
-          const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
-          const testNumber = groupedScores[combination].length + 1;
+          const score =
+            totalQuestions > 0
+              ? Math.round((correctAnswers / totalQuestions) * 100)
+              : 0;
 
+          const combination = formatTestTitle(`${language}-${testType}`);
+          if (!groupedScores[combination]) {
+            groupedScores[combination] = [];
+          }
+
+          const testNumber = groupedScores[combination].length + 1;
           groupedScores[combination].push({
             name: `${testNumber}`,
             score,
@@ -78,27 +137,30 @@ const Graph = () => {
         setScoresByTestType(groupedScores);
       } catch (error) {
         console.error("Error fetching scores for graph:", error);
+        setScoresByTestType({});
       }
     };
 
     fetchScores();
-  }, [parent]);
+  }, [parent, filters, selectedDate]);
 
+  // figure out max # of tests
   const maxTests = Math.max(
-    ...Object.values(scoresByTestType).map((scores) => scores.length),
-    0
+    0,
+    ...Object.values(scoresByTestType).map((scores) => scores.length)
   );
   const xAxisLabels = Array.from({ length: maxTests }, (_, i) => `${i + 1}`);
 
+  // Custom Tooltip
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const entry = payload[0].payload;
       return (
         <div className="p-2 bg-white border border-gray-300 rounded shadow-md">
           <p className="font-bold">Test {entry.name}</p>
-          {payload.map((entry, index) => (
-            <p key={index} style={{ color: entry.color }}>
-              {entry.payload.date}: {entry.value}%
+          {payload.map((item, idx) => (
+            <p key={idx} style={{ color: item.color }}>
+              {item.payload.date}: {item.value}%
             </p>
           ))}
         </div>
@@ -113,31 +175,32 @@ const Graph = () => {
         <p>No data available to plot.</p>
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart>
+          <LineChart
+            margin={{ top: 20, right: 30, left: 20, bottom: 30 }} // add bottom margin
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
               type="category"
               allowDuplicatedCategory={false}
               ticks={xAxisLabels}
-              label={{ value: "Tests", position: "insideBottom", offset: -10, dy: -10 }}
+              label={{ value: "Tests", position: "insideBottom", offset: -10 }}
             />
             <YAxis domain={[0, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend layout="vertical" align="right" verticalAlign="top" offset={200} />
-            {Object.entries(scoresByTestType)
-              .filter(([, scores]) => scores.length > 0)
-              .map(([combination, scores], index) => (
-                <Line
-                  key={combination}
-                  type="monotone"
-                  dataKey="score"
-                  name={combination}
-                  data={scores}
-                  stroke={`hsl(${index * 60}, 70%, 50%)`}
-                  strokeWidth={2}
-                />
-              ))}
+            <Legend layout="vertical" align="right" verticalAlign="top" />
+
+            {Object.entries(scoresByTestType).map(([combo, scores], idx) => (
+              <Line
+                key={combo}
+                type="monotone"
+                dataKey="score"
+                name={combo}
+                data={scores}
+                stroke={`hsl(${idx * 60}, 70%, 50%)`}
+                strokeWidth={2}
+              />
+            ))}
           </LineChart>
         </ResponsiveContainer>
       )}

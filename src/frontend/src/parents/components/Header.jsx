@@ -31,6 +31,8 @@ export function Header({ title, showLogout = true, showHome = true, role = "pare
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm w-100">
       <Container className="d-flex justify-content-between align-items-center w-100">
+
+        {/* HOME BUTTON */}
         {showHome && (
           <Button
             variant="link"
@@ -43,15 +45,18 @@ export function Header({ title, showLogout = true, showHome = true, role = "pare
 
         <Navbar.Text className="fs-2 fw-bold mx-auto">{title}</Navbar.Text>
 
+        {/* LOGOUT BUTTON (no color/border) */}
         {showLogout && (
           <Button
-            variant="primary"
-            className="d-flex align-items-center"
+            variant="link"
+            className="text-dark fw-bold d-flex align-items-center"
             onClick={handleLogout}
           >
-            <BoxArrowRight size={20} className="me-2" /> Logout
+            <BoxArrowRight size={20} className="me-2" />
+            Logout
           </Button>
         )}
+
       </Container>
     </Navbar>
   );

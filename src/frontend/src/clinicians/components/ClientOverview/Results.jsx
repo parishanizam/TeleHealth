@@ -4,16 +4,40 @@ import { ResultCard } from "./ResultCard";
 import { formatDate } from "../../../utils/dateUtils";
 import { formatTestTitle } from "../../../utils/testTitleUtils";
 
-export function Results({ data, client }) {
+export function Results({ data, client, filters, selectedDate }) {
   const navigate = useNavigate();
+  const [scores, setScores] = useState({});
 
-  const [scores, setScores] = useState({}); 
+  // For simpler code, define two sets of filters:
+  const LANGUAGE_FILTERS = ["English", "Mandarin"];
+  const TYPE_FILTERS = ["Matching", "Repetition", "Quantifier"];
+
+  // 1. EXTRACT "YYYY-MM-DD" FROM DB (e.g. "2025-03-18")
+  //    If your DB is guaranteed to store date as "YYYY-MM-DD",
+  //    you can compare that string directly. If not, adjust accordingly.
+
+  // 2. BUILD "YYYY-MM-DD" FROM the user's selectedDate (the Date object from DatePicker)
+  const toYMD = (dateObj) => {
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // figure out which languages & testTypes the user picked
+  const selectedLanguages = filters
+    .filter((f) => LANGUAGE_FILTERS.includes(f))
+    .map((f) => f.toLowerCase());
+  const selectedTestTypes = filters
+    .filter((f) => TYPE_FILTERS.includes(f))
+    .map((f) => f.toLowerCase());
+  const dateFilterActive = filters.includes("Date");
 
   useEffect(() => {
     const fetchScores = async () => {
       if (!data || !Array.isArray(data) || data.length === 0 || !client) return;
 
-      const newScores = {}; 
+      const newScores = {};
 
       for (const result of data) {
         try {
@@ -24,23 +48,26 @@ export function Results({ data, client }) {
           if (!fetchedData.results) continue;
 
           const fetchedQuestionBankId = fetchedData.questionBankId;
-          const [language, testType] = fetchedQuestionBankId.split("-");
+          const [langRaw, testRaw] = fetchedQuestionBankId.split("-");
+          const language = langRaw.toLowerCase();
+          const testType = testRaw.toLowerCase();
 
           let correctAnswers = 0;
-          let totalQuestions = fetchedData.results.length;
+          const totalQuestions = fetchedData.results.length;
 
           if (testType === "repetition") {
-            // ✅ Check if ANY question has mark_state "Undetermined"
-            const hasUndetermined = fetchedData.results.some((q) => q.mark_state === "Undetermined");
-
+            const hasUndetermined = fetchedData.results.some(
+              (q) => q.mark_state === "Undetermined"
+            );
             if (hasUndetermined) {
-              newScores[result.assessment_id] = "N/A"; // Set score to "N/A" if any are undetermined
-              continue; // Skip further calculation
+              newScores[result.assessment_id] = "N/A";
+              continue;
             }
-
-            correctAnswers = fetchedData.results.filter((q) => q.mark_state === "Correct").length;
+            correctAnswers = fetchedData.results.filter(
+              (q) => q.mark_state === "Correct"
+            ).length;
           } else {
-            // Fetch correct answers for other test types
+            // matching, quantifier, etc.
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
                 `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`
@@ -49,33 +76,77 @@ export function Results({ data, client }) {
               return {
                 ...res,
                 correctAnswer: questionData.correctAnswer,
-                status: res.user_answer === questionData.correctAnswer ? "correct" : "incorrect",
+                status:
+                  res.user_answer === questionData.correctAnswer
+                    ? "correct"
+                    : "incorrect",
               };
             });
 
             const updatedResults = await Promise.all(questionPromises);
-            correctAnswers = updatedResults.filter((q) => q.status === "correct").length;
+            correctAnswers = updatedResults.filter(
+              (q) => q.status === "correct"
+            ).length;
           }
 
-          const score = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+          const score =
+            totalQuestions > 0
+              ? Math.round((correctAnswers / totalQuestions) * 100)
+              : 0;
           newScores[result.assessment_id] = score;
         } catch (error) {
-          console.error(`Error fetching score for assessment ${result.assessment_id}:`, error);
+          console.error(
+            `Error fetching score for assessment ${result.assessment_id}:`,
+            error
+          );
         }
       }
 
-      setScores(newScores); 
+      setScores(newScores);
     };
 
     fetchScores();
   }, [data, client]);
+
+  // ----------------------------------
+  //          FILTER DATA
+  // ----------------------------------
+  const filteredData = (data || []).filter((result) => {
+    // E.g. "english-repetition"
+    const [langRaw, testRaw] = result.questionBankId.split("-");
+    const language = langRaw.toLowerCase();
+    const testType = testRaw.toLowerCase();
+
+    // 1) Language
+    if (selectedLanguages.length > 0 && !selectedLanguages.includes(language)) {
+      return false;
+    }
+
+    // 2) Test Type
+    if (selectedTestTypes.length > 0 && !selectedTestTypes.includes(testType)) {
+      return false;
+    }
+
+    // 3) Date Filter => Compare DB's "2025-03-18" to user pick
+    if (dateFilterActive && selectedDate) {
+      // DB date is presumably something like "2025-03-18".
+      // If your DB is returning "2025-03-18T00:00:00Z" instead, you can do result.date.split("T")[0].
+      const dbDateYMD = result.date.split("T")[0]; // or just result.date if it's already YYYY-MM-DD
+      const chosenYMD = toYMD(selectedDate);
+
+      if (dbDateYMD !== chosenYMD) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 
   const handleCardClick = (result) => {
     if (!client) {
       console.warn("Client data is missing!");
       return;
     }
-
     navigate(`/clinicians/ResultsAnalysisPage`, {
       state: {
         date: result.date,
@@ -88,20 +159,26 @@ export function Results({ data, client }) {
         clientId: client.clientId,
       },
     });
-  }
-  console.log("HEEELLLLOOOO", client);
+  };
 
   return (
     <div className="flex flex-col justify-start items-end w-full space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-      {data.map((result) => (
-        <ResultCard
-          key={result.assessment_id}
-          score={`${scores[result.assessment_id] ?? "N/A"}%`} 
-          test={formatTestTitle(result.questionBankId)}
-          date={formatDate(result.date)}
-          onClick={() => handleCardClick(result)}
-        />
-      ))}
+      {filteredData.length === 0 ? (
+        <div className="mt-6 text-center w-full">
+          No results found for the selected filters.
+        </div>
+      ) : (
+        filteredData.map((result) => (
+          <ResultCard
+            key={result.assessment_id}
+            score={`${scores[result.assessment_id] ?? "N/A"}%`}
+            test={formatTestTitle(result.questionBankId)}
+            // If you need a "pretty" format for display:
+            date={formatDate(result.date)}
+            onClick={() => handleCardClick(result)}
+          />
+        ))
+      )}
     </div>
   );
 }
