@@ -45,7 +45,7 @@ function ParentSignUp() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <h1 className="text-4xl font-normal leading-snug text-center mb-5">
+        <h1 className="text-4xl font-normal leading-snug text-center mb-4">
           Welcome
         </h1>
         {error && (
@@ -55,7 +55,7 @@ function ParentSignUp() {
         )}
 
         {/* Email Input */}
-        <div className="w-[438px] mb-5">
+        <div className="w-[438px] mb-4">
           <label htmlFor="email" className="sr-only">
             Email
           </label>
@@ -71,7 +71,7 @@ function ParentSignUp() {
         </div>
 
         {/* Username Input */}
-        <div className="w-[438px] mb-5">
+        <div className="w-[438px] mb-4">
           <label htmlFor="username" className="sr-only">
             Username
           </label>
@@ -87,7 +87,7 @@ function ParentSignUp() {
         </div>
 
         {/* Password Input */}
-        <div className="w-[438px] mb-5">
+        <div className="w-[438px] mb-4">
           <label htmlFor="password" className="sr-only">
             Password
           </label>
@@ -103,7 +103,7 @@ function ParentSignUp() {
         </div>
 
         {/* Confirm Password Input */}
-        <div className="w-[438px] mb-5">
+        <div className="w-[438px] mb-4">
           <label htmlFor="confirmPassword" className="sr-only">
             Confirm Password
           </label>
@@ -119,7 +119,7 @@ function ParentSignUp() {
         </div>
 
         {/* Security Code Input */}
-        <div className="w-[438px] mb-5">
+        <div className="w-[438px] mb-4">
           <label htmlFor="securityCode" className="sr-only">
             Security Code
           </label>
