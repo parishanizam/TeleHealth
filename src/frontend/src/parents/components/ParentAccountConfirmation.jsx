@@ -80,13 +80,23 @@ function ParentAccountConfirmation() {
   };
 
   if (loading) {
-    return <div className="py-56 text-center">Loading account details...</div>;
+    // Center the "Loading..." message as well
+    return (
+      <div className="flex items-center justify-center w-screen h-screen text-center overflow-hidden">
+        Loading account details...
+      </div>
+    );
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center px-5 py-56 text-2xl text-black bg-white max-md:py-24"
+      className="
+        flex flex-col items-center justify-center
+        w-screen h-screen
+        overflow-hidden
+        text-2xl text-black bg-white
+      "
     >
       <h1 className="text-4xl tracking-tight leading-snug text-center max-md:max-w-full">
         Account Confirmation
@@ -103,42 +113,55 @@ function ParentAccountConfirmation() {
           type="text"
           value={overrideFirstName || firstName}
           onChange={(e) => setOverrideFirstName(e.target.value)}
-          className="px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:max-w-full"
+          className="
+            px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap
+            rounded-2xl border border-solid border-zinc-300
+            max-md:max-w-full
+          "
           aria-label="First Name"
         />
       </div>
 
-      <div className="flex flex-col mt-5 max-w-full w-[438px]">
+      <div className="flex flex-col mt-4 max-w-full w-[438px]">
         <input
           type="text"
           value={overrideLastName || lastName}
           onChange={(e) => setOverrideLastName(e.target.value)}
-          className="px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap rounded-2xl border border-solid border-zinc-300 max-md:max-w-full"
+          className="
+            px-5 py-4 text-xl text-center tracking-tight whitespace-nowrap
+            rounded-2xl border border-solid border-zinc-300
+            max-md:max-w-full
+          "
           aria-label="Last Name"
         />
       </div>
 
-      <div className="flex flex-wrap gap-2 items-center mt-5 text-xl max-md:max-w-full">
-        <label className="flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            className="w-5 h-5 border border-black border-solid"
-            aria-label="Accept terms and conditions"
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-          />
-          <span className="ml-2">
-            I agree to the terms and conditions outlined by TeleHealth Insights
-            Client Agreement
-          </span>
-        </label>
-      </div>
+      {/* 
+        Uncomment if/when you want to reintroduce checkbox for T&C:
+        <div className="flex flex-wrap gap-2 items-center mt-5 text-xl max-md:max-w-full">
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              className="w-5 h-5 border border-black border-solid"
+              aria-label="Accept terms and conditions"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            <span className="ml-2">
+              I agree to the terms and conditions...
+            </span>
+          </label>
+        </div>
+      */}
 
       <button
         type="submit"
-        className={`px-4 py-2.5 text-xl leading-none text-white rounded-lg shadow-sm w-[442px] ${
-          isChecked ? "bg-slate-900 hover:opacity-80" : "bg-gray-400"
-        } mt-8`}
+        className={`
+          px-4 py-2.5 text-xl leading-none text-white rounded-lg shadow-sm
+          w-[442px]
+          ${isChecked ? "bg-slate-900 hover:opacity-80" : "bg-gray-400"}
+          mt-8
+        `}
         disabled={!isChecked}
       >
         Create Account

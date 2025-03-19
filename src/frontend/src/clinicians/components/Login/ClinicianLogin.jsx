@@ -61,7 +61,7 @@ function ClinicianLogin() {
       )}
 
       {/* Username Input */}
-      <div className="w-[438px] mb-5">
+      <div className="w-[438px] mb-4">
         <label htmlFor="username" className="sr-only">
           Username
         </label>
