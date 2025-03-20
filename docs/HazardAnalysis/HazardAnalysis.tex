@@ -55,8 +55,8 @@
 10/25/2024 & 1.1 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
 10/25/2024 & 1.2 & Promish Kandel & Added FMEA Table, Sections 6,7, Reflection\\
 10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
-12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Section 5.2 Audio Recording Failure Modes}\\
-03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2 }\\
+12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Updated 5.2 Audio Recording Failure Modes}\\
+03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2}, \href{https://github.com/parishanizam/TeleHealth/issues/234}{Updated 5.2 recommended actions}\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -140,7 +140,7 @@ The following FMEA table is a breakdown of the hazards that could occur within t
    Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\ 
   \hline
   \endfirsthead
-  \multicolumn{7}{c}{Table \thetable\ Continued from previous page}\\ 
+  \multicolumn{7}{r}{Table \thetable\ Continued from previous page}\\ 
   \hline
    Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\ 
   \hline
@@ -160,11 +160,11 @@ The following FMEA table is a breakdown of the hazards that could occur within t
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item Inadequate input validation or un-parameterized SQL queries.
-       \item Administrative access is not validated and user accesses database directly.
+       \item Weak access controls, lack of encryption, or insecure credentials.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Implement periodic data backups, prioritize and implement thorough database access controls, and use parameterized queries.
-       \item Add multi-factor authentication.
+       \item Implement prepared statements and parameterized queries to prevent SQL injection, and encrypt stored and transmitted data using AES-256 encryption.
+       \item Implement role-based access control and multi-factor authentication.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item PR-RFT2, PR-RFT3
@@ -181,16 +181,16 @@ The following FMEA table is a breakdown of the hazards that could occur within t
       \item Users can't login
   \end{enumerate} & 
   \begin{enumerate}[leftmargin=*]
-      \item Unauthorized access to sensitive patient data, leading to potential HIPAA violations and data breaches.
-      \item Users are unable to access their accounts or data, leading to poor user experience.
+      \item Unauthorized access to sensitive patient data, leading to HIPAA violations.
+      \item Users are unable to access their accounts, leading to poor user experience.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Improper role-based access control implementation resulting in errors in user role assignment.
-       \item Errors in authentication logic or server downtime.
+       \item Misconfigured role-based access control (RBAC) leads to incorrect user roles.
+       \item Authentication service downtime, credential validation issues.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Do regular access audits to ensure clear separation of user roles.
-       \item Implement a fallback login and add error handling for feedback.
+       \item Implement automated role assignment validation and access control audits.
+       \item Implement a fallback login and real-time logging for failed attempts.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item FR-A1, FR-A3
@@ -216,7 +216,7 @@ The following FMEA table is a breakdown of the hazards that could occur within t
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item Validate file paths before processing, ensure proper access permissions, and log all access attempts for debugging.
-       \item Retrain model with more diverse data, improve preprocessing techniques like video upscaling, and evaluate model performance.
+       \item Periodically retrain model with higher-resolution datasets, improve preprocessing techniques like video upscaling, and evaluate model performance.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item FR-VADA1
@@ -307,8 +307,8 @@ The following FMEA table is a breakdown of the hazards that could occur within t
        \item High traffic overload, memory leaks, or unhandled exceptions.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Use robust data storage solutions such as a temporary cache before saving.
-       \item Monitor server health and use proper exception handling to manage unexpected errors.
+       \item Use robust data storage solutions such as a temporary cache before saving or transaction-based logging.
+       \item Monitor server health and enable automatic failover mechanisms.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
        \item FR-DSC1, FR-DSC2
