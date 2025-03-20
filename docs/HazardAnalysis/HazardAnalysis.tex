@@ -57,6 +57,7 @@
 10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
 12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Updated 5.2 Audio Recording Failure Modes}\\
 03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2}, \href{https://github.com/parishanizam/TeleHealth/issues/234}{Updated 5.2 recommended actions}\\
+03/20/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/153}{added additional failure modes/ recommended actions for video recording component}\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -256,21 +257,25 @@ The following FMEA table is a breakdown of the hazards that could occur within t
   Video Recording & 
   \begin{enumerate}[leftmargin=*]
       \item Video recording is blurry
+      \item User is not fully visible in the video
   \end{enumerate} & 
   \begin{enumerate}[leftmargin=*]
       \item The video analysis model may miss critical details, leading to inaccurate analysis.
+      \item System may be unable to track bias detection accurately if the user is not fully in the camera frame.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Low-resolution recording settings, poor camera quality, or motion blur.
+       \item Poor lighting, low-resolution recording settings, or motion blur, camera lens is dirty or obstructed.
+       \item User is unaware of proper framing or positioning guidelines.
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item Apply post-processing filters.
+       \item Prompt the user to clean their camera lens and verify camera settings and apply post-processing filters.
+       \item Provide a camera testing checkpoint to let the user see if they are in frame before starting the assessment
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item FR-SS3
+       \item FR-SS3, FR-SS4
   \end{enumerate} &
   \begin{enumerate}[leftmargin=*]
-       \item HA-VR1
+       \item HA-VR1, HA-VR2
   \end{enumerate} \\
   \hline
   Audio Recording  & 
