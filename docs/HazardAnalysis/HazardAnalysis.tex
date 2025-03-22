@@ -57,7 +57,7 @@
 10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
 12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Updated 5.2 Audio Recording Failure Modes}\\
 03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2}, \href{https://github.com/parishanizam/TeleHealth/issues/234}{Updated 5.2 recommended actions}, Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/153}{added additional failure modes/ recommended actions for video recording component}\\
-03/22/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/155}{Adjusted critical assumptions and out of scope hazards}, \\
+03/22/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/155}{Adjusted critical assumptions and out of scope hazards}, \href{https://github.com/parishanizam/TeleHealth/issues/156}{Clarified HA-UI2}, \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -328,30 +328,30 @@ The following FMEA table is a breakdown of the hazards that could occur within t
   User-Facing Application & 
   \begin{enumerate}[leftmargin=*]
       \item Error in navigation structure/flow
-      \item Button components aren't clickable
+      \item Button components aren't clickable across all devices
   \end{enumerate} & 
   \begin{minipage}[t]{\linewidth}
   \begin{enumerate}[leftmargin=*]
       \item Users cannot move through the application smoothly, leading to frustration and a poor user experience.
-      \item Users cannot complete quizzes, or perform interactions with clickable objects and are unable to proceed through the interface.
+      \item Users cannot complete quizzes or interact with the UI, preventing task completion and blocking progression.
   \end{enumerate}
   \end{minipage} &
   \begin{minipage}[t]{\linewidth}
   \begin{enumerate}[leftmargin=*]
-       \item Incorrect routing logic or implementation.
-       \item Errors in implementation.
+       \item Incorrect or missing routing logic, broken links, or unhandled navigation events.
+       \item UI components not rendering correctly due to screen size, device-specific compatibility issues, or missing accessibility focus states.
   \end{enumerate}
   \end{minipage} &
   \begin{minipage}[t]{\linewidth}
   \begin{enumerate}[leftmargin=*]
-       \item Test navigation paths thoroughly and implement error logging for navigation failures.
-       \item Test UI components with different devices and browsers.
+       \item Conduct usability testing and implement fallback paths or error boundaries for broken flows.
+       \item Validate responsiveness using tools like Chrome DevTools, test across common screen sizes and OS/browser combinations, and implement accessibility-friendly controls.
   \end{enumerate}
   \end{minipage} &
   \begin{minipage}[t]{\linewidth}
   \begin{enumerate}[leftmargin=*]
        \item LF-AR2, LF-AR5
-       \item UH-AR1, LF-AR4
+       \item UH-AR1, LF-AR4, MS-AR1
   \end{enumerate}
   \end{minipage} &
   \begin{minipage}[t]{\linewidth}
