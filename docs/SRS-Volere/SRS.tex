@@ -5,15 +5,12 @@
 %
 % Risks are removed because they are covered by the Hazard Analysis
 \documentclass[12pt]{article}
-
+\usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{enumerate} 
 \usepackage{float}
 \usepackage{hyperref}
-\usepackage{enumerate}
 \usepackage{graphicx}
-\usepackage{float}
 \usepackage{longtable}
 \usepackage{multirow}
 \hypersetup{
@@ -48,27 +45,132 @@
 
 \section*{Revision History}
 
-\begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
-\toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
-\midrule
-10/03/24 & 1.0 & Mitchell Weingust, Parisha Nizam & Added Functional Requirements 9.1, 9.2, 9.3 \\
-10/03/24 & 1.1 & Promish Kandel, Jasmine Sun-Hu & Added Functional Requirements 9.4,9.5,9.6, and sections 1,3,5\\
-10/04/24 & 1.2 & Mitchell Weingust, Parisha Nizam & Added Non Functional Requirements 11, 13, 15, 17\\
-10/04/24 & 1.3 & Jasmine Sun-Hu & Added Nonfunctional Requirements 10,14,16\\
-10/05/24 & 1.4 & Promish Kandel & Added Nonfunctional Requirements 12\\
-10/06/24 & 1.5 & Mitchell Weingust, Parisha Nizam & Added Sections 2, 4\\
-10/09/24 & 1.6 & Jasmine Sun-Hu & Added Scope of the Work: Current Situation, Costs 6.1, 23\\
-10/09/24 & 1.7 & Mitchell Weingust & Added Sections 8, 18\\
-10/10/24 & 1.8 & Mitchell Weingust & Added Sections 8, 19\\
-10/11/24 & 1.9 & Jasmine Sun-Hu & Added Section 6.4, Traceability Matrix, References\\
-10/11/24 & 2.0 & Promish Kandel & Added Section 20,24,25 and Formal Specification\\
-10/11/24 & 2.1 & Parisha Nizam & Added Section 21,22,26 Traceability Matrix \\
-10/11/24 & 2.2 & All & Added Reflection and minor edits \\
-12/24/24 & 2.3 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback \\\\
-\bottomrule
-\end{tabularx}
+\begin{table}[H]
+  \centering
+  \caption{Revision History (Part 1)}
+  \label{TblRevisionHistoryPart1}
+  \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
+  \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
+      \toprule
+      \textbf{Date} & \textbf{Vers.} & \textbf{Contributors} & \textbf{Notes} \\
+      \midrule
+      10/03/24 & 1.0 & Mitchell Weingust, Parisha Nizam & Added:
+      \begin{itemize}[leftmargin=*]
+        \item FR 9.1
+        \item FR 9.2
+        \item FR 9.3
+      \end{itemize} \\
+      10/03/24 & 1.1 & Promish Kandel, Jasmine Sun-Hu & Added:
+      \begin{itemize}[leftmargin=*]
+        \item FR 9.4
+        \item FR9.5
+        \item FR 9.6
+        \item Section 1
+        \item Section 3
+        \item Section 5
+      \end{itemize} \\
+      10/04/24 & 1.2 & Mitchell Weingust, Parisha Nizam & Added:
+      \begin{itemize}[leftmargin=*]
+        \item NFR 11
+        \item NFR 13
+        \item NFR 15
+        \item NFR 17
+      \end{itemize} \\
+      10/04/24 & 1.3 & Jasmine Sun-Hu & Added:
+      \begin{itemize}[leftmargin=*]
+        \item NFR 10
+        \item NFR 14
+        \item NFR 16
+      \end{itemize} \\
+      10/05/24 & 1.4 & Promish Kandel & Added:
+      \begin{itemize}[leftmargin=*]
+        \item NFR 12
+      \end{itemize} \\
+      10/06/24 & 1.5 & Mitchell Weingust, Parisha Nizam & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 2
+        \item Section 4
+      \end{itemize} \\
+    \end{tabularx}
+  \end{table}
 
-~\\
+\newpage
+
+  \begin{table}[H]
+    \centering
+    \caption{Revision History (Part 1)}
+    \label{TblRevisionHistoryPart1}
+    \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
+    \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
+        \toprule
+        \textbf{Date} & \textbf{Vers.} & \textbf{Contributors} & \textbf{Notes} \\
+        \midrule
+        10/09/24 & 1.6 & Jasmine Sun-Hu & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Scope of the Work: Current Situation
+        \item Costs 6.1
+        \item Costs 23
+      \end{itemize} \\
+      10/09/24 & 1.7 & Mitchell Weingust & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 8
+        \item Section 18
+      \end{itemize} \\
+      10/10/24 & 1.8 & Mitchell Weingust & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 8
+        \item Section 19
+      \end{itemize} \\
+      10/11/24 & 1.9 & Jasmine Sun-Hu & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 6.4
+        \item Traceability Matrix
+        \item References
+      \end{itemize} \\
+      10/11/24 & 1.10 & Promish Kandel & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 20
+        \item Section 24
+        \item Section 25
+        \item Formal Specification
+      \end{itemize} \\
+      10/11/24 & 1.11 & Parisha Nizam & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Section 21
+        \item Section 22
+        \item Section 26
+        \item Traceability Matrix
+      \end{itemize} \\
+      10/11/24 & 1.12 & All & Added:
+      \begin{itemize}[leftmargin=*]
+        \item Reflection
+        \item Minor edits
+      \end{itemize} \\
+      12/24/24 & 1.13 & Jasmine Sun-Hu & Implemented:
+      \begin{itemize}[leftmargin=*]
+        \item Assigned Peer Feedback
+      \end{itemize} \\
+  \end{tabularx}
+\end{table}
+
+\newpage
+
+\begin{table}[H]
+  \centering
+  \caption{Revision History (Part 1)}
+  \label{TblRevisionHistoryPart1}
+  \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
+  \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
+      \toprule
+      \textbf{Date} & \textbf{Vers.} & \textbf{Contributors} & \textbf{Notes} \\
+      \midrule
+      03/23/25 & 2.0 & Mitchell Weingust & Fixed:
+      \begin{itemize}[leftmargin=*]
+        \item Revision History Formatting
+      \end{itemize} \\
+    \end{tabularx}
+  \end{table}
+
 
 ~\newpage
 \section{Purpose of the Project}
@@ -529,7 +631,7 @@ assessment and details such as the related assessment question, answer, and time
   \caption{Summary of TeleHealth System's Use Cases}
 \end{longtable}
 \subsection{Individual Product Use Cases (PUC's)}
-\begin{enumerate}[{PUC-}01. ]
+\begin{enumerate}[label={PUC-}01. ]
   \item Create Parent Account\\
   \textbf{Precondition: }None\\
   \textbf{Trigger: }Parent selects 'Create Account'\\
@@ -537,7 +639,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: } Parent's account creation is passed to authenticator to be verified\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}02. ]
+\begin{enumerate}[label={PUC-}02. ]
   \item Verify Unique Unused Username\\
   \textbf{Precondition: }Parent or Admin user creates a new account\\
   \textbf{Trigger: }User types in their preferred account username for creating their account\\
@@ -549,7 +651,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User is logged into their newly created account\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}03. ]
+\begin{enumerate}[label={PUC-}03. ]
   \item Create Clinician Account\\
   \textbf{Precondition: }Clinician goes to their admin user to request account creation\\
   \textbf{Trigger: }Admin user creates a new clincian account\\
@@ -557,7 +659,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Clinician's account is created\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}04. ]
+\begin{enumerate}[label={PUC-}04. ]
   \item Login to System\\
   \textbf{Precondition: }User is on login screen\\
   \textbf{Trigger: }User selects login button from home screen\\
@@ -569,7 +671,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User enters system logged into their account\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}05. ]
+\begin{enumerate}[label={PUC-}05. ]
   \item Select Role\\
   \textbf{Precondition: }User is on login screen\\
   \textbf{Trigger: }User selects their role (choosing between parent or clinician)\\
@@ -577,7 +679,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Role is selected for login\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}06. ]
+\begin{enumerate}[label={PUC-}06. ]
   \item Deny User\\
   \textbf{Precondition: }Authenticator could not authenticate user with their credentials\\
   \textbf{Trigger: }User entered incorrect credentials for their account\\
@@ -585,7 +687,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User is denied entry into their account\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}07. ]
+\begin{enumerate}[label={PUC-}07. ]
   \item Authenticate User\\
   \textbf{Precondition: }User attempted to login to their account\\
   \textbf{Trigger: }User entered their login information on login screen\\
@@ -597,7 +699,7 @@ assessment and details such as the related assessment question, answer, and time
   \end{itemize}
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}08. ]
+\begin{enumerate}[label={PUC-}08. ]
   \item Accept User\\
   \textbf{Precondition: }User login information has been verified by the Authenticator\\
   \textbf{Trigger: }User successfully inputs correct account information\\
@@ -609,7 +711,7 @@ assessment and details such as the related assessment question, answer, and time
 \textbf{Postcondition: }User is logged into their account in the system\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}09. ]
+\begin{enumerate}[label={PUC-}09. ]
   \item View Assessment Description\\
   \textbf{Precondition: }User successfully logs into the system as a parent\\
   \textbf{Trigger: }User is verified by the authenticator upon logging in\\
@@ -617,7 +719,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User goes to assessment description screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}10. ]
+\begin{enumerate}[label={PUC-}10. ]
   \item View Clinician Dashboard\\
   \textbf{Precondition: }User successfully logs into the system as a clinician\\
   \textbf{Trigger: }User is verified by the authenticator upon logging in\\
@@ -625,7 +727,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User goes to clinician dashboard screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}11. ]
+\begin{enumerate}[label={PUC-}11. ]
   \item Perform Video \& Audio Hardware Check\\
   \textbf{Precondition: }Parent read over the assessment details\\
   \textbf{Trigger: }Parent selects setup video and audio hardware check\\
@@ -633,7 +735,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Prompt to 'go to tutorial' is displayed on screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}12. ]
+\begin{enumerate}[label={PUC-}12. ]
   \item Store Recordings\\
   \textbf{Precondition: }User has completed the assessment\\
   \textbf{Trigger: }User has confirmed their selection on the final question of the assessment\\
@@ -641,7 +743,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Recording is saved in the database\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}13. ]
+\begin{enumerate}[label={PUC-}13. ]
   \item Record Video, Audio, Time\\
   \textbf{Precondition: }User has completed the video and hardware check\\
   \textbf{Trigger: }User confirms start of the assessment\\
@@ -649,7 +751,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Recording has started\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}14. ]
+\begin{enumerate}[label={PUC-}14. ]
   \item Play Tutorial\\
   \textbf{Precondition: }Parent has completed video and audio hardware check\\
   \textbf{Trigger: }User confirms they want to start the tutorial\\
@@ -657,7 +759,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User goes to tutorial screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}15. ]
+\begin{enumerate}[label={PUC-}15. ]
   \item Start Assessment\\
   \textbf{Precondition: }User has completed watching the tutorial\\
   \textbf{Trigger: }User confirms they want to start the assessment\\
@@ -665,7 +767,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Go to first question\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}16. ]
+\begin{enumerate}[label={PUC-}16. ]
   \item Keep Track of Questions\\
   \textbf{Precondition: }Assessment has started\\
   \textbf{Trigger: }Confirming selection after choosing from a question's options\\
@@ -673,7 +775,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Go to corresponding question's screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}17. ]
+\begin{enumerate}[label={PUC-}17. ]
   \item Display Question Options\\
   \textbf{Precondition: }User started the assessment\\
   \textbf{Trigger: }A new question is displayed on screen\\
@@ -681,7 +783,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Options are displayed on question's screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}18. ]
+\begin{enumerate}[label={PUC-}18. ]
   \item Play Audio Prompt\\
   \textbf{Precondition: }User is on a question page\\
   \textbf{Trigger: }Question options are displayed\\
@@ -689,7 +791,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Remain on question page\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}19. ]
+\begin{enumerate}[label={PUC-}19. ]
   \item Select a Displayed Option\\
   \textbf{Precondition: }Question's corresponding audio has played for the user\\
   \textbf{Trigger: }User selects amongst the options displayed\\
@@ -697,7 +799,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Remain on question page\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}20. ]
+\begin{enumerate}[label={PUC-}20. ]
   \item Confirm Selection\\
   \textbf{Precondition: }User selected an option\\
   \textbf{Trigger: }User selects 'Confirm Selection'\\
@@ -709,7 +811,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }User's selected option is saved\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}21. ]
+\begin{enumerate}[label={PUC-}21. ]
   \item Display Test Complete Message\\
   \textbf{Precondition: }User is on the final question\\
   \textbf{Trigger: }User confirmed their option selection\\
@@ -717,7 +819,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Go to test completion screen\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}22. ]
+\begin{enumerate}[label={PUC-}22. ]
   \item Store Test Results\\
   \textbf{Precondition: }Test is complete\\
   \textbf{Trigger: }Test complete message has been displayed on screen\\
@@ -725,7 +827,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Test results are available for future analysis and can be accessed by clinicians\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}23. ]
+\begin{enumerate}[label={PUC-}23. ]
   \item Analyze Audio Recordings\\
   \textbf{Precondition: }Audio recordings are stored in the database\\
   \textbf{Trigger: }New recordings have been sent to the database\\
@@ -733,7 +835,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Audio recordings are available for identification of disturbances\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}24. ]
+\begin{enumerate}[label={PUC-}24. ]
   \item Identify Audio Disturbances\\
   \textbf{Precondition: }Audio recordings have been processed by the audio machine learning model\\
   \textbf{Trigger: }New recordings have been analyzed\\
@@ -741,7 +843,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Identified audio disturbances are prepared to be flagged\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}25. ]
+\begin{enumerate}[label={PUC-}25. ]
   \item Analyze Video Disturbances\\
   \textbf{Precondition: }Video recordings are stored in the database\\
   \textbf{Trigger: }New recordings have been sent to the database\\
@@ -749,7 +851,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Video recordings are available for identification of disturbances\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}26. ]
+\begin{enumerate}[label={PUC-}26. ]
   \item Identify Video Disturbances\\
   \textbf{Precondition: }Video recordings have been processed by the video machine learning model\\
   \textbf{Trigger: }New recordings have been analyzed\\
@@ -757,7 +859,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Identified video disturbances are prepared to be flagged\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}27. ]
+\begin{enumerate}[label={PUC-}27. ]
   \item Flag Disturbances\\
   \textbf{Precondition: }Audio and Video disturbances have been identified.\\
   \textbf{Trigger: }New disturbances have been identified\\
@@ -765,7 +867,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Flagged disturbances are recorded\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}28. ]
+\begin{enumerate}[label={PUC-}28. ]
   \item Note Timestamp of Disturbance\\
   \textbf{Precondition: }Flagged disturbances have been recorded\\
   \textbf{Trigger: }None\\
@@ -773,7 +875,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Timestamps of flagged disturbances are recorded and matched with recordings\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}29. ]
+\begin{enumerate}[label={PUC-}29. ]
   \item Store Analysis Results\\
   \textbf{Precondition: }Disturbances have been identified, flagged, and corresponding timestamps have been recorded\\
   \textbf{Trigger: }Model has completed processing and analyzing recording\\
@@ -781,7 +883,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Analysis results are stored in the database\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}30. ]
+\begin{enumerate}[label={PUC-}30. ]
   \item Generate Report\\
   \textbf{Precondition: }Analysis results have been analyzed and processed\\
   \textbf{Trigger: }All analysis results have been stored\\
@@ -789,7 +891,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Report is created to be stored in the database\\
 \end{enumerate}
 
-\begin{enumerate}[{PUC-}31. ]
+\begin{enumerate}[label={PUC-}31. ]
   \item Store Report\\
   \textbf{Precondition: }Clinician report is generated\\
   \textbf{Trigger: }None\\
@@ -801,98 +903,98 @@ assessment and details such as the related assessment question, answer, and time
 \section{Functional Requirements}
 
 \subsection{Authentication}
-\begin{enumerate}[{FR-A}1. ]
+\begin{enumerate}[label={FR-A}1. ]
   \item The system shall allow the user to choose between a Parent and  or Clinician account prior to logging in.\\
   \textbf{Rationale: }Users must be associated with the correct permissions determined by their role, which includes the level of information they have access to.\\
   \textbf{Fit criterion: }Users must be able to directly select their account type prior to logging in. 
 \end{enumerate}
-\begin{enumerate}[{FR-A}2. ]
+\begin{enumerate}[label={FR-A}2. ]
   \item The system shall allow a user to create a parent account with a unique username which does not exist in the database.\\
   \textbf{Rationale: }Users must be able to create a unique account for parents to login for the assessment.\\
   \textbf{Fit criterion: }Users cannot create accounts with usernames that already exist in the database.
 \end{enumerate}
-\begin{enumerate}[{FR-A}3. ]
+\begin{enumerate}[label={FR-A}3. ]
   \item The system shall allow a user with admin privilege to create a clinician account with a unique username which does not exist in the database.\\
   \textbf{Rationale: }Admin-Users must be able to create a unique account for clinicians to login to view assessment results. Clinicians need to be approved by Admin-Users to have a clinician account.\\
   \textbf{Fit criterion: }Users cannot create clinician accounts, without admin access, with usernames that already exist in the database. 
 \end{enumerate}
-\begin{enumerate}[{FR-A}4. ]
+\begin{enumerate}[label={FR-A}4. ]
   \item The system shall allow a user with a unique username to login with their corresponding password.\\
   \textbf{Rationale: }Users must be able to login to their account to restrict others from accessing their assessment or assessment results.\\
   \textbf{Fit criterion: }Users must be able to provide the corresponding password to their unique username to login and successfully enter the system. 
 \end{enumerate}
-\begin{enumerate}[{FR-A}5. ]
+\begin{enumerate}[label={FR-A}5. ]
   \item The system shall allow a user to logout.\\
   \textbf{Rationale: }Users must be able to logout of their account to restrict others from accessing their information.\\
   \textbf{Fit criterion: }Users must be able to logout and successfully exit the system.
 \end{enumerate}
 
 \subsection{System Setup}
-\begin{enumerate}[{FR-SS}1. ]
+\begin{enumerate}[label={FR-SS}1. ]
   \item The system shall allow the user to preview information about the assessment.\\
   \textbf{Rationale: }Users must be informed about relevant assessment information prior to starting the hardware checks.\\
   \textbf{Fit criterion: }Users must be able to view information about the assessment upon logging in.
 \end{enumerate}
-\begin{enumerate}[{FR-SS}2. ]
+\begin{enumerate}[label={FR-SS}2. ]
   \item The system shall allow a user to perform an audio hardware check.\\
   \textbf{Rationale: }Users must be able to perform an audio equipment check to ensure their input and output audio devices are functioning.\\
   \textbf{Fit criterion: }Users must be able to verify their audio devices are functioning with the system.
 \end{enumerate}
-\begin{enumerate}[{FR-SS}3. ]
+\begin{enumerate}[label={FR-SS}3. ]
   \item The system shall allow a user to perform a video hardware check.\\
   \textbf{Rationale: }Users must be able to perform an video equipment check to ensure their video capturing device is functioning.\\
   \textbf{Fit criterion: }Users must be able to verify their video capturing device is functioning with the system.  
 \end{enumerate}
-\begin{enumerate}[{FR-SS}4. ]
+\begin{enumerate}[label={FR-SS}4. ]
   \item The system shall provide a tutorial for a user to learn the assessment process.\\
   \textbf{Rationale: }Users must be able to walkthrough a tutorial to understand how to properly complete the assessment.\\
   \textbf{Fit criterion: }Users must be brought to the tutorial upon completing the audio and video hardware checks.  
 \end{enumerate}
-\begin{enumerate}[{FR-SS}5. ]
+\begin{enumerate}[label={FR-SS}5. ]
   \item The system shall allow a user to start an assessment.\\
   \textbf{Rationale: }Users must be able to decide when they start an assessment.\\
   \textbf{Fit criterion: }Users must be brought to the first assessment question upon starting the assessment.  
 \end{enumerate}
 
 \subsection{Assessment Interface}
-\begin{enumerate}[{FR-AI}1. ]
+\begin{enumerate}[label={FR-AI}1. ]
   \item The system shall record user's audio and video upon starting the assessment.\\
   \textbf{Rationale: }The system must be able to collect audio and video recordings for future analysis.\\
   \textbf{Fit criterion: }The system must indicate to the user that audio and video recordings are ongoing.  
 \end{enumerate}
-\begin{enumerate}[{FR-AI}2. ]
+\begin{enumerate}[label={FR-AI}2. ]
   \item The system shall play audio prompts at the beginning of each question.\\
   \textbf{Rationale: }The system must be able to play the respective question's audio to answer the given question.\\
   \textbf{Fit criterion: }The system must successfully play the respective question's audio upon entering a new question.
 \end{enumerate}
-\begin{enumerate}[{FR-AI}3. ]
+\begin{enumerate}[label={FR-AI}3. ]
   \item The system shall display a question's options for a user to select.\\
   \textbf{Rationale: }Users must be able to provide a response to the question's audio for future analysis.\\
   \textbf{Fit criterion: }The system must display the question's respective options upon starting a new question.
 \end{enumerate}
-\begin{enumerate}[{FR-AI}4. ]
+\begin{enumerate}[label={FR-AI}4. ]
   \item The system shall allow a user to select one of the displayed options.\\
   \textbf{Rationale: }Users must be able to select their best option to answer the question.\\
   \textbf{Fit criterion: }The system must indicate to the user their selected response.
 \end{enumerate}
-\begin{enumerate}[{FR-AI}5. ]
+\begin{enumerate}[label={FR-AI}5. ]
   \item The system shall allow a user to confirm their selection.\\
   \textbf{Rationale: }Users must be able to confirm their selection to proceed to the next stage.\\
   \textbf{Fit criterion: }Users must be brought to the next stage upon confirming their selection.
 \end{enumerate}
-\begin{enumerate}[{FR-AI}6. ]
+\begin{enumerate}[label={FR-AI}6. ]
   \item The system shall keep track of the user's current question.\\
   \textbf{Rationale: }The system must be able to keep track of the time the user enters and exits each question, to synchronize with the audio and video recordings.\\
   \textbf{Fit criterion: }The system must store the user's timestamps upon completing each question.
 \end{enumerate}
-\begin{enumerate}[{FR-AI}7. ]
+\begin{enumerate}[label={FR-AI}7. ]
   \item The system shall inform the user about the assessment's completion.\\
   \textbf{Rationale: }The system must inform the user of the test's completion to indicate they can exit the system.\\
   \textbf{Fit criterion: }The user must be informed about the test's completion upon confirming the selection of the final question.
 \end{enumerate}
 
 \subsection{Data Collection and Storage}
-\begin{enumerate}[{FR-DSC}1. ]
+\begin{enumerate}[label={FR-DSC}1. ]
   \item The database shall be able to store multimedia files including video, audio, and structured data files for each session.\\
   \textbf{Rationale: }These file types are necessary to capture the full scope of the speech-language assessment, 
   including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
@@ -900,7 +1002,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
   data per session without data corruption.
 \end{enumerate}
-\begin{enumerate}[{FR-DSC}2. ]
+\begin{enumerate}[label={FR-DSC}2. ]
   \item The database shall store the video, audio, flagged occurrences (e.g., errors or critical moments
   during the assessment), and timestamps for each question during the assessment.\\
  \textbf{Rationale: }Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
@@ -909,7 +1011,7 @@ assessment and details such as the related assessment question, answer, and time
   and each recording must have flagged occurrences and timestamps associated with every question asked, 
   retrievable via query.
 \end{enumerate}
-\begin{enumerate}[{FR-DSC}3. ]
+\begin{enumerate}[label={FR-DSC}3. ]
   \item The system shall not store any personally identifiable textual information (e.g., patient name, address, 
   or medical record number) in the database.\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
@@ -917,7 +1019,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
   accessible by clinicians are anonymized and contain no identifying textual information.
 \end{enumerate}
-\begin{enumerate}[{FR-DSC}4. ]
+\begin{enumerate}[label={FR-DSC}4. ]
   \item The database shall group all stored data by a unique user identifier to ensure data can be linked to 
   individual users.\\
   \textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
@@ -926,21 +1028,21 @@ assessment and details such as the related assessment question, answer, and time
   that 100\% of session data is properly grouped and retrievable under that identifier, with no unassociated 
   data.
 \end{enumerate}
-\begin{enumerate}[{FR-DSC}5. ]
+\begin{enumerate}[label={FR-DSC}5. ]
   \item The system shall store the generated report in the database, linked to the corresponding patient’s unique user identifier.\\
   \textbf{Rationale: }Storing the report ensures that clinicians can access previous assessment results, enabling them to track patient progress over time.\\
   \textbf{Fit criterion: }The report must be stored in the database with a unique identifier and timestamp, and be retrievable for at least 7 years after creation.
 \end{enumerate}
 
 \subsection{Video and Audio Data Analysis}
-\begin{enumerate}[{FR-VADA}1. ]
+\begin{enumerate}[label={FR-VADA}1. ]
   \item The analysis model shall have access to the video and audio recordings of each session.\\
   \textbf{Rationale: }The data contains essential visual and auditory information that can help clinicians 
   efficiently assess any speech-related disturbances and non-verbal cues.\\
   \textbf{Fit criterion: }The model must successfully retrieve and process video data from 100\% of 
   completed assessment sessions without encountering data access errors.
 \end{enumerate}
-\begin{enumerate}[{FR-VADA}2. ]
+\begin{enumerate}[label={FR-VADA}2. ]
   \item The analysis model shall identify speech disturbances, including interruptions, parental 
   assistance on the assessment, or other irregularities in the background.\\
   \textbf{Rationale: }Detecting disturbances is critical for accurate assessment of speech disorders without 
@@ -948,7 +1050,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }The model must accurately identify and log at least 95\% of speech disturbances 
   from a set of test videos, validated against human observations.
 \end{enumerate}
-\begin{enumerate}[{FR-VADA}3. ]
+\begin{enumerate}[label={FR-VADA}3. ]
   \item The system shall flag detected disturbances, and have some relational indicator to the timestamp, the assessment question, and the user's answer.\\
   \textbf{Rationale: }Flagging disturbances and marking the exact points where they occur enables clinicians and 
   speech-language pathologists to quickly review the relevant portions of the assessment, reducing the time needed 
@@ -958,22 +1060,22 @@ assessment and details such as the related assessment question, answer, and time
 \end{enumerate}
 
 \subsection{Data Processing and Display}
-\begin{enumerate}[{FR-DPD}1. ]
+\begin{enumerate}[label={FR-DPD}1. ]
   \item The system shall retrieve processed assessment results from the database for report generation.\\
   \textbf{Rationale: }In order to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
   \textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 10 seconds of a query being made.
 \end{enumerate}
-\begin{enumerate}[{FR-DPD}2. ]
+\begin{enumerate}[label={FR-DPD}2. ]
   \item The system shall generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
   \textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
   \textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within 10 seconds of the request.
 \end{enumerate}
-\begin{enumerate}[{FR-DPD}3. ]
+\begin{enumerate}[label={FR-DPD}3. ]
   \item The system shall display the generated report through the platform’s interface.\\
   \textbf{Rationale: }Clinicians need to be able to view and interpret the report to assess patient progress to determine next steps for the patient.\\
   \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.
 \end{enumerate}
-\begin{enumerate}[{FR-DPD}4. ]
+\begin{enumerate}[label={FR-DPD}4. ]
   \item Clinicians shall be able to access previously generated reports from the database.\\
   \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
   \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
@@ -990,40 +1092,40 @@ This is the project's most critical element because the system's primary objecti
 The success of the system is dependent on the parent-child correctly using the interface.
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
-\begin{enumerate}[{LF-AR}1. ]
+\begin{enumerate}[label={LF-AR}1. ]
   \item The platform should maintain a modern, organized, and visually appealing design that looks clean and professional, while not 
   overwhelming users with unnecessary clutter.\\
   \textbf{Rationale: }A clean layout reduces cognitive load, making it easier for users to use the platform effectively without distractions.\\
   \textbf{Fit criterion: }The user interface must return minimal reports of visual confusion or overwhelming elements in usability testing.  
 \end{enumerate}
-\begin{enumerate}[{LF-AR}2. ]
+\begin{enumerate}[label={LF-AR}2. ]
   \item The platform’s navigation should be intuitive and allow users to quickly understand how to move between different sections.\\
   \textbf{Rationale: }Simple, user-friendly navigation ensures that users can move through the system without confusion, especially since the platform will be used by both children and adults.\\
   \textbf{Fit criterion: }During user testing, at least 95\% of participants must successfully complete navigation-related tasks without external guidance.  
 \end{enumerate}
-\begin{enumerate}[{LF-AR}3. ]
+\begin{enumerate}[label={LF-AR}3. ]
   \item The design should promote a calm and reassuring environment that is visually appealing but not overstimulating.\\
   \textbf{Rationale: }Children undergoing assessments may feel anxious; a calming design helps create a more comfortable and welcoming environment.\\
   \textbf{Fit criterion: }Feedback from child users and caregivers during usability testing must indicate that the design fosters a calm and positive experience.  
 \end{enumerate}
-\begin{enumerate}[{LF-AR}4. ]
+\begin{enumerate}[label={LF-AR}4. ]
   \item The assessment interface should be designed to be easily understood by children, with accessible and age-appropriate elements.\\
   \textbf{Rationale: }A simple design tailored to children’s comprehension levels ensures they can participate in the assessment without confusion or frustration.\\
   \textbf{Fit criterion: }In user testing, 95\% of children aged 6-12 must be able to complete a sample assessment without adult assistance.  
 \end{enumerate}
-\begin{enumerate}[{LF-AR}5. ]
+\begin{enumerate}[label={LF-AR}5. ]
   \item The platform should provide immediate feedback for user interactions, confirming that inputs have been registered.\\
   \textbf{Rationale: }Feedback is important to confirm that the system is responding to user inputs, which is especially critical for children who may be unsure if their actions have been registered.\\
   \textbf{Fit criterion: }100\% of user interactions must trigger an appropriate feedback response within 0.5 seconds.  
 \end{enumerate}
 
 \subsection{Style Requirements}
-\begin{enumerate}[{LF-SR}1. ]
+\begin{enumerate}[label={LF-SR}1. ]
   \item The design should maintain consistency across all pages to create a cohesive user experience.\\
   \textbf{Rationale: }Consistency in design elements helps reduce user confusion, making the platform easier to navigate and more aesthetically pleasing.\\
   \textbf{Fit criterion: }All visual elements must adhere to a style guide, ensuring a consistent look across 100\% of the platform’s pages.  
 \end{enumerate}
-\begin{enumerate}[{LF-SR}2. ]
+\begin{enumerate}[label={LF-SR}2. ]
   \item The design should align with the client's established company brand guidelines, including the use of specific colors, logos, or fonts.\\
   \textbf{Rationale: }Aligning with brand guidelines ensures that the platform reflects the client's professional image and maintains brand integrity.\\
   \textbf{Fit criterion: }100\% of the platform’s design elements must comply with the client’s branding guidelines.  
@@ -1031,7 +1133,7 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements} 
-\begin{enumerate}[{UH-EOU}1. ]
+\begin{enumerate}[label={UH-EOU}1. ]
   \item The system shall be intuitive for new users to understand.\\
   \textbf{Rationale: }New users should not be overwhelmed with the system. New users must be able to understand the system to effectively perform the assessment (parents and children), or view the results (clinicians).\\
   \textbf{Fit criterion: }The duration between starting the assessment to finishing the first question is less than 2 minutes.
@@ -1040,13 +1142,13 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system will direct the user to additional information prior to starting the setup process, and upon completion of the assessment.
 \end{enumerate}
 \subsection{Personalization and Internationalization Requirements}
-\begin{enumerate}[{UH-PI}1. ]
+\begin{enumerate}[label={UH-PI}1. ]
   \item The system shall support multiple languages.\\
   \textbf{Rationale: }The assessment must be conducted in two languages for the purpose of the research study. As well, it would be beneficial for parents and children to navigate the system in their preferred language.\\
   \textbf{Fit criterion: }The assessment will always be available to be conducted in two different languages (within a single assessment).
 \end{enumerate}
 \subsection{Learning Requirements}
-\begin{enumerate}[{UH-LI}1. ]
+\begin{enumerate}[label={UH-LI}1. ]
   \item The system shall not require additional resources to be navigated.\\
   \textbf{Rationale: }The system should be intuitive to navigate without additional information to simplify the assessment process.\\
   \textbf{Fit criterion: }All information required for the assessment will be directly displayed by the system.
@@ -1055,14 +1157,14 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }User documentation will be provided on the team's GitHub upon project completion.
 \end{enumerate}
 \subsection{Understandability and Politeness Requirements}
-\begin{enumerate}[{UH-UP}1. ]
+\begin{enumerate}[label={UH-UP}1. ]
   \item The system will not use technical language when displaying information to the user.\\
   \textbf{Rationale: }The system will be designed for parents and children to participate in assessments, thus the system should make information easily understandable.\\
   As well, clinicians may not have a technological background, so any technical aspects should be communicated in easy to understand terms.\\
   \textbf{Fit criterion: }The system will be reviewed by the team's supervisor and their collaborator to verify all language used is appropriate for users.
 \end{enumerate}
 \subsection{Accessibility Requirements}
-\begin{enumerate}[{UH-AR}1. ]
+\begin{enumerate}[label={UH-AR}1. ]
   \item The system shall be simple and intuitive for assessment interactions with children.\\
   \textbf{Rationale: }Children interacting with the assessment can vary in age and cognitive abilities. To get reliable assessment results, the children participating must understand the system they interact with.\\
   \textbf{Fit criterion: }The assessment will feature minimal display elements, with clear indication of interactions.
@@ -1070,123 +1172,123 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
-\begin{enumerate}[{PR-SL}1. ]
+\begin{enumerate}[label={PR-SL}1. ]
   \item The system shall load web pages within 3 seconds of navigating to it.\\
   \textbf{Rationale: }Fast page loading is critical for maintaining user engagement and reducing user frustrations during the assessment process.\\
   \textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the 3 seconds of navigation on a standard broadband internet connection.  
 \end{enumerate}
-\begin{enumerate}[{PR-SL}2. ]
+\begin{enumerate}[label={PR-SL}2. ]
   \item The system must maintain video and audio recording latency of less than 1 second to support accurate data capture for speech assessment.\\
   \textbf{Rationale: }Having high latency could lead to desynchronization between audio and video, causing errors in the timestamps or making it difficult for speech-language pathologists (SLPs) to analyze the recordings properly.\\
   \textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed 1 second.  
 \end{enumerate}
-\begin{enumerate}[{PR-SL}3. ]
+\begin{enumerate}[label={PR-SL}3. ]
   \item The system must ensure that all video recordings are capture and stored in a resolution of at least 720p.\\
   \textbf{Rationale: }A minimum resolution of 720p is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
   \textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of 720p.
 \end{enumerate}
-\begin{enumerate}[{PR-SL}4. ]
+\begin{enumerate}[label={PR-SL}4. ]
   \item The system must process the data from a session and generate a report within 10 seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
   \textbf{Rationale: }Generating the assessment reports for clinicians under 10 seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
   \textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within 10 seconds  
 \end{enumerate}
 
 \subsection{Safety-Critical Requirements}
-\begin{enumerate}[{PR-SCL}1. ]
+\begin{enumerate}[label={PR-SCL}1. ]
   \item There are no safety-critical requirements
 \end{enumerate}
 
 \subsection{Precision or Accuracy Requirements}
-\begin{enumerate}[{PR-PA}1. ]
+\begin{enumerate}[label={PR-PA}1. ]
   \item The system must achieve a audio analysis accuracy of at least 95\% to ensure reliable assessment results for clinicians.\\
   \textbf{Rationale: }It is imporant that the audio analysis accuracy has a high percision rate. Without this level of percision, clinicians could 
   be mislead by inaccurate results affecting the quality of diagnosis and subsequent treatment.\\
   \textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of 95\%.  
 \end{enumerate}
-\begin{enumerate}[{PR-PA}2. ]
+\begin{enumerate}[label={PR-PA}2. ]
   \item The system must detect video disturbances with an accuracy of at least 90\% to minimize the impact of visual issues on the assessment data.\\
   \textbf{Rationale: }Detecting video disturbances with 90\% accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
   \textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed 90\%.  
 \end{enumerate}
-\begin{enumerate}[{PR-PA}3. ]
+\begin{enumerate}[label={PR-PA}3. ]
   \item The system must ensure that timestamp accuracy is within 1 second to align recorded events with real-time actions for precise analysis.\\
   \textbf{Rationale: }Timestamp accuracy within 1 second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
   \textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a 1-second window, verifying that all events are accurately synchronized.  
 \end{enumerate}
-\begin{enumerate}[{PR-PA}4. ]
+\begin{enumerate}[label={PR-PA}4. ]
   \item The system must guarantee 100\% accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
   \textbf{Rationale: }Any errors in the answer key could lead to misinterpretation of a child’s abilities or progress, undermining the purpose of the assessment.\\
   \textbf{Fit criterion: }The assessment answer key will be manually be verified to ensure that ti contatins no inaccuracies, ensuring complete correctness of answers.  
 \end{enumerate}
-\begin{enumerate}[{PR-PA}5. ]
+\begin{enumerate}[label={PR-PA}5. ]
   \item The system must ensure that all questions are 100\% relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
   \textbf{Rationale: }Ensuring that all questions are fully relevant to the platform’s purpose guarantees that the assessment focuses only on aspects critical to speech and language development. Irrelevant questions could confuse users and divert attention from important areas.\\
   \textbf{Fit criterion: }All assessment questions will be manual reviewed to confirm that they align perfectly with the platform's objectives.  
 \end{enumerate}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
-\begin{enumerate}[{PR-RFT}1. ]
+\begin{enumerate}[label={PR-RFT}1. ]
   \item The system must manage any technical errors effectively and provide clear feedback to users when issues occur.\\
   \textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand if something is wrong or why the system is not working as they expect, leading to frustration.\\
   \textbf{Fit criterion: }The system must display error messages for at least 95\% of common user errors.  
 \end{enumerate}
-\begin{enumerate}[{PR-RFT}2. ]
+\begin{enumerate}[label={PR-RFT}2. ]
   \item The system must implement data backup and recovery processes to protect user data and assessment results.\\
   \textbf{Rationale: }Effective backup and recovery ensure that user data is not lost during a system failure. Data loss could disrupt assessments and treatment plans.\\
   \textbf{Fit criterion: }The system must back up data on the first of every month within a 4hr timeframe.  
 \end{enumerate}
-\begin{enumerate}[{PR-RFT}3. ]
+\begin{enumerate}[label={PR-RFT}3. ]
   \item The system must validate inputs to accept only specified formats during user interactions.\\
   \textbf{Rationale: }Strict input validation prevents errors and enhances data integrity. It also protects the system from malicious inputs that could cause issues.\\
   \textbf{Fit criterion: }The system must reject 100\% of invalid inputs and display appropriate error messages to users.  
 \end{enumerate}
 
 \subsection{Capacity Requirements}
-\begin{enumerate}[{PR-CR}1. ]
+\begin{enumerate}[label={PR-CR}1. ]
   \item The system must accommodate a minimum of 2000 user accounts at launch.\\
   \textbf{Rationale: }Supporting at least 2000 user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
   \textbf{Fit criterion: }The system must successfully manage 2000 user accounts at deployment without stability issues.  
 \end{enumerate}
-\begin{enumerate}[{PR-CR}2. ]
+\begin{enumerate}[label={PR-CR}2. ]
   \item The system must have the capacity to store a minimum of 10TB of data each year.\\
   \textbf{Rationale: }Storing 10TB of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
   \textbf{Fit criterion: }The database must have 10TB of allocated space at the start of every year.  
 \end{enumerate}
-\begin{enumerate}[{PR-CR}3. ]
+\begin{enumerate}[label={PR-CR}3. ]
   \item The system must support a minimum of 200 concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
   \textbf{Rationale: }Supporting 200 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
   \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 200 concurrent users.  
 \end{enumerate}
-\begin{enumerate}[{PR-CR}4. ]
+\begin{enumerate}[label={PR-CR}4. ]
   \item The system must support a minimum of 100 concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
   \textbf{Rationale: }Supporting 100 concurrent user uploads is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
   \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 100 concurrent uploads.  
 \end{enumerate}
 
 \subsection{Scalability or Extensibility Requirements}
-\begin{enumerate}[{PR-SE}1. ]
+\begin{enumerate}[label={PR-SE}1. ]
   \item The system must support the addition of new user accounts without compromising performance.\\
   \textbf{Rationale: }User scalability is essential to accommodate growth in the user base and ensure consistent performance as more users engage with the platform.\\
   \textbf{Fit criterion: }The system must effectively manage a user base increase of at least 10\% annually while maintaining performance metrics defined in the capacity requirements.  
 \end{enumerate}
-\begin{enumerate}[{PR-SE}2. ]
+\begin{enumerate}[label={PR-SE}2. ]
   \item The system must handle increasing volumes of data without loss of performance or data integrity.\\
   \textbf{Rationale: }Data scalability ensures that as the volume of stored data grows, the system can still process, retrieve, and manage this data efficiently. This is crucial for maintaining system reliability and providing accurate insights from the collected data.\\
   \textbf{Fit criterion: }The system must manage a data increase of at least 10\% annually.  
 \end{enumerate}
-\begin{enumerate}[{PR-SE}3. ]
+\begin{enumerate}[label={PR-SE}3. ]
   \item The system must expand processing capabilities to handle increased computational demands.\\
   \textbf{Rationale: }Processing scalability is vital for ensuring that the system can efficiently perform analyses and computations as the number of users or the complexity of tasks increases. This prevents bottlenecks in data processing and ensures timely results for clinicians.\\
   \textbf{Fit criterion: }The system must increase data processing capacity by at least 2\% without impacting response times for data processing tasks.  
 \end{enumerate}
 
 \subsection{Longevity Requirements}
-\begin{enumerate}[{PR-LR}1. ]
+\begin{enumerate}[label={PR-LR}1. ]
   \item The system must function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
   \textbf{Rationale: }Ensuring stability during ongoing development is crucial to maintain user trust and provide uninterrupted service. Any major malfunctions could lead to user frustration and potential loss of users, impacting the system's reputation.\\
   \textbf{Fit criterion: }The system must demonstrate a failure rate of less than 1\% in the release build during ongoing development, ensuring that users experience minimal disruptions.  
 \end{enumerate}
-\begin{enumerate}[{PR-LR}2. ]
+\begin{enumerate}[label={PR-LR}2. ]
   \item The system must be compatible with major operating systems, including Windows, macOS, Linux, Android, and iOS.\\
   \textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
   \textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.  
@@ -1194,13 +1296,13 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\begin{enumerate}[{OE-EPE}1. ]
+\begin{enumerate}[label={OE-EPE}1. ]
   \item The system can be run on all browser-supported devices regardless of screen sizes.\\
   \textbf{Rationale: }The system will be run on a variety of devices through web browsers, and should adapt the different screen sizes so users get full functionality.\\
   \textbf{Fit criterion: }The system's displayed elements will scale appropriately to different screen sizes.
 \end{enumerate}
 \subsection{Wider Environment Requirements}
-\begin{enumerate}[{OE-WE}1. ]
+\begin{enumerate}[label={OE-WE}1. ]
   \item The system shall be used in a quiet environment.\\
   \textbf{Rationale: }The system will be performing audio and video analysis, and conducting the assessment in a loud or busy environment could lead to unexpected results due to noise.\\
   \textbf{Fit criterion: }The system will inform the user, prior to setup, that the optimal experience for the assessment is in a quiet environment. 
@@ -1209,36 +1311,36 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system will be accessed online. The system will inform the user, prior to setup, that the assessment will be conducted online, and no files will be downloaded to their device for the assessment. 
 \end{enumerate}
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\begin{enumerate}[{OE-IA}1. ]
+\begin{enumerate}[label={OE-IA}1. ]
   \item The system shall be hosted on an external server for retrieving and storing data.\\
   \textbf{Rationale: }The supervisor's collaborator is running the current system on an external server, which the new system will utilize.\\
   \textbf{Fit criterion: }The system (including the assessment) will be published and accessed through the external server.
 \end{enumerate}
 \subsection{Productization Requirements}
-\begin{enumerate}[{OE-PR}1. ]
+\begin{enumerate}[label={OE-PR}1. ]
   \item N/A
 \end{enumerate}
 \subsection{Release Requirements}
-\begin{enumerate}[{OE-RR}1. ]
+\begin{enumerate}[label={OE-RR}1. ]
   \item N/A
 \end{enumerate}
 
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
-\begin{enumerate}[{MS-MR}1. ]
+\begin{enumerate}[label={MS-MR}1. ]
   \item The platform should be built using a modular architecture so that different components may be updated or replaced independently without disrupting the entire system.\\
   \textbf{Rationale: }Modular systems are easier to maintain and update, reducing downtime and ensuring new features or bug fixes can be implemented without impacting the core functionality of the platform.\\
   \textbf{Fit criterion: }Any update of an individual component shall have no more than 10 lines of code edited outside of the component.
 \end{enumerate}
 
 \subsection{Supportability Requirements}
-\begin{enumerate}[{MS-SR}1. ]
+\begin{enumerate}[label={MS-SR}1. ]
   \item Users should be able to submit feature requests or report issues directly to the platform’s GitHub repository, ensuring that the development team can track and prioritize improvements or bug fixes.\\
   \textbf{Rationale: }Centralizing feature requests and issue tracking in GitHub makes it easier for the development team to manage feedback and streamline future updates.\\
   \textbf{Fit criterion: }The platform must include a direct link to the GitHub repository, with a clear option for users to submit requests or report issues, and GitHub should have dedicated categories for issues, 
   feature requests, and feedback.
 \end{enumerate}
-\begin{enumerate}[{MS-SR}2. ]
+\begin{enumerate}[label={MS-SR}2. ]
   \item The platform should provide a comprehensive, easy-to-follow tutorial that guides users through the website and the assessment process.\\
   \textbf{Rationale: }Tutorials help users understand the functionality of the platform, reducing the need for external support and improving user experience, particularly for new users or children.\\
   \textbf{Fit criterion: }The tutorial must be accessible from the homepage and should cover all core functionalities. In usability testing, 90\% of users should be able to complete tasks correctly after following the
@@ -1246,7 +1348,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \end{enumerate}
 
 \subsection{Adaptability Requirements}
-\begin{enumerate}[{MS-AR}1. ]
+\begin{enumerate}[label={MS-AR}1. ]
   \item The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
   \textbf{Rationale: }A responsive design ensures the platform is accessible on any device, providing a seamless user experience regardless of screen size or resolution.\\
   \textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
@@ -1255,7 +1357,7 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\begin{enumerate}[{SR-AC}1. ]
+\begin{enumerate}[label={SR-AC}1. ]
   \item Only users with an Admin role can create and assign accounts to clinicians.\\
   \textbf{Rationale: }Full access of the system and permissions including creating clinician accounts should only be available to admin roles by the system. \\
   \textbf{Fit criterion: }Admin users will have full access to the system including create clinician accounts, viewing data records, and starting assessments. 
@@ -1270,11 +1372,11 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }A user should not be able to login to an account they do not have the required credentials for.
 \end{enumerate}
 \subsection{Integrity Requirements}
-\begin{enumerate}[{SR-INT}1. ]
+\begin{enumerate}[label={SR-INT}1. ]
   \item N/A
 \end{enumerate}
 \subsection{Privacy Requirements}
-\begin{enumerate}[{SR-P}1. ]
+\begin{enumerate}[label={SR-P}1. ]
   \item The system shall adhere to all data protection and privacy laws in the region its used.\\
   \textbf{Rationale: }The system will respect the privacy and confidentiality of all users to adhere to all applicable protection laws.\\
   \textbf{Fit criterion: }The system will be reviewed prior to public release to ensure it follows all applicable protection laws
@@ -1286,11 +1388,11 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system does not store any personal identifiable information. All data stored includes, username, and data/audio recordings only. 
 \end{enumerate}
 \subsection{Audit Requirements}
-\begin{enumerate}[{SR-AU}1. ]
+\begin{enumerate}[label={SR-AU}1. ]
   \item N/A
 \end{enumerate}
 \subsection{Immunity Requirements}
-\begin{enumerate}[{SR-IM}1. ]
+\begin{enumerate}[label={SR-IM}1. ]
   \item The system must mandate strong passwords.\\
   \textbf{Rationale: }The system must require a strong password mandate to secure user accounts from unauthorized access.\\
   \textbf{Fit criterion: }The system will complete account creation upon entering a valid password that follows the specified mandate. 
@@ -1298,14 +1400,14 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
-\begin{enumerate}[{CU-CR}1. ]
+\begin{enumerate}[label={CU-CR}1. ]
   \item The platform must not contain any language or imagery that could be considered culturally insensitive or offensive to any users, particularly the primary user groups.\\
   \textbf{Rationale: }Ensuring cultural sensitivity is critical in a healthcare setting, especially when working with diverse populations. Avoiding insensitive content fosters a respectful and inclusive environment 
   for users.\\
   \textbf{Fit criterion: }During user acceptance testing and content review, 100\% of language and imagery used on the platform must be validated by at least 5 representatives of the primary user groups to ensure no instances of 
   insensitivity.
 \end{enumerate}
-\begin{enumerate}[{CU-CR}2. ]
+\begin{enumerate}[label={CU-CR}2. ]
   \item The platform should be bilingual, supporting both English and Mandarin for all user interfaces and assessments to accommodate the language preferences of users.\\
   \textbf{Rationale: }Given that the target user base includes bilingual children, providing language options ensures accessibility and inclusivity, allowing users to complete assessments in their choice of language.\\
   \textbf{Fit criterion: }100\% of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.  
@@ -1313,11 +1415,11 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
-\begin{enumerate}[{CR-LR}1. ]
+\begin{enumerate}[label={CR-LR}1. ]
   \item N/A
 \end{enumerate}
 \subsection{Standards Compliance Requirements}
-\begin{enumerate}[{CR-STD}1. ]
+\begin{enumerate}[label={CR-STD}1. ]
   \item The system shall use security measures to protect all stored user assessment data.\\
   \textbf{Rationale: }The system must use strong security measures to protect sensitive and confidential user information including collected video and audio recordings from assessment results to ensure privacy and integrity.\\
   \textbf{Fit criterion: }All stored user assessment data is only associated with a username. 
