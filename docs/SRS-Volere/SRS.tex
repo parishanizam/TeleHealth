@@ -177,6 +177,18 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/192}{Figure 5: "User" should be "Use"}
       \end{itemize} \\
+      03/23/25 & 2.3 & Mitchell Weingust & Fixed:
+      \begin{itemize}[leftmargin=*]
+        \item Changed page numbering from roman to arabic
+      \end{itemize} \\
+      03/23/25 & 2.4 & Mitchell Weingust & Fixed: 
+      \begin{itemize}[leftmargin=*]
+        \item Formatting with section/page spacing
+      \end{itemize} \\
+      03/23/25 & 2.5 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/193}{Added table numbers and captions to all tables, and mentioned in text}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -185,7 +197,7 @@
 
 \section{Purpose of the Project}
 \subsection{User Business}
-\hspace{1.5em}The project being outlined in this document is an at-home bilingual speech 
+\hspace{2em}The project being outlined in this document is an at-home bilingual speech 
 assessment system with video and audio analysis features. The system is designed 
 to provide clear guidance to parents when administering the assessment to their 
 children, in an environment where speech-language pathologists (SLPs) are 
@@ -225,6 +237,8 @@ speech and language development remotely.
   both parents and children, rendering correctly on all screen formats, whether on 
   phones, tablets, or desktops.
 \end{itemize}
+
+\newpage
 
 \section{Stakeholders}
 \subsection{Client}
@@ -302,6 +316,8 @@ Personality Traits: Caring, Strict, Empathetic, Impatient, Stubborn\\
 
 \subsection{Maintenance Users and Service Technicians}
 N/A\\
+
+\newpage
 
 \section{Mandated Constraints}
 \subsection{Solution Constraints}
@@ -382,11 +398,17 @@ N/A\\
   \item[3.8.1] N/A. There are no mandated enterprise constraints.
 \end{itemize}
 
+\newpage
+
 \section{Naming Conventions and Terminology}
+
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
+\hspace{2em}The glossary of all terms are featured in Table \ref{tab:glossary} below.
 
 \begin{table}[h!]
+  \caption{Naming Conventions and Terminology}
+  \label{tab:glossary}
 \begin{tabularx}{\textwidth}{p{2cm}X}
   \toprule {\textbf{Terms}} & {\textbf{Definition}}\\
   \midrule
@@ -401,8 +423,9 @@ involved in the Project}
   TB & Terabyte\\
   \bottomrule
 \end{tabularx}
-\caption{Naming Conventions and Terminology}
 \end{table}
+
+\newpage
 
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
@@ -436,9 +459,11 @@ involved in the Project}
   \item[5.3.6] The platform may need to accommodate additional users and storage demands as the client scales its telehealth services over time.
 \end{itemize}
 
+\newpage
+
 \section{The Scope of the Work}
 \subsection{The Current Situation}
-\hspace{1.5em}Currently, speech language assessments for bilingual children with speech difficulties require in-person visits, which can be logistically challenging 
+\hspace{2em}Currently, speech language assessments for bilingual children with speech difficulties require in-person visits, which can be logistically challenging 
 for families and clinicians. While there are some existing telehealth solutions, they are much more generalized and there are no existing solutions 
 specifically for the unique needs of bilingual children with speech difficulties such as a platform that offers assessments in multiple languages. 
 There is a need for a remote online solution where parents can administer language assessments to their children while minimizing the bias the parent 
@@ -448,8 +473,10 @@ to go through. A solution that tracks the remote assessment responses and genera
 time. Moreover, a solution that tracks the interactions between the user and the interface which can detect points of bias or disturbance can help a clinician 
 review an assessment session and either accept the remote assessment results with confidence or recognize where points of bias occur.
 
+\newpage
+
 \subsection{The Context of the Work}
-\hspace{1.5em}The diagram below models the high level interactions within the system as well as with any external systems.
+\hspace{2em}The diagram below models the high level interactions within the system as well as with any external systems.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.7]{images/ContextoftheWork.png}
@@ -458,8 +485,11 @@ review an assessment session and either accept the remote assessment results wit
 
 All incoming and outgoing data to and from the database will be processed through the backend server first, the arrows are drawn directly for a simpler high-level diagram. 
 \subsection{Work Partitioning}
+\hspace{2em}Table \ref{tab:work_partition_1} and Table \ref{tab:work_partition_2} feature work partitioning of the project's business use cases.
 \begin{table}[H]
   \centering
+  \caption{Work Partitioning of BUC}
+  \label{tab:work_partition_1}
   \begin{tabularx}{1.2\textwidth} { 
      >{\raggedright\arraybackslash}X 
     | >{\raggedright\arraybackslash}X 
@@ -487,10 +517,13 @@ All incoming and outgoing data to and from the database will be processed throug
 \bottomrule
 \end{tabularx}
 \end{table}
+
 \newpage
-\noindent \textbf{Work partitioning continued}
+
 \begin{table}[H]
   \centering
+  \caption{Work Partitioning of BUC (Part 2)}
+  \label{tab:work_partition_2}
   \begin{tabularx}{1.2\textwidth} { 
      >{\raggedright\arraybackslash}X 
     | >{\raggedright\arraybackslash}X 
@@ -503,10 +536,10 @@ All incoming and outgoing data to and from the database will be processed throug
   Do Audio Analysis & IN: Assessment Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
 \bottomrule
 \end{tabularx}
-\caption{Work Partitioning of BUC}
 \end{table}
+
 \subsection{Specifying a Business Use Case (BUC)}
-The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
+\hspace{2em}The following is a sequence diagram for the Video Analysis process. The business use case will be triggered by the user interacting with the system 
 when they submit an assessment. The output will be the video analysis detecting and identifying any disturbances during the 
 assessment and details such as the related assessment question, answer, and timestamp.
 
@@ -523,8 +556,15 @@ assessment and details such as the related assessment question, answer, and time
   \includegraphics[scale=0.35]{images/UML class.png}
   \caption{UML Diagram of System's Data Layout}
 \end{figure}
+
+\newpage
+
 \subsection{Data Dictionary}
+\hspace{2em} This section contains the project's data dictionary, which is featured in Table \ref{tab:data_dictionary}.
+
 \begin{table}[h!]
+  \caption{Descriptions of Data Elements in Model}
+  \label{tab:data_dictionary}
 \begin{tabularx}{\textwidth}{p{2.5cm}p{3cm}X}
   \toprule {\textbf{Name}} & {\textbf{Type}} & {\textbf{Content}}\\
   \midrule
@@ -557,8 +597,9 @@ assessment and details such as the related assessment question, answer, and time
   Assessment Interface & Interface & Displays view for parent to learn, and complete assessment with child \\
   \bottomrule
   \end{tabularx}
-  \caption{Descriptions of Data Elements in Model}
 \end{table}
+
+\newpage
 
 \section{The Scope of the Product}
 \subsection{Product Boundary}
@@ -572,74 +613,110 @@ assessment and details such as the related assessment question, answer, and time
   \includegraphics[scale=0.5]{images/UseCaseDiagram.jpg}
   \caption{Use Case Diagram}
 \end{figure}
+
 \subsection{Product Use Case Table}
-\begin{longtable}{|p{2cm}|p{3.2cm}|p{3.2cm}|p{3cm}|p{3cm}|}
-  \toprule {\textbf{PUC No.}} & {\textbf{PUC Name}} & {\textbf{Actor(s)}} & {\textbf{Input(s)}} & {\textbf{Output(s)}} \\
-  \midrule
-  PUC-01 & Create Parent Account & Parent & Username \& Password & \\
+\hspace{2em} The project's product use case table is featured in Table \ref{tab:use_case_1}, Table \ref{tab:use_case_2}, and Table \ref{tab:use_case_3} below.
+
+% First Table: Account Management and Authentication
+\begin{table}[H]
+\centering
+\caption{Account Management and Authentication Use Cases}
+\label{tab:use_case_1}
+\begin{tabular}{|p{2cm}|p{3.2cm}|p{3.2cm}|p{3cm}|p{3cm}|}
   \hline
-  PUC-02 & Verify Unique Unused Username & Parent \& Authenticator & Username & Account Created or Failure Message\\
+  \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor(s)} & \textbf{Input(s)} & \textbf{Output(s)} \\
   \hline
-  PUC-03 & Create Clinician Account & Admin User \& Authenticator & Username \& Password & \\
+  PUC-01 & Create Parent Account & Parent & Username \& Password & \\  
   \hline
-  PUC-04 & Login to System & Parent \& Authenticator \& SLP & Username \& Password & \\
+  PUC-02 & Verify Unique Unused Username & Parent \& Authenticator & Username & Account Created or Failure Message \\  
   \hline
-  PUC-05 & Select Role & Parent \& SLP & Role Selection & \\
+  PUC-03 & Create Clinician Account & Admin User \& Authenticator & Username \& Password & \\  
   \hline
-  PUC-06 & Deny User & Parent \& Authenticator \& SLP & & Login failure message\\
+  PUC-04 & Login to System & Parent \& Authenticator \& SLP & Username \& Password & \\  
   \hline
-  PUC-07 & Authenticate User & Authenticator & Username \& Password & \\
+  PUC-05 & Select Role & Parent \& SLP & Role Selection & \\  
   \hline
-  PUC-08 & Accept User & Authenticator & & Go to View Assessment Description or View Clinician Dashboard\\
+  PUC-06 & Deny User & Parent \& Authenticator \& SLP & & Login failure message \\  
   \hline
-  PUC-09 & View Assessment Description & Parent & & Display Assessment Description\\
+  PUC-07 & Authenticate User & Authenticator & Username \& Password & \\  
   \hline
-  PUC-10 & View Clinician Dashboard & SLP & & Display Clinician Dashboard\\
+  PUC-08 & Accept User & Authenticator & & Go to View Assessment Description or View Clinician Dashboard \\  
   \hline
-  PUC-11 & Perform Video \& Audio Hardware Check & Parent \& Recorder & Sound Input \& Video Input & Confirmation Message or Repeat Procedure\\
+\end{tabular}
+\end{table}
+
+% Second Table: Assessment Execution
+\begin{table}[H]
+\centering
+\caption{Assessment Execution Use Cases}
+\label{tab:use_case_2}
+\begin{tabular}{|p{2cm}|p{3.2cm}|p{3.2cm}|p{3cm}|p{3cm}|}
   \hline
-  PUC-12 & Store Recordings & Recorder \& Database & Audio Recordings \& Video Recordings & \\
+  \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor(s)} & \textbf{Input(s)} & \textbf{Output(s)} \\
   \hline
-  PUC-13 & Record Video, Audio, Time & Recorder \& Assessment & Video Recordings \& Audio Recordings \& Timer & \\
+  PUC-09 & View Assessment Description & Parent & & Display Assessment Description \\  
   \hline
-  PUC-14 & Play Tutorial & Child \& Assessment & Click Play Tutorial Button & Plays Tutorial\\
+  PUC-10 & View Clinician Dashboard & SLP & & Display Clinician Dashboard \\  
   \hline
-  PUC-15 & Start Assessment & Child \& Authenticator & Click Start Assessment Button & Go to First Question\\
+  PUC-11 & Perform Video \& Audio Hardware Check & Parent \& Recorder & Sound Input \& Video Input & Confirmation Message or Repeat Procedure \\  
   \hline
-  PUC-16 & Keep Track of Questions & Assessment & Click Confirm Selection& Question Number\\
+  PUC-12 & Store Recordings & Recorder \& Database & Audio Recordings \& Video Recordings & \\  
   \hline
-  PUC-17 & Display Question Options & Assessment & & Display Options\\
+  PUC-13 & Record Video, Audio, Time & Recorder \& Assessment & Video Recordings \& Audio Recordings \& Timer & \\  
   \hline
-  PUC-18 & Play Audio Prompt & Assessment & & Plays Audio\\
+  PUC-14 & Play Tutorial & Child \& Assessment & Click Play Tutorial Button & Plays Tutorial \\  
   \hline
-  PUC-19 & Select a Displayed Option & Child \& Assessment & Select Option & Highlight Option\\
+  PUC-15 & Start Assessment & Child \& Authenticator & Click Start Assessment Button & Go to First Question \\  
   \hline
-  PUC-20 & Confirm Selection & Child \& Assessment & Select Confirm Selection & Go to Next Question or Test Complete\\
+  PUC-16 & Keep Track of Questions & Assessment & Click Confirm Selection & Question Number \\  
   \hline
-  PUC-21 & Display Test Complete Message & Child \& Assessment & Select final Confirm Selection & Display Message\\
+  PUC-17 & Display Question Options & Assessment & & Display Options \\  
   \hline
-  PUC-22 & Store Test Results & Assessment \& Database & Test Results & Store Results\\
+  PUC-18 & Play Audio Prompt & Assessment & & Plays Audio \\  
   \hline
-  PUC-23 & Analyze Audio Recordings & Audio ML Model & Audio Recording & Analyzed Recording Data\\
+  PUC-19 & Select a Displayed Option & Child \& Assessment & Select Option & Highlight Option \\  
   \hline
-  PUC-24 & Identify Audio Disturbances & Audio ML Model & Analyzed Recording Data & List of disturbances\\
+  PUC-20 & Confirm Selection & Child \& Assessment & Select Confirm Selection & Go to Next Question or Test Complete \\  
   \hline
-  PUC-25 & Analyze Video Disturbances & Video ML Model & Video Recording & Analyzed Recording Data\\
+  PUC-21 & Display Test Complete Message & Child \& Assessment & Select final Confirm Selection & Display Message \\  
   \hline
-  PUC-26 & Identify Video Disturbances & Video ML Model & Analyzed Recording Data & List of disturbances\\
+  PUC-22 & Store Test Results & Assessment \& Database & Test Results & Store Results \\  
   \hline
-  PUC-27 & Flag Disturbances & Audio ML Model \& Video ML Model & List of disturbances & Timestamp Markers\\
+\end{tabular}
+\end{table}
+
+% Third Table: Data Analysis and Reporting
+\begin{table}[H]
+\centering
+\caption{Data Analysis and Reporting Use Cases}
+\label{tab:use_case_3}
+\begin{tabular}{|p{2cm}|p{3.2cm}|p{3.2cm}|p{3cm}|p{3cm}|}
   \hline
-  PUC-28 & Note Timestamp of Disturbance & Audio ML Model \& Video ML Model & Timestampe Markers & Report Data\\
+  \textbf{PUC No.} & \textbf{PUC Name} & \textbf{Actor(s)} & \textbf{Input(s)} & \textbf{Output(s)} \\
   \hline
-  PUC-29 & Store Analysis Results & Audio ML Model \& Video ML Model \& Database & Report Data & Analaysis Results\\
+  PUC-23 & Analyze Audio Recordings & Audio ML Model & Audio Recording & Analyzed Recording Data \\  
   \hline
-  PUC-30 & Generate Report & Database & Analysis Results & Assessment Report\\
+  PUC-24 & Identify Audio Disturbances & Audio ML Model & Analyzed Recording Data & List of disturbances \\  
   \hline
-  PUC-31 & Store Report & Database & Assessment Report & Store Report\\
-  \bottomrule
-  \caption{Summary of TeleHealth System's Use Cases}
-\end{longtable}
+  PUC-25 & Analyze Video Disturbances & Video ML Model & Video Recording & Analyzed Recording Data \\  
+  \hline
+  PUC-26 & Identify Video Disturbances & Video ML Model & Analyzed Recording Data & List of disturbances \\  
+  \hline
+  PUC-27 & Flag Disturbances & Audio ML Model \& Video ML Model & List of disturbances & Timestamp Markers \\  
+  \hline
+  PUC-28 & Note Timestamp of Disturbance & Audio ML Model \& Video ML Model & Timestamp Markers & Report Data \\  
+  \hline
+  PUC-29 & Store Analysis Results & Audio ML Model \& Video ML Model \& Database & Report Data & Analysis Results \\  
+  \hline
+  PUC-30 & Generate Report & Database & Analysis Results & Assessment Report \\  
+  \hline
+  PUC-31 & Store Report & Database & Assessment Report & Store Report \\  
+  \hline
+\end{tabular}
+\end{table}
+
+\newpage
+
 \subsection{Individual Product Use Cases (PUC's)}
 \begin{enumerate}[label={PUC-}01. ]
   \item Create Parent Account\\
@@ -909,6 +986,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Postcondition: }Clinician report is stored in the database\\
 \end{enumerate}
 
+\newpage
 
 \section{Functional Requirements}
 
@@ -965,6 +1043,8 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Rationale: }Users must be able to decide when they start an assessment.\\
   \textbf{Fit criterion: }Users must be brought to the first assessment question upon starting the assessment.  
 \end{enumerate}
+
+\newpage
 
 \subsection{Assessment Interface}
 \begin{enumerate}[label={FR-AI}1. ]
@@ -1091,6 +1171,8 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
 \end{enumerate}
 
+\newpage
+
 \subsection*{Formal Specification}
 \begin{figure}[H]
   \centering
@@ -1098,8 +1180,11 @@ assessment and details such as the related assessment question, answer, and time
   \caption{Finite State Machine that represents the Parent-Child interaction with the Assessment Interface}
 \end{figure}
 
-This is the project's most critical element because the system's primary objective is to support parents when conducting at home speech assessments for their child. 
+\hspace{2em}This is the project's most critical element because the system's primary objective is to support parents when conducting at home speech assessments for their child. 
 The success of the system is dependent on the parent-child correctly using the interface.
+
+\newpage
+
 \section{Look and Feel Requirements}
 \subsection{Appearance Requirements}
 \begin{enumerate}[label={LF-AR}1. ]
@@ -1141,6 +1226,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }100\% of the platform’s design elements must comply with the client’s branding guidelines.  
 \end{enumerate}
 
+\newpage
+
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements} 
 \begin{enumerate}[label={UH-EOU}1. ]
@@ -1179,6 +1266,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Rationale: }Children interacting with the assessment can vary in age and cognitive abilities. To get reliable assessment results, the children participating must understand the system they interact with.\\
   \textbf{Fit criterion: }The assessment will feature minimal display elements, with clear indication of interactions.
 \end{enumerate}
+
+\newpage
 
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
@@ -1275,6 +1364,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 100 concurrent uploads.  
 \end{enumerate}
 
+\newpage
+
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}[label={PR-SE}1. ]
   \item The system must support the addition of new user accounts without compromising performance.\\
@@ -1303,6 +1394,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
   \textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.  
 \end{enumerate}
+
+\newpage
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
@@ -1335,6 +1428,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \item N/A
 \end{enumerate}
 
+\newpage
+
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
 \begin{enumerate}[label={MS-MR}1. ]
@@ -1357,6 +1452,8 @@ The success of the system is dependent on the parent-child correctly using the i
    tutorial.
 \end{enumerate}
 
+\newpage
+
 \subsection{Adaptability Requirements}
 \begin{enumerate}[label={MS-AR}1. ]
   \item The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
@@ -1364,6 +1461,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
   features are usable on all screen sizes.
 \end{enumerate}
+
+\newpage
 
 \section{Security Requirements}
 \subsection{Access Requirements}
@@ -1408,6 +1507,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system will complete account creation upon entering a valid password that follows the specified mandate. 
 \end{enumerate}
 
+\newpage
+
 \section{Cultural Requirements}
 \subsection{Cultural Requirements}
 \begin{enumerate}[label={CU-CR}1. ]
@@ -1423,6 +1524,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }100\% of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.  
 \end{enumerate}
 
+\newpage
+
 \section{Compliance Requirements}
 \subsection{Legal Requirements}
 \begin{enumerate}[label={CR-LR}1. ]
@@ -1436,9 +1539,17 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \end{enumerate}
 
+\newpage
+
 \section*{Traceability Matrix}
-\begin{table}[!ht]
+
+\hspace{2em} The tracability matrix between the project's product use cases and functional requirements are depicted in Table \ref{tab:trace_1}.
+The tracability matrix between the project's product use cases and non-functional requirements are depicted in Table \ref{tab:trace_2}.
+
+\begin{table}[H]
   \centering
+  \caption{Traceability Matrix for PUCs and FRs}
+  \label{tab:trace_1}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
   \hline
@@ -1473,11 +1584,12 @@ The success of the system is dependent on the parent-child correctly using the i
       FR-DPD3 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ \\ \hline
       FR-DPD4 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
   \end{tabular}}
-  \caption{Traceability Matrix for PUCs and FRs}
 \end{table}
 
-\begin{table}[!ht]
+\begin{table}[H]
   \centering
+  \caption{Traceability Matrix for PUCs and NFRs}
+  \label{tab:trace_2}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
   \hline
@@ -1537,7 +1649,6 @@ The success of the system is dependent on the parent-child correctly using the i
       CU-CR2 & X & ~ & X & X & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & X & ~ & ~ & X & X & X & X & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
       CR-STD1 & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & ~ & ~ & ~ & ~ & ~ & X & ~ & X \\ \hline
   \end{tabular}}
-  \caption{Traceability Matrix for PUCs and NFRs}
 \end{table}
 
 \newpage
@@ -1547,6 +1658,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \item Live video recording in clincian-led sessions, and future analysis of those recordings.
   \item Using an external microphone and video capturing setup, utilizing other portable electronic devices, such as phones and tablets.
 \end{enumerate}
+
+\newpage
 
 \section{Off-the-Shelf Solutions}
 \subsection{Ready-Made Products}
@@ -1565,6 +1678,8 @@ The success of the system is dependent on the parent-child correctly using the i
   \item Kahoot: Similar question interface with 4 options displayed \cite{kahoot}
   \item Zoom: Recording audio, video, screen-sharing capabilities \cite{zoom}
 \end{itemize}
+
+\newpage
 
 \section{New Problems}
 \subsection{Effects on the Current Environment}
@@ -1585,10 +1700,14 @@ Inhibit the New Product}
 There are no liminations in the Anticipated implement environment
 \subsection{Follow-Up Problems}
 The system has no follow up problem
+
+\newpage
+
 \section{Tasks}
 \subsection{Project Planning}
 
 \begin{table}[h!]
+  \caption{Project Task Deadlines}
   \centering
   \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{3cm}|}
   \hline
@@ -1613,22 +1732,22 @@ The system has no follow up problem
    & Final Documentation (Problem Statement, POC plan, Development Plan, Requirements Doc, Hazard Analysis, Design Document, V\&V Plan, V\&V Report, User Guide, Source Code) & Apr 2, 2024 \\ 
   \hline
   \end{tabular}
-  \caption{Project Task Deadlines}
 \end{table}
 
 \subsection{Planning of the Development Phases}
 
-The development of the TeleHealth System will be divided into two phases including; \\
+\hspace{2em}The development of the TeleHealth System will be divided into two phases including:
 \begin{itemize}
-\item Revision 0: Intitial Development of Application and Reports \\
-\item Revision 1: Refinement/Revision of Project and Deliverables \\
+\item Revision 0: Intitial Development of Application and Reports
+\item Revision 1: Refinement/Revision of Project and Deliverables
 \end{itemize}
-Prior to Revision 0, Team 22 has defined the team members of the project, Problem Statement of the project, POC plan, and Development Plan.
+\hspace{2em}Prior to Revision 0, Team 22 has defined the team members of the project, Problem Statement of the project, POC plan, and Development Plan.
 Revision 0 work encompasses all the work completed starting October 11 to February 14th.In the Revision 0 Phase, the team will work on design related deliverables for the project to define the scope, the requirements, stakeholders, use cases, risks, and define the plan for implementing the project. Using this information, the team will work towards creating a POC.
 A V\&V report will be made based on feedback and iterations will be made accordingly. 
 Revision 1 will focus on implementing refinements to Revision 0 documentation and adding extras to both application and deliverables. Feedback will be incorporated into any refinements from stakeholders and professor. \\
 
 \begin{table}[H]
+  \caption{Development Revision 0 Deadlines}
   \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
   \hline
   \textbf{Application Development Revision 0 Tasks} & \textbf{Priority} &  \textbf{Deadline} \\
@@ -1654,10 +1773,10 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   Deep Training of Machine Learning Model & High & Dec 16, 2024 \\
   \hline
   \end{tabularx}
-  \caption{Development Revision 0 Deadlines}
 \end{table}
 
 \begin{table}[H]
+  \caption{Development Revision 1 Deadlines}
   \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
   \hline
   \textbf{Application Development Revision 1 Tasks} & \textbf{Priority} & \textbf{Deadline} \\
@@ -1673,9 +1792,9 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   Code Refinement & Medium & April 1, 2025 \\
   \hline
   \end{tabularx}
-  \caption{Development Revision 1 Deadlines}
 \end{table}
 
+\newpage
 
 \section{Migration to the New Product}
 \subsection{Requirements for Migration to the New Product}
@@ -1683,14 +1802,18 @@ N/A
 \subsection{Data That Has to be Modified or Translated for the New System}
 N/A
 
+\newpage
+
 \section{Costs}
-\hspace{1.5em}The initial release of the web application will have no costs that will be covered by the development team. 
+\hspace{2em}The initial release of the web application will have no costs that will be covered by the development team. 
 This will be achieved by utilizing free services such as Figma for prototype design, GitHub Actions for automating CI pipeline, and ESLint, Jest and Pytest 
 for testing. Power BI's free version will be used for data analytics and assisting report generation. The client already has an AWS 
 server available to use for web hosting and data storage for this project, so the development team will not have to cover those costs.
 \\\\
 \indent There may be need for adding or increasing a budget in future releases as the project expands, or if the intended
 technology solutions need to change as the project progresses; however, there are no planned costs for the initial release.
+
+\newpage
 
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
@@ -1723,11 +1846,17 @@ Motivation: Providing comprehensive user documentation will enhance the user exp
     \item How to troubleshoot basic audio and video errors
   \end{itemize}
 \end{itemize}
+
+\newpage
+
 \section{Waiting Room}
 \begin{itemize}
   \item Ability to upload video recording from another device for ML analysis for any given assesment
   \item Integrating live video and audio analysis for clinicians during an assesment
 \end{itemize}
+
+\newpage
+
 \section{Ideas for Solution}
 
 Implementation for components of Telehealth System 
@@ -1744,8 +1873,8 @@ Implementation for components of Telehealth System
 \subitem Expo: Javascript/React Integration to allow for web-based and mobile-based support over cross-platforms
 \end{itemize}
 
+\newpage
 
-\newpage{}
 \section*{Appendix --- Reflection}
 
 The information in this section will be used to evaluate the team members on the
