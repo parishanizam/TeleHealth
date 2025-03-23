@@ -66,7 +66,7 @@
   11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
   11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
   03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \href{https://github.com/parishanizam/TeleHealth/issues/293}{Added HIPAA adherence}\\
-  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \href{https://github.com/parishanizam/TeleHealth/issues/222}{Adjusted FR-ST-DSC5 test case method}, \href{https://github.com/parishanizam/TeleHealth/issues/221}{Clarified test case details}, \href{https://github.com/parishanizam/TeleHealth/issues/206}{Added role descriptions to team table}, \\
+  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \href{https://github.com/parishanizam/TeleHealth/issues/222}{Adjusted FR-ST-DSC5 test case method}, \href{https://github.com/parishanizam/TeleHealth/issues/221}{Clarified test case details}, \href{https://github.com/parishanizam/TeleHealth/issues/206}{Added role descriptions to team table}, \href{https://github.com/parishanizam/TeleHealth/issues/205}{Updated test case types}, \\
   \bottomrule
   \end{tabularx}
 \end{table}
@@ -438,26 +438,24 @@ can be traced in Table 3.
 their accounts without worrying about others accessing their information.
 
 \begin{itemize}
-  \begin{item}
-      FR-ST-A1
-      \begin{mdframed}[linewidth=0.5mm]
-          \textbf{Control:} Manual \par
-          \textbf{Initial State:} User has a Parent account already created and stored in the database \par
-          \textbf{Input:} Selection of Parent account role for login \par
-          \textbf{Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
-          \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
-          \textbf{How the test will be performed:}
-          \begin{enumerate}[noitemsep]
-            \item Select 'Login' to go to login screen
-            \item Select 'Parent' when prompted to select between Parent and Clinician roles
-            \item User is brought to the Parent login screen
-          \end{enumerate}
-      \end{mdframed}
-  \end{item}
-  \begin{item}
-    FR-ST-A2
-    \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+  \item FR-ST-A1
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} User has a Parent account already created and stored in the database \par
+      \textbf{Input:} Selection of Parent account role for login \par
+      \textbf{Output:} The expected result is the Parent account role is selected and User is brought to the Parent login screen \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A1 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Select 'Login' to go to login screen
+        \item Select 'Parent' when prompted to select between Parent and Clinician roles
+        \item User is brought to the Parent login screen
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-A2
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} User has a Clinician account already created and stored in the database \par
       \textbf{Input:} Selection of Clinician account role for login \par
       \textbf{Output:} The expected result is the Clinician account role is selected and User is brought to the Clinician login screen \par
@@ -469,11 +467,10 @@ their accounts without worrying about others accessing their information.
         \item User is brought to the Clinician login screen
       \end{enumerate}
   \end{mdframed}
-  \end{item}
-  \begin{item}
-    FR-ST-A3
-    \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+
+  \item FR-ST-A3
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} User does not have a Parent account stored in the database \par
       \textbf{Input:} Selection of 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
       \textbf{Output:} The expected result is a new Parent account is created \par
@@ -486,11 +483,10 @@ their accounts without worrying about others accessing their information.
         \item Parent account is created
       \end{enumerate}
   \end{mdframed}
-  \end{item}
-  \begin{item}
-    FR-ST-A4
-    \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+
+  \item FR-ST-A4
+  \begin{mdframed}[linewidth=0.5mm]
+      \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} User does not have a Parent account stored in the database \par
       \textbf{Input:} Selection of 'Create Account', with a username that exists in the database, upon attempting to access the system \par
       \textbf{Output:} The expected result is a new Parent account fails to be created \par
@@ -504,79 +500,74 @@ their accounts without worrying about others accessing their information.
         \item Parent account is not created
       \end{enumerate}
   \end{mdframed}
-  \end{item}
-\begin{item}
-  FR-ST-A5
+
+  \item FR-ST-A5
   \begin{mdframed}[linewidth=0.5mm]
-    \textbf{Control:} Manual \par
-    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
-    \textbf{Input:} Admin user selects option to 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
-    \textbf{Output:} The expected result is a new Clinician account is created \par
-    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
-    \textbf{How the test will be performed:}
-    \begin{enumerate}[noitemsep]
-      \item Admin user is logged into their account
-      \item Select 'Create Account' to go to create account screen
-      \item Enter unique username that is not in the database
-      \item Enter account credentials (to complete account create process)
-      \item Clinician account is created
-    \end{enumerate}
-\end{mdframed}
-\end{item}
-\begin{item}
-  FR-ST-A6
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+      \textbf{Input:} Admin user selects option to 'Create Account', with a username that does not exist in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Clinician account is created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Admin user is logged into their account
+        \item Select 'Create Account' to go to create account screen
+        \item Enter unique username that is not in the database
+        \item Enter account credentials (to complete account create process)
+        \item Clinician account is created
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-A6
   \begin{mdframed}[linewidth=0.5mm]
-    \textbf{Control:} Manual \par
-    \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
-    \textbf{Input:} Admin user selects option to 'Create Account', with a username that exists in the database, upon attempting to access the system \par
-    \textbf{Output:} The expected result is a new Clinician account fails to be created \par
-    \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
-    \textbf{How the test will be performed:}
-    \begin{enumerate}[noitemsep]
-      \item Admin user is logged into their account
-      \item Select 'Create Account' to go to create account screen
-      \item Enter username that already exists in the database
-      \item System communicates the account could not be created
-      \item System prompts admin user to select a new username
-      \item Clinician account is not created
-    \end{enumerate}
-\end{mdframed}
-\end{item}
-\begin{item}
-  FR-ST-A7
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} User has Admin privileges, attempting to create a new Clinician account \par
+      \textbf{Input:} Admin user selects option to 'Create Account', with a username that exists in the database, upon attempting to access the system \par
+      \textbf{Output:} The expected result is a new Clinician account fails to be created \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A3 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Admin user is logged into their account
+        \item Select 'Create Account' to go to create account screen
+        \item Enter username that already exists in the database
+        \item System communicates the account could not be created
+        \item System prompts admin user to select a new username
+        \item Clinician account is not created
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-A7
   \begin{mdframed}[linewidth=0.5mm]
-    \textbf{Control:} Manual \par
-    \textbf{Initial State:} User is on their corresponding role's login page, with an account already created and stored in the database \par
-    \textbf{Input:} Unique username and corresponding password that exists in the database \par
-    \textbf{Output:} The expected result is a successful login to a user's account \par
-    \textbf{Test Case Derivation:} The expected output is justified based on FR-A4 in the SRS document \par
-    \textbf{How the test will be performed:}
-    \begin{enumerate}[noitemsep]
-      \item On login screen
-      \item Enter unique username
-      \item Enter corresponding password
-      \item Select login to enter account
-      \item Logged into account
-    \end{enumerate}
-\end{mdframed}
-\end{item}
-\begin{item}
-  FR-ST-A8
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} User is on their corresponding role's login page, with an account already created and stored in the database \par
+      \textbf{Input:} Unique username and corresponding password that exists in the database \par
+      \textbf{Output:} The expected result is a successful login to a user's account \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A4 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item On login screen
+        \item Enter unique username
+        \item Enter corresponding password
+        \item Select login to enter account
+        \item Logged into account
+      \end{enumerate}
+  \end{mdframed}
+
+  \item FR-ST-A8
   \begin{mdframed}[linewidth=0.5mm]
-    \textbf{Control:} Manual \par
-    \textbf{Initial State:} User is logged into their account \par
-    \textbf{Input:} Selection of 'logout' \par
-    \textbf{Output:} The expected result is a successful logout from a user's account \par
-    \textbf{Test Case Derivation:} The expected output is justified based on FR-A5 in the SRS document \par
-    \textbf{How the test will be performed:}
-    \begin{enumerate}[noitemsep]
-      \item Logged into account
-      \item Select 'logout'
-      \item System logs user out of their account
-      \item Logout confirmation is displayed to the user
-    \end{enumerate}
-\end{mdframed}
-\end{item}
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} User is logged into their account \par
+      \textbf{Input:} Selection of 'logout' \par
+      \textbf{Output:} The expected result is a successful logout from a user's account \par
+      \textbf{Test Case Derivation:} The expected output is justified based on FR-A5 in the SRS document \par
+      \textbf{How the test will be performed:}
+      \begin{enumerate}[noitemsep]
+        \item Logged into account
+        \item Select 'logout'
+        \item System logs user out of their account
+        \item Logout confirmation is displayed to the user
+      \end{enumerate}
+  \end{mdframed}
 \end{itemize}
 
 \subsubsection{Data Collection and Storage}
@@ -588,38 +579,38 @@ and organization requirements.
 \begin{itemize}
   \item FR-ST-DSC1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Automatic, Dynamic \par
       \textbf{Initial State:} Database is empty or initialized with test data. \par
       \textbf{Input:} Multimedia files (video, audio, and structured data files). \par
       \textbf{Output:} The expected result is a success message in console for both storing data and retrieving data \par
-      \textbf{Test Case Derivation:} Ensures the database meets storage \\capacity and integrity requirements as per FR-DSC1 in SRS \\document. \par
+      \textbf{Test Case Derivation:} Ensures the database meets storage capacity and integrity requirements as per FR-DSC1 in SRS document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Insert a session containing multimedia files (video, audio, JSON) into the database.
-        \item Retrieve the session files and check for data integrity by \\comparing size of stored data with retrieved data.
+        \item Retrieve the session files and check for data integrity by comparing size of stored data with retrieved data.
         \item Verify that the retrieved files are uncorrupted and correctly match the original files.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-DSC2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} Database is set up to store assessment session data. \par
       \textbf{Input:} Video, audio files, flagged occurrences, and timestamps for each assessment question. \par
       \textbf{Output:} The expected result is the creation of a JSON file that contains flagged occurrences and timestamps which is stored alongside the data. \par
       \textbf{Test Case Derivation:} Allows the system to store all important information for clinicians to use. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Insert a test assessment session with video and audio files, flagged \\ occurrences, and timestamps.
+        \item Insert a test assessment session with video and audio files, flagged occurrences, and timestamps.
         \item Query the database to retrieve the session’s data and verify the presence of a JSON file with accuracy of flagged occurrences and timestamps.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-DSC3
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Automated, Static \par
       \textbf{Initial State:} Database configured to prevent storage of personally identifiable information (PII). \par
-      \textbf{Input:} Attempted insertion of a record containing personally \\identifiable information. \par
+      \textbf{Input:} Attempted insertion of a record containing personally identifiable information. \par
       \textbf{Output:} The expected result is that the database rejects any PII-containing records and stores only anonymized data. \par
       \textbf{Test Case Derivation:} Ensures compliance with privacy standards, verifying that no PII is stored in the database, in alignment with HIPAA data minimization and protection requirements. \par
       \textbf{How the test will be performed:}
@@ -632,11 +623,11 @@ and organization requirements.
 
   \item FR-ST-DSC4
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} Database initialized and ready for storing user session data. \par
       \textbf{Input:} Multiple sessions, each with unique user identifiers. \par
       \textbf{Output:} The expected result is that all session data is stored and grouped correctly according to the unique user identifiers. \par
-      \textbf{Test Case Derivation:} Confirms database's grouping and \\retrievable capabilities, ensuring accurate data organization.\par
+      \textbf{Test Case Derivation:} Confirms database's grouping and retrievable capabilities, ensuring accurate data organization.\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Insert multiple sessions into the database, each tagged with a unique user identifier.
@@ -647,10 +638,10 @@ and organization requirements.
 
   \item FR-ST-DSC5
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
-      \textbf{Initial State:} Database initialized and ready to store reports with unique \\ identifiers. \par
+      \textbf{Type:} Manual, Dynamic \par
+      \textbf{Initial State:} Database initialized and ready to store reports with unique identifiers. \par
       \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
-      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least \\ MAX\_STORAGE\_TIME. \par
+      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least MAX\_STORAGE\_TIME. \par
       \textbf{Test Case Derivation:} Verifies long-term storage and retrievability of assessment reports by simulating a shortened retention period (e.g. 7 days), and confirming report accessibility at the start, midpoint, and just before expiration. This ensures confidence in meeting the real retention requirement. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
@@ -660,7 +651,6 @@ and organization requirements.
         \item Optionally, test behavior just after simulated expiration to ensure proper handling (retained if policy allows or removed if enforced).
       \end{enumerate}
   \end{mdframed}
-
 \end{itemize}
 
 \subsubsection{Video and Audio Data Analysis}
@@ -671,7 +661,7 @@ disturbances with timestamps, questions, and user responses to support efficient
 \begin{itemize}
   \item FR-ST-VDA1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} Completed assessment sessions are available in the database, with video and audio recordings accessible for processing. \par
       \textbf{Input:} Request by the analysis model to access video and audio data from a completed session. \par
       \textbf{Output:} The expected result is that all videos requested are processed with a success message in the logs \par
@@ -686,7 +676,7 @@ disturbances with timestamps, questions, and user responses to support efficient
 
   \item FR-ST-VDA2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} The analysis model is initialized and ready to process test video and audio data. \par
       \textbf{Input:} Video and audio data containing speech disturbances, interruptions, and other irregularities for analysis. \par
       \textbf{Output:} The expected results is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for number of disturbances found by the model \par
@@ -695,22 +685,22 @@ disturbances with timestamps, questions, and user responses to support efficient
       \begin{enumerate}[noitemsep]
         \item Run the model on a test dataset containing known speech disturbances.
         \item Compare the disturbances identified by the model with human observations for accuracy validation.
-        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE \\ accuracy in identifying and logging disturbances.
+        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE accuracy in identifying and logging disturbances.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-VDA3
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} Video and audio data with disturbances has been processed by the analysis model. \par
       \textbf{Input:} Disturbances identified by the model, requiring flags with associated timestamps, assessment questions, and user answers. \par
-      \textbf{Output:} The expected result is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for timestamp accuracy\par
+      \textbf{Output:} The expected result is an accuracy of VERY\_HIGH\_SUCCESS\_RATE in a JSON file for timestamp accuracy \par
       \textbf{Test Case Derivation:} Ensures clinicians can quickly access relevant parts of the assessment with accuracy, aiding in efficient diagnosis. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Process a test assessment session with the model, identifying and flagging disturbances.
         \item Retrieve flagged disturbances and confirm each has an accurate timestamp, associated question, and user response.
-        \item Compare the flagged data with human observations and verify at least \\VERY\_HIGH\_SUCCESS\_RATE accuracy in the model’s associations.
+        \item Compare the flagged data with human observations and verify at least VERY\_HIGH\_SUCCESS\_RATE accuracy in the model’s associations.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -723,67 +713,64 @@ and display functionalities to ensure the clinician experience aligns with the p
 \begin{itemize}
   \item FR-ST-DPD1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} Database is populated with processed assessment data. \par
       \textbf{Input:} Query request for a specific patient’s processed assessment data. \par
-      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within \\MAX\_PROCESSING\_TIME \par
-      \textbf{Test Case Derivation:} Ensures the system can retrieve data efficiently for report generation, meeting retrieval speed and \\completeness requirements. \par
+      \textbf{Output:} The expected result is the successful retrieval of all relevant assessment data, displayed without errors within MAX\_PROCESSING\_TIME \par
+      \textbf{Test Case Derivation:} Ensures the system can retrieve data efficiently for report generation, meeting retrieval speed and completeness requirements. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the database for a test patient’s processed assessment results. 
-        \item Measure and record retrieval time, ensuring it does not exceed\\
-        MAX\_PROCESSING\_TIME. 
+        \item Measure and record retrieval time, ensuring it does not exceed MAX\_PROCESSING\_TIME. 
         \item Verify that all required data is retrieved and matches the stored information.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-DPD2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
-      \textbf{Initial State:} Database has assessment data including flagged occurrences,\\
-      timestamps, and patient performance metrics. \par
-      \textbf{Input:} Trigger for report generation based on a retrieved \\assessment dataset. \par
+      \textbf{Type:} Dynamic, Automatic \par
+      \textbf{Initial State:} Database has assessment data including flagged occurrences, timestamps, and patient performance metrics. \par
+      \textbf{Input:} Trigger for report generation based on a retrieved assessment dataset. \par
       \textbf{Output:} The expected result is a generated report containing all required data within MAX\_PROCESSING\_TIME. \par
-      \textbf{Test Case Derivation:} Confirms that report generation is \\complete, accurate, and within performance constraints. \par
+      \textbf{Test Case Derivation:} Confirms that report generation is complete, accurate, and within performance constraints. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Retrieve a patient’s assessment data from the database. 
         \item Trigger report generation. 
-        \item Confirm the report includes flagged occurrences, timestamps, and \\ performance metrics. 
-        \item Measure and confirm report generation time does not exceed\\ MAX\_PROCESSING\_TIME.
+        \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
+        \item Measure and confirm report generation time does not exceed MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-DPD3
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} Generated report available in the database. \par
       \textbf{Input:} Clinician dashboard query to display the generated report. \par
-      \textbf{Output:} Report displayed in the clinician’s dashboard with \\accurate formatting, charts, and tables, fully loaded within \\MAX\_PROCESSING\_TIME. \par
+      \textbf{Output:} Report displayed in the clinician’s dashboard with accurate formatting, charts, and tables, fully loaded within MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Validates the report display function, ensuring usability and speed requirements are met. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the clinician’s dashboard to load the report. 
-        \item Confirm that the report is displayed with correct charts, \\tables, and formatting. 
-        \item Verify full loading of the report within \\MAX\_PROCESSING\_TIME.
+        \item Confirm that the report is displayed with correct charts, tables, and formatting. 
+        \item Verify full loading of the report within MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-DPD4
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} Database has stored reports for previous sessions, each with a unique patient identifier. \par
       \textbf{Input:} Clinician request to access a specific previously generated report. \par
-      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within \\MAX\_PROCESSING\_TIME. \par
+      \textbf{Output:} The expected result is successful retrieval and display of the requested report without errors, within MAX\_PROCESSING\_TIME. \par
       \textbf{Test Case Derivation:} Ensures that clinicians can reliably access and view past reports, supporting longitudinal patient assessment.\par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Query the database for a stored report using a unique patient identifier. 
         \item Verify that the retrieved report is complete and accurate. 
-        \item Confirm that the report is displayed within \\MAX\_PROCESSING\_TIME.
+        \item Confirm that the report is displayed within MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
-
 \end{itemize}
 
 \subsubsection{System Set Up}
@@ -794,7 +781,7 @@ review assessment information, complete necessary hardware checks, and receive g
 \begin{itemize}
   \item FR-ST-SS1
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Static, Manual \par
       \textbf{Initial State:} User is logged into the system and has access to the assessment information page. \par
       \textbf{Input:} User navigates to the page where assessment information is displayed before starting hardware checks. \par
       \textbf{Output:} User is able to view relevant information about the assessment before beginning any hardware checks. \par
@@ -810,16 +797,16 @@ review assessment information, complete necessary hardware checks, and receive g
 
   \item FR-ST-SS2
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User is on the hardware check section of the system with audio devices connected. \par
       \textbf{Input:} User initiates the audio hardware check through the system. \par
       \textbf{Output:} User receives confirmation that the audio input and output devices are functioning correctly. \par
       \textbf{Test Case Derivation:} Verifying that audio devices are functional before the assessment prevents issues of recording audio during
-      the assessment, which could effect proper identification of bias. This follows expected output found in FR-SS2 in (SRS) Document\par
+      the assessment, which could affect proper identification of bias. This follows expected output found in FR-SS2 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the audio hardware check.
-        \item Confirm that the system prompts the user to test both audio input \\ (microphone) and output (speakers/headphones).
+        \item Confirm that the system prompts the user to test both audio input (microphone) and output (speakers/headphones).
         \item Verify that the system indicates successful audio detection when the test is performed.
         \item Test with a non-functional audio device and confirm that the system displays an appropriate error.
       \end{enumerate}
@@ -827,13 +814,12 @@ review assessment information, complete necessary hardware checks, and receive g
 
   \item FR-ST-SS3
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User is on the hardware check section of the system with a video device connected. \par
       \textbf{Input:} User initiates the video hardware check through the system. \par
       \textbf{Output:} User receives confirmation that the video capturing device is functioning correctly. \par
       \textbf{Test Case Derivation:} Ensuring video functionality prevents disruptions in assessments that require 
-      visual input or interaction and ensures 
-      proper recording is taken for accurate data analysis. This follows expected output found in FR-SS3 in (SRS) Document \par
+      visual input or interaction and ensures proper recording is taken for accurate data analysis. This follows expected output found in FR-SS3 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the video hardware check.
@@ -845,7 +831,7 @@ review assessment information, complete necessary hardware checks, and receive g
 
   \item FR-ST-SS4
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User has successfully completed audio and video hardware checks. \par
       \textbf{Input:} User proceeds to the tutorial section after completing hardware checks. \par
       \textbf{Output:} User is directed to a tutorial that explains the assessment process in a step-by-step manner. \par
@@ -861,12 +847,12 @@ review assessment information, complete necessary hardware checks, and receive g
 
   \item FR-ST-SS5
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User has completed the tutorial and is ready to begin the assessment. \par
       \textbf{Input:} User initiates the start of the assessment through the system. \par
       \textbf{Output:} User is taken to the first assessment question, and the assessment begins. \par
       \textbf{Test Case Derivation:} Allowing users to start the assessment on their own terms helps them feel prepared and reduces errors. 
-      This follows expected output found in FR-SS5 in (SRS) Document\par
+      This follows expected output found in FR-SS5 in (SRS) Document \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item After completing the tutorial, select the option to start the assessment.
@@ -874,7 +860,6 @@ review assessment information, complete necessary hardware checks, and receive g
         \item Verify that the assessment interface is properly displayed and ready for the user to begin answering.
       \end{enumerate}
     \end{mdframed}
-
 \end{itemize}
 
 \subsubsection{Assessment Interface}
@@ -885,7 +870,7 @@ functionality of question presentation, response recording, navigation, and feed
 \begin{itemize}
   \item FR-ST-AI1
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} User has started the assessment and is ready to begin answering questions. \par
       \textbf{Input:} User initiates the assessment. \par
       \textbf{Output:} System begins recording both audio and video, with an indicator showing recording is active. \par
@@ -901,7 +886,7 @@ functionality of question presentation, response recording, navigation, and feed
 
   \item FR-ST-AI2
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} User is on a new question within the assessment. \par
       \textbf{Input:} System progresses to a new question in the assessment. \par
       \textbf{Output:} The system plays the corresponding audio prompt for the new question. \par
@@ -916,7 +901,7 @@ functionality of question presentation, response recording, navigation, and feed
 
   \item FR-ST-AI3
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} User has progressed to a new question in the assessment. \par
       \textbf{Input:} System loads a new question. \par
       \textbf{Output:} System displays all possible answer options for the user to select from. \par
@@ -932,7 +917,7 @@ functionality of question presentation, response recording, navigation, and feed
 
   \item FR-ST-AI4
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User is viewing the answer options for a question in the assessment. \par
       \textbf{Input:} User selects one of the displayed answer options. \par
       \textbf{Output:} System highlights or otherwise indicates the user’s selected option. \par
@@ -948,7 +933,7 @@ functionality of question presentation, response recording, navigation, and feed
 
   \item FR-ST-AI5
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User has selected an answer option and is ready to proceed. \par
       \textbf{Input:} User confirms their selection. \par
       \textbf{Output:} System moves the user to the next question or stage. \par
@@ -957,13 +942,13 @@ functionality of question presentation, response recording, navigation, and feed
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Select and confirm an answer for a question.
-        \item Verify that the system progresses to the next question or stage upon \\ confirmation.
+        \item Verify that the system progresses to the next question or stage upon confirmation.
       \end{enumerate}
     \end{mdframed}
 
   \item FR-ST-AI6
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} User is in the process of answering questions within the assessment. \par
       \textbf{Input:} User enters and exits each question. \par
       \textbf{Output:} System records timestamps for entry and exit for each question. \par
@@ -979,7 +964,7 @@ functionality of question presentation, response recording, navigation, and feed
 
   \item FR-ST-AI7
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Control:} Automatic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} User has reached the final question in the assessment. \par
       \textbf{Input:} User completes the final question and confirms the selection. \par
       \textbf{Output:} System displays a message informing the user that the assessment is complete. \par
@@ -1010,7 +995,7 @@ consistency, visual appeal, and responsiveness.
 \begin{itemize} 
   \item LF-ST-LFR1
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
+    \textbf{Type:} Dynamic, Manual \par 
     \textbf{Initial State:} Platform initialized and navigable on a test \\device, prepared for user testing with adults and children. \par 
     \textbf{Input/Condition:} Conduct user tests with participants \\performing core tasks like starting an assessment, navigating \\menus, and viewing results. \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1031,7 +1016,7 @@ consistency, visual appeal, and responsiveness.
 
   \item LF-ST-LFR2
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Type:} Static and Dynamic, Manual \par 
     \textbf{Initial State:} Platform with finalized colour schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
     \textbf{Input/Condition:} Perform visual inspection and feedback \\collection, along with response-time measurements for interactive elements. \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1053,13 +1038,13 @@ consistency, visual appeal, and responsiveness.
 \end{itemize}
 
 \subsubsection{Usability and Humanity}
-\hspace{2em}The test cases below ensures that the system meets usability and humanity
+\hspace{2em}The test cases below ensure that the system meets usability and humanity
 requirements for users to have an enjoyable and accessible experience.
 
 \begin{itemize}
   \item UH-ST-EOU1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Usability, Manual\par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
       \textbf{Input/Condition:} Users complete one full assessment using the system. \par
       \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
@@ -1077,8 +1062,8 @@ requirements for users to have an enjoyable and accessible experience.
 
   \item UH-ST-PI1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
-      \textbf{Initial State:} System, including assessments, have been completed. \par
+      \textbf{Type:} Static, Manual \par
+      \textbf{Initial State:} System, including assessments, has been completed. \par
       \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed \par
       \textbf{Output/Results:} Count the number of available languages for the assessment \par
       \textbf{Test Case Derivation:} This test ensures that users have access to multiple supported languages as outlined in UH-PI1. \par
@@ -1091,7 +1076,7 @@ requirements for users to have an enjoyable and accessible experience.
 
   \item UH-ST-LI2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Manual \par
+      \textbf{Type:} Static, Manual \par
       \textbf{Initial State:} User documentation has been completed and made available to users. \par
       \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed \par
       \textbf{Output/Results:} Verify link takes user to access documentation \par
@@ -1113,7 +1098,7 @@ resolution, and efficient report generation.
 \begin{itemize}
   \item PR-ST-SL1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic\par
+      \textbf{Type:} Dynamic, Automatic\par
       \textbf{Initial State:} System initialized, strong internet connection \par
       \textbf{Input/Condition:} User navigates to different web pages within the system. \par
       \textbf{Output/Results:} The expected output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
@@ -1130,7 +1115,7 @@ resolution, and efficient report generation.
 
   \item PR-ST-SL2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} Video and audio recording session initialized. \par
       \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
       \textbf{Output/Results:} The expected output is the latency between actions and \\ recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring \\ synchronization. \par
@@ -1146,7 +1131,7 @@ resolution, and efficient report generation.
 
   \item PR-ST-SL3
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System configured to store video data. \par
       \textbf{Input/Condition:} Video recorded and stored from assessment session. \par
       \textbf{Output/Results:} The expected output is the video quality is at least \\ AVERAGE\_RESOLUTION when retrieving or storing. \par
@@ -1180,7 +1165,7 @@ resolution, and efficient report generation.
 
   \item PR-ST-PA3
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} Timestamp function is synchronized with real-time actions. \par
       \textbf{Input/Condition:} User performs actions in the recorded session. \par
       \textbf{Output/Results:} The expected output is that the timestamps delay within SHORT\_PROCESSING\_TIME of the real-time action. \par
@@ -1215,7 +1200,7 @@ back up data reliably, and enforce strict input validation.
 \begin{itemize}
   \item PR-ST-RFT1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} System is operational with error handling in place. \par
       \textbf{Input/Condition:} User initiates actions known to cause common errors. \par
       \textbf{Output/Results:} The expected output is the system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the common errors encountered. \par
@@ -1230,7 +1215,7 @@ back up data reliably, and enforce strict input validation.
 
   \item PR-ST-RFT2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} Database backup processes configured and operational in the system. \par
       \textbf{Input/Condition:} Monthly data backup event. \par
       \textbf{Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
@@ -1250,7 +1235,7 @@ back up data reliably, and enforce strict input validation.
 \begin{itemize}
   \item PR-ST-CR1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} System initialized with maximum user capacity parameters. \par
       \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
       \textbf{Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
@@ -1265,7 +1250,7 @@ back up data reliably, and enforce strict input validation.
 
   \item PR-ST-CR2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} System is initialized with required storage capacity. \par
       \textbf{Input/Condition:} Data stored in the database approaches MIN\_STORAGE annually. \par
       \textbf{Output/Results:} The expected result is that the system accommodates \\ MIN\_STORAGE of data without loss of performance. \par
@@ -1285,7 +1270,7 @@ back up data reliably, and enforce strict input validation.
 \begin{itemize}
   \item PR-ST-SE1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} System operational with current allocated user amount. \par
       \textbf{Input/Condition:} Increase user base by YEARLY\_INCREASE\_PERCENTAGE. \par
       \textbf{Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
@@ -1305,7 +1290,7 @@ back up data reliably, and enforce strict input validation.
 \begin{itemize}
   \item PR-ST-LR1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Automatic \par
       \textbf{Initial State:} System release build in use, with ongoing development updates. \par
       \textbf{Input/Condition:} System stability monitored over successive updates. \par
       \textbf{Output/Results:} The expected result is that the system maintains a failure rate below LOW\_FAILURE\_RATE in release builds. \par
@@ -1320,7 +1305,7 @@ back up data reliably, and enforce strict input validation.
 
   \item PR-ST-LR2
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System configured for compatibility testing across platforms. \par
       \textbf{Input/Condition:} System loaded on Windows, macOS, Linux, Android, and iOS. \par
       \textbf{Output/Results:} The expected result is that the system functions correctly across all platforms. \par
@@ -1343,7 +1328,7 @@ to interact with external systems and devices within those environments.
 \begin{itemize}
   \item OE-ST-EPE1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Usability, Manual \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
       \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes. \par
       \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes. \par
@@ -1377,7 +1362,7 @@ to interact with external systems and devices within those environments.
 
   \item OE-ST-IA1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Functional, Dynamic \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System is connected to an external server for retrieving and storing data. \par
       \textbf{Input/Condition:} Assessment is complete, and results need to be stored. \par
       \textbf{Output/Results:} Verify results are stored in the external server. \par
@@ -1399,7 +1384,7 @@ to interact with external systems and devices within those environments.
 \begin{itemize} 
   \item MS-ST-MSA1
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Type:} Static and Dynamic, Manual \par 
     \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
     \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1417,7 +1402,7 @@ to interact with external systems and devices within those environments.
 
   \item MS-ST-MSA2
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
+    \textbf{Type:} Dynamic, Manual \par 
     \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
     \textbf{Input/Condition:} New user group follows the tutorial to \\complete primary tasks (e.g., starting an assessment). \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1434,7 +1419,7 @@ to interact with external systems and devices within those environments.
 
   \item MS-ST-MSA3
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Dynamic \par 
+    \textbf{Type:} Dynamic, Manual \par 
     \textbf{Initial State:} Platform accessible across multiple devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
     \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1457,7 +1442,7 @@ to interact with external systems and devices within those environments.
 \begin{itemize} 
   \item CU-ST-CUR1
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static and Dynamic \par 
+    \textbf{Type:} Static and Dynamic, Manual \par 
     \textbf{Initial State:} Platform content (language and imagery) is \\finalized and presented for review. \par 
     \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
     \textbf{Output/Results:} Expected results include: 
@@ -1475,7 +1460,7 @@ to interact with external systems and devices within those environments.
 
   \item CU-ST-CUR2
   \begin{mdframed}[linewidth=0.5mm] 
-    \textbf{Type:} Static \par 
+    \textbf{Type:} Static, Manual \par 
     \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
     \textbf{Input/Condition:} Switch between language settings to review each text,\\
     instruction, and assessment in both languages. \par 
@@ -1502,7 +1487,7 @@ confidential data in the system
   \begin{item}
       SR-ST-AC1
       \begin{mdframed}[linewidth=0.5mm]
-          \textbf{Type:} Dynamic \par
+          \textbf{Type:} Dynamic, Manual \par
           \textbf{Initial State:} System has multiple user roles: Admin, Parent, and Clinician. \par
           \textbf{Input/Condition:}   User with Admin role attempts to create and assign accounts to clinicians \par
           \textbf{Output/Results:}  Only Admin users can access and execute functions related 
@@ -1520,7 +1505,7 @@ confidential data in the system
   \begin{item}
     SR-ST-AC2
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} Parent role created and available for testing. \par
       \textbf{Input/Condition:} User with Parent role logs in and attempts to complete assessments. \par
       \textbf{Output/Results:} Parent users can create their account, complete assessments, and log out successfully. \par
@@ -1537,7 +1522,7 @@ confidential data in the system
   \begin{item}
     SR-ST-AC3
       \begin{mdframed}[linewidth=0.5mm]
-        \textbf{Type:} Dynamic \par
+        \textbf{Type:} Dynamic, Manual \par
         \textbf{Initial State:} Clinician role with restricted access is created and available for testing. \par
         \textbf{Input/Condition:} User with Clinician role logs in and attempts to view assessment results. \par
         \textbf{Output/Results:} Clinician users can view assessment results but cannot start or 
@@ -1555,7 +1540,7 @@ confidential data in the system
   \begin{item}
      SR-ST-AC4
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System with user login functionality. \par
       \textbf{Input/Condition:} Users attempt to log in with correct and incorrect credentials. \par
       \textbf{Output/Results:} Users can only log in with correct credentials; unauthorized access attempts are denied. \par
@@ -1572,7 +1557,7 @@ confidential data in the system
   \begin{item}
     SR-ST-P1
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Static, Manual \par
       \textbf{Initial State:} System ready for pre-release review. \par
       \textbf{Input/Condition:} Review documentation to ensure adherence to data protection and privacy laws in the region. \par
       \textbf{Output/Results:} Confirm all applicable data protection requirements are met. \par
@@ -1605,7 +1590,7 @@ confidential data in the system
   \begin{item}
     SR-ST-P3
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Static \par
+      \textbf{Type:} Static, Manual \par
       \textbf{Initial State:} System configured for data collection. \par
       \textbf{Input/Condition:} Examine data storage for PII. \par
       \textbf{Output/Results:} System does not store any personal identifiable information beyond username and assessment recordings. \par
@@ -1621,7 +1606,7 @@ confidential data in the system
   \begin{item}
     SR-ST-IM1
     \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Dynamic \par
+      \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} System is in the account creation phase, requiring users to set up passwords. \par
       \textbf{Input/Condition:} User attempts to create an account with both weak and strong passwords. \par
       \textbf{Output/Results:} Account creation is completed only when a strong password, meeting specified 
