@@ -66,7 +66,7 @@
   11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
   11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
   03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \href{https://github.com/parishanizam/TeleHealth/issues/293}{Added HIPAA adherence}\\
-  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \\
+  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \href{https://github.com/parishanizam/TeleHealth/issues/222}{Adjusted FR-ST-DSC5 test case method}, \\
   \bottomrule
   \end{tabularx}
 \end{table}
@@ -637,12 +637,13 @@ and organization requirements.
       \textbf{Initial State:} Database initialized and ready to store reports with unique \\ identifiers. \par
       \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
       \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least \\ MAX\_STORAGE\_TIME. \par
-      \textbf{Test Case Derivation:} Verifies long-term storage and retrieval of assessment reports, supporting patient progress tracking. \par
+      \textbf{Test Case Derivation:} Verifies long-term storage and retrievability of assessment reports by simulating a shortened retention period (e.g. 7 days), and confirming report accessibility at the start, midpoint, and just before expiration. This ensures confidence in meeting the real retention requirement. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Insert a test report with a unique patient identifier into the database.
-        \item Retrieve the report using the identifier and confirm the report’s accuracy and timestamp.
-        \item Check when database will be wiped out and when backups occur
+        \item Simulate passage of time or use timestamps to emulate 3 key stages: day 1, midpoint, and just before test retention period ends.
+        \item At each point, retrieve the report using the identifier and confirm its presence and correctness.
+        \item Optionally, test behavior just after simulated expiration to ensure proper handling (retained if policy allows or removed if enforced).
       \end{enumerate}
   \end{mdframed}
 
