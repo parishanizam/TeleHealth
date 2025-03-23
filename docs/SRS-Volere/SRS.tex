@@ -193,6 +193,10 @@
       \begin{itemize}[leftmargin=*]
         \item Dates and deadlines to reflect actual timeline
       \end{itemize} \\
+      03/23/25 & 2.7 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/196}{Fixed MS-MR1 to be easier to test. Fit criterion is concrete and measurable.}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -1437,9 +1441,9 @@ The success of the system is dependent on the parent-child correctly using the i
 \section{Maintainability and Support Requirements}
 \subsection{Maintenance Requirements}
 \begin{enumerate}[label={MS-MR}1. ]
-  \item The platform should be built using a modular architecture so that different components may be updated or replaced independently without disrupting the entire system.\\
-  \textbf{Rationale: }Modular systems are easier to maintain and update, reducing downtime and ensuring new features or bug fixes can be implemented without impacting the core functionality of the platform.\\
-  \textbf{Fit criterion: }Any update of an individual component shall have no more than 10 lines of code edited outside of the component.
+  \item The platform should be built using a modular architecture so that individual components may be updated or replaced independently without disrupting the entire system.\\
+  \textbf{Rationale: }Modular systems improve maintainbility by isolating changes to specific components, reducing downtime, and ensuring new features or bug fixes can be implemented seamlessly, without affecting the core functionality of the system.\\
+  \textbf{Fit criterion: }Any update, modification, or replacement of an individual component shall not require any changes to unrelated modules/components; no more than 1 configuration update to dependent components within a module; and have no downtime exceeding 5 minutes during initial deployment.
 \end{enumerate}
 
 \subsection{Supportability Requirements}
