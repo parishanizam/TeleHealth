@@ -615,7 +615,7 @@ and organization requirements.
       \textbf{Initial State:} Database configured to prevent storage of personally identifiable information (PII). \par
       \textbf{Input:} Attempted insertion of a record containing personally \\identifiable information. \par
       \textbf{Output:} The expected result is that the database rejects any PII-containing records and stores only anonymized data. \par
-      \textbf{Test Case Derivation:} Ensures compliance with privacy standards, verifying that no PII is stored in the database. \par
+      \textbf{Test Case Derivation:} Ensures compliance with privacy standards, verifying that no PII is stored in the database, in alignment with HIPAA data minimization and protection requirements. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Attempt to insert a record with PII (e.g., name, address).
@@ -1525,7 +1525,7 @@ confidential data in the system
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Conduct a documentation review with legal and compliance teams, focusing on privacy policies, data handling, and retention practices.
-        \item Verify that all data collection, storage, and usage adhere to regional privacy laws (e.g., GDPR if applicable).
+        \item Verify that all data collection, storage, and usage adhere to applicable privacy laws (e.g., HIPAA).
       \end{enumerate}
     \end{mdframed}
   \end{item}
@@ -1597,7 +1597,8 @@ compliance requirements including security of the system, following the rules of
       \textbf{Initial State:} User assessment data, including video and audio recordings, is stored in the system. \par
       \textbf{Input/Condition:} Examine the storage configuration and security measures applied to user assessment data. \par
       \textbf{Output/Results:} User assessment data is securely stored and associated only with usernames, 
-      ensuring no additional personally identifiable information is \\ included. Data at rest is protected by strong encryption. \par
+      ensuring no additional personally identifiable information is \\ included. Data at rest is protected by strong encryption 
+      in compliance with HIPAA Security Rule standards. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Review database schema to confirm that assessment data is linked only to usernames and does not
@@ -1609,7 +1610,6 @@ compliance requirements including security of the system, following the rules of
       \end{enumerate}
     \end{mdframed}
   \end{item}
-
 \end{itemize}
 
 \newpage 
