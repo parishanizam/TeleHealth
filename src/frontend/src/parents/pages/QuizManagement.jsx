@@ -1,3 +1,4 @@
+// QuizManagement.jsx
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -9,8 +10,7 @@ import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 
 export default function QuizManagement() {
   const navigate = useNavigate();
-  const { stopRecording } = useContext(RecordingManagerContext);
-
+  const { stopRecording, getElapsedRecordingTime } = useContext(RecordingManagerContext);
   const { language, testType } = useSelector((state) => state.testSelection);
   const parentInfo = useSelector((state) => state.parent.parentInfo);
 
@@ -18,13 +18,21 @@ export default function QuizManagement() {
   const [practiceQuestion, setPracticeQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState([]);
-  const { getElapsedRecordingTime } = useContext(RecordingManagerContext);
   const [loading, setLoading] = useState(true);
   const [assessmentId, setAssessmentId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
   const audioFilesRef = useRef([]);
-  const [submitting, setSubmitting] = useState(false); // New loading state
+  const [submitting, setSubmitting] = useState(false);
+
+  // Restore quiz state if coming back from motivation page
+  useEffect(() => {
+    const storedIndex = sessionStorage.getItem("resumeIndex");
+    if (storedIndex !== null) {
+      setCurrentQuestionIndex(parseInt(storedIndex, 10));
+      sessionStorage.removeItem("resumeIndex");
+    }
+  }, []);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -43,7 +51,6 @@ export default function QuizManagement() {
             const res = await axios.get(
               `http://localhost:3000/questions/${language}/${testType}/${id}`
             );
-            /* console.log("Fetched question:", res.data); */
             return res.data;
           })
         );
@@ -81,7 +88,7 @@ export default function QuizManagement() {
       sessionStorage.removeItem("redirectAfterRefresh");
       navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
     }
-  }, [navigate]);
+  }, [navigate, testType]);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -109,34 +116,32 @@ export default function QuizManagement() {
   }
 
   const handleAnswerSelected = (questionId, selectedOption, audioFile) => {
-    const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from the context
+    const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from context
     const formattedTimestamp = formatTime(elapsedTime);
 
     console.log(`Time since recording started: ${formattedTimestamp}`);
 
+    // Handle practice question separately
     if (currentQuestionIndex === 0) {
       setCurrentQuestionIndex(1);
       return;
     }
 
     const newResponse = {
-
       question_id: questionId,
-
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
     };
     const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
 
-
-    // 🔹 Create updatedResponses immediately so the final answer is included
+    // Update responses and timestamps
     const updatedResponses = [...responses, newResponse];
     setResponses(updatedResponses);
     setTimestamps((prev) => [...prev, newTimestamp]);
 
-    sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
-    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
+    sessionStorage.setItem('quizResponses', JSON.stringify(updatedResponses));
+    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, newTimestamp]));
 
     setProgress((currentQuestionIndex / questions.length) * 100);
 
@@ -144,13 +149,23 @@ export default function QuizManagement() {
       const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
         type: audioFile.type,
       });
-      // console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
-      
       audioFilesRef.current.push(renamedFile);
-    }       
+    }
 
-    if (currentQuestionIndex < questions.length) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    // Increment question index
+    const nextIndex = currentQuestionIndex + 1;
+    // Calculate the midpoint (halfway point) of the test questions
+    // For even numbers: after T/2 questions; for odd numbers: after Math.ceil(T/2) questions.
+    const halfwayPoint = Math.ceil(questions.length / 2) + 1; // +1 to resume at the next question after the half is completed
+
+    if (nextIndex <= questions.length) {
+      setCurrentQuestionIndex(nextIndex);
+      // If we've reached the halfway mark, navigate to Motivation Page
+      if (nextIndex === halfwayPoint) {
+        sessionStorage.setItem("resumeIndex", nextIndex);
+        navigate("/parents/checkpoint");
+        return;
+      }
     } else {
       finishQuiz(updatedResponses);
     }
@@ -173,7 +188,6 @@ export default function QuizManagement() {
       } finally {
         setSubmitting(false);
       }
-
       navigate("/parents/testcomplete");
     });
   };
@@ -208,13 +222,13 @@ export default function QuizManagement() {
   
     if (!hasFiles) {
       console.error("No video or audio files to upload.");
-      return;  // Exit early if no files to upload
+      return;
     }
 
     console.log("🚀 Sending Upload Request with form data...");
 
     try {
-      const response = await axios.post("http://localhost:3000/media/", formData, {
+      await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -223,7 +237,6 @@ export default function QuizManagement() {
     }
   };
 
-  // 🔹 Modified submitResults to accept responsesToSubmit as a parameter
   const submitResults = async (responsesToSubmit) => {
     if (!assessmentId) {
       console.error("No assessment ID found! Cannot submit results.");
@@ -322,13 +335,15 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="flex justify-center items-center mt-3">
-        <div
-          className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
-          style={{ animation: 'spin 1s linear infinite' }}
-        ></div>
-        <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
-      </div>}
+      {submitting && (
+        <div className="flex justify-center items-center mt-3">
+          <div
+            className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
+            style={{ animation: 'spin 1s linear infinite' }}
+          ></div>
+          <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
+        </div>
+      )}
     </div>
   );
 }
