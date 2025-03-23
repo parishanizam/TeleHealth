@@ -57,7 +57,7 @@
 10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
 12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Updated 5.2 Audio Recording Failure Modes}\\
 03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2}, \href{https://github.com/parishanizam/TeleHealth/issues/234}{Updated 5.2 recommended actions}, Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/153}{added additional failure modes/ recommended actions for video recording component}\\
-03/22/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/155}{Adjusted critical assumptions and out of scope hazards}, \href{https://github.com/parishanizam/TeleHealth/issues/156}{Clarified HA-UI2}, \\
+03/22/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/155}{Adjusted critical assumptions and out of scope hazards}, \href{https://github.com/parishanizam/TeleHealth/issues/156}{Clarified HA-UI2}, \href{https://github.com/parishanizam/TeleHealth/issues/159}{Removed Authentication as a component}, \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -100,7 +100,6 @@ The system referred to throughout the document consists of several major compone
 \begin{enumerate}
     \item \textbf{User-Facing Application}: The front-end platform where users interact with the system. It allows users to navigate through the assessment, accept inputs, and display results.
     \item \textbf{Backend Server}: The back-end platform handles data collection and processing, business logic, and communication between all system components.
-    \item \textbf{Authentication}: A subsystem of the Backend Server. It manages the login and access control mechanisms.
     \item \textbf{Video Recording Module}: Responsible for capturing and transmitting video data during an assessment session.
     \item \textbf{Audio Recording Module}: Responsible for capturing and transmitting audio data during an assessment session.
     \item \textbf{Video Analysis Model}: Processes and analyzes the video recording for disturbances and other behaviours against assessment instructions.
@@ -175,32 +174,6 @@ The following FMEA table is a breakdown of the hazards that could occur within t
   \begin{enumerate}[leftmargin=*]
        \item HA-D1
        \item HA-D2
-  \end{enumerate} \\
-  \hline
-  Authentication & 
-  \begin{enumerate}[leftmargin=*]
-      \item Parent gets clinician level access
-      \item Users can't login
-  \end{enumerate} & 
-  \begin{enumerate}[leftmargin=*]
-      \item Unauthorized access to sensitive patient data, leading to HIPAA violations.
-      \item Users are unable to access their accounts, leading to poor user experience.
-  \end{enumerate} &
-  \begin{enumerate}[leftmargin=*]
-       \item Misconfigured role-based access control (RBAC) leads to incorrect user roles.
-       \item Authentication service downtime, credential validation issues.
-  \end{enumerate} &
-  \begin{enumerate}[leftmargin=*]
-       \item Implement automated role assignment validation and access control audits.
-       \item Implement a fallback login and real-time logging for failed attempts.
-  \end{enumerate} &
-  \begin{enumerate}[leftmargin=*]
-       \item FR-A1, FR-A3
-       \item FR-A2, FR-A4
-  \end{enumerate} &
-  \begin{enumerate}[leftmargin=*]
-       \item HA-A1
-       \item HA-A2
   \end{enumerate} \\
   \hline
   Video Analysis Model & 
