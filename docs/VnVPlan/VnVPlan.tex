@@ -55,56 +55,21 @@
   \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
   \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
   \midrule
-  10/30/24 & 1.0 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
-    \item 3.1 Verification and Validation Team
-    \item 3.4 Verification and Validation Plan
-    \item 6.2 Usability Survey Questions
-  \end{itemize}\\
-  10/30/24 & 1.1 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
-    \item 3.6 Automated Testing and Verification Tools
-    \item 3.7 Software Validation Plan
-    \item 4.1 Data Collection and Storage, Video and Audio Data Analysis FR tests
-    \item 4.2 Performance NFR tests
-  \end{itemize}\\
-  10/30/24 & 1.2 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
-    \item 2.1 Summary
-    \item 2.2 Objectives
-    \item 2.3 Challenge Level and Extras
-    \item 2.4 Relevant Documentation
-  \end{itemize}\\
-  11/01/24 & 1.3 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
-    \item 3.2 SRS Validation Plan
-    \item 4.1 Data Processing and Display
-    \item 4.2 Look and Feel FR tests
-    \item 4.2 Maintenance and Support NFR tests
-    \item 4.2 Cultural NFR tests
-  \end{itemize}\\
-  11/02/24 & 1.4 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
-    \item 4.1 Authentication FR tests
-    \item 4.2 Usability and Humanity NFR tests
-    \item 4.2 Operational and Environmental NFR tests
-  \end{itemize}\\
-  11/02/24 & 1.5 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
-    \item 4.1 System Set Up \& Assessment Interface FR tests
-    \item 4.2 Security and Compliance NFR Tests
-  \end{itemize}\\
-  11/04/24 & 1.6 & Mitchell Weingust & Added:\begin{itemize}[leftmargin=*]
-    \item Reflection
-  \end{itemize}\\
-  11/04/24 & 1.7 & Jasmine Sun-Hu & Added:\begin{itemize}[leftmargin=*]
-    \item 6.1 Symbolic Parameters
-    \item Reflection
-  \end{itemize}\\
-  11/04/24 & 1.8 & Promish Kandel & Added:\begin{itemize}[leftmargin=*]
-    \item 1 Symbols, Abbreviations and Acronyms
-    \item Reflection
-  \end{itemize}\\
-  11/04/24 & 1.9 & Parisha Nizam & Added:\begin{itemize}[leftmargin=*]
-    \item Reflection
-  \end{itemize}\\
+  10/30/24 & 1.0 & Mitchell Weingust & Added: 3.1 Verification and Validation Team, 3.4 Verification and Validation Plan, 6.2 Usability Survey Questions \\
+  10/30/24 & 1.1 & Promish Kandel & Added: 3.6 Automated Testing and Verification Tools, 3.7 Software Validation Plan, 4.1 Data Collection and Storage, Video and Audio Data Analysis FR tests, 4.2 Performance NFR tests \\
+  10/30/24 & 1.2 & Parisha Nizam & Added: 2.1 Summary, 2.2 Objectives, 2.3 Challenge Level and Extras, 2.4 Relevant Documentation \\
+  11/01/24 & 1.3 & Jasmine Sun-Hu & Added: 3.2 SRS Validation Plan, 4.1 Data Processing and Display, 4.2 Look and Feel FR tests, 4.2 Maintenance and Support NFR tests, 4.2 Cultural NFR tests \\
+  11/02/24 & 1.4 & Mitchell Weingust & Added: 4.1 Authentication FR tests, 4.2 Usability and Humanity NFR tests, 4.2 Operational and Environmental NFR tests \\
+  11/02/24 & 1.5 & Parisha Nizam & Added: 4.1 System Set Up \& Assessment Interface FR tests, 4.2 Security and Compliance NFR Tests \\
+  11/04/24 & 1.6 & Mitchell Weingust & Added: Reflection \\
+  11/04/24 & 1.7 & Jasmine Sun-Hu & Added: 6.1 Symbolic Parameters, Reflection \\
+  11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
+  11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
+  03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \\
   \bottomrule
   \end{tabularx}
-  \end{table}
+\end{table}
+
 
 \newpage
 
@@ -260,6 +225,8 @@ verification plan, the verification and validation plan verification plan, the i
 verification plan, automated testing and verification tools, and the software validation plan.
 
 \subsection{Verification and Validation Team}
+
+\hspace{2em}The following table displays the roles and responsibilities of each team member.
 
 \begin{table}[h!]
   \centering
@@ -637,7 +604,7 @@ and organization requirements.
       \textbf{Test Case Derivation:} Allows the system to store all important information for clinicians to use. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Insert a test assessment session with video and audio files, flagged occurrences, and timestamps.
+        \item Insert a test assessment session with video and audio files, flagged \\ occurrences, and timestamps.
         \item Query the database to retrieve the session’s data and verify the presence of a JSON file with accuracy of flagged occurrences and timestamps.
       \end{enumerate}
   \end{mdframed}
@@ -675,9 +642,9 @@ and organization requirements.
   \item FR-ST-DSC5
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Control:} Manual \par
-      \textbf{Initial State:} Database initialized and ready to store reports with unique identifiers. \par
+      \textbf{Initial State:} Database initialized and ready to store reports with unique \\ identifiers. \par
       \textbf{Input:} Assessment report linked to a patient’s unique identifier. \par
-      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least MAX\_STORAGE\_TIME. \par
+      \textbf{Output:} The expected result is that the report is successfully stored, linked to the corresponding patient identifier, and retrievable for at least \\ MAX\_STORAGE\_TIME. \par
       \textbf{Test Case Derivation:} Verifies long-term storage and retrieval of assessment reports, supporting patient progress tracking. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
@@ -721,7 +688,7 @@ disturbances with timestamps, questions, and user responses to support efficient
       \begin{enumerate}[noitemsep]
         \item Run the model on a test dataset containing known speech disturbances.
         \item Compare the disturbances identified by the model with human observations for accuracy validation.
-        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE accuracy in identifying and logging disturbances.
+        \item Verify that the model achieves at least VERY\_HIGH\_SUCCESS\_RATE \\ accuracy in identifying and logging disturbances.
       \end{enumerate}
   \end{mdframed}
 
@@ -775,7 +742,7 @@ and display functionalities to ensure the clinician experience aligns with the p
       \begin{enumerate}[noitemsep]
         \item Retrieve a patient’s assessment data from the database. 
         \item Trigger report generation. 
-        \item Confirm the report includes flagged occurrences, timestamps, and performance metrics. 
+        \item Confirm the report includes flagged occurrences, timestamps, and \\ performance metrics. 
         \item Measure and confirm report generation time does not exceed\\ MAX\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
@@ -814,6 +781,9 @@ and display functionalities to ensure the clinician experience aligns with the p
 
 \subsubsection{System Set Up}
 
+\hspace{2em}This set of test cases verifies that the system provides users with the ability to 
+review assessment information, complete necessary hardware checks, and receive guidance before beginning an assessment.
+
 \begin{itemize}
   \item FR-ST-SS1
     \begin{mdframed}[linewidth=0.5mm]
@@ -842,7 +812,7 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Start the audio hardware check.
-        \item Confirm that the system prompts the user to test both audio input (microphone) and output (speakers/headphones).
+        \item Confirm that the system prompts the user to test both audio input \\ (microphone) and output (speakers/headphones).
         \item Verify that the system indicates successful audio detection when the test is performed.
         \item Test with a non-functional audio device and confirm that the system displays an appropriate error.
       \end{enumerate}
@@ -901,6 +871,9 @@ and display functionalities to ensure the clinician experience aligns with the p
 \end{itemize}
 
 \subsubsection{Assessment Interface}
+
+\hspace{2em}This set of test cases ensures the assessment interface supports a smooth and accurate user experience by verifying the 
+functionality of question presentation, response recording, navigation, and feedback mechanisms throughout the assessment.
 
 \begin{itemize}
   \item FR-ST-AI1
@@ -977,7 +950,7 @@ and display functionalities to ensure the clinician experience aligns with the p
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Select and confirm an answer for a question.
-        \item Verify that the system progresses to the next question or stage upon confirmation.
+        \item Verify that the system progresses to the next question or stage upon \\ confirmation.
       \end{enumerate}
     \end{mdframed}
 
@@ -1042,7 +1015,7 @@ consistency, visual appeal, and responsiveness.
     \end{itemize} \par \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Observe and record the number of clicks taken by each user to complete key tasks. 
-      \item Inspect the navigation structure to ensure it meets depth and option constraints. 
+      \item Inspect the navigation structure to ensure it meets depth and option \\ constraints. 
       \item Test with children to verify completion of assessments \\independently. 
     \end{enumerate} 
   \end{mdframed}
@@ -1057,7 +1030,7 @@ consistency, visual appeal, and responsiveness.
       \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
       \item Positive feedback from child participants indicating a calm, non-stressful environment. 
       \item VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages. 
-      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback within SHORT\_PROCESSING\_TIME. 
+      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback \\ within SHORT\_PROCESSING\_TIME. 
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
@@ -1093,7 +1066,7 @@ requirements for users to have an enjoyable and accessible experience.
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System, including assessments, have been completed. \par
-      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed\par
+      \textbf{Input/Condition:} List of available languages to perform assessments in  \\ available to be selected and listed\par
       \textbf{Output/Results:} Count the number of available languages for the assessment \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
@@ -1140,7 +1113,7 @@ resolution, and efficient report generation.
       \textbf{Type:} Static \par
       \textbf{Initial State:} Video and audio recording session initialized. \par
       \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
-      \textbf{Output/Results:} The expected output is the latency between actions and recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring synchronization. \par
+      \textbf{Output/Results:} The expected output is the latency between actions and \\ recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring \\ synchronization. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Begin recording a session.
@@ -1305,7 +1278,7 @@ compatibility with major operating systems.
       \textbf{Output/Results:} The expected result is that the system maintains a failure rate below LOW\_FAILURE\_RATE in release builds. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Conduct routine tests on the release build during ongoing development updates.
+        \item Conduct routine tests on the release build during ongoing development \\ updates.
         \item Monitor system logs for errors or malfunctions.
         \item Verify that the failure rate remains below LOW\_FAILURE\_RATE.
       \end{enumerate}
@@ -1463,7 +1436,7 @@ These tests ensure that the platform respects cultural sensitivities and \\provi
     \end{itemize} \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
-      \item Navigate through the platform in both English and Mandarin settings, verifying translations for each section. 
+      \item Navigate through the platform in both English and Mandarin settings, \\ verifying translations for each section. 
       \item Confirm that all assessments, instructions, and interface \\elements are accurately translated and free from language discrepancies. 
     \end{enumerate} 
   \end{mdframed} 
@@ -1567,7 +1540,7 @@ confidential data in the system
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Use network monitoring tools to capture data packets during transmission to ensure data is encrypted.
-        \item Review database configuration to verify that data at rest is encrypted. Decrypting should only be 
+        \item Review database configuration to verify that data at rest is encrypted. \\ Decrypting should only be 
         possible by authorized clinician accounts.
       \end{enumerate}
     \end{mdframed}
@@ -1624,7 +1597,7 @@ compliance requirements including security of the system, following the rules of
       \textbf{Initial State:} User assessment data, including video and audio recordings, is stored in the system. \par
       \textbf{Input/Condition:} Examine the storage configuration and security measures applied to user assessment data. \par
       \textbf{Output/Results:} User assessment data is securely stored and associated only with usernames, 
-      ensuring no additional personally identifiable information is included. Data at rest is protected by strong encryption. \par
+      ensuring no additional personally identifiable information is \\ included. Data at rest is protected by strong encryption. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Review database schema to confirm that assessment data is linked only to usernames and does not
@@ -1951,7 +1924,7 @@ Their values are defined in this section for easy maintenance.
   \label{tab:variables}
 \end{table}
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
 The following questions depict the first draft of the team's usability.\\
 The usability survey will be conducted after participants have engaged with testing and using the system for at least one iteration of the assessment.\\
 
