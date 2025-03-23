@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   LineChart,
   Line,
@@ -73,14 +72,14 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
           }
           // 3) Date filter => compare day-only
           if (dateFilterActive && selectedDate) {
-            const dbDateYMD = result.date.split("T")[0]; // "2025-03-18"
+            const dbDateYMD = result.date.split("T")[0];
             const chosenYMD = toYMD(selectedDate);
             if (dbDateYMD !== chosenYMD) {
               continue;
             }
           }
 
-          // If it passes filters, fetch results => compute score
+          // If it passes filters, fetch results and compute score
           const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
           const resultsResponse = await fetch(resultsApiUrl);
           const resultsData = await resultsResponse.json();
@@ -96,7 +95,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
               (q) => q.mark_state === "Correct"
             ).length;
           } else {
-            // matching, quantifier, etc.
+            // For matching, quantifier, etc.
             const questionPromises = resultsData.results.map(async (res) => {
               const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
               const questionResponse = await fetch(questionApiUrl);
@@ -144,7 +143,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
     fetchScores();
   }, [parent, filters, selectedDate]);
 
-  // figure out max # of tests
+  // figure out max number of tests for X-axis ticks
   const maxTests = Math.max(
     0,
     ...Object.values(scoresByTestType).map((scores) => scores.length)
@@ -169,27 +168,63 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
     return null;
   };
 
+  const CustomLegend = (props) => {
+    const { payload } = props;
+    return (
+      <div
+        style={{
+          marginBottom: 10,
+          textAlign: "center",
+          // backgroundColor: "#E3F2FD",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
+        }}
+      >
+        {payload.map((entry, index) => (
+          <span
+            key={`item-${index}`}
+            style={{
+              marginRight: 20,
+              display: "inline-flex",
+              alignItems: "center",
+              color: entry.color,
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: 12,
+                height: 12,
+                backgroundColor: entry.color,
+                marginRight: 5,
+              }}
+            ></span>
+            {entry.value}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div style={{ maxWidth: "1000px", height: "400px", margin: "0 auto" }}>
       {Object.keys(scoresByTestType).length === 0 ? (
         <p>No data available to plot.</p>
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            margin={{ top: 20, right: 30, left: 20, bottom: 30 }} // add bottom margin
-          >
+          <LineChart margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
               type="category"
               allowDuplicatedCategory={false}
               ticks={xAxisLabels}
-              label={{ value: "Tests", position: "insideBottom", offset: -10 }}
+              label={{ value: "Attempt", position: "insideBottom", offset: -10 }}
             />
             <YAxis domain={[0, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend layout="vertical" align="right" verticalAlign="top" />
-
+            <Legend content={<CustomLegend />} verticalAlign="top" align="center" />
             {Object.entries(scoresByTestType).map(([combo, scores], idx) => (
               <Line
                 key={combo}

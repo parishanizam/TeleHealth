@@ -12,6 +12,8 @@ function ResultsList({
   date,
   score,
   bias_length,
+  clientId,
+  securityCode,
 }) {
   const navigate = useNavigate();
 
@@ -36,6 +38,8 @@ function ResultsList({
         lastName,
         date,
         questionNumber,
+        clientId, 
+        securityCode,
         bias_state: question.bias_state,
         mark_state: question.mark_state,
 
@@ -52,14 +56,6 @@ function ResultsList({
 
   return (
     <div className="flex flex-col w-full max-w-lg text-3xl tracking-normal leading-10">
-      <div className="text-left text-4xl font-semibold mb-4">Results</div>
-      <div className="text-left text-3xl font-semibold mb-4">
-        {formatTestTitle(questionBankId)}
-      </div>
-      <div className="text-left text-3xl font-medium mb-6">
-        Score: {score}%
-      </div>
-
       <div className="h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
         {results.length > 0 ? (
           results.map((result, index) => (

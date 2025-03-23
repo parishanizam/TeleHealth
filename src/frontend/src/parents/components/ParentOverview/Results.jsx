@@ -153,7 +153,7 @@ export function Results({ data, parent, filters = [], selectedDate = null }) {
   };
 
   return (
-    <div className="flex flex-col justify-start items-start p-6 w-full space-y-4 h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+    <div className="flex flex-col justify-start items-start p-6 w-full space-y-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
       {filteredData.map((result) => (
         <ResultCard
           key={result.assessment_id}

@@ -1,3 +1,4 @@
+// Results.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ResultCard } from "./ResultCard";
@@ -12,11 +13,6 @@ export function Results({ data, client, filters, selectedDate }) {
   const LANGUAGE_FILTERS = ["English", "Mandarin"];
   const TYPE_FILTERS = ["Matching", "Repetition", "Quantifier"];
 
-  // 1. EXTRACT "YYYY-MM-DD" FROM DB (e.g. "2025-03-18")
-  //    If your DB is guaranteed to store date as "YYYY-MM-DD",
-  //    you can compare that string directly. If not, adjust accordingly.
-
-  // 2. BUILD "YYYY-MM-DD" FROM the user's selectedDate (the Date object from DatePicker)
   const toYMD = (dateObj) => {
     const year = dateObj.getFullYear();
     const month = String(dateObj.getMonth() + 1).padStart(2, "0");
@@ -24,7 +20,6 @@ export function Results({ data, client, filters, selectedDate }) {
     return `${year}-${month}-${day}`;
   };
 
-  // figure out which languages & testTypes the user picked
   const selectedLanguages = filters
     .filter((f) => LANGUAGE_FILTERS.includes(f))
     .map((f) => f.toLowerCase());
@@ -108,11 +103,10 @@ export function Results({ data, client, filters, selectedDate }) {
     fetchScores();
   }, [data, client]);
 
-  // ----------------------------------
-  //          FILTER DATA
-  // ----------------------------------
+  // -------------
+  // Filter data
+  // -------------
   const filteredData = (data || []).filter((result) => {
-    // E.g. "english-repetition"
     const [langRaw, testRaw] = result.questionBankId.split("-");
     const language = langRaw.toLowerCase();
     const testType = testRaw.toLowerCase();
@@ -127,13 +121,10 @@ export function Results({ data, client, filters, selectedDate }) {
       return false;
     }
 
-    // 3) Date Filter => Compare DB's "2025-03-18" to user pick
+    // 3) Date Filter
     if (dateFilterActive && selectedDate) {
-      // DB date is presumably something like "2025-03-18".
-      // If your DB is returning "2025-03-18T00:00:00Z" instead, you can do result.date.split("T")[0].
-      const dbDateYMD = result.date.split("T")[0]; // or just result.date if it's already YYYY-MM-DD
+      const dbDateYMD = result.date.split("T")[0];
       const chosenYMD = toYMD(selectedDate);
-
       if (dbDateYMD !== chosenYMD) {
         return false;
       }
@@ -142,6 +133,7 @@ export function Results({ data, client, filters, selectedDate }) {
     return true;
   });
 
+  // CHANGED: We add `securityCode: client.securityCode`
   const handleCardClick = (result) => {
     if (!client) {
       console.warn("Client data is missing!");
@@ -157,6 +149,7 @@ export function Results({ data, client, filters, selectedDate }) {
         parentUsername: client.parentUsername,
         score: scores[result.assessment_id] || 0,
         clientId: client.clientId,
+        securityCode: client.securityCode, // ADDED: so we can pass it forward
       },
     });
   };
@@ -173,7 +166,6 @@ export function Results({ data, client, filters, selectedDate }) {
             key={result.assessment_id}
             score={`${scores[result.assessment_id] ?? "N/A"}%`}
             test={formatTestTitle(result.questionBankId)}
-            // If you need a "pretty" format for display:
             date={formatDate(result.date)}
             onClick={() => handleCardClick(result)}
           />

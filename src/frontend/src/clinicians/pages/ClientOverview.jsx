@@ -1,3 +1,4 @@
+// ClientOverview.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
@@ -10,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function ClientOverview() {
   const { clientId } = useParams();
   const location = useLocation();
+  // If we navigated here with state.client, we pick it up:
   const client = location.state?.client;
 
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -38,7 +40,7 @@ function ClientOverview() {
     }
   };
 
-  // All possible filters
+  // Possible filters
   const filterOptions = [
     "English",
     "Mandarin",
@@ -48,27 +50,19 @@ function ClientOverview() {
     "Date",
   ];
 
-  // Add or remove a filter based on selection
   const handleFilterChange = (e) => {
     const { value } = e.target;
-
-    // If "Date" is selected and not active yet, add it
     if (value === "Date" && !selectedFilters.includes("Date")) {
       setSelectedFilters((prev) => [...prev, value]);
       return;
     }
-
-    // If the filter is already selected, remove it
     if (selectedFilters.includes(value)) {
       removeFilter(value);
       return;
     }
-
-    // Otherwise, add the new filter
     setSelectedFilters((prev) => [...prev, value]);
   };
 
-  // Remove a single filter (e.g. user clicks X on a pill)
   const removeFilter = (filter) => {
     setSelectedFilters((prev) => prev.filter((f) => f !== filter));
     if (filter === "Date") {
@@ -76,7 +70,6 @@ function ClientOverview() {
     }
   };
 
-  // Clear them all
   const clearFilters = () => {
     setSelectedFilters([]);
     setSelectedDate(null);
@@ -90,40 +83,63 @@ function ClientOverview() {
       />
 
       <div className="space-y-4 mt-3">
+        {/* Security code now shows up, if present in client object */}
         <p className="text-lg">Security Code: {client?.securityCode}</p>
       </div>
 
-      {/* Center a narrower container for the filter box */}
+      {/* Filter box */}
       <div className="w-full flex">
-        <div className="p-4 space-y-4 bg-blue-50 border border-blue-200 rounded-md mt-6 max-w-sm w-full">
-          {/* SELECT NEW FILTER */}
-          <div className="flex flex-wrap gap-4 items-center">
-            <select
-              className="border p-2 rounded-md"
-              onChange={handleFilterChange}
-              value=""
-            >
-              <option value="" disabled>
-                Select a filter
-              </option>
-              {filterOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-
-            {/* If Date is in filters, show DatePicker */}
-            {selectedFilters.includes("Date") && (
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6 w-full max-w-full">
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Select and DatePicker */}
+            <div className="flex items-center gap-2">
+              <select
                 className="border p-2 rounded-md"
-                placeholderText="Select a date"
-              />
+                onChange={handleFilterChange}
+                value=""
+              >
+                <option value="" disabled>
+                  Select a filter
+                </option>
+                {filterOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {selectedFilters.includes("Date") && (
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  className="border p-2 rounded-md"
+                  placeholderText="Select a date"
+                />
+              )}
+            </div>
+
+            {/* Inline filter chips */}
+            {selectedFilters.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedFilters.map((filter) => (
+                  <div
+                    key={filter}
+                    className="flex items-center bg-blue-400 text-white px-3 py-1 rounded-full"
+                  >
+                    <span className="mr-1">{filter}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeFilter(filter)}
+                      className="ml-1 font-bold hover:opacity-80"
+                      aria-label={`Remove filter ${filter}`}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
 
-            {/* Clear All button, if at least one filter is active */}
+            {/* Clear Filters button */}
             {selectedFilters.length > 0 && (
               <button
                 onClick={clearFilters}
@@ -133,37 +149,14 @@ function ClientOverview() {
               </button>
             )}
           </div>
-
-          {/* DISPLAY SELECTED FILTERS AS "PILLS" */}
-          {selectedFilters.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {selectedFilters.map((filter) => (
-                <div
-                  key={filter}
-                  className="flex items-center bg-blue-400 text-white px-3 py-1 rounded-full"
-                >
-                  <span className="mr-1">{filter}</span>
-                  {/* X button to remove this single filter */}
-                  <button
-                    type="button"
-                    onClick={() => removeFilter(filter)}
-                    className="ml-1 font-bold hover:opacity-80"
-                    aria-label={`Remove filter ${filter}`}
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 
       {/* TWO CARDS FOR GRAPH AND RESULTS */}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 mt-8">
-        {/* TRENDS CARD */}
-        <div className="flex flex-col flex-1 p-5 bg-gray-50 rounded-lg shadow-sm mr-0 md:mr-6">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Trends</h2>
+        {/* TRENDS CARD - Graph takes more space */}
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm mr-0 md:mr-5 md:basis-2/3">
+          <h2 className="text-2xl font-semibold text-center">Trends</h2>
           <div className="flex-grow">
             <Graph
               client={client}
@@ -173,8 +166,8 @@ function ClientOverview() {
           </div>
         </div>
 
-        {/* RESULTS CARD */}
-        <div className="flex flex-col flex-1 p-5 bg-gray-50 rounded-lg shadow-sm">
+        {/* RESULTS CARD - Results take less space */}
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm md:basis-1/3">
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Assessment Results
           </h2>

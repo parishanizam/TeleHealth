@@ -62,11 +62,17 @@ const Graph = ({ client, filters, selectedDate }) => {
           const testType = testRaw.toLowerCase();
 
           // Language filter
-          if (selectedLanguages.length > 0 && !selectedLanguages.includes(language)) {
+          if (
+            selectedLanguages.length > 0 &&
+            !selectedLanguages.includes(language)
+          ) {
             continue;
           }
           // Test-type filter
-          if (selectedTestTypes.length > 0 && !selectedTestTypes.includes(testType)) {
+          if (
+            selectedTestTypes.length > 0 &&
+            !selectedTestTypes.includes(testType)
+          ) {
             continue;
           }
           // Date filter
@@ -165,27 +171,64 @@ const Graph = ({ client, filters, selectedDate }) => {
     return null;
   };
 
+  // Custom legend renderer with blue background and matching text color
+  const CustomLegend = (props) => {
+    const { payload } = props;
+    return (
+      <div
+        style={{
+          marginBottom: 10,
+          textAlign: "center",
+          // backgroundColor: "#E3F2FD",
+          padding: "10px",
+          borderRadius: "5px",
+          boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
+        }}
+      >
+        {payload.map((entry, index) => (
+          <span
+            key={`item-${index}`}
+            style={{
+              marginRight: 20,
+              display: "inline-flex",
+              alignItems: "center",
+              color: entry.color,
+            }}
+          >
+            <span
+              style={{
+                display: "inline-block",
+                width: 12,
+                height: 12,
+                backgroundColor: entry.color,
+                marginRight: 5,
+              }}
+            ></span>
+            {entry.value}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div style={{ maxWidth: "1000px", height: "400px", margin: "0 auto" }}>
       {Object.keys(scoresByTestType).length === 0 ? (
         <p>No data available to plot.</p>
       ) : (
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            margin={{ top: 20, right: 30, left: 20, bottom: 30 }} // ADDED MARGIN
-          >
+          <LineChart margin={{ top: 20, right: 30, left: 20, bottom: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
               type="category"
               allowDuplicatedCategory={false}
               ticks={xAxisLabels}
-              label={{ value: "Tests", position: "insideBottom", offset: -10 }}
+              label={{ value: "Attempt", position: "insideBottom", offset: -10 }}
             />
             <YAxis domain={[0, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend layout="vertical" align="right" verticalAlign="top" />
-
+            <Legend content={<CustomLegend />} verticalAlign="top" align="center" />
             {Object.entries(scoresByTestType).map(([combo, scores], idx) => (
               <Line
                 key={combo}

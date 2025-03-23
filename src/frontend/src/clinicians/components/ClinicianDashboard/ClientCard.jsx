@@ -1,3 +1,4 @@
+// ClientCard.jsx
 import { useNavigate } from "react-router-dom";
 import ChevronIcon from "../../../assets/chevron.svg";
 
@@ -6,7 +7,10 @@ export function ClientCard({ client }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/clinicians/ClientOverview/${client.clientId}`, { state: { client } });
+    // We pass the entire "client" so it includes securityCode, etc.
+    navigate(`/clinicians/ClientOverview/${client.clientId}`, {
+      state: { client },
+    });
   };
 
   return (
