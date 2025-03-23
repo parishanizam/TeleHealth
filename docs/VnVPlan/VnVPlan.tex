@@ -66,7 +66,7 @@
   11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
   11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
   03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \href{https://github.com/parishanizam/TeleHealth/issues/293}{Added HIPAA adherence}\\
-  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \\
+  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \\
   \bottomrule
   \end{tabularx}
 \end{table}
@@ -131,55 +131,46 @@ the eventual addition of unit tests, and usability survey questions.
   appropriately analyze and identify flags and bias when conducting assessments. The analyzed data should be presented 
   in a easy to understand representation
 
-\subsection{Objectives}
+  \subsection{Objectives}
 
+The VnV Plan aims to evaluate whether the system meets key project goals in terms of recording quality, AI performance, data security, and ease of use. The following subsections clarify the scope and definitions of the main objectives within the context of this project.
 
-The Vnv Plan will focus on the following objectives
 \subsubsection{Ensure Accuracy and Correctness of Software Reading and Identifying Bias}
-The primary objective of this VnV Plan is to verify the system's ability to accurately record 
-and store video and audio of clients during speech therapy assessments, while also ensuring the AI model can 
-effectively detect disturbances and potential biases in the assessment process. This includes generating 
-a report or dashboard to present findings, ensuring results are accurate and unbiased.
-
+The primary objective of this VnV Plan is to ensure that the system can:
 \begin{itemize}
-  \item Check correctness of the AI model's ability to flag valid disturbances in assessment recordings.
-  \item Verify the AI's ability to accurately interpret the recordings and present valuable information to clinicians
+  \item Correctly record video and audio: The system should capture audio and video that meet minimum quality thresholds, such as resolution, clarity, and synchronization between video and audio streams, as defined in performance requirements (Section 4.2.3).
+  \item Accurately detect disturbances or bias: The AI analysis models should flag disturbances (e.g., background noise, occluded faces, off-task behavior) and potential assessment biases (e.g., speech delays, distracted environment) with a predefined success rate (e.g., \texttt{VERY\_HIGH\_SUCCESS\_RATE}) in comparison with human-reviewed ground truth.
+  \item Provide valid outputs: Results of the analysis should be correctly summarized in clinician-facing dashboards or reports, with visualizations that align with recorded content.
 \end{itemize}
 
 \subsubsection{Security and Authentication}
-
-Second main objective of this VnV plan is to ensure security and strong authentication capabilities of the software. 
+The second objective is to verify that the system enforces strong authentication protocols and protects sensitive data throughout its lifecycle. Specifically:
 \begin{itemize}
-  \item Check security and anonymity of all patient data (recording), ensuring its secure storage of information and access.
-  \item Check software correctness, ensuring authorized users are allowed in the system, and their appropriate role. 
-  \subitem{Parents should be able to view the assessment and complete it with their child.}
-  \subitem{Clinicians should be able to view assessment results and recordings}
-  \subitem{Admins should be able to view and create accounts.}
-  \item Verify that unauthorized users are effectively blocked from accessing 
-  patient data, diagnosis reports, or any system interfaces related to sensitive information.
+  \item Data privacy and encryption: All assessment recordings and user data must be securely stored and encrypted both at rest and in transit, meeting compliance requirements (e.g., HIPAA, as referenced in Section 4.2.8).
+  \item Role-based access control: Only authorized users should be able to perform role-specific tasks:
+    \begin{itemize}
+      \item Parents can complete assessments with their children.
+      \item Clinicians can view assessment results and recordings.
+      \item Admins can manage account creation and system configuration.
+    \end{itemize}
+  \item Access restrictions: Attempts by unauthorized users to access protected interfaces or data must be detected and blocked.
 \end{itemize}
 
 \subsubsection{Demonstrate Usability}
-The final objective is to ensure the system is intuitive and user-friendly for parents, children, and medical professionals. 
-The goal is to create an application that not only stores accurate results but also enables 
-users to complete tasks quickly and efficiently.
-
+The final objective is to confirm that the system is intuitive and accessible for parents, children, and clinicians. In this context:
 \begin{itemize}
-  \item Confirm that the user interface is user-friendly, allowing clinicians and parents to login, authenticate 
-  and access relevant data or complete assessments respectively with ease. This will be done via Usability testing as outlined
-  in section 4.2 under Usability as well as the Usability Survey in Appendix.   
+  \item User-friendly interface: The UI should follow best practices in accessibility, clarity, and layout. Users should be able to perform common tasks (e.g., starting an assessment, reviewing results) with minimal instructions and no more than a defined number of clicks (\texttt{MAX\_CLICKS}).
+  \item Efficient task completion: Success is measured by user testing metrics (e.g., task completion rate, time to complete), and feedback collected via the usability survey in the Appendix (Section 6.2).
+  \item Child accessibility: The assessment interface must be suitable for children aged 6–12, who should be able to navigate the assessment independently (Section 4.2.2).
 \end{itemize}
 
-
+\subsubsection*{Out of Scope}
 Some objectives that are considered out of scope for this VnV plan due to resource limitations include:
-
 \begin{itemize}
-  \item \textbf{Adherence to Industry Standards: } Full compliance with every industry standard for user interface elements is not feasible due to time 
-  constraints and the higher priority of AI model accuracy.
-  \item \textbf{External Library Verification: } The System will be using external libraries and 
-  open source  for its interface and AI model. The correctness of these will not be independently verified but verified as a whole with the system. 
+  \item Adherence to UI Industry Standards: Full compliance with all published UI standards is not feasible due to time constraints. The focus is on practical usability and functional aesthetics rather than exhaustive WCAG or HIG compliance.
+  \item Verification of Third-Party Libraries: External open-source libraries used in the frontend or AI model will not be independently audited. Instead, system-level testing will ensure that their integration functions as expected.
 \end{itemize}
-
+  
 \subsection{Challenge Level and Extras}
 
 \subsubsection{Challenge Level} 
