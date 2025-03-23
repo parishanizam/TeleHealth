@@ -66,7 +66,7 @@
   11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
   11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
   03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \href{https://github.com/parishanizam/TeleHealth/issues/293}{Added HIPAA adherence}\\
-  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \href{https://github.com/parishanizam/TeleHealth/issues/222}{Adjusted FR-ST-DSC5 test case method}, \\
+  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \href{https://github.com/parishanizam/TeleHealth/issues/223}{Clarified objectives}, \href{https://github.com/parishanizam/TeleHealth/issues/222}{Adjusted FR-ST-DSC5 test case method}, \href{https://github.com/parishanizam/TeleHealth/issues/221}{Clarified test case details}, \\
   \bottomrule
   \end{tabularx}
 \end{table}
@@ -1030,11 +1030,12 @@ consistency, visual appeal, and responsiveness.
     \textbf{Test Case Derivation:} This test validates the system’s adherence to aesthetic and branding requirements (LF-AR3), confirms user interaction feedback timing (LF-AR5), and ensures a calm and accessible visual experience for children (LF-SR1, LF-SR2). Both objective checks and subjective user feedback are used to confirm compliance and usability standards. \par
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
-      \item Compare platform’s design elements against the client’s brand and style guidelines. 
-      \item Collect feedback from child participants about the visual \\atmosphere. 
-      \item Test and measure feedback response times for various \\interactions. 
+      \item Select at least 30\% of platform screens across key user flows (e.g., login, assessment, results) for visual inspection.
+      \item Compare fonts, colour schemes, and layout elements against the brand style guide and confirm use of no more than three calming colour tones.
+      \item Conduct usability testing sessions with at least 5 child participants. Ask each participant to describe how they felt about the interface visuals and whether anything was confusing or distracting.
+      \item Identify at least five types of interactive elements (e.g., buttons, form \\ submissions) and measure response feedback time for each using a stopwatch or browser dev tools. Confirm response occurs within \\ SHORT\_PROCESSING\_TIME.
     \end{enumerate} 
-  \end{mdframed} 
+  \end{mdframed}  
 \end{itemize}
 
 \subsubsection{Usability and Humanity}
@@ -1105,11 +1106,13 @@ resolution, and efficient report generation.
       \textbf{Test Case Derivation:} Verifies system responsiveness and performance under expected usage conditions as required by PR-SL1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Navigate to various web pages within the system.
-        \item Measure the time taken for each page to load completely.
-        \item Confirm that all pages load within MAX\_LOAD\_TIME.
+        \item Identify the full set of web pages in the system.
+        \item Randomly select a subset of at least 30\% of those pages for testing.
+        \item Navigate to each selected page and measure the time taken for full load and interactive readiness.
+        \item Confirm that each page meets the MAX\_LOAD\_TIME requirement.
       \end{enumerate}
   \end{mdframed}
+
 
   \item PR-ST-SL2
   \begin{mdframed}[linewidth=0.5mm]
@@ -1418,7 +1421,7 @@ to interact with external systems and devices within those environments.
   \item MS-ST-MSA3
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
-    \textbf{Initial State:} Platform accessible across various devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
+    \textbf{Initial State:} Platform accessible across multiple devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
     \textbf{Input/Condition:} Load and navigate the platform across \\multiple devices to evaluate responsive design and functionality. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
@@ -1427,7 +1430,7 @@ to interact with external systems and devices within those environments.
     \textbf{Test Case Derivation:} Ensures MS-AR1 by confirming that the platform is accessible and functions consistently across all screen resolutions and device types. \par
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
-      \item Access the platform on various screen sizes and test for \\display, layout, and functionality. 
+      \item Access the platform on multiple screen sizes and test for \\display, layout, and functionality. 
       \item Verify that all features are usable and adapt responsively without readability or functionality loss. 
     \end{enumerate} 
   \end{mdframed} 
