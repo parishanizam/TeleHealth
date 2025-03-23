@@ -66,6 +66,7 @@
   11/04/24 & 1.8 & Promish Kandel & Added: 1 Symbols, Abbreviations and Acronyms, Reflection \\
   11/04/24 & 1.9 & Parisha Nizam & Added: Reflection \\
   03/22/25 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/292}{Adjusted formatting and added subsection intro text}, \href{https://github.com/parishanizam/TeleHealth/issues/293}{Added HIPAA adherence}\\
+  03/23/25 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/224}{Added test case derivations to NFRs}, \\
   \bottomrule
   \end{tabularx}
 \end{table}
@@ -1001,7 +1002,7 @@ addressed effectively, covering navigation, user-friendliness, brand \\
 consistency, visual appeal, and responsiveness.
 
 \begin{itemize} 
-  \item LF-ST-LFR1 (covers LF-AR1, LF-AR2, LF-AR4) 
+  \item LF-ST-LFR1
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized and navigable on a test \\device, prepared for user testing with adults and children. \par 
@@ -1012,15 +1013,17 @@ consistency, visual appeal, and responsiveness.
       \item VERY\_HIGH\_SUCCESS\_RATE of users complete core tasks within\\
       MAX\_CLICKS clicks. 
       \item HIGH\_SUCCESS\_RATE of children aged 6-12 can \\complete a sample assessment independently. 
-    \end{itemize} \par \textbf{How the test will be performed:} 
+    \end{itemize} \par
+    \textbf{Test Case Derivation:} This test ensures that the user interface design meets key look-and-feel requirements by validating navigation simplicity, ease of use, and child accessibility. It covers constraints on UI depth and option count (LF-AR1), intuitive navigation and task flow (LF-AR2, LF-AR4), and confirms that the platform is usable without adult guidance by children aged 6-12. \par
+    \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Observe and record the number of clicks taken by each user to complete key tasks. 
-      \item Inspect the navigation structure to ensure it meets depth and option \\ constraints. 
+      \item Inspect the navigation structure to ensure it meets depth and option \\constraints. 
       \item Test with children to verify completion of assessments \\independently. 
     \end{enumerate} 
   \end{mdframed}
 
-  \item LF-ST-LFR2 (covers LF-AR3, LF-AR5, LF-SR1, LF-SR2)
+  \item LF-ST-LFR2
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Platform with finalized colour schemes, fonts, and brand assets loaded and available for inspection and user \\interaction tests. \par 
@@ -1030,8 +1033,9 @@ consistency, visual appeal, and responsiveness.
       \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
       \item Positive feedback from child participants indicating a calm, non-stressful environment. 
       \item VERY\_HIGH\_SUCCESS\_RATE consistency in design across all pages. 
-      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback \\ within SHORT\_PROCESSING\_TIME. 
+      \item HIGH\_SUCCESS\_RATE of user interactions provide immediate feedback \\within SHORT\_PROCESSING\_TIME. 
     \end{itemize} \par 
+    \textbf{Test Case Derivation:} This test validates the system’s adherence to aesthetic and branding requirements (LF-AR3), confirms user interaction feedback timing (LF-AR5), and ensures a calm and accessible visual experience for children (LF-SR1, LF-SR2). Both objective checks and subjective user feedback are used to confirm compliance and usability standards. \par
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Compare platform’s design elements against the client’s brand and style guidelines. 
@@ -1046,40 +1050,45 @@ consistency, visual appeal, and responsiveness.
 requirements for users to have an enjoyable and accessible experience.
 
 \begin{itemize}
-  \item UH-ST-EOU1 (covers UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1)
+  \item UH-ST-EOU1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Usability, Manual\par
       \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
       \textbf{Input/Condition:} Users complete one full assessment using the system. \par
       \textbf{Output/Results:} User answers questions in the Usability Survey (6.2), and results are culminated and averaged.\\
       Averages should be at least 'Agree' on the answer scale in section 6.2. \par
+      \textbf{Test Case Derivation:} This test confirms that the system is easy to use, accessible, and intuitive (UH-EOU1, UH-EOU2, UH-LI1, UH-UP1, UH-AR1) based on user feedback collected after completing an assessment. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item User have access to the system
+        \item User has access to the system
         \item User completes one full assessment using the system
         \item Upon completion of the assessment, user is requested to fill out a usability survey
         \item Results are stored
         \item Usability scores for questions 1 through 8 are averaged across users
       \end{enumerate}
   \end{mdframed}
-  \item UH-ST-PI1 (covers UH-PI1)
+
+  \item UH-ST-PI1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System, including assessments, have been completed. \par
-      \textbf{Input/Condition:} List of available languages to perform assessments in  \\ available to be selected and listed\par
+      \textbf{Input/Condition:} List of available languages to perform assessments in is available to be selected and listed \par
       \textbf{Output/Results:} Count the number of available languages for the assessment \par
+      \textbf{Test Case Derivation:} This test ensures that users have access to multiple supported languages as outlined in UH-PI1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item View list of available languages
-        \item Count number of languages are available for the assessment
+        \item Count how many languages are available for the assessment
       \end{enumerate}
   \end{mdframed}
-  \item UH-ST-LI2 (covers UH-LI2)
+
+  \item UH-ST-LI2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Manual \par
       \textbf{Initial State:} User documentation has been completed and made available to users. \par
-      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed\par
+      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed \par
       \textbf{Output/Results:} Verify link takes user to access documentation \par
+      \textbf{Test Case Derivation:} This test validates that accessible help documentation is present and reachable from the system interface as required in UH-LI2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Select 'documentation'
@@ -1101,6 +1110,7 @@ resolution, and efficient report generation.
       \textbf{Initial State:} System initialized, strong internet connection \par
       \textbf{Input/Condition:} User navigates to different web pages within the system. \par
       \textbf{Output/Results:} The expected output is that each web page loads fully with all functionalities within MAX\_LOAD\_TIME. \par
+      \textbf{Test Case Derivation:} Verifies system responsiveness and performance under expected usage conditions as required by PR-SL1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Navigate to various web pages within the system.
@@ -1108,12 +1118,14 @@ resolution, and efficient report generation.
         \item Confirm that all pages load within MAX\_LOAD\_TIME.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-SL2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} Video and audio recording session initialized. \par
       \textbf{Input/Condition:} Audio and video session of user performing gestures while talking \par
       \textbf{Output/Results:} The expected output is the latency between actions and \\ recorded playback remains under SHORT\_PROCESSING\_TIME, ensuring \\ synchronization. \par
+      \textbf{Test Case Derivation:} Ensures time-sensitive performance requirements for synchronization between user behavior and system response as required by PR-SL2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Begin recording a session.
@@ -1122,12 +1134,14 @@ resolution, and efficient report generation.
         \item Confirm latency does not exceed SHORT\_PROCESSING\_TIME.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-SL3
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Dynamic \par
       \textbf{Initial State:} System configured to store video data. \par
-      \textbf{Input/Condition:} Video recorded and stored from assessment an session. \par
-      \textbf{Output/Results:} The expected output is the video quality is at least \\AVERAGE\_RESOLUTION upon when retrieving or storing. \par
+      \textbf{Input/Condition:} Video recorded and stored from assessment session. \par
+      \textbf{Output/Results:} The expected output is the video quality is at least \\ AVERAGE\_RESOLUTION when retrieving or storing. \par
+      \textbf{Test Case Derivation:} Ensures the system maintains minimum quality standards for video data as required by PR-SL3. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Record a session and store the video.
@@ -1137,30 +1151,31 @@ resolution, and efficient report generation.
   \end{mdframed}
 \end{itemize}
 
-\hspace{2em}The test cases below focus on verifying the system's precision in detecting and 
-analyzing speech and gesture disturbances, ensuring timestamp alignment, and maintaining 
-100\% accuracy in assessment data. 
+\hspace{2em}The test cases below focus on verifying the system's precision in detecting and analyzing speech and gesture disturbances, ensuring timestamp alignment, and maintaining 100\% accuracy in assessment data.
 
 \begin{itemize}
   \item PR-ST-PA1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Manual, Dynamic \par
       \textbf{Initial State:} Video and Audio analysis model is loaded with sample audio data. \par
-      \textbf{Input/Condition:} Data containing speech patterns and video with known \\disturbances. \par
-      \textbf{Output/Results:} The expected output is that the analysis achieves \\VERY\_HIGH\_SUCCESS\_RATE in detecting speech and gesture disturbances. \par
+      \textbf{Input/Condition:} Data containing speech patterns and video with known \\ disturbances. \par
+      \textbf{Output/Results:} The expected output is that the analysis achieves \\ VERY\_HIGH\_SUCCESS\_RATE in detecting speech and gesture disturbances. \par
+      \textbf{Test Case Derivation:} Verifies the precision of detection and classification in the audio/video analysis model, fulfilling PR-PA1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Load test data files with known disturbances into the analysis model.
-        \item Compare detected disturbances with human-reviewed \\observations.
-        \item Verify that the model correctly identifies at least \\VERY\_HIGH\_SUCCESS\_RATE of disturbances.
+        \item Compare detected disturbances with human-reviewed observations.
+        \item Verify that the model correctly identifies at least \\ VERY\_HIGH\_SUCCESS\_RATE of disturbances.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-PA3
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} Timestamp function is synchronized with real-time actions. \par
       \textbf{Input/Condition:} User performs actions in the recorded session. \par
       \textbf{Output/Results:} The expected output is that the timestamps delay within SHORT\_PROCESSING\_TIME of the real-time action. \par
+      \textbf{Test Case Derivation:} Validates synchronization accuracy between user actions and system-generated timestamps per PR-PA3. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Record a session with specific user actions.
@@ -1168,17 +1183,19 @@ analyzing speech and gesture disturbances, ensuring timestamp alignment, and mai
         \item Confirm each timestamp falls within SHORT\_PROCESSING\_TIME margin of the real action.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-PA4
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Manual, Static \par
       \textbf{Initial State:} Assessment answer key is loaded. \par
       \textbf{Input/Condition:} Manual verification of the answer key’s accuracy. \par
-      \textbf{Output/Results:} The expected output is that the answer key is \\MAX\_SUCESS\_RATE. \par
+      \textbf{Output/Results:} The expected output is that the answer key is \\ MAX\_SUCCESS\_RATE. \par
+      \textbf{Test Case Derivation:} Confirms correctness and completeness of stored answer keys against expected outputs as defined in PR-PA4. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Manually review each entry in the assessment answer key.
         \item Check for errors or inconsistencies in each answer.
-        \item Confirm all answers are correct, ensuring MAX\_SUCESS\_RATE.
+        \item Confirm all answers are correct, ensuring MAX\_SUCCESS\_RATE.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
@@ -1193,6 +1210,7 @@ back up data reliably, and enforce strict input validation.
       \textbf{Initial State:} System is operational with error handling in place. \par
       \textbf{Input/Condition:} User initiates actions known to cause common errors. \par
       \textbf{Output/Results:} The expected output is the system displays clear error messages for at least VERY\_HIGH\_SUCCESS\_RATE of the common errors encountered. \par
+      \textbf{Test Case Derivation:} Verifies the system’s ability to handle errors with \\ informative feedback, ensuring robustness and user understanding as required by PR-RFT1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Simulate common user errors, such as invalid inputs or incorrect file uploads.
@@ -1200,12 +1218,14 @@ back up data reliably, and enforce strict input validation.
         \item Verify clarity and accuracy of error messages in at least \\VERY\_HIGH\_SUCCESS\_RATE.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-RFT2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Dynamic \par
-      \textbf{Initial State:} Database backup processes configured and \\operational in the system. \par
+      \textbf{Initial State:} Database backup processes configured and operational in the system. \par
       \textbf{Input/Condition:} Monthly data backup event. \par
       \textbf{Output/Results:} The expected output is that the system performs a data backup within a MONTHLY\_BACKUP timeframe on the first of each month. \par
+      \textbf{Test Case Derivation:} Ensures system reliability through automated data backups to prevent loss of critical assessment data as required by PR-RFT2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item A data backup is triggered.
@@ -1215,8 +1235,8 @@ back up data reliably, and enforce strict input validation.
   \end{mdframed}
 \end{itemize}
 
-\hspace{2em}The test cases below ensure that the system can handle the expected user load, 
-data storage needs, and simultaneous uploads without performance degradation. 
+\vspace{1em}
+\hspace{2em}The test cases below ensure that the system can handle the expected user load, data storage needs, and simultaneous uploads without performance degradation.
 
 \begin{itemize}
   \item PR-ST-CR1
@@ -1225,6 +1245,7 @@ data storage needs, and simultaneous uploads without performance degradation.
       \textbf{Initial State:} System initialized with maximum user capacity parameters. \par
       \textbf{Input/Condition:} System loaded with MIN\_USERS accounts. \par
       \textbf{Output/Results:} The expected result is that the system operates stably and manages all accounts without issues. \par
+      \textbf{Test Case Derivation:} Validates the system’s ability to scale under a minimum expected user load while maintaining stable performance as described in PR-CR1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Create and load MIN\_USERS accounts into the system.
@@ -1232,12 +1253,14 @@ data storage needs, and simultaneous uploads without performance degradation.
         \item Confirm system maintains stable performance.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-CR2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System is initialized with required storage capacity. \par
       \textbf{Input/Condition:} Data stored in the database approaches MIN\_STORAGE annually. \par
-      \textbf{Output/Results:} The expected result is that the system \\accommodates MIN\_STORAGE of data without loss of performance. \par
+      \textbf{Output/Results:} The expected result is that the system accommodates \\ MIN\_STORAGE of data without loss of performance. \par
+      \textbf{Test Case Derivation:} Confirms that the database can handle expected yearly data growth without system slowdowns or data loss, fulfilling PR-CR2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Load MIN\_STORAGE data into database.
@@ -1247,8 +1270,8 @@ data storage needs, and simultaneous uploads without performance degradation.
   \end{mdframed}
 \end{itemize}
 
-\hspace{2em}The test cases below confirm that the system can scale effectively to 
-accommodate an increasing user base, data volume, and computational needs over time. 
+\vspace{1em}
+\hspace{2em}The test cases below confirm that the system can scale effectively to accommodate an increasing user base, data volume, and computational needs over time.
 
 \begin{itemize}
   \item PR-ST-SE1
@@ -1257,38 +1280,42 @@ accommodate an increasing user base, data volume, and computational needs over t
       \textbf{Initial State:} System operational with current allocated user amount. \par
       \textbf{Input/Condition:} Increase user base by YEARLY\_INCREASE\_PERCENTAGE. \par
       \textbf{Output/Results:} The expected result is that the system maintains performance while handling user growth. \par
+      \textbf{Test Case Derivation:} Ensures the system is scalable and can maintain acceptable performance under anticipated user base growth as required by PR-SE1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Simulate a YEARLY\_INCREASE\_PERCENTAGE increase in the user base by increase user base parameters by YEARLY\_INCREASE\_PERCENTAGE.
         \item Monitor system metrics such as response time and error rate.
-        \item Confirm that the system operates within acceptable \\performance metrics post-increase.
+        \item Confirm that the system operates within acceptable performance metrics post-increase.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
 
-\hspace{2em}The test cases below verify the system’s reliability across updates and 
-compatibility with major operating systems. 
+\vspace{1em}
+\hspace{2em}The test cases below verify the system’s reliability across updates and compatibility with major operating systems.
 
 \begin{itemize}
   \item PR-ST-LR1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
-      \textbf{Initial State:} System release build in use, with ongoing \\development updates. \par
+      \textbf{Initial State:} System release build in use, with ongoing development updates. \par
       \textbf{Input/Condition:} System stability monitored over successive updates. \par
       \textbf{Output/Results:} The expected result is that the system maintains a failure rate below LOW\_FAILURE\_RATE in release builds. \par
+      \textbf{Test Case Derivation:} Ensures that new updates do not compromise system reliability and meet the fault tolerance criteria of PR-LR1. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Conduct routine tests on the release build during ongoing development \\ updates.
+        \item Conduct routine tests on the release build during ongoing development updates.
         \item Monitor system logs for errors or malfunctions.
         \item Verify that the failure rate remains below LOW\_FAILURE\_RATE.
       \end{enumerate}
   \end{mdframed}
+
   \item PR-ST-LR2
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static \par
       \textbf{Initial State:} System configured for compatibility testing across platforms. \par
       \textbf{Input/Condition:} System loaded on Windows, macOS, Linux, Android, and iOS. \par
       \textbf{Output/Results:} The expected result is that the system functions correctly across all platforms. \par
+      \textbf{Test Case Derivation:} Validates cross-platform operability to ensure consistent performance across major operating systems, as required by PR-LR2. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Run the system on each specified operating system.
@@ -1299,70 +1326,79 @@ compatibility with major operating systems.
 \end{itemize}
 
 \subsubsection{Operational and Environmental}
-\hspace{2em}The test cases below ensures that the system can be used in a variety of environments,
-along with the requirements for which users are expected to use the system within, and the capabilities
-and qualities the system has to interact with adjacent systems in the environment.
+
+\hspace{2em}The test cases below ensure that the system can be used in a variety of environments,
+adhere to conditions users are expected to operate under, and maintain the necessary capabilities
+to interact with external systems and devices within those environments.
 
 \begin{itemize}
-  \item OE-ST-EPE1 (covers OE-EPE1)
+  \item OE-ST-EPE1
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Type:} Usability, Manual\par
+      \textbf{Type:} Usability, Manual \par
       \textbf{Initial State:} System is complete, functional, and ready for user interaction. \par
-      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes \par
-      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes \par
+      \textbf{Input/Condition:} Testing the system, including the assessment, on a variety of screen sizes. \par
+      \textbf{Output/Results:} The system's displayed elements will scale appropriately to different screen sizes. \par
+      \textbf{Test Case Derivation:} Validates OE-EPE1 by confirming the system provides a consistent and usable UI across different device screen sizes. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item User logs into the system
-        \item User completes one full assessment using the system
-        \item Upon completion of the assessment, user is requested to fill out a usability survey
-        \item User answers questions about their screensize and if the test scaled accordingly
-        \item Results are stored for review
+        \item User logs into the system.
+        \item User completes one full assessment using the system.
+        \item Upon completion of the assessment, user is requested to fill out a usability survey.
+        \item User answers questions about their screen size and whether the test scaled accordingly.
+        \item Results are stored for review.
       \end{enumerate}
   \end{mdframed}
-  \item OE-ST-WE1 (covers OE-WE1, OE-WE2)
+
+  \item OE-ST-WE1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Dynamic, Manual \par
-      \textbf{Initial State:} System, including assessments, have been completed. \par
-      \textbf{Input/Condition:} User attempts to start system setup\par
-      \textbf{Output/Results:} Device verification displayed on-screen, informing the user that the environment they're in is suitable for the assessment \par
+      \textbf{Initial State:} System, including assessments, has been completed. \par
+      \textbf{Input/Condition:} User attempts to start system setup. \par
+      \textbf{Output/Results:} Device verification is displayed on-screen, informing the user that the environment is suitable for the assessment. \par
+      \textbf{Test Case Derivation:} Confirms OE-WE1 and OE-WE2 by testing the system’s ability to verify internet connectivity and input quality, ensuring environmental readiness. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Select 'system setup'
-        \item System checks if connected to the internet
-        \item System checks audio input is not noisy
-        \item System checks video input is clear
-        \item System displays to the user their device is ready for the assessment to be used in the current environment
+        \item Select 'system setup'.
+        \item System checks if connected to the internet.
+        \item System checks audio input is not noisy.
+        \item System checks video input is clear.
+        \item System displays to the user their device is ready for the assessment to be used in the current environment.
       \end{enumerate}
   \end{mdframed}
-  \item OE-ST-IA1 (covers OE-IA1)
+
+  \item OE-ST-IA1
   \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Functional, Dynamic \par
-      \textbf{Initial State:} System is connected to external server for retrieving and storing data \par
-      \textbf{Input/Condition:} Assessment is complete, and results need to be stored\par
-      \textbf{Output/Results:} Verify results are stored in the external server \par
+      \textbf{Initial State:} System is connected to an external server for retrieving and storing data. \par
+      \textbf{Input/Condition:} Assessment is complete, and results need to be stored. \par
+      \textbf{Output/Results:} Verify results are stored in the external server. \par
+      \textbf{Test Case Derivation:} Ensures OE-IA1 by confirming system interoperability with external storage services for accurate assessment result storage. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Complete assessment
-        \item Access external server
-        \item Check if results have been uploaded to server
-        \item Access results to ensure data has been uploaded successfully
+        \item Complete the assessment.
+        \item Access the external server.
+        \item Check if results have been uploaded to the server.
+        \item Access results to ensure data has been uploaded successfully.
       \end{enumerate}
   \end{mdframed}
 \end{itemize}
 
 \subsubsection{Maintainability and Support Requirements}
 
-These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively.
+\hspace{2em}These test cases ensure the platform meets its maintenance, support, and adaptability requirements effectively, including modular design, tutorial clarity, and accessibility across devices.
 
 \begin{itemize} 
-  \item MS-ST-MSA1 (covers MS-MR1, MS-SR1)
+  \item MS-ST-MSA1
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Modular platform architecture with access to the component’s source code. A direct link to GitHub is also available on the platform. \par 
     \textbf{Input/Condition:} Perform updates to individual components and simulate user feedback submissions via the GitHub repository. \par 
-    \textbf{Output/Results:} Expected results include: \begin{itemize} \item Each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module. 
-      \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback. 
-    \end{itemize} \par 
+    \textbf{Output/Results:} Expected results include: 
+    \begin{itemize} 
+      \item Each component update does not exceed \\NUM\_CODE\_LINES lines of code edited outside the updated module.
+      \item Users can submit issues and feature requests directly to \\GitHub, categorized as issues, feature requests, or feedback.
+    \end{itemize} \par
+    \textbf{Test Case Derivation:} Validates MS-MR1 and MS-SR1 by confirming modularity of component updates and the presence of a support feedback mechanism via GitHub. \par
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Perform code updates on isolated components and verify \\changes are contained within NUM\_CODE\_LINES lines \\outside the component. 
@@ -1370,7 +1406,7 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \end{enumerate} 
   \end{mdframed}
 
-  \item MS-ST-MSA2 (covers MS-SR2) 
+  \item MS-ST-MSA2
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform initialized with a tutorial accessible from the homepage. \par 
@@ -1378,14 +1414,16 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item HIGH\_SUCCESS\_RATE of users can complete core tasks \\correctly after following the tutorial. 
-    \end{itemize} \par \textbf{How the test will be performed:} 
+    \end{itemize} \par
+    \textbf{Test Case Derivation:} Supports MS-SR2 by confirming that the platform’s tutorial is effective in helping new users complete essential tasks without prior training. \par
+    \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Guide users through the tutorial and observe task completion rates. 
       \item Collect feedback on tutorial clarity and assess if 90\% of users can independently complete tasks. 
     \end{enumerate} 
   \end{mdframed}
 
-  \item MS-ST-MSA3 (covers MS-AR1)
+  \item MS-ST-MSA3
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Dynamic \par 
     \textbf{Initial State:} Platform accessible across various devices and \\screen sizes, from mobile (MIN\_SCREEN\_SIZE) to desktop \\(MAX\_SCREEN\_SIZE). \par 
@@ -1393,7 +1431,8 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item MAX\_SUCCESS\_RATE of essential features are fully \\functional and readable across all screen sizes tested. 
-    \end{itemize} \par 
+    \end{itemize} \par
+    \textbf{Test Case Derivation:} Ensures MS-AR1 by confirming that the platform is accessible and functions consistently across all screen resolutions and device types. \par
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Access the platform on various screen sizes and test for \\display, layout, and functionality. 
@@ -1404,18 +1443,19 @@ These test cases ensure the platform meets its maintenance, support, and adaptab
 
 \subsubsection{Cultural Requirements}
 
-These tests ensure that the platform respects cultural sensitivities and \\provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
+\hspace{2em}These tests ensure that the platform respects cultural sensitivities and provides full bilingual support, enhancing inclusivity and accessibility for diverse user groups.
 
 \begin{itemize} 
-  \item CU-ST-CUR1 (covers CU-CR1)
+  \item CU-ST-CUR1
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static and Dynamic \par 
     \textbf{Initial State:} Platform content (language and imagery) is \\finalized and presented for review. \par 
     \textbf{Input/Condition:} A cultural consultant reviews all language and imagery, and user acceptance testing gathers feedback from a diverse set of users. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
-      \item MAX\_SUCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
+      \item MAX\_SUCCESS\_RATE of reviewed content is confirmed as culturally sensitive with no instances of offensive language or imagery. 
     \end{itemize} \par 
+    \textbf{Test Case Derivation:} Verifies CU-CR1 by confirming the platform’s content is reviewed for cultural appropriateness and validated by user feedback from diverse backgrounds. \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item A cultural consultant examines all text and imagery for \\potential cultural insensitivity. 
@@ -1424,7 +1464,7 @@ These tests ensure that the platform respects cultural sensitivities and \\provi
     \end{enumerate} 
   \end{mdframed}
 
-  \item CU-ST-CUR2 (covers CU-CR2)
+  \item CU-ST-CUR2
   \begin{mdframed}[linewidth=0.5mm] 
     \textbf{Type:} Static \par 
     \textbf{Initial State:} Platform is available in both English and Mandarin, with all interface elements and assessments translated. \par 
@@ -1434,6 +1474,7 @@ These tests ensure that the platform respects cultural sensitivities and \\provi
     \begin{itemize} 
       \item MAX\_SUCCESS\_RATE of assessment content is fully \\translated and functional in both English and Mandarin with no \\untranslated elements. 
     \end{itemize} \par 
+    \textbf{Test Case Derivation:} Addresses CU-CR2 by confirming full bilingual support across the entire platform, ensuring accessibility for both English and Mandarin speakers. \par 
     \textbf{How the test will be performed:} 
     \begin{enumerate}[noitemsep] 
       \item Navigate through the platform in both English and Mandarin settings, \\ verifying translations for each section. 
@@ -1457,6 +1498,7 @@ confidential data in the system
           \textbf{Input/Condition:}   User with Admin role attempts to create and assign accounts to clinicians \par
           \textbf{Output/Results:}  Only Admin users can access and execute functions related 
           to clinician account creation \par
+          \textbf{Test Case Derivation:} Ensures SR-AC1 by confirming that role-based access control restricts clinician account creation to Admin users only. \par
           \textbf{How the test will be performed:}
           \begin{enumerate}[noitemsep]
             \item Log in as an Admin and attempt to create and view clinician accounts. Verify that the action succeeds
@@ -1473,6 +1515,7 @@ confidential data in the system
       \textbf{Initial State:} Parent role created and available for testing. \par
       \textbf{Input/Condition:} User with Parent role logs in and attempts to complete assessments. \par
       \textbf{Output/Results:} Parent users can create their account, complete assessments, and log out successfully. \par
+      \textbf{Test Case Derivation:} Validates SR-AC2 by ensuring that Parent users can perform all necessary functions without elevated privileges. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Log in as a Parent user and attempt to start and complete an assessment. Verify successful completion and logout.
@@ -1490,6 +1533,7 @@ confidential data in the system
         \textbf{Input/Condition:} User with Clinician role logs in and attempts to view assessment results. \par
         \textbf{Output/Results:} Clinician users can view assessment results but cannot start or 
         complete assessments as a Parent user would. \par
+        \textbf{Test Case Derivation:} Confirms SR-AC3 by testing access control boundaries for the Clinician role, ensuring view-only access. \par
         \textbf{How the test will be performed:}
         \begin{enumerate}[noitemsep]
           \item Log in as a Clinician and attempt to view completed assessment results. Confirm access is granted.
@@ -1506,6 +1550,7 @@ confidential data in the system
       \textbf{Initial State:} System with user login functionality. \par
       \textbf{Input/Condition:} Users attempt to log in with correct and incorrect credentials. \par
       \textbf{Output/Results:} Users can only log in with correct credentials; unauthorized access attempts are denied. \par
+      \textbf{Test Case Derivation:} Ensures SR-AC4 by verifying secure authentication mechanisms that prevent unauthorized access. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Attempt to log in with valid credentials for multiple roles (Admin, Parent, Clinician). Confirm successful login.
@@ -1522,6 +1567,7 @@ confidential data in the system
       \textbf{Initial State:} System ready for pre-release review. \par
       \textbf{Input/Condition:} Review documentation to ensure adherence to data protection and privacy laws in the region. \par
       \textbf{Output/Results:} Confirm all applicable data protection requirements are met. \par
+      \textbf{Test Case Derivation:} Validates SR-P1 by confirming the system adheres to legal and regulatory privacy frameworks such as HIPAA. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Conduct a documentation review with legal and compliance teams, focusing on privacy policies, data handling, and retention practices.
@@ -1537,6 +1583,7 @@ confidential data in the system
       \textbf{Initial State:} System with sensitive data handling enabled. \par
       \textbf{Input/Condition:} Examine data in transit and at rest. \par
       \textbf{Output/Results:} Data remains encrypted according to standard encryption protocols during transit and at rest. \par
+      \textbf{Test Case Derivation:} Verifies SR-P2 by ensuring encryption mechanisms are implemented and meet security best practices for sensitive data. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Use network monitoring tools to capture data packets during transmission to ensure data is encrypted.
@@ -1553,6 +1600,7 @@ confidential data in the system
       \textbf{Initial State:} System configured for data collection. \par
       \textbf{Input/Condition:} Examine data storage for PII. \par
       \textbf{Output/Results:} System does not store any personal identifiable information beyond username and assessment recordings. \par
+      \textbf{Test Case Derivation:} Ensures SR-P3 by confirming that only non-sensitive identifiers are retained, reducing privacy risk. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Conduct a database inspection and audit to ensure no PII (e.g., address, date of birth, names) is stored.
@@ -1569,6 +1617,7 @@ confidential data in the system
       \textbf{Input/Condition:} User attempts to create an account with both weak and strong passwords. \par
       \textbf{Output/Results:} Account creation is completed only when a strong password, meeting specified 
       security criteria, is entered. Weak passwords are rejected with an error message detailing the password requirements. \par
+      \textbf{Test Case Derivation:} Validates SR-IM1 by testing enforcement of strong password policies to protect against unauthorized access. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Attempt to create an account with a weak password (e.g., fewer than 8 characters, no special 
@@ -1591,7 +1640,7 @@ compliance requirements including security of the system, following the rules of
 		
 \begin{itemize}
   \begin{item}
-    SR-ST-STD1
+    CR-ST-D1
     \begin{mdframed}[linewidth=0.5mm]
       \textbf{Type:} Static, Automated \par
       \textbf{Initial State:} User assessment data, including video and audio recordings, is stored in the system. \par
@@ -1599,6 +1648,7 @@ compliance requirements including security of the system, following the rules of
       \textbf{Output/Results:} User assessment data is securely stored and associated only with usernames, 
       ensuring no additional personally identifiable information is \\ included. Data at rest is protected by strong encryption 
       in compliance with HIPAA Security Rule standards. \par
+      \textbf{Test Case Derivation:} Verifies CR-STD1 by confirming the system enforces HIPAA-compliant storage standards, protecting sensitive health data through encryption and limiting identifiers. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
         \item Review database schema to confirm that assessment data is linked only to usernames and does not
