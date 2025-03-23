@@ -13,6 +13,7 @@
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{multirow}
+\usepackage{hyperref}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -98,7 +99,7 @@
 
   \begin{table}[H]
     \centering
-    \caption{Revision History (Part 1)}
+    \caption{Revision History (Part 2)}
     \label{TblRevisionHistoryPart1}
     \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
     \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
@@ -157,7 +158,7 @@
 
 \begin{table}[H]
   \centering
-  \caption{Revision History (Part 1)}
+  \caption{Revision History (Part 3)}
   \label{TblRevisionHistoryPart1}
   \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
   \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
@@ -167,6 +168,10 @@
       03/23/25 & 2.0 & Mitchell Weingust & Fixed:
       \begin{itemize}[leftmargin=*]
         \item Revision History Formatting
+      \end{itemize} \\
+      03/23/25 & 2.1 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/194}{Minor spelling errors Assessmenet}
       \end{itemize} \\
     \end{tabularx}
   \end{table}
@@ -459,9 +464,9 @@ All incoming and outgoing data to and from the database will be processed throug
   \midrule
   Provide Display Report & IN: Display Report & Give a report of all sessions\\ 
   \midrule
-  Provide Assessmenet answer & IN: Completed Assessment & Give a list of all the answers picked for a current session assessment \\ 
+  Provide Assessment answer & IN: Completed Assessment & Give a list of all the answers picked for a current session assessment \\ 
   \midrule
-  Provide Record Assessmenet & IN: Record Assessmenet & Give a video recording taken form the current assessment \\ 
+  Provide Record Assessment & IN: Record Assessment & Give a video recording taken form the current assessment \\ 
   \midrule
   Display Report & OUT: View Report  & Display report for all sessions when requested by clinician   \\ 
   \midrule
@@ -469,7 +474,7 @@ All incoming and outgoing data to and from the database will be processed throug
   \midrule
   Store Audio Recording & OUT: Audio Recording  & Send audio recoridng to be stored in the database \\
   \midrule
-  Store Assessmenet Data & OUT: Assessmenet Data  & Send assessment data for the current session to be stored in the database \\
+  Store Assessment Data & OUT: Assessment Data  & Send assessment data for the current session to be stored in the database \\
   \midrule
   Store User Profile Information& OUT: User Profile Information  & Send user profile information for the current user to be stored in the database \\
   \midrule
@@ -488,9 +493,9 @@ All incoming and outgoing data to and from the database will be processed throug
   \toprule
   \textbf{Event Name} & \textbf{Input/Output} & \textbf{Summary} \\
   \midrule
-  Do Video Analysis & IN: Assessmenet Data, Video Recording/ OUT: Analysis Results  & Given assessmenet data and video recording, analyze the data and send the results back\\
+  Do Video Analysis & IN: Assessment Data, Video Recording/ OUT: Analysis Results  & Given assessment data and video recording, analyze the data and send the results back\\
   \midrule
-  Do Audio Analysis & IN: Assessmenet Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
+  Do Audio Analysis & IN: Assessment Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
 \bottomrule
 \end{tabularx}
 \caption{Work Partitioning of BUC}
@@ -1085,7 +1090,7 @@ assessment and details such as the related assessment question, answer, and time
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{images/TeleHealth_StateMachine.png}
-  \caption{Finite State Machine that represents the Parent-Child interaction with the Assessmenet Interface}
+  \caption{Finite State Machine that represents the Parent-Child interaction with the Assessment Interface}
 \end{figure}
 
 This is the project's most critical element because the system's primary objective is to support parents when conducting at home speech assessments for their child. 
