@@ -75,6 +75,11 @@
     \item Reviewed document for consistency, grammar, spelling
     \item Fixed formatting, text, and images
   \end{itemize}\\
+  3/23/25 & 2.9 & Parisha Nizam & \begin{itemize}[leftmargin=*]
+    \item Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/535}{Added clarification on how usability test was conducted}
+    \item \href{https://github.com/parishanizam/TeleHealth/issues/537}{Traceability to Usability Tests}
+  \end{itemize}\\
+
   \bottomrule
   \end{tabularx}
   \end{table}
@@ -661,14 +666,22 @@ requirements for users to have an enjoyable and accessible experience.
 along with the requirements for which users are expected to use the system within, and the
 capabilities and qualities the system has to interact with adjacent systems in the environment.
 
-\begin{mdframed}[linewidth=0.5mm] \par
+\begin{mdframed}[linewidth=0.5mm]
   \textbf{Test Case Identifier:} OE-ST-EPE1 \par
-  \textbf{Input:} Testing the system, including the assessment, on a variety of screen sizes \par
-  \textbf{Expected Output:} The expected result is the system's displayed elements will scale appropriately to different screen sizes \par
-  \textbf{Actual Output:} The actual result is the system's displayed elements scaled, to the satisfaction of 60\% of users (Figure 4)\par
-  \textbf{Expected and Actual Output Match:} True \par
-  \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1
-\end{mdframed}
+  \textbf{Test Procedure:} The system was evaluated by running the assessment on devices with various screen sizes. A controlled pilot 
+  usability study was conducted with 5 participants who were asked to complete core tasks on the site while we recorded both 
+  quantitative metrics (e.g., layout consistency, response times) and qualitative feedback through a google survey: 
+  \url{https://docs.google.com/forms/d/e/1FAIpQLSfKe-Lh-qHHqehDI3v27yQUW1iPwUTqX3AC2dOsnpyZHUw5DA/viewform}. \par
+  \textbf{Input:} Deployment of the system on multiple devices with different screen sizes and monitoring user interactions during the assessment. \par
+  \textbf{Expected Output:} The expected result is the system’s displayed elements will
+  scale appropriately to different screen sizes 75\% of the time. (We cannot ensure to consider all possible screen sizes) \par
+  \textbf{Actual Output:} The technical scaling was achieved; however, only 60\% of users indicated satisfaction with the display scaling (see Figure 4). \par
+  \textbf{Expected and Actual Output Match:}  Fail – while the technical criteria were met, the pilot usability testing revealed that the scaling did not meet a good level of testing conditions. \par
+  \textbf{Relevant Nonfunctional Requirement(s):} OE-EPE1 \par
+  \textbf{Comments:} Test showed the need for further refinement of the UI responsiveness to different screen sizes. 
+  \end{mdframed}
+
+\pagebreak 
 
 \begin{figure}[h]
   \centering
@@ -1071,8 +1084,9 @@ and \texttt{correctAnswer} (String, e.g., "b") \par
 \section{Changes Due to Testing}
 
 \hspace{2em} Throughout testing, important changes to the system were identified that will be implemented into Revision 1.
-Feedback is based on pilot usability testing with fellow software engineering students, graduates from McMaster, and the team's
-supervisor, following the Revision 0 demo. The changes identiifed are aimed at enhancing the functionality and usability of the system.
+Feedback is based on pilot usability testing from our \href{https://forms.gle/izmWUf38F55xvUav8}{Usability Survey} with fellow software engineering students, graduates from McMaster, and the team's
+supervisor, following the Revision 0 demo. Several Scenarios were conducted to gather feedback, and the testing conditions can be found \href{https://docs.google.com/document/d/1bl1iT6M5yDK34Rb4XSSEJdFDumOkUBKb_eB1skr2TXY/edit?usp=sharing}{here}. 
+The changes identiifed are aimed at enhancing the functionality and usability of the system. These Tests are based off of Section 4.1 Usability.
 
 \begin{itemize}
   \item \textbf{Parent Results Accessibility} Inititally, the system was not capable of displaying the results to the parents. Upon conversations
