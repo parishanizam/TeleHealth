@@ -248,6 +248,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/195}{Fixed 100\% of users ambition}
       \end{itemize} \\
+      03/23/25 & 2.13 & Mitchell Weingust & Implemented Peer Review Feedback:
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/116}{Issues regarding Performance Requirements}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -1346,17 +1350,17 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the MAX\_LOAD\_TIME seconds of navigation on a standard broadband internet connection.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}2. ]
-  \item The system must maintain video and audio recording latency of less than LATENCY\_TIME second to support accurate data capture for speech assessment.\\
+  \item The system shall maintain video and audio recording latency of less than LATENCY\_TIME second to support accurate data capture for speech assessment.\\
   \textbf{Rationale: }Having high latency could lead to desynchronization between audio and video, causing errors in the timestamps or making it difficult for speech-language pathologists (SLPs) to analyze the recordings properly.\\
   \textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed LATENCY\_TIME second.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}3. ]
-  \item The system must ensure that all video recordings are capture and stored in a resolution of at least AVERAGE\_RESOLUTION.\\
+  \item The system shall ensure that all video recordings are capture and stored in a resolution of at least AVERAGE\_RESOLUTION.\\
   \textbf{Rationale: }A minimum resolution of AVERAGE\_RESOLUTION is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
   \textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of AVERAGE\_RESOLUTION.
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}4. ]
-  \item The system must process the data from a session and generate a report within MAX\_PROCESSING\_TIME seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
+  \item The system shall process the data from a session and generate a report within MAX\_PROCESSING\_TIME seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
   \textbf{Rationale: }Generating the assessment reports for clinicians under MAX\_PROCESSING\_TIME seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
   \textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within\\ MAX\_PROCESSING\_TIME seconds  
 \end{enumerate}
@@ -1368,100 +1372,100 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}[label={PR-PA}1. ]
-  \item The system must achieve a audio analysis accuracy of at least\\ VERY\_HIGH\_SUCCESS\_RATE to ensure reliable assessment results for clinicians.\\
+  \item The system shall achieve a audio analysis accuracy of at least\\ VERY\_HIGH\_SUCCESS\_RATE to ensure reliable assessment results for clinicians.\\
   \textbf{Rationale: }It is imporant that the audio analysis accuracy has a high percision rate. Without this level of percision, clinicians could 
   be mislead by inaccurate results affecting the quality of diagnosis and subsequent treatment.\\
   \textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of VERY\_HIGH\_SUCCESS\_RATE.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}2. ]
-  \item The system must detect video disturbances with an accuracy of at least HIGH\_SUCCESS\_RATE to minimize the impact of visual issues on the assessment data.\\
+  \item The system shall detect video disturbances with an accuracy of at least HIGH\_SUCCESS\_RATE to minimize the impact of visual issues on the assessment data.\\
   \textbf{Rationale: }Detecting video disturbances with HIGH\_SUCCESS\_RATE accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
   \textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed HIGH\_SUCCESS\_RATE.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}3. ]
-  \item The system must ensure that timestamp accuracy is within LATENCY\_TIME second to align recorded events with real-time actions for precise analysis.\\
+  \item The system shall ensure that timestamp accuracy is within LATENCY\_TIME second to align recorded events with real-time actions for precise analysis.\\
   \textbf{Rationale: }Timestamp accuracy within LATENCY\_TIME second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
   \textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a LATENCY\_TIME second window, verifying that all events are accurately synchronized.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}4. ]
-  \item The system must guarantee PERCENTAGE\_OF\_ASSESSMENTS accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
+  \item The system shall guarantee PERCENTAGE\_OF\_ASSESSMENTS accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
   \textbf{Rationale: }Any errors in the answer key could lead to misinterpretation of a child’s abilities or progress, undermining the purpose of the assessment.\\
   \textbf{Fit criterion: }The assessment answer key will be manually be verified to ensure that ti contatins no inaccuracies, ensuring complete correctness of answers.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}5. ]
-  \item The system must ensure that all questions are PERCENTAGE\_OF\_ASSESSMENTS relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
+  \item The system shall ensure that all questions are PERCENTAGE\_OF\_ASSESSMENTS relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
   \textbf{Rationale: }Ensuring that all questions are fully relevant to the platform’s purpose guarantees that the assessment focuses only on aspects critical to speech and language development. Irrelevant questions could confuse users and divert attention from important areas.\\
   \textbf{Fit criterion: }All assessment questions will be manual reviewed to confirm that they align perfectly with the platform's objectives.  
 \end{enumerate}
 
 \subsection{Robustness or Fault-Tolerance Requirements}
 \begin{enumerate}[label={PR-RFT}1. ]
-  \item The system must manage any technical errors effectively and provide clear feedback to users when issues occur.\\
+  \item The system shall manage any technical errors effectively and provide clear feedback to users when issues occur.\\
   \textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand if something is wrong or why the system is not working as they expect, leading to frustration.\\
-  \textbf{Fit criterion: }The system must display error messages for at least VERY\_HIGH\_SUCCESS\_RATE of common user errors.  
+  \textbf{Fit criterion: }The system shall display error messages for at least VERY\_HIGH\_SUCCESS\_RATE of common user errors.  
 \end{enumerate}
 \begin{enumerate}[label={PR-RFT}2. ]
-  \item The system must implement data backup and recovery processes to protect user data and assessment results.\\
+  \item The system shall implement data backup and recovery processes to protect user data and assessment results.\\
   \textbf{Rationale: }Effective backup and recovery ensure that user data is not lost during a system failure. Data loss could disrupt assessments and treatment plans.\\
-  \textbf{Fit criterion: }The system must back up data on the first of every month within a UPLOAD\_TIMEFRAME timeframe.  
+  \textbf{Fit criterion: }The system shall back up data on the first of every month within a UPLOAD\_TIMEFRAME timeframe.  
 \end{enumerate}
 \begin{enumerate}[label={PR-RFT}3. ]
-  \item The system must validate inputs to accept only specified formats during user interactions.\\
+  \item The system shall validate inputs to accept only specified formats during user interactions.\\
   \textbf{Rationale: }Strict input validation prevents errors and enhances data integrity. It also protects the system from malicious inputs that could cause issues.\\
-  \textbf{Fit criterion: }The system must reject PERCENTAGE\_OF\_ASSESSMENTS of invalid inputs and display appropriate error messages to users.  
+  \textbf{Fit criterion: }The system shall reject PERCENTAGE\_OF\_ASSESSMENTS of invalid inputs and display appropriate error messages to users.  
 \end{enumerate}
 
 \subsection{Capacity Requirements}
 \begin{enumerate}[label={PR-CR}1. ]
-  \item The system must accommodate a minimum of MIN\_USER\_ACCOUNTS user accounts at launch.\\
+  \item The system shall accommodate a minimum of MIN\_USER\_ACCOUNTS user accounts at launch.\\
   \textbf{Rationale: }Supporting at least MIN\_USER\_ACCOUNTS user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
-  \textbf{Fit criterion: }The system must successfully manage MIN\_USER\_ACCOUNTS user accounts at deployment without stability issues.  
+  \textbf{Fit criterion: }The system shall be designed to support\\ MIN\_USER\_ACCOUNTS user accounts at launch, through system design documentation and capacity planning, ensuring the infrastructure and architecture are capable.
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}2. ]
-  \item The system must have the capacity to store a minimum of SYSTEM\_CAPACITY of data each year.\\
+  \item The system shall have the capacity to store a minimum of\\ SYSTEM\_CAPACITY of data each year.\\
   \textbf{Rationale: }Storing SYSTEM\_CAPACITY of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
-  \textbf{Fit criterion: }The database must have SYSTEM\_CAPACITY of allocated space at the start of every year.  
+  \textbf{Fit criterion: }The database shall have SYSTEM\_CAPACITY of allocated space at the start of every year.  
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}3. ]
-  \item The system must support a minimum of NUMBER\_CONCURRENT\_USERS concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
+  \item The system shall support a minimum of NUMBER\_CONCURRENT\_USERS concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
   \textbf{Rationale: }Supporting NUMBER\_CONCURRENT\_USERS concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
-  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting NUMBER\_CONCURRENT\_USERS concurrent users.  
+  \textbf{Fit criterion: }The system shall maintain stable performance levels (e.g throughput, error rate) while supporting NUMBER\_CONCURRENT\_USERS concurrent users.  
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}4. ]
-  \item The system must support a minimum of NUM\_CONCURRENT\_VIDEOS concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
+  \item The system shall support a minimum of NUM\_CONCURRENT\_VIDEOS concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
   \textbf{Rationale: }Supporting NUM\_CONCURRENT\_VIDEOS concurrent user uploads is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
-  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting NUM\_CONCURRENT\_VIDEOS concurrent uploads.  
+  \textbf{Fit criterion: }The system shall maintain stable performance levels (e.g throughput, error rate) while supporting NUM\_CONCURRENT\_VIDEOS concurrent uploads.  
 \end{enumerate}
 
 \newpage
 
 \subsection{Scalability or Extensibility Requirements}
 \begin{enumerate}[label={PR-SE}1. ]
-  \item The system must support the addition of new user accounts without compromising performance.\\
+  \item The system shall support the addition of new user accounts without compromising performance.\\
   \textbf{Rationale: }User scalability is essential to accommodate growth in the user base and ensure consistent performance as more users engage with the platform.\\
-  \textbf{Fit criterion: }The system must effectively manage a user base increase of at least DATA\_INCREASE\% annually while maintaining performance metrics defined in the capacity requirements.  
+  \textbf{Fit criterion: }The system shall effectively manage a user base increase of at least DATA\_INCREASE\% annually while maintaining performance metrics defined in the capacity requirements.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SE}2. ]
-  \item The system must handle increasing volumes of data without loss of performance or data integrity.\\
+  \item The system shall handle increasing volumes of data without loss of performance or data integrity.\\
   \textbf{Rationale: }Data scalability ensures that as the volume of stored data grows, the system can still process, retrieve, and manage this data efficiently. This is crucial for maintaining system reliability and providing accurate insights from the collected data.\\
-  \textbf{Fit criterion: }The system must manage a data increase of at least DATA\_INCREASE\% annually.  
+  \textbf{Fit criterion: }The system shall manage a data increase of at least DATA\_INCREASE\% annually.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SE}3. ]
-  \item The system must expand processing capabilities to handle increased computational demands.\\
+  \item The system shall expand processing capabilities to handle increased computational demands.\\
   \textbf{Rationale: }Processing scalability is vital for ensuring that the system can efficiently perform analyses and computations as the number of users or the complexity of tasks increases. This prevents bottlenecks in data processing and ensures timely results for clinicians.\\
-  \textbf{Fit criterion: }The system must increase data processing capacity by at least DATA\_CAPACITY\_INCREASE\% without impacting response times for data processing tasks.  
+  \textbf{Fit criterion: }The system shall increase data processing capacity by at least DATA\_CAPACITY\_INCREASE\% without impacting response times for data processing tasks.  
 \end{enumerate}
 
 \subsection{Longevity Requirements}
 \begin{enumerate}[label={PR-LR}1. ]
-  \item The system must function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
+  \item The system shall function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
   \textbf{Rationale: }Ensuring stability during ongoing development is crucial to maintain user trust and provide uninterrupted service. Any major malfunctions could lead to user frustration and potential loss of users, impacting the system's reputation.\\
-  \textbf{Fit criterion: }The system must demonstrate a failure rate of less than LOW\_FAILURE\_RATE in the release build during ongoing development, ensuring that users experience minimal disruptions.  
+  \textbf{Fit criterion: }The system shall demonstrate a failure rate of less than LOW\_FAILURE\_RATE in the release build during ongoing development, ensuring that users experience minimal disruptions.  
 \end{enumerate}
 \begin{enumerate}[label={PR-LR}2. ]
-  \item The system must be compatible with major operating systems, including Windows, macOS, Linux, Android, and iOS.\\
+  \item The system shall be compatible with major operating systems, including Windows, macOS, Linux, Android, and iOS.\\
   \textbf{Rationale: }Broad compatibility ensures that the system can reach a wider audience, providing access to users regardless of their device or operating system. This is essential for maximizing user engagement and satisfaction.\\
-  \textbf{Fit criterion: }The system must pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.  
+  \textbf{Fit criterion: }The system shall pass compatibility tests on all specified operating systems, with successful operation and user experience validated on each platform.  
 \end{enumerate}
 
 \newpage
