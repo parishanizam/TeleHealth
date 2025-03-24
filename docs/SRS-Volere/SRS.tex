@@ -224,6 +224,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/188}{Fixed identifying template used and changes made}
       \end{itemize} \\
+      03/23/25 & 2.9 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/186}{Added Canadian Equivalent to HIPAA (PHIPA and PIPEDA)}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -368,9 +372,9 @@ N/A\\
   \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
   \item[] Rationale: A web-based platform maximizes accessibility for users across various devices, and prevents installation of external software which could be a barrier of entry.
   \item[] Fit Criterion: The platform must run without requiring the installation of external software, and display with visual consistency across at least 3 different browsers.
-  \item[3.1.2] The platform must adhere to HIPAA or relevant data protection regulations to ensure patient data privacy and security \cite{hipaa}.
-  \item[] Rationale: Compliance with HIPAA will maintain trust that sensitive data is protected for patients and users of the website.
-  \item[] Fit Criterion: A HIPAA compliance audit must confirm data encryption, user authentication and data storage adhere to HIPAA
+  \item[3.1.2] The platform must adhere to HIPAA \cite{hipaa}, PHIPA \cite{phipa}, PIPEDA \cite{pipeda}, or relevant data protection regulations to ensure patient data privacy and security.
+  \item[] Rationale: Compliance with HIPAA, PHIPA and PIPEDA will maintain trust that sensitive data is protected for patients and users of the website.
+  \item[] Fit Criterion: A HIPAA, PHIPA and PIPEDA compliance audit must confirm data encryption, user authentication and data storage adhere to HIPAA, PHIPA and PIPEDA.
   \item[3.1.3] Access to the platform must be restricted to authorized users, with secure authentication processes in place.
   \item[] Rationale: This ensures data privacy and prevents data breaches from unauthorized users.
   \item[] Fit Criterion: The platform must require secure authentication of all users, and testing must confirm there are no unauthorized access vulnerabilities found before deployment.
@@ -393,9 +397,9 @@ N/A\\
 \end{itemize}
 \subsection{Implementation Environment of the Current System}
 \begin{itemize}
-  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance standards to ensure data security \cite{hipaa}.
+  \item[3.2.1] The platform’s hosting environment must meet HIPAA-compliance \cite{hipaa}, PHIPA-compliance \cite{phipa}, and PIPEDA-compliance \cite{pipeda} standards to ensure data security.
   \item[] Rationale: A compliant hosting environment is important for protecting sensitive data.
-  \item[] Fit Criterion: An infrastructure compliance review must confirm that the hosting environment meets encryption, access control, and logging requirements for HIPAA.
+  \item[] Fit Criterion: An infrastructure compliance review must confirm that the hosting environment meets encryption, access control, and logging requirements for HIPAA, PHIPA and PIPEDA.
   \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
   infrastructure.
   \item[] Rationale: A compatible framework is important to ensure scalability and security, and also reduces technical overhead.
@@ -457,6 +461,8 @@ involved in the Project}
   \midrule
   SLP & Speech Language Pathologist\\
   HIPAA & Health Insurance Portability and Accountability Act \cite{hipaa}\\
+  PHIPA & Personal Health Information Protection Act \cite{phipa}\\
+  PIPEDA & The Personal Information Protection and Electronic Documents Act \cite{pipeda}\\
   WCAG & Web Content Accessibility Guidelines \cite{wcag}\\
   ML & Machine Learning\\
   PUC & Product Use Case\\
@@ -473,7 +479,7 @@ involved in the Project}
 \section{Relevant Facts And Assumptions}
 \subsection{Relevant Facts}
 \begin{itemize}
-  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA, ensuring that patient data is securely stored and managed \cite{hipaa}.
+  \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA \cite{hipaa}, PHIPA \cite{phipa} and PIPEDA \cite{pipeda}, ensuring that patient data is securely stored and managed.
   \item[5.1.2] The client has requested a web-based platform, indicating a preference for accessibility without the need for specialized 
   software installations.
   \item[5.1.3] The platform will have two primary user roles. The clinicians who perform assessments and review results and the parents who 
@@ -1148,7 +1154,7 @@ assessment and details such as the related assessment question, answer, and time
   \item The system shall not store any personally identifiable textual information (e.g., patient name, address, 
   or medical record number) in the database.\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
-  identifying textual information must be excluded from storage in the database \cite{hipaa}.\\
+  PHIPA and PIPEDA identifying textual information must be excluded from storage in the database \cite{hipaa}.\\
   \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
   accessible by clinicians are anonymized and contain no identifying textual information.
 \end{enumerate}
@@ -2043,6 +2049,12 @@ graduate attribute of Lifelong Learning.  Please answer the following questions:
 
   \bibitem{hipaa}
   U.S. Department of Health and Human Services, “HIPAA Home,” \textit{HIPAA Home}, https://www.hhs.gov/hipaa/index.html (accessed Oct. 11, 2024).
+
+  \bibitem{phipa}
+  “Personal Health Information Protection Act, 2004, S.O. 2004, c. 3, Sched. A,” \textit{e-Laws}, https://www.ontario.ca/laws/statute/04p03 (accessed Mar. 23, 2025). 
+
+  \bibitem{pipeda}
+  Office of the Privacy Commissioner of Canada, “The Personal Information Protection and Electronic Documents Act (PIPEDA),” \textit{Office of the Privacy Commissioner of Canada}, https://www.priv.gc.ca/en/privacy-topics/privacy-laws-in-canada/the-personal-information-protection-and-electronic-documents-act-pipeda/ (accessed Mar. 23, 2025). 
   
   \bibitem{wcag}
   S. L. Henry, “WCAG 2 Overview,” \textit{Web Accessibility Initiative (WAI)}, https://www.w3.org/WAI/standards-guidelines/wcag/ (accessed Oct. 11, 2024).
