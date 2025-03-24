@@ -136,8 +136,8 @@ function ParentAccountConfirmation() {
         />
       </div>
 
-      {/* 
-        Uncomment if/when you want to reintroduce checkbox for T&C:
+      
+        {/* Uncomment if/when you want to reintroduce checkbox for T&C: */}
         <div className="flex flex-wrap gap-2 items-center mt-5 text-xl max-md:max-w-full">
           <label className="flex items-center cursor-pointer">
             <input
@@ -148,11 +148,11 @@ function ParentAccountConfirmation() {
               onChange={handleCheckboxChange}
             />
             <span className="ml-2">
-              I agree to the terms and conditions...
+              I confirm account name
             </span>
           </label>
         </div>
-      */}
+     
 
       <button
         type="submit"
