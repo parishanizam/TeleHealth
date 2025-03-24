@@ -14,6 +14,7 @@
 \usepackage{longtable}
 \usepackage{multirow}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
       colorlinks=true,      % false: boxed links; true: colored links
@@ -268,11 +269,11 @@
       \end{itemize} \\
       03/23/25 & 2.14 & Mitchell Weingust & Implemented TA Feedback: 
       \begin{itemize}[leftmargin=*]
-        \item \href{https://github.com/parishanizam/TeleHealth/issues/190}{Export and insert diagrams as PDFs so they are not pixelated}
-      \end{itemize} \\
-      03/23/25 & 2.15 & Mitchell Weingust & Implemented TA Feedback: 
-      \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/191}{Ensured all section headings with a subsection heading right under it now has text introducing it}
+      \end{itemize} \\
+      03/24/25 & 2.15 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/190}{Export and insert diagrams as PDFs so they are not pixelated}
       \end{itemize} \\
     \end{tabularx}
   \end{table}
@@ -582,7 +583,7 @@ review an assessment session and either accept the remote assessment results wit
 \hspace{2em}The diagram below models the high level interactions within the system as well as with any external systems.
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.7]{images/ContextoftheWork.png}
+  \includegraphics[page=1, trim=100 450 0 125, clip]{images/contextofthework.drawio.pdf}
   \caption{Context of the Work}
 \end{figure}
 
@@ -648,7 +649,7 @@ assessment and details such as the related assessment question, answer, and time
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{images/BUC.png}
+  \includegraphics[scale=0.8]{images/BUC.pdf}
   \caption{BUC Video Analysis Sequence Diagram}
 \end{figure}
 
@@ -659,7 +660,7 @@ assessment and details such as the related assessment question, answer, and time
 \subsection{Business Data Model}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.35]{images/UML class.png}
+  \includegraphics[page=1, trim=0 30 0 50, clip, scale=0.75]{images/UML class.pdf}
   \caption{UML Diagram of System's Data Layout}
 \end{figure}
 
@@ -1287,7 +1288,7 @@ data analysis, and data processing and display.
 \subsection*{Formal Specification}
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{images/TeleHealth_StateMachine.png}
+  \includegraphics[scale=0.5]{images/StateMachine.pdf}
   \caption{Finite State Machine that represents the Parent-Child interaction with the Assessment Interface}
 \end{figure}
 
