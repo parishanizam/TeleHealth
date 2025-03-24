@@ -147,6 +147,12 @@
   \item \href{https://github.com/parishanizam/TeleHealth/issues/204}{Added test case names and sentence descriptions}
 \end{itemize} \\
 
+03/23/25 & 2.3 & Parisha Nizam &
+\begin{itemize}[noitemsep, topsep=0pt]
+  \item Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/534}{Modified Inputs in Section 4.1 Pg 28}
+  \item Implemented Documentation Change: \href{https://github.com/parishanizam/TeleHealth/issues/496}{Update System Setup FR Tests to follow current navigation flow Pg 21}
+\end{itemize} \\
+
 \bottomrule
 \end{longtable}
 
@@ -927,26 +933,26 @@ review assessment information, complete necessary hardware checks, and receive g
       \end{enumerate}
   \end{mdframed}
 
-  \item FR-ST-SS4: \textbf{Display Assessment Tutorial After Setup}
+  \item FR-ST-SS4: \textbf{Display Assessment Tutorial from HomePage}
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Purpose:} Confirms users are shown a helpful step-by-step tutorial immediately after completing device setup. \par
+      \textbf{Purpose:} Confirms users are shown a helpful step-by-step tutorial from homepage. \par
       \textbf{Type:} Dynamic, Manual \par
-      \textbf{Initial State:} User has successfully completed audio and video hardware checks. \par
-      \textbf{Input:} User proceeds to the tutorial section after completing hardware checks. \par
+      \textbf{Initial State:} User has successfully been brought to parent homepage. \par
+      \textbf{Input:} User proceeds to the tutorial section after navigating the homepage. \par
       \textbf{Output:} User is directed to a tutorial that explains the assessment process in a step-by-step manner. \par
       \textbf{Test Case Derivation:} Providing a tutorial ensures that users understand the assessment process,
        improving accuracy and compliance. This follows expected output found in FR-SS4 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Complete the audio and video hardware checks.
-        \item Verify that the system automatically navigates the user to a tutorial section upon completion of the hardware checks.
+        \item Navigated to homepage after logging in.
+        \item Verify that the system automatically navigates the user to a tutorial section upon selecting tutorials from homepage.
         \item Confirm that the tutorial provides clear, step-by-step instructions on how to proceed with the assessment.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-SS5: \textbf{Begin Assessment After Tutorial Completion}
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Purpose:} Verifies that users can begin the assessment only after they complete all setup steps, including the tutorial. \par
+      \textbf{Purpose:} Verifies that users can begin the assessment after they complete all setup steps, including the tutorial. \par
       \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User has completed the tutorial and is ready to begin the assessment. \par
       \textbf{Input:} User initiates the start of the assessment through the system. \par
@@ -1105,7 +1111,7 @@ consistency, visual appeal, and responsiveness.
     \textbf{Purpose:} Validates that users can navigate and complete key tasks easily, and that children aged 6–12 can use the system without assistance. \par
     \textbf{Type:} Dynamic, Manual \par 
     \textbf{Initial State:} Platform initialized and navigable on a test device, prepared for user testing with adults and children. \par 
-    \textbf{Input/Condition:} Conduct user tests with participants performing core tasks like starting an assessment, navigating menus, and viewing results. \par 
+    \textbf{Input/Condition:} User conducts key tasks on site including starting an assessment, navigating flow and viewing results. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item No more than three levels of navigation depth, and each screen presents no more than six main options. 
@@ -1126,7 +1132,7 @@ consistency, visual appeal, and responsiveness.
     \textbf{Purpose:} Ensures that branding and design are consistent and calming, and that user actions receive quick system feedback. \par
     \textbf{Type:} Static and Dynamic, Manual \par 
     \textbf{Initial State:} Platform with finalized colour schemes, fonts, and brand assets loaded and available for inspection and user interaction tests. \par 
-    \textbf{Input/Condition:} Perform visual inspection and feedback collection, along with response-time measurements for interactive elements. \par 
+    \textbf{Input/Condition:} Feedback on visual elements and response time measurements is collected. \par 
     \textbf{Output/Results:} Expected results include: 
     \begin{itemize} 
       \item Compliance with brand guidelines, style guide, and use of no more than three calming, neutral/pastel tones. 
@@ -1189,7 +1195,7 @@ requirements for users to have an enjoyable and accessible experience.
       \textbf{Purpose:} Ensures that users can easily access documentation from the interface for help and guidance. \par
       \textbf{Type:} Static, Manual \par
       \textbf{Initial State:} User documentation has been completed and made available to users. \par
-      \textbf{Input/Condition:} Link to documentation is available on the system's frontend interface, and can be accessed \par
+      \textbf{Input/Condition:} Link to usability documentation on frontend is clicked. \par
       \textbf{Output/Results:} Verify link takes user to access documentation \par
       \textbf{Test Case Derivation:} This test validates that accessible help documentation is present and reachable from the system interface as required in UH-LI2. \par
       \textbf{How the test will be performed:}
