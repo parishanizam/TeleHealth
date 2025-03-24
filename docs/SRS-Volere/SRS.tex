@@ -44,6 +44,14 @@
 
 ~\newpage
 
+\listoftables
+
+~\newpage
+
+\listoffigures
+
+~\newpage
+
 \section*{Revision History}
 
 \begin{table}[H]
@@ -228,6 +236,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/186}{Added Canadian Equivalent to HIPAA (PHIPA and PIPEDA)}
       \end{itemize} \\
+      03/23/25 & 2.10 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/187}{Added Symbolic Parameters appendix and removed all 'magic numbers'}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -380,17 +392,17 @@ N/A\\
   \item[] Fit Criterion: The platform must require secure authentication of all users, and testing must confirm there are no unauthorized access vulnerabilities found before deployment.
   \item[3.1.4] The system must be capable of scaling to accommodate an increasing number of users and growing data storage needs as the client expands.
   \item[] Rationale: Scalability ensures the system can handle future growth without degrading performance
-  \item[] Fit Criterion: Load testing must demonstrate the system can support 200 concurrent users without performance degradation
-  \item[3.1.5] The platform must support assessment sessions of up to at least 30 minutes to align with standard telehealth consultation times.
+  \item[] Fit Criterion: Load testing must demonstrate the system can support NUMBER\_CONCURRENT\_USERS concurrent users without performance degradation
+  \item[3.1.5] The platform must support assessment sessions of up to at least\\ TIME\_WO\_INTERUPPTIONS minutes to align with standard telehealth consultation times.
   \item[] Rationale: Telehealth sessions often last for extended periods of time, the platform should maintain uninterrupted functionality.
-  \item[] Fit Criterion: System testing must confirm that the platform can maintain video and audio recordings for at least 30 minutes without any interruptions or crashes.
+  \item[] Fit Criterion: System testing must confirm that the platform can maintain video and audio recordings for at least TIME\_WO\_INTERUPPTIONS minutes without any interruptions or crashes.
   \item[3.1.6] The platform must support adaptable video and audio quality based on internet bandwidth, ensuring clarity and reliability during assessments.
   \item[] Rationale: A smooth and consistent performance improves user experience.
-  \item[] Fit Criterion: Testing must confirm that video and audio streams automatically adjust quality within a bandwidth range of 0.5 Mbps to 5 Mbps without freezing or loss of synchronization.
+  \item[] Fit Criterion: Testing must confirm that video and audio streams automatically adjust quality within a bandwidth range of BANDWITH\_LOWER Mbps to BANDWITH\_HIGHER Mbps without freezing or loss of synchronization.
   \item[3.1.7] The platform must comply with WCAG 2.1 accessibility standards, making it accessible to users with varying needs \cite{wcag}.
   \item[] Rationale: The project is focused around children with speech difficulties, meeting accessibility standards is necessary to ensure the platform is usable by the user base.
   \item[] Fit Criterion: A WCAG compliance audit must confirm adherence to at least Level AA standards.
-  \item[3.1.8] Patient records must be retained for a minimum of 7 years from the last visit or at least 1 year after the patient turns 18, whichever is 
+  \item[3.1.8] Patient records must be retained for a minimum of MIN\_YEARS years from the last visit or at least NUM\_YEARS\_AFTER year after the patient turns MIN\_AGE, whichever is 
   longer, in accordance with California law \cite{californialaw}.
   \item[] Rationale: Keeping records for the specified duration ensures compliance with legal obligations and supports continuous care.
   \item[] Fit Criterion: System audits must confirm patient records are kept for the required amount of time and the data can be archived securely beyond the active period
@@ -403,7 +415,7 @@ N/A\\
   \item[3.2.2] The development framework must support scalable, secure, and efficient web application development, compatible with existing technical 
   infrastructure.
   \item[] Rationale: A compatible framework is important to ensure scalability and security, and also reduces technical overhead.
-  \item[] Fit Criterion: The website must achieve a response time of less than 300ms for 95\% of requests and pass security evaluations with no more than one low severity vulnerability identified during testing.
+  \item[] Fit Criterion: The website must achieve a response time of less than RESPONSE\_TIME ms for PERCENTAGE\_REQUESTS\% of requests and pass security evaluations with no more than NUM\_VULNERABILITIES low severity vulnerability identified during testing.
 \end{itemize}
 \subsection{Partner or Collaborative Applications}
 \begin{itemize}
@@ -420,7 +432,7 @@ N/A\\
 \begin{itemize}
   \item[3.5.1] The platform must be compatible across a range of devices, including desktops, tablets, and mobile phones.
   \item[] Rationale: Device compatibility ensures users can access the platform from their preferred device, enhancing accessibility and convenience.
-  \item[] Fit Criterion: Testing must confirm that the platform is fully functional and displays correctly on devices with screen sizes ranging from 4” to 27”.
+  \item[] Fit Criterion: Testing must confirm that the platform is fully functional and displays correctly on devices with screen sizes ranging from MIN\_DEVICE\_SIZE to MAX\_DEVICE\_SIZE.
 \end{itemize}
 \subsection{Schedule Constraints}
 \begin{itemize}
@@ -436,9 +448,9 @@ N/A\\
 \end{itemize}
 \subsection{Budget Constraints}
 \begin{itemize}
-  \item[3.7.1] The project budget must not exceed \$750 CAD. 
+  \item[3.7.1] The project budget must not exceed BUDGET\_VALUE CAD. 
   \item[] Rationale: Staying within budget ensures the project remains financially feasible.
-  \item[] Fit Criterion: Financial tracking must confirm that total expenses do not exceed \$750 CAD throughout the project lifecycle.
+  \item[] Fit Criterion: Financial tracking must confirm that total expenses do not exceed BUDGET\_VALUE CAD throughout the project lifecycle.
 \end{itemize}
 \subsection{Enterprise Constraints}
 \begin{itemize}
@@ -488,7 +500,7 @@ involved in the Project}
 \subsection{Business Rules}
 \begin{itemize}
   \item[5.2.1] Only authorized users (clinicians) can access patient data.
-  \item[5.2.2] Patient records must be retained for at least 7 years from the last visit, or 1 year after the patient turns 18, whichever is longer, 
+  \item[5.2.2] Patient records must be retained for at least MIN\_YEARS years from the last visit, or NUM\_YEARS\_AFTER year after the patient turns MIN\_AGE, whichever is longer, 
   to comply with California state law.
   \item[5.2.3] The platform must comply with WCAG 2.1 to ensure it is accessible to users with disabilities \cite{wcag}.
   \item[5.2.4] All patient data must be encrypted both in transit and at rest to maintain confidentiality and meet regulatory standards.
@@ -502,7 +514,7 @@ involved in the Project}
   \item[5.3.2] All patient data will be stored on servers located in regions that comply with healthcare data residency regulations.
   \item[5.3.3] The platform is assumed to be accessible from various devices with working microphone and camera, though it may perform optimally on 
   desktops.
-  \item[5.3.4] Assessments will not exceed 30 minutes per session to fit standard telehealth assessment times.
+  \item[5.3.4] Assessments will not exceed ASSESSMENT\_DURATION minutes per session to fit standard telehealth assessment times.
   \item[5.3.5] It is assumed that users (both clinicians and patients) have a basic level of comfort with using web applications and online 
   communication tools.
   \item[5.3.6] The platform may need to accommodate additional users and storage demands as the client scales its telehealth services over time.
@@ -1138,7 +1150,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Rationale: }These file types are necessary to capture the full scope of the speech-language assessment, 
   including patient responses and the structured data associated with each session (e.g., flagged occurrences, 
   timestamps).\\
-  \textbf{Fit criterion: }The system must successfully store and retrieve at least 1GB of video, audio, and JSON 
+  \textbf{Fit criterion: }The system must successfully store and retrieve at least MIN\_MEDIA\_SIZE GB of video, audio, and JSON 
   data per session without data corruption.
 \end{enumerate}
 \begin{enumerate}[label={FR-DSC}2. ]
@@ -1146,7 +1158,7 @@ assessment and details such as the related assessment question, answer, and time
   during the assessment), and timestamps for each question during the assessment.\\
  \textbf{Rationale: }Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
  of patient responses and enables them to review specific moments of interest efficiently.\\
- \textbf{Fit criterion: }The database shall include video and audio files for 100 percent of assessment sessions,
+ \textbf{Fit criterion: }The database shall include video and audio files for PERCENTAGE\_OF\_ASSESSMENTS percent of assessment sessions,
   and each recording must have flagged occurrences and timestamps associated with every question asked, 
   retrievable via query.
 \end{enumerate}
@@ -1155,7 +1167,7 @@ assessment and details such as the related assessment question, answer, and time
   or medical record number) in the database.\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
   PHIPA and PIPEDA identifying textual information must be excluded from storage in the database \cite{hipaa}.\\
-  \textbf{Fit criterion: }An automated process shall verify and confirm that 100\% of records in the database 
+  \textbf{Fit criterion: }An automated process shall verify and confirm that PERCENTAGE\_OF\_ASSESSMENTS of records in the database 
   accessible by clinicians are anonymized and contain no identifying textual information.
 \end{enumerate}
 \begin{enumerate}[label={FR-DSC}4. ]
@@ -1164,7 +1176,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
   compromising patient privacy, supporting the requirement for anonymized data storage.\\
   \textbf{Fit criterion: }The system must assign a unique identifier to every user and confirm through testing 
-  that 100\% of session data is properly grouped and retrievable under that identifier, with no unassociated 
+  that PERCENTAGE\_OF\_ASSESSMENTS of session data is properly grouped and retrievable under that identifier, with no unassociated 
   data.
 \end{enumerate}
 \begin{enumerate}[label={FR-DSC}5. ]
@@ -1178,7 +1190,7 @@ assessment and details such as the related assessment question, answer, and time
   \item The analysis model shall have access to the video and audio recordings of each session.\\
   \textbf{Rationale: }The data contains essential visual and auditory information that can help clinicians 
   efficiently assess any speech-related disturbances and non-verbal cues.\\
-  \textbf{Fit criterion: }The model must successfully retrieve and process video data from 100\% of 
+  \textbf{Fit criterion: }The model must successfully retrieve and process video data from PERCENTAGE\_OF\_ASSESSMENTS of 
   completed assessment sessions without encountering data access errors.
 \end{enumerate}
 \begin{enumerate}[label={FR-VADA}2. ]
@@ -1186,7 +1198,7 @@ assessment and details such as the related assessment question, answer, and time
   assistance on the assessment, or other irregularities in the background.\\
   \textbf{Rationale: }Detecting disturbances is critical for accurate assessment of speech disorders without 
   bias so that clinicians and speech language pathologists can accurately provide diagnosis and treatment.\\
-  \textbf{Fit criterion: }The model must accurately identify and log at least 95\% of speech disturbances 
+  \textbf{Fit criterion: }The model must accurately identify and log at least VERY\_HIGH\_SUCCESS\_RATE of speech disturbances 
   from a set of test videos, validated against human observations.
 \end{enumerate}
 \begin{enumerate}[label={FR-VADA}3. ]
@@ -1195,29 +1207,29 @@ assessment and details such as the related assessment question, answer, and time
   speech-language pathologists to quickly review the relevant portions of the assessment, reducing the time needed 
   for manual analysis.\\
   \textbf{Fit criterion: }For each session, the model must accurately attach timestamps, the question and the user answer to disturbances
-  identified in VADA2 with at least 95\% accuracy.
+  identified in VADA2 with at least VERY\_HIGH\_SUCCESS\_RATE accuracy.
 \end{enumerate}
 
 \subsection{Data Processing and Display}
 \begin{enumerate}[label={FR-DPD}1. ]
   \item The system shall retrieve processed assessment results from the database for report generation.\\
   \textbf{Rationale: }In order to generate reports, the system must access and extract the necessary data from the database, ensuring that all relevant assessment information is included.\\
-  \textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within 10 seconds of a query being made.
+  \textbf{Fit criterion: }The system shall successfully retrieve all assessment data without errors within MAX\_PROCESSING\_TIME seconds of a query being made.
 \end{enumerate}
 \begin{enumerate}[label={FR-DPD}2. ]
   \item The system shall generate a comprehensive report based on the retrieved assessment data, including flagged occurrences, timestamps, and patient performance metrics.\\
   \textbf{Rationale: }Automatically generating a report provides a streamlined process for clinicians to review the patient’s performance, saving time on manual data compilation.\\
-  \textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within 10 seconds of the request.
+  \textbf{Fit criterion: }The report must include all of the required data for each session, and must be generated within MAX\_PROCESSING\_TIME seconds of the request.
 \end{enumerate}
 \begin{enumerate}[label={FR-DPD}3. ]
   \item The system shall display the generated report through the platform’s interface.\\
   \textbf{Rationale: }Clinicians need to be able to view and interpret the report to assess patient progress to determine next steps for the patient.\\
-  \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within 10 seconds.
+  \textbf{Fit criterion: }The report must be displayed within the clinician's dashboard, formatted with charts and tables where applicable, and fully load within MAX\_PROCESSING\_TIME seconds.
 \end{enumerate}
 \begin{enumerate}[label={FR-DPD}4. ]
   \item Clinicians shall be able to access previously generated reports from the database.\\
   \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
-  \textbf{Fit criterion: }Clinicians must be able to access 100\% of stored reports within 10 seconds.  
+  \textbf{Fit criterion: }Clinicians must be able to access PERCENTAGE\_OF\_ASSESSMENTS of stored reports within MAX\_PROCESSING\_TIME seconds.  
 \end{enumerate}
 
 \newpage
@@ -1245,7 +1257,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={LF-AR}2. ]
   \item The platform’s navigation should be intuitive and allow users to quickly understand how to move between different sections.\\
   \textbf{Rationale: }Simple, user-friendly navigation ensures that users can move through the system without confusion, especially since the platform will be used by both children and adults.\\
-  \textbf{Fit criterion: }During user testing, at least 95\% of participants must successfully complete navigation-related tasks without external guidance.  
+  \textbf{Fit criterion: }During user testing, at least VERY\_HIGH\_SUCCESS\_RATE of participants must successfully complete navigation-related tasks without external guidance.  
 \end{enumerate}
 \begin{enumerate}[label={LF-AR}3. ]
   \item The design should promote a calm and reassuring environment that is visually appealing but not overstimulating.\\
@@ -1255,31 +1267,31 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={LF-AR}4. ]
   \item The assessment interface should be designed to be easily understood by children, with accessible and age-appropriate elements.\\
   \textbf{Rationale: }A simple design tailored to children’s comprehension levels ensures they can participate in the assessment without confusion or frustration.\\
-  \textbf{Fit criterion: }In user testing, 95\% of children aged 6-12 must be able to complete a sample assessment without adult assistance.  
+  \textbf{Fit criterion: }In user testing, VERY\_HIGH\_SUCCESS\_RATE of children aged MF1IN\_AGE\_RANGE - MAX\_AGE\_RANGE must be able to complete a sample assessment without adult assistance.  
 \end{enumerate}
 \begin{enumerate}[label={LF-AR}5. ]
   \item The platform should provide immediate feedback for user interactions, confirming that inputs have been registered.\\
   \textbf{Rationale: }Feedback is important to confirm that the system is responding to user inputs, which is especially critical for children who may be unsure if their actions have been registered.\\
-  \textbf{Fit criterion: }100\% of user interactions must trigger an appropriate feedback response within 0.5 seconds.  
+  \textbf{Fit criterion: }PERCENTAGE\_OF\_ASSESSMENTS of user interactions must trigger an appropriate feedback response within\\ SHORT\_PROCESSING\_TIME seconds.  
 \end{enumerate}
 
 \subsection{Style Requirements}
 \begin{enumerate}[label={LF-SR}1. ]
   \item The design should maintain consistency across all pages to create a cohesive user experience.\\
   \textbf{Rationale: }Consistency in design elements helps reduce user confusion, making the platform easier to navigate and more aesthetically pleasing.\\
-  \textbf{Fit criterion: }All visual elements must adhere to a style guide, ensuring a consistent look across 100\% of the platform’s pages.  
+  \textbf{Fit criterion: }All visual elements must adhere to a style guide, ensuring a consistent look across PERCENTAGE\_OF\_ASSESSMENTS of the platform’s pages.  
 \end{enumerate}
 \begin{enumerate}[label={LF-SR}2. ]
   \item The design should align with the client's established company brand guidelines, including the use of specific colors, logos, or fonts.\\
   \textbf{Rationale: }Aligning with brand guidelines ensures that the platform reflects the client's professional image and maintains brand integrity.\\
-  \textbf{Fit criterion: }100\% of the platform’s design elements must comply with the client’s branding guidelines.  
+  \textbf{Fit criterion: }PERCENTAGE\_OF\_ASSESSMENTS of the platform’s design elements must comply with the client’s branding guidelines.  
 \end{enumerate}
 
 \newpage
 
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements} 
-\begin{enumerate}[label={UH-EOU}1. ]
+\begin{enumerate}[label={UH-EOU\arabic*}. ]
   \item The system shall be intuitive for new users to understand.\\
   \textbf{Rationale: }New users should not be overwhelmed with the system. New users must be able to understand the system to effectively perform the assessment (parents and children), or view the results (clinicians).\\
   \textbf{Fit criterion: }The duration between starting the assessment to finishing the first question is less than 2 minutes.
@@ -1288,13 +1300,13 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system will direct the user to additional information prior to starting the setup process, and upon completion of the assessment.
 \end{enumerate}
 \subsection{Personalization and Internationalization Requirements}
-\begin{enumerate}[label={UH-PI}1. ]
+\begin{enumerate}[label={UH-PI\arabic*}. ]
   \item The system shall support multiple languages.\\
   \textbf{Rationale: }The assessment must be conducted in two languages for the purpose of the research study. As well, it would be beneficial for parents and children to navigate the system in their preferred language.\\
   \textbf{Fit criterion: }The assessment will always be available to be conducted in two different languages (within a single assessment).
 \end{enumerate}
 \subsection{Learning Requirements}
-\begin{enumerate}[label={UH-LI}1. ]
+\begin{enumerate}[label={UH-LI\arabic*}. ]
   \item The system shall not require additional resources to be navigated.\\
   \textbf{Rationale: }The system should be intuitive to navigate without additional information to simplify the assessment process.\\
   \textbf{Fit criterion: }All information required for the assessment will be directly displayed by the system.
@@ -1303,14 +1315,14 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }User documentation will be provided on the team's GitHub upon project completion.
 \end{enumerate}
 \subsection{Understandability and Politeness Requirements}
-\begin{enumerate}[label={UH-UP}1. ]
+\begin{enumerate}[label={UH-UP\arabic*}. ]
   \item The system will not use technical language when displaying information to the user.\\
   \textbf{Rationale: }The system will be designed for parents and children to participate in assessments, thus the system should make information easily understandable.\\
   As well, clinicians may not have a technological background, so any technical aspects should be communicated in easy to understand terms.\\
   \textbf{Fit criterion: }The system will be reviewed by the team's supervisor and their collaborator to verify all language used is appropriate for users.
 \end{enumerate}
 \subsection{Accessibility Requirements}
-\begin{enumerate}[label={UH-AR}1. ]
+\begin{enumerate}[label={UH-AR\arabic*}. ]
   \item The system shall be simple and intuitive for assessment interactions with children.\\
   \textbf{Rationale: }Children interacting with the assessment can vary in age and cognitive abilities. To get reliable assessment results, the children participating must understand the system they interact with.\\
   \textbf{Fit criterion: }The assessment will feature minimal display elements, with clear indication of interactions.
@@ -1321,24 +1333,24 @@ The success of the system is dependent on the parent-child correctly using the i
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}[label={PR-SL}1. ]
-  \item The system shall load web pages within 3 seconds of navigating to it.\\
+  \item The system shall load web pages within MAX\_LOAD\_TIME seconds of navigating to it.\\
   \textbf{Rationale: }Fast page loading is critical for maintaining user engagement and reducing user frustrations during the assessment process.\\
-  \textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the 3 seconds of navigation on a standard broadband internet connection.  
+  \textbf{Fit criterion: }The web pages must completely be loaded with all functionalities within the MAX\_LOAD\_TIME seconds of navigation on a standard broadband internet connection.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}2. ]
-  \item The system must maintain video and audio recording latency of less than 1 second to support accurate data capture for speech assessment.\\
+  \item The system must maintain video and audio recording latency of less than LATENCY\_TIME second to support accurate data capture for speech assessment.\\
   \textbf{Rationale: }Having high latency could lead to desynchronization between audio and video, causing errors in the timestamps or making it difficult for speech-language pathologists (SLPs) to analyze the recordings properly.\\
-  \textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed 1 second.  
+  \textbf{Fit criterion: }The difference between a user's actions and the corresponding recording playback should not exceed LATENCY\_TIME second.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}3. ]
-  \item The system must ensure that all video recordings are capture and stored in a resolution of at least 720p.\\
-  \textbf{Rationale: }A minimum resolution of 720p is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
-  \textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of 720p.
+  \item The system must ensure that all video recordings are capture and stored in a resolution of at least AVERAGE\_RESOLUTION.\\
+  \textbf{Rationale: }A minimum resolution of AVERAGE\_RESOLUTION is necessary to ensure the video can be accurately processed through visual analysis tools. Lower resolutions may not capture sufficient detail, potentially leading to skewed data and inaccurate assessments for clinicians.\\
+  \textbf{Fit criterion: }All video's captured and processed must have a minimum resusoltion of AVERAGE\_RESOLUTION.
 \end{enumerate}
 \begin{enumerate}[label={PR-SL}4. ]
-  \item The system must process the data from a session and generate a report within 10 seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
-  \textbf{Rationale: }Generating the assessment reports for clinicians under 10 seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
-  \textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within 10 seconds  
+  \item The system must process the data from a session and generate a report within MAX\_PROCESSING\_TIME seconds, ensuring quick feedback to users (this requirement is satisfied when FR-DPD2 is fulfilled).\\
+  \textbf{Rationale: }Generating the assessment reports for clinicians under MAX\_PROCESSING\_TIME seconds is essential for maintaining a smooth workflow. Long delays in report generation could cause unnecessary waiting times and reduce the system's perceived efficiency and user engagement.\\
+  \textbf{Fit criterion: }Upon request by clinician, the system must generate a comprehensive report of a the sessions requested within\\ MAX\_PROCESSING\_TIME seconds  
 \end{enumerate}
 
 \subsection{Safety-Critical Requirements}
@@ -1348,28 +1360,28 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \subsection{Precision or Accuracy Requirements}
 \begin{enumerate}[label={PR-PA}1. ]
-  \item The system must achieve a audio analysis accuracy of at least 95\% to ensure reliable assessment results for clinicians.\\
+  \item The system must achieve a audio analysis accuracy of at least\\ VERY\_HIGH\_SUCCESS\_RATE to ensure reliable assessment results for clinicians.\\
   \textbf{Rationale: }It is imporant that the audio analysis accuracy has a high percision rate. Without this level of percision, clinicians could 
   be mislead by inaccurate results affecting the quality of diagnosis and subsequent treatment.\\
-  \textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of 95\%.  
+  \textbf{Fit criterion: }The speech analysis results will consistently reflect a minimum accuracy rate of VERY\_HIGH\_SUCCESS\_RATE.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}2. ]
-  \item The system must detect video disturbances with an accuracy of at least 90\% to minimize the impact of visual issues on the assessment data.\\
-  \textbf{Rationale: }Detecting video disturbances with 90\% accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
-  \textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed 90\%.  
+  \item The system must detect video disturbances with an accuracy of at least HIGH\_SUCCESS\_RATE to minimize the impact of visual issues on the assessment data.\\
+  \textbf{Rationale: }Detecting video disturbances with HIGH\_SUCCESS\_RATE accuracy ensures that visual data remains reliable and helps clinicians get accurate data.\\
+  \textbf{Fit criterion: }The system will report video disturbance detection rates that meet or exceed HIGH\_SUCCESS\_RATE.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}3. ]
-  \item The system must ensure that timestamp accuracy is within 1 second to align recorded events with real-time actions for precise analysis.\\
-  \textbf{Rationale: }Timestamp accuracy within 1 second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
-  \textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a 1-second window, verifying that all events are accurately synchronized.  
+  \item The system must ensure that timestamp accuracy is within LATENCY\_TIME second to align recorded events with real-time actions for precise analysis.\\
+  \textbf{Rationale: }Timestamp accuracy within LATENCY\_TIME second ensures that all speech and video events are synchronized precisely, which is essential for accurate analysis of the timing and sequence of interactions. A larger discrepancy could result in data misalignment, skewing the overall assessment and potentially missing critical events.\\
+  \textbf{Fit criterion: }Timestamps recorded during assessments will consistently align within a LATENCY\_TIME second window, verifying that all events are accurately synchronized.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}4. ]
-  \item The system must guarantee 100\% accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
+  \item The system must guarantee PERCENTAGE\_OF\_ASSESSMENTS accuracy in the assessment answer key to ensure correct evaluation of responses provided by users.\\
   \textbf{Rationale: }Any errors in the answer key could lead to misinterpretation of a child’s abilities or progress, undermining the purpose of the assessment.\\
   \textbf{Fit criterion: }The assessment answer key will be manually be verified to ensure that ti contatins no inaccuracies, ensuring complete correctness of answers.  
 \end{enumerate}
 \begin{enumerate}[label={PR-PA}5. ]
-  \item The system must ensure that all questions are 100\% relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
+  \item The system must ensure that all questions are PERCENTAGE\_OF\_ASSESSMENTS relevant to the purpose of the platform to maintain focus on accurate speech and language assessment.\\
   \textbf{Rationale: }Ensuring that all questions are fully relevant to the platform’s purpose guarantees that the assessment focuses only on aspects critical to speech and language development. Irrelevant questions could confuse users and divert attention from important areas.\\
   \textbf{Fit criterion: }All assessment questions will be manual reviewed to confirm that they align perfectly with the platform's objectives.  
 \end{enumerate}
@@ -1378,39 +1390,39 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={PR-RFT}1. ]
   \item The system must manage any technical errors effectively and provide clear feedback to users when issues occur.\\
   \textbf{Rationale: }Proper error handling prevents user confusion and improves the user experience. Without it, users may not understand if something is wrong or why the system is not working as they expect, leading to frustration.\\
-  \textbf{Fit criterion: }The system must display error messages for at least 95\% of common user errors.  
+  \textbf{Fit criterion: }The system must display error messages for at least VERY\_HIGH\_SUCCESS\_RATE of common user errors.  
 \end{enumerate}
 \begin{enumerate}[label={PR-RFT}2. ]
   \item The system must implement data backup and recovery processes to protect user data and assessment results.\\
   \textbf{Rationale: }Effective backup and recovery ensure that user data is not lost during a system failure. Data loss could disrupt assessments and treatment plans.\\
-  \textbf{Fit criterion: }The system must back up data on the first of every month within a 4hr timeframe.  
+  \textbf{Fit criterion: }The system must back up data on the first of every month within a UPLOAD\_TIMEFRAME timeframe.  
 \end{enumerate}
 \begin{enumerate}[label={PR-RFT}3. ]
   \item The system must validate inputs to accept only specified formats during user interactions.\\
   \textbf{Rationale: }Strict input validation prevents errors and enhances data integrity. It also protects the system from malicious inputs that could cause issues.\\
-  \textbf{Fit criterion: }The system must reject 100\% of invalid inputs and display appropriate error messages to users.  
+  \textbf{Fit criterion: }The system must reject PERCENTAGE\_OF\_ASSESSMENTS of invalid inputs and display appropriate error messages to users.  
 \end{enumerate}
 
 \subsection{Capacity Requirements}
 \begin{enumerate}[label={PR-CR}1. ]
-  \item The system must accommodate a minimum of 2000 user accounts at launch.\\
-  \textbf{Rationale: }Supporting at least 2000 user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
-  \textbf{Fit criterion: }The system must successfully manage 2000 user accounts at deployment without stability issues.  
+  \item The system must accommodate a minimum of MIN\_USER\_ACCOUNTS user accounts at launch.\\
+  \textbf{Rationale: }Supporting at least MIN\_USER\_ACCOUNTS user accounts ensures the system meets initial demand and allows for growth in user adoption.\\
+  \textbf{Fit criterion: }The system must successfully manage MIN\_USER\_ACCOUNTS user accounts at deployment without stability issues.  
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}2. ]
-  \item The system must have the capacity to store a minimum of 10TB of data each year.\\
-  \textbf{Rationale: }Storing 10TB of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
-  \textbf{Fit criterion: }The database must have 10TB of allocated space at the start of every year.  
+  \item The system must have the capacity to store a minimum of SYSTEM\_CAPACITY of data each year.\\
+  \textbf{Rationale: }Storing SYSTEM\_CAPACITY of data annually ensures that all user data and assessment results are preserved and accessible for analysis and reporting. This capacity is essential for maintaining comprehensive records over time.\\
+  \textbf{Fit criterion: }The database must have SYSTEM\_CAPACITY of allocated space at the start of every year.  
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}3. ]
-  \item The system must support a minimum of 200 concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
-  \textbf{Rationale: }Supporting 200 concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
-  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 200 concurrent users.  
+  \item The system must support a minimum of NUMBER\_CONCURRENT\_USERS concurrent users simultaneously upon initial release, and have the capability to scale to accommodate more users as demand increases.\\
+  \textbf{Rationale: }Supporting NUMBER\_CONCURRENT\_USERS concurrent users is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting NUMBER\_CONCURRENT\_USERS concurrent users.  
 \end{enumerate}
 \begin{enumerate}[label={PR-CR}4. ]
-  \item The system must support a minimum of 100 concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
-  \textbf{Rationale: }Supporting 100 concurrent user uploads is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
-  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting 100 concurrent uploads.  
+  \item The system must support a minimum of NUM\_CONCURRENT\_VIDEOS concurrent video and audio recording uploads simultaneously and have the capability to scale to accommodate more users as demand increases.\\
+  \textbf{Rationale: }Supporting NUM\_CONCURRENT\_VIDEOS concurrent user uploads is necessary to handle peak usage times effectively. The ability to scale ensures that performance remains stable as user demand grows.\\
+  \textbf{Fit criterion: }The system must maintain stable performance levels (e.g throughput, error rate) while supporting NUM\_CONCURRENT\_VIDEOS concurrent uploads.  
 \end{enumerate}
 
 \newpage
@@ -1419,24 +1431,24 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={PR-SE}1. ]
   \item The system must support the addition of new user accounts without compromising performance.\\
   \textbf{Rationale: }User scalability is essential to accommodate growth in the user base and ensure consistent performance as more users engage with the platform.\\
-  \textbf{Fit criterion: }The system must effectively manage a user base increase of at least 10\% annually while maintaining performance metrics defined in the capacity requirements.  
+  \textbf{Fit criterion: }The system must effectively manage a user base increase of at least DATA\_INCREASE\% annually while maintaining performance metrics defined in the capacity requirements.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SE}2. ]
   \item The system must handle increasing volumes of data without loss of performance or data integrity.\\
   \textbf{Rationale: }Data scalability ensures that as the volume of stored data grows, the system can still process, retrieve, and manage this data efficiently. This is crucial for maintaining system reliability and providing accurate insights from the collected data.\\
-  \textbf{Fit criterion: }The system must manage a data increase of at least 10\% annually.  
+  \textbf{Fit criterion: }The system must manage a data increase of at least DATA\_INCREASE\% annually.  
 \end{enumerate}
 \begin{enumerate}[label={PR-SE}3. ]
   \item The system must expand processing capabilities to handle increased computational demands.\\
   \textbf{Rationale: }Processing scalability is vital for ensuring that the system can efficiently perform analyses and computations as the number of users or the complexity of tasks increases. This prevents bottlenecks in data processing and ensures timely results for clinicians.\\
-  \textbf{Fit criterion: }The system must increase data processing capacity by at least 2\% without impacting response times for data processing tasks.  
+  \textbf{Fit criterion: }The system must increase data processing capacity by at least DATA\_CAPACITY\_INCREASE\% without impacting response times for data processing tasks.  
 \end{enumerate}
 
 \subsection{Longevity Requirements}
 \begin{enumerate}[label={PR-LR}1. ]
   \item The system must function reliably without significant malfunctions in the release build, even as further development and updates are implemented.\\
   \textbf{Rationale: }Ensuring stability during ongoing development is crucial to maintain user trust and provide uninterrupted service. Any major malfunctions could lead to user frustration and potential loss of users, impacting the system's reputation.\\
-  \textbf{Fit criterion: }The system must demonstrate a failure rate of less than 1\% in the release build during ongoing development, ensuring that users experience minimal disruptions.  
+  \textbf{Fit criterion: }The system must demonstrate a failure rate of less than LOW\_FAILURE\_RATE in the release build during ongoing development, ensuring that users experience minimal disruptions.  
 \end{enumerate}
 \begin{enumerate}[label={PR-LR}2. ]
   \item The system must be compatible with major operating systems, including Windows, macOS, Linux, Android, and iOS.\\
@@ -1448,13 +1460,13 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Operational and Environmental Requirements}
 \subsection{Expected Physical Environment}
-\begin{enumerate}[label={OE-EPE}1. ]
+\begin{enumerate}[label={OE-EPE\arabic*}. ]
   \item The system can be run on all browser-supported devices regardless of screen sizes.\\
   \textbf{Rationale: }The system will be run on a variety of devices through web browsers, and should adapt the different screen sizes so users get full functionality.\\
   \textbf{Fit criterion: }The system's displayed elements will scale appropriately to different screen sizes.
 \end{enumerate}
 \subsection{Wider Environment Requirements}
-\begin{enumerate}[label={OE-WE}1. ]
+\begin{enumerate}[label={OE-WE\arabic*}. ]
   \item The system shall be used in a quiet environment.\\
   \textbf{Rationale: }The system will be performing audio and video analysis, and conducting the assessment in a loud or busy environment could lead to unexpected results due to noise.\\
   \textbf{Fit criterion: }The system will inform the user, prior to setup, that the optimal experience for the assessment is in a quiet environment. 
@@ -1463,17 +1475,17 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }The system will be accessed online. The system will inform the user, prior to setup, that the assessment will be conducted online, and no files will be downloaded to their device for the assessment. 
 \end{enumerate}
 \subsection{Requirements for Interfacing with Adjacent Systems}
-\begin{enumerate}[label={OE-IA}1. ]
+\begin{enumerate}[label={OE-IA\arabic*}. ]
   \item The system shall be hosted on an external server for retrieving and storing data.\\
   \textbf{Rationale: }The supervisor's collaborator is running the current system on an external server, which the new system will utilize.\\
   \textbf{Fit criterion: }The system (including the assessment) will be published and accessed through the external server.
 \end{enumerate}
 \subsection{Productization Requirements}
-\begin{enumerate}[label={OE-PR}1. ]
+\begin{enumerate}[label={OE-PR\arabic*}. ]
   \item N/A
 \end{enumerate}
 \subsection{Release Requirements}
-\begin{enumerate}[label={OE-RR}1. ]
+\begin{enumerate}[label={OE-RR\arabic*}. ]
   \item N/A
 \end{enumerate}
 
@@ -1484,7 +1496,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={MS-MR}1. ]
   \item The platform should be built using a modular architecture so that individual components may be updated or replaced independently without disrupting the entire system.\\
   \textbf{Rationale: }Modular systems improve maintainbility by isolating changes to specific components, reducing downtime, and ensuring new features or bug fixes can be implemented seamlessly, without affecting the core functionality of the system.\\
-  \textbf{Fit criterion: }Any update, modification, or replacement of an individual component shall not require any changes to unrelated modules/components; no more than 1 configuration update to dependent components within a module; and have no downtime exceeding 5 minutes during initial deployment.
+  \textbf{Fit criterion: }Any update, modification, or replacement of an individual component shall not require any changes to unrelated modules/components; no more than NUM\_UPDATES configuration update to dependent components within a module; and have no downtime exceeding MAX\_DOWNTIME minutes during initial deployment.
 \end{enumerate}
 
 \subsection{Supportability Requirements}
@@ -1497,7 +1509,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={MS-SR}2. ]
   \item The platform should provide a comprehensive, easy-to-follow tutorial that guides users through the website and the assessment process.\\
   \textbf{Rationale: }Tutorials help users understand the functionality of the platform, reducing the need for external support and improving user experience, particularly for new users or children.\\
-  \textbf{Fit criterion: }The tutorial must be accessible from the homepage and should cover all core functionalities. In usability testing, 90\% of users should be able to complete tasks correctly after following the
+  \textbf{Fit criterion: }The tutorial must be accessible from the homepage and should cover all core functionalities. In usability testing, HIGH\_SUCCESS\_RATE of users should be able to complete tasks correctly after following the
    tutorial.
 \end{enumerate}
 
@@ -1507,7 +1519,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={MS-AR}1. ]
   \item The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
   \textbf{Rationale: }A responsive design ensures the platform is accessible on any device, providing a seamless user experience regardless of screen size or resolution.\\
-  \textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from 4” (mobile) to 27” (desktop) with no loss of functionality or readability. Testing must show that 100\% of essential 
+  \textbf{Fit criterion: }The platform’s interface should render correctly on screens ranging from MIN\_DEVICE\_SIZE (mobile) to MAX\_DEVICE\_SIZE (desktop) with no loss of functionality or readability. Testing must show that\\ PERCENTAGE\_OF\_ASSESSMENTS of essential 
   features are usable on all screen sizes.
 \end{enumerate}
 
@@ -1515,7 +1527,7 @@ The success of the system is dependent on the parent-child correctly using the i
 
 \section{Security Requirements}
 \subsection{Access Requirements}
-\begin{enumerate}[label={SR-AC}1. ]
+\begin{enumerate}[label={SR-AC\arabic*}. ]
   \item Only users with an Admin role can create and assign accounts to clinicians.\\
   \textbf{Rationale: }Full access of the system and permissions including creating clinician accounts should only be available to admin roles by the system. \\
   \textbf{Fit criterion: }Admin users will have full access to the system including create clinician accounts, viewing data records, and starting assessments. 
@@ -1530,11 +1542,11 @@ The success of the system is dependent on the parent-child correctly using the i
   \textbf{Fit criterion: }A user should not be able to login to an account they do not have the required credentials for.
 \end{enumerate}
 \subsection{Integrity Requirements}
-\begin{enumerate}[label={SR-INT}1. ]
+\begin{enumerate}[label={SR-INT\arabic*}. ]
   \item N/A
 \end{enumerate}
 \subsection{Privacy Requirements}
-\begin{enumerate}[label={SR-P}1. ]
+\begin{enumerate}[label={SR-P\arabic*.} ]
   \item The system shall adhere to all data protection and privacy laws in the region its used.\\
   \textbf{Rationale: }The system will respect the privacy and confidentiality of all users to adhere to all applicable protection laws.\\
   \textbf{Fit criterion: }The system will be reviewed prior to public release to ensure it follows all applicable protection laws
@@ -1564,13 +1576,13 @@ The success of the system is dependent on the parent-child correctly using the i
   \item The platform must not contain any language or imagery that could be considered culturally insensitive or offensive to any users, particularly the primary user groups.\\
   \textbf{Rationale: }Ensuring cultural sensitivity is critical in a healthcare setting, especially when working with diverse populations. Avoiding insensitive content fosters a respectful and inclusive environment 
   for users.\\
-  \textbf{Fit criterion: }During user acceptance testing and content review, 100\% of language and imagery used on the platform must be validated by at least 5 representatives of the primary user groups to ensure no instances of 
+  \textbf{Fit criterion: }During user acceptance testing and content review, PERCENTAGE\_OF\_ASSESSMENTS of language and imagery used on the platform must be validated by at least NUM\_REPS representatives of the primary user groups to ensure no instances of 
   insensitivity.
 \end{enumerate}
 \begin{enumerate}[label={CU-CR}2. ]
   \item The platform should be bilingual, supporting both English and Mandarin for all user interfaces and assessments to accommodate the language preferences of users.\\
   \textbf{Rationale: }Given that the target user base includes bilingual children, providing language options ensures accessibility and inclusivity, allowing users to complete assessments in their choice of language.\\
-  \textbf{Fit criterion: }100\% of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.  
+  \textbf{Fit criterion: }PERCENTAGE\_OF\_ASSESSMENTS of text, instructions, and assessments must be fully translated and accessible in both English and Mandarin, with no language discrepancies or untranslated segments.  
 \end{enumerate}
 
 \newpage
@@ -1921,6 +1933,92 @@ Implementation for components of Telehealth System
 \subitem Figma: Use to design User Interface 
 \subitem Expo: Javascript/React Integration to allow for web-based and mobile-based support over cross-platforms
 \end{itemize}
+
+\newpage
+
+\section*{Appendix - Symbolic Parameters}
+
+The definition of the functional and non-functional requirements calls for SYMBOLIC\_CONSTANTS.
+Their values are defined in Table \ref{tab:variables} for easy maintenance.
+
+\begin{table}[H]
+  \centering
+  \caption{Variable Names and Values}
+  \label{tab:variables}
+  \begin{tabular}{|c|c|}
+      \hline
+      \textbf{Variable Name} & \textbf{Value} \\
+      \hline
+      NUMBER\_CONCURRENT\_USERS & 200 \\
+      \hline
+      TIME\_WO\_INTERUPPTIONS & 30 \\
+      \hline
+      BANDWITH\_LOWER & 0.5 Mbps \\
+      \hline
+      BANDWITH\_HIGHER & 5 Mbps \\
+      \hline
+      RESPONSE\_TIME & 300 ms \\
+      \hline
+      PERCENTAGE\_REQUESTS & 95\% \\
+      \hline
+      BUDGET\_VALUE & \$750 \\
+      \hline
+      ASSESSMENT\_DURATION & 30 minutes \\
+      \hline
+      PERCENTAGE\_OF\_ASSESSMENTS & 100\% \\
+      \hline
+      NUM\_CONCURRENT\_VIDEOS & 100 \\
+      \hline
+      MIN\_USER\_ACCOUNTS & 2000 \\
+      \hline
+      SYSTEM\_CAPACITY & 10 TB \\
+      \hline
+      DATA\_INCREASE & 10\% \\
+      \hline
+      DATA\_CAPACITY\_INCREASE & 2\% \\
+      \hline
+      MAX\_PROCESSING\_TIME & 10 seconds \\
+      \hline
+      SHORT\_PROCESSING\_TIME & 0.5 seconds \\
+      \hline
+      AVERAGE\_RESOLUTION & 720p \\
+      \hline
+      HIGH\_SUCCESS\_RATE & 90\% \\
+      \hline
+      MIN\_YEARS & 7 years \\
+      \hline
+      NUM\_YEARS\_AFTER & 1 year \\
+      \hline
+      MIN\_AGE & 18 \\
+      \hline
+      MIN\_MEDIA\_SIZE & 1 GB \\
+      \hline
+      MIN\_AGE\_RANGE & 6 \\
+      \hline
+      MAX\_AGE\_RANGE & 12 \\
+      \hline
+      LATENCY\_TIME & 1 second \\
+      \hline
+      LOW\_FAILURE\_RATE & 1\% \\
+      \hline
+      NUM\_VULNERABILITIES & 1 \\
+      \hline
+      NUM\_UPDATES & 1 \\
+      \hline
+      MIN\_DEVICE\_SIZE & 4'' \\
+      \hline
+      MAX\_DEVICE\_SIZE & 27'' \\
+      \hline
+      MAX\_LOAD\_TIME & 3 seconds \\
+      \hline
+      UPLOAD\_TIMEFRAME & 4 hours \\
+      \hline
+      MAX\_DOWNTIME & 5 minutes \\
+      \hline
+      NUM\_REPS & 5 \\
+      \hline
+  \end{tabular}
+\end{table}
 
 \newpage
 
