@@ -16,20 +16,21 @@
 
 \maketitle
 
+
 \begin{table}[hp]
-\caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{llX}
-\toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
-\midrule
-Sept 20 & Promish Kandel& - Added Initial problem statement\\
-Sept 22 & Promish Kandel & - Modified Problem, Added Goals, Inputs/Outputs, Environment\\
-Sept 23 & Promish Kandel & - Modified Goals, Added Challenge Level and Extras\\
-Sept 23 & Mitchell Weingust & - Proofread and Modified: Problem Statement, Goals, Stretch Goals, Challenge Level and Extras\\
-Spet 23 & Promish, Mitchell, Parisha and Jasmine & - Added Reflection\\
-Spet 23 & Promish, Mitchell, Parisha and Jasmine & - Final review\\
-\bottomrule
-\end{tabularx}
+    \caption{Revision History} \label{TblRevisionHistory}
+    \begin{tabularx}{\textwidth}{p{1.5cm}p{1cm}p{3.5cm}X}
+    \toprule {\textbf{Date}} & {\textbf{Vers.}} & {\textbf{Contributors}} & {\textbf{Notes}}\\
+    \midrule
+    09/20/2024 & 1.0 & Promish Kandel & Added Initial problem statement\\
+    09/22/2024 & 1.1 & Promish Kandel & Modified Problem, Added Goals, Inputs/Outputs, Environment\\
+    09/23/2024 & 1.2 & Promish Kandel & Modified Goals, Added Challenge Level and Extras\\
+    09/23/2024 & 1.3 & Mitchell Weingust & Proofread and Modified: Problem Statement, Goals, Stretch Goals, Challenge Level and Extras\\
+    09/23/2024 & 1.4 & Promish,Mitchell, Parisha, Jasmine & Added Reflection \\
+    09/23/2024 & 1.5 & Promish,Mitchell, Parisha, Jasmine & Final Review \\
+    03/23/2025 & 2.2 & Parisha Nizam & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/181}{Numbered Goals for Better Tracability Pg 3} \\
+    \bottomrule
+    \end{tabularx}
 \end{table}
 
 \section{Problem Statement}
@@ -85,40 +86,41 @@ Hardware required includes any personal computer or mobile device with:
 \end{itemize}
 
 \section{Goals}
-\begin{itemize}
-    \item Intuitive and helpful interface that can guide parents to effectively administer language tests.
+\begin{enumerate}
+    \item \textbf{Intuitive Parent Interface: }Intuitive and helpful interface that can guide parents to effectively administer language tests.
     \begin{itemize}
         \item The application should be easy to navigate with clear and meaningful symbols.
         It should also provide feedback so that end users are aware of their interactions being processed throughout the assessment.
     \end{itemize}
     
-    \item Engaging interface and interaction for children when taking the assessment.
+    \item \textbf{Engaging Child Interface: }Engaging interface and interaction for children when taking the assessment.
     \begin{itemize}
         \item The webpage should have a simple but visually appealing design to keep children engaged throughout the assessment.
         \item The webpage should have colours and images to attract attention to the assessment's questions and selections.
     \end{itemize}
     
-    \item Provide reliable assessment results for SLPs by capturing additional contextual data and preliminary analysis.
+    \item \textbf{Reliable SLP Assessment Results: }Provide reliable assessment results for SLPs by capturing additional contextual data and preliminary analysis.
     \begin{itemize}
         \item The application should provide additional information to SLPs to identify background interference and signs of bias or test complications.
         \item The application should filter out noise and be able to identify multiple users to detect additional guidance from others.
     \end{itemize}
-    \item Data security to ensure health/sensitive records are stored and accessed securely.
+    \item \textbf{Data Security: }Data security to ensure health/sensitive records are stored and accessed securely.
     \begin{itemize}
         \item The software should use a security protocol to store and retrieve sensitive data from a secure database.
     \end{itemize}
-    \item Provide cross-platform integration for different devices and screen sizes.
+    \item \textbf{Cross-Platform Integration: }Provide cross-platform integration for different devices and screen sizes.
     \begin{itemize}
         \item The webpage should be accessible for parents and children, regardless of the chosen device, by rendering correctly on all screen sizes and formats. 
     \end{itemize}
-\end{itemize}
+\end{enumerate}
 
 
 \section{Stretch Goals}
 \begin{itemize}
     \item Provide an interface for clinicians to analyze stored data.
     \begin{itemize}
-        \item The software should provide a web interface for clinicians to upload assessment results, for storing and analyzing data more efficiently.
+        \item The software should provide a web interface for clinicians to upload assessment results, for storing and analyzing data more efficiently.\\
+        \item This clinician dashboard should allow ability to view and grade assessment results
     \end{itemize}
 \end{itemize}
 
