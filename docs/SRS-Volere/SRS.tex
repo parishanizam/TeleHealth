@@ -240,6 +240,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/187}{Added Symbolic Parameters appendix and removed all 'magic numbers'}
       \end{itemize} \\
+      03/23/25 & 2.11 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/188}{Fixed table formatting: lines not going all the way to the horizontal oneslines not going all the way to the horizontal oneslines not going all the way to the horizontal ones}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -552,31 +556,31 @@ All incoming and outgoing data to and from the database will be processed throug
   \caption{Work Partitioning of BUC}
   \label{tab:work_partition_1}
   \begin{tabularx}{1.2\textwidth} { 
-     >{\raggedright\arraybackslash}X 
-    | >{\raggedright\arraybackslash}X 
-    | >{\raggedright\arraybackslash}X  }
-  \toprule
+     | >{\raggedright\arraybackslash}X 
+     | >{\raggedright\arraybackslash}X 
+     | >{\raggedright\arraybackslash}X | }
+  \hline
   \textbf{Event Name} & \textbf{Input/Output} & \textbf{Summary} \\
-  \midrule
+  \hline
   Provide Display Report & IN: Display Report & Give a report of all sessions\\ 
-  \midrule
-  Provide Assessment answer & IN: Completed Assessment & Give a list of all the answers picked for a current session assessment \\ 
-  \midrule
-  Provide Record Assessment & IN: Record Assessment & Give a video recording taken form the current assessment \\ 
-  \midrule
+  \hline
+  Provide Assessment Answer & IN: Completed Assessment & Give a list of all the answers picked for a current session assessment \\ 
+  \hline
+  Provide Record Assessment & IN: Record Assessment & Give a video recording taken from the current assessment \\ 
+  \hline
   Display Report & OUT: View Report  & Display report for all sessions when requested by clinician   \\ 
-  \midrule
+  \hline
   Store Video Recording & OUT: Video Recording  & Send video recording to be stored in the database \\
-  \midrule
-  Store Audio Recording & OUT: Audio Recording  & Send audio recoridng to be stored in the database \\
-  \midrule
+  \hline
+  Store Audio Recording & OUT: Audio Recording  & Send audio recording to be stored in the database \\
+  \hline
   Store Assessment Data & OUT: Assessment Data  & Send assessment data for the current session to be stored in the database \\
-  \midrule
-  Store User Profile Information& OUT: User Profile Information  & Send user profile information for the current user to be stored in the database \\
-  \midrule
-  Store Report Infromation & OUT: Store Report  & Send report information with timestamps to be stored in the database \\
-\bottomrule
-\end{tabularx}
+  \hline
+  Store User Profile Information & OUT: User Profile Information  & Send user profile information for the current user to be stored in the database \\
+  \hline
+  Store Report Information & OUT: Store Report  & Send report information with timestamps to be stored in the database \\
+  \hline
+  \end{tabularx}
 \end{table}
 
 \newpage
@@ -586,17 +590,17 @@ All incoming and outgoing data to and from the database will be processed throug
   \caption{Work Partitioning of BUC (Part 2)}
   \label{tab:work_partition_2}
   \begin{tabularx}{1.2\textwidth} { 
-     >{\raggedright\arraybackslash}X 
-    | >{\raggedright\arraybackslash}X 
-    | >{\raggedright\arraybackslash}X  }
-  \toprule
+     | >{\raggedright\arraybackslash}X 
+     | >{\raggedright\arraybackslash}X 
+     | >{\raggedright\arraybackslash}X | }
+  \hline
   \textbf{Event Name} & \textbf{Input/Output} & \textbf{Summary} \\
-  \midrule
+  \hline
   Do Video Analysis & IN: Assessment Data, Video Recording/ OUT: Analysis Results  & Given assessment data and video recording, analyze the data and send the results back\\
-  \midrule
-  Do Audio Analysis & IN: Assessment Data, Video Recording/OUT: Analysis Results & Given assessment data and video recorind, analyze the data and send the results back \\
-\bottomrule
-\end{tabularx}
+  \hline
+  Do Audio Analysis & IN: Assessment Data, Video Recording/ OUT: Analysis Results & Given assessment data and video recording, analyze the data and send the results back \\
+  \hline
+  \end{tabularx}
 \end{table}
 
 \subsection{Specifying a Business Use Case (BUC)}
