@@ -63,7 +63,7 @@ function ResultsList({
               key={index}
               questionNumber={index + 1}
               status={result.status} 
-              biasDetected={result.biasDetected}
+              biasDetected={result.bias_state}
               mark_state={result.mark_state}
               testType={testType}
               onClick={() => handleCardClick(result, index + 1)}
