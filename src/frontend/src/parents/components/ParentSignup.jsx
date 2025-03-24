@@ -126,7 +126,7 @@ function ParentSignUp() {
             id="securityCode"
             name="securityCode"
             type="text"
-            placeholder="Security Code"
+            placeholder="Client Number"
             value={formData.securityCode}
             onChange={handleChange}
             className="px-6 py-3 pr-12 w-full rounded-2xl border border-solid border-zinc-300"
@@ -137,7 +137,7 @@ function ParentSignUp() {
               <span className="font-bold text-xs">i</span>
             </div>
             <div className="hidden group-hover:block absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm p-2 rounded shadow-md w-80">
-              Security code should have been sent by your clinician.
+              Security code should have been sent by your clinician via email.
               <br />
               Please reach out if you do not have it.
             </div>
