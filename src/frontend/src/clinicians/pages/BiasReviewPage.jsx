@@ -315,7 +315,7 @@ function BiasReviewPage() {
             {biasState ? (
               <div className="text-red-500">
                 <button
-                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded"
+                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded hover:bg-pink-600 transition"
                   onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
                 >
                   {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}

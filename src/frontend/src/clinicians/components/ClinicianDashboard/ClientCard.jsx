@@ -15,7 +15,7 @@ export function ClientCard({ client }) {
 
   return (
     <div
-      className="flex justify-between items-center px-5 py-7 mt-2.5 bg-sky-400 rounded-xl gap-4 min-h-[101px] w-full max-w-[940px] cursor-pointer max-md:px-5"
+      className="flex justify-between items-center px-5 py-7 mt-2.5 bg-sky-400 rounded-xl gap-4 min-h-[101px] w-full max-w-[940px] cursor-pointer max-md:px-5 hover:bg-sky-500 transition"
       tabIndex={0}
       role="button"
       onClick={handleClick}
