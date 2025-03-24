@@ -55,7 +55,7 @@ function ResultsList({
   };
 
   return (
-    <div className="flex flex-col w-full max-w-lg text-3xl tracking-normal leading-10">
+    <div className="flex flex-col w-full text-3xl tracking-normal leading-10">
       <div className="h-[60vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
         {results.length > 0 ? (
           results.map((result, index) => (
