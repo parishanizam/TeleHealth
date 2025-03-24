@@ -53,19 +53,19 @@ const instructions = [
     number: 5,
     text: (
       <>
-        Press <span className="font-bold">Finish</span> to complete the test
+        Press <span className="font-bold">Submit</span> to complete the test
       </>
     ),
   },
 
-  {
-    number: 6,
-    text: (
-      <>
-        The first question of each test is a <span className="font-bold">Practice</span> Question. This will not impact your results
-      </>
-    ),
-  },
+  // {
+  //   number: 6,
+  //   text: (
+  //     <>
+  //       The first question of each test is a <span className="font-bold">Practice</span> Question. This will not impact your results
+  //     </>
+  //   ),
+  // },
 ];
 
 export default instructions;

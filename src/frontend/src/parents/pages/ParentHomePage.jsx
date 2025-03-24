@@ -37,13 +37,13 @@ function ParentHomePage() {
           <div className="flex flex-wrap gap-6 justify-start mt-6">
             <Link
               to="/parents/testselection"
-              className="px-6 py-3 bg-blue-700 text-white text-lg font-medium rounded-lg shadow-md hover:bg-slate-800 transition"
+              className="px-6 py-3 bg-blue-700 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-900 transition"
             >
               Start Assessment
             </Link>
             <Link
               to="/parents/ParentOverview"
-              className="px-6 py-3 bg-blue-400 text-white text-lg font-medium rounded-lg shadow-md hover:bg-indigo-800 transition"
+              className="px-6 py-3 bg-blue-400 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-900 transition"
             >
               View Results
             </Link>

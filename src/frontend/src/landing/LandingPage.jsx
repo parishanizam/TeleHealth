@@ -37,9 +37,9 @@ const LandingPage = () => {
     {/* Heading */}
     <h1 
       className="
-        text-4xl
+        text-5xl
         font-bold
-        mb-4
+        mb-3
       "
     >
       TeleHealth Insights
@@ -48,7 +48,7 @@ const LandingPage = () => {
     {/* Subheading */}
     <p 
       className="
-        text-lg
+        text-xl
         text-black
         mb-6
         max-w-[600px]

@@ -5,14 +5,14 @@ import React from 'react';
 export default function ConsentForm({ onConsent, onDecline }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
+      <div className="bg-white rounded-lg shadow-lg p-8 w-[600px] max-w-2xl">
         {/* Title */}
         <div className="mb-6 text-center">
           <h2 className="text-3xl font-bold">Recording Consent</h2>
         </div>
 
         {/* Text */}
-        <div className="mb-6 text-center text-xl leading-8">
+        <div className="mb-6 text-center text-xl leading-7">
           We kindly ask for your consent to record
           <br />
           video and audio. This recording may be
@@ -30,6 +30,10 @@ export default function ConsentForm({ onConsent, onDecline }) {
           Do you consent to the recording of
           <br />
           video and audio for this assessment?
+          <br /><br />
+          Recording audio is mandatory. 
+          <br /> 
+          If you would like to decline video, click I do not consent.
         </div>
 
         {/* Buttons */}

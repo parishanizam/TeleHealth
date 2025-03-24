@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Graph from "../components/ParentOverview/Graph";
 import { Results } from "../components/ParentOverview/Results";
 import { Header } from "../components/Header";
@@ -11,7 +10,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function ParentOverview() {
   const parent = useSelector((state) => state.parent.parentInfo);
-  const navigate = useNavigate();
 
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -76,7 +74,6 @@ function ParentOverview() {
   };
 
   return (
-    // CHANGED overflow-hidden to overflow-y-auto:
     <div className="flex flex-col h-screen px-6 pt-4 pb-6 bg-white max-md:pb-20 overflow-y-auto">
       <Header
         title={`${parent?.firstName} ${parent?.lastName} - Assessments Overview`}
@@ -84,32 +81,57 @@ function ParentOverview() {
 
       {/* Filter Box */}
       <div className="w-full flex">
-        <div className="p-4 space-y-4 bg-blue-50 border border-blue-200 rounded-md mt-6 max-w-sm w-full">
-          <div className="flex flex-wrap gap-4 items-center">
-            <select
-              className="border p-2 rounded-md"
-              onChange={handleFilterChange}
-              value=""
-            >
-              <option value="" disabled>
-                Select a filter
-              </option>
-              {filterOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-
-            {selectedFilters.includes("Date") && (
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6 w-full max-w-full">
+          <div className="flex flex-wrap items-center gap-4">
+            {/* Select and DatePicker group */}
+            <div className="flex items-center gap-2">
+              <select
                 className="border p-2 rounded-md"
-                placeholderText="Select a date"
-              />
+                onChange={handleFilterChange}
+                value=""
+              >
+                <option value="" disabled>
+                  Select a filter
+                </option>
+                {filterOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {selectedFilters.includes("Date") && (
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  className="border p-2 rounded-md"
+                  placeholderText="Select a date"
+                />
+              )}
+            </div>
+
+            {/* Inline filter chips */}
+            {selectedFilters.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedFilters.map((filter) => (
+                  <div
+                    key={filter}
+                    className="flex items-center bg-blue-400 text-white px-3 py-1 rounded-full"
+                  >
+                    <span className="mr-1">{filter}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeFilter(filter)}
+                      className="ml-1 font-bold hover:opacity-80"
+                      aria-label={`Remove filter ${filter}`}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </div>
             )}
 
+            {/* Clear Filters button */}
             {selectedFilters.length > 0 && (
               <button
                 onClick={clearFilters}
@@ -119,33 +141,10 @@ function ParentOverview() {
               </button>
             )}
           </div>
-
-          {selectedFilters.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {selectedFilters.map((filter) => (
-                <div
-                  key={filter}
-                  className="flex items-center bg-blue-400 text-white px-3 py-1 rounded-full"
-                >
-                  <span className="mr-1">{filter}</span>
-                  <button
-                    type="button"
-                    onClick={() => removeFilter(filter)}
-                    className="ml-1 font-bold hover:opacity-80"
-                    aria-label={`Remove filter ${filter}`}
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
-
-      {/* Main Layout: Trends & Assessment Results */}
       <div className="flex flex-col md:flex-row flex-grow gap-6 h-full min-h-0 mt-6">
-        <div className="flex flex-col flex-1 p-5 bg-gray-50 rounded-lg shadow-sm">
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm md:basis-3/5">
           <h2 className="text-2xl font-semibold mb-4 text-center">Trends</h2>
           <div className="flex-grow min-h-0">
             <Graph
@@ -155,8 +154,7 @@ function ParentOverview() {
             />
           </div>
         </div>
-
-        <div className="flex flex-col flex-1 p-5 bg-gray-50 rounded-lg shadow-sm">
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm md:basis-2/5">
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Assessment Results
           </h2>
