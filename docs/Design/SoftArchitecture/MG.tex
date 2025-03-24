@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{svg}
 \usepackage{longtable}
 \usepackage{pdflscape}
 \hypersetup{
@@ -61,6 +62,19 @@
   1/14/2025 & 1.9 & Promish Kandel & Added 9 - Use Hierarchy Between Modules\\
   1/14/2025 & 1.10 & Promish Kandel & Added 7 - Module Decomposition\\
   1/15/2025 & 1.11 & Everyone & FSM Machine and Review \\
+  03/23/2025 & 2.0 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/498}{Added AC3 to account for exact hardware changes}\\
+  03/23/2025 & 2.1 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/499}{Removed input/output devices as these can change, as shown in AC3}\\
+  03/23/2025 & 2.2 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/500}{Updated the wording for UC1 to be more descriptive rather than just "core structure"}\\
+  03/23/2025 & 2.3 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/501}{Removed bilingual as it doesn't matter in the context of unlikely changes}\\
+  03/23/2025 & 2.4 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/502}{AppController was fully removed and replaced with Landing Page GUI which is now a behaviour hinding module.}\\
+  03/23/2025 & 2.5 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/504}{Added a logical module showcase our hardware hiding due to the browser. Also made note that this is an external module, not something we implemented. Show cased in section 7.1 Hardware hiding modules}\\
+  03/23/2025 & 2.6 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/505}{Spelling was fixed} and \href{https://github.com/parishanizam/TeleHealth/issues/506}{wording was made more consistent}\\
+  03/23/2025 & 2.7 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/507}{Section 5 and traceability matrix are hyperlinked. I also fixed the hyperlink to point to the respective module decompostion rather than section 5}\\
+  03/23/2025 & 2.8 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/508}{Module Hierarchy diagram was added as a pdf to allow for zooming in and to make it more clear. This diagram now also contains Landing Page GUI and Logical Module as an external module}\\
+  03/23/2025 & 2.9 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/338}{Update the secrets for 7.2.7 Question Banks Module }\\
+  03/23/2025 & 3.0 & Promish Kandel & Removed Logging, RealTimeFeedback and Report Generation modules based on changing design decisions.\\
+
+
   \bottomrule
 \end{tabularx}
 
@@ -178,6 +192,10 @@ adapted here is called design for change.
     \label{acAssessmentTypes}:] The types of assessments supported (e.g., addition 
     of new assessment types like sentence completion, story-telling, etc.). 
   \end{item} 
+  \begin{item}[\refstepcounter{acnum} \actheacnum 
+    \label{achardware}:] The exact hardware that is going to be used (e.g., the type of
+    microphone, type of camera for video recording). 
+  \end{item} 
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -190,15 +208,11 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
-  \end{item}
-  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucCoreAssessmentStructure}:] The 
-    core structure and design of the question bank system.
+  \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucCoreAssessmentStructure}:] The structure of our question bank system and the way questions and their associated audio assets are formatted and organized in our database is designed for long-term stability and is unlikely to change.
   \end{item} 
   \begin{item}[\refstepcounter{ucnum} \uctheucnum \label{ucAssessmentPurpose}:] The 
     primary purpose of the system, which is to assist parents in administering speech 
-    assessments for bilingual children. 
+    assessments for children. 
   \end{item} 
 \end{description}
 
@@ -213,63 +227,23 @@ actually be implemented.
 
 \begin{multicols}{2}
   \begin{description}
-    \item [\refstepcounter{mnum} \mthemnum \label{mClinicianGUI}:] Clinician GUI Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mParentGUI}:] Parent GUI Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mAppController}:] App Controller Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mAPIGateway}:] API Gateway Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mAuth}:] Authentication Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mResultStorage}:] Result Storage Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mMediaProcessing}:] Media Processing Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mLogging}:] Logging Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mQuestionBank}:] Question Bank Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mRealTimeFeedback}:] Real-Time Feedback Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mReportGeneration}:] Report Generation Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mVideoProcessing}:] Video Processing Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mAudioProcessing}:] Audio Processing Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mEnglishBank}:] English Question Bank Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mMandarinBank}:] Mandarin Question Bank Module
-    \item [\refstepcounter{mnum} \mthemnum \label{mMatchingBank1}:] Matching Question Bank Module 
-    \item [\refstepcounter{mnum} \mthemnum \label{mRepetitionBank1}:] Repetition Question Bank Module
+    \item [\mref{mClinicianGUI}:] Clinician GUI Module
+    \item [\mref{mParentGUI}:]   Parent GUI Module
+    \item [\mref{mAppController}:] Landing Page GUI
+    \item [\mref{mAPIGateway}:]  API Gateway Module
+    \item [\mref{mAuth}:]        Authentication Module
+    \item [\mref{mResultStorage}:] Result Storage Module
+    \item [\mref{mMediaProcessing}:] Media Processing Module
+    \item [\mref{mQuestionBank}:] Question Bank Module
+    \item [\mref{mVideoProcessing}:] Video Processing Module
+    \item [\mref{mAudioProcessing}:] Audio Processing Module
+    \item [\mref{mEnglishBank}:] English Question Bank Module
+    \item [\mref{mMandarinBank}:] Mandarin Question Bank Module
+    \item [\mref{mMatchingBank1}:] Matching Question Bank Module
+    \item [\mref{mRepetitionBank1}:] Repetition Question Bank Module
   \end{description}
-  \end{multicols}
+\end{multicols}
   
-
-
-\begin{table}[h!]
-  \centering
-  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-  \toprule
-  \textbf{Level 1} & \textbf{Level 2}\\
-  \midrule
-  
-  {Hardware-Hiding} & N/A \\
-  \midrule
-  
-  \multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
-  & Parent GUI\\
-  & Authentication Module\\
-  & Result Storage Module\\
-  & Real-Time Feedback Module\\ 
-  & Report Generation Module\\
-  & Media Processing Module\\
-  & Video Processing Module\\
-  & Audio Processing Module\\
-  & Logging Module\\
-  & Question Bank Module\\
-  & Mandarian Question Bank\\
-  & English Question Bank\\
-  & Repetition Question Bank Module\\
-  & Matching Question Bacnk Module\\
-  \midrule
-  
-  \multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
-  & API Gateway\\
-  \bottomrule
-  
-  \end{tabular}
-  \caption{Module Hierarchy}
-  \label{TblMH}
-  \end{table}
 
 \section{Connection Between Requirements and Design} \label{SecConnection}
 
@@ -293,15 +267,64 @@ Only the leaf modules in the hierarchy have to be implemented. If a dash
 (\emph{--}) is shown, this means that the module is not a leaf and will not have
 to be implemented.
 
-\subsection{Hardware Hiding Modules (\mref{mHH})}
-N/A
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2}\\
+  \midrule
+  
+  {Hardware-Hiding} & Logical module \\
+  \midrule
+  
+  \multirow{8}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+  & Parent GUI\\
+  & Landing Page GUI\\
+  & Authentication Module\\
+  & Result Storage Module\\
+  & Real-Time Feedback Module\\ 
+  & Report Generation Module\\
+  & Media Processing Module\\
+  & Video Processing Module\\
+  & Audio Processing Module\\
+  & Logging Module\\
+  & Question Bank Module\\
+  & Mandarin Question Bank\\
+  & English Question Bank\\
+  & Repetition Question Bank Module\\
+  & Matching Question Bank Module\\
+  \midrule
+  
+  \multirow{1}{0.3\textwidth}{Software Decision} & API Gateway\\
+  \bottomrule
+  
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
+  \newpage
 
+\subsection{Hardware Hiding Modules}
+ \subsubsection{Logical module}
+\begin{description}
+  \item[Secrets:]
+    This logical module is handled by the browser, which is outside the scope of our project.
+    The browser internally manages and isolates both audio and microphone feeds from direct access.
+  \item[Services:]
+    Although not part of our implementation, the browser ultimately supplies audio and microphone data
+    to the Parent GUI (\mref{mParentGUI}) when a user is taking a test.
+  \item[Implemented By:]
+    Standard web browser
+  \item[Type of Module:]
+    External 
+\end{description}
 \subsection{Behaviour-Hiding Module}
 
-\subsubsection{Clinician GUI (\mref{mClinicianGUI})}
-
+\refstepcounter{mnum}
+\subsubsection{Clinician GUI (\mthemnum)}
+\label{mClinicianGUI}
 \begin{description}
-\item[Secrets:]The interactive and visual components that allow Clinicians to interact with the system, through the App Controller (\mref{mAppController}),
+\item[Secrets:]The interactive and visual components that allow Clinicians to interact with the system, through the Landing Page GUI (\mref{mAppController}),
                to access patient data and information, and make informed decisions.
 \item[Services:]To show application functionality to clinicians, accepting user inputs (choosing assessments to review,
                 flagging bias questions) and displaying outputs (assessment summaries).
@@ -309,18 +332,34 @@ N/A
 \item[Type of Module:] Library
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Parent GUI (\mref{mParentGUI})}
+\label{mParentGUI}
 
 \begin{description}
-\item[Secrets:]The interactive and visual components that allow Parents to interact with the system, through the App Controller (\mref{mAppController}),
-               to setup and engage in the assessment with their child.
+\item[Secrets:]The interactive and visual components that allow Parents to interact with the system, through the Landing Page GUI (\mref{mAppController}),
+               to set up and engage in the assessment with their child.
 \item[Services:] To show application functionality to parents, accepting user inputs (selecting answers to questions,
-                 completing setup) and displaying outputs (question visuals, button selections).
+                 completing set up) and displaying outputs (question visuals, button selections).
 \item[Implemented By:] ParentFrontEnd
 \item[Type of Module:] Library
 \end{description}
 
+\refstepcounter{mnum}
+\subsubsection{Landing Page GUI (\mref{mAppController})}
+\label{mAppController}
+  
+\begin{description}
+  \item[Secrets:]The interactions between the GUIs (\mref{mClinicianGUI}, \mref{mParentGUI}) and the API Gateway (\mref{mAPIGateway}), acting as a means to interface with the software modules.
+  \item[Services:]Enables the user to pass information from the GUIs to the backend services.
+  \item[Implemented By:] AppController
+  \item[Type of Module:] Library
+  \end{description}
+
+
+\refstepcounter{mnum}
 \subsubsection{Authentication Module (\mref{mAuth})}
+\label{mAuth}
 
 \begin{description}
 \item[Secrets:] The data structures and algorithms used to securely store, validate, and manage user credentials.
@@ -329,7 +368,9 @@ N/A
 \item[Type of Module:] Library, Abstract Data Type
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Result Storage Module (\mref{mResultStorage})}
+\label{mResultStorage}
 
 \begin{description}
 \item[Secrets:] The schema and mechanisms used to store, index, and retrieve assessment results and metadata efficiently.
@@ -338,7 +379,10 @@ N/A
 \item[Type of Module:] Record, Abstract Object
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Media Processing Module (\mref{mMediaProcessing})}
+\label{mMediaProcessing}
+
 \begin{description}
 \item[Secrets:] The design and implementation of how media (video and audio) is processed in the system.
 \item[Services:] Provides high-level functionality for media processing by delegating tasks to its submodules: Video Processing Module and Audio Processing Module. Acts as an abstraction layer for handling media data.
@@ -346,20 +390,12 @@ N/A
 \item[Type of Module:]  Abstract Object
 \end{description}
 
-\subsubsection{Logging Module (\mref{mLogging})}
-\begin{description}
-\item[Secrets:] The design and implementation of log storage and retrieval mechanisms, as well as the structure of the logs (e.g., event logs, error logs, debug logs).
-\item[Services:] Tracks system activity and errors through event logging. Supports audit logging for user actions and system changes.
-Provides interfaces to query and clear logs for maintenance.
-\item[Implemented By:] logging-monitoring-service
-\item[Type of Module:] List of Records
-\end{description}
-
+\refstepcounter{mnum}
 \subsubsection{Question Bank Module (\mref{mQuestionBank})}
+\label{mQuestionBank}
 
 \begin{description}
-\item[Secrets:]Integrates and manages question bank submodules, provides logic for
- selecting and instructing the appropriate submodule.
+\item[Secrets:] Maintains all question bank submodules and the internal logic for routing each request to the appropriate submodule.
 \item[Services:]Acts as a facade to provide unified access to all question banks.
 This module handles requests for retrieving, adding, updating, or delegating questions 
 to appropriate submodules.
@@ -367,25 +403,10 @@ to appropriate submodules.
 \item[Type of Module:] Abstract Object
 \end{description}
 
-\subsubsection{Real-Time Feedback Module (\mref{mRealTimeFeedback})}
-
-\begin{description}
-\item[Secrets:] The data pipeline and algorithms used to process live media streams and generate immediate feedback.
-\item[Services:] Provides real-time analysis of audio and video streams during an assessment session. Flags issues or disturbances and delivers immediate feedback to guide session adjustments.
-\item[Implemented By:] RealTimeFeedbackService
-\item[Type of Module:] Library
-\end{description}
-
-\subsubsection{Report Generation Module (\mref{mReportGeneration})}
-
-\begin{description}
-\item[Secrets:] The methods and templates used to compile data into user-friendly reports summarizing session results and flagged disturbances.
-\item[Services:] Generates comprehensive session reports for review by parents and clinicians. Summarizes processed media results, flagged disturbances, and overall session feedback.
-\item[Implemented By:] ReportGenerationService
-\item[Type of Module:] Library
-\end{description}
-
+\refstepcounter{mnum}
 \subsubsection{Video Processing Module (\mref{mVideoProcessing})}
+\label{mVideoProcessing}
+
 \begin{description}
 \item[Secrets:] The methods and algorithms used to process video data, including frame extraction, format handling, and metadata processing.
 \item[Services:] Handles all video-related data processing tasks, such as analyzing video frames, ensuring quality, and extracting relevant details. This module communicates with the Media Processing Module.
@@ -393,7 +414,9 @@ to appropriate submodules.
 \item[Type of Module:]  Abstract Object
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Audio Processing Module (\mref{mAudioProcessing})}
+\label{mAudioProcessing}
 \begin{description}
 \item[Secrets:] The methods and algorithms used to process audio data, such as format conversions, noise filtering, and speech analysis.
 \item[Services:] Handles all audio-related data processing tasks, including speech detection, sound quality analysis, and extracting key audio features. This module communicates with the Media Processing Module.
@@ -401,7 +424,9 @@ to appropriate submodules.
 \item[Type of Module:] Abstract Object
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{English Question Bank Module (\mref{mEnglishBank})}
+\label{mEnglishBank}
 
 \begin{description}
 \item[Secrets:]The format for storing, tagging and/or indexing English questions
@@ -411,7 +436,9 @@ to appropriate submodules.
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Mandarin Question Bank Module (\mref{mMandarinBank})}
+\label{mMandarinBank}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
@@ -421,7 +448,9 @@ to appropriate submodules.
 \item[Type of Module:] Abstract Data Type
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Matching Question Bank Module (\mref{mMatchingBank1})}
+\label{mMatchingBank1}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
@@ -431,7 +460,9 @@ to appropriate submodules.
 \item[Type of Module:] Library
 \end{description}
 
+\refstepcounter{mnum}
 \subsubsection{Repetition Question Bank Module (\mref{mRepetitionBank1})}
+\label{mRepetitionBank1}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data.
@@ -443,25 +474,15 @@ to appropriate submodules.
 
 \subsection{Software Decision Module}
 
-  \subsubsection{AppController Module (\mref{mAppController})}
-  
-  \begin{description}
-    \item[Secrets:]The interactions between the GUIs (\mref{mClinicianGUI}, \mref{mParentGUI}) and the API Gateway (\mref{mAPIGateway}), acting as a means to interface with the software modules.
-    \item[Services:]Enables the user to pass information from the GUIs to the backend services.
-    \item[Implemented By:] AppController
-    \item[Type of Module:] Library
-    \end{description}
-  
+    \refstepcounter{mnum}
     \subsubsection{API Gateway Module (\mref{mAPIGateway})}
+    \label{mAPIGateway}
   
     \begin{description}
-      \item[Secrets:]The interactions between the App Controller (\mref{mAppController}) and the inter-dependencies of all other software modules, including inherited modules (
+      \item[Secrets:]The interactions between the Landing Page GUI (\mref{mAppController}) and the inter-dependencies of all other software modules, including inherited modules (
       \mref{mResultStorage},
       \mref{mMediaProcessing},
-      \mref{mLogging},
       \mref{mQuestionBank},
-      \mref{mRealTimeFeedback},
-      \mref{mReportGeneration},
       \mref{mAudioProcessing},
       \mref{mEnglishBank},
       \mref{mMandarinBank},
@@ -477,50 +498,70 @@ to appropriate submodules.
 This section shows two traceability matrices: between the modules and the
 requirements and between the modules and the anticipated changes.
 
-% the table should use mref, the requirements should be named, use something
-% like fref
 \begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Req.} & \textbf{Modules}\\
-\midrule
-FR-A1 & M1, M2, M3, M5, M8 \\
-FR-A2 &  M2, M3,  M5, M8 \\
-FR-A3 &  M1,M3, M5, M8 \\
-FR-A4 & M5, M8\\
-FR-A5 & M5, M8 \\
-FR-SS1 & M2, M3 \\
-FR-SS2 & M2, M3\\
-FR-SS3 & M2, M3\\
-FR-SS4 & M2, M3 \\
-FR-SS5 & M2, M3, M9\\
-FR-AI1 & M2, M3, M7, M9, M12, M13, M14, M15, M16 \\
-FR-AI2 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
-FR-AI3 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
-FR-AI4 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
-FR-AI5 & M2, M3, M4, M7, M9, M12, M13, M14, M15, M16 \\
-FR-AI6 & M2, M3, M4, M6, M7, M9 M12, M13, M14, M15, M16 \\
-FR-AI7 & M2, M3, M4, M7, M9 M12, M13, M14, M15, M16, M17 \\
-FR-DSC1 & M4, M6, M8, \\
-FR-DSC2 & M4, M6, M7, M10, M12, M13 \\
-FR-DSC3 & M4, M5\\
-FR-DSC4 & M4, M5 \\
-FR-DSC5 & M4, M8, M10, M11 \\
-FR-VADA1 & M4, M7, M12, M13 \\
-FR-VADA2 & M4, M7,M8 M12, M13 \\
-FR-VADA3 & M4, M7, M8, M12, M13 \\
-FR-DPD1 & M4, M6, M8, M10, M11 \\
-FR-DPD2 & M4, M6, M8, M10, M11\\
-FR-DPD3 & M1, M4, M6, M8, M10, M11\\
-FR-DPD4 & M1, M4, M6, M8, M10, M11\\
-
-
-\bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
+  \centering
+  \begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Req.} & \textbf{Modules}\\
+  \midrule
+  
+  FR-A1 & \mref{mClinicianGUI}, \mref{mParentGUI}, \mref{mAppController}, \mref{mAuth}, \mref{mQuestionBank}\\
+  FR-A2 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAuth}, \mref{mQuestionBank}\\
+  FR-A3 & \mref{mClinicianGUI}, \mref{mAppController}, \mref{mAuth}, \mref{mQuestionBank}\\
+  FR-A4 & \mref{mAuth}, \mref{mQuestionBank}\\
+  FR-A5 & \mref{mAuth}, \mref{mQuestionBank}\\
+  
+  FR-SS1 & \mref{mParentGUI}, \mref{mAppController}\\
+  FR-SS2 & \mref{mParentGUI}, \mref{mAppController}\\
+  FR-SS3 & \mref{mParentGUI}, \mref{mAppController}\\
+  FR-SS4 & \mref{mParentGUI}, \mref{mAppController}\\
+  FR-SS5 & \mref{mParentGUI}, \mref{mAppController}, \mref{mVideoProcessing}\\
+  
+  FR-AI1 & \mref{mParentGUI}, \mref{mAppController}, \mref{mMediaProcessing}, \mref{mVideoProcessing}, 
+           \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  FR-AI2 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mMediaProcessing}, 
+           \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  FR-AI3 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mMediaProcessing}, 
+           \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  FR-AI4 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mMediaProcessing}, 
+           \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  FR-AI5 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mMediaProcessing}, 
+           \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  FR-AI6 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mResultStorage}, 
+           \mref{mMediaProcessing}, \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, 
+           \mref{mRepetitionBank1}\\
+  FR-AI7 & \mref{mParentGUI}, \mref{mAppController}, \mref{mAPIGateway}, \mref{mMediaProcessing}, 
+           \mref{mVideoProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}, \mref{mRepetitionBank1}\\
+  
+  FR-DSC1 & \mref{mAPIGateway}, \mref{mResultStorage}, \mref{mQuestionBank}\\
+  FR-DSC2 & \mref{mAPIGateway}, \mref{mResultStorage}, \mref{mMediaProcessing}, 
+            \mref{mAudioProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}\\
+  FR-DSC3 & \mref{mAPIGateway}, \mref{mAuth}\\
+  FR-DSC4 & \mref{mAPIGateway}, \mref{mAuth}\\
+  FR-DSC5 & \mref{mAPIGateway}, \mref{mQuestionBank}, \mref{mAudioProcessing}, \mref{mEnglishBank}\\
+  
+  FR-VADA1 & \mref{mAPIGateway}, \mref{mMediaProcessing}, \mref{mMandarinBank}, \mref{mMatchingBank1}\\
+  FR-VADA2 & \mref{mAPIGateway}, \mref{mMediaProcessing}, \mref{mQuestionBank},
+             \mref{mMandarinBank}, \mref{mMatchingBank1}\\
+  FR-VADA3 & \mref{mAPIGateway}, \mref{mMediaProcessing}, \mref{mQuestionBank}, 
+             \mref{mMandarinBank}, \mref{mMatchingBank1}\\
+  
+  FR-DPD1 & \mref{mAPIGateway}, \mref{mResultStorage}, \mref{mQuestionBank},
+            \mref{mAudioProcessing}, \mref{mEnglishBank}\\
+  FR-DPD2 & \mref{mAPIGateway}, \mref{mResultStorage}, \mref{mQuestionBank},
+            \mref{mAudioProcessing}, \mref{mEnglishBank}\\
+  FR-DPD3 & \mref{mClinicianGUI}, \mref{mAPIGateway}, \mref{mResultStorage},
+            \mref{mQuestionBank}, \mref{mAudioProcessing}, \mref{mEnglishBank}\\
+  FR-DPD4 & \mref{mClinicianGUI}, \mref{mAPIGateway}, \mref{mResultStorage},
+            \mref{mQuestionBank}, \mref{mAudioProcessing}, \mref{mEnglishBank}\\
+  
+  \bottomrule
+  \end{tabular}
+  \caption{Trace Between Requirements and Modules}
+  \label{TblRT}
+  \end{table}
+  
+  
 
 \begin{table}[H]
 \centering
@@ -528,14 +569,14 @@ FR-DPD4 & M1, M4, M6, M8, M10, M11\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-AC1 & M9, M17 \\
-AC2 & M9, M16, M17 \\
+AC1 & \mref{mVideoProcessing}, \mref{mRepetitionBank1} \\
+AC2 & \mref{mVideoProcessing}, \mref{mMatchingBank1}, \mref{mRepetitionBank1} \\
+AC3 & \mref{mParentGUI}\\
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
 
-\newpage
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
@@ -552,7 +593,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{images/Module Hierachy.drawio.png}
+  \includegraphics[scale=0.8]{images/ModuleHierachy.pdf}
   \caption{Use hierarchy among modules}
   \label{FigUH}
 \end{figure}
@@ -762,7 +803,7 @@ N/A
       Miscellaneous & ~ & Verification and Validation Testing & X & X & X & X & 2/6/25 \\ \hline
       Admin & Add Clinician Page & ~ & ~ & ~ & ~ & X & 2/6/25 \\ \hline
       Admin & ~ & Verification and Validation Testing & X & X & X & X & 2/6/25 \\ \hline
-      Controllers & App Controller & ~ & ~ & ~ & X & ~ & 1/19/25 \\ \hline
+      Controllers & Landing Page GUI & ~ & ~ & ~ & X & ~ & 1/19/25 \\ \hline
       Controllers & ~ & Verification and Validation Testing & X & X & X & X & 1/19/25 \\ \hline
       Rev0 & ~ & Full System Testing & X & X & X & X & 2/8/25 \\ \hline
       Rev0 & ~ & Rev0 Practice & X & X & X & X & 2/9/25 \\ \hline
