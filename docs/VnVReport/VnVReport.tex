@@ -78,7 +78,8 @@
   3/23/25 & 2.9 & Parisha Nizam & \begin{itemize}[leftmargin=*]
     \item Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/535}{Added clarification on how usability test was conducted}
     \item \href{https://github.com/parishanizam/TeleHealth/issues/537}{Traceability to Usability Tests}
-    \item \item \href{https://github.com/parishanizam/TeleHealth/issues/536}{Updated Expected/Actual Output Match}
+    \item \href{https://github.com/parishanizam/TeleHealth/issues/536}{Updated Expected/Actual Output Match}
+    \item \href{https://github.com/parishanizam/TeleHealth/issues/539}{Updated Test to be Specific to SRS}
   \end{itemize}\\
 
   \bottomrule
@@ -884,9 +885,8 @@ capabilities and qualities the system has to interact with adjacent systems in t
 \begin{mdframed}[linewidth=0.5mm] \par
   \textbf{Test Case Identifier:} SR-ST-P3 \par
   \textbf{Input:} Examine data storage for PII. \par 
-  \textbf{Expected Output:} System does not store any personal identifiable information: (e.g., address, date
-  of birth, names) beyond username and assessment recordings. \par  
-  \textbf{Actual Output:} Data stored does not contain PII. It does include names \par
+  \textbf{Expected Output:}  The system stores only the types of PII permitted according to SRS requirement SR-ST-P3 and does not store any additional PII. \par  
+  \textbf{Actual Output:} Data stored does not contain PII. It does include names which SR-ST-P3 does not allow. \par
   \textbf{Expected and Actual Output Match:} False: We have changed requirements to include names as part of the information stored to ensure proper account creation, 
   Authentication, and result connection. \par
   \textbf{Relevant Nonfunctional Requirement(s):} SR-ST-P3
