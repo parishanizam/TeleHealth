@@ -275,6 +275,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/190}{Export and insert diagrams as PDFs so they are not pixelated}
       \end{itemize} \\
+      03/24/25 & 2.16 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/198}{Connect requirements to phase-in plan by assigning priorities and phases to them}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -1827,8 +1831,11 @@ The system has no follow up problem
 \hspace{2em}Tasks are comprised of the overall development of the team's project, closely following the deadlines and dates provided by the course instructor.
 \subsection{Project Planning}
 
+\hspace{2em} The project task deadlines are listed clearly in Table \ref{tab:project_task}.
+
 \begin{table}[h!]
   \caption{Project Task Deadlines}
+  \label{tab:project_task}
   \centering
   \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{3cm}|}
   \hline
@@ -1859,16 +1866,17 @@ The system has no follow up problem
 
 \hspace{2em}The development of the TeleHealth System will be divided into two phases including:
 \begin{itemize}
-\item Revision 0: Intitial Development of Application and Reports
-\item Revision 1: Refinement/Revision of Project and Deliverables
+\item Revision 0: Intitial Development of Application and Reports, as shown in Table \ref{tab:rev0}
+\item Revision 1: Refinement/Revision of Project and Deliverables, as shown in Table \ref{tab:rev1}
 \end{itemize}
 \hspace{2em}Prior to Revision 0, Team 22 has defined the team members of the project, Problem Statement of the project, POC plan, and Development Plan.
-Revision 0 work encompasses all the work completed starting October 11 to February 14th.In the Revision 0 Phase, the team will work on design related deliverables for the project to define the scope, the requirements, stakeholders, use cases, risks, and define the plan for implementing the project. Using this information, the team will work towards creating a POC.
+Revision 0 work encompasses all the work completed starting October 11 to February 14th. In the Revision 0 Phase, the team will work on design related deliverables for the project to define the scope, the requirements, stakeholders, use cases, risks, and define the plan for implementing the project. Using this information, the team will work towards creating a POC.
 A V\&V report will be made based on feedback and iterations will be made accordingly. 
 Revision 1 will focus on implementing refinements to Revision 0 documentation and adding extras to both application and deliverables. Feedback will be incorporated into any refinements from stakeholders and professor. \\
 
 \begin{table}[H]
   \caption{Development Revision 0 Deadlines}
+  \label{tab:rev0}
   \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
   \hline
   \textbf{Application Development Revision 0 Tasks} & \textbf{Priority} &  \textbf{Deadline} \\
@@ -1883,7 +1891,7 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   \hline
   Video Testing in Controlled Setting for POC & High & Nov 5, 2024 \\
   \hline
-  Proof of Concept Demo & High &  Nov 11-22, 2024 \\
+  Proof of Concept Demo & High & Nov 11-22, 2024 \\
   \hline
   Application Frontend Design & Low & Nov 10, 2024 \\
   \hline
@@ -1898,6 +1906,7 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
 
 \begin{table}[H]
   \caption{Development Revision 1 Deadlines}
+  \label{tab:rev1}
   \begin{tabularx}{\textwidth}{|p{8cm}|p{2cm}|X|}
   \hline
   \textbf{Application Development Revision 1 Tasks} & \textbf{Priority} & \textbf{Deadline} \\
@@ -1908,9 +1917,99 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
   \hline 
   User Interface Completion/Iteration & Medium & Feb 30, 2025 \\
   \hline 
-  Unit Testing & High & March, 4, 2025 \\
+  Unit Testing & High & Mar 4, 2025 \\
   \hline 
   Code Refinement & Medium & April 1, 2025 \\
+  \hline
+  \end{tabularx}
+\end{table}
+
+\newpage
+
+To improve clarity in the phase-in plan, each requirement is linked to a development phase and assigned a priority, as shown in Table \ref{tab:phase1} and Table \ref{tab:phase2}.
+
+\subsubsection*{Phase 1: Revision 0}
+
+\hspace{2em}Deliver a functional prototype incorporating core system features, ensuring foundational capabilities are implemented and tested.
+
+\begin{table}[H]
+  \caption{Phase 1 - Requirements and Priorities}
+  \label{tab:phase1}
+  \begin{tabularx}{\textwidth}{|p{10cm}|X|}
+  \hline
+  \textbf{Requirements Addressed} & \textbf{Priority} \\
+  \hline
+  Authentication and user role management (FR-A1 to FR-A5) & High \\
+  \hline
+  System setup (FR-SS1 to FR-SS5) & High \\
+  \hline
+  Core assessment functionalities, including video/audio recording and question display (FR-AI1 to FR-AI7) & High \\
+  \hline
+  Basic data collection and storage (FR-DSC1 to FR-DSC5) & High \\
+  \hline
+  Security and Access (SR-AC1 to SR-AC4, SR-P1 to SR-P3 \& CR-STD1) & High \\
+  \hline
+  Compliance and Performance (FR-DSC3, PR-SL1 to PR-SL4) & Medium \\
+  \hline
+  Initial data analysis pipeline for video/audio processing (FR-VADA1) & Medium \\
+  \hline
+  Report generation for clinicians (FR-DPD1 to FR-DPD2) & Medium \\
+  \hline
+  Operational Requirements (OE-EPE1, OE-WE1, OE-WE2, OE-IA1) & Medium \\
+  \hline
+  UI Look and Feel (LF-AR1 to LF-AR5 \& UH-AR1) & Medium \\
+  \hline
+  Scalability considerations for user growth (PR-SE1) & Low \\
+  \hline
+  Modularity (MS-MR1) & Low \\
+  \hline
+  \end{tabularx}
+\end{table}
+
+\newpage
+
+\subsubsection*{Phase 2: Revision 1}
+
+\hspace{2em}Enhance system, improve upon features, introduce modifications to make system easier for users for final deployment.
+
+\begin{table}[H]
+  \caption{Phase 2 - Requirements and Priorities}
+  \label{tab:phase2}
+  \begin{tabularx}{\textwidth}{|p{10cm}|X|}
+  \hline
+  \textbf{Requirements Addressed} & \textbf{Priority} \\
+  \hline
+  Full integration of speech/video disturbance detection (FR-VADA2 to FR-VADA3) & High \\
+  \hline
+  Reporting features, including flagged timestamps (FR-DPD3 to FR-DPD4) & High \\
+  \hline
+  Performance optimizations for concurrent users and data storage (PR-CR1 to PR-CR4) & Medium \\
+  \hline
+  UI/UX refinements based on user feedback (LF-AR4 to LF-AR5) & Medium \\
+  \hline
+  Error handling and fault tolerance improvements (PR-RFT1 to PR-RFT3) & Medium \\
+  \hline
+  Overall System Style (LF-SR1, LF-SR2, MS-AR1) & Medium \\
+  \hline
+  Usability and Humanity (UH-EOU1 \& UH-EOU2) & Medium \\
+  \hline
+  Longevity (PR-LR1 \& PR-LR2) & Medium \\
+  \hline
+  Cultural (CU-CR1 \& CU-CR2) & Medium \\
+  \hline
+  Extended accessibility features (UH-AR1) & Low \\
+  \hline
+  Scalability enhancements (PR-SE2 to PR-SE3) & Low \\
+  \hline
+  Multiple Languages support (UH-PI1) & Low \\
+  \hline
+  Learning Requirements (UH-LI1, UH-LI2, UH-UP1) & Low \\
+  \hline
+  Precision and Accuracy (PR-PA1 to PR-PA5) & Low \\
+  \hline
+  Supportability (MS-SR1 \& MS-SR2) & Low \\
+  \hline
+  Immunity (SR-IM1) & Low \\
   \hline
   \end{tabularx}
 \end{table}
