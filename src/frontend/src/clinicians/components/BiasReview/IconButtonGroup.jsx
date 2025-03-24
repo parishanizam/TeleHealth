@@ -27,16 +27,19 @@ function IconButtonGroup({ markState, changeMarkState }) {
           iconSrc={CheckmarkIcon}
           bgColor={activeButton === "Correct" ? "bg-green-500" : "bg-green-100"}
           onClick={() => handleAction("Correct")}
+          className="transition transform hover:scale-105 hover:brightness-90"
         />
         <IconButton
           iconSrc={DashIcon}
           bgColor={activeButton === "Undetermined" ? "bg-yellow-500" : "bg-yellow-100"}
           onClick={() => handleAction("Undetermined")}
+          className="transition transform hover:scale-105 hover:brightness-90"
         />
         <IconButton
           iconSrc={XIcon}
           bgColor={activeButton === "Incorrect" ? "bg-red-500" : "bg-red-100"}
           onClick={() => handleAction("Incorrect")}
+          className="transition transform hover:scale-105 hover:brightness-95"
         />
       </div>
     </div>
