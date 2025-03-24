@@ -209,7 +209,7 @@
 
 \begin{table}[H]
   \centering
-  \caption{Revision History (Part 3)}
+  \caption{Revision History (Part 4)}
   \label{TblRevisionHistoryPart1}
   \setlist[itemize,1]{topsep=0pt, itemsep=0pt, partopsep=0pt} 
   \begin{tabularx}{\textwidth}{p{1.5cm} p{1cm} p{3.5cm} X}
@@ -243,6 +243,10 @@
       03/23/25 & 2.11 & Mitchell Weingust & Implemented TA Feedback: 
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/188}{Fixed table formatting: lines not going all the way to the horizontal oneslines not going all the way to the horizontal oneslines not going all the way to the horizontal ones}
+      \end{itemize} \\
+      03/23/25 & 2.12 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/195}{Fixed 100\% of users ambition}
       \end{itemize} \\
     \end{tabularx}
   \end{table}
@@ -1162,7 +1166,7 @@ assessment and details such as the related assessment question, answer, and time
   during the assessment), and timestamps for each question during the assessment.\\
  \textbf{Rationale: }Storing flagged occurrences and timestamps lets clinicians perform detailed analysis 
  of patient responses and enables them to review specific moments of interest efficiently.\\
- \textbf{Fit criterion: }The database shall include video and audio files for PERCENTAGE\_OF\_ASSESSMENTS percent of assessment sessions,
+ \textbf{Fit criterion: }The database shall include video and audio files for PERCENTAGE\_OF\_ASSESSMENTS percent of completed assessment sessions,
   and each recording must have flagged occurrences and timestamps associated with every question asked, 
   retrievable via query.
 \end{enumerate}
@@ -1171,7 +1175,7 @@ assessment and details such as the related assessment question, answer, and time
   or medical record number) in the database.\\
   \textbf{Rationale: }To maintain privacy and ensure compliance with data protection regulations such as HIPAA, 
   PHIPA and PIPEDA identifying textual information must be excluded from storage in the database \cite{hipaa}.\\
-  \textbf{Fit criterion: }An automated process shall verify and confirm that PERCENTAGE\_OF\_ASSESSMENTS of records in the database 
+  \textbf{Fit criterion: }An automated process shall verify and confirm that PERCENTAGE\_OF\_ASSESSMENTS of complete records in the database 
   accessible by clinicians are anonymized and contain no identifying textual information.
 \end{enumerate}
 \begin{enumerate}[label={FR-DSC}4. ]
@@ -1180,7 +1184,7 @@ assessment and details such as the related assessment question, answer, and time
   \textbf{Rationale: }Using a unique user identifier allows for data organization and retrieval by patient without 
   compromising patient privacy, supporting the requirement for anonymized data storage.\\
   \textbf{Fit criterion: }The system must assign a unique identifier to every user and confirm through testing 
-  that PERCENTAGE\_OF\_ASSESSMENTS of session data is properly grouped and retrievable under that identifier, with no unassociated 
+  that PERCENTAGE\_OF\_ASSESSMENTS of complete session data is properly grouped and retrievable under that identifier, with no unassociated 
   data.
 \end{enumerate}
 \begin{enumerate}[label={FR-DSC}5. ]
@@ -1233,7 +1237,7 @@ assessment and details such as the related assessment question, answer, and time
 \begin{enumerate}[label={FR-DPD}4. ]
   \item Clinicians shall be able to access previously generated reports from the database.\\
   \textbf{Rationale: }Clinicians need on-demand access to reports to monitor progress and make informed treatment decisions during follow-up sessions.\\
-  \textbf{Fit criterion: }Clinicians must be able to access PERCENTAGE\_OF\_ASSESSMENTS of stored reports within MAX\_PROCESSING\_TIME seconds.  
+  \textbf{Fit criterion: }Clinicians must be able to access PERCENTAGE\_OF\_ASSESSMENTS of completed stored reports within MAX\_PROCESSING\_TIME seconds.  
 \end{enumerate}
 
 \newpage
@@ -1261,7 +1265,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={LF-AR}2. ]
   \item The platform’s navigation should be intuitive and allow users to quickly understand how to move between different sections.\\
   \textbf{Rationale: }Simple, user-friendly navigation ensures that users can move through the system without confusion, especially since the platform will be used by both children and adults.\\
-  \textbf{Fit criterion: }During user testing, at least VERY\_HIGH\_SUCCESS\_RATE of participants must successfully complete navigation-related tasks without external guidance.  
+  \textbf{Fit criterion: }During user testing, at least HIGH\_SUCCESS\_RATE of participants must successfully complete navigation-related tasks without external guidance.  
 \end{enumerate}
 \begin{enumerate}[label={LF-AR}3. ]
   \item The design should promote a calm and reassuring environment that is visually appealing but not overstimulating.\\
@@ -1271,7 +1275,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \begin{enumerate}[label={LF-AR}4. ]
   \item The assessment interface should be designed to be easily understood by children, with accessible and age-appropriate elements.\\
   \textbf{Rationale: }A simple design tailored to children’s comprehension levels ensures they can participate in the assessment without confusion or frustration.\\
-  \textbf{Fit criterion: }In user testing, VERY\_HIGH\_SUCCESS\_RATE of children aged MF1IN\_AGE\_RANGE - MAX\_AGE\_RANGE must be able to complete a sample assessment without adult assistance.  
+  \textbf{Fit criterion: }In user testing, HIGH\_SUCCESS\_RATE of children aged MF1IN\_AGE\_RANGE - MAX\_AGE\_RANGE must be able to complete a sample assessment without adult assistance.  
 \end{enumerate}
 \begin{enumerate}[label={LF-AR}5. ]
   \item The platform should provide immediate feedback for user interactions, confirming that inputs have been registered.\\
