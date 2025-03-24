@@ -149,7 +149,8 @@
 
 03/23/25 & 2.3 & Parisha Nizam &
 \begin{itemize}[noitemsep, topsep=0pt]
-  \item Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/534}{Modified Inputs in Section 4.1}
+  \item Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/534}{Modified Inputs in Section 4.1 Pg 28}
+  \item Implemented Documentation Change: \href{https://github.com/parishanizam/TeleHealth/issues/496}{Update System Setup FR Tests to follow current navigation flow Pg 21}
 \end{itemize} \\
 
 \bottomrule
@@ -932,26 +933,26 @@ review assessment information, complete necessary hardware checks, and receive g
       \end{enumerate}
   \end{mdframed}
 
-  \item FR-ST-SS4: \textbf{Display Assessment Tutorial After Setup}
+  \item FR-ST-SS4: \textbf{Display Assessment Tutorial from HomePage}
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Purpose:} Confirms users are shown a helpful step-by-step tutorial immediately after completing device setup. \par
+      \textbf{Purpose:} Confirms users are shown a helpful step-by-step tutorial from homepage. \par
       \textbf{Type:} Dynamic, Manual \par
-      \textbf{Initial State:} User has successfully completed audio and video hardware checks. \par
-      \textbf{Input:} User proceeds to the tutorial section after completing hardware checks. \par
+      \textbf{Initial State:} User has successfully been brought to parent homepage. \par
+      \textbf{Input:} User proceeds to the tutorial section after navigating the homepage. \par
       \textbf{Output:} User is directed to a tutorial that explains the assessment process in a step-by-step manner. \par
       \textbf{Test Case Derivation:} Providing a tutorial ensures that users understand the assessment process,
        improving accuracy and compliance. This follows expected output found in FR-SS4 in (SRS) Document. \par
       \textbf{How the test will be performed:}
       \begin{enumerate}[noitemsep]
-        \item Complete the audio and video hardware checks.
-        \item Verify that the system automatically navigates the user to a tutorial section upon completion of the hardware checks.
+        \item Navigated to homepage after logging in.
+        \item Verify that the system automatically navigates the user to a tutorial section upon selecting tutorials from homepage.
         \item Confirm that the tutorial provides clear, step-by-step instructions on how to proceed with the assessment.
       \end{enumerate}
   \end{mdframed}
 
   \item FR-ST-SS5: \textbf{Begin Assessment After Tutorial Completion}
   \begin{mdframed}[linewidth=0.5mm]
-      \textbf{Purpose:} Verifies that users can begin the assessment only after they complete all setup steps, including the tutorial. \par
+      \textbf{Purpose:} Verifies that users can begin the assessment after they complete all setup steps, including the tutorial. \par
       \textbf{Type:} Dynamic, Manual \par
       \textbf{Initial State:} User has completed the tutorial and is ready to begin the assessment. \par
       \textbf{Input:} User initiates the start of the assessment through the system. \par
