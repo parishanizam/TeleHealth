@@ -20,19 +20,21 @@
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{p{1.5cm}p{3cm}X}
+\begin{tabularx}{\textwidth}{p{1.3cm}p{1cm}p{3cm}X}
 \toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\textbf{Date} & \textbf{Vers} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-20/09/24 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property,
+20/09/24 & 1.0 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property,
 Copyright License, Team Meeting Plan\\
-22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
-22/09/24 & Mitchell Weingust & Added: Appendix - Team Charter\\
-23/09/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
-23/09/24 & Parisha Nizam & POC additions \\
-23/09/24 & Jasmine Sun-Hu, Mitchell Weingust, Parisha Nizam, Promish Kandel & Added: Reflection \\
-24/09/24 & Promish Kandel, Mitchell Weingust, Parisha Nizam, Jasmine Sun-Hu & Final Review\\
-06/11/24 & Jasmine Sun-Hu & Updated POC Demonstration Plan\\
+22/09/24 & 1.1 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
+22/09/24 & 1.2 & Mitchell Weingust & Added: Appendix - Team Charter\\
+23/09/24 & 1.3 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
+23/09/24 & 1.4 & Parisha Nizam & POC additions \\
+23/09/24 & 1.5 & Jasmine, Mitchell, Parisha, Promish & Added: Reflection \\
+24/09/24 & 1.6 & Promish, Mitchell, Parisha, Jasmine & Final Review\\
+06/11/24 & 1.7 & Jasmine Sun-Hu & Updated POC Demonstration Plan\\
+03/23/25 & 2.0 & Parisha Nizam & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/185}{Updated Revision Table Format and POC plan details with model usage Pg 1,9,10} \\
+03/23/25 & 2.1 & Parisha Nizam & Updated Technology Table \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -320,13 +322,13 @@ progress through the project deliverables.
 \noindent{\textbf{Video Implementation and Analysis:}} The main risk and most challenging aspect of this project is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
 These at home assessments will be done in different settings with varying lightings, and camera qualities. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and will be compliant to privacy standards. \\  
 \\
-\noindent \textbf{POC Plan:} \color{red}\sout{To address this risk, the POC demonstration will focus on the system's ability to accurately record, store, and analyze video data. The team can review the recorded footage to ensure data was captured successfully. The recording will then be processed using the team's machine learning  model.}
-\color{black}\\\\
+\noindent \textbf{POC Plan:} 
 In the proof of concept demonstration, the team will showcase an interactive interface that displays the front 
 camera of the device to detect and respond to specific visual inputs. When a user places their face in front 
 facing view of the camera, the application will recognize when the user uses hand gestures in view of the camera, 
 or when multiple faces are detected in the view. The interface will provide feedback by displaying what action it 
-detects below the displayed camera feed within 3 seconds of the action itself. 
+detects below the displayed camera feed within 3 seconds of the action itself. Due to time constraints, the model will come from MediaPipe's face detection model. We will build upon this model
+to allow for a well tested solution that we can implement improvements on. 
 
 \subsection{Will a part of the implementation be difficult?}
 Technologies such as using video \& video recording with analytics, and using machine learning are relatively new to members on the team due to limited experience. Research and open source models recommeded by Dr.Yuan will assist in providing resources and support. \\
@@ -347,21 +349,13 @@ Portability will not be a concern. We will be starting with a web-based applicat
 
 \textbf{Proof of Concept Demonstration}\\
 
-A walkthrough of a simple mock assessment process on the application involving two users. The assesement will be completed on a laptop using \color{red}\sout{integrated }\color{black} live video. POC will demonstrate the ability of the web based application to do the following: \\
-\begin{itemize}\color{red}
-  \item \sout{Turn on the camera: Request permission access to camera on laptop and display live video feed.}
-  \item \sout{Start recording: Begin assessment by clicking start recording}
-  \item \sout{Start \& complete Assement: assesement wil be completed with various prompts and questions}
-  \item \sout{Stop recording: Click Stop recording}
-  \item \sout{Save \& store recording securely: Video will be saved securely on to our database and logged}
-  \item \sout{Playback of video to confirm accuracy and proper storage: Find video in storage and playback}
-  \item \sout{Recording starts being processed by backend system}
-  \item \sout{Show results of video analytics to determine detection of any guidance using Machine Learning}\color{black}
+A walkthrough of a simple mock assessment process on the application involving two users. The assesement will be completed on a laptop using integrated live video. POC will demonstrate the ability of the web based application to do the following: \\
+\begin{itemize}
   \item Open the POC demo application
   \item Turn on the camera
   \item A person positions themselves in front of the camera such that their face is within the frame
   \item A person can perform hand gestures within the camera view
-  \item The interface will provide feedback detecting the hand gesture within 3 seconds
+  \item The interface will provide feedback detecting the hand gesture within 3 seconds, using visual cues to show detection
   \item Another person shows their face within the camera view at the same time as the first person
   \item The interface will provide feedback detecting multiple faces within 3 seconds.
 \end{itemize}
@@ -379,7 +373,7 @@ The following tools and technologies will be used for the development, testing a
   \hline
   Python & Python will be the main langauge for data analysis and machine learning \\ 
   \hline
-  Expo using React Native & Expo will be used to create native apps with the React framework that can be deployed as a web-based application or mobile platform. \\
+  React Native and Tailwind & Will be used for styling the site \\
   \hline
   Node.js & Node.js will be used for building the back-end server. \\
   \hline
@@ -399,9 +393,13 @@ The following tools and technologies will be used for the development, testing a
   \hline
   Pytest & Testing framework for Python \\ 
   \hline
-  Azure Kubernetes - AKS & Manage data and deploy the application. \\
+  AWS - S3  & Store all data in S3 Buckets. \\
   \hline
-  Power BI &  Data Analytics Dashboard integrated with python \\
+  Netlify &  Will be used to deploy the frontend of the application \\
+  \hline
+  Render &  Will be used to deploy the backend of the application \\
+  \hline
+  Deepgram & Using Deepgram to create Bias Detection algorithm \\
   \hline
 \end{tabularx}
 
