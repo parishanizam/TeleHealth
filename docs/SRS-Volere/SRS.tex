@@ -270,6 +270,10 @@
       \begin{itemize}[leftmargin=*]
         \item \href{https://github.com/parishanizam/TeleHealth/issues/190}{Export and insert diagrams as PDFs so they are not pixelated}
       \end{itemize} \\
+      03/23/25 & 2.15 & Mitchell Weingust & Implemented TA Feedback: 
+      \begin{itemize}[leftmargin=*]
+        \item \href{https://github.com/parishanizam/TeleHealth/issues/191}{Ensured all section headings with a subsection heading right under it now has text introducing it}
+      \end{itemize} \\
     \end{tabularx}
   \end{table}
 
@@ -293,7 +297,9 @@ children, in an environment where speech-language pathologists (SLPs) are
 unavailable. By streamlining the assessment process, the project aims to provide a 
 convenient and comprehensive solution for SLPs to assess and support their patients'
 speech and language development remotely. 
+
 \subsection{Goals of the Project}
+\hspace{2em}The 5 goals of the project are:
 \begin{itemize}
   \item[1.2.1] \textbf{Intuitive Parent Interface:}  
   The system must provide an intuitive interface that helps parents administer 
@@ -330,6 +336,7 @@ speech and language development remotely.
 \newpage
 
 \section{Stakeholders}
+\hspace{2em}Below are the key stakeholders of the TeleHealth Insights project.
 \subsection{Client}
   \begin{itemize}
     \item This project's client is Researcher, Clinician Assistant, Professor at the University of Southern California, Dr. Yao Du.
@@ -409,6 +416,8 @@ N/A\\
 \newpage
 
 \section{Mandated Constraints}
+\hspace{2em}The mandated constraints for this project comprise of solution constraints, implementation environment of the current system, partner or collaborative applications,
+off-the-shelf software, anticipated workplace environment, schedule constraints, budget contraints, and enterprise constraints.
 \subsection{Solution Constraints}
 \begin{itemize}
   \item[3.1.1] The platform must be accessible as a website to provide ease of access to users without requiring special software installations.
@@ -490,6 +499,7 @@ N/A\\
 \newpage
 
 \section{Naming Conventions and Terminology}
+\hspace{2em}The following section contains the glossary of all terms used throughout the document, and used by stakeholders involved in the project.
 
 \subsection{Glossary of All Terms, Including Acronyms, Used by Stakeholders
 involved in the Project}
@@ -519,6 +529,7 @@ involved in the Project}
 \newpage
 
 \section{Relevant Facts And Assumptions}
+\hspace{2em} This section is comprised of relevant facts, business rules, assumptions.
 \subsection{Relevant Facts}
 \begin{itemize}
   \item[5.1.1] The project is subject to healthcare privacy laws like HIPAA \cite{hipaa}, PHIPA \cite{phipa} and PIPEDA \cite{pipeda}, ensuring that patient data is securely stored and managed.
@@ -553,6 +564,7 @@ involved in the Project}
 \newpage
 
 \section{The Scope of the Work}
+\hspace{2em}This section is comprised of the current situation, the context of the work, work partitioning, and specifying a business use case.
 \subsection{The Current Situation}
 \hspace{2em}Currently, speech language assessments for bilingual children with speech difficulties require in-person visits, which can be logistically challenging 
 for families and clinicians. While there are some existing telehealth solutions, they are much more generalized and there are no existing solutions 
@@ -640,7 +652,10 @@ assessment and details such as the related assessment question, answer, and time
   \caption{BUC Video Analysis Sequence Diagram}
 \end{figure}
 
+\newpage
+
 \section{Business Data Model and Data Dictionary}
+\hspace{2em}This section is comprised of the business data model and the data dictionary below.
 \subsection{Business Data Model}
 \begin{figure}[H]
   \centering
@@ -693,6 +708,7 @@ assessment and details such as the related assessment question, answer, and time
 \newpage
 
 \section{The Scope of the Product}
+\hspace{2em}This section is comprised of a product boundary diagram, use case diagram, product use case table, and product use cases.
 \subsection{Product Boundary}
 \begin{figure}[H]
   \centering
@@ -1082,6 +1098,8 @@ assessment and details such as the related assessment question, answer, and time
 \newpage
 
 \section{Functional Requirements}
+\hspace{2em}The functional requirements sections contained in this document are authentication, system setup, assessment interface, data collection and storage, video and audio
+data analysis, and data processing and display.
 
 \subsection{Authentication}
 \begin{enumerate}[label={FR-A}1. ]
@@ -1279,6 +1297,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Look and Feel Requirements}
+\hspace{2em}Look and Feel Requirements are comprised of appearance and style requirements.
 \subsection{Appearance Requirements}
 \begin{enumerate}[label={LF-AR}1. ]
   \item The platform should maintain a modern, organized, and visually appealing design that looks clean and professional, while not 
@@ -1322,6 +1341,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Usability and Humanity Requirements}
+\hspace{2em}Usability and Humtanity Requirements are comprised of ease of use, personalization and internationalization, learning, understandability and politeness, and accessibility requirements.
 \subsection{Ease of Use Requirements} 
 \begin{enumerate}[label={UH-EOU\arabic*}. ]
   \item The system shall be intuitive for new users to understand.\\
@@ -1363,6 +1383,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Performance Requirements}
+\hspace{2em}Performance Requirements are comprised of speed and latency, safety-critical, precision or accuracy, robustness or fault-tolerance, capacity, scalability or extensibility, and longevity requirements.
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}[label={PR-SL}1. ]
   \item The system shall load web pages within MAX\_LOAD\_TIME seconds of navigating to it.\\
@@ -1491,6 +1512,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Operational and Environmental Requirements}
+\hspace{2em}Operational and Environmental Requirements are comprised of expected physical environment, wider environment, requirements for interfacing with adjacent systems, productization, and release requirements.
 \subsection{Expected Physical Environment}
 \begin{enumerate}[label={OE-EPE\arabic*}. ]
   \item The system can be run on all browser-supported devices regardless of screen sizes.\\
@@ -1524,6 +1546,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Maintainability and Support Requirements}
+\hspace{2em}Maintainability and Support Requirements are comprised of maintenance, supportability, and adaptability requirements.
 \subsection{Maintenance Requirements}
 \begin{enumerate}[label={MS-MR}1. ]
   \item The platform should be built using a modular architecture so that individual components may be updated or replaced independently without disrupting the entire system.\\
@@ -1545,8 +1568,6 @@ The success of the system is dependent on the parent-child correctly using the i
    tutorial.
 \end{enumerate}
 
-\newpage
-
 \subsection{Adaptability Requirements}
 \begin{enumerate}[label={MS-AR}1. ]
   \item The platform should be responsive, automatically adjusting its layout and design to suit different screen sizes, including desktops, tablets, and mobile devices.\\
@@ -1558,6 +1579,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Security Requirements}
+\hspace{2em}Security Requirements are comprised of access, integrity, privacy, audit and immunity requirements.
 \subsection{Access Requirements}
 \begin{enumerate}[label={SR-AC\arabic*}. ]
   \item Only users with an Admin role can create and assign accounts to clinicians.\\
@@ -1603,6 +1625,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Cultural Requirements}
+\hspace{2em}Cultural requirements are reflective of the integrity and respect for cultures and the sensitivity that must be acknowledged when developing systems for a variety of diverse users.
 \subsection{Cultural Requirements}
 \begin{enumerate}[label={CU-CR}1. ]
   \item The platform must not contain any language or imagery that could be considered culturally insensitive or offensive to any users, particularly the primary user groups.\\
@@ -1620,6 +1643,7 @@ The success of the system is dependent on the parent-child correctly using the i
 \newpage
 
 \section{Compliance Requirements}
+\hspace{2em}Compliance requirements are comprised of legal and standards compliance requirements.
 \subsection{Legal Requirements}
 \begin{enumerate}[label={CR-LR}1. ]
   \item N/A
@@ -1755,6 +1779,7 @@ The tracability matrix between the project's product use cases and non-functiona
 \newpage
 
 \section{Off-the-Shelf Solutions}
+\hspace{2em}Off-the-Shelf Solutions are a variety of solutions that the team can observe for inspiration or used as tools through development, such as ready-made products, reusable components, and products that can be copied.
 \subsection{Ready-Made Products}
 \begin{itemize}
   \item VSee: A telehealth platform for virtual visits and remote exams \cite{vsee}.
@@ -1775,6 +1800,7 @@ The tracability matrix between the project's product use cases and non-functiona
 \newpage
 
 \section{New Problems}
+\hspace{2em}New Problems consist of problems that may arise throughout development or could be expected to arise in the future after development.
 \subsection{Effects on the Current Environment}
 \hspace{2em}This application is not intended to replace any existing tools but rather to complement 
 them as a newly developed solution. Its primary purpose is to enable parents and clinicians to 
@@ -1797,6 +1823,7 @@ The system has no follow up problem
 \newpage
 
 \section{Tasks}
+\hspace{2em}Tasks are comprised of the overall development of the team's project, closely following the deadlines and dates provided by the course instructor.
 \subsection{Project Planning}
 
 \begin{table}[h!]
@@ -1890,6 +1917,7 @@ Revision 1 will focus on implementing refinements to Revision 0 documentation an
 \newpage
 
 \section{Migration to the New Product}
+\hspace{2em}This section is not relevant to the team's project as there is no migration to a new product. This is a new project.
 \subsection{Requirements for Migration to the New Product}
 N/A
 \subsection{Data That Has to be Modified or Translated for the New System}
@@ -1909,6 +1937,7 @@ technology solutions need to change as the project progresses; however, there ar
 \newpage
 
 \section{User Documentation and Training}
+\hspace{2em}This section comprises the necessary documentation and training that the team will provide to users to reduce confusion and improve understanding.
 \subsection{User Documentation Requirements}
 \hspace{2em}The system will include four forms of user documentation. 
 \begin{itemize}
