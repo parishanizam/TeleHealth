@@ -18,6 +18,7 @@
 \usepackage{tabularx,ragged2e,booktabs,caption}
 \usepackage{longtable}
 \usepackage{ulem}
+\usepackage{ltablex}
 
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
@@ -54,7 +55,9 @@
 10/25/2024 & 1.1 & Jasmine Sun-Hu & Added Drafts of Section 4, Reflection\\
 10/25/2024 & 1.2 & Promish Kandel & Added FMEA Table, Sections 6,7, Reflection\\
 10/25/2024 & 1.3 & Mitchell Weingust & Document Review, Added List of Tables/Figures, Fixed Grammar\\
-12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback\\
+12/24/2024 & 1.4 & Jasmine Sun-Hu & Implemented Assigned Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/131}{Section 3}, \href{https://github.com/parishanizam/TeleHealth/issues/157}{Updated 5.2 Audio Recording Failure Modes}\\
+03/20/2025 & 2.1 & Jasmine Sun-Hu & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/233}{added \textbackslash multirow format to table 5.2}, \href{https://github.com/parishanizam/TeleHealth/issues/234}{Updated 5.2 recommended actions}, Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/153}{added additional failure modes/ recommended actions for video recording component}\\
+03/22/2025 & 2.2 & Jasmine Sun-Hu & Implemented Peer Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/155}{Adjusted critical assumptions and out of scope hazards}, \href{https://github.com/parishanizam/TeleHealth/issues/156}{Clarified HA-UI2}, \href{https://github.com/parishanizam/TeleHealth/issues/159}{Removed Authentication as a component}, \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -97,7 +100,6 @@ The system referred to throughout the document consists of several major compone
 \begin{enumerate}
     \item \textbf{User-Facing Application}: The front-end platform where users interact with the system. It allows users to navigate through the assessment, accept inputs, and display results.
     \item \textbf{Backend Server}: The back-end platform handles data collection and processing, business logic, and communication between all system components.
-    \item \textbf{Authentication}: A subsystem of the Backend Server. It manages the login and access control mechanisms.
     \item \textbf{Video Recording Module}: Responsible for capturing and transmitting video data during an assessment session.
     \item \textbf{Audio Recording Module}: Responsible for capturing and transmitting audio data during an assessment session.
     \item \textbf{Video Analysis Model}: Processes and analyzes the video recording for disturbances and other behaviours against assessment instructions.
@@ -113,301 +115,226 @@ will be considered within the system boundary and may be included in the hazard 
 
 \section{Critical Assumptions}
 \begin{enumerate}
-    \item Users have reliable internet access while using the web application.
-    \item The user's device is compatible with the web application and has the necessary capabilities and system requirements to run the assessment session.
-    \item Users will keep their account details confidential.
-    \item Any third-party hosting services (e.g. cloud storage or hosting) used by the backend server are reliable and secure according to industry standards.
-    \item When a user is taking the assessment they will have a functional microphone and camera that meet the minimum requirements for recording assessment sessions.
+    \item Users are expected to have consistent internet connectivity sufficient to complete the assessment under normal conditions.
+    \item Users will use a compatible device (e.g., computer or tablet) with the necessary hardware capabilities (camera, microphone) to support the assessment functionality.
+    \item Users will protect their account information and not share login credentials.
+    \item Third-party cloud services used for backend infrastructure will remain available and secure, as guaranteed by their service level agreements (SLAs).
+    \item Users will operate the platform in a distraction-free environment, minimizing interruptions and background noise.
 \end{enumerate}
 
 \section{Failure Mode and Effect Analysis}
 \subsection{Hazards Out of Scope}
-The following are hazards that could occur outside the control of the system, thus they can't be fixed or mitigated.
+The following are hazards that could occur outside the control of the system and not addressed in critical assumptions, thus they can't be fixed or mitigated.
 \begin{itemize}
-    \item Wi-Fi shuts down during assessment
-    \item User hardware malfunctions during assessment
-\end{itemize}
+     \item Hardware malfunctions such as a broken camera or microphone.
+     \item User intentionally disabling recording permissions during the assessment.
+     \item Environmental interference such as unexpected loud noises or visual obstructions.
+ \end{itemize}
 \subsection{Failure Mode \& Effect Analysis Table}
 The following FMEA table is a breakdown of the hazards that could occur within the system, along with recommended actions to mitigate them.
 
 \newgeometry{margin=0.5in}
 \begin{landscape}
-\begin{longtable}{|>{\raggedright\arraybackslash\centering}p{2.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{2.8cm}|>{\raggedright\arraybackslash}p{2cm}|}
-\caption{Failure Mode and Effect Analysis} \label{FMEA}\\
-\hline
- Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\
- \endfirsthead
- \multicolumn{7}{c}
- {Table \thetable\ Continued from previous page}\\
- \hline
- Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\
- \endhead
- \multicolumn{7}{r}{{Continued on next page}} \\
-\endfoot
-\multicolumn{7}{r}{{Concluded}} \\
-\endlastfoot
- \hline
- Database
- & 
- \begin{enumerate}
-    \item SQL injection attack
-    \item Unauthorized access
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Loss of confidentiality, integrity and availability of user data and assessment data.
-    \item Breach of sensitive patient data, violation of HIPAA.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Inadequate input validation or un-parameterized SQL queries.
-     \item Administrative access is not validated and user accesses database directly.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Implement periodic data backups, prioritize and implement thorough database access controls, and use parameterized queries.
-     \item Add multi-factor authentication.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item PR-RFT2, PR-RFT3
-     \item SR-AC3, SR-AC4
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-D1
-     \item HA-D2
- \end{enumerate}
- \\
- \hline
- Authentication
- & 
- \begin{enumerate}
-    \item Parent gets clinician level access
-    \item Users can't login
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Unauthorized access to sensitive patient data, leading to potential HIPAA violations and data breaches.
-    \item Users are unable to access their accounts or data, leading to poor user experience.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Improper role-based access control implementation resulting in errors in user role assignment.
-     \item Errors in authentication logic or server downtime.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Do regular access audits to ensure clear separation of user roles.
-     \item Implement a fallback login and add error handling for feedback.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-A1,FR-A3
-     \item FR-A2,FR-A4
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-A1
-     \item HA-A2
- \end{enumerate}
- \\
- \hline
- Video Analysis Model
- & 
- \begin{enumerate}
-    \item Model cannot access video recording
-    \item Model cannot detect user actions during analysis
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Video-based analysis is incomplete or fails, which may hinder decision-making based on video data.
-    \item Reduced accuracy in behaviour detection or activity recognition.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Missing file permissions, incorrect file paths, or server-side issues.
-     \item Insufficient training data, low video resolution, or model overfitting to specific data types.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Validate file paths before processing, ensure proper access permissions, and log all access attempts for debugging.
-     \item Retrain model with more diverse data, improve preprocessing techniques like video upscaling, and evaluate model performance.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-VADA1
-     \item FR-VADA3
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-VAM1
-     \item HA-VAM2
- \end{enumerate}
- \\
- \hline
- Audio Analysis Model
- & 
- \begin{enumerate}
-    \item Model cannot access audio recording
-    \item Model cannot detect audio cues during analysis
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Audio-based analysis is incomplete or fails, impacting the overall data analysis outcome.
-    \item Missed events or actions during analysis.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item File corruption, incorrect file format, or lack of access permissions.
-     \item Inadequate training on diverse audio samples or background noise interference.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Validate audio files before analysis, provide user guidelines for supported formats, and log access errors.
-     \item Use noise reduction preprocessing, retrain the model with varied audio data.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-VADA1
-     \item FR-VADA3
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-AAM1
-     \item HA-AAM2
- \end{enumerate}
- \\
- \hline
- Video Recording
- & 
- \begin{enumerate}
-    \item Video recording is blurry
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item The video analysis model may miss critical details, leading to inaccurate analysis.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Low-resolution recording settings, poor camera quality, or motion blur.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Apply post-processing filters.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-SS3
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-VR1
- \end{enumerate}
- \\
- \hline
- Audio Recording 
- & 
- \begin{enumerate}
-    \item Audio recording has background noise interference
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Poor quality audio makes it difficult for the model to detect speech or audio events accurately.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Faulty recording equipment, interference, or poor recording environment.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Filter noise using software tools, and provide best practices for recording.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-SS2
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-AR1
- \end{enumerate}
- \\
- \hline
- Backend Server
- & 
- \begin{enumerate}
-    \item Data loss during processing
-    \item Server crashes due to user overload
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Partial or complete loss of data during video/audio processing could result in incomplete analysis
-    \item Users may be unable to complete the assessment, or the server crashing could destroy user data.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Server overload or incorrect handling of data transfer.
-     \item High traffic overload, memory leaks, or unhandled exceptions.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Use robust data storage solutions such as a temporary cache before saving.
-     \item Monitor server health and use proper exception handling to manage unexpected errors.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item FR-DSC1, FR-DSC2
-     \item PR-CR1, PR-CR2, PR-CR3
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-BS1
-     \item HA-BS2
- \end{enumerate}
- \\
- \hline
- User-Facing Application
- & 
- \begin{enumerate}
-    \item Error in navigation structure/flow
-    \item Button components aren't clickable
- \end{enumerate}
- & 
-  \begin{enumerate}
-    \item Users cannot move through the application smoothly, leading to frustration and a poor user experience.
-    \item Users cannot complete quizzes, or perform interactions with clickable objects and are unable to proceed through the interface.
- \end{enumerate}
-& 
-  \begin{enumerate}
-     \item Incorrect routing logic or implementation.
-     \item Errors in implementation.
- \end{enumerate}
-&
-  \begin{enumerate}
-     \item Test navigation paths thoroughly and implement error logging for navigation failures.
-     \item Test UI components with different devices and browsers.
- \end{enumerate}
-
-&  
-\begin{enumerate}
-     \item LF-AR2, LF-AR5
-     \item UH-AR1, LF-AR4
- \end{enumerate}
-&
-\begin{enumerate}
-     \item HA-UI1
-     \item HA-UI2
- \end{enumerate}
- \\
- \hline
-\end{longtable}
+  \begin{longtable}{|p{3cm}|p{3cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|p{3cm}|}
+  \caption{Failure Mode and Effect Analysis} \label{FMEA}\\
+  \hline
+   Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\ 
+  \hline
+  \endfirsthead
+  \multicolumn{7}{r}{Table \thetable\ Continued from previous page}\\ 
+  \hline
+   Component & Failure Modes & Effects of Failure & Causes of Failure & Recommended Action & SR & Ref.  \\ 
+  \hline
+  \endhead
+  \multicolumn{7}{r}{{Continued on next page}}\\
+  \endfoot
+  \multicolumn{7}{r}{{Concluded}}\\
+  \endlastfoot
+  \multirow{7}{*}{Database} & 
+  \begin{enumerate}[leftmargin=*]
+      \item SQL injection attack
+      \item Unauthorized access
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item Loss of confidentiality, integrity and availability of user data and assessment data.
+      \item Breach of sensitive patient data, violation of HIPAA.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Inadequate input validation or un-parameterized SQL queries.
+       \item Weak access controls, lack of encryption, or insecure credentials.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Implement prepared statements and parameterized queries to prevent SQL injection, and encrypt stored and transmitted data using AES-256 encryption.
+       \item Implement role-based access control and multi-factor authentication.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item PR-RFT2, PR-RFT3
+       \item SR-AC3, SR-AC4
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-D1
+       \item HA-D2
+  \end{enumerate} \\
+  \hline
+  Video Analysis Model & 
+  \begin{enumerate}[leftmargin=*]
+      \item Model cannot access video recording
+      \item Model cannot detect user actions during analysis
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item Video-based analysis is incomplete or fails, which may hinder decision-making based on video data.
+      \item Reduced accuracy in behaviour detection or activity recognition.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Missing file permissions, incorrect file paths, or server-side issues.
+       \item Insufficient training data, low video resolution, or model overfitting to specific data types.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Validate file paths before processing, ensure proper access permissions, and log all access attempts for debugging.
+       \item Periodically retrain model with higher-resolution datasets, improve preprocessing techniques like video upscaling, and evaluate model performance.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item FR-VADA1
+       \item FR-VADA3
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-VAM1
+       \item HA-VAM2
+  \end{enumerate} \\
+  \hline
+  Audio Analysis Model & 
+  \begin{enumerate}[leftmargin=*]
+      \item Model cannot access audio recording
+      \item Model cannot detect audio cues during analysis
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item Audio-based analysis is incomplete or fails, impacting the overall data analysis outcome.
+      \item Missed events or actions during analysis.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item File corruption, incorrect file format, or lack of access permissions.
+       \item Inadequate training on diverse audio samples or background noise interference.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Validate audio files before analysis, provide user guidelines for supported formats, and log access errors.
+       \item Use noise reduction preprocessing, retrain the model with varied audio data.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item FR-VADA1
+       \item FR-VADA3
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-AAM1
+       \item HA-AAM2
+  \end{enumerate} \\
+  \hline
+  Video Recording & 
+  \begin{enumerate}[leftmargin=*]
+      \item Video recording is blurry
+      \item User is not fully visible in the video
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item The video analysis model may miss critical details, leading to inaccurate analysis.
+      \item System may be unable to track bias detection accurately if the user is not fully in the camera frame.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Poor lighting, low-resolution recording settings, or motion blur, camera lens is dirty or obstructed.
+       \item User is unaware of proper framing or positioning guidelines.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Prompt the user to clean their camera lens and verify camera settings and apply post-processing filters.
+       \item Provide a camera testing checkpoint to let the user see if they are in frame before starting the assessment
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item FR-SS3, FR-SS4
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-VR1, HA-VR2
+  \end{enumerate} \\
+  \hline
+  Audio Recording  & 
+  \begin{enumerate}[leftmargin=*]
+      \item Audio recording has background noise interference
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item Poor quality audio makes it difficult for the model to detect speech or audio events accurately.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Faulty recording equipment, interference, or poor recording environment.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Filter noise using software tools, and provide best practices for recording.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item FR-SS2
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-AR1
+  \end{enumerate} \\
+  \hline
+  Backend Server & 
+  \begin{enumerate}[leftmargin=*]
+      \item Data loss during processing
+      \item Server crashes due to user overload
+  \end{enumerate} & 
+  \begin{enumerate}[leftmargin=*]
+      \item Partial or complete loss of data during video/audio processing could result in incomplete analysis
+      \item Users may be unable to complete the assessment, or the server crashing could destroy user data.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Server overload or incorrect handling of data transfer.
+       \item High traffic overload, memory leaks, or unhandled exceptions.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item Use robust data storage solutions such as a temporary cache before saving or transaction-based logging.
+       \item Monitor server health and enable automatic failover mechanisms.
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item FR-DSC1, FR-DSC2
+       \item PR-CR1, PR-CR2, PR-CR3
+  \end{enumerate} &
+  \begin{enumerate}[leftmargin=*]
+       \item HA-BS1
+       \item HA-BS2
+  \end{enumerate} \\
+  \hline
+  User-Facing Application & 
+  \begin{enumerate}[leftmargin=*]
+      \item Error in navigation structure/flow
+      \item Button components aren't clickable across all devices
+  \end{enumerate} & 
+  \begin{minipage}[t]{\linewidth}
+  \begin{enumerate}[leftmargin=*]
+      \item Users cannot move through the application smoothly, leading to frustration and a poor user experience.
+      \item Users cannot complete quizzes or interact with the UI, preventing task completion and blocking progression.
+  \end{enumerate}
+  \end{minipage} &
+  \begin{minipage}[t]{\linewidth}
+  \begin{enumerate}[leftmargin=*]
+       \item Incorrect or missing routing logic, broken links, or unhandled navigation events.
+       \item UI components not rendering correctly due to screen size, device-specific compatibility issues, or missing accessibility focus states.
+  \end{enumerate}
+  \end{minipage} &
+  \begin{minipage}[t]{\linewidth}
+  \begin{enumerate}[leftmargin=*]
+       \item Conduct usability testing and implement fallback paths or error boundaries for broken flows.
+       \item Validate responsiveness using tools like Chrome DevTools, test across common screen sizes and OS/browser combinations, and implement accessibility-friendly controls.
+  \end{enumerate}
+  \end{minipage} &
+  \begin{minipage}[t]{\linewidth}
+  \begin{enumerate}[leftmargin=*]
+       \item LF-AR2, LF-AR5
+       \item UH-AR1, LF-AR4, MS-AR1
+  \end{enumerate}
+  \end{minipage} &
+  \begin{minipage}[t]{\linewidth}
+  \begin{enumerate}[leftmargin=*]
+       \item HA-UI1
+       \item HA-UI2
+  \end{enumerate}
+  \end{minipage} \\
+  \hline
+  \end{longtable}
 \end{landscape}
 \restoregeometry
 \newpage
