@@ -342,14 +342,14 @@ function BiasReviewPage() {
           <div className="mt-4 text-center text-lg">
             {biasState ? (
               <div className="text-red-500">
-                <button
+                {/* <button
                   className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded hover:bg-pink-600 transition"
                   onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
                 >
                   {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}
                 </button>
 
-                {isBiasDropdownOpen && (
+                {isBiasDropdownOpen && ( */}
                   <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
                     <p className="font-bold mb-2">Bias Detected:</p>
                     <div className="overflow-auto max-h-40">
@@ -366,7 +366,7 @@ function BiasReviewPage() {
                       </ul>
                     </div>
                   </div>
-                )}
+                {/* )} */}
               </div>
             ) : (
               <p className="text-green-600">No Bias Detected</p>
