@@ -242,6 +242,47 @@ async function saveMarkModification(req, res) {
   }
 }
 
+async function saveNotesModification(req, res) {
+  try {
+    const { parentUsername, assessmentId, question_id } = req.params;
+    let { notes } = req.body;
+    console.log(notes);
+
+    if (!parentUsername || !assessmentId || !question_id) {
+      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and notes are required." });
+    }
+
+    const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
+
+    if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
+      return res.status(404).json({ error: "Results file not found." });
+    }
+
+    const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
+
+    // Find the question to update
+    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+
+    if (!question) {
+      return res.status(404).json({ error: "Question not found in the results." });
+    }
+
+    // Update the notes for the found question
+    question.notes = notes;
+
+    // Save the updated results back to S3
+    await uploadJson(RESULTS_BUCKET, resultsFile, resultsData);
+
+    // Return updated question directly without requiring another S3 read
+    return res.json({
+      message: "Notes modification saved successfully",
+      updatedQuestion: { ...question },
+    });
+  } catch (err) {
+    console.error("Error saving notes modification:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
+}
 
 module.exports = {
   submitAssessment,
@@ -250,4 +291,5 @@ module.exports = {
   saveBiasModification,
   getAssessmentResultForQuestion,
   saveMarkModification,
+  saveNotesModification,
 };

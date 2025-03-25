@@ -33,6 +33,7 @@ function BiasReviewPage() {
     questionIds = [],
     currentIndex = 0,
     totalQuestions = 1,
+    notes = "",
 
     // If you also want to keep securityCode or other fields
     clientId,
@@ -50,6 +51,7 @@ function BiasReviewPage() {
   const [biasState, setBiasState] = useState(bias_state || false);
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
+  const [notesText, setNotesText] = useState(notes || "");
 
   // 1) Fetch assessment history file (optional)
   useEffect(() => {
@@ -77,8 +79,8 @@ function BiasReviewPage() {
     questionNumber === 1
       ? "00:00"
       : historyTimestamps && historyTimestamps.length >= questionNumber - 1
-      ? historyTimestamps[questionNumber - 2].timestamp
-      : "00:00";
+        ? historyTimestamps[questionNumber - 2].timestamp
+        : "00:00";
 
   // 3) If necessary data is missing, show error
   useEffect(() => {
@@ -109,8 +111,10 @@ function BiasReviewPage() {
         );
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
         const initialBiasState = !!resultRes.data?.bias_state;
+        const initialNotes = resultRes.data?.notes || "";
         setMarkState(initialMarkState);
         setBiasState(initialBiasState);
+        setNotesText(initialNotes);
 
         // Fetch media (video + bias timestamps)
         const dateObj = date ? new Date(date) : new Date();
@@ -155,6 +159,7 @@ function BiasReviewPage() {
       user_answer: userAnswer,
       bias_state: newState,
       mark_state: markState,
+      notes: notesText,
     };
 
     try {
@@ -175,6 +180,7 @@ function BiasReviewPage() {
       user_answer: userAnswer,
       bias_state: biasState,
       mark_state: newMarkState,
+      notes: notesText,
     };
 
     try {
@@ -186,6 +192,28 @@ function BiasReviewPage() {
       console.error("Error saving mark state:", error);
     }
   };
+
+  const changeNotes = async (newNotes) => {
+    setNotesText(newNotes);
+
+    const payload = {
+      question_id: questionId,
+      user_answer: userAnswer,
+      bias_state: biasState,
+      mark_state: markState,
+      notes: newNotes,
+    };
+
+    try {
+      await axios.post(
+        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/notes`,
+        payload
+      );
+    } catch (error) {
+      console.error("Error saving notes:", error);
+    }
+  };
+
 
   // Convert bias timestamps from ms to s
   const formattedBias = biasTimestamps.map((b) => ({
@@ -212,6 +240,7 @@ function BiasReviewPage() {
           userAnswer: prevQ.user_answer,
           bias_state: prevQ.bias_state,
           mark_state: prevQ.mark_state,
+          notes: prevQ.notes,
         },
       });
     }
@@ -232,6 +261,7 @@ function BiasReviewPage() {
           userAnswer: nextQ.user_answer,
           bias_state: nextQ.bias_state,
           mark_state: nextQ.mark_state,
+          notes: nextQ.notes,
         },
       });
     }
@@ -246,12 +276,12 @@ function BiasReviewPage() {
 
       <div className="flex items-center justify-center space-x-2 mt-2">
         <span className="text-3xl tracking-tight text-center text-black leading-[64px]">
-          {formatDate(date)}        
+          {formatDate(date)}
         </span>
       </div>
       <div className="flex items-center space-x-2 text-3xl">
         <p>
-          Question {questionNumber}         
+          Question {questionNumber}
         </p>
       </div>
       <span className="text-2xl">{formatTestTitle(questionBankId) || "Unknown"}</span>
@@ -264,7 +294,7 @@ function BiasReviewPage() {
           firstName={firstName}
           lastName={lastName}
           securityCode={securityCode}
-          clientId={clientId}          
+          clientId={clientId}
           destination="/clinicians/ResultsAnalysisPage"
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         />
@@ -272,18 +302,16 @@ function BiasReviewPage() {
         <button
           onClick={goToPreviousQuestion}
           disabled={isFirstQuestion}
-          className={`px-4 py-2 rounded ${
-            isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-          } text-white font-semibold`}
+          className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+            } text-white font-semibold`}
         >
           Back
         </button>
         <button
           onClick={goToNextQuestion}
           disabled={isLastQuestion}
-          className={`px-4 py-2 rounded ${
-            isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-          } text-white font-semibold`}
+          className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+            } text-white font-semibold`}
         >
           Next
         </button>
@@ -393,6 +421,21 @@ function BiasReviewPage() {
           )}
         </div>
       </div>
+
+      {/* Notes Section */}
+      <div className="mt-4 w-full max-w-4xl mx-auto">
+        <div className="flex items-center space-x-2">
+          <label className="text-lg font-semibold">Clinician Notes:</label>
+          <span className="text-sm text-gray-500">(All Notes Autosaved)</span>
+        </div>
+        <textarea
+          className="w-full h-24 p-2 border border-gray-300 rounded-md mt-2"
+          placeholder="Enter notes here..."
+          value={notesText}
+          onChange={(e) => changeNotes(e.target.value)}
+        />
+      </div>
+
 
       <div className="w-full flex justify-end pr-10 pb-10">
         <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState} />
