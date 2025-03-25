@@ -39,7 +39,7 @@ export default function TestInstructions() {
           {/* <p className="text-3xl font-bold text-blue-600 text-center mb-2">Let's Go!</p> */}
           <button
                 onClick={handleStart}
-                className="px-4 py-3 bg-blue-600 text-white text-2xl font-semibold transition transform hover:scale-105 active:scale-95 shadow-md"
+                className="px-4 py-3 bg-blue-600 text-white text-2xl font-semibold transition transform hover:scale-105 active:scale-95 rounded-lg shadow-md"
               >
                 Let's Go! 
           </button>
