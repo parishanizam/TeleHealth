@@ -20,8 +20,8 @@ function IconButtonGroup({ markState, changeMarkState }) {
   };
 
   return (
-    <div className="flex flex-col items-center mt-4">
-      <p className="mb-4 text-lg font-semibold">Select a button to grade the question</p>
+    <div className="flex flex-col items-center mt-4 bg-white rounded-xl border border-2 border-gray-300 rounded-xl">
+      <p className="mb-4 text-lg font-semibold">Mark Answer</p>
       <div className="flex gap-4 items-center justify-center mt-4">
         <IconButton
           iconSrc={CheckmarkIcon}

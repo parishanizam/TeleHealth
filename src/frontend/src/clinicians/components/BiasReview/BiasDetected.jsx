@@ -4,7 +4,7 @@ function BiasDetected({ biasState }) {
 
   return (
     <div
-      className={`text-3xl tracking-tight text-center text-pink-500 leading-[64px] max-md:max-w-full max-md:text-4xl`}
+      className={`text-3xl tracking-tight text-center text-pink-500`}
     >
       <span className="font-bold">Bias Detected</span>
     </div>

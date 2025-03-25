@@ -48,9 +48,8 @@ function BiasReviewPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [biasState, setBiasState] = useState(bias_state || false);
+  const [biasState, setBiasState] = useState("Undetermined");
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
-  const [isBiasDropdownOpen, setIsBiasDropdownOpen] = useState(false);
   const [notesText, setNotesText] = useState(notes || "");
 
   // 1) Fetch assessment history file (optional)
@@ -110,7 +109,7 @@ function BiasReviewPage() {
           `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
         );
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
-        const initialBiasState = !!resultRes.data?.bias_state;
+        const initialBiasState = resultRes.data?.bias_state ?? (mediaRes.data?.bias?.length > 0 ? true : "Undetermined");
         const initialNotes = resultRes.data?.notes || "";
         setMarkState(initialMarkState);
         setBiasState(initialBiasState);
@@ -149,9 +148,16 @@ function BiasReviewPage() {
     fetchQuestionAndMedia();
   }, [questionId, questionBankId, parentUsername, assessmentId, date, questionNumber]);
 
-  // 4) Toggling bias
+  // Toggling bias
   const toggleBiasState = async () => {
-    const newState = !biasState;
+    let newState;
+    if (biasState === "Undetermined") {
+      newState = true;
+    } else if (biasState === true) {
+      newState = false;
+    } else {
+      newState = true;
+    }
     setBiasState(newState);
 
     const payload = {
@@ -270,93 +276,142 @@ function BiasReviewPage() {
   return (
     <div className="flex flex-col items-center min-h-screen px-5 bg-white">
       <Header
-        title={`${firstName || "Unknown"} ${lastName || ""} - Question Review`}
+        title={`${firstName || "Unknown"} ${lastName || ""} - Question ${questionNumber}`}
         role="clinician"
       />
 
-      <div className="flex items-center justify-center space-x-2 mt-2">
-        <span className="text-3xl tracking-tight text-center text-black leading-[64px]">
-          {formatDate(date)}
-        </span>
+      <div className="flex space-x-6 items-center justify-between px-6 mt-4">
+        <div className="flex flex-col items-center px-6 mt-4 text-center">
+          <h2 className="text-3xl font-bold">
+            {formatTestTitle(questionBankId)}
+          </h2>
+          <p className="text-2xl font-medium">
+            {formatDate(date)}
+          </p>
+        </div>
+
+        <div className="mt-4 flex space-x-4 p-4 border-2 border-gray-300 rounded-lg">
+          <ReturnToResultsButton
+            parentUsername={parentUsername}
+            assessmentId={assessmentId}
+            date={date}
+            firstName={firstName}
+            lastName={lastName}
+            securityCode={securityCode}
+            clientId={clientId}
+            destination="/clinicians/ResultsAnalysisPage"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          />
+
+          <button
+            onClick={goToPreviousQuestion}
+            disabled={isFirstQuestion}
+            className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+              } text-white font-semibold`}
+          >
+            Back
+          </button>
+          <button
+            onClick={goToNextQuestion}
+            disabled={isLastQuestion}
+            className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+              } text-white font-semibold`}
+          >
+            Next
+          </button>
+        </div>
       </div>
-      <div className="flex items-center space-x-2 text-3xl">
-        <p>
-          Question {questionNumber}
-        </p>
-      </div>
-      <span className="text-2xl">{formatTestTitle(questionBankId) || "Unknown"}</span>
 
-      <div className="mt-4 flex space-x-4">
-        <ReturnToResultsButton
-          parentUsername={parentUsername}
-          assessmentId={assessmentId}
-          date={date}
-          firstName={firstName}
-          lastName={lastName}
-          securityCode={securityCode}
-          clientId={clientId}
-          destination="/clinicians/ResultsAnalysisPage"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        />
+      <div className="flex flex-row space-x-6 items-start px-6 mt-8 w-full max-w-6xl mx-auto">
+        {/* Main Content Container (Video, QuestionID, Answers) */}
+        <div className="w-2/3 flex flex-col space-y-6 h-full">
+        <div className="w-full min-w-2/3 min-h-[400px] flex flex-col items-center justify-center bg-gray-100 p-6 rounded-lg shadow-md">
+            <div className="flex w-full max-w-4xl items-center justify-between">
+              <div className="w-1/2 flex flex-col justify-center">
+                {!loading && (
+                  <div className="text-center mb-4">
+                    <p className="text-lg font-bold">Question Start: {displayTimestamp}</p>
+                  </div>
+                )}
 
-        <button
-          onClick={goToPreviousQuestion}
-          disabled={isFirstQuestion}
-          className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-            } text-white font-semibold`}
-        >
-          Back
-        </button>
-        <button
-          onClick={goToNextQuestion}
-          disabled={isLastQuestion}
-          className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-            } text-white font-semibold`}
-        >
-          Next
-        </button>
-      </div>
+                {/* <div className="flex w-full items-start gap-6 px-6 mt-6"> */}
+                  {/* Left side: video */}
+                  <div className="flex w-full flex-1">
+                    {loading ? (
+                      <p>Loading video...</p>
+                    ) : error ? (
+                      <p className="text-red-500">{error}</p>
+                    ) : (
+                      <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
+                    )}
+                  {/* </div> */}
+                </div>
+              </div>
 
-      <div className="flex w-full max-w-4xl items-center justify-between mt-8 bg-gray-100 p-6 rounded-lg shadow-md">
-        <div className="w-1/2 flex flex-col justify-center">
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <BiasDetected biasState={biasState} />
-          </div>
+              <div className="w-1/2 flex flex-col items-center space-y-4">
+                <div className="flex items-center space-x-3 p-3 bg-white border border-2 border-gray-300 rounded-xl">
+                  <div className="text-xl font-semibold text-gray-700">
+                    <p>Question ID: {questionId}</p>
+                  </div>
 
-          {!loading && (
-            <div className="text-center mb-4">
-              <p className="text-lg font-bold">
-                Question timestamp: {displayTimestamp}
-              </p>
+                  {question?.sound && (
+                    <img
+                      src={VolumeButton}
+                      alt="Play Sound"
+                      onClick={() => new Audio(question.sound).play()}
+                      className="object-contain w-8 h-8 cursor-pointer"
+                    />
+                  )}
+                </div>
+
+                {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
+                  <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl border border-2 border-gray-300 rounded-xl">
+                    <p className="mb-2 text-lg font-medium">Submitted Answer</p>
+                    <div className="p-2 flex justify-center">
+                      <audio
+                        key={audioUrl}
+                        controls
+                        preload="auto"
+                        crossOrigin="anonymous"
+                      >
+                        <source src={audioUrl} type="audio/mp4" />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  </div>
+                )}
+
+                {loading ? (
+                  <p>Loading answers...</p>
+                ) : error ? (
+                  <p className="text-red-500">{error}</p>
+                ) : (
+                  <QuestionAnswers
+                    question={question}
+                    userAnswer={userAnswer}
+                    markState={markState}
+                    changeMarkState={changeMarkState}
+                  />
+                )}
+              </div>
             </div>
-          )}
+          </div>
+        </div>
 
-          {loading ? (
-            <p>Loading video...</p>
-          ) : error ? (
-            <p className="text-red-500">{error}</p>
-          ) : (
-            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
-          )}
-
-          <div className="mt-4 text-center text-lg">
-            {biasState ? (
-              <div className="text-red-500">
-                {/* <button
-                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded hover:bg-pink-600 transition"
-                  onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
-                >
-                  {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}
-                </button>
-
-                {isBiasDropdownOpen && ( */}
+        {/* Bias Container (To the Right of the Main Content) */}
+        <div className="w-1/3 flex flex-col space-y-6">
+          <div className="p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md flex flex-col justify-between h-full">
+            <BiasDetected biasState={biasState !== false} />
+            <div className="mt-4 text-center text-lg">
+              {biasState ? (
+                <div className="text-red-500">
                   <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
-                    <p className="font-bold mb-2">Bias Detected:</p>
+                    {/* <p className="font-bold mb-2">Bias Detected:</p> */}
                     <div className="overflow-auto max-h-40">
                       <ul className="list-disc list-inside">
                         {formattedBias.map((bias, index) => (
                           <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
+                            <strong>{bias.timestamp}s</strong> - {bias.keyword}
                             <span className="text-gray-500">
                               {" "}
                               (Faces Detected: {bias.faceCount})
@@ -366,79 +421,31 @@ function BiasReviewPage() {
                       </ul>
                     </div>
                   </div>
-                {/* )} */}
-              </div>
-            ) : (
-              <p className="text-green-600">No Bias Detected</p>
-            )}
-          </div>
-        </div>
-
-        <div className="w-1/2 flex flex-col items-center space-y-4">
-          <div className="flex items-center space-x-3 p-3 bg-white border border-black rounded-xl">
-            <div className="text-xl font-semibold text-gray-700">
-              <p>Question ID: {questionId}</p>
+                </div>
+              ) : (
+                <p className="text-green-600">No Bias Detected</p>
+              )}
             </div>
 
-            {question?.sound && (
-              <img
-                src={VolumeButton}
-                alt="Play Sound"
-                onClick={() => new Audio(question.sound).play()}
-                className="object-contain w-8 h-8 cursor-pointer"
+            {/* Notes Section */}
+            <div className="mt-4 w-full">
+              <div className="flex items-center space-x-2">
+                <label className="text-lg font-semibold">Clinician Notes:</label>
+                <span className="text-sm text-gray-500">(All Notes Autosaved)</span>
+              </div>
+              <textarea
+                className="w-full h-32 p-2 border border-gray-300 rounded-md mt-2 resize-none overflow-auto"
+                placeholder="Enter notes here..."
+                value={notesText}
+                onChange={(e) => changeNotes(e.target.value)}
               />
-            )}
-          </div>
-
-          {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
-            <div className="mt-4 text-center inline-block p-2 bg-white rounded-xl">
-              <p className="mb-2 text-lg font-medium">Submitted answer</p>
-              <div className="p-2 flex justify-center">
-                <audio
-                  key={audioUrl}
-                  controls
-                  preload="auto"
-                  crossOrigin="anonymous"
-                >
-                  <source src={audioUrl} type="audio/mp4" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
             </div>
-          )}
 
-          {loading ? (
-            <p>Loading answers...</p>
-          ) : error ? (
-            <p className="text-red-500">{error}</p>
-          ) : (
-            <QuestionAnswers
-              question={question}
-              userAnswer={userAnswer}
-              markState={markState}
-              changeMarkState={changeMarkState}
-            />
-          )}
+            <div className="w-full mt-4 flex justify-center">
+              <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState === true} />
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* Notes Section */}
-      <div className="mt-4 w-full max-w-4xl mx-auto">
-        <div className="flex items-center space-x-2">
-          <label className="text-lg font-semibold">Clinician Notes:</label>
-          <span className="text-sm text-gray-500">(All Notes Autosaved)</span>
-        </div>
-        <textarea
-          className="w-full h-24 p-2 border border-gray-300 rounded-md mt-2"
-          placeholder="Enter notes here..."
-          value={notesText}
-          onChange={(e) => changeNotes(e.target.value)}
-        />
-      </div>
-
-
-      <div className="w-full flex justify-end pr-10 pb-10">
-        <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState} />
       </div>
     </div>
   );
