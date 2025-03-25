@@ -187,11 +187,35 @@ function BiasReviewPage() {
     }
   };
 
-  // Convert bias timestamps from ms to s
-  const formattedBias = biasTimestamps.map((b) => ({
-    ...b,
-    timestamp: (b.timestamp / 1000).toFixed(2),
-  }));
+  // change bias timestamp formatting to HH:MM:SS
+  const formattedBias = biasTimestamps.map((b) => {
+    const totalSeconds = Math.floor(b.timestamp / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+  
+    const timestamp =
+      hours > 0
+        ? `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`
+        : `${minutes}:${seconds}`;
+  
+    return {
+      ...b,
+      timestamp,
+    };
+  });   
+
+  const prevTimestamp =
+    questionNumber === 1
+      ? "00:00:00"
+      : historyTimestamps?.[questionNumber - 2]?.timestamp || null;
+  const currTimestamp =
+    historyTimestamps?.[questionNumber - 1]?.timestamp || null;
+
+  const filteredBias = formattedBias.filter((b) => {
+    if (!prevTimestamp || !currTimestamp) return true;
+    return b.timestamp >= prevTimestamp && b.timestamp <= currTimestamp;
+  });
 
   // Navigation among questions
   const isFirstQuestion = currentIndex === 0;
@@ -326,15 +350,15 @@ function BiasReviewPage() {
                     <p className="font-bold mb-2">Bias Detected:</p>
                     <div className="overflow-auto max-h-40">
                       <ul className="list-disc list-inside">
-                        {formattedBias.map((bias, index) => (
-                          <li key={index} className="py-1">
-                            <strong>⏳ {bias.timestamp}s</strong> - {bias.keyword}
-                            <span className="text-gray-500">
-                              {" "}
-                              (Faces Detected: {bias.faceCount})
-                            </span>
-                          </li>
-                        ))}
+                      {filteredBias.map((bias, index) => (
+                        <li key={index} className="py-1">
+                          <strong>⏳ {bias.timestamp}</strong> - {bias.keyword}
+                          <span className="text-gray-500">
+                            {" "}
+                            (Faces Detected: {bias.faceCount})
+                          </span>
+                        </li>
+                      ))}
                       </ul>
                     </div>
                   </div>
