@@ -229,11 +229,35 @@ function BiasReviewPage() {
     }
   };
 
-  // Convert bias timestamps from ms to s
-  const formattedBias = biasTimestamps.map((b) => ({
-    ...b,
-    timestamp: (b.timestamp / 1000).toFixed(2),
-  }));
+  // change bias timestamp formatting to HH:MM:SS
+  const formattedBias = biasTimestamps.map((b) => {
+    const totalSeconds = Math.floor(b.timestamp / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+  
+    const timestamp =
+      hours > 0
+        ? `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`
+        : `${minutes}:${seconds}`;
+  
+    return {
+      ...b,
+      timestamp,
+    };
+  });   
+
+  const prevTimestamp =
+    questionNumber === 1
+      ? "00:00:00"
+      : historyTimestamps?.[questionNumber - 2]?.timestamp || null;
+  const currTimestamp =
+    historyTimestamps?.[questionNumber - 1]?.timestamp || null;
+
+  const filteredBias = formattedBias.filter((b) => {
+    if (!prevTimestamp || !currTimestamp) return true;
+    return b.timestamp >= prevTimestamp && b.timestamp <= currTimestamp;
+  });
 
   // Navigation among questions
   const isFirstQuestion = currentIndex === 0;
@@ -346,6 +370,48 @@ function BiasReviewPage() {
               )}
             </div>
 
+          {loading ? (
+            <p>Loading video...</p>
+          ) : error ? (
+            <p className="text-red-500">{error}</p>
+          ) : (
+            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
+          )}
+
+          <div className="mt-4 text-center text-lg">
+            {biasState ? (
+              <div className="text-red-500">
+                <button
+                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded hover:bg-pink-600 transition"
+                  onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
+                >
+                  {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}
+                </button>
+
+                {isBiasDropdownOpen && (
+                  <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
+                    <p className="font-bold mb-2">Bias Detected:</p>
+                    <div className="overflow-auto max-h-40">
+                      <ul className="list-disc list-inside">
+                      {filteredBias.map((bias, index) => (
+                        <li key={index} className="py-1">
+                          <strong>⏳ {bias.timestamp}</strong> - {bias.keyword}
+                          <span className="text-gray-500">
+                            {" "}
+                            (Faces Detected: {bias.faceCount})
+                          </span>
+                        </li>
+                      ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-green-600">No Bias Detected</p>
+            )}
+          </div>
+        </div>
             <div className="flex flex-col lg:flex-row w-full h-full space-y-4 lg:space-y-0 lg:space-x-6">
               {/* ---- Video Container ---- */}
               <div className="flex-1 flex items-center justify-center">
