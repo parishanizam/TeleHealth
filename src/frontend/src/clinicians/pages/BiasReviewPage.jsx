@@ -78,8 +78,8 @@ function BiasReviewPage() {
     questionNumber === 1
       ? "00:00"
       : historyTimestamps && historyTimestamps.length >= questionNumber - 1
-      ? historyTimestamps[questionNumber - 2].timestamp
-      : "00:00";
+        ? historyTimestamps[questionNumber - 2].timestamp
+        : "00:00";
 
   // 3) If necessary data is missing, show error
   useEffect(() => {
@@ -235,17 +235,17 @@ function BiasReviewPage() {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
     const seconds = String(totalSeconds % 60).padStart(2, "0");
-  
+
     const timestamp =
       hours > 0
         ? `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`
         : `${minutes}:${seconds}`;
-  
+
     return {
       ...b,
       timestamp,
     };
-  });   
+  });
 
   const prevTimestamp =
     questionNumber === 1
@@ -255,9 +255,11 @@ function BiasReviewPage() {
     historyTimestamps?.[questionNumber - 1]?.timestamp || null;
 
   const filteredBias = formattedBias.filter((b) => {
-    if (!prevTimestamp || !currTimestamp) return true;
+    if (!prevTimestamp) return true;
+    if (!currTimestamp) return b.timestamp >= prevTimestamp; // Handle final question case
     return b.timestamp >= prevTimestamp && b.timestamp <= currTimestamp;
   });
+
 
   // Navigation among questions
   const isFirstQuestion = currentIndex === 0;
@@ -337,22 +339,20 @@ function BiasReviewPage() {
           <button
             onClick={goToPreviousQuestion}
             disabled={isFirstQuestion}
-            className={`px-4 py-2 rounded ${
-              isFirstQuestion
+            className={`px-4 py-2 rounded ${isFirstQuestion
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-600"
-            } text-white font-semibold`}
+              } text-white font-semibold`}
           >
             Back
           </button>
           <button
             onClick={goToNextQuestion}
             disabled={isLastQuestion}
-            className={`px-4 py-2 rounded ${
-              isLastQuestion
+            className={`px-4 py-2 rounded ${isLastQuestion
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-500 hover:bg-blue-600"
-            } text-white font-semibold`}
+              } text-white font-semibold`}
           >
             Next
           </button>
@@ -370,48 +370,6 @@ function BiasReviewPage() {
               )}
             </div>
 
-          {loading ? (
-            <p>Loading video...</p>
-          ) : error ? (
-            <p className="text-red-500">{error}</p>
-          ) : (
-            <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
-          )}
-
-          <div className="mt-4 text-center text-lg">
-            {biasState ? (
-              <div className="text-red-500">
-                <button
-                  className="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded hover:bg-pink-600 transition"
-                  onClick={() => setIsBiasDropdownOpen(!isBiasDropdownOpen)}
-                >
-                  {isBiasDropdownOpen ? "Hide Bias List ⬆" : "Show Bias List ⬇"}
-                </button>
-
-                {isBiasDropdownOpen && (
-                  <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
-                    <p className="font-bold mb-2">Bias Detected:</p>
-                    <div className="overflow-auto max-h-40">
-                      <ul className="list-disc list-inside">
-                      {filteredBias.map((bias, index) => (
-                        <li key={index} className="py-1">
-                          <strong>⏳ {bias.timestamp}</strong> - {bias.keyword}
-                          <span className="text-gray-500">
-                            {" "}
-                            (Faces Detected: {bias.faceCount})
-                          </span>
-                        </li>
-                      ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <p className="text-green-600">No Bias Detected</p>
-            )}
-          </div>
-        </div>
             <div className="flex flex-col lg:flex-row w-full h-full space-y-4 lg:space-y-0 lg:space-x-6">
               {/* ---- Video Container ---- */}
               <div className="flex-1 flex items-center justify-center">
@@ -445,12 +403,12 @@ function BiasReviewPage() {
                 {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
                   <div className="flex flex-col items-center justify-center w-full p-2 bg-white rounded-xl border border-gray-300 text-center">
                     <p className="mb-2 mb-2 text-lg font-medium">Submitted Answer</p>
-                    <div className="flex justify-center w-full">  
-                    
-                    <audio key={audioUrl} controls preload="auto" crossOrigin="anonymous">
-                      <source src={audioUrl} type="audio/mp4" />
-                      Your browser does not support the audio element.
-                    </audio>
+                    <div className="flex justify-center w-full">
+
+                      <audio key={audioUrl} controls preload="auto" crossOrigin="anonymous">
+                        <source src={audioUrl} type="audio/mp4" />
+                        Your browser does not support the audio element.
+                      </audio>
                     </div>
                   </div>
                 )}
@@ -480,23 +438,25 @@ function BiasReviewPage() {
           <div className="p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md flex flex-col justify-between h-full">
             {/* Bias Status */}
             <BiasDetected biasState={biasState !== false} />
-
             {/* Timestamps of Bias */}
             <div className="mt-4 text-center text-lg">
               {biasState ? (
                 <div className="text-red-500">
                   <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
-                    <ul className="list-disc list-inside max-h-40 overflow-auto">
-                      {formattedBias.map((bias, index) => (
-                        <li key={index} className="py-1">
-                          <strong>{bias.timestamp}s</strong> - {bias.keyword}
-                          <span className="text-gray-500">
-                            {" "}
-                            (Faces Detected: {bias.faceCount})
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="overflow-auto max-h-40 flex justify-center">
+                      <div className="text-left w-full">
+                        {filteredBias.map((bias, index) => (
+                          <div key={index} className="py-1">
+                            <strong>{bias.timestamp}</strong> - {bias.keyword}
+                            <span className="text-gray-500">
+                              {" "}
+                              (Faces Detected: {bias.faceCount})
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               ) : (
