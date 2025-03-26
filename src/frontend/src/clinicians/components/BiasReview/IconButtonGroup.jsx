@@ -7,22 +7,21 @@ import DashIcon from "../../../assets/dash.svg";
 function IconButtonGroup({ markState, changeMarkState }) {
   const [activeButton, setActiveButton] = useState(markState);
 
-  // Sync only when `markState` changes externally (initial load or forced update)
   useEffect(() => {
     setActiveButton(markState);
   }, [markState]);
 
   const handleAction = (newMarkState) => {
     if (activeButton !== newMarkState) {
-      setActiveButton(newMarkState); // Keep the UI consistent
-      changeMarkState(newMarkState); // Inform the parent
+      setActiveButton(newMarkState); 
+      changeMarkState(newMarkState); 
     }
   };
 
   return (
-    <div className="flex flex-col items-center mt-4">
-      <p className="mb-4 text-lg font-semibold">Select a button to grade the question</p>
-      <div className="flex gap-4 items-center justify-center mt-4">
+    <div className="flex flex-col items-center mt-1 bg-white rounded-xl border border-2 border-gray-300 rounded-xl">
+      <p className="text-lg mt-2 font-semibold">Mark Answer</p>
+      <div className="flex gap-4 items-center justify-center mb-3 mt-3">
         <IconButton
           iconSrc={CheckmarkIcon}
           bgColor={activeButton === "Correct" ? "bg-green-500" : "bg-green-100"}

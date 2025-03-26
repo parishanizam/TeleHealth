@@ -149,10 +149,10 @@ function ResultsAnalysisPage() {
             {formatTestTitle(questionBankId)}
           </h2>
           <p className="text-2xl font-medium">
-            Score: {typeof score === "number" ? `${score}%` : score}
+            {formatDate(date)}
           </p>
           <p className="text-2xl font-medium">
-            Date: {formatDate(date)}
+            Score: {typeof score === "number" ? `${score}%` : score}
           </p>
         </div>
 
