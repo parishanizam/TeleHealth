@@ -30,6 +30,32 @@ function ResultsAnalysisPage() {
   const [formattedDate, setFormattedDate] = useState("");
   const [biaslength, setBiaslength] = useState();
 
+
+  const [videoExists, setVideoExists] = useState(false);
+
+  useEffect(() => {
+    if (!videoUrl) {
+      setVideoExists(false);
+      return;
+    }
+  
+    const video = document.createElement('video');
+    video.src = videoUrl;
+    video.preload = 'metadata';
+  
+    video.onloadedmetadata = () => {
+      if (video.duration > 0 && !isNaN(video.duration)) {
+        setVideoExists(true);
+      } else {
+        setVideoExists(false);
+      }
+    };
+  
+    video.onerror = () => {
+      setVideoExists(false);
+    };
+  }, [videoUrl]);
+
   useEffect(() => {
     if (!firstName || !lastName || !assessmentId || !parentUsername) return;
     setFormattedDate(formatDate(date));
@@ -169,7 +195,7 @@ function ResultsAnalysisPage() {
       </div>
 
       {/* Main content row: video + question list */}
-      <div className="flex w-full items-start gap-6 px-6 mt-6">
+      <div className="flex w-full justify-center items-start gap-6 px-6 mt-6">
         {/* Left side: video */}
         <div className="flex-1">
           {loading ? (
@@ -177,7 +203,13 @@ function ResultsAnalysisPage() {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
-            <TempMediaPlayer videoUrl={videoUrl} />
+            videoExists ? (
+              <TempMediaPlayer videoUrl={videoUrl} />
+            ) : (
+              <div className="flex justify-center items-center h-[500px]">
+                <p className="text-gray-500 text-center text-xl">Video not available due to consent decline.</p>
+              </div>
+            )
           )}
         </div>
 
