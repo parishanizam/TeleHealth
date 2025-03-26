@@ -19,10 +19,11 @@ export function RecordingManagerProvider({ children }) {
   // Start full session recording 
   const startRecording = useCallback(async ({ audioDeviceId, videoDeviceId }) => {
     try {
-      const constraints = {
-        audio: audioDeviceId ? { deviceId: { exact: audioDeviceId } } : true,
-        video: videoDeviceId ? { deviceId: { exact: videoDeviceId } } : true,
-      };
+            const videoConsent = sessionStorage.getItem("videoConsent") !== "declined";
+            const constraints = {
+              audio: audioDeviceId ? { deviceId: { exact: audioDeviceId } } : true,
+              video: videoConsent ? (videoDeviceId ? { deviceId: { exact: videoDeviceId } } : true) : false,
+            };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
       let mimeType = "video/mp4; codecs=h264";

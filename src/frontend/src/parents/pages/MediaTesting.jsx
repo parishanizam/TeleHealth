@@ -14,8 +14,14 @@ export default function MediaTesting() {
   const navigate = useNavigate();
   const { testType } = useSelector((state) => state.testSelection);
 
-  const handleConsent = () => setShowConsent(false);
-  const handleDecline = () => navigate("/");
+  const handleConsent = () => {
+    sessionStorage.setItem("videoConsent", "given");
+    setShowConsent(false);
+  };
+  const handleDecline = () => {
+    sessionStorage.setItem("videoConsent", "declined");
+    setShowConsent(false);
+  };
 
   const getNextRoute = () => `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
 
@@ -30,10 +36,12 @@ export default function MediaTesting() {
 
       {/* Main Content */}
       <main className="flex flex-wrap items-start justify-center gap-6 mt-10 w-full">
-        {/* Video Section */}
-        <div className="w-full max-w-md">
-          <VideoTest />
-        </div>
+        {/* Video Section (only if consent given) */}
+        {sessionStorage.getItem("videoConsent") !== "declined" && (
+          <div className="w-full max-w-md">
+            <VideoTest />
+          </div>
+        )}
 
         {/* Audio & Microphone Section */}
         <div className="w-full max-w-md space-y-4">
