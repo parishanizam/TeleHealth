@@ -7,12 +7,22 @@ function ClinicianDashboard() {
   const clinicianInfo = useSelector((state) => state.clinician.clinicianInfo);
 
   return (
-    <div className="flex flex-col items-center px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${clinicianInfo?.firstname || "Clinician"}'s Clients`} role="clinician"/>
-      <div className="w-full max-w-4xl">
+    <div className="flex flex-col h-screen bg-white overflow-hidden">
+      <div className="px-5 pt-4">
+        <Header
+          title={`${clinicianInfo?.firstname || "Clinician"}'s Clients`}
+          role="clinician"
+        />
+      </div>
+
+      <div className="px-5 w-full max-w-4xl mx-auto z-10">
         <AddClientButton />
       </div>
-      <ClientList />
+
+     {/* Scrollable ClientList */}
+      <div className="flex-1 px-5 mt-2 w-full max-w-4xl mx-auto overflow-hidden">
+        <ClientList />
+      </div>
     </div>
   );
 }

@@ -490,7 +490,7 @@ function BiasReviewPage() {
               />
             </div>
 
-            <div className="w-full mt-4 flex justify-center">
+            <div className="w-full flex justify-center">
                 {videoExists ? (
                   <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState === true} />
                 ) : (
