@@ -10,18 +10,16 @@ export const VideoTest = () => {
   const [videoStream, setVideoStream] = useState(null);
   const [isTesting, setIsTesting] = useState(false);
 
-  /**
-   * Request access to the camera to ensure device labels are available.
-   */
   const requestCameraPermissions = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      // Immediately stop the stream as we only needed permissions
       stream.getTracks().forEach((track) => track.stop());
       return true;
     } catch (err) {
       console.error("Camera permission denied or error:", err);
-      alert("Camera access is required to use this feature. Please allow camera permissions.");
+      alert(
+        "Camera access is required to use this feature. Please allow camera permissions.",
+      );
       return false;
     }
   };
@@ -41,7 +39,9 @@ export const VideoTest = () => {
             if (videoDevices.length > 0) {
               setSelectedCameraId(videoDevices[0].deviceId);
             } else {
-              alert("No video devices found. Please connect a camera and try again.");
+              alert(
+                "No video devices found. Please connect a camera and try again.",
+              );
             }
           })
           .catch((err) => {
@@ -54,11 +54,6 @@ export const VideoTest = () => {
     init();
   }, []);
 
-  /**
-   * Whenever isTesting or the selected camera changes,
-   * turn the video on (if isTesting = true)
-   * or turn the video off (if isTesting = false).
-   */
   useEffect(() => {
     let currentStream = videoStream;
 
@@ -73,7 +68,7 @@ export const VideoTest = () => {
       } catch (err) {
         console.error("Error accessing video device:", err);
         alert("Could not access the selected camera.");
-        setIsTesting(false); // Revert if it fails
+        setIsTesting(false);
       }
     };
 
@@ -90,21 +85,16 @@ export const VideoTest = () => {
       stopVideo();
     }
 
-    // Cleanup function to stop video when component unmounts or dependencies change
     return () => {
       stopVideo();
     };
   }, [isTesting, selectedCameraId]);
 
-  /**
-   * Attach the videoStream to the <video> element.
-   */
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.srcObject = videoStream || null;
 
       if (videoStream) {
-        // Attempt to play the video to handle autoplay policies
         videoRef.current
           .play()
           .then(() => {
@@ -155,7 +145,6 @@ export const VideoTest = () => {
           playsInline
           muted
           className="absolute inset-0 w-full h-full object-cover"
-          // Adding onLoadedMetadata to handle autoplay
           onLoadedMetadata={() => {
             if (videoRef.current) {
               videoRef.current.play().catch((err) => {

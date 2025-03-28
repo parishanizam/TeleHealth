@@ -17,17 +17,13 @@ function ResultsList({
 }) {
   const navigate = useNavigate();
 
-  // ─────────────────────────────────────────────────────────
-  // (ADD) Create an array of question IDs from results
-  // ─────────────────────────────────────────────────────────
   const questionIds = results.map((r) => r.question_id);
 
   const [language, testType] = questionBankId.split("-");
-  
+
   const handleCardClick = (question, questionNumber) => {
     navigate("/clinicians/BiasReviewPage", {
       state: {
-        // 🔹 Existing fields (unchanged):
         questionId: question.question_id,
         userAnswer: question.user_answer,
         correctAnswer: question.correctAnswer,
@@ -38,17 +34,13 @@ function ResultsList({
         lastName,
         date,
         questionNumber,
-        clientId, 
+        clientId,
         securityCode,
         bias_state: question.bias_state,
         mark_state: question.mark_state,
-
-        // ─────────────────────────────────────────────────────────
-        // (ADD) New fields to facilitate Next/Back in BiasReviewPage
-        // ─────────────────────────────────────────────────────────
-        results,             // entire array of results
-        questionIds,         // array of all question IDs in the same order
-        currentIndex: questionNumber - 1, // zero-based index
+        results,
+        questionIds,
+        currentIndex: questionNumber - 1,
         totalQuestions: results.length,
       },
     });
@@ -62,7 +54,7 @@ function ResultsList({
             <QuestionCard
               key={index}
               questionNumber={index + 1}
-              status={result.status} 
+              status={result.status}
               biasDetected={result.bias_state}
               mark_state={result.mark_state}
               testType={testType}

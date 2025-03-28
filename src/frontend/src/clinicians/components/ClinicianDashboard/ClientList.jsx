@@ -12,7 +12,9 @@ const ClientList = () => {
           <ClientCard key={client.clientId} client={client} />
         ))
       ) : (
-        <p className="text-gray-500 text-lg text-center">No clients added yet.</p>
+        <p className="text-gray-500 text-lg text-center">
+          No clients added yet.
+        </p>
       )}
     </div>
   );

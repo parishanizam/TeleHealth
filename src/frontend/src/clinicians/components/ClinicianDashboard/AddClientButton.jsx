@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import AddIcon from "../../../assets/add_icon.svg";
 
 const AddClientButton = () => {
@@ -16,7 +16,11 @@ const AddClientButton = () => {
         aria-label="Add new client"
       >
         <span className="text-3xl text-left">Add Client</span>
-        <img src={AddIcon} alt="Add" className="object-contain w-10 self-center cursor-pointer" />
+        <img
+          src={AddIcon}
+          alt="Add"
+          className="object-contain w-10 self-center cursor-pointer"
+        />
       </button>
     </div>
   );

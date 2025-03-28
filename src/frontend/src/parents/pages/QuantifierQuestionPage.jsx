@@ -10,7 +10,7 @@ export default function QuantifierQuestion({
   onAnswerSelected,
   isLastQuestion,
   questionNumber,
-  totalQuestions
+  totalQuestions,
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -23,25 +23,36 @@ export default function QuantifierQuestion({
     onAnswerSelected(question.id, selectedAnswer, currentTime);
   };
 
-  // Reset the state when the question number changes (i.e., moving to the next question)
+  // Reset the state when the question number changes
   useEffect(() => {
-    setSelectedAnswer(null); // Reset the answer when the question changes
-  }, [questionNumber]); // Only run this when the question number changes
+    setSelectedAnswer(null);
+  }, [questionNumber]);
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={`Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
-      <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
-      <VolumeButton sound={question.sound} resetTrigger={questionNumber}/>
-      <OptionGrid options={question.options} selectedAnswer={selectedAnswer} handleAnswerClick={handleAnswerClick} />
-      
+      <Header
+        title={`Question ${questionNumber} of ${totalQuestions}`}
+        showLogout={false}
+        showHome={false}
+      />
+      <ProgressBar
+        questionNumber={questionNumber}
+        totalQuestions={totalQuestions}
+      />
+      <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
+      <OptionGrid
+        options={question.options}
+        selectedAnswer={selectedAnswer}
+        handleAnswerClick={handleAnswerClick}
+      />
+
       <NextOrSubmitButton
         isLastQuestion={isLastQuestion}
         onClick={(e) => {
           e.preventDefault();
           handleNextOrSubmit();
         }}
-        disabled={selectedAnswer === null} // Disable button if no option is selected
+        disabled={selectedAnswer === null}
       />
     </div>
   );

@@ -35,8 +35,9 @@ const instructions = [
     number: 3,
     text: (
       <>
-         After the audio finishes, press: 
-         <span className="font-bold"> Start Recording</span> to record your answer.
+        After the audio finishes, press:
+        <span className="font-bold"> Start Recording</span> to record your
+        answer.
       </>
     ),
   },
@@ -44,8 +45,8 @@ const instructions = [
     number: 4,
     text: (
       <>
-           When you’re done speaking, press:  
-           <span className="font-bold"> Stop Recording</span>.
+        When you’re done speaking, press:
+        <span className="font-bold"> Stop Recording</span>.
       </>
     ),
   },
@@ -66,14 +67,6 @@ const instructions = [
       </>
     ),
   },
-  // {
-  //   number: 5,
-  //   text: (
-  //     <>
-  //     The first question of each test is a <span className="font-bold">Practice</span> Question. This will not impact your results
-  //     </>
-  //   ),
-  // },
 ];
 
 export default instructions;

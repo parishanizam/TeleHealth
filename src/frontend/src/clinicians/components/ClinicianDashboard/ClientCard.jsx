@@ -1,13 +1,10 @@
-// ClientCard.jsx
 import { useNavigate } from "react-router-dom";
 import ChevronIcon from "../../../assets/chevron.svg";
 
-// eslint-disable-next-line react/prop-types
 export function ClientCard({ client }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // We pass the entire "client" so it includes securityCode, etc.
     navigate(`/clinicians/ClientOverview/${client.clientId}`, {
       state: { client },
     });

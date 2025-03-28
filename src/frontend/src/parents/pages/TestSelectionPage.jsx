@@ -34,7 +34,12 @@ function TestSelectionPage() {
       return;
     }
 
-    dispatch(setTestSelection({ language: selectedLanguage, testType: selectedTestType }));
+    dispatch(
+      setTestSelection({
+        language: selectedLanguage,
+        testType: selectedTestType,
+      }),
+    );
     navigate("/parents/checklist");
   };
 
@@ -42,7 +47,10 @@ function TestSelectionPage() {
     <div className="bg-white min-vh-100">
       <Header title="Test Selection" />
       <Container className="text-center mt-4">
-        <h1 className="fw-bold mb-3" style={{ fontSize: "42px", color: "#1e3a8a" }}>
+        <h1
+          className="fw-bold mb-3"
+          style={{ fontSize: "42px", color: "#1e3a8a" }}
+        >
           Choose Your Test
         </h1>
         <p className="mb-4" style={{ fontSize: "18px" }}>
@@ -60,7 +68,10 @@ function TestSelectionPage() {
             }}
           >
             <Card.Body>
-              <Card.Title className="fw-bold mb-4" style={{ fontSize: "32px", color: "black" }}>
+              <Card.Title
+                className="fw-bold mb-4"
+                style={{ fontSize: "32px", color: "black" }}
+              >
                 Select a Language
               </Card.Title>
               <Form.Select
@@ -75,7 +86,10 @@ function TestSelectionPage() {
                 <option value="mandarin">Mandarin</option>
               </Form.Select>
 
-              <Card.Title className="fw-bold mt-4 mb-4" style={{ fontSize: "32px", color: "black" }}>
+              <Card.Title
+                className="fw-bold mt-4 mb-4"
+                style={{ fontSize: "32px", color: "black" }}
+              >
                 Select a Test Type
               </Card.Title>
               <Form.Select

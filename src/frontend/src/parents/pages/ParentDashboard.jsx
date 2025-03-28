@@ -24,7 +24,7 @@ function ParentOverview() {
   const fetchAssessmentHistory = async (username) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/resultstorage/assessment-history/${username}`
+        `http://localhost:3000/resultstorage/assessment-history/${username}`,
       );
       if (response.data && Array.isArray(response.data.assessments)) {
         setAssessmentHistory(response.data.assessments);
@@ -83,7 +83,6 @@ function ParentOverview() {
       <div className="w-full flex">
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6 w-full max-w-full">
           <div className="flex flex-wrap items-center gap-4">
-            {/* Select and DatePicker group */}
             <div className="flex items-center gap-2">
               <select
                 className="border p-2 rounded-md"
@@ -108,8 +107,6 @@ function ParentOverview() {
                 />
               )}
             </div>
-
-            {/* Inline filter chips */}
             {selectedFilters.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
                 {selectedFilters.map((filter) => (
@@ -130,8 +127,6 @@ function ParentOverview() {
                 ))}
               </div>
             )}
-
-            {/* Clear Filters button */}
             {selectedFilters.length > 0 && (
               <button
                 onClick={clearFilters}

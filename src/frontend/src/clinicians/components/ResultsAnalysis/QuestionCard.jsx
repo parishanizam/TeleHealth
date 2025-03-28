@@ -1,23 +1,28 @@
-import ChevronIcon from "../../../assets/chevron.svg"; 
+import ChevronIcon from "../../../assets/chevron.svg";
 import CheckmarkIcon from "../../../assets/checkmark.svg";
-import DashIcon from "../../../assets/dash.svg"; 
-import XIcon from "../../../assets/x.svg"; 
+import DashIcon from "../../../assets/dash.svg";
+import XIcon from "../../../assets/x.svg";
 import BiasDot from "../../../assets/BiasDot.png";
-function QuestionCard({ questionNumber, status, biasDetected, mark_state, onClick, testType }) {
+function QuestionCard({
+  questionNumber,
+  status,
+  biasDetected,
+  mark_state,
+  onClick,
+  testType,
+}) {
   let icon;
-  console.log(testType)
+  console.log(testType);
   if (testType === "repetition") {
-    // Override icon logic for repetition tests based on mark_state
     if (mark_state === "Correct") {
-      console.log("THIS IS A TEST", mark_state)
+      console.log("THIS IS A TEST", mark_state);
       icon = CheckmarkIcon;
     } else if (mark_state === "Incorrect") {
       icon = XIcon;
     } else {
-      icon = DashIcon; // "Undetermined" state
+      icon = DashIcon;
     }
   } else {
-    // Default logic for non-repetition tests
     if (status === "correct") {
       icon = CheckmarkIcon;
     } else if (status === "incorrect") {

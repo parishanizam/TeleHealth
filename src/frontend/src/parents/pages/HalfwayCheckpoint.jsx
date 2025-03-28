@@ -1,4 +1,3 @@
-// MotivationPage.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";
@@ -8,7 +7,6 @@ export default function MotivationPage() {
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    // Navigate back to the quiz page; the QuizManagement component will restore state from sessionStorage.
     navigate("/parents/QuizManagement");
   };
 
@@ -16,9 +14,9 @@ export default function MotivationPage() {
     <div className="h-screen overflow-hidden flex items-center justify-center bg-gray-100 p-4">
       <Card className="bg-blue-200 rounded-lg shadow-xl p-12 w-full max-w-4xl">
         <Card.Body className="text-center">
-          <img 
-            src={Halfwaythrough} 
-            alt="Motivational GIF" 
+          <img
+            src={Halfwaythrough}
+            alt="Motivational GIF"
             className="w-full max-w-xl mb-8 mx-auto"
           />
           <h1 className="text-4xl font-bold mb-4 text-blue-600 text-center">

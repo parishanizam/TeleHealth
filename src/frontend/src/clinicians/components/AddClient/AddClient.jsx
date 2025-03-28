@@ -23,7 +23,7 @@ function AddClient() {
   const generateAndSubmitClientNumber = async () => {
     if (!formData.firstName || !formData.lastName) {
       setError(
-        "Please fill out both first and last names before generating a client number."
+        "Please fill out both first and last names before generating a client number.",
       );
       return;
     }
@@ -45,7 +45,7 @@ function AddClient() {
           firstName: formData.firstName,
           lastName: formData.lastName,
           securityCode: result,
-        }
+        },
       );
 
       dispatch(
@@ -54,7 +54,7 @@ function AddClient() {
           firstName: response.data.firstName,
           lastName: response.data.lastName,
           securityCode: response.data.securityCode,
-        })
+        }),
       );
 
       setSuccessMessage("Client added successfully!");
@@ -94,21 +94,23 @@ function AddClient() {
         <GenerateButton
           onClick={generateAndSubmitClientNumber}
           disabled={isGenerateDisabled}
-          buttonText={isGenerateDisabled ? "Client Number Generated" : "Generate & Submit"}
+          buttonText={
+            isGenerateDisabled ? "Client Number Generated" : "Generate & Submit"
+          }
         />
 
         {clientNumber && (
           <p className="mt-4 text-lg text-gray-700 font-bold flex items-center">
             Security Code (Client Number): {clientNumber}
-            {/* Adding information box */}
             <div className="group ml-2 relative">
               <div className="flex items-center justify-center w-6 h-6 rounded-full border border-red-500 text-red-500 cursor-pointer">
                 <span className="font-bold text-xs">i</span>
               </div>
               <div className="hidden group-hover:block absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm p-2 rounded shadow-md w-80">
-                This client number is auto-generated. 
+                This client number is auto-generated.
                 <br />
-                Please note this code and provide it to the client to create an account.
+                Please note this code and provide it to the client to create an
+                account.
               </div>
             </div>
           </p>

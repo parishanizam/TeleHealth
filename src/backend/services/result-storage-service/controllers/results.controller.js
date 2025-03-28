@@ -1,15 +1,24 @@
-const { RESULTS_BUCKET, uploadJson, getJson, fileExists } = require("../config/awsS3");
+const {
+  RESULTS_BUCKET,
+  uploadJson,
+  getJson,
+  fileExists,
+} = require("../config/awsS3");
 
-/**
- * Submit full assessment (Stores results & updates history)
- */
 async function submitAssessment(req, res) {
   try {
     const { username, name, assessment_id, questionBankId, results } = req.body;
 
-    if (!username || !name || !assessment_id || !questionBankId || !Array.isArray(results)) {
+    if (
+      !username ||
+      !name ||
+      !assessment_id ||
+      !questionBankId ||
+      !Array.isArray(results)
+    ) {
       return res.status(400).json({
-        error: "username, name, assessment_id, questionBankId, and results are required.",
+        error:
+          "username, name, assessment_id, questionBankId, and results are required.",
       });
     }
 
@@ -25,7 +34,6 @@ async function submitAssessment(req, res) {
       questionBankId,
       results,
     };
-    
 
     // Store the complete assessment in S3
     await uploadJson(RESULTS_BUCKET, assessmentFile, assessmentData);
@@ -35,7 +43,6 @@ async function submitAssessment(req, res) {
     if (await fileExists(RESULTS_BUCKET, historyFile)) {
       historyData = await getJson(RESULTS_BUCKET, historyFile);
     } else {
-      // Create a new history file if it doesn't exist
       historyData = {
         name,
         username,
@@ -79,7 +86,9 @@ async function getAssessmentHistory(req, res) {
     const historyFile = `${username}/${username}_history.json`;
 
     if (!(await fileExists(RESULTS_BUCKET, historyFile))) {
-      return res.status(404).json({ error: "No assessment history found for this parent." });
+      return res
+        .status(404)
+        .json({ error: "No assessment history found for this parent." });
     }
 
     const historyData = await getJson(RESULTS_BUCKET, historyFile);
@@ -92,31 +101,42 @@ async function getAssessmentHistory(req, res) {
 
 /**
  * Get specific result for a question in an assessment
- * Expects `parentUsername`, `assessmentId`, and `question_id` to be passed in the request params.
  */
 async function getAssessmentResultForQuestion(req, res) {
   try {
     const { parentUsername, assessmentId, question_id } = req.params;
 
     if (!parentUsername || !assessmentId || !question_id) {
-      return res.status(400).json({ error: "parentUsername, assessmentId, and question_id are required." });
+      return res
+        .status(400)
+        .json({
+          error: "parentUsername, assessmentId, and question_id are required.",
+        });
     }
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
 
     // Check if the results file exists
     if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
-      return res.status(404).json({ error: "No results found for this assessment." });
+      return res
+        .status(404)
+        .json({ error: "No results found for this assessment." });
     }
 
     // Retrieve the results data from S3
     const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
 
     // Find the specific question result
-    const questionResult = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+    const questionResult = resultsData.results.find(
+      (result) => result.question_id === parseInt(question_id),
+    );
 
     if (!questionResult) {
-      return res.status(404).json({ error: `Question with ID ${question_id} not found in assessment.` });
+      return res
+        .status(404)
+        .json({
+          error: `Question with ID ${question_id} not found in assessment.`,
+        });
     }
 
     // Return the found question result
@@ -127,25 +147,26 @@ async function getAssessmentResultForQuestion(req, res) {
   }
 }
 
-
-
 /**
  * Get assessment results for a specific assessment ID
- * Expects `parentUsername` and `assessmentId` to be passed in the request params.
  */
 async function getAssessmentResults(req, res) {
   try {
     const { parentUsername, assessmentId } = req.params;
 
     if (!parentUsername || !assessmentId) {
-      return res.status(400).json({ error: "parentUsername and assessmentId are required." });
+      return res
+        .status(400)
+        .json({ error: "parentUsername and assessmentId are required." });
     }
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
 
     // Check if the results file exists
     if (!(await fileExists(RESULTS_BUCKET, resultsFile))) {
-      return res.status(404).json({ error: "No results found for this assessment." });
+      return res
+        .status(404)
+        .json({ error: "No results found for this assessment." });
     }
 
     // Retrieve and return results
@@ -161,10 +182,15 @@ async function saveBiasModification(req, res) {
   try {
     const { parentUsername, assessmentId, question_id } = req.params;
     let { bias_state } = req.body;
-    console.log(bias_state)
+    console.log(bias_state);
 
     if (!parentUsername || !assessmentId || !question_id) {
-      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and valid biasState are required." });
+      return res
+        .status(400)
+        .json({
+          error:
+            "parentUsername, assessmentId, question_id, and valid biasState are required.",
+        });
     }
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
@@ -176,10 +202,14 @@ async function saveBiasModification(req, res) {
     const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
 
     // Find the question to update
-    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+    const question = resultsData.results.find(
+      (result) => result.question_id === parseInt(question_id),
+    );
 
     if (!question) {
-      return res.status(404).json({ error: "Question not found in the results." });
+      return res
+        .status(404)
+        .json({ error: "Question not found in the results." });
     }
 
     // Update the bias_state for the found question
@@ -202,11 +232,16 @@ async function saveBiasModification(req, res) {
 async function saveMarkModification(req, res) {
   try {
     const { parentUsername, assessmentId, question_id } = req.params;
-    let { mark_state } = req.body;  // Assuming the mark value is passed in the request body
-    console.log(mark_state)
+    let { mark_state } = req.body;
+    console.log(mark_state);
 
     if (!parentUsername || !assessmentId || !question_id) {
-      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and mark are required." });
+      return res
+        .status(400)
+        .json({
+          error:
+            "parentUsername, assessmentId, question_id, and mark are required.",
+        });
     }
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
@@ -219,10 +254,14 @@ async function saveMarkModification(req, res) {
     const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
 
     // Find the question to update
-    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+    const question = resultsData.results.find(
+      (result) => result.question_id === parseInt(question_id),
+    );
 
     if (!question) {
-      return res.status(404).json({ error: "Question not found in the results." });
+      return res
+        .status(404)
+        .json({ error: "Question not found in the results." });
     }
 
     // Update the mark for the found question
@@ -249,7 +288,12 @@ async function saveNotesModification(req, res) {
     console.log(notes);
 
     if (!parentUsername || !assessmentId || !question_id) {
-      return res.status(400).json({ error: "parentUsername, assessmentId, question_id, and notes are required." });
+      return res
+        .status(400)
+        .json({
+          error:
+            "parentUsername, assessmentId, question_id, and notes are required.",
+        });
     }
 
     const resultsFile = `${parentUsername}/${parentUsername}_${assessmentId}.json`;
@@ -261,10 +305,14 @@ async function saveNotesModification(req, res) {
     const resultsData = await getJson(RESULTS_BUCKET, resultsFile);
 
     // Find the question to update
-    const question = resultsData.results.find((result) => result.question_id === parseInt(question_id));
+    const question = resultsData.results.find(
+      (result) => result.question_id === parseInt(question_id),
+    );
 
     if (!question) {
-      return res.status(404).json({ error: "Question not found in the results." });
+      return res
+        .status(404)
+        .json({ error: "Question not found in the results." });
     }
 
     // Update the notes for the found question

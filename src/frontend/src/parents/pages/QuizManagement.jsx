@@ -24,12 +24,14 @@ export default function QuizManagement() {
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
   const audioFilesRef = useRef([]);
-  const [submitting, setSubmitting] = useState(false); // New loading state
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const practiceRes = await axios.get(`http://localhost:3000/questions/${language}/${testType}/0`);
+        const practiceRes = await axios.get(
+          `http://localhost:3000/questions/${language}/${testType}/0`,
+        );
         setPracticeQuestion(practiceRes.data);
 
         let questionIds = new Set();
@@ -41,10 +43,10 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${id}`
+              `http://localhost:3000/questions/${language}/${testType}/${id}`,
             );
             return res.data;
-          })
+          }),
         );
 
         setQuestions(fetchedQuestions);
@@ -57,7 +59,9 @@ export default function QuizManagement() {
 
     const fetchAssessmentId = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`);
+        const res = await axios.get(
+          `http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`,
+        );
         const assessments = res.data.assessments;
 
         if (assessments.length > 0) {
@@ -78,14 +82,17 @@ export default function QuizManagement() {
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
       sessionStorage.removeItem("redirectAfterRefresh");
-      navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
+      navigate(
+        `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`,
+      );
     }
   }, [navigate]);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = "You are currently being recorded. Are you sure you want to leave?";
+      event.returnValue =
+        "You are currently being recorded. Are you sure you want to leave?";
       sessionStorage.setItem("redirectAfterRefresh", "true");
     };
 
@@ -101,9 +108,9 @@ export default function QuizManagement() {
     const secs = Math.floor(seconds % 60);
 
     if (hours > 0) {
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     } else {
-      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     }
   }
 
@@ -124,26 +131,36 @@ export default function QuizManagement() {
       bias_state: false,
       mark_state: "Undetermined",
     };
-    const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
+    const newTimestamp = {
+      question_id: questionId,
+      timestamp: formattedTimestamp,
+    };
 
     const updatedResponses = [...responses, newResponse];
     setResponses(updatedResponses);
     setTimestamps((prev) => [...prev, newTimestamp]);
 
-    sessionStorage.setItem('quizResponses', JSON.stringify(updatedResponses));
-    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, newTimestamp]));
+    sessionStorage.setItem("quizResponses", JSON.stringify(updatedResponses));
+    sessionStorage.setItem(
+      "timestamps",
+      JSON.stringify([...timestamps, newTimestamp]),
+    );
 
     setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (testType === "repetition" && audioFile) {
-      const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
-        type: audioFile.type,
-      });
+      const renamedFile = new File(
+        [audioFile],
+        `${parentInfo.username}_question_${currentQuestionIndex}.mp4`,
+        {
+          type: audioFile.type,
+        },
+      );
       audioFilesRef.current.push(renamedFile);
     }
 
     if (currentQuestionIndex < questions.length) {
-      setCurrentQuestionIndex(prev => prev + 1);
+      setCurrentQuestionIndex((prev) => prev + 1);
     } else {
       finishQuiz(updatedResponses);
     }
@@ -154,7 +171,6 @@ export default function QuizManagement() {
     setSubmitting(true);
 
     stopRecording(async (finalBlob) => {
-      // Always call uploadRecording, even if finalBlob is null
       await uploadRecording(finalBlob);
       try {
         await submitResults(updatedResponses);
@@ -189,7 +205,11 @@ export default function QuizManagement() {
 
     if (testType === "repetition" && audioFilesRef.current.length > 0) {
       audioFilesRef.current.forEach((file, index) => {
-        formData.append("audioFiles", file, `${parentInfo.username}_question_${index + 1}.mp4`);
+        formData.append(
+          "audioFiles",
+          file,
+          `${parentInfo.username}_question_${index + 1}.mp4`,
+        );
       });
       hasFiles = true;
     }
@@ -228,7 +248,7 @@ export default function QuizManagement() {
       await axios.post(
         "http://localhost:3000/resultstorage/submit-assessment",
         payload,
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" } },
       );
     } catch (error) {
       console.error("Error submitting test results:", error);
@@ -309,9 +329,11 @@ export default function QuizManagement() {
         <div className="flex justify-center items-center mt-3">
           <div
             className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
-            style={{ animation: 'spin 1s linear infinite' }}
+            style={{ animation: "spin 1s linear infinite" }}
           ></div>
-          <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
+          <span className="ml-4 text-lg font-semibold">
+            Submitting Answers...
+          </span>
         </div>
       )}
     </div>

@@ -3,7 +3,12 @@ import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { House, BoxArrowRight } from "react-bootstrap-icons";
 
-export function Header({ title, showLogout = true, showHome = true, role = "parent" }) {
+export function Header({
+  title,
+  showLogout = true,
+  showHome = true,
+  role = "parent",
+}) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -31,7 +36,6 @@ export function Header({ title, showLogout = true, showHome = true, role = "pare
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm w-100">
       <Container className="d-flex justify-content-between align-items-center w-100">
-
         {/* HOME BUTTON */}
         {showHome && (
           <Button
@@ -45,7 +49,7 @@ export function Header({ title, showLogout = true, showHome = true, role = "pare
 
         <Navbar.Text className="fs-2 fw-bold mx-auto">{title}</Navbar.Text>
 
-        {/* LOGOUT BUTTON (no color/border) */}
+        {/* LOGOUT BUTTON */}
         {showLogout && (
           <Button
             variant="link"
@@ -56,7 +60,6 @@ export function Header({ title, showLogout = true, showHome = true, role = "pare
             Logout
           </Button>
         )}
-
       </Container>
     </Navbar>
   );

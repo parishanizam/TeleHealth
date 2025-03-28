@@ -1,11 +1,11 @@
-import React from 'react';
-import MacbookImage from '../assets/Macbook.png'
-import { Link } from 'react-router-dom';
+import React from "react";
+import MacbookImage from "../assets/Macbook.png";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
-<div 
-  className="
+    <div
+      className="
     w-screen
     min-h-screen
     bg-[#E5ECF4]
@@ -15,10 +15,10 @@ const LandingPage = () => {
     justify-center
     overflow-hidden
   "
->
-  {/* Modal-Like Box */}
-  <div 
-    className="
+    >
+      {/* Modal-Like Box */}
+      <div
+        className="
       bg-[#B2DFEA]
       shadow-lg
       rounded-lg
@@ -33,43 +33,43 @@ const LandingPage = () => {
       transform
       transition-transform
     "
-  >
-    {/* Heading */}
-    <h1 
-      className="
+      >
+        {/* Heading */}
+        <h1
+          className="
         text-5xl
         font-bold
         mb-3
       "
-    >
-      TeleHealth Insights
-    </h1>
+        >
+          TeleHealth Insights
+        </h1>
 
-    {/* Subheading */}
-    <p 
-      className="
+        {/* Subheading */}
+        <p
+          className="
         text-xl
         text-black
         mb-6
         max-w-[600px]
         leading-relaxed
       "
-    >
-      Empower bilingual families to conduct at-home speech and language
-      assessments with confidence through our intuitive telehealth solution.
-    </p>
+        >
+          Empower bilingual families to conduct at-home speech and language
+          assessments with confidence through our intuitive telehealth solution.
+        </p>
 
-    {/* Buttons */}
-    <div 
-      className="
+        {/* Buttons */}
+        <div
+          className="
         flex
         gap-6
         mb-8
       "
-    >
-      <Link
-      to="/clinicians/login"
-        className="
+        >
+          <Link
+            to="/clinicians/login"
+            className="
           px-8
           py-3
           bg-[#1E293B]
@@ -79,14 +79,14 @@ const LandingPage = () => {
           hover:bg-[#0F172A]
           transition-colors
         "
-        aria-label="Clinicians login"
-      >
-        Clinicians login
-      </Link>
+            aria-label="Clinicians login"
+          >
+            Clinicians login
+          </Link>
 
-      <Link
-      to="/parents/login"
-        className="
+          <Link
+            to="/parents/login"
+            className="
           px-8
           py-3
           bg-[#1E293B]
@@ -96,20 +96,20 @@ const LandingPage = () => {
           hover:bg-[#0F172A]
           transition-colors
         "
-        aria-label="Parents login"
-      >
-        Parents login
-      </Link>
+            aria-label="Parents login"
+          >
+            Parents login
+          </Link>
+        </div>
+
+        {/* Fixed Laptop Image */}
+        <img
+          src={MacbookImage}
+          alt="TeleHealth platform interface"
+          className="w-[400px] object-contain"
+        />
+      </div>
     </div>
-
-    {/* Fixed Laptop Image */}
-    <img
-      src={MacbookImage}
-      alt="TeleHealth platform interface"
-      className="w-[400px] object-contain"
-    />
-  </div>
-</div>
   );
 };
 

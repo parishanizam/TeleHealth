@@ -1,5 +1,5 @@
-const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
@@ -15,7 +15,7 @@ async function getJsonFromS3(key) {
     const bodyString = await streamToString(response.Body);
     return JSON.parse(bodyString);
   } catch (error) {
-    console.error('Error fetching JSON from S3:', error);
+    console.error("Error fetching JSON from S3:", error);
     throw error;
   }
 }
@@ -25,11 +25,14 @@ async function getJsonFromS3(key) {
  */
 async function getPresignedUrl(key, expiresIn = 3600) {
   try {
-    const command = new GetObjectCommand({ Bucket: QUESTION_BANK_BUCKET, Key: key });
+    const command = new GetObjectCommand({
+      Bucket: QUESTION_BANK_BUCKET,
+      Key: key,
+    });
     const url = await getSignedUrl(s3Client, command, { expiresIn });
     return url;
   } catch (error) {
-    console.error('Error generating pre-signed URL:', error);
+    console.error("Error generating pre-signed URL:", error);
     throw error;
   }
 }
@@ -40,10 +43,10 @@ async function getPresignedUrl(key, expiresIn = 3600) {
 function streamToString(stream) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    stream.on('data', (chunk) => chunks.push(chunk));
-    stream.on('error', reject);
-    stream.on('end', () => {
-      resolve(Buffer.concat(chunks).toString('utf-8'));
+    stream.on("data", (chunk) => chunks.push(chunk));
+    stream.on("error", reject);
+    stream.on("end", () => {
+      resolve(Buffer.concat(chunks).toString("utf-8"));
     });
   });
 }

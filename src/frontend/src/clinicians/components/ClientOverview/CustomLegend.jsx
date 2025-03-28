@@ -1,9 +1,5 @@
 import React from "react";
 
-/**
- * Recharts will pass a "payload" array describing each line's color & label.
- * We render them in a custom <div> with any styling we want.
- */
 function CustomLegend({ payload }) {
   if (!payload || !payload.length) return null;
 
@@ -16,7 +12,7 @@ function CustomLegend({ payload }) {
         padding: "10px 16px",
         fontSize: "16px",
         fontWeight: "bold",
-        margin: "0 auto 16px", // "16px" bottom margin for spacing below legend
+        margin: "0 auto 16px",
         textAlign: "center",
         display: "inline-block",
       }}

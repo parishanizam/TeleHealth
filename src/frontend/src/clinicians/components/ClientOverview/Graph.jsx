@@ -83,8 +83,6 @@ const Graph = ({ client, filters, selectedDate }) => {
               continue;
             }
           }
-
-          // If passes filters => compute score
           const resultsApiUrl = `http://localhost:3000/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
           const resultsResponse = await fetch(resultsApiUrl);
           const resultsData = await resultsResponse.json();
@@ -95,7 +93,7 @@ const Graph = ({ client, filters, selectedDate }) => {
 
           if (testType === "repetition") {
             correctAnswers = resultsData.results.filter(
-              (q) => q.mark_state === "Correct"
+              (q) => q.mark_state === "Correct",
             ).length;
           } else {
             const questionPromises = resultsData.results.map(async (res) => {
@@ -115,7 +113,7 @@ const Graph = ({ client, filters, selectedDate }) => {
 
             const updatedResults = await Promise.all(questionPromises);
             correctAnswers = updatedResults.filter(
-              (q) => q.status === "correct"
+              (q) => q.status === "correct",
             ).length;
           }
 
@@ -150,7 +148,7 @@ const Graph = ({ client, filters, selectedDate }) => {
 
   const maxTests = Math.max(
     0,
-    ...Object.values(scoresByTestType).map((scores) => scores.length)
+    ...Object.values(scoresByTestType).map((scores) => scores.length),
   );
   const xAxisLabels = Array.from({ length: maxTests }, (_, i) => `${i + 1}`);
 
@@ -171,7 +169,6 @@ const Graph = ({ client, filters, selectedDate }) => {
     return null;
   };
 
-  // Custom legend renderer with blue background and matching text color
   const CustomLegend = (props) => {
     const { payload } = props;
     return (
@@ -179,7 +176,6 @@ const Graph = ({ client, filters, selectedDate }) => {
         style={{
           marginBottom: 10,
           textAlign: "center",
-          // backgroundColor: "#E3F2FD",
           padding: "10px",
           borderRadius: "5px",
           boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
@@ -224,11 +220,19 @@ const Graph = ({ client, filters, selectedDate }) => {
               type="category"
               allowDuplicatedCategory={false}
               ticks={xAxisLabels}
-              label={{ value: "Attempt", position: "insideBottom", offset: -10 }}
+              label={{
+                value: "Attempt",
+                position: "insideBottom",
+                offset: -10,
+              }}
             />
             <YAxis domain={[0, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend content={<CustomLegend />} verticalAlign="top" align="center" />
+            <Legend
+              content={<CustomLegend />}
+              verticalAlign="top"
+              align="center"
+            />
             {Object.entries(scoresByTestType).map(([combo, scores], idx) => (
               <Line
                 key={combo}

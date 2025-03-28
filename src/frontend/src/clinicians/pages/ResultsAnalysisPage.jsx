@@ -16,7 +16,7 @@ function ResultsAnalysisPage() {
     lastName,
     assessmentId,
     parentUsername,
-    score: initialScore = null, 
+    score: initialScore = null,
     clientId,
     securityCode,
   } = location.state || {};
@@ -30,7 +30,6 @@ function ResultsAnalysisPage() {
   const [formattedDate, setFormattedDate] = useState("");
   const [biaslength, setBiaslength] = useState();
 
-
   const [videoExists, setVideoExists] = useState(false);
 
   useEffect(() => {
@@ -38,11 +37,11 @@ function ResultsAnalysisPage() {
       setVideoExists(false);
       return;
     }
-  
-    const video = document.createElement('video');
+
+    const video = document.createElement("video");
     video.src = videoUrl;
-    video.preload = 'metadata';
-  
+    video.preload = "metadata";
+
     video.onloadedmetadata = () => {
       if (video.duration > 0 && !isNaN(video.duration)) {
         setVideoExists(true);
@@ -50,7 +49,7 @@ function ResultsAnalysisPage() {
         setVideoExists(false);
       }
     };
-  
+
     video.onerror = () => {
       setVideoExists(false);
     };
@@ -64,7 +63,7 @@ function ResultsAnalysisPage() {
       try {
         setLoading(true);
 
-        // 1) Fetch assessment results
+        //Fetch assessment results
         const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}`;
         const resultsResponse = await axios.get(resultsApiUrl);
 
@@ -83,28 +82,27 @@ function ResultsAnalysisPage() {
         let updatedResults = [];
 
         if (testType === "repetition") {
-          // Check if test is still being marked
           const isStillBeingMarked = rawResults.some(
-            (q) => q.mark_state === "Undetermined"
+            (q) => q.mark_state === "Undetermined",
           );
           if (isStillBeingMarked) {
             setScore("Test is being evaluated...");
           } else {
             correctAnswers = rawResults.filter(
-              (q) => q.mark_state === "Correct"
+              (q) => q.mark_state === "Correct",
             ).length;
             setScore(
               totalQuestions > 0
                 ? Math.round((correctAnswers / totalQuestions) * 100)
-                : 0
+                : 0,
             );
           }
           updatedResults = rawResults;
         } else {
-          // For other test types
+          //For other test types
           const questionPromises = rawResults.map(async (result) => {
             const questionRes = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`
+              `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`,
             );
             return {
               ...result,
@@ -117,20 +115,19 @@ function ResultsAnalysisPage() {
           });
           updatedResults = await Promise.all(questionPromises);
           correctAnswers = updatedResults.filter(
-            (q) => q.status === "correct"
+            (q) => q.status === "correct",
           ).length;
 
-          // ALWAYS recalc the score, ignoring initialScore
           setScore(
             totalQuestions > 0
               ? Math.round((correctAnswers / totalQuestions) * 100)
-              : 0
+              : 0,
           );
         }
 
         setResults(updatedResults);
 
-        // 2) Fetch the video
+        //Fetch the video
         const dateObj = date ? new Date(date) : new Date();
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
         const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
@@ -153,30 +150,18 @@ function ResultsAnalysisPage() {
     };
 
     fetchResultsAndVideo();
-  }, [
-    firstName,
-    lastName,
-    assessmentId,
-    parentUsername,
-    date,
-  ]);
+  }, [firstName, lastName, assessmentId, parentUsername, date]);
 
   return (
     <div className="bg-white">
-      <Header
-        title={`${firstName} ${lastName} - Results`}
-        role="clinician"
-      />
+      <Header title={`${firstName} ${lastName} - Results`} role="clinician" />
 
-      {/* Info + Back Button */}
       <div className="flex justify-between items-center px-6 mt-4">
         <div>
           <h2 className="text-3xl font-bold">
             {formatTestTitle(questionBankId)}
           </h2>
-          <p className="text-2xl font-medium">
-            {formatDate(date)}
-          </p>
+          <p className="text-2xl font-medium">{formatDate(date)}</p>
           <p className="text-2xl font-medium">
             Score: {typeof score === "number" ? `${score}%` : score}
           </p>
@@ -194,26 +179,25 @@ function ResultsAnalysisPage() {
         </PreviousPageButton>
       </div>
 
-      {/* Main content row: video + question list */}
+      {/* VIDEO PLAYER */}
       <div className="flex w-full justify-center items-start gap-6 px-6 mt-6">
-        {/* Left side: video */}
         <div className="flex-1">
           {loading ? (
             <p>Loading video...</p>
           ) : error ? (
             <p className="text-red-500">{error}</p>
+          ) : videoExists ? (
+            <TempMediaPlayer videoUrl={videoUrl} />
           ) : (
-            videoExists ? (
-              <TempMediaPlayer videoUrl={videoUrl} />
-            ) : (
-              <div className="flex justify-center items-center h-[500px]">
-                <p className="text-gray-500 text-center text-xl">Video not available due to consent decline.</p>
-              </div>
-            )
+            <div className="flex justify-center items-center h-[500px]">
+              <p className="text-gray-500 text-center text-xl">
+                Video not available due to consent decline.
+              </p>
+            </div>
           )}
         </div>
 
-        {/* Right side: question list */}
+        {/* QUESTION LIST */}
         <div className="flex-1 border border-gray-200 rounded-lg p-4 flex flex-col">
           <div className="flex-1 overflow-auto flex flex-col items-center">
             <ResultsList

@@ -2,12 +2,16 @@ import IconButtonGroup from "./IconButtonGroup";
 
 function QuestionAnswers({ question, userAnswer, markState, changeMarkState }) {
   if (!question.options) {
-    return <IconButtonGroup markState={markState} changeMarkState={changeMarkState} />;
+    return (
+      <IconButtonGroup
+        markState={markState}
+        changeMarkState={changeMarkState}
+      />
+    );
   }
 
   // Handle the user interaction to change mark state
   const handleAnswerClick = (answerId) => {
-    // Assuming the answer id corresponds to the mark state change logic
     changeMarkState(answerId);
   };
 
@@ -28,7 +32,7 @@ function QuestionAnswers({ question, userAnswer, markState, changeMarkState }) {
           return (
             <div
               key={option.id}
-              onClick={() => handleAnswerClick(option.id)} // Trigger the mark state change
+              onClick={() => handleAnswerClick(option.id)}
               className={`p-2 border rounded-md transition ${isUserSelected ? (isCorrect ? "bg-green-200" : "bg-red-200") : "bg-white"}`}
             >
               <img

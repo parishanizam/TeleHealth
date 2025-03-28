@@ -9,11 +9,10 @@ function ParentChecklistPage() {
 
       {/* Main Container */}
       <div className="flex flex-col items-center justify-center w-full max-w-4xl min-h-[85vh] overflow-y-auto pt-4 space-y-4">
-        
         {/* Setup Section */}
         <div className="w-full bg-white rounded-md shadow-md p-4 sm:p-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-3">⚙️ Set Up</h2>
-          {/* Center the list container but keep the bullet points left-aligned */}
+
           <div className="flex justify-center">
             <ul className="list-disc pl-8 space-y-1 text-gray-800 text-sm sm:text-base text-left max-w-lg">
               <li>Ensure the room is quiet and free of distractions.</li>
@@ -40,7 +39,6 @@ function ParentChecklistPage() {
           </div>
         </div>
 
-        {/* Next Button */}
         <div className="flex justify-center">
           <NextButton to="/parents/MediaTesting" />
         </div>

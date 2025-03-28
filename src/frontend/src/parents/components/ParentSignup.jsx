@@ -23,7 +23,6 @@ function ParentSignUp() {
     setError("");
 
     try {
-      // Call the parent signup endpoint
       const response = await axios.post(
         "http://localhost:3000/auth/parents/signup",
         {
@@ -32,7 +31,7 @@ function ParentSignUp() {
           password: formData.password,
           confirmPassword: formData.confirmPassword,
           securityCode: formData.securityCode,
-        }
+        },
       );
 
       console.log("Parent Signup Success:", response.data);
@@ -51,9 +50,7 @@ function ParentSignUp() {
         <h1 className="text-4xl font-normal leading-snug text-center mb-4">
           Welcome
         </h1>
-        {error && (
-          <div className="text-red-500 text-center mb-3">{error}</div>
-        )}
+        {error && <div className="text-red-500 text-center mb-3">{error}</div>}
 
         {/* Email Input */}
         <div className="w-[438px] mb-4">

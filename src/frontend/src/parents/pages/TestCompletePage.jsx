@@ -16,16 +16,11 @@ const cardVariants = {
 function TestComplete() {
   return (
     <div className="flex flex-col h-screen bg-white">
-      {/* Fixed header at the top */}
       <div className="fixed top-0 left-0 w-full z-10">
         <Header title="Assessment Complete!" />
       </div>
-
-      {/* Main content area: fill remaining space */}
       <div className="flex flex-col items-center justify-center pt-28 pb-6 px-6 h-full">
-        {/* Two-card grid: fill width & height */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full">
-          {/* Left card */}
           <motion.div
             variants={cardVariants}
             initial="hidden"

@@ -1,10 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const mediaProcessRoute = require("./routes/mediaProcessRoute");
 
-// Import your route definitions
-const mediaProcessRoute = require('./routes/mediaProcessRoute');
-
-// Mount all media-processing routes under '/'
-router.use('/', mediaProcessRoute);
+router.use("/", mediaProcessRoute);
 
 module.exports = router;

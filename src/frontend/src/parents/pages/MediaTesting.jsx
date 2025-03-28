@@ -23,7 +23,8 @@ export default function MediaTesting() {
     setShowConsent(false);
   };
 
-  const getNextRoute = () => `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
+  const getNextRoute = () =>
+    `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`;
 
   useEffect(() => {
     document.body.style.overflow = showConsent ? "hidden" : "auto";
@@ -36,7 +37,7 @@ export default function MediaTesting() {
 
       {/* Main Content */}
       <main className="flex flex-wrap items-start justify-center gap-6 mt-10 w-full">
-        {/* Video Section (only if consent given) */}
+        {/* Video Section if consent given*/}
         {sessionStorage.getItem("videoConsent") !== "declined" && (
           <div className="w-full max-w-md">
             <VideoTest />
@@ -50,13 +51,14 @@ export default function MediaTesting() {
         </div>
       </main>
 
-      {/* Next Button */}
       <div className="flex justify-center items-center w-full mt-10 min-h-[50px]">
         <NextButton to={getNextRoute()} />
       </div>
 
       {/* Consent Form */}
-      {showConsent && <ConsentForm onConsent={handleConsent} onDecline={handleDecline} />}
+      {showConsent && (
+        <ConsentForm onConsent={handleConsent} onDecline={handleDecline} />
+      )}
     </div>
   );
 }

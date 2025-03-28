@@ -19,7 +19,7 @@ function ClinicianDashboard() {
         <AddClientButton />
       </div>
 
-     {/* Scrollable ClientList */}
+      {/* Scrollable ClientList */}
       <div className="flex-1 px-5 mt-2 w-full max-w-4xl mx-auto overflow-hidden">
         <ClientList />
       </div>

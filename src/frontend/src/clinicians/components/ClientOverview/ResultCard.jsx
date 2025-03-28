@@ -1,6 +1,4 @@
 import ChevronIcon from "../../../assets/chevron.svg";
-
-// eslint-disable-next-line react/prop-types
 export function ResultCard({ score, test, date, onClick }) {
   return (
     <button

@@ -3,8 +3,6 @@ import InstructionStep from "../components/InstructionStep";
 import matchingInstructions from "./Instructions/MatchingInstructions";
 import repetitionInstructions from "./Instructions/RepetitionInstructions";
 import quantifierInstructions from "./Instructions/QuantifierInstructions";
-
-// eslint-disable-next-line react/prop-types
 export default function InstructionContainer({ type }) {
   let instructions = [];
 
@@ -27,8 +25,10 @@ export default function InstructionContainer({ type }) {
           {step.text}
         </InstructionStep>
       ))}
-      <div className="bg-blue-100 p-4 rounded-2xl text-blue-700">     
-        The first question of each test is a <strong>Practice Question</strong>. This will not impact your results</div>
+      <div className="bg-blue-100 p-4 rounded-2xl text-blue-700">
+        The first question of each test is a <strong>Practice Question</strong>.
+        This will not impact your results
+      </div>
     </div>
   );
 }

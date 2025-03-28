@@ -14,8 +14,6 @@ import ReturnToResultsButton from "../components/BiasReview/ReturnToResultsButto
 function BiasReviewPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
-
-  // Destructure properties from location.state
   const {
     questionId,
     questionNumber,
@@ -37,14 +35,11 @@ function BiasReviewPage() {
     securityCode,
   } = state || {};
 
-  // Read video consent from sessionStorage (set in MediaTesting)
   const storedConsent = sessionStorage.getItem("videoConsent");
-  // If consent is explicitly "declined", set false; otherwise assume true.
+
   const initialVideoConsent = storedConsent === "declined" ? false : true;
   const [videoConsent] = useState(initialVideoConsent);
 
-
-  // Existing component state variables
   const [question, setQuestion] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [audioUrl, setAudioUrl] = useState("");
@@ -56,7 +51,6 @@ function BiasReviewPage() {
   const [markState, setMarkState] = useState(mark_state || "Undetermined");
   const [notesText, setNotesText] = useState(notes || "");
 
-  
   const [videoExists, setVideoExists] = useState(false);
 
   useEffect(() => {
@@ -64,11 +58,11 @@ function BiasReviewPage() {
       setVideoExists(false);
       return;
     }
-  
-    const video = document.createElement('video');
+
+    const video = document.createElement("video");
     video.src = videoUrl;
-    video.preload = 'metadata';
-  
+    video.preload = "metadata";
+
     video.onloadedmetadata = () => {
       if (video.duration > 0 && !isNaN(video.duration)) {
         setVideoExists(true);
@@ -76,25 +70,23 @@ function BiasReviewPage() {
         setVideoExists(false);
       }
     };
-  
+
     video.onerror = () => {
       setVideoExists(false);
     };
   }, [videoUrl]);
-  
 
-
-  // 1) Fetch assessment history
+  //Fetch assessment history
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/media/history/${parentUsername}`
+          `http://localhost:3000/media/history/${parentUsername}`,
         );
         const historyData = res.data;
         if (historyData && historyData.assessmentVideos) {
           const currentAssessment = historyData.assessmentVideos.find(
-            (a) => a.assessmentId.toString() === assessmentId.toString()
+            (a) => a.assessmentId.toString() === assessmentId.toString(),
           );
           if (currentAssessment && currentAssessment.timestamps) {
             setHistoryTimestamps(currentAssessment.timestamps);
@@ -107,7 +99,7 @@ function BiasReviewPage() {
     fetchHistory();
   }, [parentUsername, assessmentId]);
 
-  // 2) Fetch question, media and result data
+  //Fetch question, media and result data
   useEffect(() => {
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
       setError("Missing necessary data for review.");
@@ -119,9 +111,8 @@ function BiasReviewPage() {
         setLoading(true);
         const [language, testType] = questionBankId.split("-");
 
-        // Fetch question data
         const questionRes = await axios.get(
-          `http://localhost:3000/questions/${language}/${testType}/${questionId}`
+          `http://localhost:3000/questions/${language}/${testType}/${questionId}`,
         );
         if (!questionRes.data) {
           setError("Question not found.");
@@ -129,19 +120,17 @@ function BiasReviewPage() {
         }
         setQuestion(questionRes.data);
 
-        // Fetch media first
         const dateObj = date ? new Date(date) : new Date();
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
         const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
         const mediaRes = await axios.get(
-          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`
+          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`,
         );
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
 
-        // Fetch result data and update states
         const resultRes = await axios.get(
-          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`
+          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
         );
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
         const initialBiasState =
@@ -152,11 +141,10 @@ function BiasReviewPage() {
         setBiasState(initialBiasState);
         setNotesText(initialNotes);
 
-        // For repetition, fetch audio
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`
+              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`,
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
@@ -180,8 +168,6 @@ function BiasReviewPage() {
     date,
     questionNumber,
   ]);
-
-  // Functions to handle bias and notes updates remain unchanged
   const toggleBiasState = async () => {
     let newState;
     if (biasState === "Undetermined") {
@@ -204,7 +190,7 @@ function BiasReviewPage() {
     try {
       await axios.post(
         `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
-        payload
+        payload,
       );
     } catch (error) {
       console.error("Error saving bias modification:", error);
@@ -223,7 +209,7 @@ function BiasReviewPage() {
     try {
       await axios.post(
         `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
-        payload
+        payload,
       );
     } catch (error) {
       console.error("Error saving mark state:", error);
@@ -242,7 +228,7 @@ function BiasReviewPage() {
     try {
       await axios.post(
         `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/notes`,
-        payload
+        payload,
       );
     } catch (error) {
       console.error("Error saving notes:", error);
@@ -253,7 +239,10 @@ function BiasReviewPage() {
   const formattedBias = biasTimestamps.map((b) => {
     const totalSeconds = Math.floor(b.timestamp / 1000);
     const hours = Math.floor(totalSeconds / 3600);
-    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
+      2,
+      "0",
+    );
     const seconds = String(totalSeconds % 60).padStart(2, "0");
     const timestamp =
       hours > 0
@@ -274,7 +263,7 @@ function BiasReviewPage() {
     return b.timestamp >= prevTimestamp && b.timestamp <= currTimestamp;
   });
 
-  // Navigation among questions
+  // Navigate questions
   const isFirstQuestion = currentIndex === 0;
   const isLastQuestion = currentIndex === totalQuestions - 1;
   const goToPreviousQuestion = () => {
@@ -317,13 +306,12 @@ function BiasReviewPage() {
     }
   };
 
-  // Derive display timestamp
   const displayTimestamp =
     questionNumber === 1
       ? "00:00"
       : historyTimestamps && historyTimestamps.length >= questionNumber - 1
-      ? historyTimestamps[questionNumber - 2].timestamp
-      : "00:00";
+        ? historyTimestamps[questionNumber - 2].timestamp
+        : "00:00";
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
@@ -334,7 +322,9 @@ function BiasReviewPage() {
 
       <div className="flex flex-col md:flex-row items-center justify-between px-6 mt-4 flex-none">
         <div className="flex flex-col items-left text-left mb-4 md:mb-0">
-          <h2 className="text-2xl md:text-3xl font-bold">{formatTestTitle(questionBankId)}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold">
+            {formatTestTitle(questionBankId)}
+          </h2>
           <p className="text-lg md:text-2xl font-medium">{formatDate(date)}</p>
         </div>
 
@@ -375,11 +365,12 @@ function BiasReviewPage() {
               {loading ? (
                 <p>Loading...</p>
               ) : videoExists ? (
-                <p className="text-lg font-bold">Question Start: {displayTimestamp}</p>
+                <p className="text-lg font-bold">
+                  Question Start: {displayTimestamp}
+                </p>
               ) : (
                 <p className="text-gray-500 italic"></p>
-                )}
-
+              )}
             </div>
 
             <div className="flex flex-col lg:flex-row w-full h-full space-y-4 lg:space-y-0 lg:space-x-6">
@@ -389,13 +380,16 @@ function BiasReviewPage() {
                   <p>Loading video...</p>
                 ) : error ? (
                   <p className="text-red-500">{error}</p>
+                ) : // Render video only if consent was given.
+                videoExists ? (
+                  <TempMediaPlayer
+                    videoUrl={videoUrl}
+                    biasTimestamps={biasTimestamps}
+                  />
                 ) : (
-                  // Render video only if consent was given.
-                  videoExists ? (
-                    <TempMediaPlayer videoUrl={videoUrl} biasTimestamps={biasTimestamps} />
-                  ) : (
-                    <p className="text-gray-500">Video not available due to consent decline.</p>
-                  )
+                  <p className="text-gray-500">
+                    Video not available due to consent decline.
+                  </p>
                 )}
               </div>
 
@@ -414,17 +408,25 @@ function BiasReviewPage() {
                   )}
                 </div>
 
-                {questionBankId.toLowerCase().includes("repetition") && audioUrl && (
-                  <div className="flex flex-col items-center justify-center w-full p-2 bg-white rounded-xl border border-gray-300 text-center">
-                    <p className="mb-2 text-lg font-medium">Submitted Answer</p>
-                    <div className="flex justify-center w-full">
-                      <audio key={audioUrl} controls preload="auto" crossOrigin="anonymous">
-                        <source src={audioUrl} type="audio/mp4" />
-                        Your browser does not support the audio element.
-                      </audio>
+                {questionBankId.toLowerCase().includes("repetition") &&
+                  audioUrl && (
+                    <div className="flex flex-col items-center justify-center w-full p-2 bg-white rounded-xl border border-gray-300 text-center">
+                      <p className="mb-2 text-lg font-medium">
+                        Submitted Answer
+                      </p>
+                      <div className="flex justify-center w-full">
+                        <audio
+                          key={audioUrl}
+                          controls
+                          preload="auto"
+                          crossOrigin="anonymous"
+                        >
+                          <source src={audioUrl} type="audio/mp4" />
+                          Your browser does not support the audio element.
+                        </audio>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 <div className="w-full">
                   {loading ? (
@@ -445,42 +447,46 @@ function BiasReviewPage() {
           </div>
         </div>
 
-        {/* Right Column (Bias Info) */}
+        {/* Bias Info */}
         <div className="flex-[0.3] flex flex-col space-y-6">
           <div className="p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md flex flex-col justify-between h-full">
             <BiasDetected biasState={biasState !== false} />
             <div className="mt-4 text-center text-lg">
-            {videoExists? (
-+                biasState ? (
-                <div className="text-red-500">
-                  <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
-                    <div className="overflow-auto max-h-40 flex justify-center">
-                      <div className="text-left w-full">
-                        {filteredBias.map((bias, index) => (
-                          <div key={index} className="py-1">
-                            <strong>{bias.timestamp}</strong> - {bias.keyword}
-                            <span className="text-gray-500">
-                              {" "}
-                              (Faces Detected: {bias.faceCount})
-                            </span>
-                          </div>
-                        ))}
+              {videoExists ? (
+                +biasState ? (
+                  <div className="text-red-500">
+                    <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
+                      <div className="overflow-auto max-h-40 flex justify-center">
+                        <div className="text-left w-full">
+                          {filteredBias.map((bias, index) => (
+                            <div key={index} className="py-1">
+                              <strong>{bias.timestamp}</strong> - {bias.keyword}
+                              <span className="text-gray-500">
+                                {" "}
+                                (Faces Detected: {bias.faceCount})
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <p className="text-green-600">No Bias Detected</p>
+                )
               ) : (
-                <p className="text-green-600">No Bias Detected</p>
-              )
-            ) : (
-                <p className="text-gray-500 italic">No bias information (video not recorded)</p>
+                <p className="text-gray-500 italic">
+                  No bias information (video not recorded)
+                </p>
               )}
             </div>
 
             <div className="mt-4 w-full">
               <div className="flex items-center space-x-2">
                 <label className="text-lg font-semibold">Clinician Notes</label>
-                <span className="text-sm text-gray-500">(All Notes Autosaved)</span>
+                <span className="text-sm text-gray-500">
+                  (All Notes Autosaved)
+                </span>
               </div>
               <textarea
                 className="w-full h-32 p-2 border border-gray-300 rounded-md mt-2 resize-none overflow-auto"
@@ -491,11 +497,13 @@ function BiasReviewPage() {
             </div>
 
             <div className="w-full flex justify-center">
-                {videoExists ? (
-                  <RemoveBiasButton onClick={toggleBiasState} isBiasDetected={biasState === true} />
-                ) : (
-                  <button disabled className="">
-                  </button>
+              {videoExists ? (
+                <RemoveBiasButton
+                  onClick={toggleBiasState}
+                  isBiasDetected={biasState === true}
+                />
+              ) : (
+                <button disabled className=""></button>
               )}
             </div>
           </div>

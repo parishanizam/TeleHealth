@@ -1,4 +1,3 @@
-// PreviousPageButton.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,13 +6,12 @@ function PreviousPageButton({
   parentUsername,
   firstName,
   lastName,
-  securityCode, // ADDED
+  securityCode,
   className = "",
 }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // CHANGED/ADDED: Pass the entire client object, including securityCode
     navigate(`/clinicians/ClientOverview/${clientId}`, {
       state: {
         client: {
@@ -21,14 +19,17 @@ function PreviousPageButton({
           parentUsername,
           firstName,
           lastName,
-          securityCode, // ADDED
+          securityCode,
         },
       },
     });
   };
 
   return (
-    <button className={`px-4 py-2 bg-blue-500 text-white rounded ${className}`} onClick={handleClick}>
+    <button
+      className={`px-4 py-2 bg-blue-500 text-white rounded ${className}`}
+      onClick={handleClick}
+    >
       Back to {firstName}'s Overview
     </button>
   );

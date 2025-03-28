@@ -1,4 +1,3 @@
-// ClientOverview.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useLocation } from "react-router-dom";
@@ -11,7 +10,6 @@ import "react-datepicker/dist/react-datepicker.css";
 function ClientOverview() {
   const { clientId } = useParams();
   const location = useLocation();
-  // If we navigated here with state.client, we pick it up:
   const client = location.state?.client;
 
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -27,7 +25,7 @@ function ClientOverview() {
   const fetchAssessmentHistory = async (username) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/resultstorage/assessment-history/${username}`
+        `http://localhost:3000/resultstorage/assessment-history/${username}`,
       );
       if (response.data && Array.isArray(response.data.assessments)) {
         setAssessmentHistory(response.data.assessments);
@@ -40,7 +38,7 @@ function ClientOverview() {
     }
   };
 
-  // Possible filters
+  //filters
   const filterOptions = [
     "English",
     "Mandarin",
@@ -83,7 +81,6 @@ function ClientOverview() {
       />
 
       <div className="space-y-4 mt-3">
-        {/* Security code now shows up, if present in client object */}
         <p className="text-lg">Security Code: {client?.securityCode}</p>
       </div>
 
@@ -91,7 +88,6 @@ function ClientOverview() {
       <div className="w-full flex">
         <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6 w-full max-w-full">
           <div className="flex flex-wrap items-center gap-4">
-            {/* Select and DatePicker */}
             <div className="flex items-center gap-2">
               <select
                 className="border p-2 rounded-md"
@@ -152,9 +148,8 @@ function ClientOverview() {
         </div>
       </div>
 
-      {/* TWO CARDS FOR GRAPH AND RESULTS */}
+      {/*GRAPH*/}
       <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 mt-8">
-        {/* TRENDS CARD - Graph takes more space */}
         <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm mr-0 md:mr-5 md:basis-2/3">
           <h2 className="text-2xl font-semibold text-center">Trends</h2>
           <div className="flex-grow">
@@ -166,7 +161,7 @@ function ClientOverview() {
           </div>
         </div>
 
-        {/* RESULTS CARD - Results take less space */}
+        {/* RESULTS CARD */}
         <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm md:basis-1/3">
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Assessment Results

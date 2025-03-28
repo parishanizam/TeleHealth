@@ -1,4 +1,3 @@
-// eslint-disable-next-line react/prop-types
 export function NextOrSubmitButton({ isLastQuestion, onClick, disabled }) {
   return (
     <div className="flex justify-center px-5 mt-3 w-full min-h-[60px] max-md:px-5">
@@ -7,7 +6,7 @@ export function NextOrSubmitButton({ isLastQuestion, onClick, disabled }) {
           disabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
         onClick={onClick}
-        disabled={disabled} // Prevent the button from being clicked if disabled
+        disabled={disabled}
       >
         {isLastQuestion ? "Submit" : "Next"}
       </button>
