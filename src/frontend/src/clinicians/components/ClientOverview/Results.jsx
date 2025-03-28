@@ -33,7 +33,7 @@ export function Results({ data, client, filters, selectedDate }) {
 
       for (const result of data) {
         try {
-          const resultsApiUrl = `/rehttps://telehealth-insights.onrender.comsultstorage/results/${client.parentUsername}/${result.assessment_id}`;
+          const resultsApiUrl = `https://telehealth-insights.onrender.comsultstorage/results/${client.parentUsername}/${result.assessment_id}`;
           const response = await fetch(resultsApiUrl);
           const fetchedData = await response.json();
 
