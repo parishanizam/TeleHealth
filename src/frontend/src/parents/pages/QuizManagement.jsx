@@ -30,7 +30,7 @@ export default function QuizManagement() {
     const fetchQuestions = async () => {
       try {
         const practiceRes = await axios.get(
-          `http://localhost:3000/questions/${language}/${testType}/0`,
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`,
         );
         setPracticeQuestion(practiceRes.data);
 
@@ -43,7 +43,7 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${id}`,
+              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${id}`,
             );
             return res.data;
           }),
@@ -60,7 +60,7 @@ export default function QuizManagement() {
     const fetchAssessmentId = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`,
+          `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parentInfo.username}`,
         );
         const assessments = res.data.assessments;
 
@@ -221,7 +221,7 @@ export default function QuizManagement() {
 
     console.log("🚀 Sending Upload Request with form data...");
     try {
-      await axios.post("http://localhost:3000/media/", formData, {
+      await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -246,7 +246,7 @@ export default function QuizManagement() {
 
     try {
       await axios.post(
-        "http://localhost:3000/resultstorage/submit-assessment",
+        "https://telehealth-insights.onrender.com/resultstorage/submit-assessment",
         payload,
         { headers: { "Content-Type": "application/json" } },
       );

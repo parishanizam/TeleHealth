@@ -22,7 +22,7 @@ function ParentAccountConfirmation() {
       }
       try {
         const res = await axios.get(
-          `http://localhost:3000/auth/parents/account-details/${parentUsername}`,
+          `https://telehealth-insights.onrender.com/auth/parents/account-details/${parentUsername}`,
         );
         const data = res.data.data;
         if (data) {
@@ -62,7 +62,7 @@ function ParentAccountConfirmation() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/parents/confirm-account",
+        "https://telehealth-insights.onrender.com/auth/parents/confirm-account",
         {
           username: parentUsername,
           newFirstName: overrideFirstName,

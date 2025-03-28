@@ -34,7 +34,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
 
     const fetchScores = async () => {
       try {
-        const assessmentHistoryApiUrl = `http://localhost:3000/resultstorage/assessment-history/${parent.username}`;
+        const assessmentHistoryApiUrl = `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parent.username}`;
         const response = await fetch(assessmentHistoryApiUrl);
         const assessmentHistory = await response.json();
 
@@ -86,7 +86,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
             }
           }
 
-          const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
+          const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${parent.username}/${result.assessment_id}`;
           const resultsResponse = await fetch(resultsApiUrl);
           const resultsData = await resultsResponse.json();
 
@@ -102,7 +102,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
             ).length;
           } else {
             const questionPromises = resultsData.results.map(async (res) => {
-              const questionApiUrl = `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`;
+              const questionApiUrl = `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`;
               const questionResponse = await fetch(questionApiUrl);
               const questionData = await questionResponse.json();
 

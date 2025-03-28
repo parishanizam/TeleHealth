@@ -39,7 +39,7 @@ function AddClient() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/clinicians/add-client",
+        "https://telehealth-insights.onrender.com/auth/clinicians/add-client",
         {
           clinicianUsername: clinicianInfo.username,
           firstName: formData.firstName,

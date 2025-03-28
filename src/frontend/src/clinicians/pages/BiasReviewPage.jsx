@@ -81,7 +81,7 @@ function BiasReviewPage() {
     const fetchHistory = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/media/history/${parentUsername}`,
+          `https://telehealth-insights.onrender.com/media/history/${parentUsername}`,
         );
         const historyData = res.data;
         if (historyData && historyData.assessmentVideos) {
@@ -112,7 +112,7 @@ function BiasReviewPage() {
         const [language, testType] = questionBankId.split("-");
 
         const questionRes = await axios.get(
-          `http://localhost:3000/questions/${language}/${testType}/${questionId}`,
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${questionId}`,
         );
         if (!questionRes.data) {
           setError("Question not found.");
@@ -124,13 +124,13 @@ function BiasReviewPage() {
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
         const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
         const mediaRes = await axios.get(
-          `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`,
+          `https://telehealth-insights.onrender.com/media/${parentUsername}/${folderName}/${assessmentId}`,
         );
         setVideoUrl(mediaRes.data.presignedUrl);
         setBiasTimestamps(mediaRes.data.bias || []);
 
         const resultRes = await axios.get(
-          `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
+          `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}`,
         );
         const initialMarkState = resultRes.data?.mark_state || "Undetermined";
         const initialBiasState =
@@ -144,7 +144,7 @@ function BiasReviewPage() {
         if (testType.toLowerCase() === "repetition") {
           try {
             const audioRes = await axios.get(
-              `http://localhost:3000/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`,
+              `https://telehealth-insights.onrender.com/media/${parentUsername}/${folderName}/question_${questionNumber}.mp4`,
             );
             setAudioUrl(audioRes.data.presignedUrl);
           } catch (audioError) {
@@ -189,7 +189,7 @@ function BiasReviewPage() {
 
     try {
       await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/bias`,
         payload,
       );
     } catch (error) {
@@ -208,7 +208,7 @@ function BiasReviewPage() {
     };
     try {
       await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/mark`,
         payload,
       );
     } catch (error) {
@@ -227,7 +227,7 @@ function BiasReviewPage() {
     };
     try {
       await axios.post(
-        `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/notes`,
+        `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}/${questionId}/notes`,
         payload,
       );
     } catch (error) {

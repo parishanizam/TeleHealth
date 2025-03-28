@@ -33,7 +33,7 @@ export function Results({ data, client, filters, selectedDate }) {
 
       for (const result of data) {
         try {
-          const resultsApiUrl = `http://localhost:3000/resultstorage/results/${client.parentUsername}/${result.assessment_id}`;
+          const resultsApiUrl = `/rehttps://telehealth-insights.onrender.comsultstorage/results/${client.parentUsername}/${result.assessment_id}`;
           const response = await fetch(resultsApiUrl);
           const fetchedData = await response.json();
 
@@ -61,7 +61,7 @@ export function Results({ data, client, filters, selectedDate }) {
           } else {
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
-                `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`,
+                `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`,
               );
               const questionData = await questionRes.json();
               return {

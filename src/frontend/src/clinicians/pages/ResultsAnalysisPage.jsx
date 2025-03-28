@@ -64,7 +64,7 @@ function ResultsAnalysisPage() {
         setLoading(true);
 
         //Fetch assessment results
-        const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parentUsername}/${assessmentId}`;
+        const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${parentUsername}/${assessmentId}`;
         const resultsResponse = await axios.get(resultsApiUrl);
 
         if (!resultsResponse.data || !resultsResponse.data.results) {
@@ -102,7 +102,7 @@ function ResultsAnalysisPage() {
           //For other test types
           const questionPromises = rawResults.map(async (result) => {
             const questionRes = await axios.get(
-              `http://localhost:3000/questions/${language}/${testType}/${result.question_id}`,
+              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${result.question_id}`,
             );
             return {
               ...result,
@@ -132,7 +132,7 @@ function ResultsAnalysisPage() {
         const dateStr = dateObj.toISOString().slice(2, 10).replace(/-/g, "");
         const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
 
-        const videoApiUrl = `http://localhost:3000/media/${parentUsername}/${folderName}/${assessmentId}`;
+        const videoApiUrl = `https://telehealth-insights.onrender.com/media/${parentUsername}/${folderName}/${assessmentId}`;
         const videoResponse = await axios.get(videoApiUrl);
         setBiaslength(videoResponse.data.length);
 
