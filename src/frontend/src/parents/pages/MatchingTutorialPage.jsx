@@ -19,7 +19,7 @@ export default function MatchingTutorialPage() {
     const fetchTutorialQuestion = async () => {
       try {
         const res = await axios.get(
-          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`,
         );
         setQuestion(res.data);
       } catch (error) {
@@ -125,8 +125,14 @@ export default function MatchingTutorialPage() {
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
           <>
-            <NextButton to="/parents/testselection" name="Start an Assessment" />
-            <NextButton to="/parents/OverallTutorialPage" name="Try Another Tutorial" />
+            <NextButton
+              to="/parents/testselection"
+              name="Start an Assessment"
+            />
+            <NextButton
+              to="/parents/OverallTutorialPage"
+              name="Try Another Tutorial"
+            />
           </>
         ) : (
           <button

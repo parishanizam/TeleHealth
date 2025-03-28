@@ -1,5 +1,5 @@
 import React from "react";
-import ClinicianLogin from "../components/Login/ClinicianLogin"; 
+import ClinicianLogin from "../components/Login/ClinicianLogin";
 
 function ClinicianLoginPage() {
   return (

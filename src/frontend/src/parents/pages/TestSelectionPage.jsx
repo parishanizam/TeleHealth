@@ -8,13 +8,13 @@ import { Container, Card, Form, Button } from "react-bootstrap";
 const testTypeOptionsByLanguage = {
   english: [
     { label: "Matching", value: "matching" },
-    { label: "Repetition", value: "repetition" }
+    { label: "Repetition", value: "repetition" },
   ],
   mandarin: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
-    { label: "Quantifier", value: "quantifier" }
-  ]
+    { label: "Quantifier", value: "quantifier" },
+  ],
 };
 
 function TestSelectionPage() {
@@ -34,60 +34,94 @@ function TestSelectionPage() {
       return;
     }
 
-    dispatch(setTestSelection({ language: selectedLanguage, testType: selectedTestType }));
+    dispatch(
+      setTestSelection({
+        language: selectedLanguage,
+        testType: selectedTestType,
+      }),
+    );
     navigate("/parents/checklist");
   };
 
   return (
-    <Container fluid className="d-flex flex-column align-items-center justify-content-center">
-      <div className="w-100 text-center mt-3 mb-28">
-        <Header title="Test Selection" />
-      </div>
-      <Card className="shadow p-4 text-dark" style={{ backgroundColor: "#89cff0", width: "60%", minHeight: "400px" }}>
-        <Card.Body>
-          <Card.Title className="text-center text-dark fw-bold mt-4 fs-2 mb-4">
-            Select a Language
-          </Card.Title>
-          <Form.Select
-            value={selectedLanguage}
-            onChange={(e) => handleLanguageChange(e.target.value)}
-            className="mb-4"
-          >
-            <option value="" disabled>Select a language</option>
-            <option value="english">English</option>
-            <option value="mandarin">Mandarin</option>
-          </Form.Select>
+    <div className="bg-white min-vh-100">
+      <Header title="Test Selection" />
+      <Container className="text-center mt-4">
+        <h1
+          className="fw-bold mb-3"
+          style={{ fontSize: "42px", color: "#1e3a8a" }}
+        >
+          Choose Your Test
+        </h1>
+        <p className="mb-4" style={{ fontSize: "18px" }}>
+          Select a language and test type below to continue.
+        </p>
 
-          <Card.Title className="text-center text-dark fw-bold mt-4 fs-2 mb-4">
-            Select a Test Type
-          </Card.Title>
-          <Form.Select
-            value={selectedTestType}
-            onChange={(e) => setSelectedTestType(e.target.value)}
-            className="mb-4"
-            disabled={!selectedLanguage}
+        <div className="d-flex justify-content-center">
+          <Card
+            className="shadow-lg text-center"
+            style={{
+              backgroundColor: "#dbeafe",
+              borderRadius: "15px",
+              width: "80%",
+              padding: "30px",
+            }}
           >
-            <option value="" disabled>Select a test type</option>
-            {selectedLanguage &&
-              testTypeOptionsByLanguage[selectedLanguage].map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
+            <Card.Body>
+              <Card.Title
+                className="fw-bold mb-4"
+                style={{ fontSize: "32px", color: "black" }}
+              >
+                Select a Language
+              </Card.Title>
+              <Form.Select
+                value={selectedLanguage}
+                onChange={(e) => handleLanguageChange(e.target.value)}
+                className="mb-4 fs-5"
+              >
+                <option value="" disabled>
+                  Select a language
                 </option>
-              ))}
-          </Form.Select>
+                <option value="english">English</option>
+                <option value="mandarin">Mandarin</option>
+              </Form.Select>
 
-          <div className="d-flex justify-content-center">
-            <Button
-              variant="primary"
-              onClick={handleNext}
-              disabled={!selectedLanguage || !selectedTestType}
-            >
-              Next
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
-    </Container>
+              <Card.Title
+                className="fw-bold mt-4 mb-4"
+                style={{ fontSize: "32px", color: "black" }}
+              >
+                Select a Test Type
+              </Card.Title>
+              <Form.Select
+                value={selectedTestType}
+                onChange={(e) => setSelectedTestType(e.target.value)}
+                className="mb-4 fs-5"
+                disabled={!selectedLanguage}
+              >
+                <option value="" disabled>
+                  Select a test type
+                </option>
+                {selectedLanguage &&
+                  testTypeOptionsByLanguage[selectedLanguage].map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+              </Form.Select>
+
+              <Button
+                variant="primary"
+                className="w-100 fs-5 py-2"
+                onClick={handleNext}
+                disabled={!selectedLanguage || !selectedTestType}
+              >
+                Next
+              </Button>
+            </Card.Body>
+          </Card>
+        </div>
+      </Container>
+    </div>
   );
 }
 

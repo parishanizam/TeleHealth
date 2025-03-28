@@ -2,6 +2,7 @@
 
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{ulem}
 \usepackage{indentfirst}
 
@@ -20,19 +21,22 @@
 
 \begin{table}[hp]
 \caption{Revision History} \label{TblRevisionHistory}
-\begin{tabularx}{\textwidth}{p{1.5cm}p{3cm}X}
+\begin{tabularx}{\textwidth}{p{1.3cm}p{1cm}p{3cm}X}
 \toprule
-\textbf{Date} & \textbf{Developer(s)} & \textbf{Change}\\
+\textbf{Date} & \textbf{Vers} & \textbf{Developer(s)} & \textbf{Change}\\
 \midrule
-20/09/24 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property,
+20/09/24 & 1.0 & Jasmine Sun-Hu, Mitchell Weingust & Added: Team Identifiers, Confidential Information, Intellectual Property,
 Copyright License, Team Meeting Plan\\
-22/09/24 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
-22/09/24 & Mitchell Weingust & Added: Appendix - Team Charter\\
-23/09/24 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
-23/09/24 & Parisha Nizam & POC additions \\
-23/09/24 & Jasmine Sun-Hu, Mitchell Weingust, Parisha Nizam, Promish Kandel & Added: Reflection \\
-24/09/24 & Promish Kandel, Mitchell Weingust, Parisha Nizam, Jasmine Sun-Hu & Final Review\\
-06/11/24 & Jasmine Sun-Hu & Updated POC Demonstration Plan\\
+22/09/24 & 1.1 & Jasmine Sun-Hu & Added: Team Communication Plan, Team Member Roles, Workflow Plan, Project Decomposition and Scheduling\\
+22/09/24 & 1.2 & Mitchell Weingust & Added: Appendix - Team Charter\\
+23/09/24 & 1.3 & Parisha Nizam & Added: Coding Standard, Expected Technologies, POC \\
+23/09/24 & 1.4 & Parisha Nizam & POC additions \\
+23/09/24 & 1.5 & Jasmine, Mitchell, Parisha, Promish & Added: Reflection \\
+24/09/24 & 1.6 & Promish, Mitchell, Parisha, Jasmine & Final Review\\
+06/11/24 & 1.7 & Jasmine Sun-Hu & Updated POC Demonstration Plan\\
+03/23/25 & 2.0 & Parisha Nizam & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/185}{Updated Revision Table Format and POC plan details with model usage Pg 1,9,10} \\
+03/23/25 & 2.1 & Parisha Nizam & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/180}{Updated Tools with reasons why we chose it and advantages/disadvantages Pg 13-16}\\
+03/23/25 & 2.2 & Parisha Nizam & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/235}{Updated Target Metrics Pg 20}\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -320,13 +324,13 @@ progress through the project deliverables.
 \noindent{\textbf{Video Implementation and Analysis:}} The main risk and most challenging aspect of this project is for the system to collect video data that will be sufficiently accurate for us to store and analyze. 
 These at home assessments will be done in different settings with varying lightings, and camera qualities. Ensuring that video capturing remains complete and accurate across all settings presents a significant challenge.  Video integration also poses the risk of compromising data security. As we are handling videos of children and parents, it is important to maintain security. Video data should be encrypted during the storage and processing to ensure privacy of the clients and will be compliant to privacy standards. \\  
 \\
-\noindent \textbf{POC Plan:} \color{red}\sout{To address this risk, the POC demonstration will focus on the system's ability to accurately record, store, and analyze video data. The team can review the recorded footage to ensure data was captured successfully. The recording will then be processed using the team's machine learning  model.}
-\color{black}\\\\
+\noindent \textbf{POC Plan:} 
 In the proof of concept demonstration, the team will showcase an interactive interface that displays the front 
 camera of the device to detect and respond to specific visual inputs. When a user places their face in front 
 facing view of the camera, the application will recognize when the user uses hand gestures in view of the camera, 
 or when multiple faces are detected in the view. The interface will provide feedback by displaying what action it 
-detects below the displayed camera feed within 3 seconds of the action itself. 
+detects below the displayed camera feed within 3 seconds of the action itself. Due to time constraints, the model will come from MediaPipe's face detection model. We will build upon this model
+to allow for a well tested solution that we can implement improvements on. 
 
 \subsection{Will a part of the implementation be difficult?}
 Technologies such as using video \& video recording with analytics, and using machine learning are relatively new to members on the team due to limited experience. Research and open source models recommeded by Dr.Yuan will assist in providing resources and support. \\
@@ -347,63 +351,426 @@ Portability will not be a concern. We will be starting with a web-based applicat
 
 \textbf{Proof of Concept Demonstration}\\
 
-A walkthrough of a simple mock assessment process on the application involving two users. The assesement will be completed on a laptop using \color{red}\sout{integrated }\color{black} live video. POC will demonstrate the ability of the web based application to do the following: \\
-\begin{itemize}\color{red}
-  \item \sout{Turn on the camera: Request permission access to camera on laptop and display live video feed.}
-  \item \sout{Start recording: Begin assessment by clicking start recording}
-  \item \sout{Start \& complete Assement: assesement wil be completed with various prompts and questions}
-  \item \sout{Stop recording: Click Stop recording}
-  \item \sout{Save \& store recording securely: Video will be saved securely on to our database and logged}
-  \item \sout{Playback of video to confirm accuracy and proper storage: Find video in storage and playback}
-  \item \sout{Recording starts being processed by backend system}
-  \item \sout{Show results of video analytics to determine detection of any guidance using Machine Learning}\color{black}
+A walkthrough of a simple mock assessment process on the application involving two users. The assesement will be completed on a laptop using integrated live video. POC will demonstrate the ability of the web based application to do the following: \\
+\begin{itemize}
   \item Open the POC demo application
   \item Turn on the camera
   \item A person positions themselves in front of the camera such that their face is within the frame
   \item A person can perform hand gestures within the camera view
-  \item The interface will provide feedback detecting the hand gesture within 3 seconds
+  \item The interface will provide feedback detecting the hand gesture within 3 seconds, using visual cues to show detection
   \item Another person shows their face within the camera view at the same time as the first person
   \item The interface will provide feedback detecting multiple faces within 3 seconds.
 \end{itemize}
-
 
 \section{Expected Technology}
 
 The following tools and technologies will be used for the development, testing and deployment of the application 
 
-\begin{tabularx}{\textwidth}{|X|X|}
-  \hline
-  \textbf{Tool} & \textbf{Explanation} \\
-  \hline
-  JavaScript & JavaScript will be the main programming language used as the basis for both front-end and back-end development.\\
-  \hline
-  Python & Python will be the main langauge for data analysis and machine learning \\ 
-  \hline
-  Expo using React Native & Expo will be used to create native apps with the React framework that can be deployed as a web-based application or mobile platform. \\
-  \hline
-  Node.js & Node.js will be used for building the back-end server. \\
-  \hline
-  Figma & Figma will be used to design a prototype of the application and test its usability. \\
-  \hline
-  VSCode & Code editor to write application code. \\
-  \hline
-  GitHub with GitHub Projects & Version control tool to manage tasks and track progress. \\
-  \hline
-  GitHub Actions & Automating CI pipeline to handle testing, linting, and building the project after every pull request. \\
-  \hline
-  ESLint & Linter to enforce coding standards and best practices. \\
-  \hline
-  Prettier & Format library to ensure consistent code formatting; integrates with ESLint. \\
-  \hline
-  Jest & Testing framework for JavaScript. \\
-  \hline
-  Pytest & Testing framework for Python \\ 
-  \hline
-  Azure Kubernetes - AKS & Manage data and deploy the application. \\
-  \hline
-  Power BI &  Data Analytics Dashboard integrated with python \\
-  \hline
-\end{tabularx}
+\begin{table}[htbp]
+  \caption{Tool Evaluation Part 1}
+  \label{TblToolEval}
+  \renewcommand{\arraystretch}{1.2}   % Increase row spacing
+  \setlength{\tabcolsep}{5pt}         % Adjust column spacing if needed
+  \begin{tabularx}{\textwidth}{p{2cm} p{4cm} X}
+  \toprule
+  \textbf{Tool} & \textbf{Explanation} & \textbf{Advantages / Disadvantages}\\
+  \midrule
+
+  \textbf{JavaScript} 
+  & JavaScript will be the main programming language used as the basis for both front-end and back-end development.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Large ecosystem of libraries and frameworks
+      \item Single language for front-end \& back-end
+      \item Lots of documentation and resources 
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Dynamically typed (risk of runtime errors)
+      \item Not optimal for CPU-intensive tasks
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Python} 
+  & Python will be the main language for data analysis and machine learning.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Extensive scientific and ML libraries
+      \item Easy to read and prototype quickly
+      \item Most fitted language for creating ML model
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Virtual environment management can be tricky
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{React and Tailwind} 
+  & Used for cross-platform mobile development (React Native) and utility-first styling (Tailwind).
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Single codebase for iOS/Android
+      \item Rapid styling with existing classes, great look
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Performance overhead vs. fully native apps
+    \end{itemize}
+  \\
+  \midrule
+  \bottomrule
+  \end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------
+
+\begin{table}[htbp]
+  \caption{Tool Evaluation Part 2}
+  \label{TblToolEval}
+  \renewcommand{\arraystretch}{1.2}   % Increase row spacing
+  \setlength{\tabcolsep}{5pt}         % Adjust column spacing if needed
+  \begin{tabularx}{\textwidth}{p{2cm} p{4cm} X}
+  \toprule
+  \textbf{Tool} & \textbf{Explanation} & \textbf{Advantages / Disadvantages}\\
+  \midrule
+
+  \textbf{Node.js} 
+  & Will be used for building the back-end server.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Non-blocking I/O ideal for real-time apps
+      \item Massive npm ecosystem, easy to install dependencies etc
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Can struggle with CPU-heavy tasks
+      \item Learning curve for some members on team
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Figma} 
+  & Will be used to design a prototype of the application and test its usability.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Real-time collaboration, can design entire application together
+      \item Easy sharing of prototypes
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Some advanced features require paid plan
+      \item Time Consuming - Manual 
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{VSCode} 
+  & Code editor to write application code.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Large extension marketplace
+      \item Built-in Git integration
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Can become resource-intensive with many plugins, learning curve to figure out what is missing to make extensions work
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{GitHub with GitHub Projects} 
+  & Version control tool to manage tasks and track progress.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Centralised platform for code, issues, and docs
+      \item Easy code review process with pull requests
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Requires Git proficiency to avoid merge conflicts
+    \end{itemize}
+  \\
+  \midrule
+
+  % -----------------------------------------------------------------
+
+  \textbf{GitHub Actions} 
+  & Automating CI pipeline to handle testing, linting, and building the project.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Deep GitHub integration
+      \item Large marketplace of reusable actions
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Complex workflows need YAML expertise
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{ESLint} 
+  & Linter to enforce coding standards and best practices.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Ensures consistent code style
+      \item Highly configurable
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Overly strict rules can be frustrating
+      \item Initial setup time can get long 
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Prettier} 
+  & Format library to ensure consistent code formatting; integrates with ESLint.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Automatically formats code
+      \item Reduces style debates among developers
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item May conflict with other formatters if not synced
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Jest} 
+  & Testing framework for JavaScript.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Zero-config setup for many JS apps
+      \item Good mocking and snapshot features
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Can slow down with large test suites
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Pytest} 
+  & Testing framework for Python.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Auto-discovers test files
+      \item Large plugin ecosystem
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Advanced config can be complex
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{AWS - S3} 
+  & Will be used to store all data in S3 Buckets.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Scalable, pay-as-you-go
+      \item Easy integration with AWS ecosystem
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Costs can grow with large data - We don't want to spend money
+      \item Requires secure config to prevent data leaks
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Netlify} 
+  & Will be used to deploy the frontend of the application.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Automatic builds from Git
+      \item Simple drag-and-drop deployments
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Limited server-side options (static hosting)
+      \item May require paid tiers for advanced features
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Render} 
+  & Will be used to deploy the backend of the application.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Straightforward Docker-based deployment
+      \item Automated SSL and domain management
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Costs can occur with scaling needs
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Deepgram} 
+  & Using Deepgram to create a bias detection algorithm via keyword spotting.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item High accuracy STT with advanced features
+      \item No need to maintain our own ML model
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item External API dependency
+    \end{itemize}
+  \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+
+
+% -------------------------------------------------
+\begin{table}[htbp]
+  \caption{Tool Evaluation Part 3}
+  \label{TblToolEval}
+  \renewcommand{\arraystretch}{1.2}   % Increase row spacing
+  \setlength{\tabcolsep}{5pt}         % Adjust column spacing if needed
+  \begin{tabularx}{\textwidth}{p{2cm} p{4cm} X}
+  \toprule
+  \textbf{Tool} & \textbf{Explanation} & \textbf{Advantages / Disadvantages}\\
+
+  \midrule 
+
+  \textbf{GitHub Actions} 
+  & Automating CI pipeline to handle testing, linting, and building the project.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Deep GitHub integration
+      \item Large marketplace of reusable actions
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Complex workflows need YAML expertise
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{ESLint} 
+  & Linter to enforce coding standards and best practices.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Ensures consistent code style
+      \item Highly configurable
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Overly strict rules can be frustrating
+      \item Initial setup time can get long 
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Prettier} 
+  & Format library to ensure consistent code formatting; integrates with ESLint.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Automatically formats code
+      \item Reduces style debates among developers
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item May conflict with other formatters if not synced
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Jest} 
+  & Testing framework for JavaScript.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Zero-config setup for many JS apps
+      \item Good mocking and snapshot features
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Can slow down with large test suites
+    \end{itemize}
+  \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
+
+
+% -------------------------------------------------
+\begin{table}[htbp]
+  \caption{Tool Evaluation Part 4}
+  \label{TblToolEval}
+  \renewcommand{\arraystretch}{1.2}   % Increase row spacing
+  \setlength{\tabcolsep}{5pt}         % Adjust column spacing if needed
+  \begin{tabularx}{\textwidth}{p{2cm} p{4cm} X}
+  \toprule
+  \textbf{Tool} & \textbf{Explanation} & \textbf{Advantages / Disadvantages}\\
+
+  \midrule 
+
+  \textbf{AWS - S3} 
+  & Will be used to store all data in S3 Buckets.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Scalable, pay-as-you-go
+      \item Easy integration with AWS ecosystem
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Costs can grow with large data - We don't want to spend money
+      \item Requires secure config to prevent data leaks
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Netlify} 
+  & Will be used to deploy the frontend of the application.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Automatic builds from Git
+      \item Simple drag-and-drop deployments
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Limited server-side options (static hosting)
+      \item May require paid tiers for advanced features
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Render} 
+  & Will be used to deploy the backend of the application.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item Straightforward Docker-based deployment
+      \item Automated SSL and domain management
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item Costs can occur with scaling needs
+    \end{itemize}
+  \\
+  \midrule
+
+  \textbf{Deepgram} 
+  & Using Deepgram to create a bias detection algorithm via keyword spotting.
+  & \textbf{Advantages:}
+    \begin{itemize}
+      \item High accuracy STT with advanced features
+      \item No need to maintain our own ML model
+    \end{itemize}
+    \textbf{Disadvantages:}
+    \begin{itemize}
+      \item External API dependency
+    \end{itemize}
+  \\
+  \bottomrule
+  \end{tabularx}
+\end{table}
 
 \pagebreak
 
@@ -580,7 +947,8 @@ with the TA/professor, or a difference/loss of grades (in comparison to the team
 Target Metrics:
 \begin{itemize}
   \item Attendance: 95\% of all team meetings
-  \item Commits: At least 3 meaningful commits per Deliverable (Meaningful means: 10-15 lines of code (minimum) changed per commit)
+  \item Commits: All members must contribute to 10 issues closed per deliverable. 
+  commits should be reflective upon the amount of work divided, 1/4 workload for each member.
   \item Confirm review of all documents prior to submission
   \item Confirm review of all rubric criteria prior to submission
 \end{itemize}

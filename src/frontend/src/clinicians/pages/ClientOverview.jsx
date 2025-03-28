@@ -14,7 +14,7 @@ function ClientOverview() {
 
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [assessmentHistory, setAssessmentHistory] = useState([]); // Store results
+  const [assessmentHistory, setAssessmentHistory] = useState([]);
 
   useEffect(() => {
     if (client?.parentUsername) {
@@ -24,36 +24,47 @@ function ClientOverview() {
 
   const fetchAssessmentHistory = async (username) => {
     try {
-      const response = await axios.get(`https://telehealth-insights.onrender.com/resultstorage/assessment-history/${username}`);
-  
-      console.log("Fetched Data:", response.data); // Debugging output
-      console.log("Assessments:", response.data.assessments); // Check if assessments exist
-  
+      const response = await axios.get(
+        `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${username}`,
+      );
       if (response.data && Array.isArray(response.data.assessments)) {
         setAssessmentHistory(response.data.assessments);
       } else {
         console.warn("No assessments found in the response.");
-        setAssessmentHistory([]); // Ensure it's an empty array to prevent errors
+        setAssessmentHistory([]);
       }
     } catch (error) {
       console.error("Error fetching history:", error);
     }
   };
 
-  const filterOptions = ["English", "Mandarin", "Matching", "Repetition", "Date"];
+  //filters
+  const filterOptions = [
+    "English",
+    "Mandarin",
+    "Matching",
+    "Repetition",
+    "Quantifier",
+    "Date",
+  ];
 
   const handleFilterChange = (e) => {
     const { value } = e.target;
-
     if (value === "Date" && !selectedFilters.includes("Date")) {
-      setSelectedFilters([...selectedFilters, value]);
-    } else if (selectedFilters.includes(value)) {
-      setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
-      if (value === "Date") setSelectedDate(null);
-    } else if (selectedFilters.length < 5) {
-      setSelectedFilters([...selectedFilters, value]);
-    } else {
-      alert("You can select up to 5 filters.");
+      setSelectedFilters((prev) => [...prev, value]);
+      return;
+    }
+    if (selectedFilters.includes(value)) {
+      removeFilter(value);
+      return;
+    }
+    setSelectedFilters((prev) => [...prev, value]);
+  };
+
+  const removeFilter = (filter) => {
+    setSelectedFilters((prev) => prev.filter((f) => f !== filter));
+    if (filter === "Date") {
+      setSelectedDate(null);
     }
   };
 
@@ -63,53 +74,106 @@ function ClientOverview() {
   };
 
   return (
-    <div className="flex flex-col px-5 pt-2.5 pb-80 bg-white max-md:pb-24">
-      <Header title={`${client?.firstName} ${client?.lastName} - Overview`} role="clinician"/>
+    <div className="flex flex-col min-h-screen px-5 pt-2.5 pb-6 bg-white overflow-y-auto">
+      <Header
+        title={`${client?.firstName} ${client?.lastName} - Overview`}
+        role="clinician"
+      />
 
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Client Details</h2>
+      <div className="space-y-4 mt-3">
         <p className="text-lg">Security Code: {client?.securityCode}</p>
       </div>
 
-      {/* Filters: NEED TO BE FIXED BEFORE UNCOMMENTING */} 
-      {/* <div className="p-4 space-y-4">
-        <h2 className="text-lg font-semibold">Filters</h2>
-        <div className="flex flex-col space-y-2">
-          <label className="font-medium">Select a Filter:</label>
-          <div className="flex gap-4 items-center">
-            <select className="border p-2 rounded-md" onChange={handleFilterChange} value="">
-              <option value="" disabled>Select a filter</option>
-              {filterOptions.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
+      {/* Filter box */}
+      <div className="w-full flex">
+        <div className="p-4 bg-blue-50 border border-blue-200 rounded-md mt-6 w-full max-w-full">
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <select
+                className="border p-2 rounded-md"
+                onChange={handleFilterChange}
+                value=""
+              >
+                <option value="" disabled>
+                  Select a filter
+                </option>
+                {filterOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              {selectedFilters.includes("Date") && (
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  className="border p-2 rounded-md"
+                  placeholderText="Select a date"
+                />
+              )}
+            </div>
 
+            {/* Inline filter chips */}
+            {selectedFilters.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2">
+                {selectedFilters.map((filter) => (
+                  <div
+                    key={filter}
+                    className="flex items-center bg-blue-400 text-white px-3 py-1 rounded-full"
+                  >
+                    <span className="mr-1">{filter}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeFilter(filter)}
+                      className="ml-1 font-bold hover:opacity-80"
+                      aria-label={`Remove filter ${filter}`}
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Clear Filters button */}
             {selectedFilters.length > 0 && (
               <button
                 onClick={clearFilters}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-red-600 transition"
               >
                 Clear Filters
               </button>
             )}
           </div>
         </div>
-      </div> */}
+      </div>
 
-      {/* Graph & Results */}
-      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0">
-        <div className="flex-grow text-center">
-        {/* <h2 className="text-2xl font-semibold mb-4">Graph</h2> */}
-          <Graph client={client} />
+      {/*GRAPH*/}
+      <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 mt-8">
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm mr-0 md:mr-5 md:basis-2/3">
+          <h2 className="text-2xl font-semibold text-center">Trends</h2>
+          <div className="flex-grow">
+            <Graph
+              client={client}
+              filters={selectedFilters}
+              selectedDate={selectedDate}
+            />
+          </div>
         </div>
-        <div className="flex-none text-center">
-           {/* <h2 className="text-2xl font-semibold mb-4">Past Assessments</h2> */}
-          <Results 
-            data={assessmentHistory} 
-            client={client} 
-            filters={selectedFilters} 
-            selectedDate={selectedDate} 
-          />
+
+        {/* RESULTS CARD */}
+        <div className="flex flex-col p-5 bg-gray-50 rounded-lg shadow-sm md:basis-1/3">
+          <h2 className="text-2xl font-semibold mb-4 text-center">
+            Assessment Results
+          </h2>
+          <div className="flex-grow overflow-y-auto">
+            <Results
+              data={assessmentHistory}
+              client={client}
+              filters={selectedFilters}
+              selectedDate={selectedDate}
+            />
+          </div>
         </div>
       </div>
     </div>

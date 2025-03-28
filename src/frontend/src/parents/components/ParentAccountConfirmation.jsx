@@ -14,7 +14,6 @@ function ParentAccountConfirmation() {
   const parentUsername = localStorage.getItem("parentUsername");
 
   useEffect(() => {
-    // On component mount, fetch parent's existing data
     const fetchParentData = async () => {
       if (!parentUsername) {
         setError("No parent username found.");
@@ -23,7 +22,7 @@ function ParentAccountConfirmation() {
       }
       try {
         const res = await axios.get(
-          `https://telehealth-insights.onrender.com/auth/parents/account-details/${parentUsername}`
+          `https://telehealth-insights.onrender.com/auth/parents/account-details/${parentUsername}`,
         );
         const data = res.data.data;
         if (data) {
@@ -68,7 +67,7 @@ function ParentAccountConfirmation() {
           username: parentUsername,
           newFirstName: overrideFirstName,
           newLastName: overrideLastName,
-        }
+        },
       );
 
       console.log("Confirm account response:", response.data);
@@ -80,7 +79,6 @@ function ParentAccountConfirmation() {
   };
 
   if (loading) {
-    // Center the "Loading..." message as well
     return (
       <div className="flex items-center justify-center w-screen h-screen text-center overflow-hidden">
         Loading account details...
@@ -136,23 +134,18 @@ function ParentAccountConfirmation() {
         />
       </div>
 
-      {/* 
-        Uncomment if/when you want to reintroduce checkbox for T&C:
-        <div className="flex flex-wrap gap-2 items-center mt-5 text-xl max-md:max-w-full">
-          <label className="flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              className="w-5 h-5 border border-black border-solid"
-              aria-label="Accept terms and conditions"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
-            <span className="ml-2">
-              I agree to the terms and conditions...
-            </span>
-          </label>
-        </div>
-      */}
+      <div className="flex flex-wrap gap-2 items-center mt-5 text-xl max-md:max-w-full">
+        <label className="flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            className="w-5 h-5 border border-black border-solid"
+            aria-label="Accept terms and conditions"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <span className="ml-2">I confirm account name</span>
+        </label>
+      </div>
 
       <button
         type="submit"

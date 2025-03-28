@@ -4,12 +4,12 @@ import VolumeButtonIcon from "../../assets/volumebutton.svg";
 export function VolumeButton({ sound, resetTrigger }) {
   const [clickCount, setClickCount] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null); // Reference to the audio element
+  const audioRef = useRef(null);
 
   const handleClick = async () => {
     if (clickCount < 2 && sound && !isPlaying) {
       const audio = new Audio(sound);
-      audioRef.current = audio; // Save the audio reference
+      audioRef.current = audio;
       setIsPlaying(true);
       audio.play();
 
@@ -19,19 +19,17 @@ export function VolumeButton({ sound, resetTrigger }) {
     }
   };
 
-  // Reset click count when question number changes
   useEffect(() => {
     setClickCount(0);
   }, [resetTrigger]);
 
-  // Stop audio when navigating to the next question
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.pause(); // Pause the audio
-      audioRef.current.currentTime = 0; // Reset the audio position
-      setIsPlaying(false); // Update playing state
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
     }
-  }, [resetTrigger]); // Reset when resetTrigger (question number) changes
+  }, [resetTrigger]);
 
   const isDisabled = clickCount >= 2;
 

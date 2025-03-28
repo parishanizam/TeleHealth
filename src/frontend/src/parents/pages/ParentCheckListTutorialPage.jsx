@@ -6,13 +6,13 @@ import ParentChecklistImage from "../../assets/ParentChecklist.png";
 function ParentChecklistPage() {
   return (
     <div className="flex flex-col px-5 pt-2.5 bg-white max-md:px-4 overflow-hidden min-h-screen">
-      {/* Header */}
       <Header title="Parent Checklist Tutorial" />
 
       {/* Instructions */}
       <section className="text-center mt-8 px-4">
         <p className="mt-2 text-lg text-gray-700 max-w-2xl mx-auto">
-          Please thoroughly review set up instructions and rules carefully before proceeding with each assessment. 
+          Please thoroughly review set up instructions and rules carefully
+          before proceeding with each assessment.
         </p>
       </section>
 
@@ -26,7 +26,6 @@ function ParentChecklistPage() {
         />
       </section>
 
-      {/* Next Button */}
       <div className="flex justify-center items-center mt-12 px-8 pb-8">
         <NextButton to="/parents/MediaTestingTutorialPage" name="Next" />
       </div>

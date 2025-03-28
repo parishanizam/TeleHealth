@@ -55,8 +55,12 @@ urlcolor=cyan          % color of external links
   \midrule
   1/13/2025 & 1.0 & Promish & Added MIS Decomposition for RealTimeFeedback, Auth, ReportGeneration, Result Storage\\
   1/14/2025 & 1.1 & Jasmine & Added MIS Decomposition for Question Bank, English, Mandarin, Matching, Repetition\\
-  1/15/2025 & 1.2 & Mitchell & Added MIS Decomposition for Parent GUI, Clinician GUI, API Gateway and App Controller\\
+  1/15/2025 & 1.2 & Mitchell & Added MIS Decomposition for Parent GUI, Clinician GUI, API Gateway and APP Controller\\
   1/15/2025 & 1.3 & Parisha & Added MIS Decomposition for Logging, Media, Video and Audio Processing\\
+  03/23/2025 & 2.1 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/509}{Added formats for Question JSON \ref{JSONQuestionbank} and Result JSON \ref{JSONResultStorage}}\\
+  03/23/2025 & 2.2 & Promish Kandel & Implemented TA Feedback: \href{https://github.com/parishanizam/TeleHealth/issues/510}{Updated MIS of Result storange and all Question Modules to link JSON question banks where necessary}\\
+  03/23/2025 & 2.3 & Promish Kandel & Removed Logging, RealTimeFeedback and Report Generation modules based on changing design decisions. Also changed AppController to Landing Page GUI \\
+  03/23/2025 & 2.4 & Promish Kandel & Implemented Peer Review: \href{https://github.com/parishanizam/TeleHealth/issues/342}{Took out the words "if media type is" to make it more clear that both vidoe and audio modules are called} \\
   \bottomrule
   \end{tabularx}
 
@@ -129,41 +133,40 @@ described by giving their type signature followed by their specification.
 The following table is taken directly from the Module Guide document for this project.
 
 \begin{table}[h!]
-\centering
-\begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Level 1} & \textbf{Level 2}\\
-\midrule
-
-{Hardware-Hiding} & N/A \\
-\midrule
-
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
-& Parent GUI\\
-& Authentication Module\\
-& Result Storage Module\\
-& Real-Time Feedback Module\\ 
-& Report Generation Module\\
-& Media Processing Module\\
-& Video Processing Module\\
-& Audio Processing Module\\
-& Logging Module\\
-& Question Bank Module\\
-& Mandarian Question Bank\\
-& English Question Bank\\
-& Repetition Question Bank Module\\
-& Matching Question Bacnk Module\\
-\midrule
-
-\multirow{3}{0.3\textwidth}{Software Decision} & {APP Controller}\\
-& API Gateway\\
-\bottomrule
-
-\end{tabular}
-\caption{Module Hierarchy}
-\label{TblMH}
-\end{table}
-
+  \centering
+  \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
+  \toprule
+  \textbf{Level 1} & \textbf{Level 2}\\
+  \midrule
+  
+  {Hardware-Hiding} & Logical module \\
+  \midrule
+  
+  \multirow{8}{0.3\textwidth}{Behaviour-Hiding} & Clinician GUI\\
+  & Parent GUI\\
+  & Landing Page GUI\\
+  & Authentication Module\\
+  & Result Storage Module\\
+  & Real-Time Feedback Module\\ 
+  & Report Generation Module\\
+  & Media Processing Module\\
+  & Video Processing Module\\
+  & Audio Processing Module\\
+  & Logging Module\\
+  & Question Bank Module\\
+  & Mandarian Question Bank\\
+  & English Question Bank\\
+  & Repetition Question Bank Module\\
+  & Matching Question Bank Module\\
+  \midrule
+  
+  \multirow{1}{0.3\textwidth}{Software Decision} & API Gateway\\
+  \bottomrule
+  
+  \end{tabular}
+  \caption{Module Hierarchy}
+  \label{TblMH}
+  \end{table}
 ~\newpage
 \section{MIS of Clinician GUI \label{mClinicianGUI} }
 
@@ -174,7 +177,7 @@ clinicianGUI
 \subsection{Uses}
 
 \begin{itemize}
-  \item AppController
+  \item API Gateway
 \end{itemize}
 
 \subsection{Syntax}
@@ -276,7 +279,7 @@ parentGUI
 \subsection{Uses}
 
 \begin{itemize}
-  \item AppController
+  \item API Gateway
 \end{itemize}
 
 \subsection{Syntax}
@@ -387,17 +390,17 @@ N/A
 \subsubsection{Local Functions}
 N/A
 
-~\newpage
-\section{MIS of App Controller \label{mAppController} }
+\section{MIS of Landing Page GUI \label{mAppController} }
 
 \subsection{Module}
 
-AppController
+Landing Page GUI
 
 \subsection{Uses}
 
 \begin{itemize}
-  \item APIGateway
+  \item Clinician GUI
+  \item Parent GUI
 \end{itemize}
 
 \subsection{Syntax}
@@ -413,7 +416,8 @@ N/A
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-accessAPIGateway & - & - & - \\
+accessClinicianGUI & - & - & - \\
+accessParentGUI & - & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -431,9 +435,15 @@ N/A
 
 \subsubsection{Access Routine Semantics}
 
-\noindent accessAPIGateway():
+\noindent accessClinicianGUI():
 \begin{itemize}
-\item transition: Controller accesses the API Gateway.
+\item transition: Routes user to Clinician GUI.
+\item output: N/A
+\item exception: N/A
+\end{itemize}
+\noindent accessParentGUI():
+\begin{itemize}
+\item transition: Routes user to Parent GUI.
 \item output: N/A
 \item exception: N/A
 \end{itemize}
@@ -441,8 +451,7 @@ N/A
 \subsubsection{Local Functions}
 N/A
 
-~\newpage
-\section{MIS of API Gateway \label{mAppController} }
+\section{MIS of API Gateway \label{mAppGateway} }
 
 \subsection{Module}
 
@@ -454,10 +463,7 @@ APIGateway
   \item Authentication
   \item ResultStorage
   \item MediaProcessing
-  \item Logging
   \item QuestionBank
-  \item RealTimeFeedback
-  \item ReportGeneration
 \end{itemize}
 
 \subsection{Syntax}
@@ -476,10 +482,7 @@ N/A
 accessAuthentication & - & - & - \\
 accessResultStorage & - & - & - \\
 accessMediaProcessing & - & - & - \\
-accessLogging & - & - & - \\
 accessQuestionBank & - & - & - \\
-accessRealTimeFeedback & - & - & - \\
-accessReportGeneration & - & - & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -518,12 +521,6 @@ N/A
 \item exception: N/A
 \end{itemize}
 
-\noindent accessLogging():
-\begin{itemize}
-\item transition: Controller accesses the logging module.
-\item output: N/A
-\item exception: N/A
-\end{itemize}
 
 \noindent accessQuestionBank():
 \begin{itemize}
@@ -532,19 +529,6 @@ N/A
 \item exception: N/A
 \end{itemize}
 
-\noindent accessRealTimeFeedback():
-\begin{itemize}
-\item transition: Controller accesses the real time feedback module.
-\item output: N/A
-\item exception: N/A
-\end{itemize}
-
-\noindent accessReportGeneration():
-\begin{itemize}
-\item transition: Controller accesses the report generation module.
-\item output: N/A
-\item exception: N/A
-\end{itemize}
 
 \subsubsection{Local Functions}
 N/A
@@ -653,7 +637,7 @@ N/A
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-storeResult & \raggedright\arraybackslash data: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
+storeResult & \raggedright\arraybackslash data: JSON object (see Appendix~\ref{JSONResultStorage} for format) & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash StorageException \\
 \hline
 retrieveResult & \raggedright\arraybackslash resultID: str & \raggedright\arraybackslash data: JSON object & \raggedright\arraybackslash NotFoundException \\
 \hline
@@ -678,7 +662,7 @@ N/A
 
 \begin{itemize}
 \item Each result is assigned a unique resultID.
-\item Results are stored as JSON objects for flexibility.
+\item Results are stored as JSON objects for flexibility (the expected format is defined in Appendix~\ref{JSONResultStorage}).
 \item Data is stored in MongoDB or an equivalent NoSQL database.
 \end{itemize}
 
@@ -686,23 +670,23 @@ N/A
 
 \noindent storeResult():
 \begin{itemize}
-\item transition: Adds the `data` to `resultStorage` with a unique `resultID`.
-\item output: Returns `true` if the result is successfully stored.
-\item exception: Throws `StorageException` if there is an issue storing the data.
+\item transition: Adds the \texttt{data} to \texttt{resultStorage} with a unique \texttt{resultID}.
+\item output: Returns \texttt{true} if the result is successfully stored.
+\item exception: Throws \texttt{StorageException} if there is an issue storing the data.
 \end{itemize}
 
 \noindent retrieveResult():
 \begin{itemize}
 \item transition: None
-\item output: Returns the result associated with the `resultID`.
-\item exception: Throws `NotFoundException` if the `resultID` does not exist.
+\item output: Returns the result associated with the \texttt{resultID}.
+\item exception: Throws \texttt{NotFoundException} if the \texttt{resultID} does not exist.
 \end{itemize}
 
 \noindent deleteResult():
 \begin{itemize}
-\item transition: Removes the result associated with the `resultID` from `resultStorage`.
-\item output: Returns `true` if the result is successfully deleted.
-\item exception: Throws `NotFoundException` if the `resultID` does not exist.
+\item transition: Removes the result associated with the \texttt{resultID} from \texttt{resultStorage}.
+\item output: Returns \texttt{true} if the result is successfully deleted.
+\item exception: Throws \texttt{NotFoundException} if the \texttt{resultID} does not exist.
 \end{itemize}
 
 \subsubsection{Local Functions}
@@ -753,9 +737,9 @@ N/A
 \begin{itemize}
 \item transition:
 \begin{itemize}
-\item If mediaType is "video", calls processVideo from VideoProcessingModule.
-\item If mediaType is "audio", calls processAudio from AudioProcessingModule.
-\item Combines results into a single MediaAnalysisReport per assessment completed.
+\item Calls processVideo from VideoProcessingModule.
+\item Calls processAudio from AudioProcessingModule.
+\item Combines results from AudioProcessingModule and VideoProcessingModule into a single MediaAnalysisReport per assessment completed.
 \end{itemize}
 \item output: Returns a MediaAnalysisReport with details from video and audio analyses.
 \item exception: Throws MediaProcessingException if the file cannot be processed or delegated.
@@ -764,103 +748,6 @@ N/A
 \subsubsection{Local Functions}
 N/A
 
-\newpage
-\section{MIS of Logging Module} \label{LoggingModule}
-
-\subsection{Module}
-LoggingModule
-
-\subsection{Uses}
-N/A
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-N/A
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-logEvent & \raggedright\arraybackslash eventType: str, message: str & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LoggingException \\
-\hline
-fetchLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash logData: List(LogEntry) & \raggedright\arraybackslash LogFetchException \\
-\hline
-clearLogs & \raggedright\arraybackslash logType: str, timeRange: TimeRange & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LogClearException \\
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-\begin{itemize}
-\item logs: Map(logType, List(LogEntry)) - stores all logs categorized by type.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-N/A
-
-\subsubsection{Assumptions}
-\begin{itemize}
-\item Logs are categorized by their type and timestamp for easy retrieval.
-\item Each log entry includes metadata such as the timestamp, severity, and module of origin.
-\end{itemize}
-
-\subsubsection{Types of Logs}
-
-Event Logs
-
-Tracks application activities, such as user logins, file uploads, and media processing events.
-Example: "User 'parent1' logged in successfully at 14:32:00."
-Error Logs
-
-Captures unexpected behaviors, exceptions, or failures in the application.
-Example: "VideoProcessingException: Unable to analyze video file 'session123.mp4' due to corrupted data."
-Audit Logs
-
-Records critical changes and actions for accountability, such as user role changes or log clearances.
-Example: "Admin user 'clinician1' updated parent access rights at 16:45:00."
-Performance Logs
-
-Monitors application performance metrics like response times, memory usage, and processing durations.
-Example: "Media processing for 'session456' completed in 3.2 seconds with 200MB memory usage."
-Debug Logs
-
-Includes detailed information for troubleshooting during development or maintenance.
-Example: "Entering function 'processVideo' with input file 'session789.mp4'."
-Security Logs
-
-Tracks security-related events such as failed logins, access violations, or token expirations.
-Example: "Security alert: Failed login attempt for user 'parent2' at 18:12:30."
-\subsubsection{Access Routine Semantics}
-
-\noindent logEvent():
-\begin{itemize}
-\item transition: Adds a new log entry to the logs map under the appropriate eventType.
-\item output: Returns true if the log is successfully recorded.
-\item exception: Throws LoggingException if the log entry cannot be added.
-\end{itemize}
-
-\noindent fetchLogs():
-\begin{itemize}
-\item transition: Retrieves all logs of the specified logType within the provided timeRange.
-\item output: Returns a list of LogEntry objects matching the criteria.
-\item exception: Throws LogFetchException if no logs are found or retrieval fails.
-\end{itemize}
-
-\noindent clearLogs():
-\begin{itemize}
-\item transition: Removes all logs of the specified logType within the provided timeRange.
-\item output: Returns true if logs are successfully cleared.
-\item exception: Throws LogClearException if logs cannot be cleared.
-\end{itemize}
-
-\subsubsection{Local Functions}
-N/A
 \section{MIS of Question Bank Module} \label{QuestionBankModule}
 
 \subsection{Module}
@@ -927,154 +814,10 @@ N/A
 \end{itemize}
 
 \subsubsection{Local Functions}
+N/A\\
 
-N/A
-\section{MIS of Real-Time Feedback Module} \label{RealTimeFeedbackModule}
+\noindent \textbf{Note:} All JSON objects referenced in this module adhere to the format defined in Appendix~\ref{JSONQuestionbank}.
 
-\subsection{Module}
-
-RealTimeFeedbackModule
-
-\subsection{Uses}
-
-\begin{itemize}
-\item Media Processing Module
-\end{itemize}
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-
-N/A
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-provideFeedback & \raggedright\arraybackslash sessionID: str, liveFeed: media stream & \raggedright\arraybackslash feedback: JSON object & \raggedright\arraybackslash FeedbackException \\
-
-logFeedback & \raggedright\arraybackslash sessionID: str, feedback: JSON object & \raggedright\arraybackslash status: bool & \raggedright\arraybackslash LoggingException \\
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-
-\begin{itemize}
-\item feedbackLogs: Map(sessionID, List(feedback)) - stores real-time feedback for sessions.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-
-N/A
-
-\subsubsection{Assumptions}
-
-\begin{itemize}
-\item The module receives a continuous media stream (audio or video) during a session.
-\item Feedback is generated by analyzing live media streams using the Media Processing Module.
-\item Feedback is stored for each session to provide session summaries if needed.
-\item The module operates within acceptable latency constraints to ensure real-time performance.
-\end{itemize}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent provideFeedback():
-\begin{itemize}
-\item transition: Generates feedback from the `liveFeed` media stream and optionally logs it in `feedbackLogs`.
-\item output: Returns actionable feedback in a structured JSON format (e.g., "Adjust microphone", "Increase lighting").
-\item exception: Throws `FeedbackException` if there is an issue processing the live feed.
-\end{itemize}
-
-\noindent logFeedback():
-\begin{itemize}
-\item transition: Adds the provided `feedback` to `feedbackLogs` for the corresponding `sessionID`.
-\item output: Returns `true` if the feedback is successfully logged.
-\item exception: Throws `LoggingException` if there is an error while logging the feedback.
-\end{itemize}
-
-\subsubsection{Local Functions}
-
-N/A
-\section{MIS of Report Generation Module} \label{ReportGenerationModule}
-
-\subsection{Module}
-
-ReportGenerationModule
-
-\subsection{Uses}
-
-\begin{itemize}
-\item Result Storage Module
-\item Media Processing Module
-\item Question Bank Module
-\end{itemize}
-
-\subsection{Syntax}
-
-\subsubsection{Exported Constants}
-
-N/A
-
-\subsubsection{Exported Access Programs}
-
-\begin{center}
-\begin{tabular}{p{3cm} p{4cm} p{4cm} p{5cm}}
-\hline
-\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
-\hline
-generateReport & \raggedright\arraybackslash sessionID: str, metadata: JSON object & \raggedright\arraybackslash report: JSON & \raggedright\arraybackslash ReportGenerationException \\
-\hline
-getReport & \raggedright\arraybackslash reportID: str & \raggedright\arraybackslash report: JSON & \raggedright\arraybackslash NotFoundException \\
-\hline
-\end{tabular}
-\end{center}
-
-\subsection{Semantics}
-
-\subsubsection{State Variables}
-
-\begin{itemize}
-\item reportStorage: Map(reportID, Report) - stores all generated reports with unique IDs.
-\end{itemize}
-
-\subsubsection{Environment Variables}
-
-N/A
-
-\subsubsection{Assumptions}
-
-\begin{itemize}
-\item Each report is assigned a unique reportID.
-\item Reports are generated using data fetched from the Result Storage Module and other sources like the Question Bank Module.
-\item Reports can be retrieved in JSON format then converted to PDF format
-\item The clinician requesting the report has access to the session data.
-\end{itemize}
-
-\subsubsection{Access Routine Semantics}
-
-\noindent generateReport():
-\begin{itemize}
-\item transition: Creates a new report using the `sessionID` and `metadata`, and stores it in `reportStorage`.
-\item output: Returns the generated report in the specified format (JSON or PDF).
-\item exception: Throws `ReportGenerationException` if there is an error during report generation.
-\end{itemize}
-
-\noindent getReport():
-\begin{itemize}
-\item transition: None
-\item output: Returns the report associated with the `reportID`.
-\item exception: Throws `NotFoundException` if the `reportID` does not exist in `reportStorage`.
-\end{itemize}
-
-\subsubsection{Local Functions}
-
-N/A
 \section{MIS of Video Processing Module} \label{VideoProcessingModule}
 
 \subsection{Module}
@@ -1245,7 +988,9 @@ N/A
 
 \subsubsection{Local Functions}
 
-N/A
+N/A\\
+\noindent \textbf{Note:} All JSON objects referenced in this module adhere to the format defined in Appendix~\ref{JSONQuestionbank}.
+
 \section{MIS of Mandarin Question Bank Module} \label{MandarinQuestionBankModule}
 
 \subsection{Module}
@@ -1313,7 +1058,8 @@ N/A
 
 \subsubsection{Local Functions}
 
-N/A
+N/A\\
+\noindent \textbf{Note:} All JSON objects referenced in this module adhere to the format defined in Appendix~\ref{JSONQuestionbank}.
 \section{MIS of Matching Question Bank Module} \label{MatchingQuestionBankModule}
 
 \subsection{Module}
@@ -1381,7 +1127,8 @@ N/A
 
 \subsubsection{Local Functions}
 
-N/A
+N/A\\
+\noindent \textbf{Note:} All JSON objects referenced in this module adhere to the format defined in Appendix~\ref{JSONQuestionbank}.
 \section{MIS of Repetition Question Bank Module} \label{RepetitionQuestionBankModule}
 
 \subsection{Module}
@@ -1449,8 +1196,8 @@ N/A
 
 \subsubsection{Local Functions}
 
-N/A
-
+N/A\\
+\noindent \textbf{Note:} All JSON objects referenced in this module adhere to the format defined in Appendix~\ref{JSONQuestionbank}.
 
 \newpage
 
@@ -1461,7 +1208,64 @@ N/A
 
 \newpage{}
 
-\section*{Appendix --- Reflection}
+\section{Appendix}
+\subsection{JSON object format for Question Bank} \label{JSONQuestionbank}
+The following is an example of the JSON format used for the Question Bank module. All question types follow the same structure, with the testType field modified to reflect the specific type of question (e.g., "matching", "repetition", etc.).
+
+\begin{verbatim}
+{
+    "questionBankId": "english-matching",
+    "language": "english",
+    "testType": "matching",
+    "questions": [
+        {
+            "id": 0,
+            "title": "The picture is on the bed",
+            "sound": "sound1.mp3",
+            "options": [
+                {
+                    "id": "a",
+                    "image": "image1.jpg"
+                },
+                {
+                    "id": "b",
+                    "image": "image2.jpg"
+                },
+                {
+                    "id": "c",
+                    "image": "image3.jpg"
+                },
+                {
+                    "id": "d",
+                    "image": "image4.jpg"
+                }
+            ],
+            "correctAnswer": "b"
+        }
+    ]
+}
+\end{verbatim}
+
+\subsection{JSON Object Format for Result Storage}\label{JSONResultStorage}
+
+The following is an example of the JSON object used for storing assessment results:
+
+\begin{verbatim}
+{
+  "assessment_id": 1,
+  "date": "2025-02-05",
+  "questionBankId": "english-matching",
+  "results": [
+    {
+      "question_id": 2,
+      "user_answer": "a",
+      "mark_state": "b",
+      "bias_state": true
+    }]
+}
+\end{verbatim}
+
+\subsection*{Reflection}
 
 The information in this section will be used to evaluate the team members on the
 graduate attribute of Problem Analysis and Design.

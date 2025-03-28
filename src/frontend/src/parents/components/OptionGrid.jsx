@@ -1,11 +1,8 @@
 import MatchingCard from "../components/MatchingCard";
 
-// eslint-disable-next-line react/prop-types
 export function OptionGrid({ options, selectedAnswer, handleAnswerClick }) {
-// fixed dynamic calculation for question options
-const columns = options.length % 2 === 0 ? 2 : 3; // 2 for even, 3 for odd
-const gridClass = `grid grid-cols-${columns} gap-1`;
-
+  const columns = options.length % 2 === 0 ? 2 : 3;
+  const gridClass = `grid grid-cols-${columns} gap-1`;
 
   return (
     <div className="flex justify-center w-full">

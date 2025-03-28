@@ -2,7 +2,7 @@ const {
   S3Client,
   GetObjectCommand,
   PutObjectCommand,
-} = require('@aws-sdk/client-s3');
+} = require("@aws-sdk/client-s3");
 
 const s3Client = new S3Client({ region: process.env.AWS_REGION });
 
@@ -18,7 +18,7 @@ async function uploadJson(bucketName, key, data) {
     Bucket: bucketName,
     Key: key,
     Body: JSON.stringify(data),
-    ContentType: 'application/json',
+    ContentType: "application/json",
   };
   await s3Client.send(new PutObjectCommand(params));
 }
@@ -42,10 +42,10 @@ async function getJson(bucketName, key) {
 function streamToString(stream) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    stream.on('data', (chunk) => chunks.push(chunk));
-    stream.on('error', reject);
-    stream.on('end', () => {
-      resolve(Buffer.concat(chunks).toString('utf-8'));
+    stream.on("data", (chunk) => chunks.push(chunk));
+    stream.on("error", reject);
+    stream.on("end", () => {
+      resolve(Buffer.concat(chunks).toString("utf-8"));
     });
   });
 }

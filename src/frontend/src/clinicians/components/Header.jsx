@@ -1,6 +1,5 @@
-// import React from "react";
 import { useNavigate } from "react-router-dom";
-// import Globe from "../../assets/globe.svg";
+
 import Logout from "../../assets/logout.svg";
 
 export function Header({ title, showLogout = true }) {
@@ -12,9 +11,9 @@ export function Header({ title, showLogout = true }) {
       await fetch("/api/parents/logout", { method: "POST" });
 
       localStorage.removeItem("authToken");
-      sessionStorage.removeItem("authToken"); // Clear authentication data
+      sessionStorage.removeItem("authToken");
 
-      navigate("/"); // Redirect to Landing Page
+      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }

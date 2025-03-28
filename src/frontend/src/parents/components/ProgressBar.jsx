@@ -1,4 +1,3 @@
-// eslint-disable-next-line react/prop-types
 export function ProgressBar({ questionNumber, totalQuestions }) {
   return (
     <div className="w-full bg-gray-300 rounded-full h-2.5 mt-2">

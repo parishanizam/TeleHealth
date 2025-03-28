@@ -1,4 +1,4 @@
-const { getJsonFromS3, getPresignedUrl } = require('../config/awsConfig');
+const { getJsonFromS3, getPresignedUrl } = require("../config/awsConfig");
 
 /**
  * Fetch all questions for a specific language and test type
@@ -11,16 +11,14 @@ async function getQuestions(language, testType) {
   for (const question of questionBank.questions) {
     // Replace audio URL if it exists
     if (question.sound) {
-      const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
+      const audioKey = question.sound.split(".com/")[1]; 
       question.sound = await getPresignedUrl(audioKey);
     }
 
-    // Only process image URLs if options exist
     if (question.options) {
       for (const option of question.options) {
         if (option.image) {
-          const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
-          option.image = await getPresignedUrl(imageKey);
+          const imageKey = option.image.split(".com/")[1]; 
         }
       }
     }
@@ -40,20 +38,18 @@ async function getQuestionById(language, testType, id) {
   const question = questionBank.questions.find((q) => q.id === parseInt(id));
 
   if (!question) {
-    throw new Error('Question not found');
+    throw new Error("Question not found");
   }
-
   // Replace audio URL if it exists
   if (question.sound) {
-    const audioKey = question.sound.split('.com/')[1]; // Extract the S3 key from the URL
+    const audioKey = question.sound.split(".com/")[1]; 
     question.sound = await getPresignedUrl(audioKey);
   }
-
   // Only process image URLs if options exist
   if (question.options) {
     for (const option of question.options) {
       if (option.image) {
-        const imageKey = option.image.split('.com/')[1]; // Extract the S3 key from the URL
+        const imageKey = option.image.split(".com/")[1]; 
         option.image = await getPresignedUrl(imageKey);
       }
     }

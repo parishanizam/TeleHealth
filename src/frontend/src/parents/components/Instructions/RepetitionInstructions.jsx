@@ -35,8 +35,9 @@ const instructions = [
     number: 3,
     text: (
       <>
-        Press <span className="font-bold">Next</span> to save your answer and go
-        to the <span className="font-bold">next question</span>
+        After the audio finishes, press:
+        <span className="font-bold"> Start Recording</span> to record your
+        answer.
       </>
     ),
   },
@@ -44,7 +45,8 @@ const instructions = [
     number: 4,
     text: (
       <>
-        Press <span className="font-bold">Finish</span> to complete the test
+        When you’re done speaking, press:
+        <span className="font-bold"> Stop Recording</span>.
       </>
     ),
   },
@@ -52,7 +54,16 @@ const instructions = [
     number: 5,
     text: (
       <>
-      The first question of each test is a <span className="font-bold">Practice</span> Question. This will not impact your results
+        Press <span className="font-bold">Next</span> to save your answer and go
+        to the <span className="font-bold">next question</span>
+      </>
+    ),
+  },
+  {
+    number: 6,
+    text: (
+      <>
+        Press <span className="font-bold">Submit</span> to complete the test
       </>
     ),
   },

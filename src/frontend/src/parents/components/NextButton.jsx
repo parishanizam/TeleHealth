@@ -14,11 +14,7 @@ function NextButton({ to = "/", name = "Next", icon = NextArrow }) {
       >
         <span>{name}</span>
         {icon && (
-          <img
-            src={icon}
-            alt="Next"
-            className="ml-2 w-5 h-5 object-contain"
-          />
+          <img src={icon} alt="Next" className="ml-2 w-5 h-5 object-contain" />
         )}
       </div>
     </Link>

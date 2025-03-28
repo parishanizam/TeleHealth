@@ -11,11 +11,10 @@ export default function QuantifierQuestion({
   isLastQuestion,
   questionNumber,
   totalQuestions,
-  isPractice
+  isPractice,
 }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  // Prevent errors by ensuring the question exists
   if (!question) {
     return <div>Loading...</div>;
   }
@@ -29,29 +28,47 @@ export default function QuantifierQuestion({
   };
 
   useEffect(() => {
-    setSelectedAnswer(null); // Reset the answer when the question changes
-  }, [questionNumber]); // Only run this when the question number changes
+    setSelectedAnswer(null);
+  }, [questionNumber]);
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} />
-      <ProgressBar questionNumber={questionNumber} totalQuestions={totalQuestions}/>
+      <Header
+        title={
+          isPractice
+            ? "Practice Question"
+            : `Question ${questionNumber} of ${totalQuestions}`
+        }
+      />
+      <ProgressBar
+        questionNumber={questionNumber}
+        totalQuestions={totalQuestions}
+      />
       {isPractice && (
         <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
-          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
-          <p>Choose the option where the picture best matches the quantity described.</p>
+          <h2 className="text-md font-semibold text-yellow-700">
+            <strong>Practice Question:</strong>
+          </h2>
+          <p>
+            Choose the option where the picture best matches the quantity
+            described.
+          </p>
         </div>
       )}
-      <VolumeButton sound={question.sound} resetTrigger={questionNumber}/>
-      <OptionGrid options={question.options} selectedAnswer={selectedAnswer} handleAnswerClick={handleAnswerClick} />
-      
+      <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
+      <OptionGrid
+        options={question.options}
+        selectedAnswer={selectedAnswer}
+        handleAnswerClick={handleAnswerClick}
+      />
+
       <NextOrSubmitButton
         isLastQuestion={isLastQuestion}
         onClick={(e) => {
           e.preventDefault();
           handleNextOrSubmit();
         }}
-        disabled={selectedAnswer === null} // Disable button if no option is selected
+        disabled={selectedAnswer === null}
       />
     </div>
   );

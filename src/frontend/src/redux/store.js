@@ -16,14 +16,12 @@ const rootReducer = combineReducers({
   testSelection: testSelectionReducer,
 });
 
-// Persist config
 const persistConfig = {
   key: "root",
   storage,
   whitelist: ["parent", "device", "clinician","assessmentHistory","testSelection"],
 };
 
-// Persist reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // Create store

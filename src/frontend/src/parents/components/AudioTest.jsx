@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setAudioOutputId } from "../../redux/deviceSlice";
-import sampleSound from '../../assets/desk-bell-dry_D.wav';
+import sampleSound from "../../assets/desk-bell-dry_D.wav";
 
 export const AudioTest = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ export const AudioTest = () => {
   const [volume, setVolume] = useState(0.5);
   const audioRef = useRef(null);
 
-  // On mount, load our beep/bell
+  // On mount, load bell noise
   useEffect(() => {
     audioRef.current = new Audio(sampleSound);
     audioRef.current.volume = volume;
@@ -31,9 +31,6 @@ export const AudioTest = () => {
         console.error("Error enumerating devices:", err);
       });
   }, []);
-
-  // For Chrome >= 66 behind flags or using HTTPS, you can set the deviceId:
-  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/setSinkId
   const setSinkId = (deviceId) => {
     if (audioRef.current && audioRef.current.setSinkId) {
       audioRef.current
@@ -47,12 +44,10 @@ export const AudioTest = () => {
     }
   };
 
-  // If the selected output device changes, attempt to set sinkId
   useEffect(() => {
     if (selectedOutputId && audioRef.current?.setSinkId) {
       setSinkId(selectedOutputId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOutputId]);
 
   // Update the volume of the Audio object
@@ -66,14 +61,12 @@ export const AudioTest = () => {
   const handleTestClick = () => {
     if (!audioRef.current) return;
     audioRef.current.currentTime = 0;
-    audioRef.current
-      .play()
-      .catch((err) => {
-        console.error("Audio play error:", err);
-        alert(
-          "Unable to play audio. Please allow audio or check your browser settings."
-        );
-      });
+    audioRef.current.play().catch((err) => {
+      console.error("Audio play error:", err);
+      alert(
+        "Unable to play audio. Please allow audio or check your browser settings.",
+      );
+    });
   };
 
   // A clickable bar that sets volume based on click position
@@ -81,7 +74,7 @@ export const AudioTest = () => {
     const bar = event.currentTarget;
     const rect = bar.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
-    const newVolume = clickX / rect.width; // volume from 0.0 to 1.0
+    const newVolume = clickX / rect.width;
     setVolume(newVolume);
   };
 

@@ -7,15 +7,14 @@ export const MicrophoneTest = () => {
   const [mics, setMics] = useState([]);
   const [selectedMicId, setSelectedMicId] = useState("");
   const [isTesting, setIsTesting] = useState(false);
-
-  const [micVolume, setMicVolume] = useState(0.5); // 0.0 - 1.0
+  const [micVolume, setMicVolume] = useState(0.5);
   const audioContextRef = useRef(null);
   const sourceRef = useRef(null);
   const gainNodeRef = useRef(null);
   const destinationRef = useRef(null);
   const micStreamRef = useRef(null);
 
-  // We need an <audio> element to loop back
+  //Need an <audio> element to loop back
   const audioElementRef = useRef(null);
 
   // Enumerate audioinput devices on mount
@@ -72,7 +71,6 @@ export const MicrophoneTest = () => {
       // connect: mic -> gain -> destination
       source.connect(gainNode).connect(destination);
 
-      // feed the destination stream into the <audio> element for loopback
       if (audioElementRef.current) {
         audioElementRef.current.srcObject = destination.stream;
         audioElementRef.current.play().catch((err) => {
@@ -105,7 +103,7 @@ export const MicrophoneTest = () => {
     const bar = event.currentTarget;
     const rect = bar.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
-    const newVolume = clickX / rect.width; 
+    const newVolume = clickX / rect.width;
     setMicVolume(newVolume);
   };
 
@@ -160,7 +158,6 @@ export const MicrophoneTest = () => {
       </div>
       <p className="text-sm mt-1">Mic Volume: {Math.round(micVolume * 100)}%</p>
 
-      {/* The hidden <audio> element for hearing yourself */}
       <audio ref={audioElementRef} autoPlay />
     </div>
   );

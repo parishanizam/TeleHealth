@@ -24,12 +24,14 @@ export default function QuizManagement() {
   const [progress, setProgress] = useState(0);
   const [timestamps, setTimestamps] = useState([]);
   const audioFilesRef = useRef([]);
-  const [submitting, setSubmitting] = useState(false); // New loading state
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const practiceRes = await axios.get(`https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`);
+        const practiceRes = await axios.get(
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`,
+        );
         setPracticeQuestion(practiceRes.data);
 
         let questionIds = new Set();
@@ -41,11 +43,10 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${id}`
+              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${id}`,
             );
-            /* console.log("Fetched question:", res.data); */
             return res.data;
-          })
+          }),
         );
 
         setQuestions(fetchedQuestions);
@@ -58,7 +59,9 @@ export default function QuizManagement() {
 
     const fetchAssessmentId = async () => {
       try {
-        const res = await axios.get(`https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parentInfo.username}`);
+        const res = await axios.get(
+          `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parentInfo.username}`,
+        );
         const assessments = res.data.assessments;
 
         if (assessments.length > 0) {
@@ -79,14 +82,17 @@ export default function QuizManagement() {
   useEffect(() => {
     if (sessionStorage.getItem("redirectAfterRefresh") === "true") {
       sessionStorage.removeItem("redirectAfterRefresh");
-      navigate(`/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`);
+      navigate(
+        `/parents/${testType.charAt(0).toUpperCase() + testType.slice(1)}Instructions`,
+      );
     }
   }, [navigate]);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = "You are currently being recorded. Are you sure you want to leave?";
+      event.returnValue =
+        "You are currently being recorded. Are you sure you want to leave?";
       sessionStorage.setItem("redirectAfterRefresh", "true");
     };
 
@@ -102,14 +108,14 @@ export default function QuizManagement() {
     const secs = Math.floor(seconds % 60);
 
     if (hours > 0) {
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     } else {
-      return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
     }
   }
 
   const handleAnswerSelected = (questionId, selectedOption, audioFile) => {
-    const elapsedTime = getElapsedRecordingTime() / 1000; // Get elapsed time from the context
+    const elapsedTime = getElapsedRecordingTime() / 1000;
     const formattedTimestamp = formatTime(elapsedTime);
 
     console.log(`Time since recording started: ${formattedTimestamp}`);
@@ -120,37 +126,41 @@ export default function QuizManagement() {
     }
 
     const newResponse = {
-
       question_id: questionId,
-
       user_answer: selectedOption,
       bias_state: false,
       mark_state: "Undetermined",
     };
-    const newTimestamp = { question_id: questionId, timestamp: formattedTimestamp };
+    const newTimestamp = {
+      question_id: questionId,
+      timestamp: formattedTimestamp,
+    };
 
-
-    // 🔹 Create updatedResponses immediately so the final answer is included
     const updatedResponses = [...responses, newResponse];
     setResponses(updatedResponses);
     setTimestamps((prev) => [...prev, newTimestamp]);
 
-    sessionStorage.setItem('quizResponses', JSON.stringify([...responses, newResponse]));
-    sessionStorage.setItem('timestamps', JSON.stringify([...timestamps, { question_id: questionId, timestamp: formattedTimestamp }]));
+    sessionStorage.setItem("quizResponses", JSON.stringify(updatedResponses));
+    sessionStorage.setItem(
+      "timestamps",
+      JSON.stringify([...timestamps, newTimestamp]),
+    );
 
     setProgress((currentQuestionIndex / questions.length) * 100);
 
     if (testType === "repetition" && audioFile) {
-      const renamedFile = new File([audioFile], `${parentInfo.username}_question_${currentQuestionIndex}.mp4`, {
-        type: audioFile.type,
-      });
-      // console.log("Renamed audio file received in handleAnswerSelected:", renamedFile);
-      
+      const renamedFile = new File(
+        [audioFile],
+        `${parentInfo.username}_question_${currentQuestionIndex}.mp4`,
+        {
+          type: audioFile.type,
+        },
+      );
       audioFilesRef.current.push(renamedFile);
-    }       
+    }
 
     if (currentQuestionIndex < questions.length) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+      setCurrentQuestionIndex((prev) => prev + 1);
     } else {
       finishQuiz(updatedResponses);
     }
@@ -161,11 +171,7 @@ export default function QuizManagement() {
     setSubmitting(true);
 
     stopRecording(async (finalBlob) => {
-      if (finalBlob) {
-        uploadRecording(finalBlob).catch((error) => {
-          console.error("Background upload failed:", error);
-        });
-      }
+      await uploadRecording(finalBlob);
       try {
         await submitResults(updatedResponses);
       } catch (err) {
@@ -173,19 +179,17 @@ export default function QuizManagement() {
       } finally {
         setSubmitting(false);
       }
-
       navigate("/parents/testcomplete");
     });
   };
 
   const uploadRecording = async (blob) => {
-    if (!blob) return;
+    if (!blob && audioFilesRef.current.length === 0) return;
 
     const formData = new FormData();
-
     let hasFiles = false;
 
-    if (blob) {
+    if (blob && sessionStorage.getItem("videoConsent") !== "declined") {
       formData.append("videoFile", blob, "recording.mp4");
       hasFiles = true;
     }
@@ -198,23 +202,26 @@ export default function QuizManagement() {
     formData.append("timestamps", JSON.stringify(timestamps));
     formData.append("language", language);
     formData.append("testType", testType);
-  
+
     if (testType === "repetition" && audioFilesRef.current.length > 0) {
       audioFilesRef.current.forEach((file, index) => {
-        formData.append("audioFiles", file, `${parentInfo.username}_question_${index + 1}.mp4`);
+        formData.append(
+          "audioFiles",
+          file,
+          `${parentInfo.username}_question_${index + 1}.mp4`,
+        );
       });
       hasFiles = true;
-    }    
-  
+    }
+
     if (!hasFiles) {
       console.error("No video or audio files to upload.");
-      return;  // Exit early if no files to upload
+      return;
     }
 
     console.log("🚀 Sending Upload Request with form data...");
-
     try {
-      const response = await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
+      await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -223,7 +230,6 @@ export default function QuizManagement() {
     }
   };
 
-  // 🔹 Modified submitResults to accept responsesToSubmit as a parameter
   const submitResults = async (responsesToSubmit) => {
     if (!assessmentId) {
       console.error("No assessment ID found! Cannot submit results.");
@@ -242,13 +248,10 @@ export default function QuizManagement() {
       await axios.post(
         "https://telehealth-insights.onrender.com/resultstorage/submit-assessment",
         payload,
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" } },
       );
-      navigate("/parents/testcomplete");
     } catch (error) {
       console.error("Error submitting test results:", error);
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -322,13 +325,17 @@ export default function QuizManagement() {
           )}
         </>
       )}
-      {submitting && <div className="flex justify-center items-center mt-3">
-        <div
-          className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
-          style={{ animation: 'spin 1s linear infinite' }}
-        ></div>
-        <span className="ml-4 text-lg font-semibold">Submitting Answers...</span>
-      </div>}
+      {submitting && (
+        <div className="flex justify-center items-center mt-3">
+          <div
+            className="w-10 h-10 border-8 border-solid border-t-transparent border-r-transparent border-b-blue-500 border-l-blue-500 rounded-full"
+            style={{ animation: "spin 1s linear infinite" }}
+          ></div>
+          <span className="ml-4 text-lg font-semibold">
+            Submitting Answers...
+          </span>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,8 @@
-const { getJsonFromS3, getPresignedUrl, QUESTION_BANK_BUCKET } = require('../config/awsConfig');
+const {
+  getJsonFromS3,
+  getPresignedUrl,
+  QUESTION_BANK_BUCKET,
+} = require("../config/awsConfig");
 
 /**
  * Check if a URL is encoded
@@ -17,7 +21,7 @@ function decodeUrlIfEncoded(url) {
     }
     return url; // Return as-is if not encoded
   } catch (error) {
-    console.error('Error decoding URL:', error);
+    console.error("Error decoding URL:", error);
     return url; // Return the original URL if decoding fails
   }
 }
@@ -39,7 +43,7 @@ async function getQuestions(req, res) {
     for (const question of questionBank.questions) {
       // Replace audio URL if it exists
       if (question.sound) {
-        const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]);
+        const audioKey = decodeUrlIfEncoded(question.sound.split(".com/")[1]);
         question.sound = await getPresignedUrl(audioKey);
       }
 
@@ -47,7 +51,7 @@ async function getQuestions(req, res) {
       if (question.options) {
         for (const option of question.options) {
           if (option.image) {
-            const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);
+            const imageKey = decodeUrlIfEncoded(option.image.split(".com/")[1]);
             option.image = await getPresignedUrl(imageKey);
           }
         }
@@ -56,8 +60,8 @@ async function getQuestions(req, res) {
 
     res.status(200).json(questionBank);
   } catch (error) {
-    console.error('Error retrieving questions:', error);
-    res.status(500).json({ error: 'Failed to retrieve questions' });
+    console.error("Error retrieving questions:", error);
+    res.status(500).json({ error: "Failed to retrieve questions" });
   }
 }
 
@@ -78,12 +82,12 @@ async function getQuestionById(req, res) {
     const question = questionBank.questions.find((q) => q.id === parseInt(id));
 
     if (!question) {
-      return res.status(404).json({ error: 'Question not found' });
+      return res.status(404).json({ error: "Question not found" });
     }
 
     // Replace audio URL if it exists
     if (question.sound) {
-      const audioKey = decodeUrlIfEncoded(question.sound.split('.com/')[1]);
+      const audioKey = decodeUrlIfEncoded(question.sound.split(".com/")[1]);
       question.sound = await getPresignedUrl(audioKey);
     }
 
@@ -91,7 +95,7 @@ async function getQuestionById(req, res) {
     if (question.options) {
       for (const option of question.options) {
         if (option.image) {
-          const imageKey = decodeUrlIfEncoded(option.image.split('.com/')[1]);
+          const imageKey = decodeUrlIfEncoded(option.image.split(".com/")[1]);
           option.image = await getPresignedUrl(imageKey);
         }
       }
@@ -99,8 +103,8 @@ async function getQuestionById(req, res) {
 
     res.status(200).json(question);
   } catch (error) {
-    console.error('Error retrieving question:', error);
-    res.status(500).json({ error: 'Failed to retrieve question' });
+    console.error("Error retrieving question:", error);
+    res.status(500).json({ error: "Failed to retrieve question" });
   }
 }
 

@@ -19,7 +19,7 @@ export default function QuantifierTutorialPage() {
     const fetchTutorialQuestion = async () => {
       try {
         const res = await axios.get(
-          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`
+          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`,
         );
         setQuestion(res.data);
       } catch (error) {
@@ -76,7 +76,6 @@ export default function QuantifierTutorialPage() {
             replay!
           </p>
           <p className="text-xl">
-
             <strong>Click next for Step 2!</strong>
           </p>
         </div>
@@ -88,7 +87,8 @@ export default function QuantifierTutorialPage() {
             Step 2: Select the Correct Option
           </h2>
           <p className="text-l">
-            Hit next once you have selected the image that best matches the audio!
+            Hit next once you have selected the image that best matches the
+            audio!
           </p>
         </div>
       )}
@@ -96,9 +96,7 @@ export default function QuantifierTutorialPage() {
       {currentStep === 3 && (
         <div className="border-2 border-green-500 p-5 rounded-lg bg-green-50 shadow-lg my-4 max-w-lg mx-auto text-center">
           <h2 className="text-3xl font-semibold text-green-700">Great Job!</h2>
-          <p className="text-xl">
-            You have completed the tutorial.
-          </p>
+          <p className="text-xl">You have completed the tutorial.</p>
         </div>
       )}
 
@@ -123,7 +121,10 @@ export default function QuantifierTutorialPage() {
       <div className="flex justify-center items-center mt-6 space-x-4">
         {currentStep === 3 ? (
           <>
-            <NextButton to="/parents/testselection" name="Start an Assessment" />
+            <NextButton
+              to="/parents/testselection"
+              name="Start an Assessment"
+            />
             <NextButton
               to="/parents/OverallTutorialPage"
               name="Try Another Tutorial"

@@ -1,12 +1,25 @@
 const bcrypt = require("bcrypt");
-const { s3Client, PARENTS_BUCKET, CLINICIANS_BUCKET, getJson, uploadJson } = require("../config/awsS3");
+const {
+  s3Client,
+  PARENTS_BUCKET,
+  CLINICIANS_BUCKET,
+  getJson,
+  uploadJson,
+} = require("../config/awsS3");
 const { ListObjectsV2Command } = require("@aws-sdk/client-s3");
-const { updateParentIndex, getParentDataFromIndex } = require("../models/parentsModel");
-const { getClinicianByUsername, saveClinicianData } = require("../models/cliniciansModel");
+const {
+  updateParentIndex,
+  getParentDataFromIndex,
+} = require("../models/parentsModel");
+const {
+  getClinicianByUsername,
+  saveClinicianData,
+} = require("../models/cliniciansModel");
 
 exports.parentSignup = async (req, res) => {
   try {
-    const { email, username, password, confirmPassword, securityCode } = req.body;
+    const { email, username, password, confirmPassword, securityCode } =
+      req.body;
 
     if (!email || !username || !password || !confirmPassword || !securityCode) {
       return res.status(400).json({ error: "All fields are required." });
@@ -30,10 +43,14 @@ exports.parentSignup = async (req, res) => {
     }
 
     // Find the Parent JSON using the securityCode
-    const matchingKey = listResponse.Contents.find((obj) => obj.Key.endsWith(`_${securityCode}.json`))?.Key;
+    const matchingKey = listResponse.Contents.find((obj) =>
+      obj.Key.endsWith(`_${securityCode}.json`),
+    )?.Key;
 
     if (!matchingKey) {
-      return res.status(404).json({ error: "No record found for that security code." });
+      return res
+        .status(404)
+        .json({ error: "No record found for that security code." });
     }
 
     // Retrieve Parent JSON
@@ -41,7 +58,9 @@ exports.parentSignup = async (req, res) => {
     try {
       parentData = await getJson(PARENTS_BUCKET, matchingKey);
     } catch (err) {
-      return res.status(404).json({ error: "Error reading parent file from S3." });
+      return res
+        .status(404)
+        .json({ error: "Error reading parent file from S3." });
     }
 
     if (parentData.username && parentData.passwordHash) {
@@ -58,18 +77,19 @@ exports.parentSignup = async (req, res) => {
 
     await updateParentIndex(username, matchingKey);
 
-    // 🔥 **NEW: Update Clinician’s Clients List**
+    // Update Clinician’s Clients List
     if (parentData.clinicianUsername) {
       const clinicianUsername = parentData.clinicianUsername;
       const clinicianData = await getClinicianByUsername(clinicianUsername);
 
       if (clinicianData) {
-        const clientIndex = clinicianData.clients.findIndex(client => client.securityCode === securityCode);
-        
+        const clientIndex = clinicianData.clients.findIndex(
+          (client) => client.securityCode === securityCode,
+        );
+
         if (clientIndex !== -1) {
           clinicianData.clients[clientIndex].parentUsername = username;
-          clinicianData.clients[clientIndex].email = email; // Also update email
-
+          clinicianData.clients[clientIndex].email = email;
           await saveClinicianData(clinicianData);
         }
       }
@@ -93,42 +113,43 @@ exports.parentLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ error: 'Username and password are required.' });
+      return res
+        .status(400)
+        .json({ error: "Username and password are required." });
     }
 
     const result = await getParentDataFromIndex(username);
     if (!result) {
-      return res.status(404).json({ error: 'Parent not found via index.' });
+      return res.status(404).json({ error: "Parent not found via index." });
     }
 
-    const { parentData } = result; 
+    const { parentData } = result;
 
     const match = await bcrypt.compare(password, parentData.passwordHash);
     if (!match) {
-      return res.status(401).json({ error: 'Invalid credentials.' });
+      return res.status(401).json({ error: "Invalid credentials." });
     }
 
     return res.json({
-      message: 'Login successful!',
+      message: "Login successful!",
       user: {
         username: parentData.username,
         email: parentData.email,
-        role: 'PARENT'
-      }
+        role: "PARENT",
+      },
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'Server error.' });
+    return res.status(500).json({ error: "Server error." });
   }
 };
 
 exports.parentLogout = async (req, res) => {
   try {
-    // Clear any session-related logic (if applicable)
-    return res.json({ message: 'Logout successful' });
+    return res.json({ message: "Logout successful" });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'Server error' });
+    return res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -136,55 +157,51 @@ exports.getParentAccountDetails = async (req, res) => {
   try {
     const { username } = req.params;
     if (!username) {
-      return res.status(400).json({ error: 'Username is required.' });
+      return res.status(400).json({ error: "Username is required." });
     }
 
     const result = await getParentDataFromIndex(username);
     if (!result) {
-      return res.status(404).json({ error: 'Parent not found' });
+      return res.status(404).json({ error: "Parent not found" });
     }
 
     const { parentData } = result;
     return res.json({ data: parentData });
   } catch (err) {
-    console.error('Error fetching parent details:', err);
-    return res.status(500).json({ error: 'Server error' });
+    console.error("Error fetching parent details:", err);
+    return res.status(500).json({ error: "Server error" });
   }
 };
-
 
 exports.confirmParentAccount = async (req, res) => {
   try {
     const { username, newFirstName, newLastName } = req.body;
     if (!username) {
-      return res.status(400).json({ error: 'Username is required.' });
+      return res.status(400).json({ error: "Username is required." });
     }
 
     // Retrieve current parent data from S3 by index
     const result = await getParentDataFromIndex(username);
     if (!result) {
-      return res.status(404).json({ error: 'Parent not found' });
+      return res.status(404).json({ error: "Parent not found" });
     }
 
     const { parentData, fileName } = result;
 
-    // Only update if user provided something in the fields
-    if (newFirstName && newFirstName.trim() !== '') {
+    if (newFirstName && newFirstName.trim() !== "") {
       parentData.firstName = newFirstName.trim();
     }
-    if (newLastName && newLastName.trim() !== '') {
+    if (newLastName && newLastName.trim() !== "") {
       parentData.lastName = newLastName.trim();
     }
-
-    // Save updates
     await uploadJson(PARENTS_BUCKET, fileName, parentData);
 
     return res.json({
-      message: 'Account confirmation successful',
-      data: parentData
+      message: "Account confirmation successful",
+      data: parentData,
     });
   } catch (error) {
-    console.error('Error in confirmParentAccount:', error);
-    return res.status(500).json({ error: 'Server error' });
+    console.error("Error in confirmParentAccount:", error);
+    return res.status(500).json({ error: "Server error" });
   }
 };

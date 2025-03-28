@@ -26,6 +26,7 @@ import OverallTutorialPage from '../parents/pages/OverallTutorialPage';
 import QuantifierTutorialPage from '../parents/pages/QuantifierTutorialPage';
 import RepetitionTutorialPage from '../parents/pages/RepetitionTutorialPage';
 import ParentOverview from '../parents/pages/ParentDashboard';
+import HalfwayCheckpoint from "../parents/pages/HalfwayCheckpoint"
 // Clinicians
 import ClinicianLoginPage from '../clinicians/pages/ClinicianLoginPage';
 import BiasReviewPage from '../clinicians/pages/BiasReviewPage';
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
   {
     path: '/parents/checklist',
     element: <ParentChecklistPage />,
+  },
+  {
+    path: '/parents/checkpoint',
+    element: <HalfwayCheckpoint />,
   },
   {
     path: '/parents/testselection',

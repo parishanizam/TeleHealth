@@ -11,48 +11,44 @@ export default function RepetitionQuestion({
   isLastQuestion,
   questionNumber,
   totalQuestions,
-  isPractice
+  isPractice,
 }) {
-
   if (!question) {
     return <div>Loading...</div>;
   }
 
-  const {
-    startQuestionRecording,
-    stopQuestionRecording,
-    isQuestionRecording,
-  } = useContext(RecordingManagerContext);
+  const { startQuestionRecording, stopQuestionRecording, isQuestionRecording } =
+    useContext(RecordingManagerContext);
 
-  // Store the audio blob in a ref (avoids async state issues)
   const audioBlobRef = useRef(null);
 
   const [recordedAudioFile, setRecordedAudioFile] = useState(null);
   const [recordingClickCount, setRecordingClickCount] = useState(0);
   const [isAudioClicked, setIsAudioClicked] = useState(false);
   const MAX_RECORDING_CLICKS = 1;
+  const [isTransitioningToRecording, setIsTransitioningToRecording] =
+    useState(false);
 
   useEffect(() => {
-    setRecordedAudioFile(null);  // Reset state for each new question
-    setRecordingClickCount(0);   // Reset recording click count for each new question
+    setRecordedAudioFile(null);
+    setRecordingClickCount(0);
     setIsAudioClicked(false);
   }, [question.id]);
 
   useEffect(() => {
-    // Reset the audio blob ref when a new question is displayed
     audioBlobRef.current = null;
   }, [question.id]);
 
-  const handleStartRecording = () => {
+  const handleStartRecording = async () => {
     if (recordingClickCount < MAX_RECORDING_CLICKS) {
-      console.log("Starting recording...");
+      setIsTransitioningToRecording(true);
       setRecordingClickCount(recordingClickCount + 1);
-      startQuestionRecording();
+      await startQuestionRecording();
+      setIsTransitioningToRecording(false);
     }
   };
 
   const handleStopRecording = () => {
-    console.log("Stopping recording...");
     stopQuestionRecording((audioBlob) => {
       if (!audioBlob) {
         console.warn("No audio blob received from recording!");
@@ -64,7 +60,8 @@ export default function RepetitionQuestion({
         type: "audio/mp4",
       });
 
-      setRecordedAudioFile(audioFile);  // Update a local state for the audio file
+      setRecordedAudioFile(audioFile);
+      audioBlobRef.current = audioBlob;
     });
   };
 
@@ -75,58 +72,85 @@ export default function RepetitionQuestion({
     }
 
     console.log("Submitting audio recording...");
-    onAnswerSelected(question.id, null, recordedAudioFile);  // Pass the recorded audio file
+    onAnswerSelected(question.id, null, recordedAudioFile);
   };
 
   return (
     <div className="flex flex-col px-5 pt-2.5 pb-24 bg-white max-md:pb-24">
-      <Header title={isPractice ? "Practice Question" : `Question ${questionNumber} of ${totalQuestions}`} showLogout={false} showHome={false}/>
+      <Header
+        title={
+          isPractice
+            ? "Practice Question"
+            : `Question ${questionNumber} of ${totalQuestions}`
+        }
+        showLogout={false}
+        showHome={false}
+      />
       <ProgressBar
         questionNumber={questionNumber}
         totalQuestions={totalQuestions}
       />
       {isPractice && (
         <div className="border-2 border-yellow-500 p-4 rounded-lg bg-yellow-50 shadow-lg my-4">
-          <h2 className="text-md font-semibold text-yellow-700"><strong>Practice Question:</strong></h2>
+          <h2 className="text-md font-semibold text-yellow-700">
+            <strong>Practice Question:</strong>
+          </h2>
           <p>Listen closely to the audio and repeat the sentence</p>
         </div>
       )}
 
       {/* Volume Button */}
-      <div onClick={() => {
+      <div
+        onClick={() => {
           setTimeout(() => {
             setIsAudioClicked(true);
           }, 3000);
-        }}>
-        <VolumeButton
-          sound={question.sound}
-          resetTrigger={questionNumber}
-        />
+        }}
+      >
+        <VolumeButton sound={question.sound} resetTrigger={questionNumber} />
       </div>
 
       <div className="flex justify-center mt-6">
-        {!isQuestionRecording && !audioBlobRef.current ? (
+        {recordedAudioFile ? (
+          <div className="text-lg text-green-600">
+            Audio Recording Complete!
+          </div>
+        ) : (
           <button
             className={`px-4 py-2.5 rounded-lg ${
-              recordingClickCount >= MAX_RECORDING_CLICKS || !isAudioClicked
-                ? "px-4 py-2.5 bg-slate-900 text-white rounded-lg opacity-50 cursor-not-allowed"
-                : "bg-blue-600 text-white"
+              isQuestionRecording || isTransitioningToRecording
+                ? "bg-red-600 text-white"
+                : !isAudioClicked || recordingClickCount >= MAX_RECORDING_CLICKS
+                  ? "bg-slate-900 text-white opacity-50 cursor-not-allowed"
+                  : "bg-blue-600 text-white"
             }`}
-            onClick={handleStartRecording}
+            onClick={() => {
+              if (isQuestionRecording || isTransitioningToRecording) {
+                handleStopRecording();
+              } else if (
+                isAudioClicked &&
+                recordingClickCount < MAX_RECORDING_CLICKS
+              ) {
+                handleStartRecording();
+              }
+            }}
+            disabled={
+              (!isQuestionRecording &&
+                !isTransitioningToRecording &&
+                !isAudioClicked) ||
+              (!isQuestionRecording &&
+                !isTransitioningToRecording &&
+                recordingClickCount >= MAX_RECORDING_CLICKS)
+            }
           >
-            {recordingClickCount >= MAX_RECORDING_CLICKS
-              ? "Recording Complete"
-              : (isAudioClicked ? "Start Recording" : "Play Audio First")}
+            {isQuestionRecording || isTransitioningToRecording
+              ? "Stop Recording"
+              : !isAudioClicked
+                ? "Play Audio First"
+                : recordingClickCount >= MAX_RECORDING_CLICKS
+                  ? "Recording Complete"
+                  : "Start Recording"}
           </button>
-        ) : isQuestionRecording ? (
-          <button
-            className="px-4 py-2.5 bg-red-600 text-white rounded-lg"
-            onClick={handleStopRecording}
-          >
-            Stop Recording
-          </button>
-        ) : (
-          <div className="text-lg text-green-600">Audio Recording Complete!</div>
         )}
       </div>
 

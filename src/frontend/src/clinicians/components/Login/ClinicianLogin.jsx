@@ -23,7 +23,7 @@ function ClinicianLogin() {
         {
           username: formData.username,
           password: formData.password,
-        }
+        },
       );
 
       console.log("Clinician Login Success:", response.data);
@@ -54,11 +54,7 @@ function ClinicianLogin() {
       </h1>
 
       {/* Show error if exists */}
-      {error && (
-        <div className="text-red-500 text-center mb-3">
-          {error}
-        </div>
-      )}
+      {error && <div className="text-red-500 text-center mb-3">{error}</div>}
 
       {/* Username Input */}
       <div className="w-[438px] mb-4">
@@ -92,9 +88,7 @@ function ClinicianLogin() {
         />
       </div>
 
-      <div className="text-center mb-5">
-        Message IT for help logging in
-      </div>
+      <div className="text-center mb-5">Message IT for help logging in</div>
 
       <button
         type="submit"
