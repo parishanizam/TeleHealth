@@ -169,18 +169,24 @@ export default function QuizManagement() {
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
     setSubmitting(true);
-
+  
+    // Start video stop & upload in background
     stopRecording(async (finalBlob) => {
-      await uploadRecording(finalBlob);
-      try {
-        await submitResults(updatedResponses);
-      } catch (err) {
-        console.error("Error submitting quiz answers:", err);
-      } finally {
-        setSubmitting(false);
-      }
-      navigate("/parents/testcomplete");
+      // Start upload in background, but don't await
+      uploadRecording(finalBlob).catch((err) =>
+        console.error("Error uploading media:", err)
+      );
     });
+  
+    // Submit answers right away (don’t wait for upload)
+    submitResults(updatedResponses)
+      .catch((err) => {
+        console.error("Error submitting quiz answers:", err);
+      })
+      .finally(() => {
+        setSubmitting(false);
+        navigate("/parents/testcomplete");
+      });
   };
 
   const uploadRecording = async (blob) => {
