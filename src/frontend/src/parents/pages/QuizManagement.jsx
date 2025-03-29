@@ -30,7 +30,7 @@ export default function QuizManagement() {
     const fetchQuestions = async () => {
       try {
         const practiceRes = await axios.get(
-          `https://telehealth-insights.onrender.com/questions/${language}/${testType}/0`,
+          `http://localhost:3000/questions/${language}/${testType}/0`,
         );
         setPracticeQuestion(practiceRes.data);
 
@@ -43,7 +43,7 @@ export default function QuizManagement() {
         const fetchedQuestions = await Promise.all(
           [...questionIds].map(async (id) => {
             const res = await axios.get(
-              `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${id}`,
+              `http://localhost:3000/questions/${language}/${testType}/${id}`,
             );
             return res.data;
           }),
@@ -60,7 +60,7 @@ export default function QuizManagement() {
     const fetchAssessmentId = async () => {
       try {
         const res = await axios.get(
-          `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${parentInfo.username}`,
+          `http://localhost:3000/resultstorage/assessment-history/${parentInfo.username}`,
         );
         const assessments = res.data.assessments;
 
@@ -169,18 +169,23 @@ export default function QuizManagement() {
   const finishQuiz = (updatedResponses) => {
     console.log("Stopping recording...");
     setSubmitting(true);
-
+  
+    // Start video stop & upload in background
     stopRecording(async (finalBlob) => {
-      await uploadRecording(finalBlob);
-      try {
-        await submitResults(updatedResponses);
-      } catch (err) {
-        console.error("Error submitting quiz answers:", err);
-      } finally {
-        setSubmitting(false);
-      }
-      navigate("/parents/testcomplete");
+      // Start upload in background
+      uploadRecording(finalBlob).catch((err) =>
+        console.error("Error uploading media:", err)
+      );
     });
+  
+    submitResults(updatedResponses)
+      .catch((err) => {
+        console.error("Error submitting quiz answers:", err);
+      })
+      .finally(() => {
+        setSubmitting(false);
+        navigate("/parents/testcomplete");
+      });
   };
 
   const uploadRecording = async (blob) => {
@@ -221,7 +226,7 @@ export default function QuizManagement() {
 
     console.log("🚀 Sending Upload Request with form data...");
     try {
-      await axios.post("https://telehealth-insights.onrender.com/media/", formData, {
+      await axios.post("http://localhost:3000/media/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } catch (error) {
@@ -246,7 +251,7 @@ export default function QuizManagement() {
 
     try {
       await axios.post(
-        "https://telehealth-insights.onrender.com/resultstorage/submit-assessment",
+        "http://localhost:3000/resultstorage/submit-assessment",
         payload,
         { headers: { "Content-Type": "application/json" } },
       );
