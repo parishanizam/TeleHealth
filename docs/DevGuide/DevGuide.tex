@@ -160,7 +160,7 @@ git clone https://github.com/parishanizam/TeleHealth.git
 Navigate to the backend directory and install dependencies:
 
 \begin{verbatim}
-cd TeleHealth/backend
+cd TeleHealth/src/backend
 npm install
 npm start
 \end{verbatim}
@@ -169,7 +169,7 @@ npm start
 In a separate terminal, navigate to the frontend directory and start the development server:
 
 \begin{verbatim}
-cd TeleHealth/frontend
+cd TeleHealth/src/frontend
 npm install
 npm run dev
 \end{verbatim}
@@ -503,6 +503,15 @@ To ensure assessment integrity in at-home settings, the system includes a built-
     \item \textbf{Clinician Review:} Clinicians are prompted to review flagged submissions. They can override or confirm the bias detection results and leave notes for context.
 \end{itemize}
 
+\section{Future Goals}
+As the platform evolves, we aim to enhance both the engagement and functionality of the system with the following planned features:
 
+\begin{itemize}
+    \item \textbf{Motivational Progress Checkpoints:} Introduce gamified elements and milestone feedback to encourage children to complete assessments and stay motivated throughout their therapy journey. Add Motivational audio messages as checkpoints.
+
+    \item \textbf{Improved Test Flow with Queued Tests:} Enable a smoother, uninterrupted assessment experience by allowing multiple tests to be queued and completed in sequence without requiring the parent to manually restart or reconfigure settings between tests.
+
+    \item \textbf{Storytelling Test:} Add a new type of language assessment where children narrate a story based on visual prompts or sequences. This will help clinicians evaluate expressive language skills, creativity, and vocabulary usage in a more open-ended context.
+\end{itemize}
 
 \end{document}
