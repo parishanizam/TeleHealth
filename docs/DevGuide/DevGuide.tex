@@ -36,18 +36,138 @@ Date2 & Name(s) & Description of changes\\
 \tableofcontents
 
 \section{Introduction}
+
+Welcome to the developer guide for \textbf{TeleHealth Insights}, a web-based platform designed to facilitate at-home bilingual language assessments for children with speech difficulties. This project was developed to bridge the gap between traditional in-clinic assessments and accessible, remote care. 
+
+The platform empowers parents to administer structured language assessments from home while ensuring that Speech Language Pathologists (SLPs) have secure and organized access to comprehensive assessment data. 
+The system is built with three key user roles in mind: \textit{Parents}, \textit{Children}, and \textit{Clinicians}. \\\\
+TeleHealth Insights consists of two Dashboards:  \textbf{Parent Dashboard} and  \textbf{Clincian Dashboard} with a tailored interface focused on usability, engagement, and efficiency.
+
 \subsection{Project Overview}
 
+\textbf{TeleHealth Insights} enables parents to conduct speech assessments with their children in the comfort of their own homes, without requiring real-time clinician supervision.
+
+The assessments, based on the MERLS framework, are available in both \textbf{English} and \textbf{Mandarin}, and consist of three test types:
+\begin{itemize}
+    \item \textbf{Matching Tests:} Select the picture that best corresponds to the audio prompt.
+    \item \textbf{Repetition Tests:} Repeat the sentence played in the audio as accurately as possible.
+    \item \textbf{Quantifier Tests:} Choose the image that best represents the quantity or description mentioned in the audio.
+\end{itemize}
+
+\noindent\textbf{Parent Interface Features:}
+\begin{itemize}
+    \item \textbf{Guided Tutorials:} Step-by-step instructions to help parents guide their children through the assessment process.
+    \item \textbf{Assessment Execution:} Parents can select a test type, configure video and audio recording hardware, and conduct assessments independently.
+    \item \textbf{Results Dashboard:} A centralized view of current and historical test results for ongoing progress tracking.
+\end{itemize}
+
+\noindent\textbf{Clinician Interface Features:}
+\begin{itemize}
+    \item \textbf{Client Monitoring:} View individual client results by test type or overall performance.
+    \item \textbf{Media Review:} Watch video recordings of test sessions and evaluate corresponding answers.
+    \item \textbf{Manual Grading:} Review and grade repetition tests where automated scoring may not apply.
+    \item \textbf{Bias Detection:} Utilize integrated tools to detect anomalies, inconsistencies, or potential cheating.
+    \item \textbf{Clinical Notes:} Add notes and observations for each session directly within the platform.
+    \item \textbf{Add Clients:} Add New clients to the clinician's list within the clinic.
+\end{itemize}
+
+This developer guide provides a detailed breakdown of system architecture, components, APIs, and user flow to help you effectively build, maintain, or extend the platform.
+
 \section{Technology Stack}
+
 \subsection{Frontend}
+The frontend of the application is built using modern web technologies to ensure a responsive and accessible user experience across platforms. The technologies include:
+\begin{itemize}
+    \item \textbf{JavaScript:} Core language for client-side logic.
+    \item \textbf{React:}  A component-based library for building dynamic and interactive UIs.
+    \item \textbf{Tailwind CSS:} Utility-first CSS framework for rapid UI development and consistent styling.
+    \item \textbf{Vite:} A fast build tool and development server that improves performance and module handling.
+    \item \textbf{Bootstrap:} A UI toolkit used selectively for layout and responsiveness in specific components.
+\end{itemize}
+
 \subsection{Backend}
-Express.js 
-MediaPipe 
-DeepGram
+The backend handles API routing, media processing, authentication, and external integrations. It includes the following technologies:
+\begin{itemize}
+    \item \textbf{Node.js:} A JavaScript runtime for building scalable server-side applications.
+    \item \textbf{Express.js:} A minimalist web framework used to create RESTful API endpoints.
+    \item \textbf{MediaPipe:} A framework used to process video input and detect facial landmarks.
+    \item \textbf{DeepGram:} A speech-to-text API integrated for transcription and voice analysis.
+\end{itemize}
+
+\subsection{Storage and Cloud Services}
+
+\begin{itemize}
+    \item \textbf{AWS S3:} Used for secure storage of user-submitted media files (e.g., video and audio recordings), assessment results, and assessment content such as images and audio prompts. All data is stored with fine-grained access control to ensure security and privacy. It serves as the central hub for both data submission and retrieval across the platform, supporting features such as result dashboards and clinician grading.
+\end{itemize}
+
+\noindent The system uses the following dedicated S3 buckets for service-specific storage:
+
+\begin{itemize}
+    \item \textbf{telehealth-clinicians:} Stores clinician-related data and configurations.
+    \item \textbf{telehealth-media-processing:} Handles video/audio files submitted during assessments for 
+    backend processing.
+    \item \textbf{telehealth-parents:} Stores parent-side submission data and metadata.
+    \item \textbf{telehealth-question-storage:} Contains the visual and audio question content used in assessments.
+    \item \textbf{telehealth-result-storage:} Stores all processed assessment results and analytics for rendering dashboards and clinician review.
+\end{itemize}
+
+\subsection{Deployment}
+\begin{itemize}
+    \item \textbf{Netlify:} Used to deploy and host the frontend application with continuous integration and automatic build on Git updates.
+    \item \textbf{Render:} Used to deploy the backend server and manage API availability.
+\end{itemize}
+
 
 
 \section{Set-Up Information}
-% \section{Repository Folder Structure}
+
+\subsection{Repository}
+The source code for this project is publicly available on GitHub:
+\begin{itemize}
+    \item \textbf{Repository URL:} \url{https://github.com/parishanizam/TeleHealth}
+\end{itemize}
+
+\subsection{Cloning the Repository}
+To get started, clone the repository to your local machine using the following command:
+
+\begin{verbatim}
+git clone https://github.com/parishanizam/TeleHealth.git
+\end{verbatim}
+
+\subsection{Running the Application Locally}
+
+\subsubsection{Backend}
+Navigate to the backend directory and install dependencies:
+
+\begin{verbatim}
+cd TeleHealth/backend
+npm install
+npm start
+\end{verbatim}
+
+\subsubsection{Frontend}
+In a separate terminal, navigate to the frontend directory and start the development server:
+
+\begin{verbatim}
+cd TeleHealth/frontend
+npm install
+npm run dev
+\end{verbatim}
+
+The frontend will typically be served at \url{http://localhost:5173}, and the backend will run on \url{http://localhost:3000}.
+
+\subsection{Deployment Notes}
+
+Once deployed, ensure all instances of local URLs (e.g., \texttt{http://localhost:3000}) are updated to their corresponding production endpoints:
+
+\begin{itemize}
+    \item \textbf{Backend Production URL:} \url{https://telehealth-insights.onrender.com/}
+    \item \textbf{Frontend Production URL:} \url{https://telethealthinsights.netlify.app/}
+\end{itemize}
+
+Make sure API calls from the frontend are pointing to the Render backend URL in production.
+
+
 \section{Backend Architecture}
 
 
@@ -57,12 +177,25 @@ DeepGram
 \subsection{Question Bank Service}
 \subsection{Result Storage Service}
 
-\section{Database}
+\section{Bias Detection Feature}
 
-\section{Deployment}
+To ensure assessment integrity in at-home settings, the system includes a built-in \textbf{Bias Detection Module} that leverages both audio and video analysis. The goal is to identify possible unintentional guidance or intervention by parents during a child’s test session.
 
+\subsection*{How It Works}
 
+\begin{itemize}
+    \item \textbf{Facial Detection:} Using \textbf{MediaPipe}, the system analyzes video frames to detect multiple faces. If more than one face is consistently present during a test, the system flags it for clinician review. \\\\
+    The facial detection logic can be customized in the \texttt{facedetection.py} and \texttt{videoProcessing.js} files located in the \texttt{media-processing-service}. These files handle MediaPipe integration, face counting logic, and video frame analysis.
 
+    \item \textbf{Speech Monitoring:} Audio from assessments is transcribed in real-time using \textbf{Deepgram}'s Speech-to-Text API. The system scans the transcript for a list of predefined "cheating phrases" 
+    (e.g., \textit{"choose this," "correct answer," "that one"}), which may indicate external prompting. \\\\
+    The list of flagged "cheating phrases" can be customized in the \texttt{audioProcessing.js} file located in the \texttt{media-processing-service/helpers} directory.
+
+    \item \textbf{Flagging System:} When suspicious behavior is detected—such as background speech patterns, coaching commands, or visible parental presence—a bias alert is generated. This is shown on the clinician dashboard, along with access to the original media 
+    and transcripts of these flags for manual validation.
+
+    \item \textbf{Clinician Review:} Clinicians are prompted to review flagged submissions. They can override or confirm the bias detection results and leave notes for context.
+\end{itemize}
 
 
 
