@@ -452,33 +452,33 @@ function BiasReviewPage() {
           <div className="p-6 bg-white border-2 border-gray-300 rounded-lg shadow-md flex flex-col justify-between h-full">
             <BiasDetected biasState={biasState !== false} />
             <div className="mt-4 text-center text-lg">
-              {videoExists ? (
-                +biasState ? (
-                  <div className="text-red-500">
-                    <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
-                      <div className="overflow-auto max-h-40 flex justify-center">
-                        <div className="text-left w-full">
-                          {filteredBias.map((bias, index) => (
-                            <div key={index} className="py-1">
-                              <strong>{bias.timestamp}</strong> - {bias.keyword}
-                              <span className="text-gray-500">
-                                {" "}
-                                (Faces Detected: {bias.faceCount})
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+            {videoExists ? (
+              <div className="text-red-500">
+                <div className="mt-2 border border-gray-300 rounded-lg p-3 bg-white shadow-md">
+                  <div className="overflow-auto max-h-40 flex justify-center">
+                    <div className="text-left w-full">
+                      {filteredBias.length > 0 ? (
+                        filteredBias.map((bias, index) => (
+                          <div key={index} className="py-1">
+                            <strong>{bias.timestamp}</strong> - {bias.keyword}
+                            <span className="text-gray-500">
+                              {" "}
+                              (Faces Detected: {bias.faceCount})
+                            </span>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-green-600">No bias detected in this segment.</p>
+                      )}
                     </div>
                   </div>
-                ) : (
-                  <p className="text-green-600">No Bias Detected</p>
-                )
-              ) : (
-                <p className="text-gray-500 italic">
-                  No bias information (video not recorded)
-                </p>
-              )}
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-500 italic">
+                No bias information (video not recorded)
+              </p>
+            )}
             </div>
 
             <div className="mt-4 w-full">
