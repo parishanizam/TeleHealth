@@ -121,7 +121,117 @@ users currently exist?}
 team communication plan, team member roles and workflow plan.  Did you use the 
 technology you planned on using?}
 
+\subsubsection{Team Meeting Plan}
+
+As outlined in the Development Plan, the team met in person every Monday from 3:30-4:30 PM throughout both the Fall and Winter semesters. Additional meetings were held as needed, either in person or virtually through the team's Capstone Discord server—particularly as major deliverable deadlines approached.
+
+In-person team meetings were typically held in Thode Library and followed a structured format:
+\begin{itemize}
+    \item Progress check-in (5-10 minutes)
+    \item Agenda debrief (5 minutes)
+    \item Work session or discussion (40 minutes)
+    \item Planning next steps (5-10 minutes)
+\end{itemize}
+Supervisor meetings with Dr.Irene Yuan were held in person at ABB every Tuesday from 9:45-10:15 AM during the Fall term, and every Wednesday from 12:45-1:30 PM during the Winter term. Exceptions to the meeting schedule were made when the university was closed due to holidays or by group consensus.
+
+\subsubsection{Team Communication Plan}
+
+Communication was a key factor in the success of our project, and our team used a combination of platforms to stay organized and connected throughout the development process.
+
+\textbf{Discord} was our primary platform for day-to-day communication. The server was organized into structured text channels to keep discussions focused and easy to navigate:
+\begin{itemize}
+    \item \texttt{\#general} - Used for general updates, announcements, and quick questions.
+    \item \texttt{\#documentation-and-resources}, \texttt{\#important-documents}, 
+    \texttt{\#initial-ideas} - Shared references, documentation drafts, and brainstorming content.
+    \item \texttt{\#meetings}, \texttt{\#supervisor-meetings}, \texttt{\#schedule} 
+    - For coordinating both internal team meetings and meetings with our supervisor.
+    \item \texttt{\#tasks}, \texttt{\#accounts}, \texttt{\#adminscript} 
+    - For task assignment, account tracking, and scripts used for admin purposes.
+    \item \texttt{\#frontend}, \texttt{\#backend} 
+    - Discussions and debugging related to each codebase.
+    \item \texttt{\#stand-up-updates} - Asynchronous team updates and progress logs.
+    \item \texttt{\#help} - A collaborative support space for asking technical questions or offering help.
+    \item \texttt{\#usability-tests}, \texttt{\#wont-fix} - Specific discussion threads around user testing feedback and deprioritized issues.
+\end{itemize}
+
+\textbf{GitHub} was used for:
+\begin{itemize}
+    \item Code versioning through pull requests and feature branches.
+    \item Project tracking using the GitHub Projects board (Kanban-style) with columns for \textit{Backlog}, \textit{To Do}, \textit{In Progress}, \textit{In Review}, and \textit{Done}.
+    \item Issue tracking and task assignment, using milestones, labels, and assignees for structured coordination.
+\end{itemize}
+
+\textbf{Email} was used for formal communication with individuals outside the development team, including our supervisor, course instructors, and external professionals.
+
+\subsubsection{Team Member Roles}
+
+The main roles from development plan stayed the same however assignments did change.
+While all members contributed to documentation, development, testing, and issue tracking, the following specialized responsibilities were maintained throughout the project:
+
+\begin{itemize}
+    \item \textbf{Mitchell Weingust – Project Manager }  
+    Chaired team meetings, managed the overall project timeline, ensured deadlines were met, and kept the team aligned and on track for deliverables.
+
+    \item \textbf{Parisha Nizam – Team Liason \& Frontend Lead:}  
+    Chaired external meetings and managed communication with the capstone supervisor, collaborators, TAs, course instructors, and any other external stakeholders. Also led the frontend development. 
+
+    \item \textbf{Promish Kandel – Lead Developer \& Machine Learning Video/Audio Lead:}  
+    Led the technical design and coordination of the system. Oversaw backend architecture and implementation while also managing the video analysis component of the bias detection system.
+
+    \item \textbf{Jasmine Sun-Hu – UI/UX Design Lead:}  
+    Responsible for leading the design discussions of the user interface and user experience for all platform users (parents, children, and clinicians).
+\end{itemize}
+
+\subsubsection{Workflow Plan}
+
+Our team used GitHub Issues as the core of our workflow. All tasks—including features, bugs, documentation, and meetings; were tracked as individual issues. 
+Each issue included labels, milestones, assignees, and detailed checklists for sub-tasks. Instead of using GitHub Projects, we managed progress directly through labeled issues and milestone tracking. Pull requests were tied to issues and required review before merging. GitHub Actions handled CI workflows, enforcing linting and running tests. A rollback strategy was included to ensure safe and stable deployments.
+
+\subsubsection{Expected Technologies}
+
+The following tools and technologies were used throughout the project, as originally planned:
+
+\begin{itemize}
+    \item \textbf{JavaScript} - Main programming language for both frontend and backend development. 
+    Widely supported and efficient for full-stack development.
+    
+    \item \textbf{Python} - Used for machine learning and data analysis components. 
+    Ideal for prototyping with strong library support.
+    
+    \item \textbf{React \& Tailwind} - Used for building a responsive frontend interface with fast development 
+    and styling via utility-first CSS.
+    
+    \item \textbf{Node.js \& Express} - Powered the backend server with non-blocking I/O, 
+    ideal for real-time operations and REST API integration.
+    
+    \item \textbf{MediaPipe} - Employed for facial detection and video processing in the bias detection module. 
+    Provided pre-trained models and reliable computer vision utilities.
+    
+    \item \textbf{Figma} - Used for collaborative UI/UX design and wireframing before implementation.
+    
+    \item \textbf{VSCode} - Primary code editor, offering powerful extensions and built-in Git integration.
+    
+    \item \textbf{GitHub \& GitHub Actions} - Used for version control, task tracking, and automated CI/CD workflows 
+    including linting and testing.
+    
+    \item \textbf{ESLint \& Prettier} - Enforced consistent code style and formatting across the team.
+    
+    \item \textbf{Jest \& Pytest} - Testing frameworks for JavaScript and Python codebases respectively, 
+    enabling robust unit and integration tests.
+    
+    \item \textbf{AWS S3} - Provided secure cloud storage for media files, questions, and results.
+    
+    \item \textbf{Netlify} - Used to deploy the frontend with Git integration and automatic builds.
+    
+    \item \textbf{Render} - Hosted the backend services with automated deployment and SSL support.
+    
+    \item \textbf{Deepgram} - Used for real-time speech-to-text transcription and keyword detection in the 
+    bias detection system.
+\end{itemize}
+
 \subsection{What Went Well?}
+
+
 
 \plt{What went well for your project management in terms of processes and 
 technology?}
