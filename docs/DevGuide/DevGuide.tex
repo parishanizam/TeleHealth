@@ -1,7 +1,23 @@
 \documentclass{article}
 
+\usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+      colorlinks=true,      % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
 
 \input{../Comments}
 \input{../Common}
@@ -169,13 +185,318 @@ Make sure API calls from the frontend are pointing to the Render backend URL in 
 
 
 \section{Backend Architecture}
+    TeleHealth Insights backend is built on a microservice architecture allowing the backend to be extendend by adding new services.
+    This sections discusses each of the current services and their various API endpoints.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/Telehealth Insights Capstone Presentation.pdf}
+    \caption{Microservice architecture of our backend}
+  \end{figure}
 
+  \subsection{Authentication Service}
+  This service is responsible for handling user authentication and account management 
+  for different user roles. It is accessible at: \\
+  \url{https://telehealth-insights.onrender.com/auth}.\\ Note that the API endpoint will change if you decide to use another deployment platform than then one stated in the tech stack.
+  
+  \subsubsection{Client}
+  Handles creating an initial client account for parents to signup on. 
+  
+  \paragraph{POST /auth/client/add-client}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/client/add-client}
+    \item \textbf{Description:} Creates a new client account and attach client account to clinician
+    \item \textbf{Body Parameters (JSON):}
+    \begin{itemize}
+        \item \texttt{clinicianUsername}: The username of the associated clinician.
+        \item \texttt{firstName}: The client's first name.
+        \item \texttt{lastName}: The client's last name.
+    \end{itemize}
+    \item \textbf{Example Body:}
+\end{itemize}
 
-% Diagrams here 
-\subsection{Authentication Service}
-\subsection{Media Processing Service}
-\subsection{Question Bank Service}
-\subsection{Result Storage Service}
+\subsubsection{Clinician}
+Handles routes related to clinician registration and login.
+
+\paragraph{POST /auth/clinician/signup}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/clinician/signup}
+    \item \textbf{Description:} Registers a new clinician account.
+    \item \textbf{Body Parameters (JSON):}
+    \begin{itemize}
+        \item \texttt{firstname}: The clinician’s first name.
+        \item \texttt{lastname}: The clinician’s last name.
+        \item \texttt{username}: The desired username (unique identifier).
+        \item \texttt{email}: Email for the clinician account.
+        \item \texttt{password}: Password for the clinician account.
+    \end{itemize}
+    \item \textbf{Example Body:}
+\end{itemize}
+
+\paragraph{POST /auth/clinician/login}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/clinician/login}
+    \item \textbf{Description:} Logs in an existing clinician.
+    \item \textbf{Body Parameters (JSON):}
+    \begin{itemize}
+        \item \texttt{username}: Clinician’s username.
+        \item \texttt{password}: Clinician’s password.
+    \end{itemize}
+    \item \textbf{Example Body:}
+\end{itemize}
+
+\paragraph{POST /auth/clinician/logout}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/clinician/logout}
+    \item \textbf{Description:} Logs out the current clinician session.
+    \item \textbf{Body Parameters (JSON):} None
+\end{itemize}
+
+\subsubsection{Parent}
+Handles routes related to parent registration, login, logout, and account details.
+
+\paragraph{POST /auth/parent/signup}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/parent/signup}
+    \item \textbf{Description:} Registers a new parent account.
+    \item \textbf{Body Parameters (JSON):}
+    \begin{itemize}
+        \item \texttt{email}: Email address of the parent.
+        \item \texttt{username}: Unique username for the parent.
+        \item \texttt{password}: Password for the parent.
+        \item \texttt{confirmPassword}: Confirmation of the password.
+        \item \texttt{clinicianUsername}: The associated clinician’s username.
+        \item \texttt{securityCode}: A code used to validate or secure the signup.
+    \end{itemize}
+    \item \textbf{Example Body:}
+\end{itemize}
+
+\paragraph{POST /auth/parent/login}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/parent/login}
+    \item \textbf{Description:} Logs in an existing parent account.
+    \item \textbf{Body Parameters (JSON):}
+    \begin{itemize}
+        \item \texttt{username}: Parent’s username.
+        \item \texttt{password}: Parent’s password.
+    \end{itemize}
+    \item \textbf{Example Body:}
+\end{itemize}
+
+\paragraph{POST /auth/parent/logout}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/parent/logout}
+    \item \textbf{Description:} Logs out the current parent session.
+    \item \textbf{Body Parameters (JSON):} None
+\end{itemize}
+
+\paragraph{GET /auth/parent/account-details/\texttt{:username}}
+\begin{itemize}
+    \item \textbf{Endpoint:} 
+        \url{https://telehealth-insights.onrender.com/auth/parent/account-details/:username}
+    \item \textbf{Description:} Retrieves account details for the specified 
+          parent username.
+    \item \textbf{URL Parameters:}
+    \begin{itemize}
+        \item \texttt{:username}: The username of the parent.
+    \end{itemize}
+\end{itemize}
+  
+  \subsection{Media Processing Service}
+  Handles uploading and processing of media files, as well as retrieving processed media. 
+  It is accessible at: 
+  \url{https://telehealth-insights.onrender.com/media}.
+  
+  \paragraph{POST /media/}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/media/}
+      \item \textbf{Description:} Uploads and processes a video file and 
+            associated audio files.
+      \item \textbf{Form Data Parameters (multipart/form-data):}
+      \begin{itemize}
+          \item \texttt{videoFile}: The main video file to be uploaded.
+          \item \texttt{audioFiles}: Up to 100 audio files.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /media/\texttt{:parentUsername}/\texttt{:folderName}/\texttt{:assessmentId}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/media/:parentUsername/:folderName/:assessmentId}
+      \item \textbf{Description:} Fetches a processed video by the specified 
+            filename convention.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The username of the parent.
+          \item \texttt{:folderName}: The folder where the media is stored.
+          \item \texttt{:assessmentId}: The ID of the assessment.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /media/history/\texttt{:parentUsername}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/media/history/:parentUsername}
+      \item \textbf{Description:} Retrieves the media processing history 
+            for the given parent username.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The username of the parent.
+      \end{itemize}
+  \end{itemize}
+  
+  \subsection{Question Bank Service}
+  Provides access to a set of questions, including retrieval of all questions 
+  for a language/test type or a specific question by ID. It is accessible at: 
+  \url{https://telehealth-insights.onrender.com/questions}.
+  
+  \paragraph{GET /questions/\texttt{:language}/\texttt{:testType}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/questions/:language/:testType}
+      \item \textbf{Description:} Retrieves all questions for a specific 
+            language and test type.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:language}: The language of the question. Curently we have English or Mandarin.
+          \item \texttt{:testType}: The type of test i.e Matching, Repetition.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /questions/\texttt{:language}/\texttt{:testType}/\texttt{:id}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/questions/:language/:testType/:id}
+      \item \textbf{Description:} Retrieves a specific question by ID for the 
+            given language and test type.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:language}: The language of the question. Curently we have English or Mandarin.
+          \item \texttt{:testType}: The type of test i.e Matching, Repetition.
+          \item \texttt{:id}: The unique ID of the question.
+      \end{itemize}
+  \end{itemize}
+  
+  \subsection{Result Storage Service}
+  Manages the storage and retrieval of assessment results, including history 
+  and specific question results. It is accessible at: 
+  \url{https://telehealth-insights.onrender.com/resultstorage}.
+  
+  \paragraph{POST /resultstorage/submit-assessment}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/submit-assessment}
+      \item \textbf{Description:} Submits an assessment result for storage.
+      \item \textbf{Body Parameters (JSON):}
+      \begin{itemize}
+          \item \texttt{parentUsername}: The parent’s username.
+          \item \texttt{name}: Childs name.
+          \item \texttt{assessment\_id}: Id of assessment to be stored under. This is just an integer
+          \item \texttt{questionBankId}: Id of the question bank used. 
+          \item \texttt{results}: This is a list of information, such as timestamps collected by the system.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /resultstorage/assessment-history/\texttt{:username}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/assessment-history/:username}
+      \item \textbf{Description:} Retrieves the assessment history for a particular user.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:username}: The username of the account whose assessment 
+                history is requested.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /resultstorage/results/\texttt{:parentUsername}/\texttt{:assessmentId}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/results/:parentUsername/:assessmentId}
+      \item \textbf{Description:} Retrieves results for a specific assessment.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The parent’s username.
+          \item \texttt{:assessmentId}: The ID of the assessment.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{GET /resultstorage/results/\texttt{:parentUsername}/\texttt{:assessmentId}/\texttt{:question\_id}}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/results/:parentUsername/:assessmentId/:question_id}
+      \item \textbf{Description:} Retrieves result details for a specific 
+            question within an assessment.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The parent’s username.
+          \item \texttt{:assessmentId}: The ID of the assessment.
+          \item \texttt{:question\_id}: The unique ID of the question.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{POST /resultstorage/results/\texttt{:parentUsername}/\texttt{:assessmentId}/\texttt{:question\_id}/bias}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/results/:parentUsername/:assessmentId/:question_id/bias}
+      \item \textbf{Description:} Updates or saves bias modifications for a specific 
+            question result.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The parent’s username.
+          \item \texttt{:assessmentId}: The assessment ID.
+          \item \texttt{:question\_id}: The specific question ID.
+      \end{itemize}
+      \item \textbf{Body Parameters (JSON):}
+      \begin{itemize}
+          \item \texttt{biasData}: Data describing how bias should be modified or stored.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{POST /resultstorage/results/\texttt{:parentUsername}/\texttt{:assessmentId}/\texttt{:question\_id}/mark}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/results/:parentUsername/:assessmentId/:question_id/mark}
+      \item \textbf{Description:} Updates or saves mark modifications for a specific 
+            question result.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The parent’s username.
+          \item \texttt{:assessmentId}: The assessment ID.
+          \item \texttt{:question\_id}: The specific question ID.
+      \end{itemize}
+      \item \textbf{Body Parameters (JSON):}
+      \begin{itemize}
+          \item \texttt{markData}: Data that modifies or updates the mark 
+                scored for the question.
+      \end{itemize}
+  \end{itemize}
+  
+  \paragraph{POST /resultstorage/results/\texttt{:parentUsername}/\texttt{:assessmentId}/\texttt{:question\_id}/notes}
+  \begin{itemize}
+      \item \textbf{Endpoint:} 
+          \url{https://telehealth-insights.onrender.com/resultstorage/results/:parentUsername/:assessmentId/:question_id/notes}
+      \item \textbf{Description:} Updates or saves notes for a specific question result.
+      \item \textbf{URL Parameters:}
+      \begin{itemize}
+          \item \texttt{:parentUsername}: The parent’s username.
+          \item \texttt{:assessmentId}: The assessment ID.
+          \item \texttt{:question\_id}: The specific question ID.
+      \end{itemize}
+      \item \textbf{Body Parameters (JSON):}
+      \begin{itemize}
+          \item \texttt{notes}: Any textual notes or comments to be stored 
+                with the result.
+      \end{itemize}
+  \end{itemize}
+  
 
 \section{Bias Detection Feature}
 
