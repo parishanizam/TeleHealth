@@ -65,6 +65,169 @@ low.}
 
 \subsection{SRS and Hazard Analysis}
 
+\subsubsection{SRS}
+\begin{itemize}
+
+  \item 
+    \textbf{Feedback:} The Use Case Diagram (Figure 5) seems too complex and focuses too much on implementation. Use case diagrams should be a high level representation of the interactions between the actors and actions. The use case diagram should not have implementation or internal working details of the application. \\
+    \textbf{Source:} Peer Review by abedmohammed\\
+    \textbf{Changes Made:} \textit{WONTFIX}: The Use Case Diagram is at a level of detail and clarity that helped the team figure out the necessary use cases for the system, and how each actor engages with it.\\
+    As well, from the diagram I do believe the 'extends' arrows are functioning appropriately. Finalize Order extends to Update Order Status as finalizing an order comes before updating order status. This is similar to how we are using Extends, as Authenticating the user happens prior to Accepting the user.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/119}{\#119}
+  
+  \item 
+    \textbf{Feedback:} In the rationales of some of the requirements under 11.2, there could be more focus on users. For example, UH-PI1 which states "The system shall support multiple languages" rationalizes this by "The assessment must be conducted in two languages for the purpose of the research study." While this is an important and valid justification, it can also be pointed out that some of the main users; primary children and their parents, would benefit tremendously from multi-language support. \\
+    \textbf{Source:} Peer Review by jane-klavir\\
+    \textbf{Changes Made:} Fixed raionale for system supporting multiple languages, to indicate the benefits for parents and children to be able to navigate the system in their preferred langauge, rather than just navigating the site for the benefits of a research study/clinicians.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/121}{\#121}
+  
+  \item 
+    \textbf{Feedback:} In section 9.1, authentication is defined by the functional requirements FR-A1 through FR-A5. Although they differentiate between the different types of users, with parent accounts being able to complete assessments and clinician accounts having the permission to view results, there is no requirement discussing how these permissions are enforced, and what happens when edge cases are encountered. Some of the edge cases that can be explored are when parents try to view clinician data or what an admin account's permissions are as a whole (the only data they should be able to view should be encrypted, for privacy reasons) \\
+    \textbf{Source:} Peer Review by jinalkast\\
+    \textbf{Changes Made:} \textit{WONTFIX}: Parents don't have access to the clinician dashboard, which can only be accessed through the clinician's login.\\
+    Encryption and security are mentioned further in NFRs as security is a quality of the system, not an authentication functional requirement.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/123}{\#123}
+  
+  \item 
+    \textbf{Feedback:} The diagram under section 6.2 is currently considering too many components. Specifically, I don't think the 'Database', 'Backend Server', 'Language Assessment Website', "\'Video Analysis Model', and 'Audio Analysis Model' should be separate components, but rather one component. \\
+    \textbf{Source:} Peer Review by nguyes44\\
+    \textbf{Changes Made:} Context of the work diagram has been simplified, reducing complexity and the number of separate components. Now, only 3 main components exist; children, parents, clinicians, all connecting to the system by their means of interaction. Reducing the complexity in the diagram made it simpler to follow, and compacted the system.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/115}{\#115}
+  
+  \item 
+    \textbf{Feedback:} Most of your constraints are intuitively defined by the client's needs for the platform, but it would help to add a fit criterion and rationale for each, as defined in the template's Constraints section. \\
+    \textbf{Source:} Peer Review by arvindshastri\\
+    \textbf{Changes Made:} Added rationales and fit criterions for all constraints to ensure all constraints can be met, and means of achieving all of them are attainable.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/117}{\#117}
+  
+  \item 
+    \textbf{Feedback:} In section 16.1, CU-CR1 has the fit criterion that mentions that the platform needs to be validated by a cultural "consultant" and CU-CR2 mentions that the assessments must be fully translated to both languages. However, in Section 23, there is no mention of any costs that are related to "translation" or a "consultant". These sections might be reviewed and the associated cost might be mentioned in the document. \\
+    \textbf{Source:} Peer Review by aysuozdal\\
+    \textbf{Changes Made:} Removed the requirement for a cultural consultant, as it is clearly out of scope of the project. Instead, replaced the fit criterion to consider a minimum of 5 representatives of the primary user groups to ensure no instances of insensitivity.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/122}{\#122}
+  
+  \item 
+    \textbf{Feedback:} Some Appearance Requirements go into implementation details and are not completely blackbox\\
+    \textbf{Source:} Peer Review by jave-klavir\\
+    \textbf{Changes Made:} Removed implementation details as SRS should not be discussing the specific technologies used. Made wording more blackbox to give developers and team the ability to adhere to requirements without focusing on the implementation details (example, changed 'large buttons, simple instructions, and child-friendly imagery' to 'accessible and age-appropriate elements')\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/124}{\#124}
+  
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/194}{\#194}
+  
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/192}{\#192}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/193}{\#193}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/196}{\#196}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/188}{\#188}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/186}{\#186}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/187}{\#187}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/188}{\#188}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/195}{\#195}
+
+  \item 
+    \textbf{Feedback:} It is best for performance requirements to say "The system shall" rather than saying "The system must": this is so that if the requirement is violated, using "shall" can provide a stronger legal basis for enforcement.
+    One of the capacity requirements mention that "The system must accommodate a minimum of 2000 user accounts
+    at launch.", the fit criterion does not mention a way to verify that, when you reach the verification stage, how do you plan on verifying this requirement is met? will you populate 2000 user accounts to verify that? I think the fit criterion could have some description on how this would be verified. This could also apply to other requirements as well.\\
+    \textbf{Source:} Peer Review by george536\\
+    \textbf{Changes Made:} Replaced 'the system must' with 'the system shall' for all performance requirements for consistency and accuracy. Updated the 2000 user requirement to specify the fit criterion for measuring the capacity requirement (The system shall be designed to support MIN\_USER\_ACCOUNTS user accounts at launch, through system design documentation and capacity planning, ensuring the infrastructure and architecture are capable). \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/116}{\#116}
+  
+  \item 
+    \textbf{Feedback:} The goals of the project should be measurable through some metric, or contain a reference to FRs/NFRs to quantify them, as discussed in the Volere template \\
+    \textbf{Source:} Peer Review by arvindshastri\\
+    \textbf{Changes Made:} \textit{WONTFIX}: The FRs and NFRs stated throughout the document are how the team plans on managing and quantifying our goals. The goals section is treated more as a general overview and a brief introduction to what the team plans on exploring throughout the document. Given the goals are intended to be clear and easy to understand, the quantification of these goals are explored further throughout the document, and will not be explicitly stated in the Goals section itself.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/118}{\#118}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/191}{\#191}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/190}{\#190}
+
+  \item 
+    \textbf{Feedback:} Personas don't cover all important users \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/198}{\#198}
+
+  \item 
+    \textbf{Feedback:}  \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/208}{\#208}
+
+  \item 
+    \textbf{Feedback:} Solution constraint 3.1.7 denotes that the platform must comply with WCAG 2.1 accessibility standards. However, in section 11.5 (accessibility requirements), there is no mention of how the system will contain these considerations for digital accessibility, or how the adherence will be measured. \\
+    \textbf{Source:} Peer Review by jinalkast\\
+    \textbf{Changes Made:} Added on to 11.5, how compliance with with WCAG 2.1 accessibility standards will be verified, through a manual review process, comprising of testing
+    with a variety of technologies such as screen readers, keyboard-only navigation, touch interactions, and evaluation across a variety of screen sizes.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/125}{\#125}
+
+  \item 
+    \textbf{Feedback:} Under the Type column of the Data Dictionary, Parent Class, Class and Clinician Class are all use as types. Confusingly, Clinician has the Clinician Class type, but Parent only has the Class type. This is a mixup in terminology.
+    The Content column for User, Parent and Clinician are very vague, only listing "Content". This should be improved to make it more clear what data each type has. \\
+    \textbf{Source:} Peer Review by thompa39\\
+    \textbf{Changes Made:} 'Content' has been changed to 'Clinician Content' and 'Parent Content' for clarity in the data dictionary, improving consistency and making it clear what each piece of data is used for.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/120}{\#120}
+
+  \item 
+    \textbf{Feedback:} Personas do not cover all important users/stakeholders. Without user personas, your document doesn't provide a detailed enough description of what the users want from the system, instead it mainly just covers their role (child takes the assessment, parent delivers it, etc.). Your user persona for the parent was really good and just adding two more, one for the children and one for the SLPs, should provide readers of the SRS all the insight they need to understand your stakeholders. \\
+    \textbf{Source:} TA and Peer Review by marmanios\\
+    \textbf{Changes Made:} Added 2 additional important users; a clinician user profile, and a child user profile. Now there are 3 important personas which cover all important users of our system.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/197}{\#197} \href{https://github.com/parishanizam/TeleHealth/issues/114}{\#114}
+
+  \end{itemize}
+
+\newpage
+
 \subsection{Design and Design Documentation}
 \begin{itemize}
 
@@ -190,7 +353,11 @@ low.}
 
 \end{itemize}
 
+\newpage
+
 \subsection{VnV Plan and Report}
+
+\newpage
 
 \section{Challenge Level and Extras}
 
@@ -211,6 +378,8 @@ Two approved extras were tackled and completed as part of this project:
     It included setup instructions, system architecture explanations, technology stack breakdowns, service responsibilities, and customization notes for key components like the bias detection feature.
 \end{itemize}
 
+\newpage
+
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
 \plt{Explain how you arrived at your final design and implementation.  How did
@@ -220,6 +389,8 @@ the design evolve from the first version to the final version?}
 client should be part of the explanation.  For example, if you made changes in
 response to usability testing, explain what the testing found and what changes
 it led to.}
+
+\newpage
 
 \section{Design Decisions (LO12)}
 
@@ -244,6 +415,9 @@ The platform also had to handle enough users at once without slowing down, so ma
 future developers choose so. We included support for different video and audio settings based on bandwidth, and we followed 
 WCAG 2.1 standards for accessibility. Lastly, legal rules about keeping patient records for a set number of years 
 influenced how we designed our data storage and archiving processes, so that removing data would be very easy and our system wouldn't crash if an assessment is not found, as it calls the API every time when refreshing the page. 
+
+\newpage
+
 \section{Economic Considerations (LO23)}
 
 \plt{Is there a market for your product? What would be involved in marketing your 
@@ -252,6 +426,8 @@ sell?  What would you charge for your product?  How many units would you have to
 sell to make money? If your product isn't something that would be sold, like an 
 open source project, how would you go about attracting users?  How many potential 
 users currently exist?}
+
+\newpage
 
 \section{Reflection on Project Management (LO24)}
 
@@ -387,6 +563,8 @@ the app controller, as we first thought we could route all API calls from the cl
 difficult and serve very little purpose. We also think we spent too much time thinking about all the modules we could have versus the modules we needed. You can see this between our
 rev 0 module hierarchy in the MG document to rev 1; half of the backend modules are gone as we didn't need them. Finally, we would spend more time solidifying the requirements, and we found that 
 there were times that new requirements were being added, which made coding that much harder. Overall, these are the two main areas that we would focus on for future projects and into the workforce.
+
+\newpage
 
 \section{Reflection on Capstone}
 
