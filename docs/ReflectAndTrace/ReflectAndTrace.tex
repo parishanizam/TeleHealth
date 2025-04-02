@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{booktabs}
 
@@ -64,6 +66,129 @@ low.}
 \subsection{SRS and Hazard Analysis}
 
 \subsection{Design and Design Documentation}
+\begin{itemize}
+
+    \item 
+      \textbf{Feedback:} ACs: exact hardware that is used (lots of different devices, microphones, cameras, etc.) \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Added an AC3 to account for the exact hardware changes. This was just a change in the design documentation; nothing was changed in the code. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/498}{\#498}
+    
+    \item
+      \textbf{Feedback:} I do not think that input/output devices belong under UCs...some people may use touchscreens, etc. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} We removed UC1, taking into account the feedback. This information is actually covered by the AC3 added from the previous feedback. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/499}{\#499}
+    
+    \item
+      \textbf{Feedback:} What do you mean by “Core structure” of the question bank? \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} We updated the wording throughout the MG document to make it clearer what “core structure” was, and to clearly define exactly what the question bank is by adding the JSON to the appendix of the MIS document. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/500}{\#500}
+    
+    \item
+      \textbf{Feedback:} UC3: Does “bilingual” need to be specified? \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} For other sections, bilingual does matter as it’s an important part of the capstone; however, in this context, it does not matter, thus it was removed from UNC2 in the MG document. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/501}{GitHub \#501}
+    
+    \item
+      \textbf{Feedback:} App controller is probably more of a behaviour hiding module... \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} This was great feedback as our team was thinking the same thing. In our final design, we actually didn’t make an app controller and instead decided to make a Landing Page GUI. We also moved this module to be a behaviour hiding module, instead of software hiding like the app controller was before. In our codebase, this also made it easier to connect the clinician GUI and parent GUI, as it was just routing two buttons. This change can also be seen in our module hierarchy diagram. Finally, due to this change, the clinician GUI and parent GUI both independently talk to the API gateway, which we found was easier to code since it didn’t have to be routed through an app controller like in our previous design. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/502}{GitHub \#502}
+    
+    \item
+      \textbf{Feedback:} Media, Audio, and Video processing modules feel more like SW hiding modules. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} This was one piece of feedback that we disagreed with. We decided to keep these as behaviour hiding modules, as these modules are more about analyzing the video and audio than recording them. All this module cares about is an input for a pre-recorded video and returning the bias. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/503}{\#503}
+    
+    \item
+      \textbf{Feedback:} Page 4: Can remove “(M??)”. Consider a “logical” module for mic/camera feed. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} We removed the “(M??)”. Due to this change, we realized that section 5 and section 7 in the MG document were referencing each other incorrectly. We changed it so that everything points towards section 7 and not section 5. The numbering was also updated to not just be 1 but something more descriptive like 7.2.3. I also added a logical module to section 5 and the module hierarchy diagram in section 8 of the MG document. This was just for design to capture the ability of a browser to capture audio and video in the background. Nothing was changed in our actual codebase. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/504}{\#504}
+    
+    \item
+      \textbf{Feedback:} Page 4: Typo: “Backn”. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Fixed the typo on page 4. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/505}{\#505}
+    
+    \item
+      \textbf{Feedback:} APP is capitalized sometimes but not others (e.g., Table 1). \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Everything was changed to “APP” to make sure the document was consistent. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/506}{\#506}
+    
+    \item
+      \textbf{Feedback:} Hyperlink the modules in the list (Section 5) and in the traceability matrices. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} The hyperlinks were added to section 5 and the traceability matrix, with the new naming convention 7.x.x. The new hyperlinks point towards the respective sub-part in section 7. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/507}{\#507}
+    
+    \item
+      \textbf{Feedback:} Include diagrams as PDFs to enhance clarity and zoom-ability. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} All diagrams were converted to PDFs and attached. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/508}{\#508}
+    
+    \item
+      \textbf{Feedback:} Not clear what the formats of the JSON objects are. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} We added a section in the appendix of the MIS document that shows the JSON structure for modules that need it. This clearly shows what the format of the JSON structure is and the information it contains. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/509}{\#509}
+    
+    \item
+      \textbf{Feedback:} Some things (like contents of the JSON objects) are not clear, might impede implementing. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} In the MIS document, instead of saying JSON objects for everything, we made record objects that point toward the appendix, which has the actual JSON object. This way it is clear how the JSON object looks and how the data differ from each other. If we were to redo our capstone, this update would be very helpful in implementing the backend, as you would know the exact parameters each function takes. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/510}{\#510}
+    
+    \item
+      \textbf{Feedback:} Answer should be focused on your project’s architectural design and the SE principles. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} I agree our answers were a bit generic in terms of the functions we were making and their descriptions. We changed the wording of the question bank service and result service to make it more specific to what our project needed. The authentication service was also updated a bit to take into account our use of a security code, which other platforms might not have, as this is unique to our design. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/511}{\#511}
+    
+    \item 
+        \textbf{Feedback:} The output of the Media Processing Module is incomplete about half the time.\\
+        \textbf{Source:} Peer Review by jinalkast\\
+        \textbf{Changes Made:} Taking this review into account, I updated the wording for the media processing module to make it clear that both video and audio processes will be called and then their outputs would be combined.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/342}{\#342}
+    
+    \item 
+        \textbf{Feedback:} There are contradictions in the MIS of the storage module.\\
+        \textbf{Source:} Peer Review by marmanios\\
+        \textbf{Changes Made:} We added the JSON to the appendix to make it clearer how the data is being stored. I think part of this feedback was the misunderstanding that JSON can’t be stored in AWS, which I explained in the comments of the issue.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/341}{\#341}
+    
+    \item 
+        \textbf{Feedback:} The App Controller cannot handle scenarios in which no input is provided.\\
+        \textbf{Source:} Peer Review by abedmohammed\\
+        \textbf{Changes Made:} This feedback was ignored as we didn’t have an app controller anymore.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/340}{\#340}
+  
+    \item 
+        \textbf{Feedback:} The Real-Time Feedback Module classification or naming might be unclear.\\
+        \textbf{Source:} Peer Review by jane-klavir\\
+        \textbf{Changes Made:} This feedback was ignored as we didn’t have a real-time feedback module anymore, as we felt that real-time feedback could be distracting to the child during an assessment.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/339}{\#339}
+  
+    \item 
+        \textbf{Feedback:} The MG “secret” is not actually secret or otherwise is misnamed.\\
+        \textbf{Source:} Peer Review by marmanios\\
+        \textbf{Changes Made:} We updated the “secret” to be better worded, as I agree it sounded more like a service before updating it.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/338}{\#338}
+  
+    \item 
+        \textbf{Feedback:} The Module Guide references vague Use Cases (UCs).\\
+        \textbf{Source:} Peer Review by marmanios\\
+        \textbf{Changes Made:} This was a similar feedback to our TA feedbacks which was corrected by making the wording of our UCs clearer.\\
+        \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/337}{\#337}
+
+\end{itemize}
 
 \subsection{VnV Plan and Report}
 
@@ -98,10 +223,27 @@ it led to.}
 
 \section{Design Decisions (LO12)}
 
-\plt{Reflect and justify your design decisions.  How did limitations,
- assumptions, and constraints influence your decisions?  Discuss each of these
- separately.}
+\subsection{Limitations}
+We had a tight timeline, so we chose an architecture we could build quickly in terms of, all of us could work 
+on it without blocking each other, which is why we decided to go with the microservice architecture design for our backend.
+Our backend had to be deployed on a server with limited speed (due to financial limitations), which pushed us to use asynchronous processing 
+so children don't have to wait for slow backend processing. These time and server limitations guided us to focus on only 
+the essential features first, rather than building a large or overly complex system. It also greatly helped our scope of the project, as due to the time limitations
+we had to be mindful of not being too ambitious.
 
+\subsection{Assumptions}
+We assumed that users have reliable internet connections, can record audio and video, and that assessments would 
+not exceed a certain amount of time. We also assumed the platform would grow over time, so we designed it to be 
+scalable by using a microservice architecture. On the front end, we made it dynamic with an abstract 
+factory pattern to generate our assessments, so adding or modifying quizzes would be simpler as the assumption is that the platform will grow. 
+
+\subsection{Constraints}
+We built the system as a web platform to meet the requirement of easy access without extra software. We made sure 
+to consider HIPAA, PHIPA, and PIPEDA rules, which meant enforcing secure logins and data storage which was done through role base access and bycrpt encryptions. 
+The platform also had to handle enough users at once without slowing down, so made sure our deployment would have options to speed up the servers if the 
+future developers choose so. We included support for different video and audio settings based on bandwidth, and we followed 
+WCAG 2.1 standards for accessibility. Lastly, legal rules about keeping patient records for a set number of years 
+influenced how we designed our data storage and archiving processes, so that removing data would be very easy and our system wouldn't crash if an assessment is not found, as it calls the API every time when refreshing the page. 
 \section{Economic Considerations (LO23)}
 
 There is a growing market for TeleHealth Insights, especially as the demand for remote speech-language services continues to rise. 
@@ -251,7 +393,12 @@ technology?}
 
 \subsection{What Would you Do Differently Next Time?}
 
-\plt{What will you do differently for your next project?}
+If we had to do this project again, the main thing we would do differently is connecting our design to code and doing a bit of research before making our final design. 
+We found that there was a disconnect between our design and the correct way of making modules into code and how to connect our frontend to backend. A good example of this is 
+the app controller, as we first thought we could route all API calls from the clinician and parent GUI through one module. However, when coding, we found that this would be 
+difficult and serve very little purpose. We also think we spent too much time thinking about all the modules we could have versus the modules we needed. You can see this between our
+rev 0 module hierarchy in the MG document to rev 1; half of the backend modules are gone as we didn't need them. Finally, we would spend more time solidifying the requirements, and we found that 
+there were times that new requirements were being added, which made coding that much harder. Overall, these are the two main areas that we would focus on for future projects and into the workforce.
 
 \section{Reflection on Capstone}
 
