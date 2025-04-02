@@ -71,19 +71,19 @@ low.}
     \item 
       \textbf{Feedback:} Use \verb|\multirow| to better share/split rows instead of relying on numbers. Reference tables in the body of the document. \\
       \textbf{Source:} TA \\
-      \textbf{Changes Made:} Imrpoved the format of the two FMEA tables in the document using \verb|\multirow|. The hazard analysis tables were never directly referred to in the body of the document, so no references of the table were added.\\
+      \textbf{Changes Made:} Imrpoved the format of the two FMEA tables in the document using \verb|\multirow|. The hazard analysis tables content was not directly cited in the narrative, so no in-text references were added. In the future, relevant sections will be updated to include table references where appropriate.\\
       \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/233}{\#233}
 
       \item 
       \textbf{Feedback:} Ensure you are getting to the root cause of the problem in the recommended actions. For instance, HA-D1 : this is a pretty weak way to solve this problem. Yes, backups are important in case something goes wrong, but the better thing is to ensure that injection attacks cannot happen in the first place. No mention of using encryption to protect data.\\
       \textbf{Source:} TA \\
-      \textbf{Changes Made:} Clarified and expanded on several recommended actions in the FMEA table, and added recommended actions using encryption for the database component. \\
+      \textbf{Changes Made:} Rewrote several vague recommended actions in the FMEA table to focus on root causes, such as preventing injection attacks through input validation and parameterized queries. Also added explicit recommendations to implement encryption (e.g., AES-256) for protecting data at rest within the database. \\
       \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/234}{\#234}
 
       \item 
       \textbf{Feedback:} Unclear boundaries and Components\\
       \textbf{Source:} Peer Review by marmanios \\
-      \textbf{Changes Made:} Changed UI to User-Facing Application and reorganized video/audio recording and analysis components for clarity. \\
+      \textbf{Changes Made:} Renamed "UI" to "User-Facing Application" to better reflect its role in the system. Reorganized the placement of the audio/video recording and analysis components to better align with data flow and reduce overlap between functional boundaries. \\
       \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/131}{\#131}
 
       \item 
