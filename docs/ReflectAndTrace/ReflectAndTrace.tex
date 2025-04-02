@@ -251,6 +251,59 @@ low.}
 
 \subsection{VnV Plan and Report}
 
+\subsubsection{VnV Plan}
+
+\begin{itemize}
+    \item 
+      \textbf{Feedback:} Should remove the ? from usability survey questions section. Some text overflows boxes. Some sections have subsections inside them with no introductory text.\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Removed ? from usability survey questions, fixed the text overflow in test case boxes and added subsection introductory text to any subsections that were missing them\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/292}{\#292}
+
+    \item 
+      \textbf{Feedback:} You mention UI industry standards, etc, but what about adherence to things like HIPAA?\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Added checking adherence to HIPAA to relevant test cases FR-ST-DSC3: Prevent PII Storage in Database, SR-ST-P1: Privacy and Data Protection Law Compliance Test, and CR-ST-D1: HIPAA-Compliant Secure Data Storage Test. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/293}{\#293}
+
+    \item 
+      \textbf{Feedback:} Test cases have no clear name, description, or overall goal for each one, which makes it confusing to understand what each test is actually trying to accomplish on a bigger-picture level. \\
+      \textbf{Source:} Peer Review by abedmohammed \\
+      \textbf{Changes Made:} Added names for each test case followed by a concise summary. For example, the first test went from 'FR-ST-A1' to "FR-ST-A1: Select Parent Role for Login", followed by "Purpose: Verifies that selecting the Parent role from the login screen correctly redirects the user to the Parent login page."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/204}{\#204}
+
+    \item 
+      \textbf{Feedback:} The Verification and Validation Team table in Section 3.1 is a bit vague on what some of the roles actually involve. \\
+      \textbf{Source:} Peer Review by abedmohammed \\
+      \textbf{Changes Made:} Role descriptions were added under the team table for clarification. For example, "SRS Verification: Ensure all functional and nonfunctional requirements are clear, testable, and traceable in the VnV plan."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/206}{\#206}
+
+    \item 
+      \textbf{Feedback:} Some of the procedures such as PR-ST-SL1 in the test cases could be a bit more specific on how they're to be conducted. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} To make the procedures of test cases more clear, specific details were added to the procedures. For example, "Test and measure feedback response times for various interactions." became "Identify at least five types of interactive elements (e.g., buttons, form submissions) and measure response feedback time for each using a stopwatch or browser dev tools. Confirm response occurs within SHORT\_PROCESSING\_TIME."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/221}{\#221}
+
+    \item 
+      \textbf{Feedback:} FR-ST-DSC5 aims to verify long-term storage of assessment reports, and long-term storage is at least MAX STORAGE TIME = 7 years. Perhaps for testing purposes, make some small limit for storage time and verify that reports are accessible for all boundaries of that smaller time. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} Edited the test case FR-ST-DSC5: Retain Reports Over Time by Patient ID to verify long-term storage by simulating a shortened retention period and confirming report accessibility at various points throughout the time period instead of testing with the max storage time of 7 years, an unrealistic testing timeframe.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/222}{\#222}
+      
+    \item 
+      \textbf{Feedback:} The objectives are vague. What does it mean to "accurately" and "correctly" record the assessment. What does it mean for the UI to be "user-friendly"? \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Edited the objectives section to describe objectives in more specific detail. For example, an old objective "verify the system's ability to accurately record and store video and audio of clients during speech therapy assessments" becomes "The system should capture audio and video that meet minimum quality thresholds, such as resolution, clarity, and synchronization between video and audio streams, as defined in performance requirements (Section 4.2.3)."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/223}{\#223}
+
+    \item 
+      \textbf{Feedback:} In the NFR section of the test cases there is no "Test Case Derivation" section but the FR had this section in the test case. \\
+      \textbf{Source:} Peer Review by Harshil-P21 \\
+      \textbf{Changes Made:} Test case derivations were added for each non functional requirement test case, based on the functional requirement ones. For example, "Test Case Derivation: This test ensures that the user interface design meets key look-and-feel requirements by validating navigation simplicity, ease of use, and child accessibility. It covers constraints on UI depth and option count (LF-AR1), intuitive navigation and task flow (LF-AR2, LF-AR4), and confirms that the platform is usable without adult guidance by children aged 6-12." was added under LF-ST-LFR1: Navigation Simplicity and Child Usability\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/224}{\#224}
+
+\end{itemize}
+
 \section{Challenge Level and Extras}
 
 \subsection{Challenge Level}
