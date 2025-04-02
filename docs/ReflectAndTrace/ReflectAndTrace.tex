@@ -65,6 +65,65 @@ low.}
 
 \subsection{SRS and Hazard Analysis}
 
+\subsubsection{Hazard Analysis}
+
+\begin{itemize}
+    \item 
+      \textbf{Feedback:} Use \verb|\multirow| to better share/split rows instead of relying on numbers. Reference tables in the body of the document. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Improved the format of the two FMEA tables in the document using \verb|\multirow|. The content of the hazard analysis tables was not directly cited was not directly cited in the narrative, so no in-text references were added. In the future, relevant sections will be updated to include table references where appropriate.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/233}{\#233}
+
+      \item 
+      \textbf{Feedback:} Ensure you are getting to the root cause of the problem in the recommended actions. For instance, HA-D1 : this is a pretty weak way to solve this problem. Yes, backups are important in case something goes wrong, but the better thing is to ensure that injection attacks cannot happen in the first place. No mention of using encryption to protect data.\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Rewrote several vague recommended actions in the FMEA table to focus on root causes, such as preventing injection attacks through input validation and parameterized queries. Also added explicit recommendations to implement encryption (e.g., AES-256) to protect data at rest within the database. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/234}{\#234}
+
+      \item 
+      \textbf{Feedback:} Unclear boundaries and Components\\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Renamed "UI" to "User-Facing Application" to better reflect its role in the system. Reorganized the placement of the audio/video recording and analysis components to better align with data flow and reduce overlap between functional boundaries. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/131}{\#131}
+
+      \item 
+      \textbf{Feedback:} Incomplete failure modes/recommended actions for Video Recording component. \\
+      \textbf{Source:} Peer Review by jinalkast \\
+      \textbf{Changes Made:} Added additional failure modes and recommended actions for Video Recording component. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/153}{\#153}
+
+      \item 
+      \textbf{Feedback:} Critical Assumptions and out of scope hazards are functionally equivalent. \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Changed the wording of critical assumptions for additional clarity and changed out of scope hazards to talk about additional points that were not addressed in critical assumptions. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/155}{\#155}
+
+      \item 
+      \textbf{Feedback:} "Errors in implementation" for HA-UI2 is ambiguous. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} Changed the wording from "Errors in implementation" to "UI components not rendering correctly due to screen size, device-specific compatibility issues, or missing accessibility focus states." \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/156}{\#156}
+
+      \item 
+      \textbf{Feedback:} In the "Failure Mode" column for the Audio Recording it says the audio recording has noise which is a good failure mode however I think that it can be further explained as to what kind of noise it is. \\
+      \textbf{Source:} Peer Review by Harshil-P21 \\
+      \textbf{Changes Made:} Changed the wording from "Audio recording has noise" to "Audio recording has background noise interference". \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/157}{\#157}
+
+      \item 
+      \textbf{Feedback:} Unreasonable time limit for MFA completion. \\
+      \textbf{Source:} Peer Review by jinalkast \\
+      \textbf{Changes Made:} Adjusted "Users accessing sensitive data must pass a multi-factor authentication process within 2 minutes of a code being sent" to "within 5 minutes of a code being sent". \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/158}{\#158}
+
+      \item 
+      \textbf{Feedback:} Authentication is listed as a component when it should be more of a feature. \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} The team agreed that authentication was more a feature of our backend instead of it's own component, so it was removed from the hazard analysis and treated as a feature of the backend instead. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/159}{\#159}
+
+\end{itemize}
+
 \subsection{Design and Design Documentation}
 \begin{itemize}
 
@@ -192,6 +251,59 @@ low.}
 
 \subsection{VnV Plan and Report}
 
+\subsubsection{VnV Plan}
+
+\begin{itemize}
+    \item 
+      \textbf{Feedback:} Should remove the ? from usability survey questions section. Some text overflows boxes. Some sections have subsections inside them with no introductory text.\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Removed ? from usability survey questions, fixed the text overflow in test case boxes, and added subsection introductory text to any subsections that were missing them.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/292}{\#292}
+
+    \item 
+      \textbf{Feedback:} You mention UI industry standards, etc., but what about adherence to things like HIPAA?\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Added checking adherence to HIPAA to relevant test cases: FR-ST-DSC3: Prevent PII Storage in Database, SR-ST-P1: Privacy and Data Protection Law Compliance Test, and CR-ST-D1: HIPAA-Compliant Secure Data Storage Test. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/293}{\#293}
+
+    \item 
+      \textbf{Feedback:} Test cases have no clear name, description, or overall goal for each one, which makes it confusing to understand what each test is actually trying to accomplish on a bigger-picture level. \\
+      \textbf{Source:} Peer Review by abedmohammed \\
+      \textbf{Changes Made:} Added names for each test case followed by a concise summary. For example, the first test went from 'FR-ST-A1' to "FR-ST-A1: Select Parent Role for Login", followed by "Purpose: Verifies that selecting the Parent role from the login screen correctly redirects the user to the Parent login page."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/204}{\#204}
+
+    \item 
+      \textbf{Feedback:} The Verification and Validation Team table in Section 3.1 is a bit vague on what some of the roles actually involve. \\
+      \textbf{Source:} Peer Review by abedmohammed \\
+      \textbf{Changes Made:} Role descriptions were added under the team table for clarification. For example, "SRS Verification: Ensure all functional and non-functional requirements are clear, testable, and traceable in the VnV plan."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/206}{\#206}
+
+    \item 
+      \textbf{Feedback:} Some of the procedures such as PR-ST-SL1 in the test cases could be a bit more specific on how they're to be conducted. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} To make the procedures of test cases more clear, specific details were added to the procedures. For example, "Test and measure feedback response times for various interactions." became "Identify at least five types of interactive elements (e.g., buttons, form submissions) and measure response feedback time for each using a stopwatch or browser dev tools. Confirm response occurs within SHORT\_PROCESSING\_TIME."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/221}{\#221}
+
+    \item 
+      \textbf{Feedback:} FR-ST-DSC5 aims to verify long-term storage of assessment reports, and long-term storage is at least MAX STORAGE TIME = 7 years. Perhaps for testing purposes, make some small limit for storage time and verify that reports are accessible for all boundaries of that smaller time. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} Edited the test case FR-ST-DSC5: Retain Reports Over Time by Patient ID to verify long-term storage by simulating a shortened retention period and confirming report accessibility at various points throughout the time period instead of testing with the max storage time of 7 years, which is an unrealistic testing timeframe.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/222}{\#222}
+
+    \item 
+      \textbf{Feedback:} The objectives are vague. What does it mean to "accurately" and "correctly" record the assessment? What does it mean for the UI to be "user-friendly"? \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Edited the objectives section to describe objectives in more specific detail. For example, an old objective "verify the system's ability to accurately record and store video and audio of clients during speech therapy assessments" becomes "The system should capture audio and video that meet minimum quality thresholds, such as resolution, clarity, and synchronization between video and audio streams, as defined in performance requirements (Section 4.2.3)."\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/223}{\#223}
+
+    \item 
+      \textbf{Feedback:} In the NFR section of the test cases there is no "Test Case Derivation" section but the FR had this section in the test case. \\
+      \textbf{Source:} Peer Review by Harshil-P21 \\
+      \textbf{Changes Made:} Test case derivations were added for each non-functional requirement test case, based on the functional requirement ones. For example, "Test Case Derivation: This test ensures that the user interface design meets key look-and-feel requirements by validating navigation simplicity, ease of use, and child accessibility. It covers constraints on UI depth and option count (LF-AR1), intuitive navigation and task flow (LF-AR2, LF-AR4), and confirms that the platform is usable without adult guidance by children aged 6–12." was added under LF-ST-LFR1: Navigation Simplicity and Child Usability.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/224}{\#224}
+
+\end{itemize}
+
 \section{Challenge Level and Extras}
 
 \subsection{Challenge Level}
@@ -246,12 +358,25 @@ WCAG 2.1 standards for accessibility. Lastly, legal rules about keeping patient 
 influenced how we designed our data storage and archiving processes, so that removing data would be very easy and our system wouldn't crash if an assessment is not found, as it calls the API every time when refreshing the page. 
 \section{Economic Considerations (LO23)}
 
-\plt{Is there a market for your product? What would be involved in marketing your 
-product? What is your estimate of the cost to produce a version that you could 
-sell?  What would you charge for your product?  How many units would you have to 
-sell to make money? If your product isn't something that would be sold, like an 
-open source project, how would you go about attracting users?  How many potential 
-users currently exist?}
+There is a growing market for TeleHealth Insights, especially as the demand for remote speech-language services continues to rise. 
+According to the U.S. Bureau of Labor Statistics, employment opportunities for speech-language pathologists are projected to grow by 18\% 
+from 2023 to 2033 \cite{slpgrowth}. Additionally, the cultural and educational impact of the COVID-19 pandemic has accelerated the demand for 
+at-home, tech-enabled solutions, which offer both convenience and accessibility for families and clinicians.
+
+Currently, our platform is open-source and publicly available on GitHub, with no immediate plans for monetization. If we were to transition 
+to a commercial version in the future, we estimate development and compliance costs would total approximately \$30,000–\$50,000 CAD. A 
+possible pricing model could involve charging clinics a subscription of \$99–\$149 per month. At \$120/month, we would need around 21–35 
+clinician users for one year to break even. While we currently focus on open access, these numbers suggest commercial viability is achievable 
+with a small professional user base.
+
+To attract users, we could pursue collaborations with universities and leverage our relationship with our client to connect with a wider network 
+of speech-language pathologists for use in clinical studies and research. Other ways to attract users include creating demo videos and case studies that showcase 
+the platform in real-world settings. Additionally, we will maintain comprehensive documentation and tutorials on GitHub to support developers 
+and researchers who wish to adapt or extend our solution.
+
+There is a significant potential user base for this platform. If we were to focus solely on speech-language pathologists and therapists, 
+there were approximately 18,300 SLPs in Canada \cite{canadaslp} and 172,100 in the United States as of 2023 \cite{usslp}. The need for this type 
+of tool is increasing, as research estimates that approximately 7.5\% of school-aged children have some form of language disorder \cite{childstats}. 
 
 \section{Reflection on Project Management (LO24)}
 
@@ -369,10 +494,15 @@ The following tools and technologies were used throughout the project, as origin
 
 \subsection{What Went Well?}
 
-
-
 \plt{What went well for your project management in terms of processes and 
 technology?}
+
+Our team's project management went well in several areas, particularly in coordination, organization and documentation. The team consistently attended weekly in-person meetings 
+with the capstone supervisor as outlined in the development plan, and supplemented those with additional ad hoc meetings both virtual and in person as necessary when deadlines were 
+approaching. This momentum helped ensure consistent progress throughout the project. The team also made effective use of Discord for daily communication; the structured channel layout 
+made it easy to keep track of and to have discussions on development, documentation, testing, usability and other topics simultaneously. Likewise, GitHub was used often, especially 
+for issue tracking and task management. The use of labeled issues, milestones, assignees, and pull requests enabled smooth coordination, accountability, and fairly distributed workloads 
+within the team. In addition, our team adhered closely to our chosen technologies from the development plan listed in the previous section.
 
 \subsection{What Went Wrong?}
 
@@ -422,5 +552,22 @@ To build and deploy a full-stack system, we had to learn several skills and tech
     
     \item \textbf{CI/CD Pipelines:} Although testing was covered in class, setting up automated pipelines using GitHub Actions was a new skill we had to learn.
 \end{itemize}
+
+\begin{thebibliography}{4}
+
+    \bibitem{slpgrowth}
+    U.S. Bureau of Labor Statistics, “Speech-Language Pathologists: Occupational Outlook Handbook,” \textit{U.S. BLS}, https://www.bls.gov/ooh/healthcare/speech-language-pathologists.htm (accessed Apr. 1, 2025).
+ 
+    \bibitem{canadaslp}
+    Government of Canada Job Bank, “Speech-language pathologist in Canada,” \textit{Job Bank}, https://www.jobbank.gc.ca/marketreport/outlook-occupation/22734/ca (accessed Apr. 2, 2025).
+
+    \bibitem{usslp}
+    U.S. Bureau of Labor Statistics, “Occupational Employment and Wages, May 2023: 29-1127 Speech-Language Pathologists,” \textit{U.S. BLS}, https://www.bls.gov/oes/2023/may/oes291127.htm (accessed Apr. 2, 2025).
+
+    \bibitem{childstats}
+    A. M. Tomblin, “Epidemiology of Specific Language Impairment,” in \textit{Neurobiology of Language}, G. Hickok and S. L. Small, Eds., Academic Press, 2016, pp. 111–122. https://www.sciencedirect.com/science/article/pii/B9780444641489000028 (accessed Apr. 2, 2025).
+
+\end{thebibliography}
+
 
 \end{document}
