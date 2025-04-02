@@ -65,6 +65,65 @@ low.}
 
 \subsection{SRS and Hazard Analysis}
 
+\subsubsection{Hazard Analysis}
+
+\begin{itemize}
+    \item 
+      \textbf{Feedback:} Use \verb|\multirow| to better share/split rows instead of relying on numbers. Reference tables in the body of the document. \\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Imrpoved the format of the two FMEA tables in the document using \verb|\multirow|. The hazard analysis tables were never directly referred to in the body of the document, so no references of the table were added.\\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/233}{\#233}
+
+      \item 
+      \textbf{Feedback:} Ensure you are getting to the root cause of the problem in the recommended actions. For instance, HA-D1 : this is a pretty weak way to solve this problem. Yes, backups are important in case something goes wrong, but the better thing is to ensure that injection attacks cannot happen in the first place. No mention of using encryption to protect data.\\
+      \textbf{Source:} TA \\
+      \textbf{Changes Made:} Clarified and expanded on several recommended actions in the FMEA table, and added recommended actions using encryption for the database component. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/234}{\#234}
+
+      \item 
+      \textbf{Feedback:} Unclear boundaries and Components\\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Changed UI to User-Facing Application and reorganized video/audio recording and analysis components for clarity. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/131}{\#131}
+
+      \item 
+      \textbf{Feedback:} Incomplete failure modes/recommended actions for Video Recording component. \\
+      \textbf{Source:} Peer Review by jinalkast \\
+      \textbf{Changes Made:} Added additional failure modes and recommended actions for Video Recording component. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/153}{\#153}
+
+      \item 
+      \textbf{Feedback:} Critical Assumptions and out of scope hazards are functionally equivalent. \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} Changed the wording of critical assumptions for additional clarity and changed out of scope hazards to talk about additional points that were not addressed in critical assumptions. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/155}{\#155}
+
+      \item 
+      \textbf{Feedback:} "Errors in implementation" for HA-UI2 is ambiguous. \\
+      \textbf{Source:} Peer Review by jane-klavir \\
+      \textbf{Changes Made:} Changed the wording from "Errors in implementation" to "UI components not rendering correctly due to screen size, device-specific compatibility issues, or missing accessibility focus states." \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/156}{\#156}
+
+      \item 
+      \textbf{Feedback:} In the "Failure Mode" column for the Audio Recording it says the audio recording has noise which is a good failure mode however I think that it can be further explained as to what kind of noise it is. \\
+      \textbf{Source:} Peer Review by Harshil-P21 \\
+      \textbf{Changes Made:} Changed the wording from "Audio recording has noise" to "Audio recording has background noise interference". \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/157}{\#157}
+
+      \item 
+      \textbf{Feedback:} Unreasonable time limit for MFA completion. \\
+      \textbf{Source:} Peer Review by jinalkast \\
+      \textbf{Changes Made:} Adjusted "Users accessing sensitive data must pass a multi-factor authentication process within 2 minutes of a code being sent" to "within 5 minutes of a code being sent". \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/158}{\#158}
+
+      \item 
+      \textbf{Feedback:} Authentication is listed as a component when it shold be more of a feature. \\
+      \textbf{Source:} Peer Review by marmanios \\
+      \textbf{Changes Made:} The team agreed that authentication was more a feature of our backend instead of it's own component, so the component was removed from the hazard analysis. \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/159}{\#159}
+
+\end{itemize}
+
 \subsection{Design and Design Documentation}
 \begin{itemize}
 
