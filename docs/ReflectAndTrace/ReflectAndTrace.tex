@@ -440,6 +440,12 @@
       \textbf{Changes Made:} Test case derivations were added for each non-functional requirement test case, based on the functional requirement ones. For example, "Test Case Derivation: This test ensures that the user interface design meets key look-and-feel requirements by validating navigation simplicity, ease of use, and child accessibility. It covers constraints on UI depth and option count (LF-AR1), intuitive navigation and task flow (LF-AR2, LF-AR4), and confirms that the platform is usable without adult guidance by children aged 6–12." was added under LF-ST-LFR1: Navigation Simplicity and Child Usability.\\
       \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/224}{\#224}
 
+    \item 
+      \textbf{Feedback:} Inputs in Section 4.1 (Look and Feel Requirements) are not really inputs. They're more like descriptions of the tests. Consider rephrasing the inputs or renaming the field of the table from "Input" to something more appropriate. \\
+      \textbf{Source:} Peer Review by BookingKing \\
+      \textbf{Changes Made:} Modified the Input/Condition wording from sounding like test descriptions to actual inputs or conditions. For example: "Link to documentation is available on the system's frontend interface, and can be accessed" was reworded to "Link to usability documentation on frontend is clicked." \\
+      \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/534}{\#534}
+  
 \end{itemize}
 
 \subsubsection{VnV Report}
@@ -448,8 +454,38 @@
   \item 
     \textbf{Feedback:} Look and Feel (and this is a general note too): In Actual result, point to the actual data instead of just stating that it passes. \\
     \textbf{Source:} TA \\
-    \textbf{Changes Made:} Actual results for the Look and Feel test cases have been edited to point to specific data supporting the expected and actual output match. For example, "VERY\_HIGH\_SUCCESS\_RATE of users can complete all core tasks independently" was changed to "5/5 of tested users can complete all core tasks defined during usability testing independently".\\
+    \textbf{Changes Made:} Actual results for the Look and Feel test cases have been edited to point to specific data supporting the expected and actual output match. For example, "VERY\_HIGH\_SUCCESS\_RATE of users can complete all core tasks independently" was changed to "5/5 of tested users can complete all core tasks defined during usability testing independently."\\
     \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/617}{\#617}
+
+  \item 
+    \textbf{Feedback:} No Table Number for Functional and Nonfunctional Section Descriptions. \\
+    \textbf{Source:} Peer Review by Harshil-P21 \\
+    \textbf{Changes Made:} Changed "The coverage can be traced in Table X" to "The coverage can be traced in Table 3 and Table 4" in the functional requirements evaluation section, and to "Table 5 and Table 6" for the nonfunctional requirements evaluation section. \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/533}{\#533}
+    
+  \item 
+    \textbf{Feedback:} In OE-ST-EPE1, it was deemed that a 60\% satisfaction rate from the users counts as a passing test. However, it is not mentioned what the allowable range of satisfaction is to deem this test as a pass, or why 60\% is counted as a pass. \\
+    \textbf{Source:} Peer Review by abedmohammed \\
+    \textbf{Changes Made:} Added test procedure information to provide additional context and added clarification in the expected and actual output match: "Fail – while the technical criteria were met, the pilot usability testing revealed that the scaling did not meet a good level of testing conditions." \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/536}{\#535}
+
+  \item 
+    \textbf{Feedback:} Failed Test Marked as Passed in 4.2 Usability and Humanity Test UH-ST-EOU1. \\
+    \textbf{Source:} Peer Review by abedmohammed \\
+    \textbf{Changes Made:} Changed "True" to "False due to 1/6 of the tests not matching the expected output." \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/536}{\#536}
+    
+  \item 
+    \textbf{Feedback:} For the section outlining changes due to testing, although it mentions the areas of improvement that were discovered through testing and feedback from "pilot usability testing", there is no mention of the actual tests that were conducted that revealed these errors. \\
+    \textbf{Source:} Peer Review by jinalkast \\
+    \textbf{Changes Made:} Added a test procedure section: "The system was evaluated by running the assessment on devices with various screen sizes. A controlled pilot usability study was conducted with 5 participants who were asked to complete core tasks on the site while we recorded both quantitative metrics (e.g., layout consistency, response times) and qualitative feedback through a Google survey:", followed by a link to the survey questions used. \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/537}{\#537}
+
+  \item 
+    \textbf{Feedback:} For the test case SR-ST-P3, if requirements change, it should be represented in the test itself and not just in the output. \\
+    \textbf{Source:} Peer Review by jane-klavir \\
+    \textbf{Changes Made:} Changed the test so it refers to the SRS requirement, so it can remain accurate if that is ever changed: "The system stores only the types of PII permitted according to SRS requirement SR-ST-P3 and does not store any additional PII." \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/539}{\#539}
 
 \end{itemize}
 
