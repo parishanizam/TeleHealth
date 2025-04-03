@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 18, 2025
+ * Purpose: List of bias elements to be displayed when bias is detected on BiasReview page
+ */
+
 import { useState } from "react";
 
 function BiasListDropdown({ biasTimestamps }) {

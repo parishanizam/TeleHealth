@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 17, 2025
+ * Purpose: Generate security code button to be added to AddClient page
+ */
+
 function GenerateButton({ onClick, disabled, buttonText }) {
   return (
     <button

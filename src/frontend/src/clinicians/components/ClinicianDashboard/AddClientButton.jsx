@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 20, 2025
+ * Purpose: Button to go to AddClient page from ClinicianDashboard page
+ */
+
 import { useNavigate } from "react-router-dom";
 import AddIcon from "../../../assets/add_icon.svg";
 

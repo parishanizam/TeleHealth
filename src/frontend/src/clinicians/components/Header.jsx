@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 22, 2025
+ * Purpose: Page header for consistent page headings throughout the system
+ */
+
 import { useNavigate } from "react-router-dom";
 
 import Logout from "../../assets/logout.svg";

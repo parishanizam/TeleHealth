@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 18, 2025
+ * Purpose: Grid of Question Answers which displays the image options of a visual assessment (matching, quantifier)
+ *          to be displayed when bias is detected on BiasReview page
+ */
+
 import IconButtonGroup from "./IconButtonGroup";
 
 function QuestionAnswers({ question, userAnswer, markState, changeMarkState }) {
