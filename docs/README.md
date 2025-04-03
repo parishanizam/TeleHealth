@@ -29,4 +29,15 @@ the unnecessary folders and rename your folder to SRS.>
 
 The folders and files for this folder are as follows:
 
-Describe ...
+- Checklists
+- Design
+- DevelopmentPlan
+- extras (contains DevGuide and UsabilityTesting)
+- HazardAnalysis
+- Presentations
+- ProblemStatementAndGoals
+- projMngmnt
+- ReflectAndTrace
+- SRS
+- VnVPlan
+- VnVReport
