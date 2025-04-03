@@ -4,6 +4,11 @@
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{booktabs}
+% \usepackage{svg}
+% \usepackage{pdfpages}
+\usepackage{float}
+% \usepackage{caption}
+\usepackage{graphicx}
 
 \title{Reflection and Traceability Report on \progname}
 
@@ -393,13 +398,301 @@ Two approved extras were tackled and completed as part of this project:
 
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+\hspace{2em} The system went through 2 rounds of usability testing between revision 0 and revision 1. Usability testing was completed with both children and parent participants, as well as clinicians.
+This allowed the team to get real feedback from its potential users, providing feedback to ehance the system overall, and make improvements to make their lives easier.\\
+Following each usability testing scenario, they filled out Google Forms, to provide additional feedback.
 
-\plt{Don't just say what you changed, say why you changed it.  The needs of the
-client should be part of the explanation.  For example, if you made changes in
-response to usability testing, explain what the testing found and what changes
-it led to.}
+\subsection{Parents Interface}
+
+\hspace{2em} Figure \ref{fig:tutorials_feedback} depicts the feedback regarding tutorials. Figure \ref{fig:tutorials_changes} depicts revision 0's tutorials pages.
+These tutorial pages contained screenshots of the original system, which many users found confusing. As a result, the team removed the screenshots and decided to focus more on
+assessment specific tutorials, which is emphasized in revision 1's tutorial system.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide14.png}
+  \caption{Tutorials Feedback}
+  \label{fig:tutorials_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide15.png}
+  \caption{Tutorials Changes}
+  \label{fig:tutorials_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:submissions_feedback} depicts the feedback parents provided with regard to bugs, which mainly focused on the submission process.
+Figure \ref{fig:submissions_changes} depicts on the left side the original submission interface, and the right side depicting the new submission interface, which contains
+an animated loading wheel. This provides active information to users, reducing confusion, and showing that there is a process going on. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide16.png}
+  \caption{Submissions Feedback}
+  \label{fig:submissions_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide17.png}
+  \caption{Submissions Changes}
+  \label{fig:submissions_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:home_feedback} depicts the feedback parents provided with regard to the homepage and having a difficult time finding the tutorial button.
+Figure \ref{fig:home_original} depicts the original home page, which, if the screensize didn't scale accordingly, the tutorial button required scrolling to access.
+Figure \ref{fig:home_new} depicts the updated home page, which now has the tutorial button moved to the right side of the screen, which is much more apparent for users.
+
+\begin{figure}[H]
+
+  \centering
+  \includegraphics[width=\textwidth]{images/slide18.png}
+  \caption{Home Page Feedback}
+  \label{fig:home_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide19.png}
+  \caption{Original Home Page}
+  \label{fig:home_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide20.png}
+  \caption{Updated Home Page}
+  \label{fig:home_new}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:rep_feedback_parents} depicts the feedback parents provided with regard to the system not having clear instructions on how to approach next steps. Throughout testing, the team recognized this repeatedly came up during repetition assessments, in particular.
+Figure \ref{fig:rep_changes} depicts the new repetition assessments modifications. The buttons are greyed out to prevent unintentional paths from being explored, and to ensure that users
+go through the correct sequence of buttons to complete an assessment.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide21.png}
+  \caption{Repetition Assessments Feedback}
+  \label{fig:rep_feedback_parents}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide22.png}
+  \caption{Repetition Assessments Changes}
+  \label{fig:rep_changes}
+\end{figure}
+
+\newpage
+
+\subsection{Usability Test Results}
+
+\hspace{2em} Figure \ref{fig:parents_feedback} depicts the overall feedback with regard to 7 prompts, which are listed in the figure.
+Most of the feedback was positive, with the exception of 'All the button interactions reacted and responded how I thought they should', which was addressed in Figure \ref{fig:rep_changes}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide24.png}
+  \caption{Parents Usability Tests Results}
+  \label{fig:parents_feedback}
+\end{figure}
+
+Figure \ref{fig:parents_scaling_feedback} depicts the feedback parents provided with regard to the system's ability to scale the visuals appropriately.
+Given 40\% of parents indicated the screen's visuals did not scale appropriately, the system's parent side was redeveloped to better adapt to screensizes, so that the system can be used regardless of screensize or device.
+The team's supervisor indicated that their testing with children demonstrated how many children preferred to take the assessments on tablets, rather than computers. The updated interface, depicted in Figure \ref{fig:parents_scaling_changes}
+shows how the interface can resize for both tablets (left) and computers (right).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide25.png}
+  \caption{Scaling Feedback}
+  \label{fig:parents_scaling_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide26.png}
+  \caption{Scaling Changes}
+  \label{fig:parents_scaling_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:matching_feedback} depicts how the matching assessments were a favourite amongst parents and children. Upon speaking with the team's supervisor, 
+the team was instructed to make the visuals even larger so that children were more engaged with the system, and it would be even easier to select the options.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide27.png}
+  \caption{Parents Favourites}
+  \label{fig:matching_feedback}
+\end{figure}
+
+\newpage
+
+\subsection{Clinicians Interface}
+
+\hspace{2em} Figure \ref{fig:new_client_feedback} depicts the feedback clinicians provided with regard to the system lacking a reminder to give the client ID to parents when they create an account.
+This feedback was commmon amongst clinicians during the usability testing sessions, with many unsure about what to do with the security code (referred to in the figure by client ID).
+Figure \ref{fig:new_client_changes} depicts the modified 'Add New Client' feature, which contains a reminder to note down the code and provite it to the client so they can create their account.
+This change improved the systems ease of use by directly communicating with the clinician, so they don't have to make the mental note themselves to note down the security code.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide29.png}
+  \caption{Add New Client Feedback}
+  \label{fig:new_client_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide30.png}
+  \caption{Add New Clients Changes}
+  \label{fig:new_client_changes}
+\end{figure}
+
+Figure \ref{fig:dashboard_feedback} depicts the feedback clinicians provided with regard to the dashboard. The dashboard was a favourite amongst the majority of clinicians, particularly the graph and trends.
+The team decided to review the dashboard to see how we could improve it even more. The original dashboard, depicted in Figure \ref{fig:dashboard_original} had repetitive labels on the x-axis (restating Test number for each data point).
+As well, many clinicians missed the legend because it was below the graph.
+In response to this feedback, the team decided to move the legend into a box above the graph and include an x-axis label for 'Attempt', depicted in Figure \ref{fig:dashboard_new}. In addition, the team wanted to give clinicians the ability to filter
+assessments so they could access the information that mattered the most to them upon reviewing the assessment information. Therefore, the filters above the graph were added, which also affects the assessment results displayed to the right of the graph.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide31.png}
+  \caption{Dashboard Feedback}
+  \label{fig:dashboard_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide32.png}
+  \caption{Dashboard Original}
+  \label{fig:dashboard_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide33.png}
+  \caption{Dashboard Updated}
+  \label{fig:dashboard_new}
+\end{figure}
+
+Figure \ref{fig:bias_feedback} depicts the feedback clinicians provided with regard to the bias review pages. One clinician requested the addition of a 'bias note' feature. Another clinician requested a more convenient way to navigate between pages in an assessment.
+Figure \ref{fig:bias_feedback_original} depicts the original Bias Review page, which also featured a 'save changes' button. Many clinicians noted, during testing, that clicking an additional save changes button was inconvenient, and they
+preferred to see changes applied immediately. All these changes led to the implementation of the updated Bias Review page, depicted in \ref{fig:bias_feedback_new}.
+The updated page removed the 'save changes' button and saves changes immediately. As well, page navigation is made conveniently through the page to page navigation buttons in the top right.
+Further, clinician notes were added so that clinicians can add their own notes and store them with the questions.
+A major design change as well was moving all the bias-related information into its own panel on the right side of the question information, so that similar information was grouped together, improving usability.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide34.png}
+  \caption{Bias Review Feedback}
+  \label{fig:bias_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide35.png}
+  \caption{Bias Review Original}
+  \label{fig:bias_feedback_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide36.png}
+  \caption{Bias Review Updated}
+  \label{fig:bias_feedback_new}
+\end{figure}
+
+Figure \ref{fig:rep_feedback} depicts the feedback clinicians provided with regard to the grading system for reptition assesments.
+As depicted in Figure \ref{fig:rep_old}, the original Repetition Assessments Bias Review page also contained a 'save changes' button.
+The team wanted to improve clinicians' abilities to grade questions efficiently and effectively. This was done by including a 'Submitted Answer' audio player,
+so that clinicians don't have to search through the video to find a user's submission, as depicted in Figure \ref{fig:rep_new}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide37.png}
+  \caption{Bias Review - Repetition Assessments Feedback}
+  \label{fig:rep_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide38.png}
+  \caption{Bias Review - Repetition Assessments Original}
+  \label{fig:rep_old}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide39.png}
+  \caption{Bias Review - Repetition Assessments Updated}
+  \label{fig:rep_new}
+\end{figure}
+
+\newpage
+
+\subsection{Usability Test Results}
+
+\hspace{2em} Figure \ref{fig:clinicians_usability} depicts the overall feedback with regard to 7 prompts, which are listed in the figure.
+Majority of the feedback was positive, with the exception of 1 neutral response for 'I like the organization of the results interface'.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide41.png}
+  \caption{Clinicians Usability Tests Results}
+  \label{fig:clinicians_usability}
+\end{figure}
+
+\hspace{2em} Figure \ref{fig:feedback_1} depicts how difficulties were minimal.
+Figure \ref{fig:feedback_2} depicts how there was no least favourite expiernece with the clinician interface.
+Figure \ref{fig:feedback_3} depicts how there were no aspects of the platform clinicians found unnecessary.
+Figure \ref{fig:feedback_4} depicts how the clinician interface scaled appropriately 100\% of the time.
+Figure \ref{fig:feedback_5} depicts how clinicians were excited to use the platform and thinks it will be a beneficial tool.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide42.png}
+  \caption{Clinician Feedback - 1}
+  \label{fig:feedback_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide43.png}
+  \caption{Clinician Feedback - 2}
+  \label{fig:feedback_2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide44.png}
+  \caption{Clinician Feedback - 3}
+  \label{fig:feedback_3}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide45.png}
+  \caption{Scaling}
+  \label{fig:feedback_4}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide46.png}
+  \caption{Additional Feedback}
+  \label{fig:feedback_5}
+\end{figure}
 
 \newpage
 
