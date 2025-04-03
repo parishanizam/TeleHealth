@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 24, 2025
+ * Purpose: Contains individual Matching Card component to be used on Matching and Quantifier assessments
+ */
+
 import React from "react";
 
 export default function MatchingCard({ image, onClick, isSelected }) {

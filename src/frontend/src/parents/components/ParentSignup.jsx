@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Contains ParentSignup component to allow parents to create an account
+ */
+
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

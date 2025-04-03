@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 23, 2025
+ * Purpose: Contains Consent Form to ask for parent/child consent on Media Testing page
+ */
+
 import React from "react";
 
 export default function ConsentForm({ onConsent, onDecline }) {

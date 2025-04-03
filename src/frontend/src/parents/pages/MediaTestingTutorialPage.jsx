@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 24, 2025
+ * Purpose: Displays MediaTestingTutorial and its content
+ */
+
 import * as React from "react";
 import NextButton from "../components/NextButton";
 import { Header } from "../components/Header";

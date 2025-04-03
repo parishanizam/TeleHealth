@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Displays TestCompletePage and its content
+ */
+
 import { Header } from "../components/Header";
 import SmileyFace from "../../assets/Halfwaythrough.gif";
 import NextButton from "../components/NextButton";

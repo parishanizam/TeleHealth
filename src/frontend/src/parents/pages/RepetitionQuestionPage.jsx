@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Displays RepetitionQuestionPage and its content
+ */
+
 import { useState, useContext, useEffect, useRef } from "react";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";
 import { Header } from "../components/Header";

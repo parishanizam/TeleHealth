@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 22, 2025
+ * Purpose: Displays OverallTutorialPage and its content
+ */
+
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Brain, RotateCcw, Languages } from "lucide-react";

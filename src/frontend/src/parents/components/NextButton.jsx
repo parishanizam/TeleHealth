@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 30, 2025
+ * Purpose: Contains NextButton component to navigate to the next page
+ */
+
 import React from "react";
 import { Link } from "react-router-dom";
 import NextArrow from "../../assets/nextarrow.svg";

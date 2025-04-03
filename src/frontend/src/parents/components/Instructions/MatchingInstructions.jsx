@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 22, 2025
+ * Purpose: Contains Matching Instructions for Matching Assessments
+ */
+
 import VolumeButton from "../../../assets/volumebutton.svg";
 
 const instructions = [

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 15, 2025
+ * Purpose: Contains Parent slice for storing and setting Parent information states
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {

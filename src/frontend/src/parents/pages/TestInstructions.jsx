@@ -1,4 +1,9 @@
-// TestInstructions.jsx
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Displays TestInstructions page and its content
+ */
+
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { RecordingManagerContext } from "../helpers/RecordingManagerContext";

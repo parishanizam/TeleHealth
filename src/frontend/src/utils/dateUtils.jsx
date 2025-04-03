@@ -1,3 +1,9 @@
+/**
+ * Author: Mitchell Weingust
+ * Date: January 19, 2025
+ * Purpose: Contains a helper method for displaying dates in a consistent format
+ */
+
 export const formatDate = (date) => {
   if (!date) return "Invalid date";
 
