@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx}
 
 \title{Reflection and Traceability Report on \progname}
 
@@ -18,52 +20,184 @@
 
 \maketitle
 
-\plt{Reflection is an important component of getting the full benefits from a
-learning experience.  Besides the intrinsic benefits of reflection, this
-document will be used to help the TAs grade how well your team responded to
-feedback.  Therefore, traceability between Revision 0 and Revision 1 is and
-important part of the reflection exercise.  In addition, several CEAB (Canadian
-Engineering Accreditation Board) Learning Outcomes (LOs) will be assessed based
-on your reflections.}
-
 \section{Changes in Response to Feedback}
-
-\plt{Summarize the changes made over the course of the project in response to
-feedback from TAs, the instructor, teammates, other teams, the project
-supervisor (if present), and from user testers.}
-
-\plt{For those teams with an external supervisor, please highlight how the feedback 
-from the supervisor shaped your project.  In particular, you should highlight the 
-supervisor's response to your Rev 0 demonstration to them.}
-
-\plt{Version control can make the summary relatively easy, if you used issues
-and meaningful commits.  If you feedback is in an issue, and you responded in
-the issue tracker, you can point to the issue as part of explaining your
-changes.  If addressing the issue required changes to code or documentation, you
-can point to the specific commit that made the changes.  Although the links are
-helpful for the details, you should include a label for each item of feedback so
-that the reader has an idea of what each item is about without the need to click
-on everything to find out.}
-
-\plt{If you were not organized with your commits, traceability between feedback
-and commits will not be feasible to capture after the fact.  You will instead
-need to spend time writing down a summary of the changes made in response to
-each item of feedback.}
-
-\plt{You should address EVERY item of feedback.  A table or itemized list is
-recommended.  You should record every item of feedback, along with the source of
-that feedback and the change you made in response to that feedback.  The
-response can be a change to your documentation, code, or development process.
-The response can also be the reason why no changes were made in response to the
-feedback.  To make this information manageable, you will record the feedback and
-response separately for each deliverable in the sections that follow.}
-
-\plt{If the feedback is general or incomplete, the TA (or instructor) will not
-be able to grade your response to feedback.  In that case your grade on this
-document, and likely the Revision 1 versions of the other documents will be
-low.} 
+\hspace{2em}The following section indicates changes in response to feedback for all the past submitted documents.
 
 \subsection{SRS and Hazard Analysis}
+
+\subsubsection{SRS}
+\begin{itemize}
+
+  \item 
+    \textbf{Feedback:} The Use Case Diagram (Figure 5) seems too complex and focuses too much on implementation. Use case diagrams should be a high level representation of the interactions between the actors and actions. The use case diagram should not have implementation or internal working details of the application. \\
+    \textbf{Source:} Peer Review by abedmohammed\\
+    \textbf{Changes Made:} \textit{WONTFIX}: The Use Case Diagram is at a level of detail and clarity that helped the team figure out the necessary use cases for the system, and how each actor engages with it.\\
+    As well, from the diagram I do believe the 'extends' arrows are functioning appropriately. Finalize Order extends to Update Order Status as finalizing an order comes before updating order status. This is similar to how we are using Extends, as Authenticating the user happens prior to Accepting the user.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/119}{\#119}
+  
+  \item 
+    \textbf{Feedback:} In the rationales of some of the requirements under 11.2, there could be more focus on users. For example, UH-PI1 which states "The system shall support multiple languages" rationalizes this by "The assessment must be conducted in two languages for the purpose of the research study." While this is an important and valid justification, it can also be pointed out that some of the main users; primary children and their parents, would benefit tremendously from multi-language support. \\
+    \textbf{Source:} Peer Review by jane-klavir\\
+    \textbf{Changes Made:} Fixed raionale for system supporting multiple languages, to indicate the benefits for parents and children to be able to navigate the system in their preferred langauge, rather than just navigating the site for the benefits of a research study/clinicians.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/121}{\#121}
+  
+  \item 
+    \textbf{Feedback:} In section 9.1, authentication is defined by the functional requirements FR-A1 through FR-A5. Although they differentiate between the different types of users, with parent accounts being able to complete assessments and clinician accounts having the permission to view results, there is no requirement discussing how these permissions are enforced, and what happens when edge cases are encountered. Some of the edge cases that can be explored are when parents try to view clinician data or what an admin account's permissions are as a whole (the only data they should be able to view should be encrypted, for privacy reasons) \\
+    \textbf{Source:} Peer Review by jinalkast\\
+    \textbf{Changes Made:} \textit{WONTFIX}: Parents don't have access to the clinician dashboard, which can only be accessed through the clinician's login.\\
+    Encryption and security are mentioned further in NFRs as security is a quality of the system, not an authentication functional requirement.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/123}{\#123}
+  
+  \item 
+    \textbf{Feedback:} The diagram under section 6.2 is currently considering too many components. Specifically, I don't think the 'Database', 'Backend Server', 'Language Assessment Website', "\'Video Analysis Model', and 'Audio Analysis Model' should be separate components, but rather one component. \\
+    \textbf{Source:} Peer Review by nguyes44\\
+    \textbf{Changes Made:} Context of the work diagram has been simplified, reducing complexity and the number of separate components. Now, only 3 main components exist; children, parents, clinicians, all connecting to the system by their means of interaction. Reducing the complexity in the diagram made it simpler to follow, and compacted the system.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/115}{\#115}
+  
+  \item 
+    \textbf{Feedback:} Most of your constraints are intuitively defined by the client's needs for the platform, but it would help to add a fit criterion and rationale for each, as defined in the template's Constraints section. \\
+    \textbf{Source:} Peer Review by arvindshastri\\
+    \textbf{Changes Made:} Added rationales and fit criterions for all constraints to ensure all constraints can be met, and means of achieving all of them are attainable.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/117}{\#117}
+  
+  \item 
+    \textbf{Feedback:} In section 16.1, CU-CR1 has the fit criterion that mentions that the platform needs to be validated by a cultural "consultant" and CU-CR2 mentions that the assessments must be fully translated to both languages. However, in Section 23, there is no mention of any costs that are related to "translation" or a "consultant". These sections might be reviewed and the associated cost might be mentioned in the document. \\
+    \textbf{Source:} Peer Review by aysuozdal\\
+    \textbf{Changes Made:} Removed the requirement for a cultural consultant, as it is clearly out of scope of the project. Instead, replaced the fit criterion to consider a minimum of 5 representatives of the primary user groups to ensure no instances of insensitivity.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/122}{\#122}
+  
+  \item 
+    \textbf{Feedback:} Some Appearance Requirements go into implementation details and are not completely blackbox\\
+    \textbf{Source:} Peer Review by jave-klavir\\
+    \textbf{Changes Made:} Removed implementation details as SRS should not be discussing the specific technologies used. Made wording more blackbox to give developers and team the ability to adhere to requirements without focusing on the implementation details (example, changed 'large buttons, simple instructions, and child-friendly imagery' to 'accessible and age-appropriate elements')\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/124}{\#124}
+  
+  \item 
+    \textbf{Feedback:} Minor spelling errors (e.g. Assessmenet on page xxxviii) \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Fixed minor spelling errors throughout the document (Assessmenet appeared numerous times in particular). As well, changed numbering from roman numerals to arabic for ease of understanding (after the table of contents and revision history). \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/194}{\#194}
+  
+  \item 
+    \textbf{Feedback:} Figure 5: "User" should be "Use" \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Fixed simple spelling error for 'Use Case Diagram' figure title\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/192}{\#192}
+
+  \item 
+    \textbf{Feedback:} Use \texttt{\textbackslash begin\{table\}} and \texttt{\textbackslash caption\{\}} inside that so tables have numbers. Then reference them in the text. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Added table captions to all tables, and referenced/mentioned all tables in text throughout entire document. Further, added a list of tables and a list of figures to the document for ease of access.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/193}{\#193}
+
+  \item 
+    \textbf{Feedback:} MS-MR1 is probably a bit hard to test. How will you know until you have to modify something down the line? \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Modified MS-MR1 to consider how modular systems improve maintainability by isolating changes to specific components. Fit criterion is modified such that 'Any update, modification, or replacement of an individual component
+    shall not require any changes to unrelated modules/components; no more than 1 configuration update to dependent components within a module; and have no downtime exceeding 5 minutes during initial deployment'.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/196}{\#196}
+
+  \item 
+    \textbf{Feedback:} Doesn't identify template or any changes made to it. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Added mention that the SRS document 'is based on the Volere Requirements Specification Template. This document adheres to the standards of this template,
+    exactly as given by the course instructor, as modifications indicates a loss of some of the advantage of a standardized template. As a result, the document's
+    template has not been modified. Any non-applicable sections have been stated accordingly, without removal.'\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/188}{\#188}
+
+  \item 
+    \textbf{Feedback:} The LaTeX formatting of one of the tables is a bit awkward, with the lines not going all the way to the horizontal ones. Look up Booktabs tables in LaTeX, they look much better. Actually, the table on page xxii looks better for the most part. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Fixed 'Work Partitioning of BUC' table's formatting such that lines fully extended, and table formatting was consistent throughout the document. \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/189}{\#189}
+
+  \item 
+    \textbf{Feedback:} Good job mentioning HIPAA. Is there a Canadian equivalent that you also need to follow? If so, please explore it and modify it. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Given the project will be used in both California and Ontario, HIPAA remains in the document. In addition, PHIPA (Ontario – Personal Health Information Protection Act) has been included as a reference and standard, as well as PIPEDA (Personal Information Protection and Electronic Documents Act - federal law for collecting, using, and disclosing personal information).\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/186}{\#186}
+
+  \item 
+    \textbf{Feedback:} Make use of symbolic constants instead of "magic numbers" in the document. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Went through the entire document to remove any and all instaces of magic numbers in the document. Further, for ease of access, added an additional appendix 'Appendix - Symbolic Parameters' to conveniently access all variables and their values.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/187}{\#187}
+
+  \item 
+    \textbf{Feedback:} 100\% of users is probably too ambitious, should have some leeway to that. 80-90\% is usually a good idea. Some users just might not be able to do things on the first try (e.g. LF-AR2). \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Fixed all 100\% ambitiions throughout the document (changed to HIGH\_SUCCES\_RATE instead). In addition, when considering testing with real people, we are considering completed assessments, records, sessions, reports.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/195}{\#195}
+
+  \item 
+    \textbf{Feedback:} It is best for performance requirements to say "The system shall" rather than saying "The system must": this is so that if the requirement is violated, using "shall" can provide a stronger legal basis for enforcement.
+    One of the capacity requirements mention that "The system must accommodate a minimum of 2000 user accounts
+    at launch.", the fit criterion does not mention a way to verify that, when you reach the verification stage, how do you plan on verifying this requirement is met? will you populate 2000 user accounts to verify that? I think the fit criterion could have some description on how this would be verified. This could also apply to other requirements as well.\\
+    \textbf{Source:} Peer Review by george536\\
+    \textbf{Changes Made:} Replaced 'the system must' with 'the system shall' for all performance requirements for consistency and accuracy. Updated the 2000 user requirement to specify the fit criterion for measuring the capacity requirement (The system shall be designed to support MIN\_USER\_ACCOUNTS user accounts at launch, through system design documentation and capacity planning, ensuring the infrastructure and architecture are capable). \\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/116}{\#116}
+  
+  \item 
+    \textbf{Feedback:} The goals of the project should be measurable through some metric, or contain a reference to FRs/NFRs to quantify them, as discussed in the Volere template \\
+    \textbf{Source:} Peer Review by arvindshastri\\
+    \textbf{Changes Made:} \textit{WONTFIX}: The FRs and NFRs stated throughout the document are how the team plans on managing and quantifying our goals. The goals section is treated more as a general overview and a brief introduction to what the team plans on exploring throughout the document. Given the goals are intended to be clear and easy to understand, the quantification of these goals are explored further throughout the document, and will not be explicitly stated in the Goals section itself.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/118}{\#118}
+
+  \item 
+    \textbf{Feedback:} Ensure you have no section headings with a subsection heading right under it and no text introducing it. And don't just leave sections blank, at least insert Not Applicable, or a small sentence explaining why. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Added brief description under every section heading, ensuring no section headings with a subsection heading right under it was not missing an introduction. Regarding 'don't just leave sections blank, at least insert Not Applicable, or a small sentence explaining why' No sections were left blank. However, there was a section with a table not in the correct position, giving the illusion there was an empty section previously.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/191}{\#191}
+
+  \item 
+    \textbf{Feedback:} Export and insert diagrams as PDFs so they are not pixelated (e.g. all the diagram figures). \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Reuploaded all diagrams to be PDFs to increase readability and improve professionalism.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/190}{\#190}
+
+  \item 
+    \textbf{Feedback:} Connect your requirements to your phase-in plan by assigning priorities or phases to them. \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Added 2 new tables, 'Table 16: Development Revision 0 Deadlines'; 'Table 17: Development Revision 1 Deadlines'. Broke down requirements into revision 0 and revision 1 deadlines (separated by corresponding tables).
+    Assigned priorities and deadlines for accomplishing each task, so the team had clear goals in mind while working on the project.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/198}{\#198}
+
+  \item 
+    \textbf{Feedback:} Make sure you put team 22 in all the issues (they were in this one, but I noticed some missing for the HA) \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Communicated with full team to ensure that everyone went back to their peer review issues, and added 'Team 22' in the issue title. Provides easy and convenient tracability.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/199}{\#199}
+
+  \item 
+    \textbf{Feedback:} Good references - are there any about speech therapy that could be inserted? \\
+    \textbf{Source:} TA \\
+    \textbf{Changes Made:} Added an additional reference regarding speech therapy, which is mentioned in 'The Current Situation' section of the SRS document. The citation describes how to properly executive a variety of activities for effective and engaging at-home speech therapy, which was used as a resource/inspriation for our design.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/208}{\#208}
+
+  \item 
+    \textbf{Feedback:} Solution constraint 3.1.7 denotes that the platform must comply with WCAG 2.1 accessibility standards. However, in section 11.5 (accessibility requirements), there is no mention of how the system will contain these considerations for digital accessibility, or how the adherence will be measured. \\
+    \textbf{Source:} Peer Review by jinalkast\\
+    \textbf{Changes Made:} Added on to 11.5, how compliance with with WCAG 2.1 accessibility standards will be verified, through a manual review process, comprising of testing
+    with a variety of technologies such as screen readers, keyboard-only navigation, touch interactions, and evaluation across a variety of screen sizes.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/125}{\#125}
+
+  \item 
+    \textbf{Feedback:} Under the Type column of the Data Dictionary, Parent Class, Class and Clinician Class are all use as types. Confusingly, Clinician has the Clinician Class type, but Parent only has the Class type. This is a mixup in terminology.
+    The Content column for User, Parent and Clinician are very vague, only listing "Content". This should be improved to make it more clear what data each type has. \\
+    \textbf{Source:} Peer Review by thompa39\\
+    \textbf{Changes Made:} 'Content' has been changed to 'Clinician Content' and 'Parent Content' for clarity in the data dictionary, improving consistency and making it clear what each piece of data is used for.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/120}{\#120}
+
+  \item
+    \textbf{TA Feedback:} I love the Paul Blart persona! I think you need one or two more for other important users, like medical professionals.
+    \textbf{Peer Feedback:} Personas do not cover all important users/stakeholders. Without user personas, your document doesn't provide a detailed enough description of what the users want from the system, instead it mainly just covers their role (child takes the assessment, parent delivers it, etc.). Your user persona for the parent was really good and just adding two more, one for the children and one for the SLPs, should provide readers of the SRS all the insight they need to understand your stakeholders. \\
+    \textbf{Source:} TA and Peer Review by marmanios\\
+    \textbf{Changes Made:} Added 2 additional important users; a clinician user profile, and a child user profile. Now there are 3 important personas which cover all important users of our system.\\
+    \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/197}{\#197} \href{https://github.com/parishanizam/TeleHealth/issues/114}{\#114}
+
+  \end{itemize}
+
+\newpage
 
 \subsubsection{Hazard Analysis}
 
@@ -123,6 +257,8 @@ low.}
       \textbf{Issue Link:} \href{https://github.com/parishanizam/TeleHealth/issues/159}{\#159}
 
 \end{itemize}
+
+\newpage
 
 \subsection{Design and Design Documentation}
 \begin{itemize}
@@ -249,6 +385,8 @@ low.}
 
 \end{itemize}
 
+\newpage
+
 \subsection{VnV Plan and Report}
 
 \subsubsection{VnV Plan}
@@ -308,7 +446,7 @@ low.}
 
 \subsection{Challenge Level}
 
-The challenge level for this project was classified as \textbf{general}. The scope was limited in terms of the research required, and the domain knowledge needed was primarily focused on basic full-stack web development using a technology stack of our choice. 
+\hspace{2em}The challenge level for this project was classified as \textbf{general}. The scope was limited in terms of the research required, and the domain knowledge needed was primarily focused on basic full-stack web development using a technology stack of our choice. 
 Open-source tools and libraries, such as MediaPipe and Deepgram, were leveraged for audio and video processing. The project involved designing and building a system from scratch, with specific emphasis on user experience, accessibility, and secure data handling in a telehealth setting.
 
 \subsection{Extras}
@@ -323,20 +461,312 @@ Two approved extras were tackled and completed as part of this project:
     It included setup instructions, system architecture explanations, technology stack breakdowns, service responsibilities, and customization notes for key components like the bias detection feature.
 \end{itemize}
 
+\newpage
+
 \section{Design Iteration (LO11 (PrototypeIterate))}
 
-\plt{Explain how you arrived at your final design and implementation.  How did
-the design evolve from the first version to the final version?} 
+\hspace{2em} The system went through 2 rounds of usability testing between revision 0 and revision 1. Usability testing was completed with both children and parent participants, as well as clinicians.
+This allowed the team to get real feedback from its potential users, providing feedback to ehance the system overall, and make improvements to make their lives easier.\\
+Following each usability testing scenario, they filled out Google Forms, to provide additional feedback.
 
-\plt{Don't just say what you changed, say why you changed it.  The needs of the
-client should be part of the explanation.  For example, if you made changes in
-response to usability testing, explain what the testing found and what changes
-it led to.}
+\subsection{Parents Interface}
+
+\hspace{2em} Figure \ref{fig:tutorials_feedback} depicts the feedback regarding tutorials. Figure \ref{fig:tutorials_changes} depicts revision 0's tutorials pages.
+These tutorial pages contained screenshots of the original system, which many users found confusing. As a result, the team removed the screenshots and decided to focus more on
+assessment specific tutorials, which is emphasized in revision 1's tutorial system.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide14.png}
+  \caption{Tutorials Feedback}
+  \label{fig:tutorials_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide15.png}
+  \caption{Tutorials Changes}
+  \label{fig:tutorials_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:submissions_feedback} depicts the feedback parents provided with regard to bugs, which mainly focused on the submission process.
+Figure \ref{fig:submissions_changes} depicts on the left side the original submission interface, and the right side depicting the new submission interface, which contains
+an animated loading wheel. This provides active information to users, reducing confusion, and showing that there is a process going on. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide16.png}
+  \caption{Submissions Feedback}
+  \label{fig:submissions_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide17.png}
+  \caption{Submissions Changes}
+  \label{fig:submissions_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:home_feedback} depicts the feedback parents provided with regard to the homepage and having a difficult time finding the tutorial button.
+Figure \ref{fig:home_original} depicts the original home page, which, if the screensize didn't scale accordingly, the tutorial button required scrolling to access.
+Figure \ref{fig:home_new} depicts the updated home page, which now has the tutorial button moved to the right side of the screen, which is much more apparent for users.
+
+\begin{figure}[H]
+
+  \centering
+  \includegraphics[width=\textwidth]{images/slide18.png}
+  \caption{Home Page Feedback}
+  \label{fig:home_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide19.png}
+  \caption{Original Home Page}
+  \label{fig:home_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide20.png}
+  \caption{Updated Home Page}
+  \label{fig:home_new}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:rep_feedback_parents} depicts the feedback parents provided with regard to the system not having clear instructions on how to approach next steps. Throughout testing, the team recognized this repeatedly came up during repetition assessments, in particular.
+Figure \ref{fig:rep_changes} depicts the new repetition assessments modifications. The buttons are greyed out to prevent unintentional paths from being explored, and to ensure that users
+go through the correct sequence of buttons to complete an assessment.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide21.png}
+  \caption{Repetition Assessments Feedback}
+  \label{fig:rep_feedback_parents}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide22.png}
+  \caption{Repetition Assessments Changes}
+  \label{fig:rep_changes}
+\end{figure}
+
+\newpage
+
+\subsection{Usability Test Results}
+
+\hspace{2em} Figure \ref{fig:parents_feedback} depicts the overall feedback with regard to 7 prompts, which are listed in the figure.
+Most of the feedback was positive, with the exception of 'All the button interactions reacted and responded how I thought they should', which was addressed in Figure \ref{fig:rep_changes}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide24.png}
+  \caption{Parents Usability Tests Results}
+  \label{fig:parents_feedback}
+\end{figure}
+
+Figure \ref{fig:parents_scaling_feedback} depicts the feedback parents provided with regard to the system's ability to scale the visuals appropriately.
+Given 40\% of parents indicated the screen's visuals did not scale appropriately, the system's parent side was redeveloped to better adapt to screensizes, so that the system can be used regardless of screensize or device.
+The team's supervisor indicated that their testing with children demonstrated how many children preferred to take the assessments on tablets, rather than computers. The updated interface, depicted in Figure \ref{fig:parents_scaling_changes}
+shows how the interface can resize for both tablets (left) and computers (right).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide25.png}
+  \caption{Scaling Feedback}
+  \label{fig:parents_scaling_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide26.png}
+  \caption{Scaling Changes}
+  \label{fig:parents_scaling_changes}
+\end{figure}
+
+\newpage
+
+Figure \ref{fig:matching_feedback} depicts how the matching assessments were a favourite amongst parents and children. Upon speaking with the team's supervisor, 
+the team was instructed to make the visuals even larger so that children were more engaged with the system, and it would be even easier to select the options.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide27.png}
+  \caption{Parents Favourites}
+  \label{fig:matching_feedback}
+\end{figure}
+
+\newpage
+
+\subsection{Clinicians Interface}
+
+\hspace{2em} Figure \ref{fig:new_client_feedback} depicts the feedback clinicians provided with regard to the system lacking a reminder to give the client ID to parents when they create an account.
+This feedback was commmon amongst clinicians during the usability testing sessions, with many unsure about what to do with the security code (referred to in the figure by client ID).
+Figure \ref{fig:new_client_changes} depicts the modified 'Add New Client' feature, which contains a reminder to note down the code and provite it to the client so they can create their account.
+This change improved the systems ease of use by directly communicating with the clinician, so they don't have to make the mental note themselves to note down the security code.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide29.png}
+  \caption{Add New Client Feedback}
+  \label{fig:new_client_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide30.png}
+  \caption{Add New Clients Changes}
+  \label{fig:new_client_changes}
+\end{figure}
+
+Figure \ref{fig:dashboard_feedback} depicts the feedback clinicians provided with regard to the dashboard. The dashboard was a favourite amongst the majority of clinicians, particularly the graph and trends.
+The team decided to review the dashboard to see how we could improve it even more. The original dashboard, depicted in Figure \ref{fig:dashboard_original} had repetitive labels on the x-axis (restating Test number for each data point).
+As well, many clinicians missed the legend because it was below the graph.
+In response to this feedback, the team decided to move the legend into a box above the graph and include an x-axis label for 'Attempt', depicted in Figure \ref{fig:dashboard_new}. In addition, the team wanted to give clinicians the ability to filter
+assessments so they could access the information that mattered the most to them upon reviewing the assessment information. Therefore, the filters above the graph were added, which also affects the assessment results displayed to the right of the graph.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide31.png}
+  \caption{Dashboard Feedback}
+  \label{fig:dashboard_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide32.png}
+  \caption{Dashboard Original}
+  \label{fig:dashboard_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide33.png}
+  \caption{Dashboard Updated}
+  \label{fig:dashboard_new}
+\end{figure}
+
+Figure \ref{fig:bias_feedback} depicts the feedback clinicians provided with regard to the bias review pages. One clinician requested the addition of a 'bias note' feature. Another clinician requested a more convenient way to navigate between pages in an assessment.
+Figure \ref{fig:bias_feedback_original} depicts the original Bias Review page, which also featured a 'save changes' button. Many clinicians noted, during testing, that clicking an additional save changes button was inconvenient, and they
+preferred to see changes applied immediately. All these changes led to the implementation of the updated Bias Review page, depicted in \ref{fig:bias_feedback_new}.
+The updated page removed the 'save changes' button and saves changes immediately. As well, page navigation is made conveniently through the page to page navigation buttons in the top right.
+Further, clinician notes were added so that clinicians can add their own notes and store them with the questions.
+A major design change as well was moving all the bias-related information into its own panel on the right side of the question information, so that similar information was grouped together, improving usability.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide34.png}
+  \caption{Bias Review Feedback}
+  \label{fig:bias_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide35.png}
+  \caption{Bias Review Original}
+  \label{fig:bias_feedback_original}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide36.png}
+  \caption{Bias Review Updated}
+  \label{fig:bias_feedback_new}
+\end{figure}
+
+Figure \ref{fig:rep_feedback} depicts the feedback clinicians provided with regard to the grading system for reptition assesments.
+As depicted in Figure \ref{fig:rep_old}, the original Repetition Assessments Bias Review page also contained a 'save changes' button.
+The team wanted to improve clinicians' abilities to grade questions efficiently and effectively. This was done by including a 'Submitted Answer' audio player,
+so that clinicians don't have to search through the video to find a user's submission, as depicted in Figure \ref{fig:rep_new}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide37.png}
+  \caption{Bias Review - Repetition Assessments Feedback}
+  \label{fig:rep_feedback}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide38.png}
+  \caption{Bias Review - Repetition Assessments Original}
+  \label{fig:rep_old}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide39.png}
+  \caption{Bias Review - Repetition Assessments Updated}
+  \label{fig:rep_new}
+\end{figure}
+
+\newpage
+
+\subsection{Usability Test Results}
+
+\hspace{2em} Figure \ref{fig:clinicians_usability} depicts the overall feedback with regard to 7 prompts, which are listed in the figure.
+Majority of the feedback was positive, with the exception of 1 neutral response for 'I like the organization of the results interface'.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide41.png}
+  \caption{Clinicians Usability Tests Results}
+  \label{fig:clinicians_usability}
+\end{figure}
+
+\hspace{2em} Figure \ref{fig:feedback_1} depicts how difficulties were minimal.
+Figure \ref{fig:feedback_2} depicts how there was no least favourite expiernece with the clinician interface.
+Figure \ref{fig:feedback_3} depicts how there were no aspects of the platform clinicians found unnecessary.
+Figure \ref{fig:feedback_4} depicts how the clinician interface scaled appropriately 100\% of the time.
+Figure \ref{fig:feedback_5} depicts how clinicians were excited to use the platform and thinks it will be a beneficial tool.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide42.png}
+  \caption{Clinician Feedback - 1}
+  \label{fig:feedback_1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide43.png}
+  \caption{Clinician Feedback - 2}
+  \label{fig:feedback_2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide44.png}
+  \caption{Clinician Feedback - 3}
+  \label{fig:feedback_3}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide45.png}
+  \caption{Scaling}
+  \label{fig:feedback_4}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/slide46.png}
+  \caption{Additional Feedback}
+  \label{fig:feedback_5}
+\end{figure}
+
+\newpage
 
 \section{Design Decisions (LO12)}
 
 \subsection{Limitations}
-We had a tight timeline, so we chose an architecture we could build quickly in terms of, all of us could work 
+\hspace{2em}We had a tight timeline, so we chose an architecture we could build quickly in terms of, all of us could work 
 on it without blocking each other, which is why we decided to go with the microservice architecture design for our backend.
 Our backend had to be deployed on a server with limited speed (due to financial limitations), which pushed us to use asynchronous processing 
 so children don't have to wait for slow backend processing. These time and server limitations guided us to focus on only 
@@ -344,21 +774,24 @@ the essential features first, rather than building a large or overly complex sys
 we had to be mindful of not being too ambitious.
 
 \subsection{Assumptions}
-We assumed that users have reliable internet connections, can record audio and video, and that assessments would 
+\hspace{2em}We assumed that users have reliable internet connections, can record audio and video, and that assessments would 
 not exceed a certain amount of time. We also assumed the platform would grow over time, so we designed it to be 
 scalable by using a microservice architecture. On the front end, we made it dynamic with an abstract 
 factory pattern to generate our assessments, so adding or modifying quizzes would be simpler as the assumption is that the platform will grow. 
 
 \subsection{Constraints}
-We built the system as a web platform to meet the requirement of easy access without extra software. We made sure 
+\hspace{2em}We built the system as a web platform to meet the requirement of easy access without extra software. We made sure 
 to consider HIPAA, PHIPA, and PIPEDA rules, which meant enforcing secure logins and data storage which was done through role base access and bycrpt encryptions. 
 The platform also had to handle enough users at once without slowing down, so made sure our deployment would have options to speed up the servers if the 
 future developers choose so. We included support for different video and audio settings based on bandwidth, and we followed 
 WCAG 2.1 standards for accessibility. Lastly, legal rules about keeping patient records for a set number of years 
 influenced how we designed our data storage and archiving processes, so that removing data would be very easy and our system wouldn't crash if an assessment is not found, as it calls the API every time when refreshing the page. 
+
+\newpage
+
 \section{Economic Considerations (LO23)}
 
-There is a growing market for TeleHealth Insights, especially as the demand for remote speech-language services continues to rise. 
+\hspace{2em}There is a growing market for TeleHealth Insights, especially as the demand for remote speech-language services continues to rise. 
 According to the U.S. Bureau of Labor Statistics, employment opportunities for speech-language pathologists are projected to grow by 18\% 
 from 2023 to 2033 \cite{slpgrowth}. Additionally, the cultural and educational impact of the COVID-19 pandemic has accelerated the demand for 
 at-home, tech-enabled solutions, which offer both convenience and accessibility for families and clinicians.
@@ -380,13 +813,13 @@ of tool is increasing, as research estimates that approximately 7.5\% of school-
 
 \section{Reflection on Project Management (LO24)}
 
-\plt{This question focuses on processes and tools used for project management.}
+\hspace{2em} The processes and tools used for project management are emphasized in the questions below.
 
 \subsection{How Does Your Project Management Compare to Your Development Plan}
 
 \subsubsection{Team Meeting Plan}
 
-As outlined in the Development Plan, the team met in person every Monday from 3:30-4:30 PM throughout both the Fall and Winter semesters. Additional meetings were held as needed, either in person or virtually through the team's Capstone Discord server—particularly as major deliverable deadlines approached.
+\hspace{2em}As outlined in the Development Plan, the team met in person every Monday from 3:30-4:30 PM throughout both the Fall and Winter semesters. Additional meetings were held as needed, either in person or virtually through the team's Capstone Discord server—particularly as major deliverable deadlines approached.
 
 In-person team meetings were typically held in Thode Library and followed a structured format:
 \begin{itemize}
@@ -395,11 +828,12 @@ In-person team meetings were typically held in Thode Library and followed a stru
     \item Work session or discussion (40 minutes)
     \item Planning next steps (5-10 minutes)
 \end{itemize}
+
 Supervisor meetings with Dr.Irene Yuan were held in person at ABB every Tuesday from 9:45-10:15 AM during the Fall term, and every Wednesday from 12:45-1:30 PM during the Winter term. Exceptions to the meeting schedule were made when the university was closed due to holidays or by group consensus.
 
 \subsubsection{Team Communication Plan}
 
-Communication was a key factor in the success of our project, and our team used a combination of platforms to stay organized and connected throughout the development process.
+\hspace{2em}Communication was a key factor in the success of our project, and our team used a combination of platforms to stay organized and connected throughout the development process.
 
 \textbf{Discord} was our primary platform for day-to-day communication. The server was organized into structured text channels to keep discussions focused and easy to navigate:
 \begin{itemize}
@@ -428,26 +862,27 @@ Communication was a key factor in the success of our project, and our team used 
 
 \subsubsection{Team Member Roles}
 
-The main roles from development plan stayed the same however assignments did change.
+\hspace{2em}The main roles from development plan stayed the same however assignments did change.
 While all members contributed to documentation, development, testing, and issue tracking, the following specialized responsibilities were maintained throughout the project:
 
 \begin{itemize}
     \item \textbf{Mitchell Weingust – Project Manager }  
-    Chaired team meetings, managed the overall project timeline, ensured deadlines were met, and kept the team aligned and on track for deliverables.
+    Chaired team meetings, managed the overall project timeline, ensured deadlines were met, and kept the team aligned, organized and on track for all deliverables. Coordinated communication amongst the team's TA and the course instructor.
+    Responsible for leading the design decisions of the clinician interface.
 
     \item \textbf{Parisha Nizam – Team Liason \& Frontend Lead:}  
-    Chaired external meetings and managed communication with the capstone supervisor, collaborators, TAs, course instructors, and any other external stakeholders. Also led the frontend development. 
+    Chaired external meetings and managed communication with the capstone supervisor, collaborators and any other external stakeholders. Also led the frontend development. 
 
     \item \textbf{Promish Kandel – Lead Developer \& Machine Learning Video/Audio Lead:}  
     Led the technical design and coordination of the system. Oversaw backend architecture and implementation while also managing the video analysis component of the bias detection system.
 
     \item \textbf{Jasmine Sun-Hu – UI/UX Design Lead:}  
-    Responsible for leading the design discussions of the user interface and user experience for all platform users (parents, children, and clinicians).
+    Responsible for leading the design decisions of the parents' and children's interface, along with overall user experience.
 \end{itemize}
 
 \subsubsection{Workflow Plan}
 
-Our team used GitHub Issues as the core of our workflow. All tasks—including features, bugs, documentation, and meetings; were tracked as individual issues. 
+\hspace{2em}Our team used GitHub Issues as the core of our workflow. All tasks—including features, bugs, documentation, and meetings; were tracked as individual issues. 
 Each issue included labels, milestones, assignees, and detailed checklists for sub-tasks. Instead of using GitHub Projects, we managed progress directly through labeled issues and milestone tracking. Pull requests were tied to issues and required review before merging. GitHub Actions handled CI workflows, enforcing linting and running tests. A rollback strategy was included to ensure safe and stable deployments.
 
 \subsubsection{Expected Technologies}
@@ -494,9 +929,6 @@ The following tools and technologies were used throughout the project, as origin
 
 \subsection{What Went Well?}
 
-\plt{What went well for your project management in terms of processes and 
-technology?}
-
 Our team's project management went well in several areas, particularly in coordination, organization and documentation. The team consistently attended weekly in-person meetings 
 with the capstone supervisor as outlined in the development plan, and supplemented those with additional ad hoc meetings both virtual and in person as necessary when deadlines were 
 approaching. This momentum helped ensure consistent progress throughout the project. The team also made effective use of Discord for daily communication; the structured channel layout 
@@ -506,20 +938,30 @@ within the team. In addition, our team adhered closely to our chosen technologie
 
 \subsection{What Went Wrong?}
 
-\plt{What went wrong in terms of processes and technology?}
+\hspace{2em}Our team's communication could have been a bit more consistent. There were times the team was unsure about which issues were already being worked on by other team members,
+and times when it would look like team members made minimal progress, when in reality, they just had larger commits and would complete issues all at once. This led to
+the team being unsure about the progress of different checkpoints and milestones. However, upon meeting with the team, we discussed strategies to try to resolve this issue, such
+as posting daily updates, and showing progress screenshots of work. This took place later in the development process.\\
+
+Another thing that went wrong along the way was the modification and changes of requirements throughout the development process. There were times in meetings with the team's supervisor and
+the external stakeholder (Dr. Du) when requirements would change, and the team would need to quickly adapt. However, the fast-paced development cycle, along with balancing the team's schedules
+made it difficult to complete everything requested. As a result, the team had to prioritize which features were necessary, and which features were 'nice to haves'. Most items discussed were implemented,
+but given more time, the team would've wanted to add more features to further enhance the system.
 
 \subsection{What Would you Do Differently Next Time?}
 
-If we had to do this project again, the main thing we would do differently is connecting our design to code and doing a bit of research before making our final design. 
+\hspace{2em}If we had to do this project again, the main thing we would do differently is connecting our design to code and doing a bit of research before making our final design. 
 We found that there was a disconnect between our design and the correct way of making modules into code and how to connect our frontend to backend. A good example of this is 
 the app controller, as we first thought we could route all API calls from the clinician and parent GUI through one module. However, when coding, we found that this would be 
 difficult and serve very little purpose. We also think we spent too much time thinking about all the modules we could have versus the modules we needed. You can see this between our
 rev 0 module hierarchy in the MG document to rev 1; half of the backend modules are gone as we didn't need them. Finally, we would spend more time solidifying the requirements, and we found that 
 there were times that new requirements were being added, which made coding that much harder. Overall, these are the two main areas that we would focus on for future projects and into the workforce.
 
+\newpage
+
 \section{Reflection on Capstone}
 
-\plt{This question focuses on what you learned during the course of the capstone project.}
+\hspace{2em} The following sections focus on what we learned during the course of the capstone project.
 
 \subsection{Which Courses Were Relevant}
 
@@ -540,7 +982,7 @@ The following Software Engineering courses were relevant for our capstone projec
 
 \subsection{Knowledge/Skills Outside of Courses}
 
-To build and deploy a full-stack system, we had to learn several skills and technologies not covered in our course curriculum:
+\hspace{2em} To build and deploy a full-stack system, we had to learn several skills and technologies not covered in our course curriculum:
 
 \begin{itemize}
     \item \textbf{Web Development:} We learned how to develop modern web applications using tools like React, Tailwind CSS, Vite, Node.js, and Express.js.
