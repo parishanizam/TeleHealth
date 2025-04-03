@@ -374,7 +374,7 @@ low.}
 
 \subsection{Challenge Level}
 
-The challenge level for this project was classified as \textbf{general}. The scope was limited in terms of the research required, and the domain knowledge needed was primarily focused on basic full-stack web development using a technology stack of our choice. 
+\hspace{2em}The challenge level for this project was classified as \textbf{general}. The scope was limited in terms of the research required, and the domain knowledge needed was primarily focused on basic full-stack web development using a technology stack of our choice. 
 Open-source tools and libraries, such as MediaPipe and Deepgram, were leveraged for audio and video processing. The project involved designing and building a system from scratch, with specific emphasis on user experience, accessibility, and secure data handling in a telehealth setting.
 
 \subsection{Extras}
@@ -406,7 +406,7 @@ it led to.}
 \section{Design Decisions (LO12)}
 
 \subsection{Limitations}
-We had a tight timeline, so we chose an architecture we could build quickly in terms of, all of us could work 
+\hspace{2em}We had a tight timeline, so we chose an architecture we could build quickly in terms of, all of us could work 
 on it without blocking each other, which is why we decided to go with the microservice architecture design for our backend.
 Our backend had to be deployed on a server with limited speed (due to financial limitations), which pushed us to use asynchronous processing 
 so children don't have to wait for slow backend processing. These time and server limitations guided us to focus on only 
@@ -414,13 +414,13 @@ the essential features first, rather than building a large or overly complex sys
 we had to be mindful of not being too ambitious.
 
 \subsection{Assumptions}
-We assumed that users have reliable internet connections, can record audio and video, and that assessments would 
+\hspace{2em}We assumed that users have reliable internet connections, can record audio and video, and that assessments would 
 not exceed a certain amount of time. We also assumed the platform would grow over time, so we designed it to be 
 scalable by using a microservice architecture. On the front end, we made it dynamic with an abstract 
 factory pattern to generate our assessments, so adding or modifying quizzes would be simpler as the assumption is that the platform will grow. 
 
 \subsection{Constraints}
-We built the system as a web platform to meet the requirement of easy access without extra software. We made sure 
+\hspace{2em}We built the system as a web platform to meet the requirement of easy access without extra software. We made sure 
 to consider HIPAA, PHIPA, and PIPEDA rules, which meant enforcing secure logins and data storage which was done through role base access and bycrpt encryptions. 
 The platform also had to handle enough users at once without slowing down, so made sure our deployment would have options to speed up the servers if the 
 future developers choose so. We included support for different video and audio settings based on bandwidth, and we followed 
@@ -448,7 +448,7 @@ users currently exist?}
 
 \subsubsection{Team Meeting Plan}
 
-As outlined in the Development Plan, the team met in person every Monday from 3:30-4:30 PM throughout both the Fall and Winter semesters. Additional meetings were held as needed, either in person or virtually through the team's Capstone Discord server—particularly as major deliverable deadlines approached.
+\hspace{2em}As outlined in the Development Plan, the team met in person every Monday from 3:30-4:30 PM throughout both the Fall and Winter semesters. Additional meetings were held as needed, either in person or virtually through the team's Capstone Discord server—particularly as major deliverable deadlines approached.
 
 In-person team meetings were typically held in Thode Library and followed a structured format:
 \begin{itemize}
@@ -457,11 +457,12 @@ In-person team meetings were typically held in Thode Library and followed a stru
     \item Work session or discussion (40 minutes)
     \item Planning next steps (5-10 minutes)
 \end{itemize}
+
 Supervisor meetings with Dr.Irene Yuan were held in person at ABB every Tuesday from 9:45-10:15 AM during the Fall term, and every Wednesday from 12:45-1:30 PM during the Winter term. Exceptions to the meeting schedule were made when the university was closed due to holidays or by group consensus.
 
 \subsubsection{Team Communication Plan}
 
-Communication was a key factor in the success of our project, and our team used a combination of platforms to stay organized and connected throughout the development process.
+\hspace{2em}Communication was a key factor in the success of our project, and our team used a combination of platforms to stay organized and connected throughout the development process.
 
 \textbf{Discord} was our primary platform for day-to-day communication. The server was organized into structured text channels to keep discussions focused and easy to navigate:
 \begin{itemize}
@@ -490,7 +491,7 @@ Communication was a key factor in the success of our project, and our team used 
 
 \subsubsection{Team Member Roles}
 
-The main roles from development plan stayed the same however assignments did change.
+\hspace{2em}The main roles from development plan stayed the same however assignments did change.
 While all members contributed to documentation, development, testing, and issue tracking, the following specialized responsibilities were maintained throughout the project:
 
 \begin{itemize}
@@ -510,7 +511,7 @@ While all members contributed to documentation, development, testing, and issue 
 
 \subsubsection{Workflow Plan}
 
-Our team used GitHub Issues as the core of our workflow. All tasks—including features, bugs, documentation, and meetings; were tracked as individual issues. 
+\hspace{2em}Our team used GitHub Issues as the core of our workflow. All tasks—including features, bugs, documentation, and meetings; were tracked as individual issues. 
 Each issue included labels, milestones, assignees, and detailed checklists for sub-tasks. Instead of using GitHub Projects, we managed progress directly through labeled issues and milestone tracking. Pull requests were tied to issues and required review before merging. GitHub Actions handled CI workflows, enforcing linting and running tests. A rollback strategy was included to ensure safe and stable deployments.
 
 \subsubsection{Expected Technologies}
@@ -564,11 +565,19 @@ technology?}
 
 \subsection{What Went Wrong?}
 
-\plt{What went wrong in terms of processes and technology?}
+\hspace{2em}Our team's communication could have been a bit more consistent. There were times the team was unsure about which issues were already being worked on by other team members,
+and times when it would look like team members made minimal progress, when in reality, they just had larger commits and would complete issues all at once. This led to
+the team being unsure about the progress of different checkpoints and milestones. However, upon meeting with the team, we discussed strategies to try to resolve this issue, such
+as posting daily updates, and showing progress screenshots of work. This took place later in the development process.\\
+
+Another thing that went wrong along the way was the modification and changes of requirements throughout the development process. There were times in meetings with the team's supervisor and
+the external stakeholder (Dr. Du) when requirements would change, and the team would need to quickly adapt. However, the fast-paced development cycle, along with balancing the team's schedules
+made it difficult to complete everything requested. As a result, the team had to prioritize which features were necessary, and which features were 'nice to haves'. Most items discussed were implemented,
+but given more time, the team would've wanted to add more features to further enhance the system.
 
 \subsection{What Would you Do Differently Next Time?}
 
-If we had to do this project again, the main thing we would do differently is connecting our design to code and doing a bit of research before making our final design. 
+\hspace{2em}If we had to do this project again, the main thing we would do differently is connecting our design to code and doing a bit of research before making our final design. 
 We found that there was a disconnect between our design and the correct way of making modules into code and how to connect our frontend to backend. A good example of this is 
 the app controller, as we first thought we could route all API calls from the clinician and parent GUI through one module. However, when coding, we found that this would be 
 difficult and serve very little purpose. We also think we spent too much time thinking about all the modules we could have versus the modules we needed. You can see this between our
