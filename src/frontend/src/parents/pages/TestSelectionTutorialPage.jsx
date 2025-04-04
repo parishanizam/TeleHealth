@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Displays TestSelectionTutorialPage and its content
+ */
+
 import React from "react";
 import { Header } from "../components/Header";
 import NextButton from "../components/NextButton";

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: February 6, 2025
+ * Purpose: Contains Graph component to display test performance overtime for use on the ParentOverivew page
+ */
+
 import React, { useEffect, useState } from "react";
 import {
   LineChart,

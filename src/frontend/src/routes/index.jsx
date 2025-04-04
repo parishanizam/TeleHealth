@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 14, 2025
+ * Purpose: Configures routing information between pages
+ */
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Landing
@@ -139,15 +145,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/parents/MatchingTutorialPage',
-    element: <MatchingTutorialPage/>,
+    element: <MatchingTutorialPage />,
   },
   {
     path: '/parents/QuantifierTutorialPage',
-    element: <QuantifierTutorialPage/>,
+    element: <QuantifierTutorialPage />,
   },
   {
     path: '/parents/RepetitionTutorialPage',
-    element: <RepetitionTutorialPage/>,
+    element: <RepetitionTutorialPage />,
   },
 ]);
 

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 20, 2025
+ * Purpose: Individual client card components to be used in ClientList component on ClinicianDashboard page
+ */
+
 import { useNavigate } from "react-router-dom";
 import ChevronIcon from "../../../assets/chevron.svg";
 

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Contains Microphone Test component to be used on Media Testing page
+ */
+
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setMicId } from "../../redux/deviceSlice";

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 17, 2025
+ * Purpose: Displays AddClientPage and its content
+ */
+
 import AddClient from "../components/AddClient/AddClient";
 import { Header } from "../../parents/components/Header";
 

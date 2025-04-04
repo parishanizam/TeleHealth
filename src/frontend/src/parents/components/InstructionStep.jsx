@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 24, 2025
+ * Purpose: Contains an individual instruction step to be used in the InstructionContainer component
+ */
+
 import React from "react";
 
 const InstructionStep = ({ number, children }) => {

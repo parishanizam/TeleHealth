@@ -1,3 +1,9 @@
+/**
+ * Author: Mitchell Weingust
+ * Date: January 19, 2025
+ * Purpose: Contains a helper method for formatting and displaying test titles in a consistent format
+ */
+
 export function formatTestTitle(questionBankId) {
   if (!questionBankId) return "Unknown Test";
 

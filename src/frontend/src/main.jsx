@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 3, 2025
+ * Purpose: Setup React structure and uses App
+ */
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'

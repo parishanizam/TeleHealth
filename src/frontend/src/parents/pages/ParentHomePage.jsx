@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Displays ParentHomePage and its content
+ */
+
 import React from "react";
 import { useSelector } from "react-redux";
 import { Header } from "../components/Header";

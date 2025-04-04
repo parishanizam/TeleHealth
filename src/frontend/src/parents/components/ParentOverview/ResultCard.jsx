@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: February 6, 2025
+ * Purpose: Contains a ResultCard component for listing a single past assessment for use with the Results component on the ParentOverivew page
+ */
+
 export function ResultCard({ score, test, date, onClick }) {
   return (
     <button

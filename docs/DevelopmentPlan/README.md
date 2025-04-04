@@ -1,5 +1,3 @@
 # Development Plan
 
-The folders and files for this folder are as follows:
-
-Describe ...
+The team's Development Plan is described in detail in DevelopmentPlan.pdf
