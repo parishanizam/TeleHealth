@@ -7,8 +7,9 @@
 
 
 const fs = require("fs");
+require('dotenv').config();
 const { createClient } = require("@deepgram/sdk");
-const deepgram = createClient("5341d37e80680e7fbfa55dc6f560d2333abbf63b");
+const deepgram = createClient(process.env.DEEPGRAM_API_KEY);
 
 // Keywords to detect bias
 const KEYWORDS = [
