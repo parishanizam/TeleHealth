@@ -30,7 +30,7 @@ function ParentSignUp() {
 
     try {
       const response = await axios.post(
-        "https://telehealth-insights.onrender.com/auth/parents/signup",
+        "http://localhost:3000/auth/parents/signup",
         {
           email: formData.email,
           username: formData.username,
@@ -42,7 +42,6 @@ function ParentSignUp() {
 
       console.log("Parent Signup Success:", response.data);
 
-      localStorage.setItem("parentUsername", response.data.user.username);
       localStorage.setItem("parentUsername", response.data.user.username);
       navigate("/parents/parentaccountconfirmation");
     } catch (err) {
@@ -57,7 +56,6 @@ function ParentSignUp() {
         <h1 className="text-4xl font-normal leading-snug text-center mb-4">
           Welcome
         </h1>
-        {error && <div className="text-red-500 text-center mb-3">{error}</div>}
         {error && <div className="text-red-500 text-center mb-3">{error}</div>}
 
         {/* Email Input */}
@@ -124,7 +122,6 @@ function ParentSignUp() {
           />
         </div>
         <div className="w-[438px] mb-4 relative">
-        <div className="w-[438px] mb-4 relative">
           <label htmlFor="securityCode" className="sr-only">
             Security Code
           </label>
@@ -133,23 +130,10 @@ function ParentSignUp() {
             name="securityCode"
             type="text"
             placeholder="Client Number"
-            placeholder="Client Number"
             value={formData.securityCode}
             onChange={handleChange}
             className="px-6 py-3 pr-12 w-full rounded-2xl border border-solid border-zinc-300"
-            className="px-6 py-3 pr-12 w-full rounded-2xl border border-solid border-zinc-300"
           />
-          {/* Adding information box for code */}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 group">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full border border-red-500 text-red-500 cursor-pointer">
-              <span className="font-bold text-xs">i</span>
-            </div>
-            <div className="hidden group-hover:block absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm p-2 rounded shadow-md w-80">
-              Security code should have been sent by your clinician via email.
-              <br />
-              Please reach out if you do not have it.
-            </div>
-          </div>
           {/* Adding information box for code */}
           <div className="absolute right-3 top-1/2 -translate-y-1/2 group">
             <div className="flex items-center justify-center w-6 h-6 rounded-full border border-red-500 text-red-500 cursor-pointer">

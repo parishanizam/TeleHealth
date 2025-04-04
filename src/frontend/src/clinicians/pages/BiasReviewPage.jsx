@@ -93,7 +93,6 @@ function BiasReviewPage() {
         if (historyData && historyData.assessmentVideos) {
           const currentAssessment = historyData.assessmentVideos.find(
             (a) => a.assessmentId.toString() === assessmentId.toString(),
-            (a) => a.assessmentId.toString() === assessmentId.toString(),
           );
           if (currentAssessment && currentAssessment.timestamps) {
             setHistoryTimestamps(currentAssessment.timestamps);
@@ -106,7 +105,6 @@ function BiasReviewPage() {
     fetchHistory();
   }, [parentUsername, assessmentId]);
 
-  //Fetch question, media and result data
   //Fetch question, media and result data
   useEffect(() => {
     if (!questionId || !questionBankId || !parentUsername || !assessmentId) {
@@ -176,23 +174,7 @@ function BiasReviewPage() {
     date,
     questionNumber,
   ]);
-  }, [
-    questionId,
-    questionBankId,
-    parentUsername,
-    assessmentId,
-    date,
-    questionNumber,
-  ]);
   const toggleBiasState = async () => {
-    let newState;
-    if (biasState === "Undetermined") {
-      newState = true;
-    } else if (biasState === true) {
-      newState = false;
-    } else {
-      newState = true;
-    }
     let newState;
     if (biasState === "Undetermined") {
       newState = true;
@@ -209,7 +191,6 @@ function BiasReviewPage() {
       bias_state: newState,
       mark_state: markState,
       notes: notesText,
-      notes: notesText,
     };
 
     try {
@@ -218,7 +199,6 @@ function BiasReviewPage() {
         payload,
       );
     } catch (error) {
-      console.error("Error saving bias modification:", error);
       console.error("Error saving bias modification:", error);
     }
   };
@@ -230,7 +210,6 @@ function BiasReviewPage() {
       user_answer: userAnswer,
       bias_state: biasState,
       mark_state: newMarkState,
-      notes: notesText,
       notes: notesText,
     };
     try {
@@ -259,39 +238,9 @@ function BiasReviewPage() {
       );
     } catch (error) {
       console.error("Error saving notes:", error);
-      console.error("Error saving notes:", error);
     }
   };
 
-  // Format bias timestamps
-  const formattedBias = biasTimestamps.map((b) => {
-    const totalSeconds = Math.floor(b.timestamp / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
-      2,
-      "0",
-    );
-    const seconds = String(totalSeconds % 60).padStart(2, "0");
-    const timestamp =
-      hours > 0
-        ? `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`
-        : `${minutes}:${seconds}`;
-    return { ...b, timestamp };
-  });
-
-  const prevTimestamp =
-    questionNumber === 1
-      ? "00:00:00"
-      : historyTimestamps?.[questionNumber - 2]?.timestamp || null;
-  const currTimestamp =
-    historyTimestamps?.[questionNumber - 1]?.timestamp || null;
-  const filteredBias = formattedBias.filter((b) => {
-    if (!prevTimestamp) return true;
-    if (!currTimestamp) return b.timestamp >= prevTimestamp;
-    return b.timestamp >= prevTimestamp && b.timestamp <= currTimestamp;
-  });
-
-  // Navigate questions
   // Format bias timestamps
   const formattedBias = biasTimestamps.map((b) => {
     const totalSeconds = Math.floor(b.timestamp / 1000);
@@ -327,7 +276,6 @@ function BiasReviewPage() {
     if (!isFirstQuestion) {
       const prevIndex = currentIndex - 1;
       const prevQ = results[prevIndex];
-      const prevQ = results[prevIndex];
       navigate("/clinicians/BiasReviewPage", {
         replace: true,
         state: {
@@ -335,10 +283,6 @@ function BiasReviewPage() {
           questionId: questionIds[prevIndex],
           questionNumber: prevIndex + 1,
           currentIndex: prevIndex,
-          userAnswer: prevQ.user_answer,
-          bias_state: prevQ.bias_state,
-          mark_state: prevQ.mark_state,
-          notes: prevQ.notes,
           userAnswer: prevQ.user_answer,
           bias_state: prevQ.bias_state,
           mark_state: prevQ.mark_state,
@@ -352,7 +296,6 @@ function BiasReviewPage() {
     if (!isLastQuestion) {
       const nextIndex = currentIndex + 1;
       const nextQ = results[nextIndex];
-      const nextQ = results[nextIndex];
       navigate("/clinicians/BiasReviewPage", {
         replace: true,
         state: {
@@ -360,10 +303,6 @@ function BiasReviewPage() {
           questionId: questionIds[nextIndex],
           questionNumber: nextIndex + 1,
           currentIndex: nextIndex,
-          userAnswer: nextQ.user_answer,
-          bias_state: nextQ.bias_state,
-          mark_state: nextQ.mark_state,
-          notes: nextQ.notes,
           userAnswer: nextQ.user_answer,
           bias_state: nextQ.bias_state,
           mark_state: nextQ.mark_state,
@@ -379,19 +318,10 @@ function BiasReviewPage() {
       : historyTimestamps && historyTimestamps.length >= questionNumber - 1
         ? historyTimestamps[questionNumber - 2].timestamp
         : "00:00";
-  const displayTimestamp =
-    questionNumber === 1
-      ? "00:00"
-      : historyTimestamps && historyTimestamps.length >= questionNumber - 1
-        ? historyTimestamps[questionNumber - 2].timestamp
-        : "00:00";
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
-    <div className="flex flex-col w-full min-h-screen bg-white">
       <Header
-        title={`${firstName || "Unknown"} ${lastName || ""} - Question ${questionNumber}`}
-        role="clinician"
         title={`${firstName || "Unknown"} ${lastName || ""} - Question ${questionNumber}`}
         role="clinician"
       />
@@ -404,26 +334,6 @@ function BiasReviewPage() {
           <p className="text-lg md:text-2xl font-medium">{formatDate(date)}</p>
         </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-between px-6 mt-4 flex-none">
-        <div className="flex flex-col items-left text-left mb-4 md:mb-0">
-          <h2 className="text-2xl md:text-3xl font-bold">
-            {formatTestTitle(questionBankId)}
-          </h2>
-          <p className="text-lg md:text-2xl font-medium">{formatDate(date)}</p>
-        </div>
-
-        <div className="flex items-center space-x-4 p-4 border-2 border-gray-300 rounded-lg">
-          <ReturnToResultsButton
-            parentUsername={parentUsername}
-            assessmentId={assessmentId}
-            date={date}
-            firstName={firstName}
-            lastName={lastName}
-            securityCode={securityCode}
-            clientId={clientId}
-            destination="/clinicians/ResultsAnalysisPage"
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          />
         <div className="flex items-center space-x-4 p-4 border-2 border-gray-300 rounded-lg">
           <ReturnToResultsButton
             parentUsername={parentUsername}
@@ -453,36 +363,7 @@ function BiasReviewPage() {
           </button>
         </div>
       </div>
-          <button
-            onClick={goToPreviousQuestion}
-            disabled={isFirstQuestion}
-            className={`px-4 py-2 rounded ${isFirstQuestion ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
-          >
-            Back
-          </button>
-          <button
-            onClick={goToNextQuestion}
-            disabled={isLastQuestion}
-            className={`px-4 py-2 rounded ${isLastQuestion ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white font-semibold`}
-          >
-            Next
-          </button>
-        </div>
-      </div>
 
-      <div className="flex-1 flex flex-row space-x-6 items-start px-6 py-6">
-        <div className="flex-[0.7] flex flex-col space-y-6">
-          <div className="flex flex-col w-full h-full bg-gray-100 p-6 rounded-lg shadow-md">
-            <div className="mb-4">
-              {loading ? (
-                <p>Loading...</p>
-              ) : videoExists ? (
-                <p className="text-lg font-bold">
-                  Question Start: {displayTimestamp}
-                </p>
-              ) : (
-                <p className="text-gray-500 italic"></p>
-              )}
       <div className="flex-1 flex flex-row space-x-6 items-start px-6 py-6">
         <div className="flex-[0.7] flex flex-col space-y-6">
           <div className="flex flex-col w-full h-full bg-gray-100 p-6 rounded-lg shadow-md">
@@ -517,25 +398,6 @@ function BiasReviewPage() {
                   </p>
                 )}
               </div>
-            <div className="flex flex-col lg:flex-row w-full h-full space-y-4 lg:space-y-0 lg:space-x-6">
-              {/* ---- Video Container ---- */}
-              <div className="flex-1 flex items-center justify-center">
-                {loading ? (
-                  <p>Loading video...</p>
-                ) : error ? (
-                  <p className="text-red-500">{error}</p>
-                ) : // Render video only if consent was given.
-                videoExists ? (
-                  <TempMediaPlayer
-                    videoUrl={videoUrl}
-                    biasTimestamps={biasTimestamps}
-                  />
-                ) : (
-                  <p className="text-gray-500">
-                    Video not available due to consent decline.
-                  </p>
-                )}
-              </div>
 
               <div className="justify-center flex-1 flex flex-col items-center space-y-4">
                 <div className="w-full flex items-center justify-center space-x-3 p-3 bg-white border border-gray-300 rounded-xl">
@@ -551,40 +413,7 @@ function BiasReviewPage() {
                     />
                   )}
                 </div>
-              <div className="justify-center flex-1 flex flex-col items-center space-y-4">
-                <div className="w-full flex items-center justify-center space-x-3 p-3 bg-white border border-gray-300 rounded-xl">
-                  <div className="text-xl font-semibold text-gray-700">
-                    <p>Question ID: {questionId}</p>
-                  </div>
-                  {question?.sound && (
-                    <img
-                      src={VolumeButton}
-                      alt="Play Sound"
-                      onClick={() => new Audio(question.sound).play()}
-                      className="object-contain w-8 h-8 cursor-pointer"
-                    />
-                  )}
-                </div>
 
-                {questionBankId.toLowerCase().includes("repetition") &&
-                  audioUrl && (
-                    <div className="flex flex-col items-center justify-center w-full p-2 bg-white rounded-xl border border-gray-300 text-center">
-                      <p className="mb-2 text-lg font-medium">
-                        Submitted Answer
-                      </p>
-                      <div className="flex justify-center w-full">
-                        <audio
-                          key={audioUrl}
-                          controls
-                          preload="auto"
-                          crossOrigin="anonymous"
-                        >
-                          <source src={audioUrl} type="audio/mp4" />
-                          Your browser does not support the audio element.
-                        </audio>
-                      </div>
-                    </div>
-                  )}
                 {questionBankId.toLowerCase().includes("repetition") &&
                   audioUrl && (
                     <div className="flex flex-col items-center justify-center w-full p-2 bg-white rounded-xl border border-gray-300 text-center">

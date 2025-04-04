@@ -67,7 +67,7 @@ export function Results({ data, client, filters, selectedDate }) {
           } else {
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
-                `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`,
+                `https://telehealth-insights.onrender.com/questions/${language}/${testType}/${res.question_id}`
               );
               const questionData = await questionRes.json();
               return {
@@ -77,16 +77,12 @@ export function Results({ data, client, filters, selectedDate }) {
                   res.user_answer === questionData.correctAnswer
                     ? "correct"
                     : "incorrect"
-                status:
-                  res.user_answer === questionData.correctAnswer
-                    ? "correct"
-                    : "incorrect",
               };
             });
 
             const updatedResults = await Promise.all(questionPromises);
             correctAnswers = updatedResults.filter(
-              (q) => q.status === "correct",
+              (q) => q.status === "correct"
             ).length;
           }
 
