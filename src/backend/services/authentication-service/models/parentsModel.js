@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides utility functions to create, retrieve, and update
+ * parent records stored as JSON files in the PARENTS_BUCKET on S3,
+ * including maintaining a parent index for efficient lookup by username.
+ */
+
 const { PARENTS_BUCKET, uploadJson, getJson } = require("../config/awsS3");
 
 const INDEX_KEY = "parents_index.json";

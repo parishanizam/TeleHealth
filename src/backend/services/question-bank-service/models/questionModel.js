@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides reusable service functions to fetch and process questions
+ * from the question bank stored in S3. 
+ */
+
+
 const { getJsonFromS3, getPresignedUrl } = require("../config/awsConfig");
 
 /**

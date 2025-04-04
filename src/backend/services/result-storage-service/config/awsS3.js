@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides utility functions for working with the RESULTS_BUCKET in AWS S3.
+ */
+
+
 const {
   S3Client,
   GetObjectCommand,

@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles video and audio upload, bias processing, and retrieval for assessment media.
+ */
+
 const path = require("path");
 const fs = require("fs");
 const { GetObjectCommand } = require("@aws-sdk/client-s3");

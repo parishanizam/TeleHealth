@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Utility functions for interacting with the QUESTION_BANK_BUCKET on S3.
+ * Includes methods to retrieve JSON files and generate pre-signed URLs for secure access.
+ */
+
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 

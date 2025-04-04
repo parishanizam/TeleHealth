@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Uses Deepgram's API to transcribe audio from MP4 files and extract
+ * timestamps for bias-related keywords to support audio analysis in assessments.
+ */
+
+
 const fs = require("fs");
 const { createClient } = require("@deepgram/sdk");
 const deepgram = createClient("5341d37e80680e7fbfa55dc6f560d2333abbf63b");

@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides a Node.js interface to execute a Python script for face detection
+ * using MediaPipe. Spawns a child process with the video path and frame skip interval,
+ * and returns timestamped face detection results as parsed JSON.
+ */
+
 const { spawn } = require("child_process");
 const path = require("path");
 

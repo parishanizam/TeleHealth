@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: December 5th 2024
+ * Purpose: Initializes and configures the Express server with CORS, JSON parsing,
+ * environment variables, and route registration. Starts the server on the specified port.
+ */
+
 require('dotenv').config(); 
 const express = require('express');
 const cors = require('cors');

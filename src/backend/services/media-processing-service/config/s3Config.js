@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides utility functions for uploading files and JSON data to S3,
+ * generating presigned URLs for video access, and determining content types 
+ * based on file extensions.
+ */
+
 const {
   S3Client,
   PutObjectCommand,
