@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Displays QuantifierQuestionPage and its content
+ */
+
 import { useState, useEffect } from "react";
 import { Header } from "../components/Header";
 import { VolumeButton } from "../components/VolumeButton";

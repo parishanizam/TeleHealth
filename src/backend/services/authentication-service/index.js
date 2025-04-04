@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Sets up and combines route modules for clinicians, parents, and clients.
+ */
+
 const express = require("express");
 const router = express.Router();
 

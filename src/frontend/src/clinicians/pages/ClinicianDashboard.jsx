@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 20, 2025
+ * Purpose: Displays ClinicianDashboard page and its content
+ */
+
 import { useSelector } from "react-redux";
 import AddClientButton from "../components/ClinicianDashboard/AddClientButton";
 import ClientList from "../components/ClinicianDashboard/ClientList";

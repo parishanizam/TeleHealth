@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 15, 2025
+ * Purpose: Contains Clinician slice for storing clinician info and states
+ */
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

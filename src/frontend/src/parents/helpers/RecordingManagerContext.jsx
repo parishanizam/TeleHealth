@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles all assessment recording management, including tracking, starting and stopping recordings
+ */
+
 import React, { createContext, useState, useRef, useCallback } from "react";
 
 export const RecordingManagerContext = createContext(null);

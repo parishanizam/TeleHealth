@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 17, 2025
+ * Purpose: Add Client button to be added to AddClient page
+ */
+
 import { useState } from "react";
 import axios from "axios";
 import GenerateButton from "./GenerateButton";

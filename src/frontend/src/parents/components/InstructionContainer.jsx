@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 24, 2025
+ * Purpose: Contains Instruction Container which holds all instruction types from the Instructions folder
+ */
+
 import InstructionStep from "../components/InstructionStep";
 
 import matchingInstructions from "./Instructions/MatchingInstructions";

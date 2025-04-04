@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles parent signup, login, logout, and account management.
+ * It verifies security codes, links parent accounts to clinician records,
+ * updates JSON files in S3, and manages parent-related data.
+ */
+
 const bcrypt = require("bcrypt");
 const {
   s3Client,

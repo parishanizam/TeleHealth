@@ -2,6 +2,4 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
-
-This folder will typically contain a slideshow.  The file format for the slideshow is not prescribed.
+- TeleHealth Insights Capstone Presentation.pdf contains the full final presentation slides in pdf format

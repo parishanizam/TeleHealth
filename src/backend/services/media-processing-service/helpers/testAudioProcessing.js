@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Standalone test script to process a local MP4 file using Deepgram's transcription API.
+ * Extracts and logs bias-related keywords with their timestamps for verification.
+ */
+
 const path = require('path');
 const { processMp4WithDeepgram } = require('./audioProcessing');
 

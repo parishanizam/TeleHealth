@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Defines Express routes for submitting, retrieving, and modifying assessment results.
+ */
+
 const express = require("express");
 const router = express.Router();
 const {

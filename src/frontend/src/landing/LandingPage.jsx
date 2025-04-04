@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 22, 2025
+ * Purpose: Displays LandingPage and its content
+ */
+
 import React from "react";
 import MacbookImage from "../assets/Macbook.png";
 import { Link } from "react-router-dom";

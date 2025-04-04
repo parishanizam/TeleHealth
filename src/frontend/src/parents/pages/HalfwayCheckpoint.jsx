@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 23, 2025
+ * Purpose: Displays HalfwayCheckpoint page and its content
+ */
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";

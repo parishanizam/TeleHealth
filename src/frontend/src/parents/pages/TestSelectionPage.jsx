@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Displays TestSelectionPage and its content
+ */
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,10 +15,13 @@ const testTypeOptionsByLanguage = {
   english: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
+    { label: "Repetition", value: "repetition" },
   ],
   mandarin: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
+    { label: "Quantifier", value: "quantifier" },
+  ],
     { label: "Quantifier", value: "quantifier" },
   ],
 };
@@ -34,6 +43,12 @@ function TestSelectionPage() {
       return;
     }
 
+    dispatch(
+      setTestSelection({
+        language: selectedLanguage,
+        testType: selectedTestType,
+      }),
+    );
     dispatch(
       setTestSelection({
         language: selectedLanguage,
@@ -74,12 +89,7 @@ function TestSelectionPage() {
               >
                 Select a Language
               </Card.Title>
-
-              <Form.Label htmlFor="language-select" className="visually-hidden">
-                Select a language
-              </Form.Label>
               <Form.Select
-                id="language-select"
                 value={selectedLanguage}
                 onChange={(e) => handleLanguageChange(e.target.value)}
                 className="mb-4 fs-5"
@@ -97,17 +107,11 @@ function TestSelectionPage() {
               >
                 Select a Test Type
               </Card.Title>
-
-              <Form.Label htmlFor="testtype-select" className="visually-hidden">
-                Select a test type
-              </Form.Label>
               <Form.Select
-                id="testtype-select"
                 value={selectedTestType}
                 onChange={(e) => setSelectedTestType(e.target.value)}
                 className="mb-4 fs-5"
                 disabled={!selectedLanguage}
-                aria-describedby={!selectedLanguage ? "testtype-disabled-reason" : undefined}
               >
                 <option value="" disabled>
                   Select a test type
@@ -119,11 +123,6 @@ function TestSelectionPage() {
                     </option>
                   ))}
               </Form.Select>
-              {!selectedLanguage && (
-                <div id="testtype-disabled-reason" className="text-muted small">
-                  Please select a language first
-                </div>
-              )}
 
               <Button
                 variant="primary"

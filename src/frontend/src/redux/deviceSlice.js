@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 15, 2025
+ * Purpose: Contains Device slice for storing device and hardware states
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {

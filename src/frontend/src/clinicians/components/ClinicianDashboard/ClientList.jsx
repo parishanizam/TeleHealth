@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 20, 2025
+ * Purpose: Contains list of all clients, which contains each client's client card, to be displayed on ClinicianDashboard
+ */
+
 import { useSelector } from "react-redux";
 import { ClientCard } from "./ClientCard";
 

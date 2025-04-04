@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Individual results component to be used in Results component on ClientOverview page
+ */
+
 import ChevronIcon from "../../../assets/chevron.svg";
 export function ResultCard({ score, test, date, onClick }) {
   return (

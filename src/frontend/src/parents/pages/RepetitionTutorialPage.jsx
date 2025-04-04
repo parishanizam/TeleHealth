@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Displays RepetitionTutorialPage and its content
+ */
+
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -63,6 +69,11 @@ export default function RepetitionTutorialPage() {
       isAudioClicked &&
       currentStep === 2
     ) {
+    if (
+      recordingClickCount < MAX_RECORDING_CLICKS &&
+      isAudioClicked &&
+      currentStep === 2
+    ) {
       setRecordingClickCount(recordingClickCount + 1);
       setIsRecording(true);
     }
@@ -81,8 +92,17 @@ export default function RepetitionTutorialPage() {
       <Header
         title={`Tutorial - ${testType.charAt(0).toUpperCase() + testType.slice(1)}`}
       />
+      <Header
+        title={`Tutorial - ${testType.charAt(0).toUpperCase() + testType.slice(1)}`}
+      />
       {currentStep === 1 && (
         <div className="border-2 border-yellow-500 p-5 rounded-lg bg-yellow-50 shadow-lg my-4 max-w-lg mx-auto text-center">
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 1: Listen to the Audio
+          </h2>
+          <p className="text-xl">
+            Click the audio button to hear the sentence. You are allowed one
+            replay!
           <h2 className="text-3xl font-semibold text-yellow-700">
             Step 1: Listen to the Audio
           </h2>
@@ -92,6 +112,7 @@ export default function RepetitionTutorialPage() {
           </p>
           <p>
             <strong>Click Next when you are ready to repeat!</strong>
+            <strong>Click Next when you are ready to repeat!</strong>
           </p>
         </div>
       )}
@@ -100,7 +121,15 @@ export default function RepetitionTutorialPage() {
           <h2 className="text-3xl font-semibold text-yellow-700">
             Step 2: Repeat the Sentence
           </h2>
+          <h2 className="text-3xl font-semibold text-yellow-700">
+            Step 2: Repeat the Sentence
+          </h2>
           <p className="text-xl">
+            1️⃣ When you're ready, click <strong>"Start Recording."</strong> 🎤
+            <br />
+            2️⃣ Say the sentence just like you heard it. 🗣️
+            <br />
+            3️⃣ When you're done, click <strong>"Stop Recording."</strong> ✋🎬
             1️⃣ When you're ready, click <strong>"Start Recording."</strong> 🎤
             <br />
             2️⃣ Say the sentence just like you heard it. 🗣️
@@ -122,6 +151,12 @@ export default function RepetitionTutorialPage() {
           handlePlayAudio={handlePlayAudio}
           playCount={playCount}
         />
+        <VolumeButton
+          sound={question.sound}
+          resetTrigger={null}
+          handlePlayAudio={handlePlayAudio}
+          playCount={playCount}
+        />
       </div>
       <div className="flex justify-center mt-6">
         {!isRecording ? (
@@ -134,8 +169,17 @@ export default function RepetitionTutorialPage() {
               : !isAudioClicked || currentStep !== 2
                 ? "Play Audio First"
                 : "Start Audio Recording"}
+            {recordingClickCount >= MAX_RECORDING_CLICKS
+              ? "No Recordings Left"
+              : !isAudioClicked || currentStep !== 2
+                ? "Play Audio First"
+                : "Start Audio Recording"}
           </button>
         ) : (
+          <button
+            className="px-4 py-2.5 bg-red-600 text-white rounded-lg"
+            onClick={handleStopRecording}
+          >
           <button
             className="px-4 py-2.5 bg-red-600 text-white rounded-lg"
             onClick={handleStopRecording}
@@ -155,8 +199,20 @@ export default function RepetitionTutorialPage() {
               to="/parents/OverallTutorialPage"
               name="Try Another Tutorial"
             />
+            <NextButton
+              to="/parents/testselection"
+              name="Start an Assessment"
+            />
+            <NextButton
+              to="/parents/OverallTutorialPage"
+              name="Try Another Tutorial"
+            />
           </>
         ) : (
+          <button
+            className="px-6 py-3 rounded-lg text-white font-semibold bg-blue-500 hover:bg-blue-600"
+            onClick={handleNextStep}
+          >
           <button
             className="px-6 py-3 rounded-lg text-white font-semibold bg-blue-500 hover:bg-blue-600"
             onClick={handleNextStep}
@@ -168,3 +224,4 @@ export default function RepetitionTutorialPage() {
     </div>
   );
 }
+

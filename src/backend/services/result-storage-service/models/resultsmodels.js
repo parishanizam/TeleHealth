@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Provides utility functions for managing assessment result records (creating new file, retrieving, updating) 
+ * in the RESULTS_BUCKET on S3.
+ */
+
+
 const {
   RESULTS_BUCKET,
   uploadJson,

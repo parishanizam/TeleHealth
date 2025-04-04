@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Displays ParentHomePage and its content
+ */
+
 import React from "react";
 import { useSelector } from "react-redux";
 import { Header } from "../components/Header";
@@ -40,7 +46,7 @@ function ParentHomePage() {
             </Link>
             <Link
               to="/parents/ParentOverview"
-              className="px-6 py-3 bg-white text-blue-700 text-lg font-medium rounded-lg border-2 border-blue-700 shadow-md hover:shadow-lg hover:border-blue-900 transition-colors duration-200"
+              className="px-6 py-3 bg-blue-400 text-white text-lg font-medium rounded-lg shadow-md hover:bg-blue-900 transition"
             >
               View Results
             </Link>

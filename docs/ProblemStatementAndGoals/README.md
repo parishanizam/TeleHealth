@@ -2,4 +2,4 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+- ProblemStatement.pdf contains the team's Problem Statement document

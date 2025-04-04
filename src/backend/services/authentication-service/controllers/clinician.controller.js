@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles clinician signup, login, and logout functionality, including password hashing
+ * and retrieval of clinician data during authentication.
+ */
+
+>>>>>>> 64c481e33b4cae439bfbb3b628dfe4fef35a3998
 const bcrypt = require("bcrypt");
 const {
   createClinician,

@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Displays an individual Question Card which displays an icon depending on the corresponding mark_state,
+ *          bias_state. For use in the ResultsList component on the ResultsAnalysis page
+ */
+
 import ChevronIcon from "../../../assets/chevron.svg";
 import CheckmarkIcon from "../../../assets/checkmark.svg";
 import DashIcon from "../../../assets/dash.svg";
@@ -13,9 +20,9 @@ function QuestionCard({
 }) {
   let icon;
   console.log(testType);
+  console.log(testType);
   if (testType === "repetition") {
     if (mark_state === "Correct") {
-      console.log("THIS IS A TEST", mark_state);
       icon = CheckmarkIcon;
     } else if (mark_state === "Incorrect") {
       icon = XIcon;

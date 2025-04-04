@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles the creation of a new client under a clinician’s profile 
+ * and initializes a placeholder parent record in the S3 bucket.
+ */
+
 const { v4: uuidv4 } = require("uuid");
 const {
   getClinicianByUsername,

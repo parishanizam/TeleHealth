@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Displays QuizManagement page and its content
+ */
+
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -172,12 +178,13 @@ export default function QuizManagement() {
   
     // Start video stop & upload in background
     stopRecording(async (finalBlob) => {
-      // Start upload in background
+      // Start upload in background, but don't await
       uploadRecording(finalBlob).catch((err) =>
         console.error("Error uploading media:", err)
       );
     });
   
+    // Submit answers right away (don’t wait for upload)
     submitResults(updatedResponses)
       .catch((err) => {
         console.error("Error submitting quiz answers:", err);

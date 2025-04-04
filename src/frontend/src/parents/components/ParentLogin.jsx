@@ -1,7 +1,15 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 26, 2025
+ * Purpose: Contains ParentLogin component to allow users with parent roles
+ *          to access and login to their accounts. To be used on ParentLoginPage
+ */
+
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { setParentInfo } from "../../redux/parentSlice";
 import { setParentInfo } from "../../redux/parentSlice";
 
 function ParentLogin() {

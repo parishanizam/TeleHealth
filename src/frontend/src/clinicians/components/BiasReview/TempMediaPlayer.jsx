@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 18, 2025
+ * Purpose: (Temporary) Media Player to display video assessment information on BiasReview page
+ */
+
 function TempMediaPlayer({ videoUrl }) {
   const handleVideoError = (e) => {
     console.error("Video error event:", e);

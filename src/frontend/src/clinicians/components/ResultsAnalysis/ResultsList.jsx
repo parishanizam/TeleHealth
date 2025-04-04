@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Displays list of a user's past results (QuestionCards) on ResultsAnalysis page
+ */
+
 import { useNavigate } from "react-router-dom";
 import QuestionCard from "./QuestionCard";
 import { formatTestTitle } from "../../../utils/testTitleUtils";
