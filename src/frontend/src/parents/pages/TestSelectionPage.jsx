@@ -15,13 +15,10 @@ const testTypeOptionsByLanguage = {
   english: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
-    { label: "Repetition", value: "repetition" },
   ],
   mandarin: [
     { label: "Matching", value: "matching" },
     { label: "Repetition", value: "repetition" },
-    { label: "Quantifier", value: "quantifier" },
-  ],
     { label: "Quantifier", value: "quantifier" },
   ],
 };
@@ -43,12 +40,6 @@ function TestSelectionPage() {
       return;
     }
 
-    dispatch(
-      setTestSelection({
-        language: selectedLanguage,
-        testType: selectedTestType,
-      }),
-    );
     dispatch(
       setTestSelection({
         language: selectedLanguage,
