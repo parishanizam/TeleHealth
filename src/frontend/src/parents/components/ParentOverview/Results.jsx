@@ -54,7 +54,7 @@ export function Results({ data, parent, filters = [], selectedDate = null }) {
           } else {
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
-                `https://telehealth-insights.onrender.com/questions/${langRaw}/${testRaw}/${res.question_id}`,
+                `https://telehealth-insights.onrender.com/questions/${langRaw}/${testRaw}/${res.question_id}`
               );
               const questionData = await questionRes.json();
               return {

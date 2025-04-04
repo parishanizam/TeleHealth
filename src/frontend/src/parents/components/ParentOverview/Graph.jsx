@@ -80,7 +80,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
             if (resultYMD !== selectedYMD) continue;
           }
 
-          const resultsApiUrl = `https://telehealth-insights.onrender.com/${parent.username}/${result.assessment_id}`;
+          const resultsApiUrl = `https://telehealth-insights.onrender.com/resultstorage/results/${parent.username}/${result.assessment_id}`;
           const resultsResponse = await fetch(resultsApiUrl);
           const resultsData = await resultsResponse.json();
 
