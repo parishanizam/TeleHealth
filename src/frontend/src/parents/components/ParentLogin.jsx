@@ -10,7 +10,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setParentInfo } from "../../redux/parentSlice";
-import { setParentInfo } from "../../redux/parentSlice";
 
 function ParentLogin() {
   const [formData, setFormData] = React.useState({
