@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 23, 2025
+ * Purpose: Contains VideoTest component to be used on Media Testing page
+ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCameraId } from "../../redux/deviceSlice";

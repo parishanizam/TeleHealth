@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Component to handle logging in on the clinician side of the system
+ */
+
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

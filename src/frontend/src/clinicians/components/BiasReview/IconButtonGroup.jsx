@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 18, 2025
+ * Purpose: Container for individual Icon Buttons for marking assessments on the BiasReview page
+ */
+
 import { useState, useEffect } from "react";
 import IconButton from "./IconButton";
 import CheckmarkIcon from "../../../assets/checkmark.svg";
@@ -13,8 +19,8 @@ function IconButtonGroup({ markState, changeMarkState }) {
 
   const handleAction = (newMarkState) => {
     if (activeButton !== newMarkState) {
-      setActiveButton(newMarkState); 
-      changeMarkState(newMarkState); 
+      setActiveButton(newMarkState);
+      changeMarkState(newMarkState);
     }
   };
 

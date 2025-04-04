@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 21, 2025
+ * Purpose: Component which navigates to a particular client's ClientOverview page from the ResultsAnalysis page
+ */
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 

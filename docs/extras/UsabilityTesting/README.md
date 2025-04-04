@@ -1,1 +1,3 @@
-For this report follow the HCI course. The usability testing has to be systematic, rigorous and quantified. You should have a clear plan for the usability testing, including the goals of the testing, the specific tasks you ask users to complete, the specific questions you ask users, the specific survey you ask the users to complete, etc.
+# Usability Testing
+
+The Usability Testing Report consists of a detailed breakdown and explanation of how usability testing was conducted throughout development. There were 2 rounds of usability testing conducted between revision 0 and revision 1. The usability testing was systematic, rigorous and quantified. The document details a clear plan for the usability testing, including the goals of the testing, the specific tasks we asked users to complete, the specific questions we asked users, the specific survey we asked the users to complete, and the results.

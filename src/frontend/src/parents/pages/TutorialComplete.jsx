@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Displays TutorialComplete page and its content
+ */
+
 import React from "react";
 import { Header } from "../components/Header";
 import CheckMark from "../../assets/BlueCheckMark.png";

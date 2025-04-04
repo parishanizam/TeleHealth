@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 18, 2025
+ * Purpose: Return to Results Button to return to the previous ResultsAnalysis page from the BiasReview page
+ */
+
 import { useNavigate } from "react-router-dom";
 function ReturnToResultsButton({
   parentUsername,

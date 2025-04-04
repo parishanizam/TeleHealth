@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Graph component for displaying user performance trends to be displayed on ClientOverview page
+ */
+
 import React, { useEffect, useState } from "react";
 import {
   LineChart,

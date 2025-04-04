@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 23, 2025
+ * Purpose: Contains Option Grid which contains various Matching Card components
+ *          dynamically changes number of columns depending on length of options
+ *          to be used on the QuizManagement page
+ */
+
 import MatchingCard from "../components/MatchingCard";
 
 export function OptionGrid({ options, selectedAnswer, handleAnswerClick }) {

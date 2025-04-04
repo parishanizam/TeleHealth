@@ -2,4 +2,4 @@
 
 The folders and files for this folder are as follows:
 
-Describe ...
+VnVReport.pdf contains the team's Verification and Validation Report: Software Engineering

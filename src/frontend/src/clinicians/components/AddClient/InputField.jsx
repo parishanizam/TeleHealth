@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 17, 2025
+ * Purpose: Input field for consistent text inputs to be added to AddClient page
+ */
+
 function InputField({ id, name, type, placeholder, value, onChange }) {
   return (
     <div className="w-[438px] mb-5">

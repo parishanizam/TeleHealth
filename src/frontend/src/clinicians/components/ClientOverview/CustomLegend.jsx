@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Custom Legend for Graph component to be displayed on ClientOverview page
+ */
+
 import React from "react";
 
 function CustomLegend({ payload }) {

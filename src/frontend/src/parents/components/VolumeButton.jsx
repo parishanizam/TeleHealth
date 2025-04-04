@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 27, 2025
+ * Purpose: Contains VolumeButton component to be used on QuizManagement page to play question audio
+ */
+
 import { useState, useEffect, useRef } from "react";
 import VolumeButtonIcon from "../../assets/volumebutton.svg";
 
