@@ -36,7 +36,7 @@ Refl:
 	cd ReflectAndTrace && make && cd ../..
 	
 UGde:
-	cd DevGuide && make && cd ../..
+	cd extras/DevGuide && make && cd ../..
 
 clean:	cleanSRS cleanMG cleanMIS cleanPS cleanVnVP cleanVnVR cleanDevP cleanHazA cleanRefl cleanUGde
 
