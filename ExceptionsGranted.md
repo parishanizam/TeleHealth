@@ -1,3 +1,7 @@
+Not Applicable to the TeleHealth Insights project.
+
+Below are the guidelines (given by the capstone professor):
+
 This file is entirely capstone specific.  (It would not exist in a project
 outside the context of this course.)  If your project is not suited to the
 standard template for folder structure and naming, you should discuss this with
