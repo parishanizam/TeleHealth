@@ -1,3 +1,11 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Test script that runs face detection and audio keyword detection on a local MP4 video.
+ * Combines both results using varying bias thresholds to identify potential biased moments,
+ * defined by overlapping face presence and specific audio cues.
+ */
+
 const path = require("path");
 const { processMp4WithDeepgram } = require("./audioProcessing");
 const { detectFacesWithPython } = require("./videoProcessing");

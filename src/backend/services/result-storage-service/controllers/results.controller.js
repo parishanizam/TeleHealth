@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles storage, retrieval, and updates of assessment results from client side in the RESULTS_BUCKET on S3.
+ */
+
+
 const {
   RESULTS_BUCKET,
   uploadJson,

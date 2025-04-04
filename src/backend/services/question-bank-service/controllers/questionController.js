@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Handles retrieval of questions from the question bank stored in S3.
+ */
+
 const {
   getJsonFromS3,
   getPresignedUrl,

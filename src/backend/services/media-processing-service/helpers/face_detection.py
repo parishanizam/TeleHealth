@@ -1,3 +1,10 @@
+"""
+Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+Date: January 19, 2025
+Purpose: Detects faces in an input video using MediaPipe's face detection model.
+Outputs JSON with face counts per frame along with timestamps.
+"""
+
 import sys
 import cv2
 import mediapipe as mp

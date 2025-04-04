@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: December 15, 2024
+ * Purpose: Microservice routers for each module service 
+ */
+
 const express = require('express');
 const router = express.Router();
 

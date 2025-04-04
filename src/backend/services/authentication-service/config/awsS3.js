@@ -1,3 +1,9 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 20, 2025
+ * Purpose: Configuration file for authentication service , uploads and extracts data
+ */
+
 const {
   S3Client,
   GetObjectCommand,

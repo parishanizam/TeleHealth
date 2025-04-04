@@ -1,3 +1,10 @@
+/**
+ * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
+ * Date: January 19, 2025
+ * Purpose: Standalone test script to run face detection using the Python script via Node.js.
+ * Loads a local MP4 file, skips frames for efficiency, and logs timestamped face detection results.
+ */
+
 const path = require('path');
 const { detectFacesWithPython } = require('./videoProcessing');
 
