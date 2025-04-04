@@ -14,49 +14,29 @@ const {
   getVideoPresignedUrl,
 } = require("../config/s3Config");
 const { exec } = require("child_process");
-const path = require("path");
-const fs = require("fs");
-const { GetObjectCommand } = require("@aws-sdk/client-s3");
-const {
-  s3Client,
-  uploadFileToS3,
-  uploadToS3,
-  getVideoPresignedUrl,
-} = require("../config/s3Config");
-const { exec } = require("child_process");
 
-const ffmpegPath = require("ffmpeg-static");
 const ffmpegPath = require("ffmpeg-static");
 
 const { processMp4WithDeepgram } = require("../helpers/audioProcessing");
 const { detectFacesWithPython } = require("../helpers/videoProcessing");
-const { processMp4WithDeepgram } = require("../helpers/audioProcessing");
-const { detectFacesWithPython } = require("../helpers/videoProcessing");
 
-//Finds Bias by combining face detection with audio detection
 //Finds Bias by combining face detection with audio detection
 function combineDetections(faceData, audioData, biasThreshold = 1500) {
-  const MIN_BIAS_INTERVAL_MS = 1500;
   const MIN_BIAS_INTERVAL_MS = 1500;
   let lastBiasTimestamp = -Infinity;
   let lastBiasKeyword = null;
 
-
   const results = [];
-
 
   faceData.forEach((faceEvent) => {
     // Only consider frames with at least 2 faces
     if (faceEvent.faces < 2) return;
 
-
     const faceTimeMs = faceEvent.timestamp;
-
 
     audioData.forEach((audioEvent) => {
       // Calculate the absolute time difference between the audio event and the face event
       const timeDiff = Math.abs(audioEvent.timestamp - faceTimeMs);
-
 
       if (timeDiff <= biasThreshold) {
         // Ensure at least MIN_BIAS_INTERVAL_MS between bias detections
@@ -71,21 +51,16 @@ function combineDetections(faceData, audioData, biasThreshold = 1500) {
 
             lastBiasTimestamp = faceTimeMs;
             lastBiasKeyword = audioEvent.keyword;
-
-            lastBiasTimestamp = faceTimeMs;
-            lastBiasKeyword = audioEvent.keyword;
           }
         }
       }
     });
   });
 
-
   return results;
 }
 
 // Environment or fallback for your S3 bucket
-const MEDIA_BUCKET = process.env.MEDIA_BUCKET || "telehealth-media-processing";
 const MEDIA_BUCKET = process.env.MEDIA_BUCKET || "telehealth-media-processing";
 
 exports.uploadAndProcessMedia = async (req, res) => {
@@ -114,14 +89,11 @@ exports.uploadAndProcessMedia = async (req, res) => {
     let timestamps = req.body.timestamps;
     if (!timestamps) {
       return res.status(400).json({ error: "Timestamps are required." });
-      return res.status(400).json({ error: "Timestamps are required." });
     }
     const parsedTimestamps = JSON.parse(timestamps);
 
     // Generate folder name with date, language, test type, and assessment ID
-    // Generate folder name with date, language, test type, and assessment ID
     const currentDate = new Date();
-    const dateStr = currentDate.toISOString().slice(2, 10).replace(/-/g, "");
     const dateStr = currentDate.toISOString().slice(2, 10).replace(/-/g, "");
     const folderName = `${dateStr}_${language.toLowerCase()}_${testType.toLowerCase()}_${assessmentId}`;
 
@@ -139,18 +111,8 @@ exports.uploadAndProcessMedia = async (req, res) => {
     let biasResults = [];
 
     // VIDEO UPLOAD
-    // VIDEO UPLOAD
     if (req.files.videoFile && req.files.videoFile[0]) {
       const tempVideoPath = req.files.videoFile[0].path;
-      console.log(
-        "Running face detection and audio analysis for bias on local video...",
-      );
-      const faceData = await detectFacesWithPython(tempVideoPath, 4);
-      console.log(
-        "Face Detection Complete:",
-        faceData.length,
-        "frames analyzed.",
-      );
       console.log(
         "Running face detection and audio analysis for bias on local video...",
       );
@@ -167,20 +129,13 @@ exports.uploadAndProcessMedia = async (req, res) => {
         audioData.length,
         "keywords detected.",
       );
-      console.log(
-        "Audio Processing Complete:",
-        audioData.length,
-        "keywords detected.",
-      );
 
       // Combine results
       biasResults = combineDetections(faceData, audioData, 1500);
       console.log("Combined bias events found:", biasResults.length);
-      console.log("Combined bias events found:", biasResults.length);
 
       console.log("⚙️ Converting local MP4 to faststart...");
 
-      const faststartPath = `${tempVideoPath}-faststart.mp4`;
       const faststartPath = `${tempVideoPath}-faststart.mp4`;
 
       const commandFfmpegStatic = `"${ffmpegPath}" -y -i "${tempVideoPath}" \
@@ -203,13 +158,9 @@ exports.uploadAndProcessMedia = async (req, res) => {
       console.log(
         "MP4 is now faststart-optimized. Proceeding with existing upload...",
       );
-      console.log(
-        "MP4 is now faststart-optimized. Proceeding with existing upload...",
-      );
 
       console.log("Uploading video file to S3...");
       await uploadFileToS3(MEDIA_BUCKET, tempVideoPath, videoS3Key);
-      fs.unlinkSync(tempVideoPath);
       fs.unlinkSync(tempVideoPath);
       videoUploaded = true;
     } else {
@@ -217,14 +168,12 @@ exports.uploadAndProcessMedia = async (req, res) => {
     }
 
     //AUDIO UPLOAD
-    //AUDIO UPLOAD
     if (req.files.audioFiles && req.files.audioFiles.length > 0) {
       console.log("Uploading audio files to S3...");
       for (let i = 0; i < req.files.audioFiles.length; i++) {
         const audioFile = req.files.audioFiles[i];
         const audioFileName = `${parentUsername}_question_${i + 1}.mp4`;
         const audioS3Key = `${assessmentFolder}${audioFileName}`;
-
 
         console.log(`Uploading ${audioFileName} to ${audioS3Key}...`);
         await uploadFileToS3(MEDIA_BUCKET, audioFile.path, audioS3Key);
@@ -240,12 +189,8 @@ exports.uploadAndProcessMedia = async (req, res) => {
       return res
         .status(400)
         .json({ error: "No video or audio files provided." });
-      return res
-        .status(400)
-        .json({ error: "No video or audio files provided." });
     }
 
-    // UPDATE JSON HISTORY
     // UPDATE JSON HISTORY
     let existingHistory = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
     if (!existingHistory) {
@@ -264,9 +209,6 @@ exports.uploadAndProcessMedia = async (req, res) => {
       audioFiles:
         uploadedAudioFiles.length > 0 ? uploadedAudioFiles : undefined,
       bias: [],
-      audioFiles:
-        uploadedAudioFiles.length > 0 ? uploadedAudioFiles : undefined,
-      bias: [],
       timestamps: parsedTimestamps,
     });
 
@@ -279,25 +221,19 @@ exports.uploadAndProcessMedia = async (req, res) => {
       historyS3Key,
       JSON.stringify(existingHistory),
       "application/json",
-      "application/json",
     );
 
-    const presignedUrl = videoUploaded
-      ? await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key)
-      : null;
     const presignedUrl = videoUploaded
       ? await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key)
       : null;
     res.status(200).json({
       success: true,
       message: "Media processed successfully",
-      message: "Media processed successfully",
       presignedUrl,
       historyFile: historyS3Key,
       uploadedAudioFiles,
     });
   } catch (error) {
-    console.error("Error processing media:", error);
     console.error("Error processing media:", error);
     res.status(500).json({ success: false, error: error.message });
   }
@@ -308,7 +244,6 @@ exports.getProcessedMedia = async (req, res) => {
     const baseName = req.params.baseName;
     if (!baseName) {
       return res.status(400).json({ error: "No baseName provided" });
-      return res.status(400).json({ error: "No baseName provided" });
     }
     const mp4Key = `${baseName}.mp4`;
     const jsonKey = `${baseName}.json`;
@@ -317,7 +252,6 @@ exports.getProcessedMedia = async (req, res) => {
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, mp4Key);
 
     // Load JSON from S3
-    // Load JSON from S3
     const biasData = await loadJsonFromS3(MEDIA_BUCKET, jsonKey);
 
     res.status(200).json({
@@ -325,10 +259,8 @@ exports.getProcessedMedia = async (req, res) => {
       videoFile: mp4Key,
       presignedUrl,
       bias: biasData?.bias || [],
-      bias: biasData?.bias || [],
     });
   } catch (error) {
-    console.error("Error retrieving media:", error);
     console.error("Error retrieving media:", error);
     res.status(500).json({ success: false, error: error.message });
   }
@@ -341,16 +273,11 @@ exports.getMediaByFilename = async (req, res) => {
       return res
         .status(400)
         .json({ error: "Parent username and assessment ID are required." });
-      return res
-        .status(400)
-        .json({ error: "Parent username and assessment ID are required." });
     }
 
     //Construct the correct video filename
-    //Construct the correct video filename
     let videoFileName = `${parentUsername}_${assessmentId}.mp4`;
 
-    //Ensure it doesn't have duplicate `.mp4`
     //Ensure it doesn't have duplicate `.mp4`
     if (videoFileName.endsWith(".mp4.mp4")) {
       videoFileName = videoFileName.replace(".mp4.mp4", ".mp4");
@@ -360,17 +287,14 @@ exports.getMediaByFilename = async (req, res) => {
     const historyS3Key = `${parentUsername}/${parentUsername}_history.json`;
 
     //Fetch the presigned video URL
-    //Fetch the presigned video URL
     const presignedUrl = await getVideoPresignedUrl(MEDIA_BUCKET, videoS3Key);
 
-    //Fetch history JSON to extract bias data
     //Fetch history JSON to extract bias data
     let historyData = await loadJsonFromS3(MEDIA_BUCKET, historyS3Key);
     let biasEvents = [];
 
     if (historyData && historyData.assessmentVideos) {
       const assessmentEntry = historyData.assessmentVideos.find(
-        (video) => video.assessmentId.toString() === assessmentId.toString(),
         (video) => video.assessmentId.toString() === assessmentId.toString(),
       );
 
@@ -384,7 +308,6 @@ exports.getMediaByFilename = async (req, res) => {
       videoFile: videoFileName,
       presignedUrl,
       bias: biasEvents,
-      bias: biasEvents,
     });
   } catch (error) {
     console.error("Error retrieving media:", error);
@@ -392,7 +315,6 @@ exports.getMediaByFilename = async (req, res) => {
   }
 };
 
-//Reading JSON from S3
 //Reading JSON from S3
 async function loadJsonFromS3(bucketName, key) {
   try {
@@ -402,7 +324,6 @@ async function loadJsonFromS3(bucketName, key) {
     return JSON.parse(bodyString);
   } catch (e) {
     console.warn("Could not load JSON:", e.message);
-    console.warn("Could not load JSON:", e.message);
     return null;
   }
 }
@@ -410,10 +331,6 @@ async function loadJsonFromS3(bucketName, key) {
 function streamToString(stream) {
   return new Promise((resolve, reject) => {
     const chunks = [];
-    stream.on("data", (chunk) => chunks.push(chunk));
-    stream.on("error", reject);
-    stream.on("end", () => {
-      resolve(Buffer.concat(chunks).toString("utf-8"));
     stream.on("data", (chunk) => chunks.push(chunk));
     stream.on("error", reject);
     stream.on("end", () => {
