@@ -1,7 +1,7 @@
 /**
  * Author: Promish Kandel, Mitchell Weingust, Jasmine Sun-Hu, Parisha Nizam
  * Date: February 6, 2025
- * Purpose: Contains Graph component to display test performance overtime for use on the ParentOverivew page
+ * Purpose: Contains Graph component to display test performance overtime for use on the ParentOverview page
  */
 
 import React, { useEffect, useState } from "react";
@@ -21,22 +21,14 @@ import { formatDate } from "../../../utils/dateUtils";
 const LANGUAGE_FILTERS = ["English", "Mandarin"];
 const TYPE_FILTERS = ["Matching", "Repetition", "Quantifier"];
 
-// Helper to convert a Date object => "YYYY-MM-DD"
-function toYMD(dateObj) {
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
+// Helper to format date safely to "YYYY-MM-DD"
+const formatYMD = (date) => new Date(date).toISOString().split("T")[0];
 
 const Graph = ({ parent, filters = [], selectedDate = null }) => {
   const [scoresByTestType, setScoresByTestType] = useState({});
 
   useEffect(() => {
-    if (!parent?.username) {
-      console.warn("No parent information provided for Graph.");
-      return;
-    }
+    let isCurrent = true;
 
     const fetchScores = async () => {
       try {
@@ -49,11 +41,10 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
           assessmentHistory.assessments.length === 0
         ) {
           console.warn("No assessment history found.");
-          setScoresByTestType({});
+          if (isCurrent) setScoresByTestType({});
           return;
         }
 
-        // Identifying which languages & test types are selected
         const selectedLanguages = filters
           .filter((f) => LANGUAGE_FILTERS.includes(f))
           .map((f) => f.toLowerCase());
@@ -65,31 +56,28 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
         const groupedScores = {};
 
         for (const result of assessmentHistory.assessments) {
+          if (!result.questionBankId?.includes("-")) continue;
+
           const [langRaw, testRaw] = result.questionBankId.split("-");
           const language = langRaw.toLowerCase();
           const testType = testRaw.toLowerCase();
 
-          //Language filter
           if (
             selectedLanguages.length > 0 &&
             !selectedLanguages.includes(language)
-          ) {
+          )
             continue;
-          }
-          //Test-type filter
+
           if (
             selectedTestTypes.length > 0 &&
             !selectedTestTypes.includes(testType)
-          ) {
+          )
             continue;
-          }
-          //Date filter => compare day-only
+
           if (dateFilterActive && selectedDate) {
-            const dbDateYMD = result.date.split("T")[0];
-            const chosenYMD = toYMD(selectedDate);
-            if (dbDateYMD !== chosenYMD) {
-              continue;
-            }
+            const resultYMD = formatYMD(result.date);
+            const selectedYMD = formatYMD(selectedDate);
+            if (resultYMD !== selectedYMD) continue;
           }
 
           const resultsApiUrl = `http://localhost:3000/resultstorage/results/${parent.username}/${result.assessment_id}`;
@@ -101,10 +89,9 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
           let correctAnswers = 0;
           const totalQuestions = resultsData.results.length;
 
-          const testTypeLower = testType.toLowerCase();
-          if (testTypeLower === "repetition") {
+          if (testType === "repetition") {
             correctAnswers = resultsData.results.filter(
-              (q) => q.mark_state === "Correct",
+              (q) => q.mark_state === "Correct"
             ).length;
           } else {
             const questionPromises = resultsData.results.map(async (res) => {
@@ -124,7 +111,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
 
             const updatedResults = await Promise.all(questionPromises);
             correctAnswers = updatedResults.filter(
-              (q) => q.status === "correct",
+              (q) => q.status === "correct"
             ).length;
           }
 
@@ -146,19 +133,24 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
           });
         }
 
-        setScoresByTestType(groupedScores);
+        if (isCurrent) setScoresByTestType(groupedScores);
       } catch (error) {
         console.error("Error fetching scores for graph:", error);
-        setScoresByTestType({});
+        if (isCurrent) setScoresByTestType({});
       }
     };
 
     fetchScores();
+
+    return () => {
+      // cancel out old fetches when a new one starts
+      isCurrent = false;
+    };
   }, [parent, filters, selectedDate]);
 
   const maxTests = Math.max(
     0,
-    ...Object.values(scoresByTestType).map((scores) => scores.length),
+    ...Object.values(scoresByTestType).map((scores) => scores.length)
   );
   const xAxisLabels = Array.from({ length: maxTests }, (_, i) => `${i + 1}`);
 
@@ -179,43 +171,40 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
     return null;
   };
 
-  const CustomLegend = (props) => {
-    const { payload } = props;
-    return (
-      <div
-        style={{
-          marginBottom: 10,
-          textAlign: "center",
-          padding: "10px",
-          borderRadius: "5px",
-          boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
-        }}
-      >
-        {payload.map((entry, index) => (
+  const CustomLegend = ({ payload }) => (
+    <div
+      style={{
+        marginBottom: 10,
+        textAlign: "center",
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
+      }}
+    >
+      {payload.map((entry, index) => (
+        <span
+          key={`item-${index}`}
+          style={{
+            marginRight: 20,
+            display: "inline-flex",
+            alignItems: "center",
+            color: entry.color,
+          }}
+        >
           <span
-            key={`item-${index}`}
             style={{
-              marginRight: 20,
-              display: "inline-flex",
-              alignItems: "center",
-              color: entry.color,
+              display: "inline-block",
+              width: 12,
+              height: 12,
+              backgroundColor: entry.color,
+              marginRight: 5,
             }}
-          >
-            <span
-              style={{
-                display: "inline-block",
-                width: 12,
-                height: 12,
-                backgroundColor: entry.color,
-                marginRight: 5,
-              }}
-            ></span>
-            {entry.value}
-          </span>
-        ))}
-      </div>
-    );
-  };
+          ></span>
+          {entry.value}
+        </span>
+      ))}
+    </div>
+  );
 
   return (
     <div style={{ maxWidth: "1000px", height: "400px", margin: "0 auto" }}>
@@ -238,11 +227,7 @@ const Graph = ({ parent, filters = [], selectedDate = null }) => {
             />
             <YAxis domain={[0, 100]} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend
-              content={<CustomLegend />}
-              verticalAlign="top"
-              align="center"
-            />
+            <Legend content={<CustomLegend />} verticalAlign="top" align="center" />
             {Object.entries(scoresByTestType).map(([combo, scores], idx) => (
               <Line
                 key={combo}

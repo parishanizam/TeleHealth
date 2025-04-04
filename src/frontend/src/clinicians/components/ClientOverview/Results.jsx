@@ -16,20 +16,20 @@ export function Results({ data, client, filters, selectedDate }) {
   const LANGUAGE_FILTERS = ["English", "Mandarin"];
   const TYPE_FILTERS = ["Matching", "Repetition", "Quantifier"];
 
-  const toYMD = (dateObj) => {
-    const year = dateObj.getFullYear();
-    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObj.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
   const selectedLanguages = filters
     .filter((f) => LANGUAGE_FILTERS.includes(f))
     .map((f) => f.toLowerCase());
+
   const selectedTestTypes = filters
     .filter((f) => TYPE_FILTERS.includes(f))
     .map((f) => f.toLowerCase());
+
   const dateFilterActive = filters.includes("Date");
+
+  const formatYMD = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0]; // e.g. "2025-04-01"
+  };
 
   useEffect(() => {
     const fetchScores = async () => {
@@ -43,7 +43,7 @@ export function Results({ data, client, filters, selectedDate }) {
           const response = await fetch(resultsApiUrl);
           const fetchedData = await response.json();
 
-          if (!fetchedData.results) continue;
+          if (!fetchedData.results || !fetchedData.questionBankId) continue;
 
           const fetchedQuestionBankId = fetchedData.questionBankId;
           const [langRaw, testRaw] = fetchedQuestionBankId.split("-");
@@ -55,19 +55,19 @@ export function Results({ data, client, filters, selectedDate }) {
 
           if (testType === "repetition") {
             const hasUndetermined = fetchedData.results.some(
-              (q) => q.mark_state === "Undetermined",
+              (q) => q.mark_state === "Undetermined"
             );
             if (hasUndetermined) {
-              newScores[result.assessment_id] = "N/A";
+              newScores[`${result.assessment_id}_${fetchedQuestionBankId}`] = "N/A";
               continue;
             }
             correctAnswers = fetchedData.results.filter(
-              (q) => q.mark_state === "Correct",
+              (q) => q.mark_state === "Correct"
             ).length;
           } else {
             const questionPromises = fetchedData.results.map(async (res) => {
               const questionRes = await fetch(
-                `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`,
+                `http://localhost:3000/questions/${language}/${testType}/${res.question_id}`
               );
               const questionData = await questionRes.json();
               return {
@@ -76,13 +76,13 @@ export function Results({ data, client, filters, selectedDate }) {
                 status:
                   res.user_answer === questionData.correctAnswer
                     ? "correct"
-                    : "incorrect",
+                    : "incorrect"
               };
             });
 
             const updatedResults = await Promise.all(questionPromises);
             correctAnswers = updatedResults.filter(
-              (q) => q.status === "correct",
+              (q) => q.status === "correct"
             ).length;
           }
 
@@ -90,11 +90,12 @@ export function Results({ data, client, filters, selectedDate }) {
             totalQuestions > 0
               ? Math.round((correctAnswers / totalQuestions) * 100)
               : 0;
-          newScores[result.assessment_id] = score;
+
+          newScores[`${result.assessment_id}_${fetchedQuestionBankId}`] = score;
         } catch (error) {
           console.error(
             `Error fetching score for assessment ${result.assessment_id}:`,
-            error,
+            error
           );
         }
       }
@@ -105,13 +106,13 @@ export function Results({ data, client, filters, selectedDate }) {
     fetchScores();
   }, [data, client]);
 
-  // -------------
-  // Filter data
-  // -------------
+  // -------- Filter data --------
   const filteredData = (data || []).filter((result) => {
+    if (!result.questionBankId || !result.questionBankId.includes("-")) return false;
+
     const [langRaw, testRaw] = result.questionBankId.split("-");
-    const language = langRaw.toLowerCase();
-    const testType = testRaw.toLowerCase();
+    const language = langRaw?.toLowerCase();
+    const testType = testRaw?.toLowerCase();
 
     if (selectedLanguages.length > 0 && !selectedLanguages.includes(language)) {
       return false;
@@ -122,9 +123,12 @@ export function Results({ data, client, filters, selectedDate }) {
     }
 
     if (dateFilterActive && selectedDate) {
-      const dbDateYMD = result.date.split("T")[0];
-      const chosenYMD = toYMD(selectedDate);
-      if (dbDateYMD !== chosenYMD) {
+      const resultYMD = formatYMD(result.date);
+      const selectedYMD = formatYMD(selectedDate);
+
+      if (resultYMD !== selectedYMD) {
+        // Uncomment for debugging
+        // console.log("Filtered out by date:", resultYMD, "!=", selectedYMD);
         return false;
       }
     }
@@ -145,10 +149,10 @@ export function Results({ data, client, filters, selectedDate }) {
         assessmentId: result.assessment_id,
         questionBankId: result.questionBankId,
         parentUsername: client.parentUsername,
-        score: scores[result.assessment_id] || 0,
+        score: scores[`${result.assessment_id}_${result.questionBankId}`] || 0,
         clientId: client.clientId,
-        securityCode: client.securityCode,
-      },
+        securityCode: client.securityCode
+      }
     });
   };
 
@@ -161,8 +165,8 @@ export function Results({ data, client, filters, selectedDate }) {
       ) : (
         filteredData.map((result) => (
           <ResultCard
-            key={result.assessment_id}
-            score={`${scores[result.assessment_id] ?? "N/A"}%`}
+            key={`${result.assessment_id}_${result.questionBankId}`}
+            score={`${scores[`${result.assessment_id}_${result.questionBankId}`] ?? "N/A"}%`}
             test={formatTestTitle(result.questionBankId)}
             date={formatDate(result.date)}
             onClick={() => handleCardClick(result)}
