@@ -31,7 +31,7 @@ function ClientOverview() {
   const fetchAssessmentHistory = async (username) => {
     try {
       const response = await axios.get(
-        `https://telehealth-insights.onrender.com/assessment-history/${username}`,
+        `https://telehealth-insights.onrender.com/resultstorage/assessment-history/${username}`,
       );
       if (response.data && Array.isArray(response.data.assessments)) {
         setAssessmentHistory(response.data.assessments);

@@ -45,9 +45,6 @@ export function Results({ data, client, filters, selectedDate }) {
 
           if (!fetchedData.results || !fetchedData.questionBankId) continue;
 
-          // ✅ Inject questionBankId into result object so it can be filtered
-          result.questionBankId = fetchedData.questionBankId;
-
           const fetchedQuestionBankId = fetchedData.questionBankId;
           const [langRaw, testRaw] = fetchedQuestionBankId.split("-");
           const language = langRaw.toLowerCase();
@@ -130,6 +127,8 @@ export function Results({ data, client, filters, selectedDate }) {
       const selectedYMD = formatYMD(selectedDate);
 
       if (resultYMD !== selectedYMD) {
+        // Uncomment for debugging
+        // console.log("Filtered out by date:", resultYMD, "!=", selectedYMD);
         return false;
       }
     }
