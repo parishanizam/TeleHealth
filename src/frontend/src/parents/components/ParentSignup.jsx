@@ -30,7 +30,7 @@ function ParentSignUp() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/parents/signup",
+        "https://telehealth-insights.onrender.com/auth/parents/signup",
         {
           email: formData.email,
           username: formData.username,
